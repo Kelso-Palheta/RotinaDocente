@@ -18,6 +18,7 @@ import {
   BarChart3,
   ArrowRight,
   Sparkles,
+  Clock,
 } from "lucide-react";
 import { ProfileModal } from "@/components/diario/ProfileModal";
 
@@ -28,6 +29,7 @@ const ICON_MAP = {
   ClipboardList,
   Calendar,
   BarChart3,
+  Clock,
 };
 
 function Toast({ message, onClose }) {

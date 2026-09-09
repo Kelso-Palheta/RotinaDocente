@@ -11,7 +11,7 @@ export const PLANOS_CONFIG = {
     precoMensal: 0,
     precoAnual: 0,
     descricao: 'Para gerenciar notas, faltas e publicar boletins sem custos.',
-    modulos: ['diario-planejamento'],
+    modulos: ['diario-planejamento', 'horario-escolar'],
     destaque: false,
   },
 
@@ -25,6 +25,7 @@ export const PLANOS_CONFIG = {
     descricao: 'Acesso completo ao Hub Pedagógico (exceto módulo de redação).',
     modulos: [
       'diario-planejamento',
+      'horario-escolar',
       'calendario-pedagogico',
       'gerador-atividades',
       'agente-linguagens',
@@ -41,7 +42,7 @@ export const PLANOS_CONFIG = {
     precoMensal: 19.90,
     precoAnual: 14.90,
     descricao: 'Focado em professores de redação e linguagens com OCR & IA.',
-    modulos: ['diario-planejamento', 'redacao-corretor'],
+    modulos: ['diario-planejamento', 'horario-escolar', 'redacao-corretor'],
     destaque: false,
   },
 
@@ -55,6 +56,7 @@ export const PLANOS_CONFIG = {
     descricao: 'Todos os módulos do Hub liberados, incluindo correção de redação ENEM.',
     modulos: [
       'diario-planejamento',
+      'horario-escolar',
       'calendario-pedagogico',
       'gerador-atividades',
       'agente-linguagens',
@@ -75,6 +77,7 @@ export const PLANOS_CONFIG = {
     descricao: 'Hub Completo + Plataforma de Simulados Online com ranking e correção TRI.',
     modulos: [
       'diario-planejamento',
+      'horario-escolar',
       'calendario-pedagogico',
       'gerador-atividades',
       'agente-linguagens',

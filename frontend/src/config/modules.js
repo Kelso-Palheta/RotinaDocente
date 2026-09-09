@@ -48,4 +48,11 @@ export const PLATFORM_MODULES = [
     path: "/agentes",
     descricao: "Assistentes conversacionais especializados em Ensino Médio e Fundamental II",
   },
+  {
+    id: "horario-escolar",
+    nome: "Meu Horário Escolar",
+    icon: "Clock",
+    path: "/meuhorario",
+    descricao: "Organização semanal da grade de aulas, turnos e persistência na nuvem",
+  },
 ];

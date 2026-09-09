@@ -62,7 +62,12 @@ service cloud.firestore {
       allow read, write: if isAuth();
     }
 
-    // 6. Regra padrão Zero-Trust: negar tudo que não for explicitamente autorizado
+    // 6. Horário Escolar: leitura e escrita pelo próprio professor autenticado (RN-24)
+    match /horario_escolar/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // 7. Regra padrão Zero-Trust: negar tudo que não for explicitamente autorizado
     match /{document=**} {
       allow read, write: if false;
     }

@@ -93,4 +93,26 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - **Plano Hub Completo Pro:** Acesso irrestrito a todos os 6 módulos do Hub.
    - **Plano Combo Total:** Acesso a todos os módulos do Hub + chave de integração com a plataforma básica do SimuladoApp (Django).
 
+---
+
+## 7. Regras do Horário Escolar
+
+1. **RN-23 (Slots de Horários e Impedimento de Intervalo):**
+   - A grade suporta os turnos pré-configurados: `manha`, `tarde`, `noite` e `integral`.
+   - Nenhum conteúdo de aula pode ser atribuído a slots classificados como intervalo/recreio (`isBreak: true`).
+   - A chave canônica de cada slot é composta por `${dayId}_${slotId}` (ex: `seg_m1`).
+
+2. **RN-24 (Persistência Híbrida Firestore com Fallback LocalStorage):**
+   - Quando o usuário estiver autenticado no sistema RotinaDocente, a grade horária é sincronizada na coleção Firestore `horario_escolar`, com id de documento indexado pelo `userId`.
+   - Caso o usuário não esteja autenticado ou a conexão com o Firestore falhe, a aplicação deve persistir no `localStorage` com a chave canônica `meu_horario_escolar_data_v1`.
+
+3. **RN-25 (Validação Estrutural de Backup e Restore JSON):**
+   - A exportação em JSON gera um payload completo com metadata, turno, configurações e o mapa de aulas.
+   - O processo de restauração (importação) deve obrigatoriamente validar a integridade do JSON, rejeitando payloads corrompidos e sanitizando chaves de horários inexistentes no turno configurado.
+
+4. **RN-26 (Internacionalização Nativa pt-BR / es-Latam):**
+   - Todos os textos, nomes de turnos, dias da semana, botões e mensagens do módulo devem utilizar chaves de tradução.
+   - O sistema deve suportar alternância dinâmica entre Português (`pt-BR`) e Espanhol América Latina (`es-Latam`), com `pt-BR` como idioma padrão.
+
+
 
