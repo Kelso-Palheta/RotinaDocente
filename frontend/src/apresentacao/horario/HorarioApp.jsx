@@ -24,32 +24,31 @@ import { tHorario } from "./i18n";
 import "./horario.css";
 
 const COLOR_PALETTE = [
-  "#4f46e5",
-  "#2563eb",
+  "#f60c49",
+  "#101942",
   "#0284c7",
   "#0d9488",
   "#16a34a",
   "#d97706",
   "#ea580c",
-  "#dc2626",
+  "#7c3aed",
   "#db2777",
-  "#9333ea",
   "#475569",
 ];
 
 const COMMON_SUBJECTS = [
-  { name: "Matemática", color: "#6366f1" },
-  { name: "Português", color: "#3b82f6" },
-  { name: "História", color: "#f59e0b" },
-  { name: "Geografia", color: "#10b981" },
-  { name: "Biologia", color: "#059669" },
-  { name: "Física", color: "#8b5cf6" },
-  { name: "Química", color: "#ec4899" },
-  { name: "Inglês", color: "#ef4444" },
-  { name: "Arte", color: "#d946ef" },
-  { name: "Ed. Física", color: "#14b8a6" },
-  { name: "Filosofia", color: "#64748b" },
-  { name: "Sociologia", color: "#78716c" },
+  { name: "Matemática", color: "#f60c49" },
+  { name: "Português", color: "#101942" },
+  { name: "História", color: "#d97706" },
+  { name: "Geografia", color: "#16a34a" },
+  { name: "Biologia", color: "#0d9488" },
+  { name: "Física", color: "#7c3aed" },
+  { name: "Química", color: "#ea580c" },
+  { name: "Inglês", color: "#0284c7" },
+  { name: "Arte", color: "#db2777" },
+  { name: "Ed. Física", color: "#059669" },
+  { name: "Filosofia", color: "#6070a0" },
+  { name: "Sociologia", color: "#475569" },
 ];
 
 export default function HorarioApp() {
@@ -77,7 +76,7 @@ export default function HorarioApp() {
   const [formSubject, setFormSubject] = useState("");
   const [formGrade, setFormGrade] = useState("");
   const [formRoom, setFormRoom] = useState("");
-  const [formColor, setFormColor] = useState("#4f46e5");
+  const [formColor, setFormColor] = useState("#f60c49");
   const [formNotes, setFormNotes] = useState("");
   const [replicateDays, setReplicateDays] = useState([]);
 
@@ -185,7 +184,7 @@ export default function HorarioApp() {
     setFormSubject(existing?.subject || "");
     setFormGrade(existing?.grade || "");
     setFormRoom(existing?.room || "");
-    setFormColor(existing?.color || "#4f46e5");
+    setFormColor(existing?.color || "#f60c49");
     setFormNotes(existing?.notes || "");
     setReplicateDays([]);
     setSlotModalOpen(true);
@@ -472,25 +471,51 @@ export default function HorarioApp() {
       <header className="app-header no-print">
         <div className="header-container">
           <div className="brand-group">
-            <Link href="/" className="btn-back-hub" title="Voltar ao Hub RotinaDocente" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+            <Link
+              href="/"
+              className="btn-back-hub"
+              title="Voltar ao Hub RotinaDocente"
+              style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none", color: "inherit" }}
+            >
               <div className="brand-icon" style={{ cursor: "pointer" }}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="4" width="18" height="18" rx="3" ry="3"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                  <path d="M8 14h.01"></path>
-                  <path d="M12 14h.01"></path>
-                  <path d="M16 14h.01"></path>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
                 </svg>
               </div>
+              <div>
+                <h1 className="brand-title" style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+                  <span>
+                    Rotina<span style={{ color: "var(--primary)" }}>Docente</span>
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "0.68rem",
+                      padding: "0.15rem 0.45rem",
+                      borderRadius: "9999px",
+                      background: "var(--primary-light)",
+                      color: "var(--primary)",
+                      fontWeight: 700,
+                      border: "1px solid var(--primary-border)",
+                    }}
+                  >
+                    {t("appTitle")}
+                  </span>
+                </h1>
+                <p className="brand-subtitle">
+                  {syncStatus === "cloud" ? "☁️ Sincronizado no Firestore" : "💾 Persistência Local"}
+                </p>
+              </div>
             </Link>
-            <div>
-              <h1 className="brand-title">{t("appTitle")}</h1>
-              <p className="brand-subtitle">
-                RotinaDocente • {syncStatus === "cloud" ? "☁️ Sincronizado no Firestore" : "💾 Persistência Local"}
-              </p>
-            </div>
           </div>
 
           {/* Dados do Professor e Escola */}
@@ -779,12 +804,12 @@ export default function HorarioApp() {
                             <td
                               key={key}
                               className="slot-cell filled-slot"
-                              style={{ borderLeftColor: aula.color || "#4f46e5" }}
+                              style={{ borderLeftColor: aula.color || "#f60c49" }}
                               onClick={() => handleSlotClick(d.id, slot)}
                             >
                               <div className="class-card-content">
                                 <div className="card-top-row">
-                                  <strong className="class-subject" style={{ color: aula.color || "#4f46e5" }}>
+                                  <strong className="class-subject" style={{ color: aula.color || "#f60c49" }}>
                                     {aula.subject}
                                   </strong>
                                 </div>

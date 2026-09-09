@@ -183,8 +183,8 @@ export default function AtividadesPage() {
     return (
       <div className="flex h-screen items-center justify-center bg-white">
         <div className="text-center">
-          <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-tr from-violet-700 to-violet-400 animate-pulse" />
-          <p className="text-sm text-slate-400">Carregando...</p>
+          <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#f60c49] border-t-transparent animate-spin" />
+          <p className="text-sm text-[#6070a0]">Carregando...</p>
         </div>
       </div>
     );
@@ -214,7 +214,7 @@ export default function AtividadesPage() {
       )}
 
       {/* Sidebar - Off-canvas on mobile */}
-      <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full bg-white border-r border-slate-200`}>
+      <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full bg-white border-r border-[#dce0f0]`}>
         <Sidebar
           turmas={turmas}
           turmaSelecionada={viewMode === 'turma' ? turmaAtual : null}
@@ -237,7 +237,7 @@ export default function AtividadesPage() {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <div className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-slate-200 bg-white flex items-center justify-between gap-3 overflow-x-auto no-scrollbar">
+        <div className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#dce0f0] bg-white flex items-center justify-between gap-3 overflow-x-auto no-scrollbar">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -247,7 +247,7 @@ export default function AtividadesPage() {
             </button>
             <button
               onClick={() => router.push('/')}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-violet-50 hover:bg-violet-100 text-violet-600 border border-violet-200 hover:border-violet-300 transition-all shadow-sm whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#eef0f8] hover:bg-[#dce0f0] text-[#101942] border border-[#dce0f0] transition-all shadow-2xs whitespace-nowrap"
             >
               <ArrowLeft size={16} />
               <span className="hidden sm:inline">Hub</span>
@@ -258,7 +258,7 @@ export default function AtividadesPage() {
             <div className="relative" ref={alunoDropdownRef}>
               <button
                 onClick={() => setShowAlunoDropdown(!showAlunoDropdown)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-violet-50 hover:bg-violet-100 text-violet-600 border border-violet-200 hover:border-violet-300 transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-[#fff2f6] hover:bg-[#ffe5ec] text-[#f60c49] border border-[#fde4ec] transition-all shadow-2xs"
               >
                 <GraduationCap size={16} />
                 Portal do Aluno
@@ -266,7 +266,7 @@ export default function AtividadesPage() {
               </button>
 
               {showAlunoDropdown && (
-                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-slate-200 rounded-xl shadow-lg z-40 overflow-hidden animate-card-in">
+                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-[#dce0f0] rounded-xl shadow-lg z-40 overflow-hidden animate-card-in">
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(`${window.location.origin}/aluno`);
@@ -274,9 +274,9 @@ export default function AtividadesPage() {
                       setTimeout(() => setAlunoLinkCopied(false), 2000);
                       setShowAlunoDropdown(false);
                     }}
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#101942] hover:bg-[#f7f8fc] transition-colors"
                   >
-                    {alunoLinkCopied ? <Check size={15} className="text-green-500" /> : <Copy size={15} />}
+                    {alunoLinkCopied ? <Check size={15} className="text-[#16a34a]" /> : <Copy size={15} />}
                     {alunoLinkCopied ? 'Copiado!' : 'Copiar link'}
                   </button>
                   <div className="border-t border-slate-100" />
@@ -284,7 +284,7 @@ export default function AtividadesPage() {
                     href="/aluno"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#101942] hover:bg-[#f7f8fc] transition-colors"
                   >
                     <ExternalLink size={15} />
                     Abrir em nova aba
@@ -297,7 +297,7 @@ export default function AtividadesPage() {
               onClick={() => setViewMode('todas')}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
                 ${viewMode === 'todas'
-                  ? 'bg-violet-500 text-white'
+                  ? 'bg-[#f60c49] text-white shadow-xs'
                   : 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200'}`}
             >
               <Layers size={13} />
@@ -307,7 +307,7 @@ export default function AtividadesPage() {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-auto p-6">
+        <div className="flex-1 overflow-auto p-6 bg-[#f7f8fc]">
           {viewMode === 'todas' ? (
             <TodasAtividades
               turmas={turmas}
@@ -320,13 +320,13 @@ export default function AtividadesPage() {
           ) : turmaAtual ? (
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="px-2.5 py-0.5 bg-violet-50 border border-violet-200 rounded-full text-[10px] font-bold uppercase tracking-wider text-violet-500">
+                <span className="px-2.5 py-0.5 bg-[#fff2f6] border border-[#fde4ec] rounded-full text-[10px] font-bold uppercase tracking-wider text-[#f60c49]">
                   {bimestre}º Bimestre
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight mb-6">
+              <h1 className="text-2xl font-bold text-[#101942] tracking-tight mb-6">
                 Turma {turmaAtual.nome}
-                <span className="text-xs text-slate-400 font-mono ml-2">({turmaAtual.alunos.length} alunos)</span>
+                <span className="text-xs text-[#6070a0] font-mono ml-2">({turmaAtual.alunos.length} alunos)</span>
               </h1>
               <AtividadesList
                 turma={turmaAtual}

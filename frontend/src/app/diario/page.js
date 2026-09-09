@@ -379,8 +379,8 @@ export default function DiarioPage() {
     return (
       <div className="flex h-screen items-center justify-center bg-white">
         <div className="text-center">
-          <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-tr from-violet-700 to-violet-400 animate-pulse" />
-          <p className="text-sm text-slate-400">Carregando...</p>
+          <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#f60c49] border-t-transparent animate-spin" />
+          <p className="text-sm text-[#6070a0]">Carregando...</p>
         </div>
       </div>
     );

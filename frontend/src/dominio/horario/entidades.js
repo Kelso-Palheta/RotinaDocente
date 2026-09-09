@@ -56,22 +56,22 @@ export const DAYS = [
 ];
 
 export const SAMPLE_SCHEDULE = {
-  seg_m1: { subject: 'Matemática', grade: '1º Ano A', room: 'Sala 102', color: '#4f46e5', notes: 'Revisão diagnóstica' },
-  seg_m2: { subject: 'Matemática', grade: '1º Ano A', room: 'Sala 102', color: '#4f46e5', notes: '' },
-  seg_m4: { subject: 'Física', grade: '2º Ano B', room: 'Lab Ciências', color: '#8b5cf6', notes: 'Experimento óptico' },
-  seg_m5: { subject: 'Física', grade: '2º Ano B', room: 'Lab Ciências', color: '#8b5cf6', notes: '' },
-  ter_m2: { subject: 'Matemática', grade: '3º Ano EM', room: 'Sala 204', color: '#4f46e5', notes: 'Simulado preparatório' },
-  ter_m3: { subject: 'Matemática', grade: '3º Ano EM', room: 'Sala 204', color: '#4f46e5', notes: '' },
-  ter_m5: { subject: 'Eletiva Robótica', grade: 'Mista', room: 'Lab Informática', color: '#0d9488', notes: 'Kit Arduino' },
-  ter_m6: { subject: 'Eletiva Robótica', grade: 'Mista', room: 'Lab Informática', color: '#0d9488', notes: '' },
-  qua_m1: { subject: 'Matemática', grade: '1º Ano B', room: 'Sala 103', color: '#4f46e5', notes: '' },
-  qua_m2: { subject: 'Matemática', grade: '1º Ano B', room: 'Sala 103', color: '#4f46e5', notes: '' },
-  qua_m4: { subject: 'Matemática', grade: '3º Ano EM', room: 'Sala 204', color: '#4f46e5', notes: '' },
-  qui_m1: { subject: 'Física', grade: '2º Ano A', room: 'Sala 201', color: '#8b5cf6', notes: '' },
-  qui_m2: { subject: 'Física', grade: '2º Ano A', room: 'Sala 201', color: '#8b5cf6', notes: '' },
-  qui_m4: { subject: 'Matemática', grade: '1º Ano A', room: 'Sala 102', color: '#4f46e5', notes: '' },
-  sex_m2: { subject: 'Matemática', grade: '1º Ano B', room: 'Sala 103', color: '#4f46e5', notes: '' },
-  sex_m3: { subject: 'Física', grade: '2º Ano B', room: 'Sala 202', color: '#8b5cf6', notes: '' },
+  seg_m1: { subject: 'Matemática', grade: '1º Ano A', room: 'Sala 102', color: '#f60c49', notes: 'Revisão diagnóstica' },
+  seg_m2: { subject: 'Matemática', grade: '1º Ano A', room: 'Sala 102', color: '#f60c49', notes: '' },
+  seg_m4: { subject: 'Física', grade: '2º Ano B', room: 'Lab Ciências', color: '#2563eb', notes: 'Experimento óptico' },
+  seg_m5: { subject: 'Física', grade: '2º Ano B', room: 'Lab Ciências', color: '#2563eb', notes: '' },
+  ter_m2: { subject: 'Matemática', grade: '3º Ano EM', room: 'Sala 204', color: '#f60c49', notes: 'Simulado preparatório' },
+  ter_m3: { subject: 'Matemática', grade: '3º Ano EM', room: 'Sala 204', color: '#f60c49', notes: '' },
+  ter_m5: { subject: 'Eletiva Robótica', grade: 'Mista', room: 'Lab Informática', color: '#059669', notes: 'Kit Arduino' },
+  ter_m6: { subject: 'Eletiva Robótica', grade: 'Mista', room: 'Lab Informática', color: '#059669', notes: '' },
+  qua_m1: { subject: 'Matemática', grade: '1º Ano B', room: 'Sala 103', color: '#f60c49', notes: '' },
+  qua_m2: { subject: 'Matemática', grade: '1º Ano B', room: 'Sala 103', color: '#f60c49', notes: '' },
+  qua_m4: { subject: 'Matemática', grade: '3º Ano EM', room: 'Sala 204', color: '#f60c49', notes: '' },
+  qui_m1: { subject: 'Física', grade: '2º Ano A', room: 'Sala 201', color: '#2563eb', notes: '' },
+  qui_m2: { subject: 'Física', grade: '2º Ano A', room: 'Sala 201', color: '#2563eb', notes: '' },
+  qui_m4: { subject: 'Matemática', grade: '1º Ano A', room: 'Sala 102', color: '#f60c49', notes: '' },
+  sex_m2: { subject: 'Matemática', grade: '1º Ano B', room: 'Sala 103', color: '#f60c49', notes: '' },
+  sex_m3: { subject: 'Física', grade: '2º Ano B', room: 'Sala 202', color: '#2563eb', notes: '' },
 };
 
 /**
