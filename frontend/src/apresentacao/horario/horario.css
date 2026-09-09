@@ -836,6 +836,26 @@ h1, h2, h3, h4, .brand-title {
    MODAIS / DIALOGS
    ========================================================= */
 
+.app-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .app-dialog {
   border: none;
   border-radius: var(--radius-lg);
@@ -849,6 +869,19 @@ h1, h2, h3, h4, .brand-title {
   margin: auto;
   outline: none;
   overflow: hidden;
+  position: relative;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+}
+
+dialog.app-dialog[open] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  z-index: 10000;
 }
 
 .app-dialog[open] {
@@ -857,9 +890,9 @@ h1, h2, h3, h4, .brand-title {
 }
 
 .app-dialog::backdrop {
-  background-color: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .dialog-large {

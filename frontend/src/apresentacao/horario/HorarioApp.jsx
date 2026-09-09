@@ -698,366 +698,374 @@ export default function HorarioApp() {
 
       {/* MODAL 1: ADICIONAR / EDITAR AULA */}
       {slotModalOpen && activeSlotData && (
-        <dialog open className="app-dialog">
-          <div className="dialog-content">
-            <div className="dialog-header">
-              <div className="dialog-title-wrapper">
-                <div className="dialog-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                  </svg>
+        <div className="app-dialog-backdrop" onClick={() => setSlotModalOpen(false)}>
+          <div className="app-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-content">
+              <div className="dialog-header">
+                <div className="dialog-title-wrapper">
+                  <div className="dialog-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 20h9"></path>
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="dialog-title">
+                      {schedule[buildSlotKey(activeSlotData.dayId, activeSlotData.slotId)]
+                        ? t("quickEdit")
+                        : "Adicionar Aula"}
+                    </h2>
+                    <p className="dialog-subtitle">
+                      {DAYS.find((d) => d.id === activeSlotData.dayId)?.label} • {activeSlotData.slotLabel} ({activeSlotData.slotTime})
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="dialog-title">
-                    {schedule[buildSlotKey(activeSlotData.dayId, activeSlotData.slotId)]
-                      ? t("quickEdit")
-                      : "Adicionar Aula"}
-                  </h2>
-                  <p className="dialog-subtitle">
-                    {DAYS.find((d) => d.id === activeSlotData.dayId)?.label} • {activeSlotData.slotLabel} ({activeSlotData.slotTime})
-                  </p>
-                </div>
-              </div>
-              <button type="button" className="btn-close" onClick={() => setSlotModalOpen(false)}>✕</button>
-            </div>
-
-            <form onSubmit={handleSaveSlot}>
-              <div className="form-group">
-                <label>{t("subject")} <span className="required">*</span></label>
-                <input
-                  type="text"
-                  required
-                  value={formSubject}
-                  onChange={(e) => setFormSubject(e.target.value)}
-                  placeholder="Ex: Matemática, Português, História..."
-                />
-                {/* Sugestões de Disciplinas */}
-                <div className="quick-tags">
-                  {COMMON_SUBJECTS.map((s) => (
-                    <button
-                      key={s.name}
-                      type="button"
-                      className="tag-pill"
-                      onClick={() => {
-                        setFormSubject(s.name);
-                        setFormColor(s.color);
-                      }}
-                    >
-                      {s.name}
-                    </button>
-                  ))}
-                </div>
+                <button type="button" className="btn-close" onClick={() => setSlotModalOpen(false)}>✕</button>
               </div>
 
-              <div className="form-row">
-                <div className="form-group col-6">
-                  <label>{t("grade")} <span className="required">*</span></label>
+              <form onSubmit={handleSaveSlot}>
+                <div className="form-group">
+                  <label>{t("subject")} <span className="required">*</span></label>
                   <input
                     type="text"
                     required
-                    value={formGrade}
-                    onChange={(e) => setFormGrade(e.target.value)}
-                    placeholder="Ex: 1º Ano A, 3º EM..."
+                    value={formSubject}
+                    onChange={(e) => setFormSubject(e.target.value)}
+                    placeholder="Ex: Matemática, Português, História..."
                   />
-                </div>
-                <div className="form-group col-6">
-                  <label>{t("room")}</label>
-                  <input
-                    type="text"
-                    value={formRoom}
-                    onChange={(e) => setFormRoom(e.target.value)}
-                    placeholder="Ex: Sala 12, Lab..."
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>{t("color")}</label>
-                <div className="color-palette">
-                  {COLOR_PALETTE.map((c) => (
-                    <button
-                      key={c}
-                      type="button"
-                      className={`color-swatch ${formColor === c ? "active" : ""}`}
-                      style={{ backgroundColor: c }}
-                      onClick={() => setFormColor(c)}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>{t("notes")}</label>
-                <textarea
-                  rows={2}
-                  value={formNotes}
-                  onChange={(e) => setFormNotes(e.target.value)}
-                  placeholder="Ex: Trazer material para experimento..."
-                />
-              </div>
-
-              {/* Replicar para outros dias */}
-              <div className="form-group replication-box">
-                <label className="font-medium">Replicar esta aula para outros dias neste mesmo horário:</label>
-                <div className="replicate-days-row">
-                  {visibleDays.map((d) => (
-                    <label key={d.id} className="rep-chip">
-                      <input
-                        type="checkbox"
-                        checked={replicateDays.includes(d.id)}
-                        disabled={d.id === activeSlotData.dayId}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setReplicateDays([...replicateDays, d.id]);
-                          } else {
-                            setReplicateDays(replicateDays.filter((x) => x !== d.id));
-                          }
+                  {/* Sugestões de Disciplinas */}
+                  <div className="quick-tags">
+                    {COMMON_SUBJECTS.map((s) => (
+                      <button
+                        key={s.name}
+                        type="button"
+                        className="tag-pill"
+                        onClick={() => {
+                          setFormSubject(s.name);
+                          setFormColor(s.color);
                         }}
-                      />{" "}
-                      {d.short}
-                    </label>
-                  ))}
+                      >
+                        {s.name}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="dialog-actions">
-                {schedule[buildSlotKey(activeSlotData.dayId, activeSlotData.slotId)] && (
-                  <button
-                    type="button"
-                    className="btn btn-danger-ghost"
-                    onClick={handleDeleteSlot}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                    <span>{t("remove")}</span>
-                  </button>
-                )}
-                <div className="actions-right" style={{ marginLeft: "auto", display: "flex", gap: "0.5rem" }}>
-                  <button type="button" className="btn btn-ghost" onClick={() => setSlotModalOpen(false)}>
-                    {t("cancel")}
-                  </button>
-                  <button type="submit" className="btn btn-primary">
-                    {t("save")}
-                  </button>
+                <div className="form-row">
+                  <div className="form-group col-6">
+                    <label>{t("grade")} <span className="required">*</span></label>
+                    <input
+                      type="text"
+                      required
+                      value={formGrade}
+                      onChange={(e) => setFormGrade(e.target.value)}
+                      placeholder="Ex: 1º Ano A, 3º EM..."
+                    />
+                  </div>
+                  <div className="form-group col-6">
+                    <label>{t("room")}</label>
+                    <input
+                      type="text"
+                      value={formRoom}
+                      onChange={(e) => setFormRoom(e.target.value)}
+                      placeholder="Ex: Sala 12, Lab..."
+                    />
+                  </div>
                 </div>
-              </div>
-            </form>
+
+                <div className="form-group">
+                  <label>{t("color")}</label>
+                  <div className="color-palette">
+                    {COLOR_PALETTE.map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        className={`color-swatch ${formColor === c ? "active" : ""}`}
+                        style={{ backgroundColor: c }}
+                        onClick={() => setFormColor(c)}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>{t("notes")}</label>
+                  <textarea
+                    rows={2}
+                    value={formNotes}
+                    onChange={(e) => setFormNotes(e.target.value)}
+                    placeholder="Ex: Trazer material para experimento..."
+                  />
+                </div>
+
+                {/* Replicar para outros dias */}
+                <div className="form-group replication-box">
+                  <label className="font-medium">Replicar esta aula para outros dias neste mesmo horário:</label>
+                  <div className="replicate-days-row">
+                    {visibleDays.map((d) => (
+                      <label key={d.id} className="rep-chip">
+                        <input
+                          type="checkbox"
+                          checked={replicateDays.includes(d.id)}
+                          disabled={d.id === activeSlotData.dayId}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setReplicateDays([...replicateDays, d.id]);
+                            } else {
+                              setReplicateDays(replicateDays.filter((x) => x !== d.id));
+                            }
+                          }}
+                        />{" "}
+                        {d.short}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="dialog-actions">
+                  {schedule[buildSlotKey(activeSlotData.dayId, activeSlotData.slotId)] && (
+                    <button
+                      type="button"
+                      className="btn btn-danger-ghost"
+                      onClick={handleDeleteSlot}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                      <span>{t("remove")}</span>
+                    </button>
+                  )}
+                  <div className="actions-right" style={{ marginLeft: "auto", display: "flex", gap: "0.5rem" }}>
+                    <button type="button" className="btn btn-ghost" onClick={() => setSlotModalOpen(false)}>
+                      {t("cancel")}
+                    </button>
+                    <button type="submit" className="btn btn-primary">
+                      {t("save")}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-        </dialog>
+        </div>
       )}
 
       {/* MODAL 2: CONFIGURAÇÃO DE HORÁRIOS */}
       {configModalOpen && (
-        <dialog open className="app-dialog dialog-large">
-          <div className="dialog-content">
-            <div className="dialog-header">
-              <div className="dialog-title-wrapper">
-                <div className="dialog-icon bg-indigo-soft">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <h2 className="dialog-title">Configurar Horários e Intervalos</h2>
-                  <p className="dialog-subtitle">Personalize a ordem, nome e tempo de cada aula do turno</p>
-                </div>
-              </div>
-              <button type="button" className="btn-close" onClick={() => setConfigModalOpen(false)}>✕</button>
-            </div>
-
-            <div className="config-body">
-              <div className="preset-buttons-row">
-                <span className="text-sm font-semibold">Carregar Padrão:</span>
-                <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("manha")}>
-                  {t("shiftManha")}
-                </button>
-                <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("tarde")}>
-                  {t("shiftTarde")}
-                </button>
-                <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("noite")}>
-                  {t("shiftNoite")}
-                </button>
-                <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("integral")}>
-                  {t("shiftIntegral")}
-                </button>
-              </div>
-
-              <div className="slots-list-header">
-                <span>Tipo</span>
-                <span>Nome / Descrição</span>
-                <span>Início</span>
-                <span>Término</span>
-                <span className="text-right">Ação</span>
-              </div>
-
-              <div className="slots-list-container">
-                {tempSlots.map((s, idx) => (
-                  <div key={s.id} className="slot-config-row" style={{ display: "grid", gridTemplateColumns: "100px 1fr 100px 100px 60px", gap: "0.5rem", alignItems: "center", padding: "0.5rem 0", borderBottom: "1px solid var(--border-subtle)" }}>
-                    <span className={`badge-type ${s.isBreak ? "badge-break" : "badge-class"}`} style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem", borderRadius: "4px", background: s.isBreak ? "#fef3c7" : "#e0e7ff", color: s.isBreak ? "#92400e" : "#3730a3" }}>
-                      {s.isBreak ? "☕ Intervalo" : "📖 Aula"}
-                    </span>
-                    <input
-                      type="text"
-                      value={s.label}
-                      onChange={(e) => {
-                        const next = [...tempSlots];
-                        next[idx].label = e.target.value;
-                        setTempSlots(next);
-                      }}
-                      style={{ padding: "0.3rem 0.5rem", border: "1px solid var(--border-color)", borderRadius: "4px" }}
-                    />
-                    <input
-                      type="time"
-                      value={s.start}
-                      onChange={(e) => {
-                        const next = [...tempSlots];
-                        next[idx].start = e.target.value;
-                        setTempSlots(next);
-                      }}
-                      style={{ padding: "0.3rem 0.5rem", border: "1px solid var(--border-color)", borderRadius: "4px" }}
-                    />
-                    <input
-                      type="time"
-                      value={s.end}
-                      onChange={(e) => {
-                        const next = [...tempSlots];
-                        next[idx].end = e.target.value;
-                        setTempSlots(next);
-                      }}
-                      style={{ padding: "0.3rem 0.5rem", border: "1px solid var(--border-color)", borderRadius: "4px" }}
-                    />
-                    <button
-                      type="button"
-                      className="btn btn-ghost-danger btn-xs"
-                      onClick={() => handleRemoveTempSlot(idx)}
-                      title="Excluir horário"
-                      style={{ color: "var(--danger)" }}
-                    >
-                      ✕
-                    </button>
+        <div className="app-dialog-backdrop" onClick={() => setConfigModalOpen(false)}>
+          <div className="app-dialog dialog-large" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-content">
+              <div className="dialog-header">
+                <div className="dialog-title-wrapper">
+                  <div className="dialog-icon bg-indigo-soft">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
                   </div>
-                ))}
+                  <div>
+                    <h2 className="dialog-title">Configurar Horários e Intervalos</h2>
+                    <p className="dialog-subtitle">Personalize a ordem, nome e tempo de cada aula do turno</p>
+                  </div>
+                </div>
+                <button type="button" className="btn-close" onClick={() => setConfigModalOpen(false)}>✕</button>
               </div>
 
-              <div className="add-slot-row" style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
-                <button type="button" className="btn btn-outline btn-sm" onClick={() => handleAddTempSlot(false)}>
-                  + Adicionar Aula
+              <div className="config-body">
+                <div className="preset-buttons-row">
+                  <span className="text-sm font-semibold">Carregar Padrão:</span>
+                  <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("manha")}>
+                    {t("shiftManha")}
+                  </button>
+                  <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("tarde")}>
+                    {t("shiftTarde")}
+                  </button>
+                  <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("noite")}>
+                    {t("shiftNoite")}
+                  </button>
+                  <button type="button" className="btn btn-xs btn-outline" onClick={() => handleLoadPresetConfig("integral")}>
+                    {t("shiftIntegral")}
+                  </button>
+                </div>
+
+                <div className="slots-list-header">
+                  <span>Tipo</span>
+                  <span>Nome / Descrição</span>
+                  <span>Início</span>
+                  <span>Término</span>
+                  <span className="text-right">Ação</span>
+                </div>
+
+                <div className="slots-list-container">
+                  {tempSlots.map((s, idx) => (
+                    <div key={s.id} className="slot-config-row" style={{ display: "grid", gridTemplateColumns: "100px 1fr 100px 100px 60px", gap: "0.5rem", alignItems: "center", padding: "0.5rem 0", borderBottom: "1px solid var(--border-subtle)" }}>
+                      <span className={`badge-type ${s.isBreak ? "badge-break" : "badge-class"}`} style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem", borderRadius: "4px", background: s.isBreak ? "#fef3c7" : "#e0e7ff", color: s.isBreak ? "#92400e" : "#3730a3" }}>
+                        {s.isBreak ? "☕ Intervalo" : "📖 Aula"}
+                      </span>
+                      <input
+                        type="text"
+                        value={s.label}
+                        onChange={(e) => {
+                          const next = [...tempSlots];
+                          next[idx].label = e.target.value;
+                          setTempSlots(next);
+                        }}
+                        style={{ padding: "0.3rem 0.5rem", border: "1px solid var(--border-color)", borderRadius: "4px" }}
+                      />
+                      <input
+                        type="time"
+                        value={s.start}
+                        onChange={(e) => {
+                          const next = [...tempSlots];
+                          next[idx].start = e.target.value;
+                          setTempSlots(next);
+                        }}
+                        style={{ padding: "0.3rem 0.5rem", border: "1px solid var(--border-color)", borderRadius: "4px" }}
+                      />
+                      <input
+                        type="time"
+                        value={s.end}
+                        onChange={(e) => {
+                          const next = [...tempSlots];
+                          next[idx].end = e.target.value;
+                          setTempSlots(next);
+                        }}
+                        style={{ padding: "0.3rem 0.5rem", border: "1px solid var(--border-color)", borderRadius: "4px" }}
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-ghost-danger btn-xs"
+                        onClick={() => handleRemoveTempSlot(idx)}
+                        title="Excluir horário"
+                        style={{ color: "var(--danger)" }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="add-slot-row" style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+                  <button type="button" className="btn btn-outline btn-sm" onClick={() => handleAddTempSlot(false)}>
+                    + Adicionar Aula
+                  </button>
+                  <button type="button" className="btn btn-outline btn-sm" onClick={() => handleAddTempSlot(true)}>
+                    ☕ Adicionar Intervalo
+                  </button>
+                </div>
+              </div>
+
+              <div className="dialog-actions config-actions-footer">
+                <button type="button" className="btn btn-ghost" onClick={() => setConfigModalOpen(false)}>
+                  {t("cancel")}
                 </button>
-                <button type="button" className="btn btn-outline btn-sm" onClick={() => handleAddTempSlot(true)}>
-                  ☕ Adicionar Intervalo
+                <button type="button" className="btn btn-primary" onClick={handleSaveConfigModal}>
+                  {t("save")}
                 </button>
               </div>
-            </div>
-
-            <div className="dialog-actions config-actions-footer">
-              <button type="button" className="btn btn-ghost" onClick={() => setConfigModalOpen(false)}>
-                {t("cancel")}
-              </button>
-              <button type="button" className="btn btn-primary" onClick={handleSaveConfigModal}>
-                {t("save")}
-              </button>
             </div>
           </div>
-        </dialog>
+        </div>
       )}
 
       {/* MODAL 3: BACKUP / SINCRONIZAÇÃO */}
       {backupModalOpen && (
-        <dialog open className="app-dialog">
-          <div className="dialog-content">
-            <div className="dialog-header">
-              <div className="dialog-title-wrapper">
-                <div className="dialog-icon bg-emerald-soft">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
+        <div className="app-dialog-backdrop" onClick={() => setBackupModalOpen(false)}>
+          <div className="app-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-content">
+              <div className="dialog-header">
+                <div className="dialog-title-wrapper">
+                  <div className="dialog-icon bg-emerald-soft">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="dialog-title">Backup e Sincronização</h2>
+                    <p className="dialog-subtitle">Exporte seu horário em arquivo ou restaure um backup</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="dialog-title">Backup e Sincronização</h2>
-                  <p className="dialog-subtitle">Exporte seu horário em arquivo ou restaure um backup</p>
+                <button type="button" className="btn-close" onClick={() => setBackupModalOpen(false)}>✕</button>
+              </div>
+
+              <div className="backup-body">
+                <div className="backup-card">
+                  <div className="backup-card-info">
+                    <h3 className="font-semibold">{t("exportJson")}</h3>
+                    <p className="text-sm text-muted">Baixe um arquivo JSON com todas as suas aulas e configurações.</p>
+                  </div>
+                  <button type="button" className="btn btn-primary" onClick={handleExportJson}>
+                    {t("exportJson")}
+                  </button>
+                </div>
+
+                <div className="backup-card" style={{ marginTop: "1rem" }}>
+                  <div className="backup-card-info">
+                    <h3 className="font-semibold">{t("importJson")}</h3>
+                    <p className="text-sm text-muted">Carregue um arquivo previamente exportado para restaurar a grade.</p>
+                  </div>
+                  <label className="btn btn-outline file-input-label" style={{ cursor: "pointer" }}>
+                    <span>{t("importJson")}</span>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept=".json"
+                      onChange={handleImportJsonFile}
+                      style={{ display: "none" }}
+                    />
+                  </label>
                 </div>
               </div>
-              <button type="button" className="btn-close" onClick={() => setBackupModalOpen(false)}>✕</button>
-            </div>
 
-            <div className="backup-body">
-              <div className="backup-card">
-                <div className="backup-card-info">
-                  <h3 className="font-semibold">{t("exportJson")}</h3>
-                  <p className="text-sm text-muted">Baixe um arquivo JSON com todas as suas aulas e configurações.</p>
-                </div>
-                <button type="button" className="btn btn-primary" onClick={handleExportJson}>
-                  {t("exportJson")}
+              <div className="dialog-actions">
+                <button type="button" className="btn btn-ghost" onClick={() => setBackupModalOpen(false)}>
+                  Fechar
                 </button>
               </div>
-
-              <div className="backup-card" style={{ marginTop: "1rem" }}>
-                <div className="backup-card-info">
-                  <h3 className="font-semibold">{t("importJson")}</h3>
-                  <p className="text-sm text-muted">Carregue um arquivo previamente exportado para restaurar a grade.</p>
-                </div>
-                <label className="btn btn-outline file-input-label" style={{ cursor: "pointer" }}>
-                  <span>{t("importJson")}</span>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    accept=".json"
-                    onChange={handleImportJsonFile}
-                    style={{ display: "none" }}
-                  />
-                </label>
-              </div>
-            </div>
-
-            <div className="dialog-actions">
-              <button type="button" className="btn btn-ghost" onClick={() => setBackupModalOpen(false)}>
-                Fechar
-              </button>
             </div>
           </div>
-        </dialog>
+        </div>
       )}
 
       {/* MODAL 4: CONFIRMAÇÃO DE LIMPEZA */}
       {confirmClearOpen && (
-        <dialog open className="app-dialog dialog-confirm">
-          <div className="dialog-content">
-            <div className="dialog-header">
-              <div className="dialog-title-wrapper">
-                <div className="dialog-icon bg-danger-soft">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                  </svg>
+        <div className="app-dialog-backdrop" onClick={() => setConfirmClearOpen(false)}>
+          <div className="app-dialog dialog-confirm" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-content">
+              <div className="dialog-header">
+                <div className="dialog-title-wrapper">
+                  <div className="dialog-icon bg-danger-soft">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="dialog-title">{t("confirmClear")}</h2>
+                    <p className="dialog-subtitle">Esta ação apagará todas as aulas cadastradas na grade</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="dialog-title">{t("confirmClear")}</h2>
-                  <p className="dialog-subtitle">Esta ação apagará todas as aulas cadastradas na grade</p>
-                </div>
+                <button type="button" className="btn-close" onClick={() => setConfirmClearOpen(false)}>✕</button>
               </div>
-              <button type="button" className="btn-close" onClick={() => setConfirmClearOpen(false)}>✕</button>
-            </div>
 
-            <div className="confirm-body">
-              <p>Tem certeza de que deseja apagar todas as aulas da sua grade horária? Você terá uma grade em branco pronta para novo preenchimento.</p>
-            </div>
+              <div className="confirm-body">
+                <p>Tem certeza de que deseja apagar todas as aulas da sua grade horária? Você terá uma grade em branco pronta para novo preenchimento.</p>
+              </div>
 
-            <div className="dialog-actions">
-              <button type="button" className="btn btn-ghost" onClick={() => setConfirmClearOpen(false)}>
-                {t("cancel")}
-              </button>
-              <button type="button" className="btn btn-danger-solid" onClick={handleExecuteClear}>
-                Sim, Limpar Toda a Grade
-              </button>
+              <div className="dialog-actions">
+                <button type="button" className="btn btn-ghost" onClick={() => setConfirmClearOpen(false)}>
+                  {t("cancel")}
+                </button>
+                <button type="button" className="btn btn-danger-solid" onClick={handleExecuteClear}>
+                  Sim, Limpar Toda a Grade
+                </button>
+              </div>
             </div>
           </div>
-        </dialog>
+        </div>
       )}
 
       {/* TOAST FLUTUANTE */}
