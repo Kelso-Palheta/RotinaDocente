@@ -856,6 +856,9 @@ h1, h2, h3, h4, .brand-title {
   outline-offset: -2px;
   box-shadow: inset 0 0 8px rgba(99, 102, 241, 0.2);
 }
+
+/* Slot Vazio (Placeholder) */
+.slot-empty-btn {
   width: 100%;
   height: 100%;
   min-height: 38px;
