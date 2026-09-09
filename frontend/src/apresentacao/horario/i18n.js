@@ -43,6 +43,12 @@ export const i18nHorario = {
     confirmClear: 'Deseja limpar toda a grade?',
     scheduleTab: 'Grade Semanal',
     viewSchedule: 'Visualizar Horário',
+    importSchedule: 'Importar Horário',
+    importPdf: 'Importar PDF',
+    importPdfDesc: 'Carregue o arquivo PDF da grade escolar para preencher suas aulas.',
+    selectPdf: 'Selecionar Arquivo PDF',
+    readingPdf: 'Processando arquivo PDF...',
+    pdfSuccess: 'Aulas extraídas do PDF com sucesso!',
   },
   'es-Latam': {
     appTitle: 'Mi Horario Escolar',
@@ -82,6 +88,12 @@ export const i18nHorario = {
     confirmClear: '¿Desea limpiar todo el horario?',
     scheduleTab: 'Horario Semanal',
     viewSchedule: 'Ver Horario',
+    importSchedule: 'Importar Horario',
+    importPdf: 'Importar PDF',
+    importPdfDesc: 'Cargue el archivo PDF del horario escolar para completar sus clases.',
+    selectPdf: 'Seleccionar Archivo PDF',
+    readingPdf: 'Procesando archivo PDF...',
+    pdfSuccess: '¡Clases extraídas del PDF con éxito!',
   },
 };
 

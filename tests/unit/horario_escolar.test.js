@@ -230,3 +230,24 @@ describe('UT-12 (RN-26): Internacionalização pt-BR e es-Latam com paridade tot
     expect(tHorario('appTitle', 'fr-FR')).toBe('Meu Horário Escolar');
   });
 });
+
+describe('UT-13 (RN-25): Parser de grade a partir de texto de PDF', () => {
+  test('deve extrair aulas e mapear para slots corretos da semana', async () => {
+    const { parseScheduleFromPdfText } = await import('../../frontend/src/aplicacao/horario/pdfScheduleParser');
+    const textoPdfExemplo = `
+      Escola Estadual Modelo - Quadro de Aulas 2026
+      Segunda-feira 1º Horário Matemática 1º Ano A Sala 101
+      Terça-feira 2º Horário Física 2º Ano B Lab 02
+      Quarta-feira 3º Horário Química 3º EM Sala 204
+    `;
+
+    const resultado = parseScheduleFromPdfText(textoPdfExemplo, 'manha');
+    expect(resultado.totalDetectado).toBeGreaterThanOrEqual(3);
+    expect(resultado.schedule.seg_m1).toBeDefined();
+    expect(resultado.schedule.seg_m1.subject).toContain('Matemática');
+    expect(resultado.schedule.ter_m2).toBeDefined();
+    expect(resultado.schedule.ter_m2.subject).toContain('Física');
+    expect(resultado.schedule.qua_m3).toBeDefined();
+  });
+});
+

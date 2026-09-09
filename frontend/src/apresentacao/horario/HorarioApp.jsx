@@ -17,6 +17,8 @@ import {
   importarGradeJson,
   calcularEstatisticasGrade,
 } from "../../aplicacao/horario/gradeService";
+import { parseScheduleFromPdfText } from "../../aplicacao/horario/pdfScheduleParser";
+import { extractTextFromPDF } from "@/utils/atividades/pdfExtractor";
 import { HorarioRepository } from "../../infraestrutura/horario/HorarioRepository";
 import { tHorario } from "./i18n";
 import "./horario.css";
@@ -87,6 +89,16 @@ export default function HorarioApp() {
   const [toastMsg, setToastMsg] = useState(null);
 
   const fileInputRef = useRef(null);
+
+  // Estados do Modal de Importação Inteligente (PDF / JSON)
+  const [importModalOpen, setImportModalOpen] = useState(false);
+  const [importTab, setImportTab] = useState("pdf"); // 'pdf' | 'json'
+  const [isProcessingFile, setIsProcessingFile] = useState(false);
+  const [importFilterTeacher, setImportFilterTeacher] = useState("");
+  const [importFeedback, setImportFeedback] = useState(null); // { message, isError, data }
+  const [dragActive, setDragActive] = useState(false);
+  const pdfImportInputRef = useRef(null);
+  const jsonImportInputRef = useRef(null);
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -292,6 +304,120 @@ export default function HorarioApp() {
     e.target.value = "";
   };
 
+  // Processamento de PDF
+  const handleProcessPdfFile = async (file) => {
+    if (!file) return;
+    setIsProcessingFile(true);
+    setImportFeedback(null);
+    try {
+      const text = await extractTextFromPDF(file);
+      if (!text || text.trim().length === 0) {
+        throw new Error("Não foi possível extrair texto legível deste arquivo PDF.");
+      }
+      const parsed = parseScheduleFromPdfText(text, shift, importFilterTeacher.trim() || teacherName);
+      if (!parsed || parsed.totalAulas === 0) {
+        // Fallback: tentar sem filtro de professor
+        const parsedFallback = parseScheduleFromPdfText(text, shift, "");
+        if (parsedFallback && parsedFallback.totalAulas > 0) {
+          setImportFeedback({
+            message: `Encontramos ${parsedFallback.totalAulas} aulas no documento!`,
+            isError: false,
+            data: parsedFallback,
+          });
+          return;
+        }
+        throw new Error("Nenhuma aula foi detectada com a estrutura esperada no PDF.");
+      }
+
+      setImportFeedback({
+        message: `Detectamos ${parsed.totalAulas} aulas para ${parsed.detectedTeacher || "o professor"}!`,
+        isError: false,
+        data: parsed,
+      });
+    } catch (err) {
+      setImportFeedback({
+        message: err.message || "Falha ao processar arquivo PDF.",
+        isError: true,
+        data: null,
+      });
+    } finally {
+      setIsProcessingFile(false);
+    }
+  };
+
+  // Processamento de JSON
+  const handleProcessJsonFile = (file) => {
+    if (!file) return;
+    setIsProcessingFile(true);
+    setImportFeedback(null);
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const text = String(evt.target?.result);
+        const imported = importarGradeJson(text, shift);
+        const total = Object.keys(imported.schedule || {}).length;
+        setImportFeedback({
+          message: `Arquivo JSON carregado com sucesso! Contém ${total} aula(s).`,
+          isError: false,
+          data: {
+            schedule: imported.schedule,
+            teacherName: imported.teacherName,
+            schoolName: imported.schoolName,
+            shift: imported.shift,
+            showSaturday: imported.showSaturday,
+            customSlots: imported.customSlots,
+            totalAulas: total,
+          },
+        });
+      } catch (err) {
+        setImportFeedback({
+          message: err.message || "Arquivo JSON inválido ou corrompido.",
+          isError: true,
+          data: null,
+        });
+      } finally {
+        setIsProcessingFile(false);
+      }
+    };
+    reader.onerror = () => {
+      setImportFeedback({ message: "Erro ao ler arquivo.", isError: true, data: null });
+      setIsProcessingFile(false);
+    };
+    reader.readAsText(file);
+  };
+
+  // Aplicar dados importados
+  const handleApplyImportedSchedule = async () => {
+    if (!importFeedback?.data) return;
+    const data = importFeedback.data;
+    const nextSchedule = { ...schedule, ...(data.schedule || {}) };
+    const nextTeacher = data.teacherName || teacherName;
+    const nextSchool = data.schoolName || schoolName;
+    const nextShift = data.shift || shift;
+    const nextSat = data.showSaturday !== undefined ? data.showSaturday : showSaturday;
+    const nextSlots = data.customSlots !== undefined ? data.customSlots : customSlots;
+
+    setSchedule(nextSchedule);
+    setTeacherName(nextTeacher);
+    setSchoolName(nextSchool);
+    if (nextShift !== shift) setShift(nextShift);
+    if (nextSat !== showSaturday) setShowSaturday(nextSat);
+    if (nextSlots) setCustomSlots(nextSlots);
+
+    await saveState({
+      schedule: nextSchedule,
+      teacherName: nextTeacher,
+      schoolName: nextSchool,
+      shift: nextShift,
+      showSaturday: nextSat,
+      customSlots: nextSlots,
+    });
+
+    setImportModalOpen(false);
+    setImportFeedback(null);
+    showToast(t("importedSuccess"));
+  };
+
   // Abrir modal de configuração de slots
   const handleOpenConfigModal = () => {
     setTempSlots(JSON.parse(JSON.stringify(currentSlots)));
@@ -446,6 +572,25 @@ export default function HorarioApp() {
               <span>Horários</span>
             </button>
 
+            {/* Importar (PDF / JSON) */}
+            <button
+              id="btnImportSchedule"
+              className="btn btn-outline"
+              onClick={() => {
+                setImportFeedback(null);
+                setImportModalOpen(true);
+              }}
+              title="Importar horário escolar de arquivo PDF ou JSON"
+              style={{ borderColor: "var(--primary)", color: "var(--primary)" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>{t("importSchedule")}</span>
+            </button>
+
             {/* Imprimir / PDF */}
             <button
               id="btnPrint"
@@ -518,48 +663,48 @@ export default function HorarioApp() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="main-container">
-        {/* BARRA DE ESTATÍSTICAS */}
+        {/* BARRA DE ESTATÍSTICAS COMPACTA */}
         <section className="stats-bar no-print">
-          <div className="stat-card">
-            <div className="stat-icon bg-indigo-soft">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-              </svg>
+          <div className="stats-strip-left">
+            <div className="stat-pill" title={t("totalClasses")}>
+              <span className="stat-pill-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </span>
+              <span className="stat-pill-label">{t("totalClasses")}:</span>
+              <strong className="stat-pill-value">{stats.totalAulas}</strong>
             </div>
-            <div className="stat-content">
-              <span className="stat-label">{t("totalClasses")}</span>
-              <span className="stat-value">{stats.totalAulas}</span>
-            </div>
-          </div>
 
-          <div className="stat-card">
-            <div className="stat-icon bg-emerald-soft">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <div className="stat-content">
-              <span className="stat-label">{t("uniqueSubjects")}</span>
-              <span className="stat-value">{stats.disciplinasUnicas}</span>
-            </div>
-          </div>
+            <div className="stat-pill-divider"></div>
 
-          <div className="stat-card stat-card-wide">
-            <div className="stat-icon bg-amber-soft">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-              </svg>
+            <div className="stat-pill" title={t("uniqueSubjects")}>
+              <span className="stat-pill-icon" style={{ color: "#059669" }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </span>
+              <span className="stat-pill-label">{t("uniqueSubjects")}:</span>
+              <strong className="stat-pill-value">{stats.disciplinasUnicas}</strong>
             </div>
-            <div className="stat-content">
-              <span className="stat-label">{t("uniqueGrades")}</span>
-              <span className="stat-value">{stats.turmasUnicas}</span>
+
+            <div className="stat-pill-divider"></div>
+
+            <div className="stat-pill" title={t("uniqueGrades")}>
+              <span className="stat-pill-icon" style={{ color: "#d97706" }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </span>
+              <span className="stat-pill-label">{t("uniqueGrades")}:</span>
+              <strong className="stat-pill-value">{stats.turmasUnicas}</strong>
             </div>
           </div>
 
           {/* CONTROLES */}
-          <div className="view-controls">
+          <div className="stats-strip-right">
             <label className="toggle-control" title="Exibir ou ocultar sábado na grade">
               <input
                 type="checkbox"
@@ -574,13 +719,14 @@ export default function HorarioApp() {
               <span className="toggle-slider"></span>
               <span className="toggle-label">{t("showSaturday")}</span>
             </label>
+
             <button
               id="btnClearSchedule"
-              className="btn btn-ghost-danger btn-sm"
+              className="btn btn-ghost-danger btn-xs"
               onClick={() => setConfirmClearOpen(true)}
               title="Limpar todos os horários cadastrados"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
               </svg>
@@ -1023,6 +1169,244 @@ export default function HorarioApp() {
               <div className="dialog-actions">
                 <button type="button" className="btn btn-ghost" onClick={() => setBackupModalOpen(false)}>
                   Fechar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE IMPORTAÇÃO INTELIGENTE (PDF / JSON) */}
+      {importModalOpen && (
+        <div className="app-dialog-backdrop" onClick={() => !isProcessingFile && setImportModalOpen(false)}>
+          <div className="app-dialog" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "560px" }}>
+            <div className="dialog-content">
+              <div className="dialog-header">
+                <div className="dialog-title-wrapper">
+                  <div className="dialog-icon bg-indigo-soft">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="dialog-title">{t("importSchedule")}</h2>
+                    <p className="dialog-subtitle">Suba um arquivo PDF ou JSON para preencher seu horário automaticamente</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="btn-close"
+                  disabled={isProcessingFile}
+                  onClick={() => setImportModalOpen(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="import-modal-body">
+                {/* ABAS: PDF vs JSON */}
+                <div className="import-tabs">
+                  <button
+                    type="button"
+                    className={`import-tab-btn ${importTab === "pdf" ? "active" : ""}`}
+                    onClick={() => {
+                      setImportTab("pdf");
+                      setImportFeedback(null);
+                    }}
+                  >
+                    📄 Arquivo PDF
+                  </button>
+                  <button
+                    type="button"
+                    className={`import-tab-btn ${importTab === "json" ? "active" : ""}`}
+                    onClick={() => {
+                      setImportTab("json");
+                      setImportFeedback(null);
+                    }}
+                  >
+                    { } Arquivo JSON
+                  </button>
+                </div>
+
+                {/* CONTEÚDO DA ABA PDF */}
+                {importTab === "pdf" && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label htmlFor="importTeacherFilter" style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-secondary)" }}>
+                        Filtrar por Professor no PDF (opcional):
+                      </label>
+                      <input
+                        type="text"
+                        id="importTeacherFilter"
+                        className="form-input"
+                        style={{ fontSize: "0.82rem", padding: "0.4rem 0.65rem" }}
+                        placeholder={`Ex: ${teacherName}`}
+                        value={importFilterTeacher}
+                        onChange={(e) => setImportFilterTeacher(e.target.value)}
+                      />
+                      <span style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                        Deixe em branco para tentar detectar o horário automaticamente.
+                      </span>
+                    </div>
+
+                    <div
+                      className={`import-dropzone ${dragActive ? "dragover" : ""}`}
+                      onClick={() => !isProcessingFile && pdfImportInputRef.current?.click()}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setDragActive(true);
+                      }}
+                      onDragLeave={() => setDragActive(false)}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setDragActive(false);
+                        const file = e.dataTransfer?.files?.[0];
+                        if (file && file.name.toLowerCase().endsWith(".pdf")) {
+                          handleProcessPdfFile(file);
+                        } else if (file) {
+                          setImportFeedback({
+                            message: "Por favor, selecione um arquivo .pdf válido.",
+                            isError: true,
+                            data: null,
+                          });
+                        }
+                      }}
+                    >
+                      <div className="import-dropzone-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                          <polyline points="14 2 14 8 20 8"></polyline>
+                          <line x1="12" y1="18" x2="12" y2="12"></line>
+                          <polyline points="9 15 12 12 15 15"></polyline>
+                        </svg>
+                      </div>
+                      <strong className="import-dropzone-title">
+                        {isProcessingFile ? t("readingPdf") : "Arraste seu PDF aqui ou clique para selecionar"}
+                      </strong>
+                      <span className="import-dropzone-desc">
+                        Compatível com planilhas de horários geradas pela coordenação ou exportadas em PDF.
+                      </span>
+                      <input
+                        type="file"
+                        ref={pdfImportInputRef}
+                        accept=".pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleProcessPdfFile(file);
+                          e.target.value = "";
+                        }}
+                        style={{ display: "none" }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* CONTEÚDO DA ABA JSON */}
+                {importTab === "json" && (
+                  <div
+                    className={`import-dropzone ${dragActive ? "dragover" : ""}`}
+                    onClick={() => !isProcessingFile && jsonImportInputRef.current?.click()}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragActive(true);
+                    }}
+                    onDragLeave={() => setDragActive(false)}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDragActive(false);
+                      const file = e.dataTransfer?.files?.[0];
+                      if (file && file.name.toLowerCase().endsWith(".json")) {
+                        handleProcessJsonFile(file);
+                      } else if (file) {
+                        setImportFeedback({
+                          message: "Por favor, selecione um arquivo .json válido.",
+                          isError: true,
+                          data: null,
+                        });
+                      }
+                    }}
+                  >
+                    <div className="import-dropzone-icon" style={{ color: "#059669" }}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                      </svg>
+                    </div>
+                    <strong className="import-dropzone-title">
+                      {isProcessingFile ? "Lendo arquivo JSON..." : "Arraste seu arquivo .json ou clique para selecionar"}
+                    </strong>
+                    <span className="import-dropzone-desc">
+                      Restaure uma grade previamente exportada pelo RotinaDocente.
+                    </span>
+                    <input
+                      type="file"
+                      ref={jsonImportInputRef}
+                      accept=".json"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleProcessJsonFile(file);
+                        e.target.value = "";
+                      }}
+                      style={{ display: "none" }}
+                    />
+                  </div>
+                )}
+
+                {/* FEEDBACK / PREVIEW DE IMPORTAÇÃO */}
+                {importFeedback && (
+                  <div
+                    className="import-preview-box"
+                    style={{
+                      borderLeft: importFeedback.isError
+                        ? "4px solid var(--danger)"
+                        : "4px solid var(--success)",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "0.82rem",
+                        fontWeight: 600,
+                        color: importFeedback.isError ? "var(--danger)" : "var(--text-primary)",
+                      }}
+                    >
+                      {importFeedback.isError ? "⚠️ " : "✅ "}
+                      {importFeedback.message}
+                    </p>
+                    {importFeedback.data && (
+                      <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.25rem" }}>
+                        <span className="import-preview-badge">
+                          📚 <strong>{importFeedback.data.totalAulas}</strong> aulas detectadas
+                        </span>
+                        {importFeedback.data.shift && (
+                          <span className="import-preview-badge">
+                            ⏰ Turno: <strong>{t("shift" + importFeedback.data.shift.charAt(0).toUpperCase() + importFeedback.data.shift.slice(1))}</strong>
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div className="dialog-actions">
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  disabled={isProcessingFile}
+                  onClick={() => setImportModalOpen(false)}
+                >
+                  {t("cancel")}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={!importFeedback?.data || isProcessingFile}
+                  onClick={handleApplyImportedSchedule}
+                >
+                  {isProcessingFile ? "Processando..." : "Aplicar à Grade"}
                 </button>
               </div>
             </div>
