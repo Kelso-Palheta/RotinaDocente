@@ -23,7 +23,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
   doc.setTextColor(255, 255, 255);
-  doc.text("RotinaDocente — Caderneta de Rendimento Escolar Anual", margin, 13);
+  doc.text("Gestão Docente — Caderneta de Rendimento Escolar Anual", margin, 13);
 
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");

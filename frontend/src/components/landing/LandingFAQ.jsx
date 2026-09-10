@@ -12,7 +12,7 @@ export function LandingFAQ() {
       a: "Não! Ao se cadastrar, você ganha imediatamente 15 créditos gratuitos por mês para usar em qualquer ferramenta (Diário, Redação ENEM, Atividades e Calendário) sem inserir nenhum dado bancário.",
     },
     {
-      q: "Como a IA do RotinaDocente corrige as redações do ENEM?",
+      q: "Como a IA do Gestão Docente corrige as redações do ENEM?",
       a: "Nossa IA foi calibrada e treinada especificamente na matriz oficial do Inep/ENEM. Ela avalia individualmente as 5 competências (Norma culta, Tema/Repertório, Projeto de texto, Coesão e Proposta de intervenção com os 5 elementos obrigatórios), atribuindo notas de 0 a 200 por competência e gerando uma devolutiva pedagógica detalhada.",
     },
     {
@@ -25,7 +25,7 @@ export function LandingFAQ() {
     },
     {
       q: "Os dados dos meus alunos estão seguros de acordo com a LGPD?",
-      a: "Totalmente. O RotinaDocente adota criptografia de ponta a ponta e rígidas políticas de privacidade em total conformidade com a Lei Geral de Proteção de Dados (LGPD) e diretrizes de proteção a dados de menores.",
+      a: "Totalmente. O Gestão Docente adota criptografia de ponta a ponta e rígidas políticas de privacidade em total conformidade com a Lei Geral de Proteção de Dados (LGPD) e diretrizes de proteção a dados de menores.",
     },
     {
       q: "Posso cancelar minha assinatura Pro quando quiser?",

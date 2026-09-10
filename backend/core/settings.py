@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv.load_dotenv(BASE_DIR.parent / '.env')
 dotenv.load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-rotinadocente-production-key-2026')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-gestaodocente-production-key-2026')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,rotinadocente.com.br,*.rotinadocente.com.br').split(',')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,gestaodocente.com.br,*.gestaodocente.com.br').split(',')
 
 # Apps
 INSTALLED_APPS = [
@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
 
-    # Apps do RotinaDocente
+    # Apps do Gestão Docente
     'apps.autenticacao',
     'apps.diario',
     'apps.calendario',
@@ -81,7 +81,7 @@ if DB_ENGINE == 'mysql':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_DATABASE', 'rotinadocente_db'),
+            'NAME': os.environ.get('MYSQL_DATABASE', 'gestaodocente_db'),
             'USER': os.environ.get('MYSQL_USER', 'root'),
             'PASSWORD': os.environ.get('MYSQL_PASSWORD', 'root'),
             'HOST': os.environ.get('MYSQL_HOST', 'localhost'),
@@ -147,7 +147,7 @@ CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://rotinadocente.com.br",
+    "https://gestaodocente.com.br",
 ]
 CORS_ALLOW_CREDENTIALS = True
 

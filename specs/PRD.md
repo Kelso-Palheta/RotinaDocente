@@ -1,7 +1,7 @@
-# 📄 Product Requirements Document (PRD) — RotinaDocente
+# 📄 Product Requirements Document (PRD) — Gestão Docente
 
 ## 1. Visão Geral do Produto
-O **RotinaDocente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema de gestão e automação pedagógica desenhado para eliminar a sobrecarga operacional dos professores da Educação Básica e Ensino Médio, devolvendo até 15 horas de trabalho semanal e finais de semana livres.
+O **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema de gestão e automação pedagógica desenhado para eliminar a sobrecarga operacional dos professores da Educação Básica e Ensino Médio, devolvendo até 15 horas de trabalho semanal e finais de semana livres.
 
 ---
 

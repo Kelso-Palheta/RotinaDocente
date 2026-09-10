@@ -1,5 +1,5 @@
 /**
- * Provider de IA Unificado — RotinaDocente
+ * Provider de IA Unificado — Gestão Docente
  *
  * Centraliza toda chamada de IA do projeto.
  * Ativação via variável de ambiente AI_PROVIDER no .env.local:
@@ -17,8 +17,8 @@ const PROVIDER_CONFIG = {
     headers: (key) => ({
       Authorization: `Bearer ${key}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://rotinadocente.com.br',
-      'X-Title': 'RotinaDocente',
+      'HTTP-Referer': 'https://gestaodocente.com.br',
+      'X-Title': 'Gestão Docente',
     }),
     // OpenRouter não suporta vision com modelos gratuitos — extrai texto antes
     supportsVision: false,

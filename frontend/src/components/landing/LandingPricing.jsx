@@ -19,9 +19,9 @@ export function LandingPricing({ onOpenAuth }) {
           <h2 className="font-head text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#101942] tracking-tight">
             Investimento acessível que se paga no primeiro fim de semana livre.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#6070a0]">
-            O Diário de Notas é 100% gratuito. Escolha o plano de automação ideal para a sua rotina docente e assine sem fidelidade.
-          </p>
+<p className="mt-4 text-base sm:text-lg text-[#6070a0]">
+             O Diário de Notas é 100% gratuito. Escolha o plano de automação ideal para a sua rotina e assine sem fidelidade.
+           </p>
 
           {/* Toggle Mensal / Anual */}
           <div className="mt-8 inline-flex items-center gap-3 p-1.5 rounded-full bg-white border border-[#dce0f0] shadow-xs">

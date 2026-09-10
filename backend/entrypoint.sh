@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Iniciando Backend Django REST — RotinaDocente..."
+echo "🚀 Iniciando Backend Django REST — Gestão Docente..."
 
 # Garante compatibilidade entre MYSQL_HOST e DB_HOST
 TARGET_HOST="${MYSQL_HOST:-${DB_HOST:-mysql_db}}"
@@ -23,7 +23,7 @@ python manage.py collectstatic --noinput --clear || true
 
 echo "🔥 Iniciando servidor Gunicorn na porta 8000..."
 exec gunicorn core.wsgi:application \
-    --name rotinadocente_api \
+    --name gestaodocente_api \
     --bind 0.0.0.0:8000 \
     --workers 4 \
     --threads 2 \

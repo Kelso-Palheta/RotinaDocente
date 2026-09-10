@@ -27,9 +27,9 @@ export function LandingCalculator({ onOpenAuth }) {
             <h2 className="font-head text-3xl sm:text-4xl font-extrabold text-[#101942] tracking-tight">
               Quanto tempo você vai ganhar de volta?
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-[#6070a0]">
-              Arraste o seletor abaixo e veja o impacto real do RotinaDocente na sua qualidade de vida.
-            </p>
+<p className="mt-2 text-sm sm:text-base text-[#6070a0]">
+               Arraste o seletor abaixo e veja o impacto real do Gestão Docente na sua qualidade de vida.
+             </p>
           </div>
 
           {/* Slider Interativo */}

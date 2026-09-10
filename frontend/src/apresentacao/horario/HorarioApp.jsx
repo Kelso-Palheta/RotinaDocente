@@ -474,7 +474,7 @@ export default function HorarioApp() {
             <Link
               href="/"
               className="btn-back-hub"
-              title="Voltar ao Hub RotinaDocente"
+              title="Voltar ao Hub Gestão Docente"
               style={{ display: "flex", alignItems: "center", gap: "0.65rem", textDecoration: "none", color: "inherit" }}
             >
               <div className="brand-icon" style={{ cursor: "pointer" }}>
@@ -863,7 +863,7 @@ export default function HorarioApp() {
           </div>
         </div>
         <div className="print-timestamp">
-          Documento gerado em {new Date().toLocaleDateString("pt-BR")} pelo app Meu Horário Escolar — RotinaDocente.
+          Documento gerado em {new Date().toLocaleDateString("pt-BR")} pelo app Meu Horário Escolar — Gestão Docente.
         </div>
       </footer>
 
@@ -1364,7 +1364,7 @@ export default function HorarioApp() {
                       {isProcessingFile ? "Lendo arquivo JSON..." : "Arraste seu arquivo .json ou clique para selecionar"}
                     </strong>
                     <span className="import-dropzone-desc">
-                      Restaure uma grade previamente exportada pelo RotinaDocente.
+                      Restaure uma grade previamente exportada pelo Gestão Docente.
                     </span>
                     <input
                       type="file"

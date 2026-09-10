@@ -40,7 +40,7 @@ export async function generateAnalyticsPDF({
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(15);
   doc.setTextColor(255, 255, 255);
-  doc.text('RotinaDocente — Relatório de Rendimento Escolar', margin, 14);
+  doc.text('Gestão Docente — Relatório de Rendimento Escolar', margin, 14);
 
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
@@ -270,7 +270,7 @@ export async function generateAnalyticsPDF({
     doc.setFontSize(7);
     doc.setTextColor(148, 163, 184);
     doc.text(
-      `RotinaDocente — Toda a sua rotina letiva em 1 clique | Emissão: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} | Página ${p} de ${totalPages}`,
+      `Gestão Docente — Toda a sua rotina letiva em 1 clique | Emissão: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} | Página ${p} de ${totalPages}`,
       margin,
       pageHeight - 6
     );

@@ -4,7 +4,7 @@ from .models import AulaAgendada, EventoCalendario, GradeHoraria
 
 class SmartShiftService:
     """
-    Engine de Remanejamento Inteligente (Smart Shift) do RotinaDocente.
+    Engine de Remanejamento Inteligente (Smart Shift) do Gestão Docente.
     Desloca automaticamente as aulas em cascata preservando a sequencia da ementa
     e pulando feriados e recessos cadastrados no banco.
     """

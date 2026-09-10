@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-Este módulo traz a funcionalidade **"Meu Horário Escolar"** para dentro do ecossistema **RotinaDocente**. Ele permite que professores criem, editem e visualizem a grade semanal de aulas, configure turnos, faça backup/restore em JSON e persista os dados no **Firestore**.
+Este módulo traz a funcionalidade **"Meu Horário Escolar"** para dentro do ecossistema **Gestão Docente**. Ele permite que professores criem, editem e visualizem a grade semanal de aulas, configure turnos, faça backup/restore em JSON e persista os dados no **Firestore**.
 
 ## Personas
 - **Professor** – precisa organizar rapidamente sua agenda semanal e ter acesso a ela em qualquer dispositivo.

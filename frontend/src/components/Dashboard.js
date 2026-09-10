@@ -74,33 +74,33 @@ export default function Dashboard() {
       {/* Header Superior Navy */}
       <header className="bg-[#101942] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-          {/* Logo RotinaDocente */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#f60c49] flex items-center justify-center text-white shadow-md">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
-              </svg>
-            </div>
-            <div>
-              <h1 className="font-head text-xl font-extrabold tracking-tight text-white leading-none">
-                Rotina<span className="text-[#f60c49]">Docente</span>
-              </h1>
-              <p className="text-xs text-white/60 mt-1 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
-                Olá, {perfil?.nome || "Professor(a)"}
-              </p>
-            </div>
-          </div>
+{/* Logo Gestão Docente */}
+           <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-xl bg-[#f60c49] flex items-center justify-center text-white shadow-md">
+               <svg
+                 width="22"
+                 height="22"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 strokeWidth="2.2"
+                 strokeLinecap="round"
+                 strokeLinejoin="round"
+               >
+                 <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                 <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
+               </svg>
+             </div>
+             <div>
+               <h1 className="font-head text-xl font-extrabold tracking-tight text-white leading-none">
+                 Gestão<span className="text-[#f60c49]">Docente</span>
+               </h1>
+               <p className="text-xs text-white/60 mt-1 flex items-center gap-1.5">
+                 <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                 Olá, {perfil?.nome || "Professor(a)"}
+               </p>
+             </div>
+           </div>
 
           {/* Ações de Usuário & Carteira de Créditos */}
           <div className="flex items-center gap-3">

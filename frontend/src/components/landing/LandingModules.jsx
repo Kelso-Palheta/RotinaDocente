@@ -34,7 +34,7 @@ export function LandingModules({ onOpenAuth }) {
               Diário Pedagógico: Chega de perder horas calculando médias no Excel.
             </h3>
             <p className="text-base text-[#6070a0] leading-relaxed">
-              Importe listas de turmas a partir de qualquer planilha. O RotinaDocente calcula automaticamente médias ponderadas, contabiliza faltas e gera relatórios individuais de desempenho por aluno.
+              Importe listas de turmas a partir de qualquer planilha. O Gestão Docente calcula automaticamente médias ponderadas, contabiliza faltas e gera relatórios individuais de desempenho por aluno.
             </p>
             <ul className="space-y-3 text-sm text-[#101942] font-semibold">
               <li className="flex items-center gap-3">

@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "RotinaDocente — Toda a sua rotina letiva em 1 clique",
+  title: "Gestão Docente — Toda a sua rotina letiva em 1 clique",
   description: "Plataforma inteligente de gestão e automação pedagógica para professores: diário de notas, calendário letivo com Smart Shift, gerador de atividades BNCC, corretor de redações ENEM e agentes de IA.",
 };
 

@@ -1,5 +1,5 @@
 /**
- * Configuração Oficial de Planos e Entitlements de Módulos — RotinaDocente
+ * Configuração Oficial de Planos e Entitlements de Módulos — Gestão Docente
  */
 
 export const PLANOS_CONFIG = {

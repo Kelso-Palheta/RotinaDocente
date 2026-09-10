@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile — Frontend Next.js 16 (RotinaDocente)
+# Multi-stage Dockerfile — Frontend Next.js 16 (Gestão Docente)
 # Stage 1: Dependências
 FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat

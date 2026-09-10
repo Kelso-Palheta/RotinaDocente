@@ -4,7 +4,7 @@ services:
   # 1. Reverse Proxy & SSL (Nginx)
   nginx:
     image: nginx:alpine
-    container_name: rotinadocente_nginx
+    container_name: gestaodocente_nginx
     restart: always
     ports:
       - "8088:80"
@@ -21,7 +21,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: rotinadocente_api
+    container_name: gestaodocente_api
     restart: always
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 60
     volumes:
@@ -29,9 +29,9 @@ services:
     environment:
       - DJANGO_DEBUG=False
       - DB_ENGINE=mysql
-      - MYSQL_DATABASE=rotinadocente_db
-      - MYSQL_USER=rotina_user
-      - MYSQL_PASSWORD=rotina_secure_pass_2026
+      - MYSQL_DATABASE=gestaodocente_db
+      - MYSQL_USER=gestaodocente_user
+      - MYSQL_PASSWORD=gestaodocente_secure_pass_2026
       - MYSQL_HOST=mysql_db
       - MYSQL_PORT=3306
       - REDIS_URL=redis://redis_broker:6379/0
@@ -47,16 +47,16 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: rotinadocente_celery
+    container_name: gestaodocente_celery
     restart: always
     entrypoint: ["celery", "-A", "core", "worker", "-l", "info", "--concurrency=4"]
     volumes:
       - ./backend:/app
     environment:
       - DB_ENGINE=mysql
-      - MYSQL_DATABASE=rotinadocente_db
-      - MYSQL_USER=rotina_user
-      - MYSQL_PASSWORD=rotina_secure_pass_2026
+      - MYSQL_DATABASE=gestaodocente_db
+      - MYSQL_USER=gestaodocente_user
+      - MYSQL_PASSWORD=gestaodocente_secure_pass_2026
       - MYSQL_HOST=mysql_db
       - MYSQL_PORT=3306
       - REDIS_URL=redis://redis_broker:6379/0
@@ -69,7 +69,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: rotinadocente_frontend
+    container_name: gestaodocente_frontend
     restart: always
     environment:
       - NEXT_PUBLIC_API_URL=http://django_api:8000
@@ -79,13 +79,13 @@ services:
   # 5. Banco de Dados MySQL 8.0
   mysql_db:
     image: mysql:8.0
-    container_name: rotinadocente_mysql
+    container_name: gestaodocente_mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=rotina_root_pass_2026
-      - MYSQL_DATABASE=rotinadocente_db
-      - MYSQL_USER=rotina_user
-      - MYSQL_PASSWORD=rotina_secure_pass_2026
+      - MYSQL_ROOT_PASSWORD=gestaodocente_root_pass_2026
+      - MYSQL_DATABASE=gestaodocente_db
+      - MYSQL_USER=gestaodocente_user
+      - MYSQL_PASSWORD=gestaodocente_secure_pass_2026
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
@@ -99,7 +99,7 @@ services:
   # 6. Redis Broker & Cache
   redis_broker:
     image: redis:7-alpine
-    container_name: rotinadocente_redis
+    container_name: gestaodocente_redis
     restart: always
     ports:
       - "6379:6379"

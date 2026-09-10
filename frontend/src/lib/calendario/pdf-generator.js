@@ -32,7 +32,7 @@ export const generateCalendarioPDF = async (
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
   doc.setTextColor(255, 255, 255);
-  doc.text("RotinaDocente — Cronograma Pedagógico", margin, 18);
+  doc.text("Gestão Docente — Cronograma Pedagógico", margin, 18);
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -147,7 +147,7 @@ export const generateCalendarioPDF = async (
   doc.setFontSize(8);
   doc.setTextColor(150, 160, 180);
   doc.text(
-    `RotinaDocente — Toda a sua rotina letiva em 1 clique | Gerado em ${new Date().toLocaleDateString("pt-BR")}`,
+    `Gestão Docente — Toda a sua rotina letiva em 1 clique | Gerado em ${new Date().toLocaleDateString("pt-BR")}`,
     pageWidth / 2,
     pageHeight - 8,
     { align: "center" }

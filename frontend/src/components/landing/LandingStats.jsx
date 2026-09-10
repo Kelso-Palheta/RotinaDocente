@@ -8,7 +8,7 @@ export function LandingStats() {
       name: "Prof. Marcos Andrade",
       role: "Professor de Língua Portuguesa e Redação",
       school: "Colégio Santa Cecília • São Paulo/SP",
-      text: "Eu gastava quase todo o meu domingo corrigindo 140 redações. Com o RotinaDocente, a IA faz a primeira triagem por competência com uma precisão incrível. Economizo mais de 10 horas semanais.",
+      text: "Eu gastava quase todo o meu domingo corrigindo 140 redações. Com o Gestão Docente, a IA faz a primeira triagem por competência com uma precisão incrível. Economizo mais de 10 horas semanais.",
       stars: 5,
     },
     {

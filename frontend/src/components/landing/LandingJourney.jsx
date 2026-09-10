@@ -93,9 +93,9 @@ export function LandingJourney({ onOpenAuth }) {
           <h2 className="font-head text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
             Do planejamento à nota final: tudo em um só lugar.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-white/70">
-            Chega de usar 5 aplicativos diferentes. O RotinaDocente unifica toda a sua rotina letiva em 4 etapas simples e integradas.
-          </p>
+<p className="mt-4 text-base sm:text-lg text-white/70">
+             Chega de usar 5 aplicativos diferentes. O Gestão Docente unifica toda a sua rotina letiva em 4 etapas simples e integradas.
+           </p>
         </div>
 
         {/* Layout Interativo Stepper + Mockup Stage */}
