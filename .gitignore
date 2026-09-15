@@ -23,6 +23,8 @@
 *.pem
 *.key
 *serviceAccount*.json
+firebase-admin-key.json
+.admin-key.json
 backend/test_logins.js
 
 # === Node.js / npm ===

@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { gerarLoginKey } from '@/utils/diario/loginAluno';
 import { signSessionToken, COOKIE_NAME, TOKEN_EXPIRY_SECONDS } from '@/lib/aluno/session';
 
 export async function POST(request) {
   let loginKey;
   try {
+    const db = getAdminDb();
     const { login } = await request.json();
 
     if (!login || typeof login !== 'string' || login.trim().length < 3) {
@@ -25,19 +25,19 @@ export async function POST(request) {
     loginKey = await gerarLoginKey(cleanLogin);
 
     // 1. Busca na base de login do aluno no Firestore (tenta lowercase e fallback)
-    let snap = await getDoc(doc(db, 'alunoLogin', loginKey));
+    let snap = await db.doc(`alunoLogin/${loginKey}`).get();
 
-    if (!snap.exists()) {
+    if (!snap.exists) {
       // Fallback para hashes legados
       const upperKey = await gerarLoginKey(cleanLogin.toUpperCase());
-      const upperSnap = await getDoc(doc(db, 'alunoLogin', upperKey));
-      if (upperSnap.exists()) {
+      const upperSnap = await db.doc(`alunoLogin/${upperKey}`).get();
+      if (upperSnap.exists) {
         snap = upperSnap;
         loginKey = upperKey;
       }
     }
 
-    if (!snap.exists()) {
+    if (!snap.exists) {
       return NextResponse.json(
         { error: 'Aluno não localizado. Verifique se o nome e a data de nascimento estão corretos.' },
         { status: 404 }
@@ -47,7 +47,7 @@ export async function POST(request) {
     const baseData = snap.data();
 
     // 2. Busca os vínculos com professores
-    const vinculosSnap = await getDocs(collection(db, 'alunoLogin', loginKey, 'vinculos'));
+    const vinculosSnap = await db.collection(`alunoLogin/${loginKey}/vinculos`).get();
     let vinculos = vinculosSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
 
     if (vinculos.length === 0 && baseData.professorUid) {
