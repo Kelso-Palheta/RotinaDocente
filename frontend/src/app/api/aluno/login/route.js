@@ -5,6 +5,7 @@ import { gerarLoginKey } from '@/utils/diario/loginAluno';
 import { signSessionToken, COOKIE_NAME, TOKEN_EXPIRY_SECONDS } from '@/lib/aluno/session';
 
 export async function POST(request) {
+  let loginKey;
   try {
     const { login } = await request.json();
 
@@ -21,7 +22,7 @@ export async function POST(request) {
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
 
-    const loginKey = await gerarLoginKey(cleanLogin);
+    loginKey = await gerarLoginKey(cleanLogin);
 
     // 1. Busca na base de login do aluno no Firestore (tenta lowercase e fallback)
     let snap = await getDoc(doc(db, 'alunoLogin', loginKey));
@@ -32,6 +33,7 @@ export async function POST(request) {
       const upperSnap = await getDoc(doc(db, 'alunoLogin', upperKey));
       if (upperSnap.exists()) {
         snap = upperSnap;
+        loginKey = upperKey;
       }
     }
 
@@ -94,8 +96,11 @@ export async function POST(request) {
     return response;
   } catch (error) {
     console.error('[/api/aluno/login] Erro no servidor:', error);
+    const msg = process.env.NODE_ENV === 'development'
+      ? `Erro interno ao processar o login do aluno: ${error?.message || error}`
+      : 'Erro interno ao processar o login do aluno.';
     return NextResponse.json(
-      { error: 'Erro interno ao processar o login do aluno.' },
+      { error: msg },
       { status: 500 }
     );
   }

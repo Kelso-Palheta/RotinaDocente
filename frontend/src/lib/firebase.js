@@ -1,5 +1,4 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -13,7 +12,20 @@ const firebaseConfig = {
 
 // Initialize Firebase only once
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
+
+// db must ALWAYS initialize — it's needed by server-side API routes.
 const db = getFirestore(app);
+
+// auth is browser-only. Lazy-load so server-side routes don't crash
+// if firebase/auth tries to access browser APIs during init.
+let auth = null;
+if (typeof window !== "undefined") {
+  try {
+    const { getAuth } = await import("firebase/auth");
+    auth = getAuth(app);
+  } catch {
+    auth = null;
+  }
+}
 
 export { app, auth, db };
