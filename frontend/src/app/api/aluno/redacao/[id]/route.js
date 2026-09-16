@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { getSessionFromRequest } from '@/lib/aluno/session';
 
 export async function GET(request, { params }) {
@@ -15,7 +14,6 @@ export async function GET(request, { params }) {
     const { searchParams } = new URL(request.url);
     const professorUid = searchParams.get('professorUid');
 
-    // Valida se o professorUid pertence aos vínculos do aluno
     const vinculoValido = (session.vinculos || []).some(
       (v) => v.professorUid === professorUid || v.id === professorUid
     );
@@ -24,23 +22,22 @@ export async function GET(request, { params }) {
       return NextResponse.json({ error: 'Acesso negado a esta redação.' }, { status: 403 });
     }
 
-    // Busca a redação diretamente no Firestore via servidor
+    const db = getAdminDb();
     let correction = null;
 
     if (professorUid) {
-      const snap = await getDoc(doc(db, 'professores', professorUid, 'correcoes', redacaoId));
-      if (snap.exists()) {
+      const snap = await db.doc(`professores/${professorUid}/correcoes/${redacaoId}`).get();
+      if (snap.exists) {
         correction = { id: snap.id, ...snap.data() };
       }
     }
 
-    // Se não passou professorUid, tenta nos vínculos do aluno
     if (!correction) {
       for (const v of session.vinculos || []) {
         const pUid = v.professorUid || v.id;
         if (pUid) {
-          const snap = await getDoc(doc(db, 'professores', pUid, 'correcoes', redacaoId));
-          if (snap.exists()) {
+          const snap = await db.doc(`professores/${pUid}/correcoes/${redacaoId}`).get();
+          if (snap.exists) {
             correction = { id: snap.id, ...snap.data() };
             break;
           }

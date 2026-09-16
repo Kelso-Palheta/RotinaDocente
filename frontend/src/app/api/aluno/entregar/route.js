@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { getAdminDb } from '@/lib/firebase-admin';
+import { FieldValue } from 'firebase-admin/firestore';
 
 export async function POST(request) {
   try {
@@ -11,9 +11,10 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Dados da entrega incompletos.' }, { status: 400 });
     }
 
-    // 1. Valida se a atividade existe e se ainda está no prazo
-    const atvSnap = await getDoc(doc(db, 'atividades', activityId));
-    if (!atvSnap.exists()) {
+    const db = getAdminDb();
+
+    const atvSnap = await db.doc(`atividades/${activityId}`).get();
+    if (!atvSnap.exists) {
       return NextResponse.json({ error: 'Atividade não encontrada.' }, { status: 404 });
     }
 
@@ -25,9 +26,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'O prazo de entrega desta atividade já expirou.' }, { status: 400 });
     }
 
-    // 2. Grava a entrega no Firestore
     const entregaId = `${activityId}_${alunoId}`;
-    const ref = doc(db, 'entregas', entregaId);
 
     const payload = {
       activityId,
@@ -38,11 +37,11 @@ export async function POST(request) {
       ...(respostas != null ? { respostas } : {}),
       ...(respostaTexto != null ? { respostaTexto } : {}),
       status: 'entregue',
-      submittedAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      submittedAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     };
 
-    await setDoc(ref, payload, { merge: true });
+    await db.doc(`entregas/${entregaId}`).set(payload, { merge: true });
 
     return NextResponse.json({ success: true, entregaId });
   } catch (error) {

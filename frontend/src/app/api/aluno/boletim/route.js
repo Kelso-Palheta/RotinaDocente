@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { getSessionFromRequest } from '@/lib/aluno/session';
 
 export async function GET(request) {
@@ -16,7 +15,6 @@ export async function GET(request) {
     const turmaId = searchParams.get('turmaId');
     const alunoId = searchParams.get('alunoId');
 
-    // Valida se o vínculo solicitado realmente pertence aos vínculos autenticados da sessão
     const vinculoValido = (session.vinculos || []).some(
       (v) =>
         v.professorUid === professorUid ||
@@ -31,31 +29,27 @@ export async function GET(request) {
       );
     }
 
-    // 1. Busca as notas do aluno no Firestore
+    const db = getAdminDb();
+
     const recordId = `${professorUid}_${turmaId}_${alunoId}`;
     let notasData = null;
     try {
-      const notasSnap = await getDoc(doc(db, 'notasAluno', recordId));
-      if (notasSnap.exists()) {
+      const notasSnap = await db.doc(`notasAluno/${recordId}`).get();
+      if (notasSnap.exists) {
         notasData = notasSnap.data();
       }
     } catch (e) {
       console.warn('Erro ao buscar notas:', e.message);
     }
 
-    // 2. Busca as atividades atribuídas
     let atividades = [];
     try {
-      const atvsRef = collection(db, 'atividades');
-      const q = query(
-        atvsRef,
-        where('professorId', '==', professorUid),
-        where('turmas', 'array-contains', turmaId)
-      );
-      const atvsSnap = await getDocs(q);
-      atividades = atvsSnap.docs.map((d) => {
+      const snap = await db.collection('atividades')
+        .where('professorId', '==', professorUid)
+        .where('turmas', 'array-contains', turmaId)
+        .get();
+      atividades = snap.docs.map((d) => {
         const data = d.data();
-        // Remove gabaritos e rubricas sensíveis no servidor
         delete data.gabarito;
         if (Array.isArray(data.questoes)) {
           data.questoes = data.questoes.map(({ gabarito: _g, rubrica: _r, ...rest }) => rest);
@@ -66,22 +60,20 @@ export async function GET(request) {
       console.warn('Erro ao buscar atividades:', e.message);
     }
 
-    // 3. Busca as entregas feitas pelo aluno
     let entregas = [];
     try {
-      const entregasRef = collection(db, 'entregas');
-      const qEntregas = query(entregasRef, where('alunoId', '==', alunoId));
-      const entregasSnap = await getDocs(qEntregas);
-      entregas = entregasSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      const snap = await db.collection('entregas')
+        .where('alunoId', '==', alunoId)
+        .get();
+      entregas = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } catch (e) {
       console.warn('Erro ao buscar entregas:', e.message);
     }
 
-    // 4. Busca a redação corrigida do aluno (se houver)
     let redacao = null;
     try {
-      const redacaoSnap = await getDoc(doc(db, 'professores', professorUid, 'correcoes', session.loginKey));
-      if (redacaoSnap.exists()) {
+      const redacaoSnap = await db.doc(`professores/${professorUid}/correcoes/${session.loginKey}`).get();
+      if (redacaoSnap.exists) {
         redacao = { id: redacaoSnap.id, ...redacaoSnap.data() };
       }
     } catch (e) {
