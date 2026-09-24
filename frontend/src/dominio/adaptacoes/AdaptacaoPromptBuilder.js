@@ -34,6 +34,8 @@ export class AdaptacaoPromptBuilder {
       anoEscolar = 'Ensino Regular',
       aluno = {},
       configuracoesVisuais = {},
+      quantidadeQuestoes = modo === 'criar' ? 5 : 'todas',
+      tiposQuestoes = [],
     } = params;
 
     const necessidades = aluno.necessidades || [];
@@ -47,6 +49,17 @@ export class AdaptacaoPromptBuilder {
     });
 
     const categoriasNomes = harmonizacao.categorias.map((c) => c.nome).join(', ');
+
+    const textoQuantidadeQuestoes =
+      quantidadeQuestoes === 'todas'
+        ? 'QUANTIDADE DE QUESTÕES: Adapte todas as questões presentes no conteúdo original da atividade regular, mantendo a sequência.'
+        : `QUANTIDADE DE QUESTÕES: ${quantidadeQuestoes} questões completas e sequenciais (avaliação/atividade integral).`;
+
+    const textoTiposQuestoes =
+      Array.isArray(tiposQuestoes) && tiposQuestoes.length > 0
+        ? `TIPOS DE QUESTÕES PRIORIZADOS: ${tiposQuestoes.join(', ')}.`
+        : '';
+
 
     return `Você é um Especialista Sênior em Educação Especial Inclusiva, Desenho Universal para a Aprendizagem (DUA) e Planejamento Educacional Individualizado (PEI), com profundo domínio da Lei Brasileira de Inclusão (Lei nº 13.146/2015) e das diretrizes pedagógicas da BNCC.
 
@@ -103,7 +116,9 @@ ${
   5) Critérios flexibilizados de avaliação (evidências de aprendizagem além da escrita convencional).
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-3. MATÉRIA-PRIMA DA ATIVIDADE:
+3. MATÉRIA-PRIMA DA ATIVIDADE E COMPOSIÇÃO:
+- ${textoQuantidadeQuestoes}
+${textoTiposQuestoes ? `- ${textoTiposQuestoes}` : ''}
 ${
   modo === 'adaptar'
     ? `MODO ADAPTAÇÃO: Adapte o seguinte conteúdo/atividade original enviado pelo professor:\n"""\n${conteudoBase}\n"""`
@@ -112,7 +127,12 @@ ${
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 4. FORMATO DE SAÍDA ESTRITAMENTE JSON:
-Responda APENAS com um objeto JSON válido (sem texto introdutório nem marcações fora do bloco json) no seguinte formato exato:
+Responda APENAS com um objeto JSON válido (sem texto introdutório nem marcações fora do bloco json).
+IMPORTANTE SOBRE AS QUESTÕES (RN-37):
+No array "questoes", gere ${quantidadeQuestoes === 'todas' ? 'todas as questões adaptadas a partir do conteúdo original' : `EXATAMENTE ${quantidadeQuestoes} questões completas e sequenciais (numeradas de 1 a ${quantidadeQuestoes})`}.
+Não interrompa a resposta na metade e complete toda a estrutura JSON.
+
+Formato esperado:
 {
   "sucesso": true,
   "titulo": "Título claro e convidativo da atividade",
@@ -142,6 +162,7 @@ Responda APENAS com um objeto JSON válido (sem texto introdutório nem marcaç�
       }
     ]
   },
+
   "guiaMediacao": {
     "objetivoPedagogicoInalterado": "Habilidade ou conceito central que o aluno está desenvolvendo",
     "tempoEstimado": "Ex: 25 a 35 minutos com pausa após a questão 2",

@@ -171,3 +171,13 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 
 6. **RN-36 (Acessibilidade Gráfica e Tipográfica):**
    - Textos adaptados para estudantes com dislexia e baixa visão devem utilizar alinhamento à esquerda (não justificado), entrelinhas de no mínimo 1.5 e fontes sem serifa de alta legibilidade.
+
+7. **RN-37 (Composição de Atividades e Provas Completas com Múltiplas Questões):**
+   - O professor pode configurar a quantidade exata de questões da atividade/prova adaptada (ex: 1 a 10 questões, ou todas as questões da prova original colada).
+   - O gerador DUA deve estruturar cada questão com numeração sequencial, enunciado direto sem ambiguidade, apoio visual/audiodescrição descrita, alternativas com distratores calibrados e scaffolding (dica de apoio).
+
+8. **RN-38 (Banco de Atividades Adaptadas e Reaproveitamento por Perfil DUA):**
+   - Toda atividade gerada pode ser salva no repositório persistente do professor (`professores/{userId}/atividades_adaptadas`).
+   - As atividades são indexadas pelas categorias de deficiência (`necessidades`), disciplina e ano escolar.
+   - O professor pode reaproveitar uma atividade completa para outro estudante com as mesmas necessidades pedagógicas (associando o novo nome do estudante) ou selecionar questões específicas para compor uma nova prova adaptada.
+

@@ -31,10 +31,12 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-16 (RN-30):** Validar mascaramento de chaves na interface (`sk-...ABCD`) e sanitização de payloads.
 
 ### Módulo: Atividades Adaptadas & Inclusão (`tests/unit/atividades_adaptadas.test.js`)
-- [ ] **UT-17 (RN-31 & RN-33):** Validar entidade `AlunoInclusivo` (perfil PEI), obrigatoriedade de ao menos 1 necessidade, validação de níveis de suporte (1..3) e sanitização.
-- [ ] **UT-18 (RN-32):** Validar motor de harmonização de necessidades múltiplas (detecção de sinergias e regras de não-conflito em comorbidades como TEA + DI, Baixa Visão + Motora, Cegueira + Multimodal).
-- [ ] **UT-19 (RN-33):** Validar persistência híbrida de alunos PEI (`AlunoAdaptadoRepository`) com fallback local e sincronização segura com Firestore.
-- [ ] **UT-20 (RN-35 & RN-36):** Validar gerador de prompt especializado DUA, checando a inclusão obrigatória do Guia de Mediação Pedagógica e parâmetros de diagramação acessível.
+- [x] **UT-17 (RN-31 & RN-33):** Validar entidade `AlunoInclusivo` (perfil PEI), obrigatoriedade de ao menos 1 necessidade, validação de níveis de suporte (1..3) e sanitização.
+- [x] **UT-18 (RN-32):** Validar motor de harmonização de necessidades múltiplas (detecção de sinergias e regras de não-conflito em comorbidades como TEA + DI, Baixa Visão + Motora, Cegueira + Multimodal).
+- [x] **UT-19 (RN-33):** Validar persistência híbrida de alunos PEI (`AlunoAdaptadoRepository`) com fallback local e sincronização segura com Firestore.
+- [x] **UT-20 (RN-35 & RN-36):** Validar gerador de prompt especializado DUA, checando a inclusão obrigatória do Guia de Mediação Pedagógica e parâmetros de diagramação acessível.
+- [x] **UT-21 (RN-37):** Validar configuração de múltiplas questões no `AdaptacaoPromptBuilder` (montagem de prova/lista completa com 1 a 10 questões, ou todas as questões da prova original).
+- [x] **UT-22 (RN-38):** Validar persistência híbrida e filtragem por deficiência no `AtividadeAdaptadaRepository` (salvar, listar por deficiência, reaproveitar e clonar para novo estudante).
 
 ---
 
@@ -43,7 +45,8 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [ ] **IT-02:** Testar serialização e deserialização do backup em JSON das turmas.
 - [x] **IT-03 (RN-24 & RN-25):** Testar sincronização de grade horária e restore via repositório.
 - [x] **IT-04 (RN-27 & RN-29):** Testar gateway unificado de IA roteando para Gemini, OpenAI, Anthropic, Maritaca e OpenRouter com headers do usuário e rejeitando ausência de chave.
-- [ ] **IT-05 (RN-34):** Testar endpoint `POST /api/adaptacoes/gerar` orquestrando conteúdo, perfil multi-select e entrega de atividade adaptada + guia de mediação.
+- [x] **IT-05 (RN-34):** Testar endpoint `POST /api/adaptacoes/gerar` orquestrando conteúdo, perfil multi-select e entrega de atividade adaptada + guia de mediação.
+- [x] **IT-06 (RN-37 & RN-38):** Testar endpoint `POST /api/adaptacoes/gerar` aceitando quantidade configurável de questões e suporte a reaproveitamento.
 
 ---
 

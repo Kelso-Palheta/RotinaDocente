@@ -26,6 +26,8 @@ export async function POST(request) {
       anoEscolar = 'Ensino Regular',
       aluno = {},
       configuracoesVisuais = {},
+      quantidadeQuestoes = modo === 'criar' ? 5 : 'todas',
+      tiposQuestoes = [],
     } = body;
 
     if (!['adaptar', 'criar'].includes(modo)) {
@@ -71,18 +73,21 @@ export async function POST(request) {
       anoEscolar,
       aluno: alunoCompleto,
       configuracoesVisuais,
+      quantidadeQuestoes,
+      tiposQuestoes,
     });
 
     const aiResponseText = await callAI({
       systemPrompt: 'Você é um especialista em DUA (Desenho Universal para a Aprendizagem) e Educação Inclusiva. Responda estritamente em formato JSON válido.',
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.3,
-      maxTokens: 4000,
+      maxTokens: 8192,
       userConfig,
     });
 
     // Sanitiza e extrai JSON caso a IA envolva em blocos markdown ```json ... ```
     let cleanJson = aiResponseText.trim();
+
     if (cleanJson.startsWith('```')) {
       cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim();
     }

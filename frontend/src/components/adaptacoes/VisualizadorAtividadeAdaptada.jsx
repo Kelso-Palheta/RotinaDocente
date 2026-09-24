@@ -18,12 +18,23 @@ import {
   Layers,
   ChevronDown,
   ChevronUp,
+  BookmarkPlus,
+  BookmarkCheck,
+  FolderOpen,
 } from "lucide-react";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
 
-export function VisualizadorAtividadeAdaptada({ resultado, onVoltar }) {
+export function VisualizadorAtividadeAdaptada({
+  resultado,
+  onVoltar,
+  onSalvarNoBanco,
+  onAbrirBanco,
+  salvoNoBanco = false,
+}) {
   const [abaAtiva, setAbaAtiva] = useState("aluno"); // 'aluno' | 'mediacao'
   const [copiado, setCopiado] = useState(false);
+  const [salvandoLocal, setSalvandoLocal] = useState(false);
+
 
   // Configurações visuais de acessibilidade em tempo real (RN-36)
   const [tamanhoFonte, setTamanhoFonte] = useState("16px");
@@ -106,8 +117,53 @@ export function VisualizadorAtividadeAdaptada({ resultado, onVoltar }) {
           </button>
         </div>
 
-        {/* Botões de Exportação */}
-        <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+        {/* Botões de Ações e Exportação */}
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+          {onSalvarNoBanco && (
+            <button
+              id="btn-salvar-no-banco"
+              type="button"
+              disabled={salvoNoBanco || salvandoLocal}
+              onClick={async () => {
+                setSalvandoLocal(true);
+                try {
+                  await onSalvarNoBanco(resultado);
+                } finally {
+                  setSalvandoLocal(false);
+                }
+              }}
+              className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                salvoNoBanco
+                  ? "bg-emerald-50 border-emerald-300 text-emerald-700"
+                  : "bg-white border-[#dce0f0] hover:border-[#f60c49]/40 text-[#101942] hover:text-[#d40840]"
+              }`}
+            >
+              {salvoNoBanco ? (
+                <>
+                  <BookmarkCheck size={15} className="text-emerald-600" />
+                  Salvo no Banco
+                </>
+              ) : (
+                <>
+                  <BookmarkPlus size={15} className="text-[#f60c49]" />
+                  {salvandoLocal ? "Salvando..." : "Salvar no Banco"}
+                </>
+              )}
+            </button>
+          )}
+
+          {onAbrirBanco && (
+            <button
+              type="button"
+              onClick={onAbrirBanco}
+              className="px-3 py-2 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white text-[#101942] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
+              title="Abrir Banco de Atividades para reaproveitar para outros alunos"
+            >
+              <FolderOpen size={15} className="text-[#6070a0]" />
+              <span className="hidden sm:inline">Ver no</span> Banco
+            </button>
+          )}
+
           <button
             id="btn-copiar-atividade"
             type="button"

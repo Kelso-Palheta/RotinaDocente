@@ -153,4 +153,70 @@ describe('IT-05 (RN-31, RN-32, RN-35): Endpoint de Geração de Atividades Adapt
 
     globalThis.fetch = originalFetch;
   });
+
+  it('IT-06 (RN-37): deve aceitar quantidadeQuestoes e tiposQuestoes configuráveis e retornar prova completa', async () => {
+    const mockIAOutput = JSON.stringify({
+      sucesso: true,
+      titulo: 'Avaliação Adaptada de História',
+      disciplina: 'História',
+      anoEscolar: '9º Ano',
+      aluno: {
+        nome: 'Mariana',
+        necessidades: ['dislexia', 'tdah'],
+      },
+      atividadeAdaptada: {
+        instrucoesAluno: 'Responda as 3 questões.',
+        questoes: [
+          { numero: 1, enunciado: 'Questão 1 adaptada', tipo: 'multipla_escolha', alternativas: ['A', 'B', 'C'] },
+          { numero: 2, enunciado: 'Questão 2 adaptada', tipo: 'associacao', alternativas: [] },
+          { numero: 3, enunciado: 'Questão 3 adaptada', tipo: 'verdadeiro_falso', alternativas: ['V', 'F'] },
+        ],
+      },
+      guiaMediacao: {
+        objetivoPedagogicoInalterado: 'Compreender o período republicano.',
+        tempoEstimado: '40 minutos',
+      },
+    });
+
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        choices: [{ message: { content: mockIAOutput } }],
+      }),
+    });
+
+    const req = new Request('http://localhost/api/adaptacoes/gerar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-user-ai-provider': 'gemini',
+        'x-user-ai-key': 'fake-gemini-key',
+      },
+      body: JSON.stringify({
+        modo: 'criar',
+        tema: 'Segunda Guerra Mundial',
+        disciplina: 'História',
+        anoEscolar: '9º Ano',
+        quantidadeQuestoes: 3,
+        tiposQuestoes: ['multipla_escolha', 'associacao', 'verdadeiro_falso'],
+        aluno: {
+          nome: 'Mariana',
+          necessidades: ['dislexia', 'tdah'],
+          nivelSuporte: 1,
+        },
+      }),
+    });
+
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+
+    const data = await res.json();
+    expect(data.sucesso).toBe(true);
+    expect(data.atividadeAdaptada.questoes).toHaveLength(3);
+
+    globalThis.fetch = originalFetch;
+  });
 });
+

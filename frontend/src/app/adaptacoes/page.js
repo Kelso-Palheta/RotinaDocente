@@ -7,8 +7,10 @@ import { useAuth } from "@/lib/auth-context";
 import { db } from "@/lib/firebase";
 import { useAIConfig } from "@/hooks/useAIConfig";
 import { AlunoAdaptadoRepository } from "@/infraestrutura/adaptacoes/AlunoAdaptadoRepository";
+import { AtividadeAdaptadaRepository } from "@/infraestrutura/adaptacoes/AtividadeAdaptadaRepository";
 import { SeletorNecessidades } from "@/components/adaptacoes/SeletorNecessidades";
 import { ModalAlunoPEI } from "@/components/adaptacoes/ModalAlunoPEI";
+import { ModalBancoAtividades } from "@/components/adaptacoes/ModalBancoAtividades";
 import { VisualizadorAtividadeAdaptada } from "@/components/adaptacoes/VisualizadorAtividadeAdaptada";
 import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
 import {
@@ -25,6 +27,9 @@ import {
   Cpu,
   Layers,
   HeartHandshake,
+  FolderOpen,
+  ListOrdered,
+  CheckSquare,
 } from "lucide-react";
 
 export default function AdaptacoesPage() {
@@ -36,8 +41,13 @@ export default function AdaptacoesPage() {
     return new AlunoAdaptadoRepository({ firestoreDb: db });
   }, []);
 
+  const atividadeRepo = useMemo(() => {
+    return new AtividadeAdaptadaRepository({ firestoreDb: db });
+  }, []);
+
   // Modais
   const [modalPEIAberto, setModalPEIAberto] = useState(false);
+  const [modalBancoAberto, setModalBancoAberto] = useState(false);
   const [modalIAAberto, setModalIAAberto] = useState(false);
 
   // Estado do formulário
@@ -47,6 +57,15 @@ export default function AdaptacoesPage() {
   const [disciplina, setDisciplina] = useState("Língua Portuguesa");
   const [anoEscolar, setAnoEscolar] = useState("8º Ano");
   const [habilidadeBNCC, setHabilidadeBNCC] = useState("");
+
+  // Configuração de Questões (RN-37)
+  const [quantidadeQuestoes, setQuantidadeQuestoes] = useState(5);
+  const [adaptarTodasQuestoes, setAdaptarTodasQuestoes] = useState(true);
+  const [tiposQuestoes, setTiposQuestoes] = useState([
+    "multipla_escolha",
+    "associacao",
+    "verdadeiro_falso",
+  ]);
 
   // Perfil do estudante selecionado ou avulso
   const [estudantePEI, setEstudantePEI] = useState(null);
@@ -61,6 +80,36 @@ export default function AdaptacoesPage() {
   const [progressoMsg, setProgressoMsg] = useState("");
   const [erro, setErro] = useState("");
   const [resultado, setResultado] = useState(null);
+  const [salvoNoBanco, setSalvoNoBanco] = useState(false);
+
+  // Toggle de formato de questão
+  const handleToggleTipoQuestao = (tipoId) => {
+    setTiposQuestoes((prev) =>
+      prev.includes(tipoId) ? prev.filter((t) => t !== tipoId) : [...prev, tipoId]
+    );
+  };
+
+  // Salvar no repositório persistente do professor (RN-38)
+  const handleSalvarNoBanco = async (resultadoAtiv) => {
+    try {
+      const aSalvar = {
+        ...resultadoAtiv,
+        necessidades: resultadoAtiv.aluno?.necessidades || necessidades,
+        alunoNome: resultadoAtiv.aluno?.nome || nomeAluno || estudantePEI?.nome || "Estudante",
+        alunoId: estudantePEI?.id || "",
+        disciplina: resultadoAtiv.disciplina || disciplina,
+        anoEscolar: resultadoAtiv.anoEscolar || anoEscolar,
+        quantidadeQuestoes: Array.isArray(resultadoAtiv.atividadeAdaptada?.questoes)
+          ? resultadoAtiv.atividadeAdaptada.questoes.length
+          : quantidadeQuestoes,
+      };
+      await atividadeRepo.salvarAtividade(user?.uid || "anonimo", aSalvar);
+      setSalvoNoBanco(true);
+    } catch (err) {
+      console.error("Erro ao salvar no banco:", err);
+      alert("Erro ao salvar atividade no banco: " + err.message);
+    }
+  };
 
   // Toggle de categoria no Seletor
   const handleToggleNecessidade = (id) => {
@@ -68,6 +117,7 @@ export default function AdaptacoesPage() {
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   };
+
 
   // Quando o professor escolhe um aluno do banco PEI
   const handleSelectAlunoPEI = (aluno) => {
@@ -130,6 +180,11 @@ export default function AdaptacoesPage() {
         setProgressoMsg("Estruturando o Guia de Mediação Docente (RN-35)...");
       }, 2500);
 
+      const qtdFinal =
+        modo === "adaptar" && adaptarTodasQuestoes
+          ? "todas"
+          : Math.max(1, Math.min(15, Number(quantidadeQuestoes) || 5));
+
       const res = await fetch("/api/adaptacoes/gerar", {
         method: "POST",
         headers,
@@ -140,6 +195,8 @@ export default function AdaptacoesPage() {
           habilidadeBNCC,
           disciplina,
           anoEscolar,
+          quantidadeQuestoes: qtdFinal,
+          tiposQuestoes,
           aluno: {
             nome: nomeAluno || (estudantePEI ? estudantePEI.nome : "Estudante"),
             necessidades,
@@ -157,6 +214,7 @@ export default function AdaptacoesPage() {
       }
 
       setResultado(data);
+      setSalvoNoBanco(false);
       // Rola para o topo suavemente
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
@@ -196,6 +254,18 @@ export default function AdaptacoesPage() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Botão Banco de Atividades Adaptadas (RN-38) */}
+            <button
+              id="btn-abrir-banco-atividades"
+              type="button"
+              onClick={() => setModalBancoAberto(true)}
+              className="px-3.5 py-1.5 rounded-xl border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white hover:bg-[#fff2f6] text-xs font-bold text-[#101942] hover:text-[#d40840] transition-all flex items-center gap-1.5 shadow-2xs"
+              title="Acessar o Banco de Atividades salvas e reaproveitar para novos alunos"
+            >
+              <FolderOpen size={15} className="text-[#f60c49]" />
+              <span className="hidden sm:inline">Banco de</span> Atividades
+            </button>
+
             {/* Botão Banco de Estudantes PEI */}
             <button
               id="btn-abrir-banco-pei"
@@ -245,7 +315,13 @@ export default function AdaptacoesPage() {
               </span>
             </div>
 
-            <VisualizadorAtividadeAdaptada resultado={resultado} onVoltar={() => setResultado(null)} />
+            <VisualizadorAtividadeAdaptada
+              resultado={resultado}
+              onVoltar={() => setResultado(null)}
+              onSalvarNoBanco={handleSalvarNoBanco}
+              salvoNoBanco={salvoNoBanco}
+              onAbrirBanco={() => setModalBancoAberto(true)}
+            />
           </div>
         ) : (
           <div className="space-y-8">
@@ -396,6 +472,142 @@ export default function AdaptacoesPage() {
                     />
                   </div>
                 )}
+
+                {/* Composição da Prova / Quantidade de Questões (RN-37) */}
+                <div className="pt-4 border-t border-[#dce0f0] space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <label className="text-xs font-bold text-[#101942] flex items-center gap-2">
+                      <ListOrdered size={16} className="text-[#f60c49]" />
+                      Quantidade de Questões da Atividade / Prova Completa (RN-37)
+                    </label>
+                    <span className="text-[11px] text-[#6070a0]">
+                      Monte listas de exercícios ou avaliações completas
+                    </span>
+                  </div>
+
+                  {modo === "adaptar" ? (
+                    <div className="space-y-3">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <label className="flex items-center gap-2 text-xs font-semibold text-[#101942] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="adaptar_qtd"
+                            checked={adaptarTodasQuestoes}
+                            onChange={() => setAdaptarTodasQuestoes(true)}
+                            className="text-[#f60c49] focus:ring-[#f60c49]"
+                          />
+                          <span>Adaptar todas as questões do conteúdo original</span>
+                        </label>
+                        <label className="flex items-center gap-2 text-xs font-semibold text-[#101942] cursor-pointer">
+                          <input
+                            type="radio"
+                            name="adaptar_qtd"
+                            checked={!adaptarTodasQuestoes}
+                            onChange={() => setAdaptarTodasQuestoes(false)}
+                            className="text-[#f60c49] focus:ring-[#f60c49]"
+                          />
+                          <span>Definir quantidade específica de questões</span>
+                        </label>
+                      </div>
+
+                      {!adaptarTodasQuestoes && (
+                        <div className="flex items-center gap-2 pl-4">
+                          {[1, 3, 5, 8, 10].map((num) => (
+                            <button
+                              key={num}
+                              type="button"
+                              onClick={() => setQuantidadeQuestoes(num)}
+                              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                quantidadeQuestoes === num
+                                  ? "bg-[#f60c49] text-white shadow-xs"
+                                  : "bg-[#f7f8fc] border border-[#dce0f0] text-[#6070a0] hover:text-[#101942]"
+                              }`}
+                            >
+                              {num} {num === 1 ? "questão" : "questões"}
+                            </button>
+                          ))}
+                          <input
+                            type="number"
+                            min="1"
+                            max="15"
+                            value={quantidadeQuestoes}
+                            onChange={(e) => setQuantidadeQuestoes(Number(e.target.value) || 1)}
+                            className="w-16 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-2 py-1.5 text-xs font-bold text-center text-[#101942] outline-none"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex flex-wrap items-center gap-2">
+                      {[1, 3, 5, 8, 10].map((num) => (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => setQuantidadeQuestoes(num)}
+                          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            quantidadeQuestoes === num
+                              ? "bg-[#f60c49] text-white shadow-xs"
+                              : "bg-[#f7f8fc] border border-[#dce0f0] text-[#6070a0] hover:text-[#101942]"
+                          }`}
+                        >
+                          {num} {num === 1 ? "questão" : "questões"}
+                        </button>
+                      ))}
+                      <div className="flex items-center gap-1.5 ml-1">
+                        <span className="text-[11px] text-[#6070a0]">Outro:</span>
+                        <input
+                          type="number"
+                          min="1"
+                          max="15"
+                          value={quantidadeQuestoes}
+                          onChange={(e) => setQuantidadeQuestoes(Number(e.target.value) || 1)}
+                          className="w-16 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-2 py-1.5 text-xs font-bold text-center text-[#101942] outline-none"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Formatos / Tipos de Questões Aceitos */}
+                  <div className="space-y-2 pt-2">
+                    <label className="text-xs font-bold text-[#101942] block">
+                      Formatos Pedagógicos Priorizados (Ação & Expressão DUA):
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                      {[
+                        { id: "multipla_escolha", label: "Múltipla Escolha (3 itens)", desc: "Distratores calibrados" },
+                        { id: "associacao", label: "Associação / Colunas", desc: "Ligação direta de pares" },
+                        { id: "verdadeiro_falso", label: "Verdadeiro ou Falso", desc: "Afirmações curtas (V/F)" },
+                        { id: "discursiva_curta", label: "Discursiva com Apoio", desc: "Com início de resposta" },
+                      ].map((tipo) => {
+                        const ativo = tiposQuestoes.includes(tipo.id);
+                        return (
+                          <button
+                            key={tipo.id}
+                            type="button"
+                            onClick={() => handleToggleTipoQuestao(tipo.id)}
+                            className={`p-2.5 rounded-xl border text-left transition-all flex items-start gap-2 ${
+                              ativo
+                                ? "bg-[#fff2f6] border-[#f60c49]/40 text-[#101942]"
+                                : "bg-[#f7f8fc] border-[#dce0f0] text-[#6070a0] hover:border-slate-300"
+                            }`}
+                          >
+                            <div
+                              className={`w-4 h-4 rounded-md border mt-0.5 flex items-center justify-center flex-shrink-0 transition-colors ${
+                                ativo ? "bg-[#f60c49] border-[#f60c49] text-white" : "border-[#dce0f0] bg-white"
+                              }`}
+                            >
+                              {ativo && <CheckCircle2 size={12} />}
+                            </div>
+                            <div className="space-y-0.5">
+                              <span className="text-xs font-bold block leading-tight">{tipo.label}</span>
+                              <span className="text-[10px] text-[#6070a0] block leading-tight">{tipo.desc}</span>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Card 2: Perfil do Estudante & Seletor de Necessidades DUA */}
@@ -517,6 +729,20 @@ export default function AdaptacoesPage() {
         repository={repository}
         userId={user?.uid || "anonimo"}
         onSelectAluno={handleSelectAlunoPEI}
+      />
+
+      {/* Modal Banco de Atividades Adaptadas (RN-38) */}
+      <ModalBancoAtividades
+        isOpen={modalBancoAberto}
+        onClose={() => setModalBancoAberto(false)}
+        repository={atividadeRepo}
+        alunoRepository={repository}
+        userId={user?.uid || "anonimo"}
+        onCarregarAtividade={(ativ) => {
+          setResultado(ativ);
+          setSalvoNoBanco(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
       />
 
       {/* Modal Conectar IA */}

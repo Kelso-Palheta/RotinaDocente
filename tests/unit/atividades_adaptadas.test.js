@@ -396,6 +396,223 @@ describe('UT-20 (RN-31, RN-32, RN-35): AdaptacaoPromptBuilder', () => {
     expect(prompt).toContain('TEA');
     expect(prompt).toContain('Ecossistemas e Cadeia Alimentar');
   });
+
+  it('UT-21 (RN-37): deve configurar quantidade específica de questões e tipos solicitados no prompt', async () => {
+    const { AdaptacaoPromptBuilder } = await import(
+      '../../frontend/src/dominio/adaptacoes/AdaptacaoPromptBuilder'
+    );
+
+    const prompt = AdaptacaoPromptBuilder.construir({
+      modo: 'criar',
+      tema: 'Revolução Industrial',
+      disciplina: 'História',
+      anoEscolar: '8º Ano',
+      quantidadeQuestoes: 5,
+      tiposQuestoes: ['multipla_escolha', 'associacao', 'verdadeiro_falso'],
+      aluno: {
+        nome: 'Sofia',
+        necessidades: ['tdah', 'dislexia'],
+        nivelSuporte: 1,
+      },
+    });
+
+    expect(prompt).toContain('QUANTIDADE DE QUESTÕES: 5 questões');
+    expect(prompt).toContain('TIPOS DE QUESTÕES PRIORIZADOS: multipla_escolha, associacao, verdadeiro_falso');
+    expect(prompt).toContain('EXATAMENTE 5 questões completas');
+  });
+
+  it('UT-21 (RN-37): deve instruir adaptação de todas as questões do conteúdo original quando quantidade for "todas"', async () => {
+    const { AdaptacaoPromptBuilder } = await import(
+      '../../frontend/src/dominio/adaptacoes/AdaptacaoPromptBuilder'
+    );
+
+    const prompt = AdaptacaoPromptBuilder.construir({
+      modo: 'adaptar',
+      conteudoBase: 'Questão 1: ... Questão 2: ... Questão 3: ...',
+      quantidadeQuestoes: 'todas',
+      aluno: {
+        nome: 'Enzo',
+        necessidades: ['tea'],
+      },
+    });
+
+    expect(prompt).toContain('todas as questões');
+  });
 });
+
+describe('UT-22 (RN-38): Banco de Atividades Adaptadas e Reaproveitamento (AtividadeAdaptadaRepository)', () => {
+  const mockLocalStorage = (() => {
+    let store = {};
+    return {
+      getItem: (key) => store[key] || null,
+      setItem: (key, val) => {
+        store[key] = String(val);
+      },
+      removeItem: (key) => {
+        delete store[key];
+      },
+      clear: () => {
+        store = {};
+      },
+    };
+  })();
+
+  const originalLocalStorage = global.localStorage;
+
+  beforeEach(() => {
+    mockLocalStorage.clear();
+    global.localStorage = mockLocalStorage;
+  });
+
+  afterEach(() => {
+    global.localStorage = originalLocalStorage;
+  });
+
+  it('deve salvar e recuperar atividade adaptada completa no repositório híbrido', async () => {
+    const { AtividadeAdaptadaRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AtividadeAdaptadaRepository'
+    );
+    const repo = new AtividadeAdaptadaRepository();
+
+    const atividade = {
+      titulo: 'Avaliação de Ciências: Cadeia Alimentar',
+      disciplina: 'Ciências',
+      anoEscolar: '6º Ano',
+      necessidades: ['tea', 'di'],
+      nivelSuporte: 2,
+      alunoId: 'aluno-1',
+      alunoNome: 'Lucas',
+      quantidadeQuestoes: 3,
+      atividadeAdaptada: {
+        instrucoesAluno: 'Faça com calma.',
+        questoes: [
+          { numero: 1, enunciado: 'O que os herbívoros comem?', tipo: 'multipla_escolha', alternativas: ['A) Plantas', 'B) Carne'] },
+          { numero: 2, enunciado: 'Ligue os animais à sua alimentação', tipo: 'associacao', alternativas: [] },
+          { numero: 3, enunciado: 'Plantas produzem seu alimento?', tipo: 'verdadeiro_falso', alternativas: ['V', 'F'] },
+        ],
+      },
+      guiaMediacao: {
+        objetivoPedagogicoInalterado: 'Identificar níveis tróficos.',
+        tempoEstimado: '30 minutos',
+      },
+    };
+
+    const salva = await repo.salvarAtividade('prof-test', atividade);
+    expect(salva.id).toBeDefined();
+    expect(salva.createdAt).toBeDefined();
+    expect(salva.quantidadeQuestoes).toBe(3);
+
+    const lista = await repo.listarAtividades('prof-test');
+    expect(lista).toHaveLength(1);
+    expect(lista[0].titulo).toBe('Avaliação de Ciências: Cadeia Alimentar');
+    expect(lista[0].atividadeAdaptada.questoes).toHaveLength(3);
+  });
+
+  it('deve filtrar atividades por necessidades de deficiência para reaproveitamento', async () => {
+    const { AtividadeAdaptadaRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AtividadeAdaptadaRepository'
+    );
+    const repo = new AtividadeAdaptadaRepository();
+
+    await repo.salvarAtividade('prof-test', {
+      id: 'ativ-tea',
+      titulo: 'Atividade A - TEA',
+      disciplina: 'Matemática',
+      necessidades: ['tea'],
+      atividadeAdaptada: { questoes: [{ numero: 1, enunciado: 'Q1' }] },
+    });
+
+    await repo.salvarAtividade('prof-test', {
+      id: 'ativ-baixa-visao',
+      titulo: 'Atividade B - Baixa Visão',
+      disciplina: 'Português',
+      necessidades: ['baixa_visao'],
+      atividadeAdaptada: { questoes: [{ numero: 1, enunciado: 'Q1' }] },
+    });
+
+    await repo.salvarAtividade('prof-test', {
+      id: 'ativ-multipla',
+      titulo: 'Atividade C - TEA + DI',
+      disciplina: 'História',
+      necessidades: ['tea', 'di'],
+      atividadeAdaptada: { questoes: [{ numero: 1, enunciado: 'Q1' }] },
+    });
+
+    // Filtra apenas por 'tea': deve trazer 'ativ-tea' e 'ativ-multipla'
+    const filtradasTEA = await repo.listarAtividades('prof-test', { filtroNecessidades: ['tea'] });
+    expect(filtradasTEA).toHaveLength(2);
+    const idsTEA = filtradasTEA.map((a) => a.id);
+    expect(idsTEA).toContain('ativ-tea');
+    expect(idsTEA).toContain('ativ-multipla');
+
+    // Filtra por 'baixa_visao'
+    const filtradasBV = await repo.listarAtividades('prof-test', { filtroNecessidades: ['baixa_visao'] });
+    expect(filtradasBV).toHaveLength(1);
+    expect(filtradasBV[0].id).toBe('ativ-baixa-visao');
+  });
+
+  it('deve reaproveitar atividade clonando para um novo aluno com as mesmas necessidades sem regerar IA', async () => {
+    const { AtividadeAdaptadaRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AtividadeAdaptadaRepository'
+    );
+    const repo = new AtividadeAdaptadaRepository();
+
+    const original = await repo.salvarAtividade('prof-test', {
+      id: 'ativ-orig-1',
+      titulo: 'Prova Adaptada de Geografia: Clima e Relevo',
+      disciplina: 'Geografia',
+      anoEscolar: '7º Ano',
+      necessidades: ['tea', 'tdah'],
+      alunoId: 'aluno-pedro',
+      alunoNome: 'Pedro',
+      quantidadeQuestoes: 2,
+      atividadeAdaptada: {
+        questoes: [
+          { numero: 1, enunciado: 'O que é clima quente?', tipo: 'multipla_escolha' },
+          { numero: 2, enunciado: 'Onde chove mais?', tipo: 'multipla_escolha' },
+        ],
+      },
+      guiaMediacao: {
+        tempoEstimado: '20 min',
+      },
+    });
+
+    const clonada = await repo.reaproveitarParaAluno('prof-test', 'ativ-orig-1', {
+      id: 'aluno-gabriel',
+      nome: 'Gabriel',
+    });
+
+    expect(clonada.id).not.toBe('ativ-orig-1');
+    expect(clonada.alunoId).toBe('aluno-gabriel');
+    expect(clonada.alunoNome).toBe('Gabriel');
+    expect(clonada.titulo).toContain('Geografia');
+    expect(clonada.atividadeAdaptada.questoes).toHaveLength(2);
+    expect(clonada.reaproveitadaDe).toBe('ativ-orig-1');
+
+    const todas = await repo.listarAtividades('prof-test');
+    expect(todas).toHaveLength(2);
+  });
+
+  it('deve excluir atividade do repositório', async () => {
+    const { AtividadeAdaptadaRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AtividadeAdaptadaRepository'
+    );
+    const repo = new AtividadeAdaptadaRepository();
+
+    await repo.salvarAtividade('prof-test', {
+      id: 'ativ-del-1',
+      titulo: 'Atividade Descartável',
+      necessidades: ['motora'],
+    });
+
+    let lista = await repo.listarAtividades('prof-test');
+    expect(lista).toHaveLength(1);
+
+    await repo.removerAtividade('prof-test', 'ativ-del-1');
+    lista = await repo.listarAtividades('prof-test');
+    expect(lista).toHaveLength(0);
+  });
+});
+
 
 
