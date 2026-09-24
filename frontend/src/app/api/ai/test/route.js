@@ -1,0 +1,51 @@
+import { NextResponse } from 'next/server';
+import { callAI } from '@/lib/ai-provider-central';
+
+export async function POST(request) {
+  const startTime = Date.now();
+  try {
+    const body = await request.json();
+    const { provider, apiKey, model } = body || {};
+
+    if (!provider || !apiKey) {
+      return NextResponse.json(
+        { ok: false, error: 'Provedor e chave de API são obrigatórios para o teste.' },
+        { status: 400 }
+      );
+    }
+
+    // Ping rápido para testar validade e saldo
+    const response = await callAI({
+      messages: [{ role: 'user', content: 'Olá. Responda apenas "OK".' }],
+      maxTokens: 10,
+      temperature: 0.1,
+      userConfig: {
+        provider,
+        apiKey,
+        model,
+      },
+    });
+
+    const latencyMs = Date.now() - startTime;
+
+    return NextResponse.json({
+      ok: true,
+      provider,
+      model,
+      latencyMs,
+      message: 'Conexão estabelecida com sucesso!',
+      raw: response.slice(0, 50),
+    });
+  } catch (error) {
+    const latencyMs = Date.now() - startTime;
+    console.error('[/api/ai/test] Erro ao testar chave de IA:', error.message);
+    return NextResponse.json(
+      {
+        ok: false,
+        error: error.message || 'Chave de API inválida ou sem saldo no provedor.',
+        latencyMs,
+      },
+      { status: 400 }
+    );
+  }
+}

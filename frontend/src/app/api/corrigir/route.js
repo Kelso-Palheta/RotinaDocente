@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateCorrection } from '@/lib/redacao/ai-provider';
+import { extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 import { db } from '@/lib/firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { gerarLoginKey } from '@/utils/diario/loginAluno';
@@ -60,6 +61,18 @@ function extractScore(fullText) {
 
 export async function POST(request) {
   try {
+    const userConfig = extractUserAIConfigFromHeaders(request.headers);
+
+    if (!userConfig || !userConfig.apiKey) {
+      return NextResponse.json(
+        {
+          error: 'AI_KEY_REQUIRED',
+          message: 'Você precisa conectar sua chave de IA para utilizar este recurso.',
+        },
+        { status: 400 }
+      );
+    }
+
     const body = await request.json();
 
     const {
@@ -91,7 +104,7 @@ export async function POST(request) {
 
     const result = await generateCorrection({
       text, imageBase64, studentName: cleanStudentName, studentClass: cleanStudentClass,
-      essayTheme: cleanTheme, depth, competencies, motivatorText
+      essayTheme: cleanTheme, depth, competencies, motivatorText, userConfig
     });
 
     const scores = result ? extractScore(result) : null;

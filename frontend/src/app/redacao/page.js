@@ -13,6 +13,7 @@ import { extractTextFromPDF } from '@/utils/atividades/pdfExtractor';
 import { extractTextFromDocx } from '@/utils/atividades/docxExtractor';
 import { useTurmas } from '@/hooks/diario/useTurmas';
 import { turmasIniciais } from '@/data/diario/turmasIniciais';
+import { getClientAIHeaders } from '@/utils/aiHeaders';
 import {
   ArrowLeft, GraduationCap, ExternalLink, Copy, Check,
   FileText, Sparkles, Download, User, BookOpen,
@@ -373,11 +374,14 @@ export default function RedacaoPage() {
         try {
           const res = await fetch('/api/extrair', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              ...getClientAIHeaders(),
+            },
             body: JSON.stringify({ imageBase64: base64Data, mediaType: 'image/jpeg' })
           });
           const data = await res.json();
-          if (!res.ok) throw new Error(data.error);
+          if (!res.ok) throw new Error(data.message || data.error);
           setMotivatorText(data.text);
         } catch (err) {
           setError('Erro ao extrair texto da imagem do motivador: ' + err.message);
@@ -396,9 +400,16 @@ export default function RedacaoPage() {
     if (!imageBase64) return;
     setExtracting(true); setError('');
     try {
-      const res = await fetch('/api/extrair', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ imageBase64, mediaType: 'image/jpeg' }) });
+      const res = await fetch('/api/extrair', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getClientAIHeaders(),
+        },
+        body: JSON.stringify({ imageBase64, mediaType: 'image/jpeg' }),
+      });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.message || data.error);
       setText(data.text);
       setStep('review');
     } catch (err) { setError('Erro ao extrair texto: ' + err.message); }
@@ -418,9 +429,27 @@ export default function RedacaoPage() {
     }
 
     try {
-      const res = await fetch('/api/corrigir', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: trimmed, studentName: studentName.trim(), studentClass: studentClass.trim() || 'N/A', essayTheme: essayTheme.trim() || 'Geral', depth, competencies: selectedCompetencies.join(', '), userId: user.uid, loginAluno, nomeProfessor: perfil?.nome || user?.displayName || '', motivatorText: motivatorText.trim() }) });
+      const res = await fetch('/api/corrigir', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getClientAIHeaders(),
+        },
+        body: JSON.stringify({
+          text: trimmed,
+          studentName: studentName.trim(),
+          studentClass: studentClass.trim() || 'N/A',
+          essayTheme: essayTheme.trim() || 'Geral',
+          depth,
+          competencies: selectedCompetencies.join(', '),
+          userId: user.uid,
+          loginAluno,
+          nomeProfessor: perfil?.nome || user?.displayName || '',
+          motivatorText: motivatorText.trim(),
+        }),
+      });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.message || data.error);
 
       // Determinar o ID da correção client-side para usar o token autenticado do Firebase
       let corrId;

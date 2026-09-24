@@ -114,5 +114,27 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - Todos os textos, nomes de turnos, dias da semana, botões e mensagens do módulo devem utilizar chaves de tradução.
    - O sistema deve suportar alternância dinâmica entre Português (`pt-BR`) e Espanhol América Latina (`es-Latam`), com `pt-BR` como idioma padrão.
 
+---
+
+## 8. Regras de Inteligência Artificial & BYOK (Bring Your Own Key)
+
+1. **RN-27 (BYOK Estrito e Obrigatório):**
+   - Todos os módulos e recursos que consomem inteligência artificial (correção de redação, agentes pedagógicos, gerador de atividades, importação inteligente) operam estritamente sob o modelo BYOK (*Bring Your Own Key*).
+   - O professor deve conectar sua própria chave de API dos provedores suportados: `gemini` (Google Gemini), `openai` (OpenAI), `anthropic` (Anthropic), `maritaca` (Maritaca AI) ou `openrouter` (OpenRouter).
+
+2. **RN-28 (Persistência Híbrida de Credenciais de IA):**
+   - A configuração de IA do professor é persistida no perfil do usuário no Firestore (`professores/{userId}.ai_config`) e armazenada em cache no `localStorage` com a chave canônica `rotina_docente_user_ai_config`.
+   - Se o Firestore estiver indisponível ou em sessões locais, o `localStorage` atua como fonte síncrona.
+
+3. **RN-29 (Bloqueio sem Fallback Central):**
+   - É expressamente vedado o uso de chaves centrais ou compartilhadas da plataforma para subsidiar chamadas de professores.
+   - Qualquer requisição a endpoints de IA desprovida de chave válida do professor deve ser rejeitada com código HTTP 400 e payload `{ error: 'AI_KEY_REQUIRED', message: 'Você precisa conectar sua chave de IA para utilizar este recurso.' }`.
+   - A interface do usuário deve bloquear o acionamento e direcionar o professor imediatamente ao modal de conexão de IA.
+
+4. **RN-30 (Segurança, Isolamento e Mascaramento de Chaves):**
+   - As chaves de API nunca devem ser exibidas em texto plano na interface após salvas; o sistema deve apresentar uma versão mascarada (ex: `sk-...` ou `AIza...` seguido dos últimos 4 caracteres).
+   - O professor pode testar a validade da chave em tempo real através do endpoint `POST /api/ai/test` e pode remover/desconectar sua chave a qualquer momento.
+
+
 
 

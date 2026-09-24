@@ -19,8 +19,15 @@ import {
   ArrowRight,
   Sparkles,
   Clock,
+  Key,
+  CheckCircle2,
+  AlertCircle,
+  Cpu,
 } from "lucide-react";
 import { ProfileModal } from "@/components/diario/ProfileModal";
+import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
+import { useAIConfig } from "@/hooks/useAIConfig";
+import { AIProviders } from "@/dominio/ai/AIProviders";
 
 const ICON_MAP = {
   BookOpen,
@@ -54,6 +61,9 @@ export default function Dashboard() {
   const router = useRouter();
   const [toast, setToast] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
+
+  const { config, temChave } = useAIConfig();
 
   const planoAtivoId = perfil?.plano || creditos?.tipo_plano || "gratuito";
   const planoInfo = PLANOS_CONFIG[planoAtivoId] || PLANOS_CONFIG.gratuito;
@@ -69,48 +79,61 @@ export default function Dashboard() {
     }
   };
 
+  const provAtivo = config?.provider ? AIProviders[config.provider] : null;
+
   return (
     <div className="min-h-screen bg-[#f7f8fc] text-[#101942] font-sans flex flex-col selection:bg-[#f60c49] selection:text-white">
       {/* Header Superior Navy */}
       <header className="bg-[#101942] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-{/* Logo Gestão Docente */}
-           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 rounded-xl bg-[#f60c49] flex items-center justify-center text-white shadow-md">
-               <svg
-                 width="22"
-                 height="22"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 strokeWidth="2.2"
-                 strokeLinecap="round"
-                 strokeLinejoin="round"
-               >
-                 <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                 <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
-               </svg>
-             </div>
-             <div>
-               <h1 className="font-head text-xl font-extrabold tracking-tight text-white leading-none">
-                 Gestão<span className="text-[#f60c49]">Docente</span>
-               </h1>
-               <p className="text-xs text-white/60 mt-1 flex items-center gap-1.5">
-                 <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
-                 Olá, {perfil?.nome || "Professor(a)"}
-               </p>
-             </div>
-           </div>
-
-          {/* Ações de Usuário & Carteira de Créditos */}
+          {/* Logo Gestão Docente */}
           <div className="flex items-center gap-3">
-            {/* Saldo de IA Badge */}
-            <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 border border-white/15 text-xs font-semibold text-white">
-              <Sparkles size={14} className="text-[#f60c49]" />
-              <span>
-                Créditos de IA: <strong className="text-[#f60c49]">{creditos?.saldo_disponivel ?? 0}</strong>
-              </span>
+            <div className="w-10 h-10 rounded-xl bg-[#f60c49] flex items-center justify-center text-white shadow-md">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
+              </svg>
             </div>
+            <div>
+              <h1 className="font-head text-xl font-extrabold tracking-tight text-white leading-none">
+                Gestão<span className="text-[#f60c49]">Docente</span>
+              </h1>
+              <p className="text-xs text-white/60 mt-1 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                Olá, {perfil?.nome || "Professor(a)"}
+              </p>
+            </div>
+          </div>
+
+          {/* Ações de Usuário & Botão Conectar IA */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Botão Conectar IA / Status da Chave */}
+            <button
+              onClick={() => setShowAIModal(true)}
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+                temChave
+                  ? "bg-[#22c55e]/15 text-[#4ade80] border border-[#22c55e]/30 hover:bg-[#22c55e]/25"
+                  : "bg-[#f60c49] text-white hover:bg-[#d40840] shadow-md hover:shadow-lg animate-pulse"
+              }`}
+              title="Configurar Chave de Inteligência Artificial"
+            >
+              <Key size={15} />
+              <span className="hidden sm:inline">
+                {temChave ? `IA: ${provAtivo?.nome || "Conectada"}` : "Conectar IA"}
+              </span>
+              <span className="sm:hidden">
+                {temChave ? "IA Ativa" : "Conectar IA"}
+              </span>
+            </button>
 
             <button
               onClick={() => setShowProfile(true)}
@@ -132,19 +155,50 @@ export default function Dashboard() {
 
       {/* Conteúdo Principal do Hub */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8 space-y-8">
-        {/* Banner de Boas-Vindas com Carteira de Créditos */}
+        {/* Banner de Boas-Vindas com Status de IA & Plano */}
         <div className="bg-gradient-to-r from-[#101942] via-[#1a255a] to-[#101942] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#101942]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="space-y-2 relative z-10 max-w-2xl">
+          <div className="space-y-3 relative z-10 max-w-2xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#f60c49] text-white">
               <Sparkles size={12} />
               <span>Painel do Docente</span>
             </div>
             <h2 className="font-head text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Seu Hub Pedagógico de Inteligência Artificial
+              Seu Hub Pedagógico com Inteligência Artificial
             </h2>
             <p className="text-sm text-white/70 leading-relaxed">
-              Toda a sua rotina letiva em 1 clique. Planeje aulas, gere atividades e corrija redações com alta velocidade.
+              Toda a sua rotina letiva em 1 clique. Planeje aulas, gere atividades e corrija redações com a sua própria API de IA de preferência.
             </p>
+
+            {/* Aviso de Chave BYOK */}
+            <div className="pt-1">
+              {temChave ? (
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#22c55e]/15 border border-[#22c55e]/30 text-xs text-[#4ade80] font-semibold">
+                  <CheckCircle2 size={14} />
+                  <span>
+                    Chave própria conectada: <strong className="text-white">{provAtivo?.nome}</strong> ({config?.getMaskedKey()})
+                  </span>
+                  <button
+                    onClick={() => setShowAIModal(true)}
+                    className="ml-2 text-white/80 hover:text-white underline text-[11px]"
+                  >
+                    Gerenciar
+                  </button>
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#f60c49]/20 border border-[#f60c49]/40 text-xs text-white font-semibold">
+                  <AlertCircle size={15} className="text-[#f60c49]" />
+                  <span>
+                    Nenhuma chave de IA conectada.
+                  </span>
+                  <button
+                    onClick={() => setShowAIModal(true)}
+                    className="ml-2 px-2.5 py-1 rounded-lg bg-[#f60c49] hover:bg-[#d40840] text-white font-extrabold text-[11px] shadow-sm transition-all cursor-pointer"
+                  >
+                    Conectar agora
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="relative z-10 shrink-0 w-full md:w-auto">
@@ -160,21 +214,24 @@ export default function Dashboard() {
 
               <div className="pt-1">
                 <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                  <span className="text-white/80">Carteira de IA</span>
+                  <span className="text-white/80">Provedor de IA</span>
                   <span className="text-white font-extrabold text-sm">
-                    {creditos?.saldo_disponivel ?? 0} <span className="text-white/50 text-xs">créditos</span>
+                    {temChave ? provAtivo?.nome : "Desconectado"}
                   </span>
                 </div>
 
-                <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
-                  <div
-                    className="bg-gradient-to-r from-[#f60c49] to-[#ff4b72] h-full rounded-full transition-all duration-500"
-                    style={{
-                      width: creditos?.creditos_mensais_total
-                        ? `${Math.min(100, Math.max(5, (creditos.saldo_disponivel / creditos.creditos_mensais_total) * 100))}%`
-                        : "0%",
-                    }}
-                  />
+                <div className="text-[11px] text-white/60">
+                  {temChave ? (
+                    <span className="flex items-center gap-1 text-[#4ade80]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                      Operando com cota própria
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1 text-amber-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                      Requer chave para recursos IA
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -252,8 +309,21 @@ export default function Dashboard() {
 
       {/* Modal de Perfil */}
       {showProfile && (
-        <ProfileModal user={user} onClose={() => setShowProfile(false)} />
+        <ProfileModal
+          user={user}
+          onClose={() => setShowProfile(false)}
+          onOpenAIModal={() => {
+            setShowProfile(false);
+            setShowAIModal(true);
+          }}
+        />
       )}
+
+      {/* Modal de Conectar Chave de IA (BYOK) */}
+      <ModalConectarIA
+        isOpen={showAIModal}
+        onClose={() => setShowAIModal(false)}
+      />
     </div>
   );
 }

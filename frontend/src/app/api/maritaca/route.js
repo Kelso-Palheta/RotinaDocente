@@ -1,13 +1,24 @@
 import { NextResponse } from 'next/server';
-import { callAIRaw, getProviderName } from '@/lib/ai-provider-central';
+import { callAIRaw, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 
 /**
- * Gateway de IA unificado.
- * Antes apontava apenas para Maritack; agora roteia pelo provider ativo (AI_PROVIDER).
- * Mantém retrocompatibilidade com todos os clientes que chamam /api/maritaca.
+ * Gateway de IA unificado (BYOK Obrigatório).
+ * RN-27 & RN-29: Requer obrigatoriamente a chave de IA do professor.
  */
 export async function POST(request) {
   try {
+    const userConfig = extractUserAIConfigFromHeaders(request.headers);
+
+    if (!userConfig || !userConfig.apiKey) {
+      return NextResponse.json(
+        {
+          error: 'AI_KEY_REQUIRED',
+          message: 'Você precisa conectar sua chave de IA para utilizar este recurso.',
+        },
+        { status: 400 }
+      );
+    }
+
     const body = await request.json();
 
     if (!body || typeof body !== 'object') {
@@ -25,15 +36,21 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Formato de requisição de IA inválido (messages ou prompt obrigatório).' }, { status: 400 });
     }
 
-    const { data, status, ok } = await callAIRaw(body);
+    const { data, status, ok } = await callAIRaw(body, userConfig);
 
     if (!ok) {
-      console.error(`[/api/maritaca → ${getProviderName()}] Erro ${status}:`, data);
+      console.error(`[/api/maritaca → ${userConfig.provider}] Erro ${status}:`, data);
       return NextResponse.json({ error: data }, { status });
     }
 
     return NextResponse.json(data);
   } catch (error) {
+    if (error.code === 'AI_KEY_REQUIRED') {
+      return NextResponse.json(
+        { error: 'AI_KEY_REQUIRED', message: error.message },
+        { status: 400 }
+      );
+    }
     console.error('[/api/maritaca] Erro inesperado:', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

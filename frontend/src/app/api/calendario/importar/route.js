@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import OpenAI from "openai";
+import { callAI, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 
 const SYSTEM_PROMPT = `Você é um especialista em planejamento pedagógico e currículo escolar brasileiro (BNCC).
 O usuário enviará um plano de curso ou ementa (frequentemente contendo capítulos e vários subtópicos).
@@ -19,6 +19,18 @@ Não retorne markdown, crases ou qualquer texto adicional, apenas o JSON válido
 
 export async function POST(request) {
   try {
+    const userConfig = extractUserAIConfigFromHeaders(request.headers);
+
+    if (!userConfig || !userConfig.apiKey) {
+      return NextResponse.json(
+        {
+          error: 'AI_KEY_REQUIRED',
+          message: 'Você precisa conectar sua chave de IA para utilizar este recurso.',
+        },
+        { status: 400 }
+      );
+    }
+
     const { text, disciplina, anoLetivo } = await request.json();
 
     if (!text) {
@@ -30,58 +42,15 @@ export async function POST(request) {
 
     const prompt = `Contexto: Disciplina ${disciplina || 'Geral'} - Ano ${anoLetivo || 'Não informado'}\n\nTexto do Planejamento:\n${text}`;
 
-    let responseContent = "";
+    const responseContent = await callAI({
+      systemPrompt: SYSTEM_PROMPT,
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.2,
+      maxTokens: 4000,
+      userConfig,
+    });
 
-    try {
-      // 1. Tentar Gemini primeiro (se existir a chave)
-      if (process.env.GEMINI_API_KEY) {
-        console.log("[Importar Planejamento] Tentando Gemini API Nativa via Header Seguro");
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent`;
-        
-        const geminiBody = {
-          system_instruction: { parts: { text: SYSTEM_PROMPT } },
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.2,
-            response_mime_type: "application/json"
-          }
-        };
-
-        const res = await fetch(geminiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-goog-api-key': process.env.GEMINI_API_KEY,
-          },
-          body: JSON.stringify(geminiBody)
-        });
-
-        const data = await res.json();
-        
-        if (res.ok && data.candidates && data.candidates[0]) {
-          responseContent = data.candidates[0].content.parts[0].text;
-        } else {
-          throw new Error(data.error?.message || "Erro desconhecido no Gemini");
-        }
-      } else {
-        throw new Error("Chave Gemini não configurada");
-      }
-    } catch (geminiError) {
-      console.warn('[Importar Planejamento] Gemini falhou ou indisponível:', geminiError.message);
-
-      // 2. Fallback universal — usa o provider central (OpenRouter ou Maritaca conforme AI_PROVIDER)
-      const { callAI, getProviderName } = await import('@/lib/ai-provider-central');
-      console.log(`[Importar Planejamento] Usando fallback: ${getProviderName()}`);
-
-      responseContent = await callAI({
-        systemPrompt: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.2,
-        maxTokens: 4000,
-      });
-    }
-
-    // Limpeza de crases caso o modelo (especialmente Sabiá-3) ignore a instrução de não usar markdown
+    // Limpeza de crases caso o modelo ignore a instrução de não usar markdown
     const jsonString = responseContent.replace(/^```json\s*/, '').replace(/\s*```$/, '').trim();
     const parsedData = JSON.parse(jsonString);
 
@@ -92,6 +61,12 @@ export async function POST(request) {
     return NextResponse.json({ topicos: parsedData.topicos });
 
   } catch (error) {
+    if (error.code === 'AI_KEY_REQUIRED') {
+      return NextResponse.json(
+        { error: 'AI_KEY_REQUIRED', message: error.message },
+        { status: 400 }
+      );
+    }
     console.error('ERRO NA IMPORTAÇÃO DE PLANEJAMENTO:', error?.message || error);
     return NextResponse.json(
       { error: error?.message || 'Não foi possível estruturar o planejamento com a IA.' },

@@ -1,3 +1,5 @@
+import { getClientAIHeaders } from '@/utils/aiHeaders';
+
 const BASE_URL = '/api/maritaca';
 const MODEL = 'sabiazinho-4';
 
@@ -12,12 +14,15 @@ const PROFUNDIDADE_INSTRUCAO = {
 async function callAI(content, apiKey, maxTokens = 1024) {
   const res = await fetch(BASE_URL, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...getClientAIHeaders(),
+    },
     body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, messages: [{ role: 'user', content }] })
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err?.error?.message || `Maritaca API error ${res.status}`);
+    throw new Error(err?.message || err?.error?.message || (typeof err?.error === 'string' ? err.error : null) || `Maritaca API error ${res.status}`);
   }
   const data = await res.json();
   const text = data.choices?.[0]?.message?.content || '';

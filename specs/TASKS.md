@@ -15,8 +15,10 @@
 - [x] **TASK-12:** Dashboard Analytics Pedagógico (`/analytics`) — Métricas de rendimento (média geral, aprovação, radar de risco), gráficos Recharts (evolução bimestral, faixas de notas, comparativo multiturmas) e filtros interativos.
 - [x] **TASK-13:** Calendário Pedagógico Flexível — Auto-Agendamento em 1 clique com data de partida selecionável (RN-19), Decisão Pedagógica interativa ao mudar status (Smart Shift vs Pular Tópico - RN-20), Edição/Exclusão manual de tópicos e Barra de Progresso Curricular.
 - [x] **TASK-14:** Exportação de Relatórios Executivos Consolidados em PDF no Dashboard Analytics Pedagógico (`/analytics`) para a Coordenação e Direção Escolar.
+- [x] **TASK-15:** Conexão de Inteligência Artificial & BYOK (Bring Your Own Key) — Integração de chaves pessoais dos professores (Google Gemini, OpenAI, Anthropic, Maritaca AI e OpenRouter), persistência híbrida Firestore/LocalStorage, bloqueio sem chave (sem fallback central), botão/modal de conexão no Dashboard e teste de latência em tempo real.
 
 ---
 
 ## 🎯 Próximas Entregas (Backlog)
-- [ ] **TASK-15:** Otimização do pipeline de OCR para PDFs manuscritos escaneados em lote.
+- [ ] **TASK-16:** Otimização do pipeline de OCR para PDFs manuscritos escaneados em lote.
+

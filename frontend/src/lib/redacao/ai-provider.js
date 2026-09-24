@@ -4,7 +4,8 @@ import { MASTER_ENEM_PROMPT } from "./constants";
 import { callAI } from "../ai-provider-central";
 
 export async function generateCorrection(payload) {
-  const provider = process.env.AI_PROVIDER || "openrouter";
+  const userConfig = payload.userConfig;
+  const provider = userConfig?.provider || "gemini";
   let {
     text,
     imageBase64,
@@ -24,7 +25,7 @@ export async function generateCorrection(payload) {
 
   if (needsTranscriptionFallback && imageBase64 && !text) {
     console.log(`[Vision Fallback] Transcrevendo imagem antes de corrigir com ${provider}...`);
-    text = await extractTextOnly(imageBase64, mediaType);
+    text = await extractTextOnly(imageBase64, mediaType, userConfig);
     imageBase64 = undefined;
   }
 
@@ -37,97 +38,115 @@ export async function generateCorrection(payload) {
     .replace(/{motivatorText}/g, motivatorText);
 
   try {
-    if (provider === "openrouter" || provider === "maritaca") {
-      // Usa o provider central (openrouter ou maritaca conforme AI_PROVIDER)
-      const essayContent = text
-        ? `Redação para correção:\n\n${text}`
-        : "Por favor, corrija a redação com os critérios do INEP.";
-      return await callAI({
-        systemPrompt: finalPrompt,
-        messages: [{ role: "user", content: essayContent }],
-        temperature: 0.3,
-        maxTokens: 4000,
-      });
-    } else if (provider === "openai") {
-      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      return await handleOpenAI(openai, text, imageBase64, finalPrompt);
-    } else {
-      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-      return await handleAnthropic(anthropic, text, imageBase64, mediaType, finalPrompt);
-    }
+    const essayContent = text
+      ? `Redação para correção:\n\n${text}`
+      : "Por favor, corrija a redação com os critérios do INEP.";
+
+    return await callAI({
+      systemPrompt: finalPrompt,
+      messages: [{ role: "user", content: essayContent }],
+      temperature: 0.3,
+      maxTokens: 4000,
+      userConfig,
+    });
   } catch (error) {
     console.error(`[AI Provider ERROR - ${provider}]:`, error);
     throw error;
   }
 }
 
-export async function extractTextOnly(imageBase64, mediaType = "image/jpeg") {
+export async function extractTextOnly(imageBase64, mediaType = "image/jpeg", userConfig = null) {
   console.log("[AI Provider] Extraindo texto da imagem...");
 
-  if (process.env.ANTHROPIC_API_KEY) {
-    try {
-      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-      const response = await anthropic.messages.create({
-        model: "claude-3-5-sonnet-20240620",
-        max_tokens: 3000,
-        messages: [{
-          role: "user",
-          content: [
-            { type: "image", source: { type: "base64", media_type: mediaType, data: imageBase64.replace(/\s/g, '') } },
-            { type: "text", text: "Você é um especialista em transcrição de redações manuscritas. Transcreva fielmente todo o texto desta imagem, exatamente como o aluno escreveu. ATENÇÃO: NÃO corrija nenhum erro ortográfico, gramatical, de concordância ou de pontuação; se o aluno escreveu errado, transcreva errado. Mantenha parágrafos e pontuação originais. IMPORTANTE: Ignore completamente a numeração das linhas (1, 2, 3... até 30) que fica na margem esquerda da folha de redação, transcrevendo apenas o texto dissertativo escrito pelo aluno. Retorne APENAS o texto transcrito, sem introduções ou comentários." }
-          ]
-        }],
-      });
-      const block = response.content.find(b => b.type === "text");
-      if (block && block.type === "text") return block.text;
-    } catch (e) {
-      console.warn("Anthropic falhou na extração, tentando fallback...", e);
+  const prov = userConfig?.provider;
+  const key = userConfig?.apiKey;
+
+  if (userConfig && !key) {
+    throw new Error("AI_KEY_REQUIRED: Você precisa conectar sua chave de IA para utilizar a extração de texto.");
+  }
+
+  if (key) {
+    if (prov === "gemini") {
+      try {
+        const openai = new OpenAI({
+          apiKey: key,
+          baseURL: "https://generativelanguage.googleapis.com/v1beta/openai",
+        });
+        const response = await openai.chat.completions.create({
+          model: "gemini-1.5-flash",
+          messages: [{
+            role: "user",
+            content: [
+              { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu. Ignore a numeração das linhas na margem esquerda. Retorne APENAS a transcrição textual." },
+              { type: "image_url", image_url: { url: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } }
+            ]
+          }]
+        });
+        return response.choices[0].message.content || "";
+      } catch (e) {
+        console.warn("Gemini falhou na extração:", e);
+      }
+    } else if (prov === "openai") {
+      try {
+        const openai = new OpenAI({ apiKey: key });
+        const response = await openai.chat.completions.create({
+          model: "gpt-4o",
+          messages: [{
+            role: "user",
+            content: [
+              { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu, preservando erros para permitir a avaliação posterior. IMPORTANTE: Ignore a numeração das linhas (1, 2, 3... 30) na margem esquerda da folha de redação; transcreva apenas o texto escrito pelo aluno. Retorne APENAS a transcrição textual, sem comentários periféricos." },
+              { type: "image_url", image_url: { url: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } }
+            ]
+          }]
+        });
+        return response.choices[0].message.content || "";
+      } catch (e) {
+        console.warn("OpenAI falhou na extração.", e);
+      }
+    } else if (prov === "anthropic") {
+      try {
+        const anthropic = new Anthropic({ apiKey: key });
+        const response = await anthropic.messages.create({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 3000,
+          messages: [{
+            role: "user",
+            content: [
+              { type: "image", source: { type: "base64", media_type: mediaType, data: imageBase64.replace(/\s/g, '') } },
+              { type: "text", text: "Você é um especialista em transcrição de redações manuscritas. Transcreva fielmente todo o texto desta imagem, exatamente como o aluno escreveu. ATENÇÃO: NÃO corrija nenhum erro ortográfico, gramatical, de concordância ou de pontuação. Ignore a numeração das linhas na margem esquerda. Retorne APENAS o texto transcrito." }
+            ]
+          }],
+        });
+        const block = response.content.find(b => b.type === "text");
+        if (block && block.type === "text") return block.text;
+      } catch (e) {
+        console.warn("Anthropic falhou na extração, tentando fallback...", e);
+      }
+    } else if (prov === "maritaca") {
+      try {
+        const maritaca = new OpenAI({
+          apiKey: key,
+          baseURL: "https://chat.maritaca.ai/api"
+        });
+        const response = await maritaca.chat.completions.create({
+          model: "sabiazinho-4",
+          messages: [{
+            role: "user",
+            content: [
+              { type: "file", file: { filename: "redacao.jpg", file_data: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } },
+              { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija erros de português, de concordância, ortografia ou pontuação. Transcreva exatamente o que está escrito na imagem. Ignore a numeração das linhas. Retorne apenas o texto." }
+            ]
+          }]
+        });
+        return response.choices[0].message.content || "";
+      } catch (e) {
+        console.error("[Maritaca OCR] Falhou:", e?.message || e);
+        throw new Error(`Maritaca OCR falhou: ${e?.message || 'Erro desconhecido'}`);
+      }
     }
   }
 
-  if (process.env.OPENAI_API_KEY) {
-    try {
-      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
-        messages: [{
-          role: "user",
-          content: [
-            { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu, preservando erros para permitir a avaliação posterior. IMPORTANTE: Ignore a numeração das linhas (1, 2, 3... 30) na margem esquerda da folha de redação; transcreva apenas o texto escrito pelo aluno. Retorne APENAS a transcrição textual, sem comentários periféricos." },
-            { type: "image_url", image_url: { url: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } }
-          ]
-        }]
-      });
-      return response.choices[0].message.content || "";
-    } catch (e) {
-      console.warn("OpenAI falhou na extração.", e);
-    }
-  }
-
-  if (process.env.MARITACA_API_KEY) {
-    try {
-      const maritaca = new OpenAI({
-        apiKey: process.env.MARITACA_API_KEY,
-        baseURL: "https://chat.maritaca.ai/api"
-      });
-      const response = await maritaca.chat.completions.create({
-        model: process.env.MARITACA_MODEL || "sabiazinho-4",
-        messages: [{
-          role: "user",
-          content: [
-            { type: "file", file: { filename: "redacao.jpg", file_data: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } },
-            { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija erros de português, de concordância, ortografia ou pontuação. Transcreva exatamente o que está escrito na imagem. IMPORTANTE: Ignore a numeração das linhas (1 a 30) na margem esquerda da folha, transcrevendo apenas o texto escrito pelo aluno. Retorne apenas o texto." }
-          ]
-        }]
-      });
-      return response.choices[0].message.content || "";
-    } catch (e) {
-      console.error("[Maritaca OCR] Falhou:", e?.message || e);
-      throw new Error(`Maritaca OCR falhou: ${e?.message || 'Erro desconhecido'}`);
-    }
-  }
-
-  throw new Error("Nenhum provedor de OCR configurado. Verifique as variáveis ANTHROPIC_API_KEY, OPENAI_API_KEY ou MARITACA_API_KEY.");
+  throw new Error("AI_KEY_REQUIRED: Conecte sua chave de IA para utilizar o recurso de OCR/extração de imagem.");
 }
 
 async function handleMaritaca(maritaca, text, imageBase64, mediaType = "image/jpeg", prompt) {

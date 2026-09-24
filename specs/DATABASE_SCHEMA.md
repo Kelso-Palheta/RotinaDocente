@@ -7,6 +7,11 @@ Documento do professor com perfil e permissões.
 - `nome`: string
 - `email`: string
 - `modulos_permitidos`: array de IDs de módulos (`['diario', 'redacao-corretor', 'calendario-pedagogico', 'gerador-atividades']`)
+- `ai_config`: Objeto com a configuração de BYOK de IA do professor:
+  - `provider`: string (`'gemini' | 'openai' | 'anthropic' | 'maritaca' | 'openrouter'`)
+  - `apiKey`: string (chave de API do provedor)
+  - `model`: string (modelo padrão ou customizado selecionado)
+  - `updatedAt`: timestamp
 - `updatedAt`: timestamp
 
 ---

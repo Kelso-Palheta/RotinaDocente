@@ -1,3 +1,5 @@
+import { getClientAIHeaders } from '@/utils/aiHeaders';
+
 // Maritaca AI — sabiazinho-4 (OpenAI-compatible endpoint)
 // Suporta visão (imagens) e texto. PDFs são convertidos para texto via FileReader.
 
@@ -65,7 +67,8 @@ export const importarViaIA = async (arquivo) => {
   const res = await fetch(BASE_URL, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      ...getClientAIHeaders(),
     },
     body: JSON.stringify({
       model: MODEL,

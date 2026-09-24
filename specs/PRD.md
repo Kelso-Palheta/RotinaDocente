@@ -43,6 +43,12 @@ O **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema 
    - Visualização integrada de indicadores de desempenho individual e por turma.
    - Gráficos de evolução bimestral, taxas de aprovação/recuperação e histograma de faixas de notas.
    - Painel de alerta preventivo para identificação precoce de estudantes em risco de retenção.
+8. **Conexão de Inteligência Artificial & BYOK (Bring Your Own Key):**
+   - Conexão e gerenciamento direto da chave de API do professor.
+   - Suporte multi-provedor: Google Gemini, OpenAI, Anthropic, Maritaca AI e OpenRouter.
+   - Autonomia total do professor no controle de custos e créditos em seu provedor preferido.
+   - Validador em tempo real de latência e saldo da chave antes do salvamento.
+   - Bloqueio estrito de requisições de IA quando não houver chave pessoal configurada.
 
 ---
 

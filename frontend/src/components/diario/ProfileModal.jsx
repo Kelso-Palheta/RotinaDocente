@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { updateProfile, updatePassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
-export function ProfileModal({ user, onClose }) {
+export function ProfileModal({ user, onClose, onOpenAIModal }) {
   const [nome, setNome] = useState(user?.displayName || '');
   const [senhaNova, setSenhaNova] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
@@ -134,6 +134,22 @@ export function ProfileModal({ user, onClose }) {
                     Alterar Senha
                   </button>
                 </div>
+              </div>
+            )}
+
+            {onOpenAIModal && (
+              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-bold text-slate-800">Chave de Inteligência Artificial</p>
+                  <p className="text-[11px] text-slate-400">Gerenciar sua própria API (Gemini, OpenAI, etc.)</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={onOpenAIModal}
+                  className="px-3.5 py-2 bg-[#f60c49]/10 hover:bg-[#f60c49]/20 text-[#f60c49] border border-[#f60c49]/20 rounded-xl text-xs font-bold transition-all cursor-pointer"
+                >
+                  Configurar IA
+                </button>
               </div>
             )}
         </div>

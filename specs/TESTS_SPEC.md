@@ -24,12 +24,20 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-11 (RN-25):** Validar exportação e importação de JSON com validação de esquema estrutural e sanitização.
 - [x] **UT-12 (RN-26):** Validar dicionários i18n (pt-BR e es-Latam) garantindo paridade total de 100% das chaves e fallback para pt-BR.
 
+### Módulo: BYOK & Provedores de IA (`tests/unit/ai_config.test.js`)
+- [x] **UT-13 (RN-27):** Validar entidade `AIConfig`, provedores suportados (`gemini`, `openai`, `anthropic`, `maritaca`, `openrouter`) e modelos padrão.
+- [x] **UT-14 (RN-28):** Validar persistência híbrida da configuração de IA em `localStorage` e sincronização assíncrona Firestore.
+- [x] **UT-15 (RN-29):** Validar bloqueio absoluto de chamadas de IA desprovidas de chave pessoal (rejeição sem fallback da plataforma).
+- [x] **UT-16 (RN-30):** Validar mascaramento de chaves na interface (`sk-...ABCD`) e sanitização de payloads.
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
 - [ ] **IT-01:** Testar extração de texto de arquivos DOCX e PDF.
 - [ ] **IT-02:** Testar serialização e deserialização do backup em JSON das turmas.
 - [x] **IT-03 (RN-24 & RN-25):** Testar sincronização de grade horária e restore via repositório.
+- [x] **IT-04 (RN-27 & RN-29):** Testar gateway unificado de IA roteando para Gemini, OpenAI, Anthropic, Maritaca e OpenRouter com headers do usuário e rejeitando ausência de chave.
+
 
 ---
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, FileText, Loader2, Save } from 'lucide-react';
 import { useCalendarioPedagogico } from '@/hooks/calendario/useCalendarioPedagogico';
+import { getClientAIHeaders } from '@/utils/aiHeaders';
 
 export function ImportPlanejamentoModal({ isOpen, onClose, turmaSelecionada, onImportSuccess }) {
   const [texto, setTexto] = useState('');
@@ -23,7 +24,10 @@ export function ImportPlanejamentoModal({ isOpen, onClose, turmaSelecionada, onI
       // 1. Chamar API para extrair tópicos
       const res = await fetch('/api/calendario/importar', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getClientAIHeaders(),
+        },
         body: JSON.stringify({
           text: texto,
           disciplina: turmaSelecionada.disciplina || 'Geral',

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { callAI, getProviderName } from '@/lib/ai-provider-central';
+import { callAI, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 
 // ─── systemPrompts pedagógicos imutáveis (RN-14: apenas no servidor) ────────
 const SYSTEM_PROMPTS = {
@@ -42,6 +42,18 @@ const AGENTES_VALIDOS = Object.keys(SYSTEM_PROMPTS);
 
 export async function POST(request) {
   try {
+    const userConfig = extractUserAIConfigFromHeaders(request.headers);
+
+    if (!userConfig || !userConfig.apiKey) {
+      return NextResponse.json(
+        {
+          error: 'AI_KEY_REQUIRED',
+          message: 'Você precisa conectar sua chave de IA para utilizar este recurso.',
+        },
+        { status: 400 }
+      );
+    }
+
     const { agentId, messages } = await request.json();
 
     // RN-16: valida segmento
@@ -56,13 +68,14 @@ export async function POST(request) {
       return NextResponse.json({ error: 'messages deve ser um array não-vazio.' }, { status: 400 });
     }
 
-    console.log(`[/api/agentes] agentId=${agentId} via provider=${getProviderName()}`);
+    console.log(`[/api/agentes] agentId=${agentId} via provider=${userConfig.provider}`);
 
     const content = await callAI({
       systemPrompt: SYSTEM_PROMPTS[agentId],
       messages,
       temperature: 0.7,
       maxTokens: 1500,
+      userConfig,
     });
 
     // Retorna no formato OpenAI-compatible esperado pelo useAgentChat
@@ -70,6 +83,12 @@ export async function POST(request) {
       choices: [{ message: { role: 'assistant', content } }],
     });
   } catch (error) {
+    if (error.code === 'AI_KEY_REQUIRED') {
+      return NextResponse.json(
+        { error: 'AI_KEY_REQUIRED', message: error.message },
+        { status: 400 }
+      );
+    }
     console.error('[/api/agentes] Erro:', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

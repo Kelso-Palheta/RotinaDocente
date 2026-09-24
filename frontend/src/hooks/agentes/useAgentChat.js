@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
+import { getClientAIHeaders } from '@/utils/aiHeaders';
 
 /**
  * Hook de chat conversacional para os Agentes Pedagógicos.
@@ -65,7 +66,10 @@ export function useAgentChat(agentId) {
       try {
         const res = await fetch('/api/agentes', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            ...getClientAIHeaders(),
+          },
           body: JSON.stringify({
             agentId,
             messages: updatedHistory,
@@ -75,7 +79,7 @@ export function useAgentChat(agentId) {
         const data = await res.json();
 
         if (!res.ok) {
-          throw new Error(data?.error || 'Erro ao chamar o agente pedagógico.');
+          throw new Error(data?.message || data?.error || 'Erro ao chamar o agente pedagógico.');
         }
 
         const assistantContent =
