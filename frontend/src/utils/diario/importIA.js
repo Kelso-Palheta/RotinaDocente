@@ -72,7 +72,7 @@ export const importarViaIA = async (arquivo) => {
     },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: 2048,
+      max_tokens: 4000,
       messages: [{ role: 'user', content }]
     })
   });

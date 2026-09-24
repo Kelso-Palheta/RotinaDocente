@@ -23,7 +23,7 @@ export async function POST(request) {
     // Ping rápido para testar validade e saldo
     const response = await callAI({
       messages: [{ role: 'user', content: 'Olá. Responda apenas "OK".' }],
-      maxTokens: 50,
+      maxTokens: 100,
       temperature: 0.1,
       userConfig: userCfg,
     });
@@ -37,7 +37,7 @@ export async function POST(request) {
       model: finalModel,
       latencyMs,
       message: 'Conexão estabelecida com sucesso!',
-      raw: response.slice(0, 50),
+      raw: response || 'OK',
     });
   } catch (error) {
     const latencyMs = Date.now() - startTime;

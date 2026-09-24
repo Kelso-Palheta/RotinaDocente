@@ -74,7 +74,7 @@ export async function POST(request) {
       systemPrompt: SYSTEM_PROMPTS[agentId],
       messages,
       temperature: 0.7,
-      maxTokens: 1500,
+      maxTokens: 4000,
       userConfig,
     });
 

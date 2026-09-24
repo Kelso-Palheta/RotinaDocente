@@ -3,7 +3,7 @@ import { getClientAIHeaders } from '@/utils/aiHeaders';
 const BASE_URL = '/api/maritaca';
 const MODEL = 'sabiazinho-4';
 
-const MAX_TOKENS = { superficial: 256, normal: 1024, profunda: 2048 };
+const MAX_TOKENS = { superficial: 512, normal: 2048, profunda: 4096 };
 
 const PROFUNDIDADE_INSTRUCAO = {
   superficial: 'Correção SUPERFICIAL: seja breve. Feedback de 1-2 frases curtas. Apenas 2 critérios essenciais. Foco apenas no acerto/erro principal.',
@@ -11,7 +11,7 @@ const PROFUNDIDADE_INSTRUCAO = {
   profunda: 'Correção PROFUNDA: análise detalhada. Feedback extenso de 4-6 frases. 4-5 critérios detalhados. Aponte pontos fortes, fracos e sugestões específicas de melhoria.'
 };
 
-async function callAI(content, apiKey, maxTokens = 1024) {
+async function callAI(content, apiKey, maxTokens = 3500) {
   const res = await fetch(BASE_URL, {
     method: 'POST',
     headers: {
@@ -161,7 +161,7 @@ Exemplo:
 0.5 pts — Identificação do tema: O aluno identifica corretamente o tema central e demonstra entender o contexto.
 0.8 pts — Argumentação: Apresenta ao menos dois argumentos fundamentados no conteúdo estudado.`;
 
-  const rawRubrica = (await callAI([{ type: 'text', text: prompt }], apiKey)).trim();
+  const rawRubrica = (await callAI([{ type: 'text', text: prompt }], apiKey, 2048)).trim();
   return normalizeRubrica(rawRubrica, questao.notaMaxima);
 }
 
@@ -207,7 +207,7 @@ REGRAS CRÍTICAS DE FORMATAÇÃO (OBRIGATÓRIO):
   ]
 }`;
 
-  const text = await callAI([{ type: 'text', text: prompt }], apiKey);
+  const text = await callAI([{ type: 'text', text: prompt }], apiKey, 4000);
   const match = text.match(/\{[\s\S]*\}/);
   if (!match) throw new Error('IA não retornou JSON válido. Resposta: ' + text.slice(0, 300));
 

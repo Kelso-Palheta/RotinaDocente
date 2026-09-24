@@ -218,11 +218,14 @@ export async function callAI({
           }));
 
         const buildPayload = () => {
+          // Modelos recentes com raciocínio (ex: Gemini 3.6/2.5) geram tokens de thinking que compartilham
+          // o teto com os tokens de resposta. Garantimos pelo menos 4096 tokens ou o dobro do pedido.
+          const effectiveMaxTokens = Math.max((maxTokens || 2000) * 2, 4096);
           const p = {
             contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: 'Olá' }] }],
             generationConfig: {
               temperature,
-              maxOutputTokens: maxTokens,
+              maxOutputTokens: effectiveMaxTokens,
             },
           };
           if (systemPrompt) {
@@ -278,7 +281,10 @@ export async function callAI({
         }
 
         if (nativeRes.ok) {
-          const text = nativeData?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+          const parts = nativeData?.candidates?.[0]?.content?.parts || [];
+          const answerParts = parts.filter((p) => !p.thought);
+          const partsToUse = answerParts.length > 0 ? answerParts : parts;
+          const text = partsToUse.map((p) => p.text || '').join('').trim();
           if (text) return text;
         } else {
           const nativeErr = nativeData?.error?.message || JSON.stringify(nativeData);
@@ -377,11 +383,13 @@ export async function callAIRaw(body, userConfig = null) {
         }));
 
       const buildRawPayload = () => {
+        const requestedMax = body.max_tokens || 2048;
+        const effectiveMax = Math.max(requestedMax * 2, 4096);
         const p = {
           contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: body.prompt || 'Olá' }] }],
           generationConfig: {
             temperature: body.temperature ?? 0.5,
-            maxOutputTokens: body.max_tokens || 2048,
+            maxOutputTokens: effectiveMax,
           },
         };
         if (systemMsg) {
@@ -433,7 +441,10 @@ export async function callAIRaw(body, userConfig = null) {
       }
 
       if (nativeRes.ok) {
-        const text = nativeData?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+        const parts = nativeData?.candidates?.[0]?.content?.parts || [];
+        const answerParts = parts.filter((p) => !p.thought);
+        const partsToUse = answerParts.length > 0 ? answerParts : parts;
+        const text = partsToUse.map((p) => p.text || '').join('').trim();
         const normalizedData = {
           id: `gemini-${Date.now()}`,
           model: activeModel,
