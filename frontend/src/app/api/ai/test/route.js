@@ -17,7 +17,7 @@ export async function POST(request) {
     // Ping rápido para testar validade e saldo
     const response = await callAI({
       messages: [{ role: 'user', content: 'Olá. Responda apenas "OK".' }],
-      maxTokens: 10,
+      maxTokens: 50,
       temperature: 0.1,
       userConfig: {
         provider,

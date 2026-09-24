@@ -76,7 +76,8 @@ export const AIProviders = {
     defaultModel: 'meta-llama/llama-3.1-8b-instruct:free',
     modelos: [
       { id: 'meta-llama/llama-3.1-8b-instruct:free', nome: 'Llama 3.1 8B (Gratuito)' },
-      { id: 'google/gemini-2.0-flash-exp:free', nome: 'Gemini 2.0 Flash Exp (Gratuito)' },
+      { id: 'openrouter/free', nome: 'OpenRouter Free (Auto - Roteamento Inteligente Gratuito)' },
+      { id: 'meta-llama/llama-3.3-70b-instruct:free', nome: 'Llama 3.3 70B (Gratuito - Alta Capacidade)' },
     ],
     baseUrl: 'https://openrouter.ai/api/v1/chat/completions',
     keyPrefix: 'sk-or-',

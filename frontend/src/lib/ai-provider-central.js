@@ -55,8 +55,8 @@ export const PROVIDER_ENDPOINTS = {
     headers: (key) => ({
       Authorization: `Bearer ${key}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://gestaodocente.com.br',
-      'X-Title': 'Gestão Docente',
+      'HTTP-Referer': 'https://rotinadocente-kelso-palhetas-projects.vercel.app',
+      'X-Title': 'Gestao Docente',
     }),
     isOpenAICompatible: true,
   },
@@ -188,6 +188,49 @@ export async function callAI({
   const data = await res.json();
 
   if (!res.ok) {
+    if (spec.id === 'gemini') {
+      try {
+        const nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const geminiContents = messages
+          .filter((m) => m.role !== 'system')
+          .map((m) => ({
+            role: m.role === 'assistant' ? 'model' : 'user',
+            parts: [{ text: m.content || '' }],
+          }));
+
+        const nativePayload = {
+          contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: 'Olá' }] }],
+          generationConfig: {
+            temperature,
+            maxOutputTokens: maxTokens,
+          },
+        };
+
+        if (systemPrompt) {
+          nativePayload.systemInstruction = {
+            parts: [{ text: systemPrompt }],
+          };
+        }
+
+        const nativeRes = await fetch(nativeUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(nativePayload),
+        });
+
+        const nativeData = await nativeRes.json();
+        if (nativeRes.ok) {
+          const text = nativeData?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+          if (text) return text;
+        } else {
+          const nativeErr = nativeData?.error?.message || JSON.stringify(nativeData);
+          throw new Error(`[GEMINI AI] ${nativeRes.status}: ${nativeErr}`);
+        }
+      } catch (nativeError) {
+        throw nativeError;
+      }
+    }
+
     const errMsg = data?.error?.message || data?.error || JSON.stringify(data);
     throw new Error(`[${spec.id.toUpperCase()} AI] ${res.status}: ${errMsg}`);
   }
@@ -261,6 +304,53 @@ export async function callAIRaw(body, userConfig = null) {
   });
 
   const data = await res.json();
+
+  if (!res.ok && spec.id === 'gemini') {
+    try {
+      const nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const msgs = body.messages || [];
+      const systemMsg = msgs.find((m) => m.role === 'system')?.content;
+      const geminiContents = msgs
+        .filter((m) => m.role !== 'system')
+        .map((m) => ({
+          role: m.role === 'assistant' ? 'model' : 'user',
+          parts: [{ text: typeof m.content === 'string' ? m.content : JSON.stringify(m.content) }],
+        }));
+
+      const nativePayload = {
+        contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: body.prompt || 'Olá' }] }],
+        generationConfig: {
+          temperature: body.temperature ?? 0.5,
+          maxOutputTokens: body.max_tokens || 2048,
+        },
+      };
+
+      if (systemMsg) {
+        nativePayload.systemInstruction = { parts: [{ text: systemMsg }] };
+      }
+
+      const nativeRes = await fetch(nativeUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nativePayload),
+      });
+
+      const nativeData = await nativeRes.json();
+      if (nativeRes.ok) {
+        const text = nativeData?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+        const normalizedData = {
+          id: `gemini-${Date.now()}`,
+          model,
+          choices: [{ message: { role: 'assistant', content: text } }],
+          usage: nativeData.usageMetadata,
+        };
+        return { data: normalizedData, status: nativeRes.status, ok: true };
+      }
+    } catch {
+      // continua para retornar o erro original
+    }
+  }
+
   return { data, status: res.status, ok: res.ok };
 }
 
