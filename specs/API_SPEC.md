@@ -72,7 +72,7 @@ Valida a chave do professor com uma requisição de baixo consumo (ping de valid
   ```json
   {
     "provider": "gemini",
-    "apiKey": "AIzaSy...",
+    "apiKey": "AQ...",
     "model": "gemini-1.5-flash"
   }
   ```

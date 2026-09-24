@@ -132,7 +132,8 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - A interface do usuário deve bloquear o acionamento e direcionar o professor imediatamente ao modal de conexão de IA.
 
 4. **RN-30 (Segurança, Isolamento e Mascaramento de Chaves):**
-   - As chaves de API nunca devem ser exibidas em texto plano na interface após salvas; o sistema deve apresentar uma versão mascarada (ex: `sk-...` ou `AIza...` seguido dos últimos 4 caracteres).
+   - As chaves de API nunca devem ser exibidas em texto plano na interface após salvas; o sistema deve apresentar uma versão mascarada (ex: `AQ...` para chaves Gemini recentes, `sk-...` para OpenAI/Anthropic/OpenRouter, ou `AIza...` para chaves Google legadas, seguido dos últimos 4 caracteres).
+   - As novas chaves emitidas pelo Google AI Studio para a API do Gemini utilizam o prefixo `AQ` (com suporte retroativo a `AIzaSy`).
    - O professor pode testar a validade da chave em tempo real através do endpoint `POST /api/ai/test` e pode remover/desconectar sua chave a qualquer momento.
 
 

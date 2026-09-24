@@ -35,7 +35,9 @@ export class AIConfig {
     if (clean.length <= 8) return '••••••••';
 
     let prefix = 'sk-...';
-    if (clean.startsWith('AIza')) {
+    if (clean.startsWith('AQ')) {
+      prefix = 'AQ...';
+    } else if (clean.startsWith('AIza')) {
       prefix = 'AIza...';
     } else {
       prefix = 'sk-...';

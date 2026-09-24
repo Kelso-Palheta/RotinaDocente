@@ -21,6 +21,10 @@ describe('UT-13 (RN-27): Entidade AIConfig e Provedores Suportados', () => {
     expect(AIProviders.openrouter.defaultModel).toBe('meta-llama/llama-3.1-8b-instruct:free');
   });
 
+  it('deve definir o prefixo AQ para o Google Gemini (novo padrão)', () => {
+    expect(AIProviders.gemini.keyPrefix).toBe('AQ');
+  });
+
   it('deve instanciar uma configuração de IA válida', () => {
     const config = new AIConfig({
       provider: 'gemini',
@@ -59,6 +63,26 @@ describe('UT-16 (RN-30): Mascaramento de Chaves de API e Sanitização', () => {
 
     const mascarada = config.getMaskedKey();
     expect(mascarada).toBe('sk-...XYZW');
+  });
+
+  it('deve mascarar corretamente chaves do Gemini iniciando com AQ (novo padrão Google)', () => {
+    const config = new AIConfig({
+      provider: 'gemini',
+      apiKey: 'AQ1234567890abcdefXYZW'
+    });
+
+    const mascarada = config.getMaskedKey();
+    expect(mascarada).toBe('AQ...XYZW');
+  });
+
+  it('deve suportar mascaramento de chaves legadas do Gemini iniciando com AIza', () => {
+    const config = new AIConfig({
+      provider: 'gemini',
+      apiKey: 'AIzaSy1234567890abcdef'
+    });
+
+    const mascarada = config.getMaskedKey();
+    expect(mascarada).toBe('AIza...cdef');
   });
 
   it('deve retornar string vazia ao mascarar chave ausente', () => {
