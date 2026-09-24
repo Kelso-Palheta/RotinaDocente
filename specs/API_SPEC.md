@@ -94,3 +94,64 @@ Valida a chave do professor com uma requisição de baixo consumo (ping de valid
   }
   ```
 
+---
+
+## 3. Contratos de Atividades Adaptadas & Educação Inclusiva
+
+### 3.1 Endpoint de Geração de Atividade Adaptada: `POST /api/adaptacoes/gerar`
+Transforma ou cria atividade escolar adaptada segundo os preceitos do DUA e necessidades selecionadas.
+- **Headers:** Requer headers canônicos de BYOK (`x-user-ai-provider`, `x-user-ai-key`).
+- **Request Body:**
+  ```json
+  {
+    "origem": "atividade_existente | do_zero",
+    "conteudoOriginal": "Texto da atividade ou tema da BNCC",
+    "disciplina": "Ciências",
+    "anoLetivo": "6º Ano",
+    "habilidadeBNCC": "EF06CI02",
+    "necessidades": ["tea", "di"],
+    "nivelSuporte": 2,
+    "hiperfoco": "Dinossauros",
+    "observacoes": "Lê com apoio de imagens e frases curtas",
+    "qtdQuestoes": 3,
+    "tipoQuestoes": "mista | objetiva | discursiva"
+  }
+  ```
+- **Response Sucesso (200):**
+  ```json
+  {
+    "ok": true,
+    "atividadeAdaptada": {
+      "titulo": "Ciclo da Água — Atividade Adaptada",
+      "habilidade": "EF06CI02",
+      "instrucoesAluno": "Passo a passo visual e leitura facilitada...",
+      "questoes": [
+        {
+          "numero": 1,
+          "tipo": "objetiva",
+          "enunciado": "Enunciado em ordem direta com negrito estratégico...",
+          "apoioVisualDescricao": "Ilustração do sol aquecendo a água do rio.",
+          "alternativas": [
+            { "letra": "A", "texto": "A água sobe em vapor." },
+            { "letra": "B", "texto": "A água vira pedra." },
+            { "letra": "C", "texto": "A água desaparece para sempre." }
+          ],
+          "gabarito": "A",
+          "dica": "Lembre-se da fumaça da panela quente."
+        }
+      ]
+    },
+    "guiaMediacao": {
+      "objetivo": "Compreender as etapas do ciclo da água sem a barreira da leitura densa.",
+      "materiaisConcretosSugeridos": ["Copo com água morna e plástico filme para simular chuva."],
+      "tempoSugeridoMinutos": 35,
+      "estrategiasBloqueio": "Se o aluno demonstrar sobrecarga, faça pausas sensoriais a cada 2 questões."
+    }
+  }
+  ```
+
+### 3.2 Endpoint de Perfis de Alunos (PEI Rápido): `/api/adaptacoes/alunos`
+- **`GET /api/adaptacoes/alunos`**: Lista os alunos inclusivos cadastrados pelo professor autenticado.
+- **`POST /api/adaptacoes/alunos`**: Cadastra ou atualiza o perfil do estudante (nome, turma, necessidades multi-select, nível de suporte, hiperfoco, notas).
+- **`DELETE /api/adaptacoes/alunos?id={id}`**: Remove perfil de aluno.
+

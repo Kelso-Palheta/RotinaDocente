@@ -49,6 +49,13 @@ O **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema 
    - Autonomia total do professor no controle de custos e créditos em seu provedor preferido.
    - Validador em tempo real de latência e saldo da chave antes do salvamento.
    - Bloqueio estrito de requisições de IA quando não houver chave pessoal configurada.
+9. **Atividades Adaptadas & Educação Inclusiva (DUA/PEI):**
+   - Diferenciação pedagógica de atividades alinhadas ao Desenho Universal para a Aprendizagem (DUA) e LBI (Lei 13.146/2015).
+   - Suporte a seleção multi-select de deficiências e neurodiversidades (TEA, DI, TDAH, Baixa Visão, Cegueira, Surdez, Motora, Dislexia, Discalculia, AH/SD).
+   - Motor de harmonização não-conflitante para estudantes com múltiplas deficiências.
+   - Banco de perfis de estudantes (PEI / PDI rápido) para reuso contínuo.
+   - Bimodalidade de entrega: integração no módulo digital de atividades e módulo independente com exportação em PDF de alta acessibilidade para impressão.
+   - Geração de Guia de Mediação Pedagógica para o professor regente e mediador do AEE.
 
 ---
 

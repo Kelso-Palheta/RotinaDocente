@@ -38,3 +38,40 @@ Histórico de redações corrigidas.
 - `scoreData`: array com notas das 5 competências
 - `totalScore`: number
 - `createdAt`: timestamp
+
+---
+
+### `professores/{userId}/alunos_adaptados/{alunoId}`
+Perfis de estudantes com necessidades específicas para adaptação curricular (PEI Rápido).
+- `id`: string (UUID)
+- `nome`: string (ex: "Lucas Silva")
+- `turmaId`: string (referência à turma do professor)
+- `turmaNome`: string (ex: "3º Ano B")
+- `necessidades`: array de strings (`['tea', 'di', 'tdah', 'baixa_visao', 'cegueira', 'surdez', 'motora', 'dislexia', 'discalculia', 'ah_sd']`)
+- `nivelSuporte`: number (`1` - Leve, `2` - Moderado, `3` - Alto)
+- `hiperfoco`: string opcional (ex: "Dinossauros, Transporte Ferroviário")
+- `observacoes`: string opcional (ex: "Compreende melhor com frases curtas e apoio visual")
+- `createdAt`: timestamp
+- `updatedAt`: timestamp
+
+---
+
+### `professores/{userId}/atividades_adaptadas/{adaptacaoId}`
+Registro de atividades adaptadas geradas pelo módulo.
+- `id`: string (UUID)
+- `titulo`: string (ex: "Ciclo da Água - Ciências 6º Ano")
+- `disciplina`: string
+- `anoLetivo`: string
+- `habilidadeBNCC`: string opcional (ex: "EF06CI02")
+- `origem`: string (`'do_zero' | 'atividade_existente'`)
+- `conteudoOriginal`: string (texto ou enunciado original fornecido)
+- `alunoId`: string opcional (referência a `alunos_adaptados`)
+- `alunoNome`: string opcional
+- `necessidades`: array de strings
+- `nivelSuporte`: number
+- `atividadeAdaptada`: string (texto estruturado da atividade com formatação acessível)
+- `guiaMediacao`: string (texto de orientações para o professor regente e mediador do AEE)
+- `gabarito`: string opcional
+- `configImpressao`: objeto com opções de fonte (`14pt` | `18pt` | `24pt`) e contraste
+- `createdAt`: timestamp
+- `updatedAt`: timestamp

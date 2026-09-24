@@ -137,6 +137,37 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - O professor pode testar a validade da chave em tempo real através do endpoint `POST /api/ai/test` e pode remover/desconectar sua chave a qualquer momento.
    - Para chaves gratuitas do Google AI Studio, o modelo ativo recomendado é `gemini-3.6-flash` (substituindo `gemini-1.5-flash` e `gemini-2.5-flash` descontinuados para novas contas). O sistema implementa autocura e descoberta dinâmica (`ModelService.ListModels` e extração de recomendação) para mitigar erros 404 de modelos obsoletos.
 
+---
 
+## 9. Regras de Atividades Adaptadas & Educação Inclusiva (DUA/PEI)
 
+1. **RN-31 (Não-Empobrecimento Curricular e Preservação da BNCC):**
+   - A adaptação de uma atividade jamais deve significar exclusão do conteúdo curricular ou rebaixamento do objetivo pedagógico.
+   - A atividade adaptada deve preservar a mesma competência ou habilidade da BNCC da atividade regular, alterando as formas de representação, linguagem, mediação e expressão para superar as barreiras de acesso.
 
+2. **RN-32 (Harmonização Sinérgica em Múltipla Deficiência):**
+   - O professor pode selecionar 1 ou múltiplas categorias de necessidades (ex: `tea`, `di`, `tdah`, `baixa_visao`, `cegueira`, `surdez`, `motora`, `dislexia`, `discalculia`, `ah_sd`).
+   - Quando duas ou mais categorias forem selecionadas simultaneamente, o motor de adaptação deve harmonizar as diretrizes sem contradição:
+     - *Exemplo (TEA + DI):* Linguagem literal e previsibilidade (TEA) somada à Leitura Fácil e ancoragem concreta (DI).
+     - *Exemplo (Baixa Visão + Motora):* Fonte ampliada e alto contraste (Baixa Visão) combinada com respostas que dispensam escrita cursiva fina (Motora).
+     - *Exemplo (Cegueira + Apoio Visual):* Todo suporte visual deve vir obrigatoriamente acompanhado de audiodescrição semântica estruturada para leitor de tela ou conversão tátil.
+
+3. **RN-33 (Perfis de Alunos e PEI Rápido com Privacidade):**
+   - Os perfis de estudantes inclusivos são armazenados no Firestore (`professores/{userId}/alunos_adaptados/{alunoId}`) com fallback em `localStorage`.
+   - Cada perfil armazena: `nome`, `turma`, `necessidades` (array de IDs), `nivelSuporte` (1 a 3), `hiperfoco` (opcional), `observacoes`.
+   - Em conformidade com a LGPD e a LBI, os dados de necessidades são tratados como sensíveis, restritos ao professor autenticado e nunca utilizados para alimentar modelos públicos de IA.
+
+4. **RN-34 (Bimodalidade Operacional):**
+   - O sistema deve suportar dois canais complementares de entrega:
+     - **Canal Físico/AEE (Módulo Independente):** Geração de folha de atividade com diagramação acessível, opções de tipografia ampliada (14pt, 18pt, 24pt), contraste e espaçamento para impressão limpa.
+     - **Canal Digital (Módulo Atividades):** Vínculo da versão adaptada à atividade digital já criada, permitindo que alunos com deficiência recebam a versão adaptada no portal online.
+
+5. **RN-35 (Obrigatoriedade do Guia de Mediação Pedagógica):**
+   - Toda atividade adaptada gerada deve ser acompanhada obrigatoriamente do **Guia de Mediação para o Professor/AEE**, contendo:
+     - Objetivo pedagógico da adaptação.
+     - Materiais concretos ou complementares sugeridos.
+     - Tempo estimado e sugestão de pausas.
+     - Roteiro de intervenção diante de frustração ou bloqueio do estudante.
+
+6. **RN-36 (Acessibilidade Gráfica e Tipográfica):**
+   - Textos adaptados para estudantes com dislexia e baixa visão devem utilizar alinhamento à esquerda (não justificado), entrelinhas de no mínimo 1.5 e fontes sem serifa de alta legibilidade.
