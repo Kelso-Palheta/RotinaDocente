@@ -220,3 +220,74 @@ describe('IT-05 (RN-31, RN-32, RN-35): Endpoint de Geração de Atividades Adapt
   });
 });
 
+describe('IT-07 (RN-39): Endpoint de Geração de Imagem Pedagógica (/api/adaptacoes/imagem)', () => {
+  it('deve retornar 400 com AI_KEY_REQUIRED quando chave não for fornecida', async () => {
+    const { POST: postImagem } = await import(
+      '../../frontend/src/app/api/adaptacoes/imagem/route'
+    );
+
+    const req = new Request('http://localhost/api/adaptacoes/imagem', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: 'Desenho de célula vegetal' }),
+    });
+
+    const res = await postImagem(req);
+    expect(res.status).toBe(400);
+    const json = await res.json();
+    expect(json.error).toBe('AI_KEY_REQUIRED');
+  });
+
+  it('deve gerar imagem em base64 com sucesso quando provedor for Gemini', async () => {
+    const { POST: postImagem } = await import(
+      '../../frontend/src/app/api/adaptacoes/imagem/route'
+    );
+
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({
+        candidates: [
+          {
+            content: {
+              parts: [
+                {
+                  inlineData: {
+                    mimeType: 'image/png',
+                    data: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      }),
+    });
+
+    const req = new Request('http://localhost/api/adaptacoes/imagem', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-user-ai-provider': 'gemini',
+        'x-user-ai-key': 'fake-key',
+      },
+      body: JSON.stringify({
+        prompt: 'Esquema de uma folha verde com gotas de água',
+        disciplina: 'Ciências',
+        necessidades: ['tea'],
+      }),
+    });
+
+    const res = await postImagem(req);
+    expect(res.status).toBe(200);
+
+    const json = await res.json();
+    expect(json.sucesso).toBe(true);
+    expect(json.imagemUrl).toContain('data:image/png;base64,');
+
+    globalThis.fetch = originalFetch;
+  });
+});
+
+

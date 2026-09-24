@@ -614,5 +614,38 @@ describe('UT-22 (RN-38): Banco de Atividades Adaptadas e Reaproveitamento (Ativi
   });
 });
 
+describe('UT-23 (RN-39): Construtor de Imagens Pedagógicas Acessíveis (ImagemPedagogicaBuilder)', () => {
+  it('deve enriquecer o prompt da imagem com diretrizes de clareza didática e sem ruído visual', async () => {
+    const { ImagemPedagogicaBuilder } = await import(
+      '../../frontend/src/dominio/adaptacoes/ImagemPedagogicaBuilder'
+    );
+
+    const prompt = ImagemPedagogicaBuilder.construirPrompt({
+      descricaoApoio: 'Ilustração de uma árvore absorvendo luz solar pelas folhas e água pelas raízes',
+      disciplina: 'Ciências',
+      necessidades: ['tea', 'baixa_visao'],
+    });
+
+    expect(prompt).toContain('Ilustração de uma árvore absorvendo luz solar');
+    expect(prompt).toContain('traços limpos');
+    expect(prompt).toContain('fundo claro');
+    expect(prompt).toContain('alto contraste');
+    expect(prompt).toContain('sem texto');
+  });
+
+  it('deve formatar data URL base64 com mimeType adequado', async () => {
+    const { ImagemPedagogicaBuilder } = await import(
+      '../../frontend/src/dominio/adaptacoes/ImagemPedagogicaBuilder'
+    );
+
+    const dataUrl = ImagemPedagogicaBuilder.formatarDataUrl('abc123xyz', 'image/png');
+    expect(dataUrl).toBe('data:image/png;base64,abc123xyz');
+
+    const dataUrlDefault = ImagemPedagogicaBuilder.formatarDataUrl('abc123xyz');
+    expect(dataUrlDefault).toBe('data:image/png;base64,abc123xyz');
+  });
+});
+
+
 
 

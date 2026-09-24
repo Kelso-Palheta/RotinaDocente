@@ -181,3 +181,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - As atividades são indexadas pelas categorias de deficiência (`necessidades`), disciplina e ano escolar.
    - O professor pode reaproveitar uma atividade completa para outro estudante com as mesmas necessidades pedagógicas (associando o novo nome do estudante) ou selecionar questões específicas para compor uma nova prova adaptada.
 
+9. **RN-39 (Geração de Apoio Visual e Imagens Pedagógicas Acessíveis via BYOK):**
+   - O professor pode solicitar a geração da imagem/ilustração pedagógica de uma questão adaptada individualmente ou em lote para toda a atividade.
+   - O gerador de imagens utiliza a chave do próprio professor (BYOK), suportando a cota gratuita do Google AI Studio (`gemini-3.1-flash-image`, `gemini-2.5-flash-image`, `imagen-3.0-generate-002`) e OpenAI (`dall-e-3`).
+   - O prompt da imagem é estruturado com foco na acessibilidade cognitiva DUA: traços limpos, estilo didático/esquemático, cores harmoniosas ou alto contraste, evitando ruídos visuais decorativos que possam gerar sobrecarga sensorial em estudantes neurodivergentes.
+   - As imagens geradas são codificadas em base64 e associadas ao campo `imagemUrl` da questão, sendo salvas com a atividade e impressas no Caderno do Estudante e no PDF.
+
+

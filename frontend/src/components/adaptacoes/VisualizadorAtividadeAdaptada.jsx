@@ -21,8 +21,12 @@ import {
   BookmarkPlus,
   BookmarkCheck,
   FolderOpen,
+  Image as ImageIcon,
+  RefreshCw,
+  Download,
 } from "lucide-react";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
+import { useAIConfig } from "@/hooks/useAIConfig";
 
 export function VisualizadorAtividadeAdaptada({
   resultado,
@@ -31,10 +35,16 @@ export function VisualizadorAtividadeAdaptada({
   onAbrirBanco,
   salvoNoBanco = false,
 }) {
+  const { temChave, getAIHeaders } = useAIConfig();
   const [abaAtiva, setAbaAtiva] = useState("aluno"); // 'aluno' | 'mediacao'
   const [copiado, setCopiado] = useState(false);
   const [salvandoLocal, setSalvandoLocal] = useState(false);
 
+  // Estados de geração de imagens de apoio visual (RN-39)
+  const [imagensQuestoes, setImagensQuestoes] = useState({});
+  const [gerandoImagemIdx, setGerandoImagemIdx] = useState(null);
+  const [gerandoTodas, setGerandoTodas] = useState(false);
+  const [erroImagem, setErroImagem] = useState("");
 
   // Configurações visuais de acessibilidade em tempo real (RN-36)
   const [tamanhoFonte, setTamanhoFonte] = useState("16px");
@@ -43,6 +53,7 @@ export function VisualizadorAtividadeAdaptada({
   const [dicasAbertas, setDicasAbertas] = useState({});
 
   if (!resultado) return null;
+
 
   const {
     titulo = "Atividade Adaptada",
@@ -82,6 +93,61 @@ export function VisualizadorAtividadeAdaptada({
   const handleImprimir = () => {
     window.print();
   };
+
+  const handleGerarImagem = async (idx, q) => {
+    if (!temChave) {
+      alert("Conecte sua chave de IA no botão do topo para gerar ilustrações com o seu modelo.");
+      return;
+    }
+
+    setErroImagem("");
+    setGerandoImagemIdx(idx);
+
+    try {
+      const res = await fetch("/api/adaptacoes/imagem", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAIHeaders(),
+        },
+        body: JSON.stringify({
+          descricaoApoio: q.apoioVisualDescricao || q.enunciado,
+          disciplina,
+          necessidades: aluno.necessidades || [],
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Erro ao gerar imagem.");
+      }
+
+      setImagensQuestoes((prev) => ({
+        ...prev,
+        [idx]: data.imagemUrl,
+      }));
+      q.imagemUrl = data.imagemUrl;
+    } catch (err) {
+      console.error("Falha ao gerar imagem:", err);
+      setErroImagem(`Erro na questão ${q.numero || idx + 1}: ${err.message}`);
+    } finally {
+      setGerandoImagemIdx(null);
+    }
+  };
+
+  const handleGerarTodasImagens = async () => {
+    const questoes = atividadeAdaptada.questoes || [];
+    setGerandoTodas(true);
+    for (let idx = 0; idx < questoes.length; idx++) {
+      const q = questoes[idx];
+      const temImagem = q.imagemUrl || imagensQuestoes[idx];
+      if (!temImagem && (q.apoioVisualDescricao || q.enunciado)) {
+        await handleGerarImagem(idx, q);
+      }
+    }
+    setGerandoTodas(false);
+  };
+
 
   return (
     <div className="space-y-6">
@@ -243,7 +309,27 @@ export function VisualizadorAtividadeAdaptada({
             >
               Alto Contraste {altoContraste ? "✓" : ""}
             </button>
+
+            {/* Gerador de Imagens Pedagógicas DUA (RN-39) */}
+            <button
+              id="btn-gerar-todas-imagens"
+              type="button"
+              disabled={gerandoTodas}
+              onClick={handleGerarTodasImagens}
+              className="px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 text-[11px] font-bold transition-all flex items-center gap-1.5 disabled:opacity-50"
+              title="Gerar imagens automáticas para todas as questões que possuem apoio visual"
+            >
+              <ImageIcon size={14} className="text-indigo-600" />
+              <span>{gerandoTodas ? "Gerando Imagens..." : "🎨 Ilustrar Todas com IA"}</span>
+            </button>
           </div>
+        </div>
+      )}
+
+      {erroImagem && (
+        <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2 print:hidden">
+          <AlertCircle size={16} className="flex-shrink-0" />
+          <span>{erroImagem}</span>
         </div>
       )}
 
@@ -337,24 +423,77 @@ export function VisualizadorAtividadeAdaptada({
                   <div className="space-y-2 flex-1">
                     <p className="font-bold text-base sm:text-lg">{q.enunciado}</p>
 
-                    {/* Apoio Visual Descrito / Audiodescrição */}
-                    {q.apoioVisualDescricao && (
+                    {/* Apoio Visual & Imagem Gerada (RN-39) */}
+                    {(q.imagemUrl || imagensQuestoes[idx]) ? (
+                      <div className="my-4 p-3 bg-slate-50/70 border border-[#dce0f0] rounded-2xl space-y-2.5">
+                        <div className="relative group max-w-md mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
+                          <img
+                            src={q.imagemUrl || imagensQuestoes[idx]}
+                            alt={q.apoioVisualDescricao || `Ilustração da Questão ${q.numero || idx + 1}`}
+                            className="w-full max-h-72 object-contain bg-white mx-auto"
+                          />
+                          <div className="absolute top-2 right-2 flex items-center gap-1.5 print:hidden">
+                            <button
+                              type="button"
+                              disabled={gerandoImagemIdx === idx}
+                              onClick={() => handleGerarImagem(idx, q)}
+                              className="px-2.5 py-1 bg-white/90 hover:bg-white text-slate-700 text-[10px] font-bold rounded-lg border border-slate-200 shadow-xs flex items-center gap-1 backdrop-blur-xs transition-all"
+                              title="Regerar esta ilustração"
+                            >
+                              <RefreshCw size={11} className={gerandoImagemIdx === idx ? "animate-spin" : ""} />
+                              <span>{gerandoImagemIdx === idx ? "Regerando..." : "Regerar"}</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Legenda e Audiodescrição para Acessibilidade */}
+                        {q.apoioVisualDescricao && (
+                          <div className="text-[11px] text-[#6070a0] flex items-start gap-1.5 px-1">
+                            <Eye size={13} className="text-[#f60c49] flex-shrink-0 mt-0.5" />
+                            <span>
+                              <strong className="text-[#101942]">Audiodescrição:</strong> {q.apoioVisualDescricao}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    ) : q.apoioVisualDescricao ? (
                       <div
-                        className={`p-3.5 rounded-xl border text-xs sm:text-sm flex items-start gap-2.5 my-3 ${
+                        className={`p-3.5 rounded-xl border text-xs sm:text-sm my-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                           altoContraste
                             ? "border-yellow-400 bg-black text-yellow-200"
                             : "bg-[#fafbfe] border-indigo-200 text-indigo-950"
                         }`}
                       >
-                        <Eye size={18} className="text-indigo-600 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <strong className="block text-[11px] uppercase tracking-wider text-indigo-700">
-                            Apoio Visual / Audiodescrição da Questão:
-                          </strong>
-                          <span>{q.apoioVisualDescricao}</span>
+                        <div className="flex items-start gap-2.5 flex-1">
+                          <Eye size={18} className="text-indigo-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <strong className="block text-[11px] uppercase tracking-wider text-indigo-700">
+                              Apoio Visual / Audiodescrição da Questão:
+                            </strong>
+                            <span>{q.apoioVisualDescricao}</span>
+                          </div>
                         </div>
+
+                        <button
+                          type="button"
+                          disabled={gerandoImagemIdx === idx || gerandoTodas}
+                          onClick={() => handleGerarImagem(idx, q)}
+                          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs flex-shrink-0 print:hidden"
+                        >
+                          {gerandoImagemIdx === idx ? (
+                            <>
+                              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                              <span>Gerando Ilustração...</span>
+                            </>
+                          ) : (
+                            <>
+                              <ImageIcon size={14} />
+                              <span>🎨 Gerar Imagem com IA</span>
+                            </>
+                          )}
+                        </button>
                       </div>
-                    )}
+                    ) : null}
                   </div>
                 </div>
 
