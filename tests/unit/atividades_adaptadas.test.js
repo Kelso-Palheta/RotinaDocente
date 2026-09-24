@@ -352,3 +352,50 @@ describe('UT-19 (RN-33 & RN-24): Persistência Híbrida de Alunos PEI (AlunoAdap
   });
 });
 
+describe('UT-20 (RN-31, RN-32, RN-35): AdaptacaoPromptBuilder', () => {
+  it('deve construir prompt contendo a regra inegociável de não empobrecimento curricular (RN-31)', async () => {
+    const { AdaptacaoPromptBuilder } = await import(
+      '../../frontend/src/dominio/adaptacoes/AdaptacaoPromptBuilder'
+    );
+
+    const prompt = AdaptacaoPromptBuilder.construir({
+      modo: 'adaptar',
+      conteudoBase: 'Calcule a área do triângulo...',
+      aluno: {
+        nome: 'João',
+        necessidades: ['di'],
+        nivelSuporte: 2,
+      },
+    });
+
+    expect(prompt).toContain('NÃO EMPOBRECIMENTO CURRICULAR');
+    expect(prompt).toContain('Desenho Universal para a Aprendizagem (DUA)');
+    expect(prompt).toContain('guiaMediacao');
+    expect(prompt).toContain('atividadeAdaptada');
+  });
+
+  it('deve incluir diretrizes harmonizadas e ancoragem de hiperfoco quando fornecido', async () => {
+    const { AdaptacaoPromptBuilder } = await import(
+      '../../frontend/src/dominio/adaptacoes/AdaptacaoPromptBuilder'
+    );
+
+    const prompt = AdaptacaoPromptBuilder.construir({
+      modo: 'criar',
+      tema: 'Ecossistemas e Cadeia Alimentar',
+      disciplina: 'Biologia',
+      anoEscolar: '1º Ano EM',
+      aluno: {
+        nome: 'Mateus',
+        necessidades: ['tea'],
+        nivelSuporte: 1,
+        hiperfoco: 'Super-heróis da Marvel',
+      },
+    });
+
+    expect(prompt).toContain('Super-heróis da Marvel');
+    expect(prompt).toContain('TEA');
+    expect(prompt).toContain('Ecossistemas e Cadeia Alimentar');
+  });
+});
+
+
