@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Cpu,
+  HeartHandshake,
 } from "lucide-react";
 import { ProfileModal } from "@/components/diario/ProfileModal";
 import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
@@ -37,6 +38,7 @@ const ICON_MAP = {
   Calendar,
   BarChart3,
   Clock,
+  HeartHandshake,
 };
 
 function Toast({ message, onClose }) {

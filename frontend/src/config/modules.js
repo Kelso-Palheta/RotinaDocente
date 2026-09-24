@@ -55,4 +55,11 @@ export const PLATFORM_MODULES = [
     path: "/meuhorario",
     descricao: "Organização semanal da grade de aulas, turnos e persistência na nuvem",
   },
+  {
+    id: "atividades-adaptadas",
+    nome: "Atividades Adaptadas (DUA)",
+    icon: "HeartHandshake",
+    path: "/adaptacoes",
+    descricao: "Elaboração e adaptação de atividades inclusivas com DUA, PEI e guia de mediação",
+  },
 ];

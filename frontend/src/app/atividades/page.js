@@ -13,7 +13,7 @@ import { AtividadesList } from '@/components/atividades/AtividadesList';
 import { TodasAtividades } from '@/components/atividades/TodasAtividades';
 import { Sidebar } from '@/components/diario/Sidebar';
 import { ProfileModal } from '@/components/diario/ProfileModal';
-import { ArrowLeft, GraduationCap, Layers, ExternalLink, Copy, Check, Menu, X } from 'lucide-react';
+import { ArrowLeft, GraduationCap, Layers, ExternalLink, Copy, Check, Menu, X, HeartHandshake } from 'lucide-react';
 
 import { db } from '@/lib/firebase';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -255,6 +255,16 @@ export default function AtividadesPage() {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => router.push('/adaptacoes')}
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-white hover:bg-[#fff2f6] text-[#d40840] border border-[#fde4ec] transition-all shadow-2xs whitespace-nowrap"
+              title="Criar ou Adaptar Atividades Inclusivas (DUA/PEI)"
+            >
+              <HeartHandshake size={16} className="text-[#f60c49]" />
+              <span className="hidden sm:inline">Versão Adaptada</span>
+              <span className="text-[10px] font-black uppercase bg-[#f60c49] text-white px-1.5 py-0.5 rounded-md">DUA</span>
+            </button>
+
             <div className="relative" ref={alunoDropdownRef}>
               <button
                 onClick={() => setShowAlunoDropdown(!showAlunoDropdown)}
