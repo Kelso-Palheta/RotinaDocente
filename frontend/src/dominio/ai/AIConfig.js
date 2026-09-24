@@ -11,9 +11,14 @@ export class AIConfig {
       throw new Error(`Provedor "${provider}" não é suportado. Opções válidas: ${Object.keys(AIProviders).join(', ')}`);
     }
 
+    let resolvedModel = model || AIProviders[providerLower].defaultModel;
+    if (providerLower === 'gemini' && resolvedModel && (resolvedModel.includes('-high') || resolvedModel.includes('3.8'))) {
+      resolvedModel = 'gemini-3.6-flash';
+    }
+
     this.provider = providerLower;
     this.apiKey = typeof apiKey === 'string' ? apiKey.trim() : '';
-    this.model = model || AIProviders[providerLower].defaultModel;
+    this.model = resolvedModel;
     this.updatedAt = updatedAt || new Date().toISOString();
   }
 

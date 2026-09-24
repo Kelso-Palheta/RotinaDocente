@@ -27,7 +27,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
     if (!prov) return '';
     // Para o Google Gemini, se o modelo for 1.5 ou 2.5 (obsoletos/bloqueados para novas contas gratuitas), migra para 3.6
     if (provId === 'gemini') {
-      if (!currentModel || currentModel.includes('1.5') || currentModel.includes('2.5')) {
+      if (!currentModel || currentModel.includes('1.5') || currentModel.includes('2.5') || currentModel.includes('3.8') || currentModel.includes('-high')) {
         return prov.modelos?.[0]?.id || 'gemini-3.6-flash';
       }
       return currentModel;
