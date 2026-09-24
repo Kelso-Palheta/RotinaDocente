@@ -10,7 +10,8 @@ export const AIProviders = {
     descricao: 'Rápido, econômico e com excelente camada gratuita no Google AI Studio.',
     defaultModel: 'gemini-1.5-flash',
     modelos: [
-      { id: 'gemini-2.5-flash', nome: 'Gemini 2.5 Flash (Recomendado - Mais Recente)' },
+      { id: 'gemini-3.6-flash', nome: 'Gemini 3.6 Flash (Recomendado - Gratuito no AI Studio)' },
+      { id: 'gemini-2.5-flash', nome: 'Gemini 2.5 Flash' },
       { id: 'gemini-1.5-flash', nome: 'Gemini 1.5 Flash (Legado)' },
       { id: 'gemini-2.0-flash', nome: 'Gemini 2.0 Flash' },
       { id: 'gemini-1.5-pro', nome: 'Gemini 1.5 Pro (Alta Capacidade / Raciocínio)' },

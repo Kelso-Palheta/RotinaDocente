@@ -14,24 +14,27 @@ export async function POST(request) {
       );
     }
 
+    const userCfg = {
+      provider,
+      apiKey,
+      model,
+    };
+
     // Ping rápido para testar validade e saldo
     const response = await callAI({
       messages: [{ role: 'user', content: 'Olá. Responda apenas "OK".' }],
       maxTokens: 50,
       temperature: 0.1,
-      userConfig: {
-        provider,
-        apiKey,
-        model,
-      },
+      userConfig: userCfg,
     });
 
     const latencyMs = Date.now() - startTime;
+    const finalModel = userCfg.activeModel || model;
 
     return NextResponse.json({
       ok: true,
       provider,
-      model,
+      model: finalModel,
       latencyMs,
       message: 'Conexão estabelecida com sucesso!',
       raw: response.slice(0, 50),

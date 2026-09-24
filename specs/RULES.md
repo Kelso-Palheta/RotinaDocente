@@ -135,6 +135,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - As chaves de API nunca devem ser exibidas em texto plano na interface após salvas; o sistema deve apresentar uma versão mascarada (ex: `AQ...` para chaves Gemini recentes, `sk-...` para OpenAI/Anthropic/OpenRouter, ou `AIza...` para chaves Google legadas, seguido dos últimos 4 caracteres).
    - As novas chaves emitidas pelo Google AI Studio para a API do Gemini utilizam o prefixo `AQ` (com suporte retroativo a `AIzaSy`).
    - O professor pode testar a validade da chave em tempo real através do endpoint `POST /api/ai/test` e pode remover/desconectar sua chave a qualquer momento.
+   - Para chaves gratuitas do Google AI Studio, o modelo ativo recomendado é `gemini-3.6-flash` (substituindo `gemini-1.5-flash` e `gemini-2.5-flash` descontinuados para novas contas). O sistema implementa autocura e descoberta dinâmica (`ModelService.ListModels` e extração de recomendação) para mitigar erros 404 de modelos obsoletos.
 
 
 

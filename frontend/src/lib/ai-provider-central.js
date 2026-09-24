@@ -243,26 +243,37 @@ export async function callAI({
 
         // Se o modelo solicitado estiver obsoleto/404, autodescobre os modelos disponíveis da chave
         if (!nativeRes.ok && (nativeRes.status === 404 || nativeData?.error?.code === 404)) {
-          console.warn(`[GEMINI AI] Modelo "${activeModel}" retornou 404. Consultando ModelService.ListModels...`);
-          const available = await fetchAvailableGeminiModels(apiKey);
-          if (available.length > 0) {
-            // Prioriza gemini-2.5-flash, qualquer flash, ou o primeiro modelo disponível
-            const fallbackModel =
-              available.find((m) => m.includes('2.5-flash')) ||
+          const errMsg = nativeData?.error?.message || '';
+          console.warn(`[GEMINI AI] Modelo "${activeModel}" retornou 404: ${errMsg}`);
+
+          // Se o erro do Google sugerir diretamente o modelo mais recente (ex: "Please update your code to use models/gemini-3.6-flash")
+          const suggestedMatch = errMsg.match(/models\/(gemini-[\w.-]+)/);
+          let targetFallback = suggestedMatch && suggestedMatch[1] !== activeModel ? suggestedMatch[1] : null;
+
+          if (!targetFallback) {
+            const available = await fetchAvailableGeminiModels(apiKey);
+            targetFallback =
+              available.find((m) => m.includes('3.6-flash')) ||
+              available.find((m) => m.includes('3.8-flash')) ||
+              available.find((m) => m.includes('3.')) ||
+              available.find((m) => m.includes('flash') && !m.includes('1.5') && !m.includes('2.5')) ||
               available.find((m) => m.includes('flash')) ||
               available[0];
+          }
 
-            if (fallbackModel && fallbackModel !== activeModel) {
-              console.log(`[GEMINI AI] Migrando automaticamente para modelo disponível: ${fallbackModel}`);
-              activeModel = fallbackModel;
-              nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
-              nativeRes = await fetch(nativeUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(buildPayload()),
-              });
-              nativeData = await nativeRes.json();
+          if (targetFallback && targetFallback !== activeModel) {
+            console.log(`[GEMINI AI] Migrando automaticamente para modelo disponível: ${targetFallback}`);
+            activeModel = targetFallback;
+            if (userConfig && typeof userConfig === 'object') {
+              userConfig.activeModel = activeModel;
             }
+            nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
+            nativeRes = await fetch(nativeUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(buildPayload()),
+            });
+            nativeData = await nativeRes.json();
           }
         }
 
@@ -388,25 +399,36 @@ export async function callAIRaw(body, userConfig = null) {
       let nativeData = await nativeRes.json();
 
       if (!nativeRes.ok && (nativeRes.status === 404 || nativeData?.error?.code === 404)) {
-        console.warn(`[GEMINI AI Raw] Modelo "${activeModel}" retornou 404. Consultando ModelService.ListModels...`);
-        const available = await fetchAvailableGeminiModels(apiKey);
-        if (available.length > 0) {
-          const fallbackModel =
-            available.find((m) => m.includes('2.5-flash')) ||
+        const errMsg = nativeData?.error?.message || '';
+        console.warn(`[GEMINI AI Raw] Modelo "${activeModel}" retornou 404: ${errMsg}`);
+
+        const suggestedMatch = errMsg.match(/models\/(gemini-[\w.-]+)/);
+        let targetFallback = suggestedMatch && suggestedMatch[1] !== activeModel ? suggestedMatch[1] : null;
+
+        if (!targetFallback) {
+          const available = await fetchAvailableGeminiModels(apiKey);
+          targetFallback =
+            available.find((m) => m.includes('3.6-flash')) ||
+            available.find((m) => m.includes('3.8-flash')) ||
+            available.find((m) => m.includes('3.')) ||
+            available.find((m) => m.includes('flash') && !m.includes('1.5') && !m.includes('2.5')) ||
             available.find((m) => m.includes('flash')) ||
             available[0];
+        }
 
-          if (fallbackModel && fallbackModel !== activeModel) {
-            console.log(`[GEMINI AI Raw] Migrando automaticamente para modelo disponível: ${fallbackModel}`);
-            activeModel = fallbackModel;
-            nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
-            nativeRes = await fetch(nativeUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(buildRawPayload()),
-            });
-            nativeData = await nativeRes.json();
+        if (targetFallback && targetFallback !== activeModel) {
+          console.log(`[GEMINI AI Raw] Migrando automaticamente para modelo disponível: ${targetFallback}`);
+          activeModel = targetFallback;
+          if (userConfig && typeof userConfig === 'object') {
+            userConfig.activeModel = activeModel;
           }
+          nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
+          nativeRes = await fetch(nativeUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(buildRawPayload()),
+          });
+          nativeData = await nativeRes.json();
         }
       }
 

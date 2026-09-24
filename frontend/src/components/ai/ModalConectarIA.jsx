@@ -22,9 +22,25 @@ import { useAIConfig } from '@/hooks/useAIConfig';
 export function ModalConectarIA({ isOpen, onClose }) {
   const { config, temChave, salvar, remover, testar } = useAIConfig();
 
+  const getRecommendedModel = (provId, currentModel) => {
+    const prov = AIProviders[provId];
+    if (!prov) return '';
+    // Para o Google Gemini, se o modelo for 1.5 ou 2.5 (obsoletos/bloqueados para novas contas gratuitas), migra para 3.6
+    if (provId === 'gemini') {
+      if (!currentModel || currentModel.includes('1.5') || currentModel.includes('2.5')) {
+        return prov.modelos?.[0]?.id || 'gemini-3.6-flash';
+      }
+      return currentModel;
+    }
+    if (currentModel && prov.modelos?.some((m) => m.id === currentModel)) {
+      return currentModel;
+    }
+    return prov.modelos?.[0]?.id || prov.defaultModel || '';
+  };
+
   const [provider, setProvider] = useState(config?.provider || 'gemini');
   const [apiKey, setApiKey] = useState(config?.apiKey || '');
-  const [model, setModel] = useState(config?.model || AIProviders.gemini.defaultModel);
+  const [model, setModel] = useState(getRecommendedModel(config?.provider || 'gemini', config?.model));
   const [showKey, setShowKey] = useState(false);
 
   const [testing, setTesting] = useState(false);
@@ -36,11 +52,11 @@ export function ModalConectarIA({ isOpen, onClose }) {
     if (config) {
       setProvider(config.provider);
       setApiKey(config.apiKey);
-      setModel(config.model || AIProviders[config.provider]?.defaultModel);
+      setModel(getRecommendedModel(config.provider, config.model));
     } else {
       setProvider('gemini');
       setApiKey('');
-      setModel(AIProviders.gemini.defaultModel);
+      setModel(getRecommendedModel('gemini', null));
     }
     setTestResult(null);
     setSaveSuccess(false);
@@ -49,7 +65,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
   // Ao mudar de provedor, ajusta o modelo padrão
   const handleSelectProvider = (provId) => {
     setProvider(provId);
-    setModel(AIProviders[provId]?.defaultModel || '');
+    setModel(getRecommendedModel(provId, null));
     setTestResult(null);
   };
 
@@ -63,9 +79,12 @@ export function ModalConectarIA({ isOpen, onClose }) {
     setTestResult(null);
     try {
       const res = await testar({ provider, apiKey: apiKey.trim(), model });
+      if (res.model && res.model !== model) {
+        setModel(res.model);
+      }
       setTestResult({
         ok: true,
-        message: `Conexão bem-sucedida! Latência: ${res.latencyMs || 0}ms`,
+        message: `Conexão bem-sucedida! ${res.model ? `Modelo ativo: ${res.model}. ` : ''}Latência: ${res.latencyMs || 0}ms`,
         latencyMs: res.latencyMs,
       });
     } catch (err) {
