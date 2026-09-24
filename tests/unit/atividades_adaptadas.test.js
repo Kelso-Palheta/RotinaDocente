@@ -183,3 +183,172 @@ describe('UT-18 (RN-32): Motor de Harmonização Sinérgica para Múltipla Defic
     expect(harmonizacao.diretrizesEngajamento.some((d) => d.includes('Trens e Ferrovias'))).toBe(true);
   });
 });
+
+describe('UT-19 (RN-33 & RN-24): Persistência Híbrida de Alunos PEI (AlunoAdaptadoRepository)', () => {
+  const mockLocalStorage = (() => {
+    let store = {};
+    return {
+      getItem: (key) => store[key] || null,
+      setItem: (key, val) => {
+        store[key] = String(val);
+      },
+      removeItem: (key) => {
+        delete store[key];
+      },
+      clear: () => {
+        store = {};
+      },
+    };
+  })();
+
+  const originalLocalStorage = global.localStorage;
+
+  beforeEach(() => {
+    mockLocalStorage.clear();
+    global.localStorage = mockLocalStorage;
+  });
+
+  afterEach(() => {
+    global.localStorage = originalLocalStorage;
+  });
+
+  it('deve salvar e listar alunos localmente via localStorage (modo offline/fallback)', async () => {
+    const { AlunoAdaptadoRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AlunoAdaptadoRepository'
+    );
+    const repo = new AlunoAdaptadoRepository();
+
+    const aluno = new AlunoInclusivo({
+      id: 'aluno-offline-1',
+      nome: 'Enzo Gabriel',
+      turmaId: 'turma-2',
+      turmaNome: '2º Ano B',
+      necessidades: ['tdah', 'discalculia'],
+      nivelSuporte: 1,
+    });
+
+    await repo.salvarAluno('prof-123', aluno);
+
+    const alunos = await repo.listarAlunos('prof-123');
+    expect(alunos).toHaveLength(1);
+    expect(alunos[0].nome).toBe('Enzo Gabriel');
+    expect(alunos[0].necessidades).toEqual(['tdah', 'discalculia']);
+
+    const buscado = await repo.obterAlunoPorId('prof-123', 'aluno-offline-1');
+    expect(buscado).toBeDefined();
+    expect(buscado.nome).toBe('Enzo Gabriel');
+  });
+
+  it('deve sincronizar com Firestore quando banco estiver conectado', async () => {
+    const { AlunoAdaptadoRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AlunoAdaptadoRepository'
+    );
+
+    let docSalvo = null;
+    const mockFirestore = {
+      collection: (colName) => ({
+        doc: (docId) => ({
+          collection: (subCol) => ({
+            doc: (subDocId) => ({
+              set: async (data) => {
+                docSalvo = { colName, docId, subCol, subDocId, ...data };
+              },
+            }),
+            get: async () => ({
+              docs: [
+                {
+                  id: 'aluno-nuvem-1',
+                  data: () => ({
+                    id: 'aluno-nuvem-1',
+                    nome: 'Mariana Costa',
+                    turmaId: 'turma-9',
+                    turmaNome: '9º Ano',
+                    necessidades: ['surdez'],
+                    nivelSuporte: 1,
+                  }),
+                },
+              ],
+            }),
+          }),
+        }),
+      }),
+    };
+
+    const repo = new AlunoAdaptadoRepository({ firestoreDb: mockFirestore });
+
+    const aluno = new AlunoInclusivo({
+      id: 'aluno-nuvem-1',
+      nome: 'Mariana Costa',
+      turmaId: 'turma-9',
+      turmaNome: '9º Ano',
+      necessidades: ['surdez'],
+      nivelSuporte: 1,
+    });
+
+    await repo.salvarAluno('prof-xyz', aluno);
+    expect(docSalvo).toBeDefined();
+    expect(docSalvo.subCol).toBe('alunos_adaptados');
+    expect(docSalvo.nome).toBe('Mariana Costa');
+
+    const alunos = await repo.listarAlunos('prof-xyz');
+    expect(alunos).toHaveLength(1);
+    expect(alunos[0].nome).toBe('Mariana Costa');
+  });
+
+  it('deve usar fallback transparente de localStorage se Firestore lançar erro', async () => {
+    const { AlunoAdaptadoRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AlunoAdaptadoRepository'
+    );
+
+    const mockFirestoreOffline = {
+      collection: () => ({
+        doc: () => ({
+          collection: () => {
+            throw new Error('Firestore connection timeout');
+          },
+        }),
+      }),
+    };
+
+    const repo = new AlunoAdaptadoRepository({ firestoreDb: mockFirestoreOffline });
+
+    const aluno = new AlunoInclusivo({
+      id: 'aluno-fb-1',
+      nome: 'Carlos Eduardo',
+      turmaId: 'turma-5',
+      turmaNome: '5º Ano',
+      necessidades: ['tea'],
+      nivelSuporte: 2,
+    });
+
+    // Salva sem estourar exceção, fazendo fallback para localStorage
+    await repo.salvarAluno('prof-err', aluno);
+
+    const lista = await repo.listarAlunos('prof-err');
+    expect(lista).toHaveLength(1);
+    expect(lista[0].nome).toBe('Carlos Eduardo');
+  });
+
+  it('deve excluir aluno local e no Firestore', async () => {
+    const { AlunoAdaptadoRepository } = await import(
+      '../../frontend/src/infraestrutura/adaptacoes/AlunoAdaptadoRepository'
+    );
+    const repo = new AlunoAdaptadoRepository();
+
+    const aluno = new AlunoInclusivo({
+      id: 'aluno-del-1',
+      nome: 'Aluno Para Deletar',
+      necessidades: ['ah_sd'],
+      nivelSuporte: 1,
+    });
+
+    await repo.salvarAluno('prof-1', aluno);
+    let lista = await repo.listarAlunos('prof-1');
+    expect(lista).toHaveLength(1);
+
+    await repo.removerAluno('prof-1', 'aluno-del-1');
+    lista = await repo.listarAlunos('prof-1');
+    expect(lista).toHaveLength(0);
+  });
+});
+
