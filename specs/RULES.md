@@ -187,4 +187,12 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - O prompt da imagem é estruturado com foco na acessibilidade cognitiva DUA: traços limpos, estilo didático/esquemático, cores harmoniosas ou alto contraste, evitando ruídos visuais decorativos que possam gerar sobrecarga sensorial em estudantes neurodivergentes.
    - As imagens geradas são codificadas em base64 e associadas ao campo `imagemUrl` da questão, sendo salvas com a atividade e impressas no Caderno do Estudante e no PDF.
 
+10. **RN-40 (Ingestão de Conteúdo Original via Documentos PDF e Word DOCX/DOC):**
+    - O elaborador de atividades adaptadas permite a entrada do conteúdo a ser adaptado tanto por digitação/colagem de texto livre quanto por upload de arquivos `.pdf`, `.docx`, `.doc` ou `.txt`.
+    - O extrator de documentos processa o arquivo, extrai a estrutura textual completa (títulos, enunciados, textos de apoio e questões) e popula o campo de conteúdo da atividade (`conteudoBase`).
+    - O sistema valida formatos suportados (`.pdf`, `.docx`, `.doc`, `.txt`) e limites razoáveis de tamanho (até 15MB).
+    - O professor pode revisar, editar ou complementar o texto extraído no editor antes de acionar a IA DUA para a geração das questões adaptadas.
+    - O componente visual fornece feedback em tempo real com indicador de progresso na extração, card com metadados do documento anexado (nome, tamanho e formato) e botão para remoção/substituição do arquivo.
+
+
 

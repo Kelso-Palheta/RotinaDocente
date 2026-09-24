@@ -1,33 +1,22 @@
-let _mammothPromise = null;
+import { extractTextFromDocx as extractDocxNative } from './documentExtractor';
 
-function getMammoth() {
-  if (typeof window === 'undefined') return Promise.resolve(null);
-  if (window.mammoth) return Promise.resolve(window.mammoth);
-  if (_mammothPromise) return _mammothPromise;
-
-  _mammothPromise = new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js';
-    script.async = true;
-    script.onload = () => {
-      resolve(window.mammoth);
-    };
-    script.onerror = (err) => {
-      _mammothPromise = null;
-      reject(new Error('Erro ao carregar biblioteca de leitura Word (Mammoth).'));
-    };
-    document.head.appendChild(script);
-  });
-
-  return _mammothPromise;
-}
-
+/**
+ * Extrator de arquivos Word (.docx)
+ * Utiliza o motor isomórfico nativo com fallback para mammoth se disponível.
+ *
+ * @param {File|Blob|Buffer|ArrayBuffer} file
+ * @returns {Promise<string>}
+ */
 export async function extractTextFromDocx(file) {
-  if (typeof window === 'undefined') return '';
-  const mammothInstance = await getMammoth();
-  if (!mammothInstance) throw new Error('Mammoth.js não pôde ser inicializado.');
-
-  const arrayBuffer = await file.arrayBuffer();
-  const result = await mammothInstance.extractRawText({ arrayBuffer });
-  return result.value || '';
+  try {
+    return await extractDocxNative(file);
+  } catch (err) {
+    // Fallback: se houver window.mammoth disponível no browser
+    if (typeof window !== 'undefined' && window.mammoth) {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await window.mammoth.extractRawText({ arrayBuffer });
+      return result.value || '';
+    }
+    throw err;
+  }
 }

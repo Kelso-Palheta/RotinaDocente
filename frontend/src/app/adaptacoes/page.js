@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
@@ -13,6 +13,7 @@ import { ModalAlunoPEI } from "@/components/adaptacoes/ModalAlunoPEI";
 import { ModalBancoAtividades } from "@/components/adaptacoes/ModalBancoAtividades";
 import { VisualizadorAtividadeAdaptada } from "@/components/adaptacoes/VisualizadorAtividadeAdaptada";
 import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
+import { extractTextFromDocument } from "@/utils/atividades/documentExtractor";
 import {
   Sparkles,
   ArrowLeft,
@@ -30,7 +31,13 @@ import {
   FolderOpen,
   ListOrdered,
   CheckSquare,
+  Paperclip,
+  Upload,
+  FileText,
+  X,
+  Loader2,
 } from "lucide-react";
+
 
 export default function AdaptacoesPage() {
   const router = useRouter();
@@ -81,6 +88,49 @@ export default function AdaptacoesPage() {
   const [erro, setErro] = useState("");
   const [resultado, setResultado] = useState(null);
   const [salvoNoBanco, setSalvoNoBanco] = useState(false);
+
+  // Upload e extração de documentos PDF e Word (RN-40)
+  const [arquivoAnexado, setArquivoAnexado] = useState(null);
+  const [extraindoArquivo, setExtraindoArquivo] = useState(false);
+  const [dragAtivo, setDragAtivo] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const handleProcessarArquivo = async (file) => {
+    if (!file) return;
+    setExtraindoArquivo(true);
+    setErro("");
+
+    try {
+      const resultado = await extractTextFromDocument(file);
+      if (!resultado.texto || !resultado.texto.trim()) {
+        throw new Error(
+          "Nenhum texto pôde ser extraído do documento. Verifique se o arquivo não é uma digitalização/imagem sem texto reconhecível."
+        );
+      }
+      setConteudoBase(resultado.texto);
+      setArquivoAnexado({
+        nome: resultado.nomeArquivo,
+        tamanhoBytes: resultado.tamanhoBytes,
+        tipo: resultado.tipo,
+        totalCaracteres: resultado.totalCaracteres,
+      });
+    } catch (err) {
+      setErro(err.message || "Erro ao ler o documento anexado.");
+    } finally {
+      setExtraindoArquivo(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleRemoverArquivo = () => {
+    setArquivoAnexado(null);
+    setConteudoBase("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   // Toggle de formato de questão
   const handleToggleTipoQuestao = (tipoId) => {
@@ -443,20 +493,169 @@ export default function AdaptacoesPage() {
                 {/* Conteúdo específico por Modo */}
                 {modo === "adaptar" ? (
                   <div>
-                    <label className="text-xs font-bold text-[#101942] block mb-1">
-                      Cole aqui a atividade original (textos, enunciados, questões): *
-                    </label>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                      <label className="text-xs font-bold text-[#101942] block">
+                        Cole ou anexe a atividade original (textos, enunciados, questões): *
+                      </label>
+
+                      {/* Botão de Anexo de Documento (PDF / Word) */}
+                      <div className="flex items-center gap-2">
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          id="upload-documento-atividade"
+                          accept=".pdf,.docx,.doc,.txt"
+                          className="hidden"
+                          onChange={(e) => {
+                            if (e.target.files && e.target.files[0]) {
+                              handleProcessarArquivo(e.target.files[0]);
+                            }
+                          }}
+                        />
+                        <button
+                          type="button"
+                          id="btn-anexar-documento"
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={extraindoArquivo}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#fff2f6] text-[#d40840] hover:bg-[#ffe5ed] border border-[#fde4ec] transition-all cursor-pointer disabled:opacity-50 shadow-2xs"
+                          title="Importar prova ou lista a partir de arquivo PDF ou Word"
+                        >
+                          {extraindoArquivo ? (
+                            <>
+                              <Loader2 size={13} className="animate-spin text-[#d40840]" />
+                              Extraindo texto...
+                            </>
+                          ) : (
+                            <>
+                              <Paperclip size={13} />
+                              Anexar PDF ou Word (.docx)
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Card de Documento Anexado com Sucesso */}
+                    {arquivoAnexado && (
+                      <div className="mb-3 p-3.5 rounded-2xl bg-gradient-to-r from-blue-50/90 to-indigo-50/70 border border-blue-200/80 flex items-center justify-between gap-3 shadow-2xs animate-fadeIn">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs font-black shadow-xs flex-shrink-0 ${
+                              arquivoAnexado.tipo === "pdf"
+                                ? "bg-red-500 text-white"
+                                : arquivoAnexado.tipo === "docx" || arquivoAnexado.tipo === "doc"
+                                ? "bg-blue-600 text-white"
+                                : "bg-purple-600 text-white"
+                            }`}
+                          >
+                            {arquivoAnexado.tipo.toUpperCase()}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-[#101942] truncate flex items-center gap-1.5">
+                              <span>{arquivoAnexado.nome}</span>
+                              <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800">
+                                Extraído com sucesso
+                              </span>
+                            </p>
+                            <p className="text-[11px] text-[#475569] mt-0.5">
+                              {(arquivoAnexado.tamanhoBytes / 1024).toFixed(1)} KB •{" "}
+                              {arquivoAnexado.totalCaracteres.toLocaleString()} caracteres lidos
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="text-[11px] font-semibold text-blue-700 hover:text-blue-900 underline px-2 py-1 rounded hover:bg-blue-100/50 transition-colors"
+                          >
+                            Trocar
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleRemoverArquivo}
+                            className="p-1.5 rounded-xl hover:bg-white text-slate-400 hover:text-red-600 transition-colors"
+                            title="Remover anexo e limpar texto"
+                          >
+                            <X size={15} />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Feedback de Carregamento / Extração */}
+                    {extraindoArquivo && (
+                      <div className="mb-3 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2.5 animate-pulse">
+                        <Loader2 size={16} className="animate-spin text-amber-600 flex-shrink-0" />
+                        <span className="font-medium">
+                          Processando documento e extraindo questões (PDF/Word)... Aguarde um instante.
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Dropzone discreta quando ainda não há arquivo nem texto */}
+                    {!arquivoAnexado && !conteudoBase && !extraindoArquivo && (
+                      <div
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          setDragAtivo(true);
+                        }}
+                        onDragLeave={() => setDragAtivo(false)}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          setDragAtivo(false);
+                          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                            handleProcessarArquivo(e.dataTransfer.files[0]);
+                          }
+                        }}
+                        onClick={() => fileInputRef.current?.click()}
+                        className={`mb-3 p-4 rounded-2xl border-2 border-dashed text-center transition-all cursor-pointer ${
+                          dragAtivo
+                            ? "border-[#f60c49] bg-[#fff2f6]"
+                            : "border-[#dce0f0] bg-[#fbfbfe] hover:bg-[#f7f8fc] hover:border-[#b4bee0]"
+                        }`}
+                      >
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-[#6070a0]">
+                          <Upload size={16} className="text-[#f60c49]" />
+                          <span>
+                            Arraste uma prova/lista em <strong>PDF</strong> ou <strong>Word (.docx)</strong> aqui, ou clique para anexar
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
                     <textarea
                       id="input-conteudo-base"
-                      rows={5}
+                      rows={6}
                       required={modo === "adaptar"}
                       value={conteudoBase}
                       onChange={(e) => setConteudoBase(e.target.value)}
-                      placeholder="Cole aqui o enunciado original da prova, lista de exercícios ou texto didático..."
+                      placeholder="Cole aqui o enunciado original da prova, lista de exercícios ou texto didático, ou anexe seu arquivo PDF/Word no botão acima..."
                       className="w-full bg-[#f7f8fc] border border-[#dce0f0] focus:bg-white focus:border-[#f60c49] rounded-2xl p-4 text-xs sm:text-sm text-[#101942] outline-none resize-y transition-all leading-relaxed"
                     />
+
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-[#6070a0] mt-1.5">
+                      <span>
+                        {conteudoBase.trim()
+                          ? `${conteudoBase.length.toLocaleString()} caracteres no editor • Você pode revisar ou editar o texto antes de enviar para a IA.`
+                          : "Suporta arquivos PDF (.pdf), Word (.docx, .doc) e texto (.txt)."}
+                      </span>
+                      {conteudoBase.trim() && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setConteudoBase("");
+                            setArquivoAnexado(null);
+                          }}
+                          className="text-[#d40840] hover:underline self-start sm:self-auto"
+                        >
+                          Limpar campo
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ) : (
+
                   <div>
                     <label className="text-xs font-bold text-[#101942] block mb-1">
                       Tema / Conteúdo Central da Atividade *

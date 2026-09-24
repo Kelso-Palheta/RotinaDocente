@@ -42,7 +42,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
-- [ ] **IT-01:** Testar extração de texto de arquivos DOCX e PDF.
+- [x] **IT-01 (RN-40):** Testar extração de texto de arquivos DOCX, PDF e TXT e endpoint de upload.
 - [ ] **IT-02:** Testar serialização e deserialização do backup em JSON das turmas.
 - [x] **IT-03 (RN-24 & RN-25):** Testar sincronização de grade horária e restore via repositório.
 - [x] **IT-04 (RN-27 & RN-29):** Testar gateway unificado de IA roteando para Gemini, OpenAI, Anthropic, Maritaca e OpenRouter com headers do usuário e rejeitando ausência de chave.
