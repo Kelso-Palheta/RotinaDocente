@@ -113,6 +113,24 @@ function resolveUserConfig(userConfig) {
 }
 
 /**
+ * Consulta a lista de modelos ativos disponíveis para a chave Gemini do professor via ModelService.ListModels.
+ * @param {string} apiKey
+ * @returns {Promise<string[]>}
+ */
+export async function fetchAvailableGeminiModels(apiKey) {
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data.models || [])
+      .filter((m) => m.supportedGenerationMethods?.includes('generateContent'))
+      .map((m) => m.name.replace(/^models\//, ''));
+  } catch {
+    return [];
+  }
+}
+
+/**
  * Executa chamada de IA com prompt de sistema e mensagens utilizando a chave BYOK do professor.
  *
  * @param {Object} opts
@@ -190,7 +208,8 @@ export async function callAI({
   if (!res.ok) {
     if (spec.id === 'gemini') {
       try {
-        const nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        let activeModel = model;
+        let nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
         const geminiContents = messages
           .filter((m) => m.role !== 'system')
           .map((m) => ({
@@ -198,27 +217,55 @@ export async function callAI({
             parts: [{ text: m.content || '' }],
           }));
 
-        const nativePayload = {
-          contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: 'Olá' }] }],
-          generationConfig: {
-            temperature,
-            maxOutputTokens: maxTokens,
-          },
+        const buildPayload = () => {
+          const p = {
+            contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: 'Olá' }] }],
+            generationConfig: {
+              temperature,
+              maxOutputTokens: maxTokens,
+            },
+          };
+          if (systemPrompt) {
+            p.systemInstruction = {
+              parts: [{ text: systemPrompt }],
+            };
+          }
+          return p;
         };
 
-        if (systemPrompt) {
-          nativePayload.systemInstruction = {
-            parts: [{ text: systemPrompt }],
-          };
-        }
-
-        const nativeRes = await fetch(nativeUrl, {
+        let nativeRes = await fetch(nativeUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(nativePayload),
+          body: JSON.stringify(buildPayload()),
         });
 
-        const nativeData = await nativeRes.json();
+        let nativeData = await nativeRes.json();
+
+        // Se o modelo solicitado estiver obsoleto/404, autodescobre os modelos disponíveis da chave
+        if (!nativeRes.ok && (nativeRes.status === 404 || nativeData?.error?.code === 404)) {
+          console.warn(`[GEMINI AI] Modelo "${activeModel}" retornou 404. Consultando ModelService.ListModels...`);
+          const available = await fetchAvailableGeminiModels(apiKey);
+          if (available.length > 0) {
+            // Prioriza gemini-2.5-flash, qualquer flash, ou o primeiro modelo disponível
+            const fallbackModel =
+              available.find((m) => m.includes('2.5-flash')) ||
+              available.find((m) => m.includes('flash')) ||
+              available[0];
+
+            if (fallbackModel && fallbackModel !== activeModel) {
+              console.log(`[GEMINI AI] Migrando automaticamente para modelo disponível: ${fallbackModel}`);
+              activeModel = fallbackModel;
+              nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
+              nativeRes = await fetch(nativeUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(buildPayload()),
+              });
+              nativeData = await nativeRes.json();
+            }
+          }
+        }
+
         if (nativeRes.ok) {
           const text = nativeData?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
           if (text) return text;
@@ -307,7 +354,8 @@ export async function callAIRaw(body, userConfig = null) {
 
   if (!res.ok && spec.id === 'gemini') {
     try {
-      const nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      let activeModel = payload.model || model;
+      let nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
       const msgs = body.messages || [];
       const systemMsg = msgs.find((m) => m.role === 'system')?.content;
       const geminiContents = msgs
@@ -317,30 +365,56 @@ export async function callAIRaw(body, userConfig = null) {
           parts: [{ text: typeof m.content === 'string' ? m.content : JSON.stringify(m.content) }],
         }));
 
-      const nativePayload = {
-        contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: body.prompt || 'Olá' }] }],
-        generationConfig: {
-          temperature: body.temperature ?? 0.5,
-          maxOutputTokens: body.max_tokens || 2048,
-        },
+      const buildRawPayload = () => {
+        const p = {
+          contents: geminiContents.length > 0 ? geminiContents : [{ role: 'user', parts: [{ text: body.prompt || 'Olá' }] }],
+          generationConfig: {
+            temperature: body.temperature ?? 0.5,
+            maxOutputTokens: body.max_tokens || 2048,
+          },
+        };
+        if (systemMsg) {
+          p.systemInstruction = { parts: [{ text: systemMsg }] };
+        }
+        return p;
       };
 
-      if (systemMsg) {
-        nativePayload.systemInstruction = { parts: [{ text: systemMsg }] };
-      }
-
-      const nativeRes = await fetch(nativeUrl, {
+      let nativeRes = await fetch(nativeUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nativePayload),
+        body: JSON.stringify(buildRawPayload()),
       });
 
-      const nativeData = await nativeRes.json();
+      let nativeData = await nativeRes.json();
+
+      if (!nativeRes.ok && (nativeRes.status === 404 || nativeData?.error?.code === 404)) {
+        console.warn(`[GEMINI AI Raw] Modelo "${activeModel}" retornou 404. Consultando ModelService.ListModels...`);
+        const available = await fetchAvailableGeminiModels(apiKey);
+        if (available.length > 0) {
+          const fallbackModel =
+            available.find((m) => m.includes('2.5-flash')) ||
+            available.find((m) => m.includes('flash')) ||
+            available[0];
+
+          if (fallbackModel && fallbackModel !== activeModel) {
+            console.log(`[GEMINI AI Raw] Migrando automaticamente para modelo disponível: ${fallbackModel}`);
+            activeModel = fallbackModel;
+            nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${activeModel}:generateContent?key=${apiKey}`;
+            nativeRes = await fetch(nativeUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(buildRawPayload()),
+            });
+            nativeData = await nativeRes.json();
+          }
+        }
+      }
+
       if (nativeRes.ok) {
         const text = nativeData?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
         const normalizedData = {
           id: `gemini-${Date.now()}`,
-          model,
+          model: activeModel,
           choices: [{ message: { role: 'assistant', content: text } }],
           usage: nativeData.usageMetadata,
         };

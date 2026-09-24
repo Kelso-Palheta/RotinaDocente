@@ -10,8 +10,9 @@ export const AIProviders = {
     descricao: 'Rápido, econômico e com excelente camada gratuita no Google AI Studio.',
     defaultModel: 'gemini-1.5-flash',
     modelos: [
-      { id: 'gemini-1.5-flash', nome: 'Gemini 1.5 Flash (Recomendado - Rápido)' },
-      { id: 'gemini-2.0-flash', nome: 'Gemini 2.0 Flash (Mais Recente)' },
+      { id: 'gemini-2.5-flash', nome: 'Gemini 2.5 Flash (Recomendado - Mais Recente)' },
+      { id: 'gemini-1.5-flash', nome: 'Gemini 1.5 Flash (Legado)' },
+      { id: 'gemini-2.0-flash', nome: 'Gemini 2.0 Flash' },
       { id: 'gemini-1.5-pro', nome: 'Gemini 1.5 Pro (Alta Capacidade / Raciocínio)' },
     ],
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
