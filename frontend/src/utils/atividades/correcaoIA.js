@@ -155,11 +155,11 @@ NOTA MÁXIMA: ${questao.notaMaxima} pontos
 Crie de 3 a 5 critérios de avaliação claros e objetivos. A soma deve ser exatamente ${questao.notaMaxima} pontos.
 
 Retorne SOMENTE os critérios, sem introdução, sem markdown. Use exatamente este formato:
-X.X pts — Nome: Descrição do que o aluno deve demonstrar para obter estes pontos.
+Critério X: [valor] pts — [Descrição]
 
 Exemplo:
-0.5 pts — Identificação do tema: O aluno identifica corretamente o tema central e demonstra entender o contexto.
-0.8 pts — Argumentação: Apresenta ao menos dois argumentos fundamentados no conteúdo estudado.`;
+Critério 1: 0.5 pts — Identificação do tema: O aluno identifica corretamente o tema central e demonstra entender o contexto.
+Critério 2: 0.8 pts — Argumentação: Apresenta ao menos dois argumentos fundamentados no conteúdo estudado.`;
 
   const rawRubrica = (await callAI([{ type: 'text', text: prompt }], apiKey, 2048)).trim();
   return normalizeRubrica(rawRubrica, questao.notaMaxima);
@@ -232,15 +232,13 @@ REGRAS CRÍTICAS DE FORMATAÇÃO (OBRIGATÓRIO):
 /**
  * Reescala os valores de pontuação de uma rubrica de texto para que somem exatamente `notaMaxima`.
  * Preserva o texto descritivo de cada critério.
- * Ex: "0.6 pts — Critério A\n0.4 pts — Critério B" com notaMaxima=1 → permanece igual.
- *     "4 pts — Critério A\n6 pts — Critério B" com notaMaxima=1 → "0.40 pts — Critério A\n0.60 pts — Critério B"
  */
 function normalizeRubrica(rubrica, notaMaxima) {
   if (!rubrica || !notaMaxima) return rubrica;
 
   // Regex que captura o número de pontos no início de cada linha
-  // Suporta formatos: "2 pts —", "0.5 pts —", "critério 1: 3 pts —", etc.
-  const lineRegex = /^(.*?)(\d+(?:[.,]\d+)?)\s*pts?\s*[—\-–]/i;
+  // Suporta formatos: "2 pts —", "0.5 pts —", "Critério 1: 3 pts —", "1,0 ponto —", etc.
+  const lineRegex = /^(.*?)(\d+(?:[.,]\d+)?)\s*(?:pt|pts|ponto|pontos)?\s*[—\-–:]/i;
 
   const lines = rubrica.split(/\\n|\n/);
   const valores = [];
@@ -261,12 +259,12 @@ function normalizeRubrica(rubrica, notaMaxima) {
 
   return lines.map((line, i) => {
     if (valores[i] === null) return line;
-    const novoValor = Math.round(valores[i] * fator * 100) / 100;
+    const novoValor = (Math.round(valores[i] * fator * 100) / 100).toString().replace('.', ',');
     // substitui apenas o número de pontos, preservando o restante da linha
-    return line.replace(lineRegex, (_, prefix, _val, ...rest) => {
-      const suffixMatch = line.match(/(\d+(?:[.,]\d+)?)\s*pts?\s*[—\-–](.*)/i);
-      const suffix = suffixMatch ? suffixMatch[2] : '';
-      return `${prefix}${novoValor} pts —${suffix}`;
+    return line.replace(lineRegex, (_, prefix) => {
+      const parts = line.split(/[—\-–]/, 2);
+      const suffix = parts.length > 1 ? line.slice(parts[0].length + 1) : '';
+      return `${prefix}${novoValor} pts — ${suffix.trim()}`;
     });
   }).join('\\n');
 }
