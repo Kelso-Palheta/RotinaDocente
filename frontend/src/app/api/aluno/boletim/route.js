@@ -46,7 +46,7 @@ export async function GET(request) {
     try {
       const snap = await db.collection('atividades')
         .where('professorId', '==', professorUid)
-        .where('turmas', 'array-contains', turmaId)
+        .where('turmaIds', 'array-contains', turmaId)
         .get();
       atividades = snap.docs.map((d) => {
         const data = d.data();
