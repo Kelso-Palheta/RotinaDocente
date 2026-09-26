@@ -194,5 +194,18 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - O professor pode revisar, editar ou complementar o texto extraído no editor antes de acionar a IA DUA para a geração das questões adaptadas.
     - O componente visual fornece feedback em tempo real com indicador de progresso na extração, card com metadados do documento anexado (nome, tamanho e formato) e botão para remoção/substituição do arquivo.
 
+11. **RN-41 (Importação em Lote de Estudantes PEI via Planilha Excel, CSV ou Lista):**
+    - O sistema permite o cadastro em massa de estudantes inclusivos através do envio de arquivos nos formatos Excel (`.xlsx`, `.xls`), valores separados por vírgula (`.csv`) ou listas tabulares/texto (`.txt`).
+    - O motor de ingestão mapeia de forma inteligente e tolerante as colunas de Nome, Turma/Ano Escolar e Deficiências/Necessidades, além de campos opcionais como Nível de Suporte (1 a 3), Hiperfoco e Observações pedagógicas.
+    - Reconhecimento automático e normalização de termos comuns da comunidade escolar para as categorias oficiais DUA (ex: "Autismo/Asperger" -> `tea`, "Deficiência Intelectual" -> `di`, "Hiperatividade" -> `tdah`, "Baixa Visão" -> `baixa_visao`, "Surdo" -> `surdez`, etc.), com suporte nativo a múltiplas necessidades concomitantes por estudante.
+    - O professor tem acesso a uma pré-visualização interativa com a contagem de estudantes identificados e badges das necessidades antes de confirmar a persistência no Banco PEI (`professores/{userId}/alunos_adaptados`).
+    - O sistema oferece download de modelo de planilha de exemplo para facilitar o preenchimento sem erros.
+
+12. **RN-42 (Banco de Questões Adaptadas Individuais e Montador de Provas Ajustáveis):**
+    - O módulo de adaptações possui banco atômico de questões individuais (`QuestaoAdaptada`), permitindo cadastro manual e salvamento (individual ou em lote) das questões geradas pela IA.
+    - Cada questão armazena: enunciado, tipo de questão, alternativas (se aplicável), gabarito, apoio visual/audiodescrição, scaffolding/dicas, disciplina, ano escolar, habilidade BNCC e necessidades DUA atendidas.
+    - O Montador de Provas permite selecionar questões do banco, reordenar a sequência livremente, personalizar enunciados, definir instruções e vincular a prova a um estudante PEI específico para impressão acessível e geração de guia de mediação.
+
+
 
 

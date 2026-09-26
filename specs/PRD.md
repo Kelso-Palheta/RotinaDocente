@@ -56,6 +56,8 @@ O **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema 
    - Banco de perfis de estudantes (PEI / PDI rápido) para reuso contínuo.
    - Bimodalidade de entrega: integração no módulo digital de atividades e módulo independente com exportação em PDF de alta acessibilidade para impressão.
    - Geração de Guia de Mediação Pedagógica para o professor regente e mediador do AEE.
+   - Banco de Questões Adaptadas Individuais: armazenamento de itens atômicos com filtros por necessidade DUA, disciplina, ano escolar e tipo de questão.
+   - Montador de Provas e Avaliações Ajustáveis: seleção de questões do banco, reordenação flexível, personalização de enunciados e vinculação direta a estudantes PEI.
 
 ---
 

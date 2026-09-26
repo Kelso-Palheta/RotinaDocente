@@ -9,8 +9,9 @@ import { encodeToken } from '@/utils/diario/tokenUtils';
 export async function createAtividade(data) {
   const id = data.id || `atv_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
   const ref = doc(db, 'atividades', id);
+  const sanitizedData = JSON.parse(JSON.stringify(data));
   await setDoc(ref, {
-    ...data,
+    ...sanitizedData,
     id,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp()
@@ -20,7 +21,8 @@ export async function createAtividade(data) {
 
 export async function updateAtividade(id, data) {
   const ref = doc(db, 'atividades', id);
-  await setDoc(ref, { ...data, updatedAt: serverTimestamp() }, { merge: true });
+  const sanitizedData = JSON.parse(JSON.stringify(data));
+  await setDoc(ref, { ...sanitizedData, updatedAt: serverTimestamp() }, { merge: true });
 }
 
 export async function deleteAtividade(id) {

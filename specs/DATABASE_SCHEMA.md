@@ -75,3 +75,42 @@ Registro de atividades adaptadas geradas pelo módulo.
 - `configImpressao`: objeto com opções de fonte (`14pt` | `18pt` | `24pt`) e contraste
 - `createdAt`: timestamp
 - `updatedAt`: timestamp
+
+---
+
+### `professores/{userId}/questoes_adaptadas/{questaoId}`
+Banco de questões individuais adaptadas para reutilização e composição de provas.
+- `id`: string (UUID)
+- `enunciado`: string
+- `tipo`: string (`'multipla_escolha' | 'verdadeiro_falso' | 'associacao' | 'discursiva'`)
+- `alternativas`: array de strings (opcional)
+- `gabarito`: string (opcional)
+- `apoioVisualDescricao`: string (opcional)
+- `imagemUrl`: string (opcional, base64)
+- `scaffolding`: string (opcional, dica mediadora)
+- `disciplina`: string
+- `anoEscolar`: string
+- `habilidadeBNCC`: string (opcional)
+- `necessidades`: array de strings (`['tea', 'di', ...]`)
+- `nivelSuporte`: number (1..3)
+- `origem`: string (`'ia' | 'manual'`)
+- `createdAt`: timestamp
+- `updatedAt`: timestamp
+
+---
+
+### `professores/{userId}/provas_adaptadas/{provaId}`
+Provas e avaliações personalizadas montadas a partir do banco de questões.
+- `id`: string (UUID)
+- `titulo`: string
+- `disciplina`: string
+- `anoEscolar`: string
+- `instrucoes`: string
+- `questoes`: array de objetos de questão (com ordem definida e customizações locais)
+- `alunoId`: string opcional (referência a `alunos_adaptados`)
+- `alunoNome`: string opcional
+- `necessidades`: array de strings
+- `nivelSuporte`: number
+- `guiaMediacao`: string opcional
+- `createdAt`: timestamp
+- `updatedAt`: timestamp

@@ -8,15 +8,20 @@ import { db } from "@/lib/firebase";
 import { useAIConfig } from "@/hooks/useAIConfig";
 import { AlunoAdaptadoRepository } from "@/infraestrutura/adaptacoes/AlunoAdaptadoRepository";
 import { AtividadeAdaptadaRepository } from "@/infraestrutura/adaptacoes/AtividadeAdaptadaRepository";
+import { QuestaoAdaptadaRepository } from "@/infraestrutura/adaptacoes/QuestaoAdaptadaRepository";
+import { ProvaAdaptadaRepository } from "@/infraestrutura/adaptacoes/ProvaAdaptadaRepository";
 import { SeletorNecessidades } from "@/components/adaptacoes/SeletorNecessidades";
 import { ModalAlunoPEI } from "@/components/adaptacoes/ModalAlunoPEI";
 import { ModalBancoAtividades } from "@/components/adaptacoes/ModalBancoAtividades";
 import { VisualizadorAtividadeAdaptada } from "@/components/adaptacoes/VisualizadorAtividadeAdaptada";
+import { PainelBancoQuestoes } from "@/components/adaptacoes/PainelBancoQuestoes";
+import { PainelMontadorProvas } from "@/components/adaptacoes/PainelMontadorProvas";
 import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
 import { extractTextFromDocument } from "@/utils/atividades/documentExtractor";
 import {
   Sparkles,
   ArrowLeft,
+  ArrowRight,
   Users,
   Key,
   BookOpen,
@@ -36,8 +41,8 @@ import {
   FileText,
   X,
   Loader2,
+  FileSpreadsheet,
 } from "lucide-react";
-
 
 export default function AdaptacoesPage() {
   const router = useRouter();
@@ -52,8 +57,35 @@ export default function AdaptacoesPage() {
     return new AtividadeAdaptadaRepository({ firestoreDb: db });
   }, []);
 
+  const questaoRepo = useMemo(() => {
+    return new QuestaoAdaptadaRepository({ firestoreDb: db });
+  }, []);
+
+  const provaRepo = useMemo(() => {
+    return new ProvaAdaptadaRepository({ firestoreDb: db });
+  }, []);
+
+  // Navegação por Abas Principais (RN-42)
+  const [abaPrincipal, setAbaPrincipal] = useState("gerador"); // 'gerador' | 'banco_questoes' | 'montador_provas'
+  const [questoesBanco, setQuestoesBanco] = useState([]);
+  const [provasSalvas, setProvasSalvas] = useState([]);
+  const [alunosPEI, setAlunosPEI] = useState([]);
+  const [provaEmConstrucao, setProvaEmConstrucao] = useState({
+    id: "",
+    titulo: "Avaliação Adaptada",
+    disciplina: "Língua Portuguesa",
+    anoEscolar: "8º Ano",
+    instrucoes: "Leia com atenção cada questão. Utilize os apoios visuais quando necessário.",
+    questoes: [],
+    alunoId: "",
+    alunoNome: "",
+    necessidades: [],
+    nivelSuporte: 1,
+  });
+
   // Modais
   const [modalPEIAberto, setModalPEIAberto] = useState(false);
+  const [modalPEIAbaInicial, setModalPEIAbaInicial] = useState("lista");
   const [modalBancoAberto, setModalBancoAberto] = useState(false);
   const [modalIAAberto, setModalIAAberto] = useState(false);
 
@@ -159,6 +191,185 @@ export default function AdaptacoesPage() {
       console.error("Erro ao salvar no banco:", err);
       alert("Erro ao salvar atividade no banco: " + err.message);
     }
+  };
+
+  // Carregamento de Questões, Provas e Alunos PEI (RN-42)
+  React.useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        const userId = user?.uid || "anonimo";
+        const [qList, pList, aList] = await Promise.all([
+          questaoRepo.listarQuestoes(userId),
+          provaRepo.listarProvas(userId),
+          repository.listarAlunos(userId),
+        ]);
+        setQuestoesBanco(qList);
+        setProvasSalvas(pList);
+        setAlunosPEI(aList);
+      } catch (err) {
+        console.warn("[AdaptacoesPage] Erro ao carregar dados do banco:", err);
+      }
+    };
+    carregarDados();
+  }, [user?.uid, questaoRepo, provaRepo, repository]);
+
+  // Salvar / atualizar questão no banco
+  const handleSalvarQuestaoNoBanco = async (questaoData) => {
+    try {
+      const userId = user?.uid || "anonimo";
+      const salva = await questaoRepo.salvarQuestao(userId, questaoData);
+      setQuestoesBanco((prev) => {
+        const idx = prev.findIndex((q) => q.id === salva.id);
+        if (idx >= 0) {
+          const copy = [...prev];
+          copy[idx] = salva;
+          return copy;
+        }
+        return [salva, ...prev];
+      });
+    } catch (err) {
+      console.error("Erro ao salvar questão:", err);
+      alert("Erro ao salvar questão: " + err.message);
+    }
+  };
+
+  // Salvar todas as questões de uma atividade gerada pela IA no banco de questões
+  const handleSalvarQuestoesGeradasNoBanco = async (resultadoAtiv) => {
+    try {
+      const userId = user?.uid || "anonimo";
+      const questoes = resultadoAtiv.atividadeAdaptada?.questoes || [];
+      const formatadas = questoes.map((q, idx) => ({
+        id: `q_ia_${Date.now()}_${idx}_${Math.random().toString(36).slice(2, 6)}`,
+        enunciado: q.enunciado || `Questão ${idx + 1}`,
+        tipo: q.alternativas && q.alternativas.length > 0 ? "multipla_escolha" : "discursiva",
+        alternativas: q.alternativas || [],
+        gabarito: q.gabarito || "",
+        apoioVisualDescricao: q.apoioVisualDescricao || "",
+        imagemUrl: q.imagemUrl || "",
+        scaffolding: q.dicaScaffolding || "",
+        disciplina: resultadoAtiv.disciplina || disciplina,
+        anoEscolar: resultadoAtiv.anoEscolar || anoEscolar,
+        tema: resultadoAtiv.tema || tema,
+        habilidadeBNCC: resultadoAtiv.habilidadeBNCC || habilidadeBNCC,
+        necessidades: resultadoAtiv.aluno?.necessidades || necessidades,
+        nivelSuporte: resultadoAtiv.aluno?.nivelSuporte || nivelSuporte,
+        origem: "ia",
+      }));
+
+      const salvas = await questaoRepo.salvarQuestoesEmLote(userId, formatadas);
+      setQuestoesBanco((prev) => [...salvas, ...prev]);
+    } catch (err) {
+      console.error("Erro ao salvar lote de questões:", err);
+      alert("Erro ao salvar questões no banco: " + err.message);
+    }
+  };
+
+  // Salvar questão individual a partir do visualizador de atividade
+  const handleSalvarQuestaoIndividualDoGerador = async (q, resultadoAtiv) => {
+    try {
+      const userId = user?.uid || "anonimo";
+      const formatada = {
+        id: `q_ia_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+        enunciado: q.enunciado,
+        tipo: q.alternativas && q.alternativas.length > 0 ? "multipla_escolha" : "discursiva",
+        alternativas: q.alternativas || [],
+        gabarito: q.gabarito || "",
+        apoioVisualDescricao: q.apoioVisualDescricao || "",
+        imagemUrl: q.imagemUrl || "",
+        scaffolding: q.dicaScaffolding || "",
+        disciplina: resultadoAtiv.disciplina || disciplina,
+        anoEscolar: resultadoAtiv.anoEscolar || anoEscolar,
+        tema: resultadoAtiv.tema || tema,
+        habilidadeBNCC: resultadoAtiv.habilidadeBNCC || habilidadeBNCC,
+        necessidades: resultadoAtiv.aluno?.necessidades || necessidades,
+        nivelSuporte: resultadoAtiv.aluno?.nivelSuporte || nivelSuporte,
+        origem: "ia",
+      };
+      const salva = await questaoRepo.salvarQuestao(userId, formatada);
+      setQuestoesBanco((prev) => [salva, ...prev]);
+    } catch (err) {
+      console.error("Erro ao salvar questão individual:", err);
+      alert("Erro ao salvar questão no banco: " + err.message);
+    }
+  };
+
+  // Excluir questão do banco
+  const handleExcluirQuestao = async (questaoId) => {
+    try {
+      const userId = user?.uid || "anonimo";
+      await questaoRepo.removerQuestao(userId, questaoId);
+      setQuestoesBanco((prev) => prev.filter((q) => q.id !== questaoId));
+      setProvaEmConstrucao((prev) => ({
+        ...prev,
+        questoes: (prev.questoes || []).filter((q) => q.id !== questaoId),
+      }));
+    } catch (err) {
+      console.error("Erro ao excluir questão:", err);
+    }
+  };
+
+  // Adicionar questão à prova
+  const handleAdicionarQuestaoAProva = (questao) => {
+    setProvaEmConstrucao((prev) => {
+      const jaExiste = (prev.questoes || []).some((q) => q.id === questao.id);
+      if (jaExiste) return prev;
+      return {
+        ...prev,
+        disciplina: prev.questoes.length === 0 ? questao.disciplina || prev.disciplina : prev.disciplina,
+        anoEscolar: prev.questoes.length === 0 ? questao.anoEscolar || prev.anoEscolar : prev.anoEscolar,
+        questoes: [...(prev.questoes || []), questao],
+      };
+    });
+  };
+
+  // Remover questão da prova
+  const handleRemoverQuestaoDaProva = (questaoId) => {
+    setProvaEmConstrucao((prev) => ({
+      ...prev,
+      questoes: (prev.questoes || []).filter((q) => q.id !== questaoId),
+    }));
+  };
+
+  // Mover questão na prova (reordenação)
+  const handleMoverQuestaoNaProva = (origemIdx, destinoIdx) => {
+    setProvaEmConstrucao((prev) => {
+      const lista = [...(prev.questoes || [])];
+      if (origemIdx < 0 || origemIdx >= lista.length || destinoIdx < 0 || destinoIdx >= lista.length) {
+        return prev;
+      }
+      const [removida] = lista.splice(origemIdx, 1);
+      lista.splice(destinoIdx, 0, removida);
+      return { ...prev, questoes: lista };
+    });
+  };
+
+  // Salvar prova montada
+  const handleSalvarProva = async (provaData) => {
+    const userId = user?.uid || "anonimo";
+    const salva = await provaRepo.salvarProva(userId, provaData);
+    setProvasSalvas((prev) => {
+      const idx = prev.findIndex((p) => p.id === salva.id);
+      if (idx >= 0) {
+        const copy = [...prev];
+        copy[idx] = salva;
+        return copy;
+      }
+      return [salva, ...prev];
+    });
+    setProvaEmConstrucao(salva);
+  };
+
+  // Carregar prova salva
+  const handleCarregarProva = (provaData) => {
+    setProvaEmConstrucao(provaData);
+    setAbaPrincipal("montador_provas");
+  };
+
+  // Excluir prova salva
+  const handleExcluirProva = async (provaId) => {
+    const userId = user?.uid || "anonimo";
+    await provaRepo.removerProva(userId, provaId);
+    setProvasSalvas((prev) => prev.filter((p) => p.id !== provaId));
   };
 
   // Toggle de categoria no Seletor
@@ -347,33 +558,129 @@ export default function AdaptacoesPage() {
         </div>
       </header>
 
+      {/* Barra de Abas Principais (RN-42) */}
+      <div className="bg-white border-b border-[#dce0f0] sticky top-16 z-30 print:hidden shadow-2xs">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2 py-2.5 overflow-x-auto">
+          <div className="flex items-center gap-1.5 p-1 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl">
+            <button
+              type="button"
+              id="tab-nav-gerador"
+              onClick={() => setAbaPrincipal("gerador")}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                abaPrincipal === "gerador"
+                  ? "bg-white text-[#f60c49] shadow-xs"
+                  : "text-[#6070a0] hover:text-[#101942]"
+              }`}
+            >
+              <Sparkles size={15} />
+              Gerador DUA (IA)
+            </button>
+
+            <button
+              type="button"
+              id="tab-nav-banco-questoes"
+              onClick={() => setAbaPrincipal("banco_questoes")}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                abaPrincipal === "banco_questoes"
+                  ? "bg-white text-indigo-700 shadow-xs"
+                  : "text-[#6070a0] hover:text-[#101942]"
+              }`}
+            >
+              <BookOpen size={15} />
+              Banco de Questões
+              <span className="ml-1 px-1.5 py-0.5 rounded-md bg-indigo-100 text-indigo-800 text-[10px] font-black">
+                {questoesBanco.length}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              id="tab-nav-montador-provas"
+              onClick={() => setAbaPrincipal("montador_provas")}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                abaPrincipal === "montador_provas"
+                  ? "bg-white text-emerald-700 shadow-xs"
+                  : "text-[#6070a0] hover:text-[#101942]"
+              }`}
+            >
+              <FileText size={15} />
+              Montador de Provas
+              <span className="ml-1 px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-black">
+                {(provaEmConstrucao.questoes || []).length}
+              </span>
+            </button>
+          </div>
+
+          {abaPrincipal === "gerador" && (provaEmConstrucao.questoes || []).length > 0 && (
+            <button
+              type="button"
+              onClick={() => setAbaPrincipal("montador_provas")}
+              className="text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shrink-0"
+            >
+              <span>Ver Prova em Montagem ({provaEmConstrucao.questoes.length})</span>
+              <ArrowRight size={13} />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Conteúdo Principal */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        {resultado ? (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between print:hidden">
-              <button
-                id="btn-nova-adaptacao"
-                type="button"
-                onClick={() => setResultado(null)}
-                className="px-4 py-2 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white text-[#101942] rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-2xs"
-              >
-                ← Fazer Nova Adaptação / Voltar ao Formulário
-              </button>
-              <span className="text-xs font-semibold text-[#6070a0]">
-                Adaptação gerada com sucesso via DUA
-              </span>
-            </div>
+        {abaPrincipal === "banco_questoes" && (
+          <PainelBancoQuestoes
+            questoes={questoesBanco}
+            questoesNaProva={provaEmConstrucao.questoes || []}
+            onAdicionarAProva={handleAdicionarQuestaoAProva}
+            onRemoverDaProva={handleRemoverQuestaoDaProva}
+            onSalvarQuestao={handleSalvarQuestaoNoBanco}
+            onExcluirQuestao={handleExcluirQuestao}
+            onNavegarParaMontador={() => setAbaPrincipal("montador_provas")}
+          />
+        )}
 
-            <VisualizadorAtividadeAdaptada
-              resultado={resultado}
-              onVoltar={() => setResultado(null)}
-              onSalvarNoBanco={handleSalvarNoBanco}
-              salvoNoBanco={salvoNoBanco}
-              onAbrirBanco={() => setModalBancoAberto(true)}
-            />
-          </div>
-        ) : (
+        {abaPrincipal === "montador_provas" && (
+          <PainelMontadorProvas
+            prova={provaEmConstrucao}
+            onAtualizarProva={setProvaEmConstrucao}
+            onMoverQuestao={handleMoverQuestaoNaProva}
+            onRemoverQuestao={handleRemoverQuestaoDaProva}
+            onSalvarProva={handleSalvarProva}
+            onCarregarProva={handleCarregarProva}
+            onExcluirProva={handleExcluirProva}
+            provasSalvas={provasSalvas}
+            alunosPEI={alunosPEI}
+            onNavegarParaBanco={() => setAbaPrincipal("banco_questoes")}
+          />
+        )}
+
+        {abaPrincipal === "gerador" && (
+          resultado ? (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between print:hidden">
+                <button
+                  id="btn-nova-adaptacao"
+                  type="button"
+                  onClick={() => setResultado(null)}
+                  className="px-4 py-2 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white text-[#101942] rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-2xs"
+                >
+                  ← Fazer Nova Adaptação / Voltar ao Formulário
+                </button>
+                <span className="text-xs font-semibold text-[#6070a0]">
+                  Adaptação gerada com sucesso via DUA
+                </span>
+              </div>
+
+              <VisualizadorAtividadeAdaptada
+                resultado={resultado}
+                onVoltar={() => setResultado(null)}
+                onSalvarNoBanco={handleSalvarNoBanco}
+                salvoNoBanco={salvoNoBanco}
+                onAbrirBanco={() => setModalBancoAberto(true)}
+                onSalvarQuestoesNoBanco={handleSalvarQuestoesGeradasNoBanco}
+                onSalvarQuestaoIndividual={handleSalvarQuestaoIndividualDoGerador}
+              />
+            </div>
+          ) : (
           <div className="space-y-8">
             {/* Banner Institucional DUA */}
             <div className="p-6 rounded-3xl bg-gradient-to-r from-[#101942] to-[#1c2a6b] text-white shadow-md relative overflow-hidden">
@@ -836,16 +1143,36 @@ export default function AdaptacoesPage() {
                       </button>
                     </div>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => setModalPEIAberto(true)}
-                      className="px-3 py-1.5 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-[#f7f8fc] hover:bg-white rounded-xl text-xs font-bold text-[#101942] transition-colors flex items-center gap-1.5"
-                    >
-                      <Users size={14} className="text-[#f60c49]" />
-                      Carregar do Banco PEI
-                    </button>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        id="btn-importar-alunos-card2"
+                        onClick={() => {
+                          setModalPEIAbaInicial("importacao");
+                          setModalPEIAberto(true);
+                        }}
+                        className="px-3 py-1.5 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-[#f7f8fc] hover:bg-white rounded-xl text-xs font-bold text-[#101942] transition-colors flex items-center gap-1.5 shadow-2xs"
+                        title="Fazer upload de planilha Excel ou CSV com nome dos alunos, turma e deficiências"
+                      >
+                        <FileSpreadsheet size={14} className="text-[#f60c49]" />
+                        Importar Lista (Excel/CSV)
+                      </button>
+                      <button
+                        type="button"
+                        id="btn-carregar-banco-pei-card2"
+                        onClick={() => {
+                          setModalPEIAbaInicial("lista");
+                          setModalPEIAberto(true);
+                        }}
+                        className="px-3 py-1.5 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-[#f7f8fc] hover:bg-white rounded-xl text-xs font-bold text-[#101942] transition-colors flex items-center gap-1.5 shadow-2xs"
+                      >
+                        <Users size={14} className="text-[#f60c49]" />
+                        Carregar do Banco PEI
+                      </button>
+                    </div>
                   )}
                 </div>
+
 
                 {/* Nome do Estudante (opcional / pseudônimo) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -918,12 +1245,13 @@ export default function AdaptacoesPage() {
               </div>
             </form>
           </div>
-        )}
+        ))}
       </main>
 
       {/* Modal PEI */}
       <ModalAlunoPEI
         isOpen={modalPEIAberto}
+        abaInicial={modalPEIAbaInicial}
         onClose={() => setModalPEIAberto(false)}
         repository={repository}
         userId={user?.uid || "anonimo"}

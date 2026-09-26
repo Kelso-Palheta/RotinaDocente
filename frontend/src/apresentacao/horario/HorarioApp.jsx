@@ -19,6 +19,7 @@ import {
 } from "../../aplicacao/horario/gradeService";
 import { parseScheduleFromPdfText } from "../../aplicacao/horario/pdfScheduleParser";
 import { extractTextFromPDF } from "@/utils/atividades/pdfExtractor";
+import { generateSchedule } from "../../aplicacao/horario/autoScheduleGenerator";
 import { HorarioRepository } from "../../infraestrutura/horario/HorarioRepository";
 import { tHorario } from "./i18n";
 import "./horario.css";
@@ -79,6 +80,13 @@ export default function HorarioApp() {
   const [formColor, setFormColor] = useState("#f60c49");
   const [formNotes, setFormNotes] = useState("");
   const [replicateDays, setReplicateDays] = useState([]);
+
+  // Estados do Gerador Automático
+  const [genModalOpen, setGenModalOpen] = useState(false);
+  const [genRequests, setGenRequests] = useState([
+    { id: 1, subject: 'Matemática', grade: '1º Ano A', count: 5, color: '#f60c49' },
+    { id: 2, subject: 'Física', grade: '1º Ano A', count: 2, color: '#0070f3' }
+  ]);
 
   const [configModalOpen, setConfigModalOpen] = useState(false);
   const [tempSlots, setTempSlots] = useState([]);
@@ -606,7 +614,6 @@ export default function HorarioApp() {
                 setImportModalOpen(true);
               }}
               title="Importar horário escolar de arquivo PDF ou JSON"
-              style={{ borderColor: "var(--primary)", color: "var(--primary)" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -614,6 +621,25 @@ export default function HorarioApp() {
                 <line x1="12" y1="3" x2="12" y2="15"></line>
               </svg>
               <span>{t("importSchedule")}</span>
+            </button>
+
+            {/* Gerador Automático IA */}
+            <button
+              id="btnGenerator"
+              className="btn"
+              onClick={() => setGenModalOpen(true)}
+              style={{ backgroundColor: '#e8def8', color: '#1d192b', border: '1px solid #d0bcff' }}
+              title="Gerar horário automaticamente para evitar janelas"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+              <span>Gerador Mágico</span>
             </button>
 
             {/* Imprimir / PDF */}
@@ -995,17 +1021,32 @@ export default function HorarioApp() {
 
                 <div className="dialog-actions">
                   {schedule[buildSlotKey(activeSlotData.dayId, activeSlotData.slotId)] && (
-                    <button
-                      type="button"
-                      className="btn btn-danger-ghost"
-                      onClick={handleDeleteSlot}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                      </svg>
-                      <span>{t("remove")}</span>
-                    </button>
+                    <div style={{ display: "flex", gap: "0.5rem" }}>
+                      <button
+                        type="button"
+                        className="btn btn-danger-ghost"
+                        onClick={handleDeleteSlot}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        <span>{t("remove")}</span>
+                      </button>
+
+                      {formGrade && (
+                        <Link
+                          href={`/diario?turma=${encodeURIComponent(formGrade)}`}
+                          className="btn"
+                          style={{ backgroundColor: "#eef0f8", color: "#101942", border: "1px solid #dce0f0" }}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                          </svg>
+                          <span className="hidden sm:inline">Plano de Aula</span>
+                        </Link>
+                      )}
+                    </div>
                   )}
                   <div className="actions-right" style={{ marginLeft: "auto", display: "flex", gap: "0.5rem" }}>
                     <button type="button" className="btn btn-ghost" onClick={() => setSlotModalOpen(false)}>
@@ -1485,6 +1526,121 @@ export default function HorarioApp() {
         >
           <span>✓</span>
           <span>{toastMsg}</span>
+        </div>
+      )}
+
+      {/* MODAL 7: GERADOR MÁGICO DE HORÁRIOS */}
+      {genModalOpen && (
+        <div className="app-dialog-backdrop" onClick={() => setGenModalOpen(false)}>
+          <div className="app-dialog" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+            <div className="dialog-content">
+              <div className="dialog-header">
+                <div className="dialog-title-wrapper">
+                  <div className="dialog-icon" style={{ backgroundColor: '#e8def8', color: '#1d192b' }}>✨</div>
+                  <div>
+                    <h2 className="dialog-title">Gerador Mágico de Horários</h2>
+                    <p className="dialog-subtitle">Informe sua demanda de aulas e o algoritmo distribuirá tudo automaticamente sem criar janelas.</p>
+                  </div>
+                </div>
+                <button type="button" className="btn-close" onClick={() => setGenModalOpen(false)}>✕</button>
+              </div>
+              <div className="dialog-body" style={{ maxHeight: '60vh', overflowY: 'auto', padding: '1rem' }}>
+                <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Carga Horária (Turmas)</h3>
+                  <button 
+                    className="btn btn-ghost btn-sm" 
+                    onClick={() => setGenRequests([...genRequests, { id: Date.now(), subject: '', grade: '', count: 1, color: '#0070f3' }])}
+                  >
+                    + Adicionar Disciplina
+                  </button>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  {genRequests.map((req, i) => (
+                    <div key={req.id} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', backgroundColor: '#f8f9fa', padding: '0.5rem', borderRadius: '8px' }}>
+                      <input 
+                        className="form-control" 
+                        placeholder="Disciplina" 
+                        value={req.subject} 
+                        onChange={(e) => { const n = [...genRequests]; n[i].subject = e.target.value; setGenRequests(n); }} 
+                        style={{ flex: 2 }}
+                      />
+                      <input 
+                        className="form-control" 
+                        placeholder="Turma" 
+                        value={req.grade} 
+                        onChange={(e) => { const n = [...genRequests]; n[i].grade = e.target.value; setGenRequests(n); }} 
+                        style={{ flex: 2 }}
+                      />
+                      <input 
+                        className="form-control" 
+                        type="number" 
+                        min="1" 
+                        max="10"
+                        value={req.count} 
+                        onChange={(e) => { const n = [...genRequests]; n[i].count = parseInt(e.target.value) || 1; setGenRequests(n); }} 
+                        style={{ width: '60px', textAlign: 'center' }}
+                        title="Quantidade de Aulas Semanais"
+                      />
+                      <input 
+                        type="color" 
+                        value={req.color} 
+                        onChange={(e) => { const n = [...genRequests]; n[i].color = e.target.value; setGenRequests(n); }} 
+                        style={{ width: '30px', height: '30px', padding: 0, border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                        title="Cor da Disciplina"
+                      />
+                      <button 
+                        className="btn btn-ghost" 
+                        style={{ padding: '0.3rem', color: '#f60c49' }}
+                        onClick={() => { setGenRequests(genRequests.filter(r => r.id !== req.id)) }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                  {genRequests.length === 0 && <p style={{ color: '#666', textAlign: 'center' }}>Nenhuma aula cadastrada. Adicione sua demanda.</p>}
+                </div>
+                
+                <div className="hint-banner" style={{ marginTop: '1.5rem', backgroundColor: '#eef0f8', color: '#101942' }}>
+                  <div className="hint-icon">⚙️</div>
+                  <div className="hint-text">
+                    O gerador irá preencher os horários em branco, buscando <strong>agrupar as aulas do mesmo dia</strong> para evitar janelas. Ele só usará os horários e dias que você definiu como disponíveis.
+                  </div>
+                </div>
+              </div>
+              <div className="dialog-actions">
+                <button type="button" className="btn btn-ghost" onClick={() => setGenModalOpen(false)}>Cancelar</button>
+                <button 
+                  type="button" 
+                  className="btn btn-primary"
+                  style={{ backgroundColor: '#6750a4' }}
+                  onClick={() => {
+                    const availableSlots = [];
+                    // Filtrar apenas slots visíveis do turno selecionado (ou todos) e ignorar os já preenchidos caso quiséssemos
+                    // Mas vamos considerar todos os slots vazios na grade atual como disponíveis
+                    visibleDays.forEach(d => {
+                      visibleSlots.forEach(s => {
+                        const key = `${d.id}-${s.id}`;
+                        if (!schedule[key]) {
+                           availableSlots.push({ dayId: d.id, slotId: s.id });
+                        }
+                      });
+                    });
+                    
+                    const newSchedule = generateSchedule({ requests: genRequests, availableSlots });
+                    
+                    // Fazer merge com o schedule existente
+                    setSchedule(prev => ({ ...prev, ...newSchedule }));
+                    setGenModalOpen(false);
+                    // Opcional: mostrar um toast de sucesso!
+                  }}
+                  disabled={genRequests.length === 0}
+                >
+                  ✨ Gerar Horário
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

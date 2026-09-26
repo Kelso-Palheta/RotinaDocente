@@ -73,14 +73,16 @@ export class AtividadeAdaptadaRepository {
         ? rawData.atividadeAdaptada.questoes.length
         : 1);
 
-    const atividadeData = {
-      ...rawData,
-      id: rawData.id || `ativ_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
-      quantidadeQuestoes: qtdQuestoes,
-      necessidades: Array.isArray(rawData.necessidades) ? rawData.necessidades : [],
-      updatedAt: new Date().toISOString(),
-      createdAt: rawData.createdAt || new Date().toISOString(),
-    };
+    const atividadeData = JSON.parse(
+      JSON.stringify({
+        ...rawData,
+        id: rawData.id || `ativ_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+        quantidadeQuestoes: qtdQuestoes,
+        necessidades: Array.isArray(rawData.necessidades) ? rawData.necessidades : [],
+        updatedAt: new Date().toISOString(),
+        createdAt: rawData.createdAt || new Date().toISOString(),
+      })
+    );
 
     // 1. Sempre atualiza localmente (Cache / Fallback)
     const localList = this._lerLocal(userId);

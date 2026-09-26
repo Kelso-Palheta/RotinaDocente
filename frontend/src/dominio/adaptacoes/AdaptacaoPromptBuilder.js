@@ -153,6 +153,7 @@ Formato esperado:
         "enunciado": "Enunciado claro, sem ambiguidade, formatado em frases curtas",
         "tipo": "multipla_escolha | associacao | verdadeiro_falso | discursiva_curta",
         "apoioVisualDescricao": "Descrição detalhada de imagem, esquema ou audiodescrição recomendada para apoio à questão",
+        "apoioVisualPromptIngles": "Detailed english prompt for AI image generation (e.g. 'educational illustration of the solar system, child friendly, bright colors, flat design')",
         "alternativas": [
           "A) ...",
           "B) ...",

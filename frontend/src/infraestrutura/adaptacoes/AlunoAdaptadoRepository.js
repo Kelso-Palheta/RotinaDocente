@@ -110,7 +110,68 @@ export class AlunoAdaptadoRepository {
   }
 
   /**
+   * Salva múltiplos alunos em lote (Híbrido: Local + Cloud)
+   * @param {string} userId ID do professor
+   * @param {Array<Object|import('../../dominio/adaptacoes/AlunoInclusivo').AlunoInclusivo>} listaAlunos
+   * @returns {Promise<Array<Object>>}
+   */
+  async salvarAlunosLote(userId, listaAlunos) {
+    if (!Array.isArray(listaAlunos) || listaAlunos.length === 0) return [];
+
+    const salvos = [];
+    const localList = this._lerLocal(userId);
+
+    for (const aluno of listaAlunos) {
+      const rawData = typeof aluno?.toJSON === 'function' ? aluno.toJSON() : { ...aluno };
+      const alunoData = {
+        ...rawData,
+        id: rawData.id || `aluno_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+        updatedAt: new Date().toISOString(),
+        createdAt: rawData.createdAt || new Date().toISOString(),
+      };
+
+      const existingIndex = localList.findIndex((a) => a.id === alunoData.id);
+      if (existingIndex >= 0) {
+        localList[existingIndex] = alunoData;
+      } else {
+        localList.push(alunoData);
+      }
+      salvos.push(alunoData);
+    }
+
+    this._gravarLocal(userId, localList);
+
+    // Sincroniza em lote no Firestore
+    if (userId && this.firestoreDb) {
+      try {
+        for (const alunoData of salvos) {
+          if (typeof this.firestoreDb.collection === 'function') {
+            await this.firestoreDb
+              .collection('professores')
+              .doc(userId)
+              .collection('alunos_adaptados')
+              .doc(alunoData.id)
+              .set(alunoData, { merge: true });
+          } else {
+            const { doc, setDoc } = await import('firebase/firestore');
+            const docRef = doc(this.firestoreDb, 'professores', userId, 'alunos_adaptados', alunoData.id);
+            await setDoc(docRef, alunoData, { merge: true });
+          }
+        }
+      } catch (err) {
+        console.warn(
+          '[AlunoAdaptadoRepository] Falha ao sincronizar lote com Firestore, operando em fallback:',
+          err
+        );
+      }
+    }
+
+    return salvos;
+  }
+
+  /**
    * Lista todos os alunos cadastrados pelo professor
+
    * @param {string} userId
    * @returns {Promise<Array<Object>>}
    */

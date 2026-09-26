@@ -34,11 +34,15 @@ export function VisualizadorAtividadeAdaptada({
   onSalvarNoBanco,
   onAbrirBanco,
   salvoNoBanco = false,
+  onSalvarQuestoesNoBanco = null,
+  onSalvarQuestaoIndividual = null,
 }) {
   const { temChave, getAIHeaders } = useAIConfig();
   const [abaAtiva, setAbaAtiva] = useState("aluno"); // 'aluno' | 'mediacao'
   const [copiado, setCopiado] = useState(false);
   const [salvandoLocal, setSalvandoLocal] = useState(false);
+  const [questoesSalvasNoBanco, setQuestoesSalvasNoBanco] = useState(false);
+  const [indicesSalvos, setIndicesSalvos] = useState({});
 
   // Estados de geração de imagens de apoio visual (RN-39)
   const [imagensQuestoes, setImagensQuestoes] = useState({});
@@ -95,41 +99,56 @@ export function VisualizadorAtividadeAdaptada({
   };
 
   const handleGerarImagem = async (idx, q) => {
-    if (!temChave) {
-      alert("Conecte sua chave de IA no botão do topo para gerar ilustrações com o seu modelo.");
-      return;
-    }
-
     setErroImagem("");
     setGerandoImagemIdx(idx);
 
     try {
-      const res = await fetch("/api/adaptacoes/imagem", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...getAIHeaders(),
-        },
-        body: JSON.stringify({
-          descricaoApoio: q.apoioVisualDescricao || q.enunciado,
-          disciplina,
-          necessidades: aluno.necessidades || [],
-        }),
-      });
+      let urlGerada = null;
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Erro ao gerar imagem.");
+      // 1. Tentar usar BYOK (OpenAI DALL-E 3 ou Gemini) se o usuário tiver chave configurada
+      if (temChave) {
+        try {
+          const res = await fetch("/api/adaptacoes/imagem", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...getAIHeaders(),
+            },
+            body: JSON.stringify({
+              descricaoApoio: q.apoioVisualDescricao || q.enunciado,
+              disciplina,
+              necessidades: aluno.necessidades || [],
+            }),
+          });
+          const data = await res.json();
+          if (res.ok && data.imagemUrl) {
+            urlGerada = data.imagemUrl;
+          } else {
+            console.warn("Falha no BYOK, caindo no fallback:", data.error);
+          }
+        } catch (apiErr) {
+          console.warn("Erro na API de imagem BYOK:", apiErr);
+        }
+      }
+
+      // 2. Fallback Automático: Pollinations.ai (Grátis, sem chave)
+      if (!urlGerada) {
+        const promptBase = q.apoioVisualPromptIngles || q.apoioVisualDescricao || q.enunciado || "educational illustration";
+        const promptIngles = `educational illustration, children style, safe for school, ${promptBase}`;
+        urlGerada = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptIngles)}?width=800&height=400&nologo=true`;
+        
+        // Simular um pequeno delay de rede para dar feedback visual
+        await new Promise((r) => setTimeout(r, 800));
       }
 
       setImagensQuestoes((prev) => ({
         ...prev,
-        [idx]: data.imagemUrl,
+        [idx]: urlGerada,
       }));
-      q.imagemUrl = data.imagemUrl;
+      q.imagemUrl = urlGerada;
     } catch (err) {
       console.error("Falha ao gerar imagem:", err);
-      setErroImagem(`Erro na questão ${q.numero || idx + 1}: ${err.message}`);
+      setErroImagem(`Erro na questão ${q.numero || idx + 1}: Falha ao conectar ao serviço de imagens.`);
     } finally {
       setGerandoImagemIdx(null);
     }
@@ -212,9 +231,30 @@ export function VisualizadorAtividadeAdaptada({
               ) : (
                 <>
                   <BookmarkPlus size={15} className="text-[#f60c49]" />
-                  {salvandoLocal ? "Salvando..." : "Salvar no Banco"}
+                  {salvandoLocal ? "Salvando..." : "Salvar Prova/Atividade"}
                 </>
               )}
+            </button>
+          )}
+
+          {onSalvarQuestoesNoBanco && (
+            <button
+              id="btn-salvar-questoes-banco"
+              type="button"
+              onClick={async () => {
+                await onSalvarQuestoesNoBanco(resultado);
+                setQuestoesSalvasNoBanco(true);
+                setTimeout(() => setQuestoesSalvasNoBanco(false), 3000);
+              }}
+              className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                questoesSalvasNoBanco
+                  ? "bg-indigo-50 border-indigo-300 text-indigo-700"
+                  : "bg-white border-[#dce0f0] hover:border-indigo-400 text-[#101942] hover:text-indigo-700"
+              }`}
+              title="Salva todas as questões geradas individualmente no Banco de Questões"
+            >
+              <BookOpen size={15} className="text-indigo-600" />
+              {questoesSalvasNoBanco ? "Questões Salvas no Banco!" : "Salvar Questões no Banco"}
             </button>
           )}
 
@@ -421,7 +461,32 @@ export function VisualizadorAtividadeAdaptada({
                     {q.numero || idx + 1}
                   </span>
                   <div className="space-y-2 flex-1">
-                    <p className="font-bold text-base sm:text-lg">{q.enunciado}</p>
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-bold text-base sm:text-lg flex-1">{q.enunciado}</p>
+                      {onSalvarQuestaoIndividual && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onSalvarQuestaoIndividual(q, resultado);
+                            setIndicesSalvos((prev) => ({ ...prev, [idx]: true }));
+                            setTimeout(() => {
+                              setIndicesSalvos((prev) => ({ ...prev, [idx]: false }));
+                            }, 2500);
+                          }}
+                          className={`px-2 py-1 text-xs rounded-xl border transition-all flex items-center gap-1 shrink-0 print:hidden ${
+                            indicesSalvos[idx]
+                              ? "bg-emerald-50 border-emerald-300 text-emerald-700"
+                              : "bg-[#f8f9fd] border-[#dce0f0] text-[#6070a0] hover:text-indigo-700 hover:border-indigo-300"
+                          }`}
+                          title="Salvar esta questão individual no Banco de Questões"
+                        >
+                          {indicesSalvos[idx] ? <Check size={13} className="text-emerald-600" /> : <BookOpen size={13} />}
+                          <span className="text-[10px] font-bold">
+                            {indicesSalvos[idx] ? "Salva no Banco" : "+ Banco de Questões"}
+                          </span>
+                        </button>
+                      )}
+                    </div>
 
                     {/* Apoio Visual & Imagem Gerada (RN-39) */}
                     {(q.imagemUrl || imagensQuestoes[idx]) ? (

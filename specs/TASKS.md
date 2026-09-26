@@ -20,5 +20,6 @@
 ---
 
 ## 🎯 Próximas Entregas (Backlog)
-- [ ] **TASK-16:** Otimização do pipeline de OCR para PDFs manuscritos escaneados em lote.
+- [x] **TASK-16:** Otimização do pipeline de OCR para PDFs manuscritos escaneados em lote.
+- [x] **TASK-17:** Banco de Questões Adaptadas Individuais e Montador de Provas Ajustáveis com Vinculação PEI (RN-42).
 

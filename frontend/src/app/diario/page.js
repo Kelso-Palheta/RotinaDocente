@@ -232,6 +232,25 @@ export default function DiarioPage() {
   const handleSetBimestre = (b) => { setBimestre(b); sessionStorage.setItem('diario_bimestre', b); };
   const turmaAtual = turmas.find((t) => t.id === turmaSelecionada?.id) || turmas[0] || null;
 
+  // Integração com Horário Escolar (Auto-selecionar ou Auto-criar turma)
+  useEffect(() => {
+    if (!loadingTurmas && typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const targetTurma = params.get('turma');
+      
+      if (targetTurma) {
+        const found = turmas.find(t => t.nome.trim().toLowerCase() === targetTurma.trim().toLowerCase());
+        if (found) {
+          setTurmaSelecionada(found);
+        } else {
+          addTurma(targetTurma);
+          // O hook addTurma insere no final. A turma será selecionada quando o usuário clicar na sidebar.
+        }
+        window.history.replaceState(null, '', '/diario');
+      }
+    }
+  }, [loadingTurmas, turmas, addTurma]);
+
   const handlePublishGrades = async (todasTurmas = false) => {
     if (publishing || !user || turmas.length === 0) return;
 
@@ -418,7 +437,6 @@ export default function DiarioPage() {
           onReorderTurmas={setTurmas}
           onLogout={() => router.push('/')}
           onOpenProfile={() => setShowProfile(true)}
-          onClose={() => setSidebarOpen(false)}
         />
       </div>
 

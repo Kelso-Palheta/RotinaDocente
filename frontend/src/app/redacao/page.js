@@ -75,7 +75,11 @@ function AnimatedCounter({ value, color }) {
   const [display, setDisplay] = useState(0);
   useEffect(() => {
     const target = value || 0;
-    if (target === 0) { setDisplay(0); return; }
+    if (target === 0) { 
+      // Em vez de chamar o setState imediatamente de forma síncrona, agendamos pro próximo tick do React
+      requestAnimationFrame(() => setDisplay(0)); 
+      return; 
+    }
     const duration = 1200;
     const start = performance.now();
     const tick = (now) => {
@@ -127,7 +131,7 @@ export default function RedacaoPage() {
   useEffect(() => {
     if (authLoading) return; // Aguarda o carregamento do estado de autenticação
     if (!user) {
-      setLoadingTurmas(false);
+      setTimeout(() => setLoadingTurmas(false), 0);
       return;
     }
 
@@ -219,11 +223,10 @@ export default function RedacaoPage() {
   const [error, setError] = useState('');
   const [showAlunoDropdown, setShowAlunoDropdown] = useState(false);
   const [alunoLinkCopied, setAlunoLinkCopied] = useState(false);
-  const [charCount, setCharCount] = useState(0);
-  const [motivatorExtracting, setMotivatorExtracting] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [motivatorExtracting, setMotivatorExtracting] = useState(false);
 
-  useEffect(() => { setCharCount(text.length); }, [text]);
+  const charCount = text ? text.length : 0;
 
   if (authLoading || loadingTurmas || (!perfil && user)) {
     return <div className="flex h-screen items-center justify-center bg-[#f8fafc]"><div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-violet-400 animate-pulse shadow-2xl shadow-violet-500/20" /></div>;
@@ -370,19 +373,13 @@ export default function RedacaoPage() {
       
       const reader = new FileReader();
       reader.onload = async () => {
-        const base64Data = reader.result.split(',')[1];
         try {
-          const res = await fetch('/api/extrair', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              ...getClientAIHeaders(),
-            },
-            body: JSON.stringify({ imageBase64: base64Data, mediaType: 'image/jpeg' })
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.message || data.error);
-          setMotivatorText(data.text);
+          const { extractTextFromImage } = await import('@/utils/atividades/pdfExtractor');
+          const text = await extractTextFromImage(reader.result);
+          if (!text || !text.trim()) {
+            throw new Error('Nenhum texto pôde ser extraído da imagem. Tente uma imagem com melhor resolução.');
+          }
+          setMotivatorText(text);
         } catch (err) {
           setError('Erro ao extrair texto da imagem do motivador: ' + err.message);
         } finally {
@@ -397,23 +394,22 @@ export default function RedacaoPage() {
   };
 
   const handleExtract = async () => {
-    if (!imageBase64) return;
+    if (!imagePreview) return;
     setExtracting(true); setError('');
     try {
-      const res = await fetch('/api/extrair', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getClientAIHeaders(),
-        },
-        body: JSON.stringify({ imageBase64, mediaType: 'image/jpeg' }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || data.error);
-      setText(data.text);
+      const { extractTextFromImage } = await import('@/utils/atividades/pdfExtractor');
+      const text = await extractTextFromImage(imagePreview); // Passa o data URL completo
+      if (!text || !text.trim()) {
+        throw new Error('Não foi possível ler o texto. Tente enviar uma foto mais nítida e bem iluminada.');
+      }
+      setText(text);
       setStep('review');
-    } catch (err) { setError('Erro ao extrair texto: ' + err.message); }
-    finally { setExtracting(false); }
+    } catch (err) { 
+      setError('Erro ao extrair texto: ' + err.message); 
+      setStep('input');
+    } finally { 
+      setExtracting(false); 
+    }
   };
 
   const handleCorrect = async () => {

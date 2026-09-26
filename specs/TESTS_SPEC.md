@@ -38,6 +38,11 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-21 (RN-37):** Validar configuração de múltiplas questões no `AdaptacaoPromptBuilder` (montagem de prova/lista completa com 1 a 10 questões, ou todas as questões da prova original).
 - [x] **UT-22 (RN-38):** Validar persistência híbrida e filtragem por deficiência no `AtividadeAdaptadaRepository` (salvar, listar por deficiência, reaproveitar e clonar para novo estudante).
 - [x] **UT-23 (RN-39):** Validar construtor de prompts de imagens pedagógicas acessíveis e sanitizador de base64.
+- [x] **UT-24 (RN-41):** Validar parser e normalizador de planilha em lote de estudantes PEI (Excel, CSV e texto) mapeando nomes, turmas e múltiplas deficiências.
+- [x] **UT-25 (RN-42):** Validar entidade `QuestaoAdaptada` (validação de enunciado, tipo suportado, integridade de alternativas e método toJSON).
+- [x] **UT-26 (RN-42):** Validar entidade `ProvaAdaptada` (composição, reordenação de questões, vinculação a estudante PEI e validações).
+- [x] **UT-27 (RN-42):** Validar `QuestaoAdaptadaRepository` (persistência híbrida Firestore/localStorage, inserção individual e em lote, filtragem por deficiência/disciplina).
+- [x] **UT-28 (RN-42):** Validar `ProvaAdaptadaRepository` (persistência híbrida de provas montadas, busca por id, listagem e remoção).
 
 ---
 
@@ -49,6 +54,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **IT-05 (RN-34):** Testar endpoint `POST /api/adaptacoes/gerar` orquestrando conteúdo, perfil multi-select e entrega de atividade adaptada + guia de mediação.
 - [x] **IT-06 (RN-37 & RN-38):** Testar endpoint `POST /api/adaptacoes/gerar` aceitando quantidade configurável de questões e suporte a reaproveitamento.
 - [x] **IT-07 (RN-39):** Testar endpoint `POST /api/adaptacoes/imagem` gerando imagem via BYOK (Gemini e OpenAI) e tratando erros e ausência de chave.
+- [x] **IT-08 (RN-41):** Testar fluxo completo de importação de arquivo de alunos e salvamento em lote no `AlunoAdaptadoRepository`.
+
+
 
 ---
 
