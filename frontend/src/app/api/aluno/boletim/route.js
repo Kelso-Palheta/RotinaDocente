@@ -80,6 +80,20 @@ export async function GET(request) {
       console.warn('Erro ao buscar redação:', e.message);
     }
 
+    const tokens = {};
+    try {
+      await Promise.all(
+        atividades.map(async (atv) => {
+          const tokenDoc = await db.doc(`atividades/${atv.id}/tokens/${alunoId}`).get();
+          if (tokenDoc.exists) {
+            tokens[atv.id] = tokenDoc.data().token;
+          }
+        })
+      );
+    } catch (e) {
+      console.warn('Erro ao buscar tokens:', e.message);
+    }
+
     return NextResponse.json({
       success: true,
       aluno: {
@@ -90,6 +104,7 @@ export async function GET(request) {
       notas: notasData || {},
       atividades,
       entregas,
+      tokens,
       redacao,
     });
   } catch (error) {

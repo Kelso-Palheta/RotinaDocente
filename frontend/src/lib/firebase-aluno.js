@@ -125,10 +125,7 @@ export async function getEntregasDoAluno(alunoId) {
   return snap.docs.map(d => ({ ...d.data(), id: d.id }));
 }
 
-export async function getTokenAluno(activityId, alunoId) {
-  const snap = await getDoc(doc(db, 'atividades', activityId, 'tokens', alunoId));
-  return snap.exists() ? snap.data().token : null;
-}
+
 
 export async function limparVinculosOrfaos(professorUid, turmasAtivas, alunosRemovidos) {
   for (const aluno of alunosRemovidos) {

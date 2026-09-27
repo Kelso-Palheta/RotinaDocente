@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getTokenAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
+import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
 import { calcTotal, calcSemestre, fmt } from '@/utils/diario/calculos';
 import { generateBoletimPDF } from '@/lib/aluno/boletim-pdf';
 import { ArrowLeft, PenTool, Sparkles, Download, CheckCircle2, AlertCircle, Clock, BookOpen, User, LogOut } from 'lucide-react';
@@ -174,15 +174,7 @@ export default function AlunoNotasPage() {
           })
         );
         setEntregas(data.entregas || []);
-
-        const tks = {};
-        await Promise.all(
-          atvsData.map(async (atv) => {
-            const t = await getTokenAluno(atv.id, alunoId);
-            if (t) tks[atv.id] = t;
-          })
-        );
-        setTokens(tks);
+        setTokens(data.tokens || {});
       })
       .catch((err) => {
         console.error('Erro ao carregar boletim:', err);
