@@ -44,6 +44,12 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-27 (RN-42):** Validar `QuestaoAdaptadaRepository` (persistência híbrida Firestore/localStorage, inserção individual e em lote, filtragem por deficiência/disciplina).
 - [x] **UT-28 (RN-42):** Validar `ProvaAdaptadaRepository` (persistência híbrida de provas montadas, busca por id, listagem e remoção).
 
+### Módulo: Catálogo Ampliado & Necessidades no Diário (`tests/unit/diario_necessidades.test.js`)
+- [x] **UT-29 (RN-32):** Validar o catálogo ampliado com 15 categorias oficiais (10 base + `epilepsia`, `ansiedade`, `toc`, `conduta`, `outras_condicoes`), cada uma com `id`, `nome`, `descricao` e `diretrizesDUA` não vazias, e `CATEGORIAS_MAP` indexando todas.
+- [x] **UT-30 (RN-41):** Validar os sinônimos corrigidos do normalizador: `F71 Retardo Moderado` → `di`, `TDH` → `tdah`, `dificuldade com cálculo` → `discalculia`, `Epilepsia/G40/Pré-Epilepsia` → `epilepsia`, `Fobia Social/F41.2/ansiedade` → `ansiedade`, `Obsessivo Compulsivo/F42` → `toc`, `Opositor Desafiador/Hipercinético de conduta/F91` → `conduta`, `Hidrocefalia/Síndromes Edwards e Patau/Q90` → `outras_condicoes`, sem falso-positivo em textos genéricos ("Outra condição não listada" → `[]`).
+- [x] **UT-31 (RN-41 & RN-43):** Validar a cobertura integral da Lista de Estudantes PCD 2026 (13 alunos): todo aluno deve mapear ao menos 1 categoria e as condições essenciais (autismo, DI, dislexia, epilepsia, ansiedade, TOC/TOD) devem ser reconhecidas.
+- [x] **UT-32 (RN-43):** Validar a entidade `AlunoDiario` do Diário: sanitização de `necessidades` contra `CATEGORIAS_MAP` (descarte de IDs inválidos, remoção de duplicatas, omissão de array vazio), criação de aluno com necessidades e atualização via merge preservando os demais campos.
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)

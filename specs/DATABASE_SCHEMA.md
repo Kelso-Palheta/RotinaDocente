@@ -21,7 +21,7 @@ Documento único contendo a lista completa de turmas do professor para sincroniz
 - `turmas`: Array de objetos de turma:
   - `id`: string
   - `nome`: string (ex: "3º Ano A")
-  - `alunos`: Array de alunos (`id`, `nome`, `dataNascimento`, `loginKey`)
+  - `alunos`: Array de alunos (`id`, `nome`, `dataNascimento`, `loginKey`, `necessidades?`)
   - `bimestres`: Mapa de bimestres (`"1"`, `"2"`, `"3"`, `"4"`):
     - `atividades`: Array de atividades (`id`, `nome`, `max`)
     - `notas`: Mapa `{ [alunoId]: { simulado: number, [atvId]: number } }`
@@ -47,7 +47,8 @@ Perfis de estudantes com necessidades específicas para adaptação curricular (
 - `nome`: string (ex: "Lucas Silva")
 - `turmaId`: string (referência à turma do professor)
 - `turmaNome`: string (ex: "3º Ano B")
-- `necessidades`: array de strings (`['tea', 'di', 'tdah', 'baixa_visao', 'cegueira', 'surdez', 'motora', 'dislexia', 'discalculia', 'ah_sd']`)
+- `necessidades`: array de strings (`['tea', 'di', 'tdah', 'baixa_visao', 'cegueira', 'surdez', 'motora', 'dislexia', 'discalculia', 'ah_sd', 'epilepsia', 'ansiedade', 'toc', 'conduta', 'outras_condicoes']`)
+- Observação: o mesmo array de IDs (`necessidades`, opcional) é suportado também no objeto de aluno embutido em `turmas[].alunos[]` (RN-43), sanitizado contra o catálogo oficial e omitido quando vazio.
 - `nivelSuporte`: number (`1` - Leve, `2` - Moderado, `3` - Alto)
 - `hiperfoco`: string opcional (ex: "Dinossauros, Transporte Ferroviário")
 - `observacoes`: string opcional (ex: "Compreende melhor com frases curtas e apoio visual")

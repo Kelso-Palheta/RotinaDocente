@@ -20,6 +20,7 @@ O **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema 
    - Lançamento de notas por turma e bimestre (1º ao 4º).
    - Cálculo automático de médias ponderadas (Simulados + Atividades).
    - Publicação instantânea para o Portal do Aluno.
+   - Configuração de necessidades/deficiências (PCD) por aluno no cadastro e na tabela de notas, com badges de identificação rápida (RN-43).
    - Backup e restauração local/Firestore.
 2. **Redação Corrigida ENEM:**
    - Extração de texto via OCR de fotos ou documentos (PDF, DOCX, TXT).
@@ -51,7 +52,7 @@ O **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema 
    - Bloqueio estrito de requisições de IA quando não houver chave pessoal configurada.
 9. **Atividades Adaptadas & Educação Inclusiva (DUA/PEI):**
    - Diferenciação pedagógica de atividades alinhadas ao Desenho Universal para a Aprendizagem (DUA) e LBI (Lei 13.146/2015).
-   - Suporte a seleção multi-select de deficiências e neurodiversidades (TEA, DI, TDAH, Baixa Visão, Cegueira, Surdez, Motora, Dislexia, Discalculia, AH/SD).
+   - Suporte a seleção multi-select de deficiências e neurodiversidades (TEA, DI, TDAH, Baixa Visão, Cegueira, Surdez, Motora, Dislexia, Discalculia, AH/SD, Epilepsia, Ansiedade, TOC, Transtornos de Conduta, Outras Condições).
    - Motor de harmonização não-conflitante para estudantes com múltiplas deficiências.
    - Banco de perfis de estudantes (PEI / PDI rápido) para reuso contínuo.
    - Bimodalidade de entrega: integração no módulo digital de atividades e módulo independente com exportação em PDF de alta acessibilidade para impressão.

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { NumCell } from '@/components/diario/NumCell';
+import { BadgeNecessidades, SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
 import { calcTotal, fmt, statusColor, somaMaxAtv, round2, temNota, titleCase } from '@/utils/diario/calculos';
 
 const STATUS_STYLES = {
@@ -13,35 +14,63 @@ const STATUS_STYLES = {
 const AddAlunoForm = ({ onAdd }) => {
   const [nome, setNome] = useState('');
   const [data, setData] = useState('');
+  const [nec, setNec] = useState([]);
+  const [showNec, setShowNec] = useState(false);
 
   const submit = () => {
     if (!nome.trim()) return;
     const dataNascimento = data.replace(/\D/g, '').slice(0, 4);
-    onAdd({ nome: nome.trim(), ...(dataNascimento.length === 4 ? { dataNascimento } : {}) });
+    onAdd({
+      nome: nome.trim(),
+      ...(dataNascimento.length === 4 ? { dataNascimento } : {}),
+      ...(nec.length > 0 ? { necessidades: nec } : {})
+    });
     setNome('');
     setData('');
+    setNec([]);
+    setShowNec(false);
   };
 
   return (
-    <div className="flex items-center gap-2 sm:gap-3 mt-3 pt-3 border-t border-[#dce0f0]">
-      <input
-        value={nome} onChange={(e) => setNome(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && submit()}
-        placeholder="Nome completo do aluno"
-        className="flex-1 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all"
-      />
-      <input
-        value={data} onChange={(e) => setData(e.target.value.replace(/\D/g, '').slice(0, 4))}
-        onKeyDown={(e) => e.key === 'Enter' && submit()}
-        placeholder="ddMM (Nascimento)" maxLength={4}
-        className="w-24 sm:w-36 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all font-mono text-center"
-      />
-      <button
-        onClick={submit} disabled={!nome.trim()}
-        className="px-4 py-2 btn-brand-primary disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-white text-xs sm:text-sm font-bold transition-all whitespace-nowrap shadow-xs"
-      >
-        + Adicionar Aluno
-      </button>
+    <div className="flex flex-col gap-2 sm:gap-3 mt-3 pt-3 border-t border-[#dce0f0]">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <input
+          value={nome} onChange={(e) => setNome(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && submit()}
+          placeholder="Nome completo do aluno"
+          className="flex-1 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all"
+        />
+        <input
+          value={data} onChange={(e) => setData(e.target.value.replace(/\D/g, '').slice(0, 4))}
+          onKeyDown={(e) => e.key === 'Enter' && submit()}
+          placeholder="ddMM (Nascimento)" maxLength={4}
+          className="w-24 sm:w-36 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all font-mono text-center"
+        />
+        <button
+          onClick={() => setShowNec((v) => !v)}
+          className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
+            nec.length > 0
+              ? 'bg-[#fff2f6] border-[#f60c49] text-[#d40840]'
+              : 'bg-[#f7f8fc] border-[#dce0f0] text-[#6070a0] hover:border-[#f60c49]/40'
+          }`}
+          title="Necessidades / PCD do aluno"
+        >
+          🏷{nec.length > 0 ? ` ${nec.length}` : ''}
+        </button>
+        <button
+          onClick={submit} disabled={!nome.trim()}
+          className="px-4 py-2 btn-brand-primary disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-white text-xs sm:text-sm font-bold transition-all whitespace-nowrap shadow-xs"
+        >
+          + Adicionar Aluno
+        </button>
+      </div>
+      {showNec && (
+        <SeletorNecessidadesDiario
+          selecionadas={nec}
+          onToggle={(id) => setNec((prev) => alternarNecessidade(prev, id))}
+          idPrefix="quick-nec"
+        />
+      )}
     </div>
   );
 };
@@ -81,6 +110,8 @@ export const TabelaNotas = ({
   const [selectedIds, setSelectedIds] = useState([]);
   const [showConfig, setShowConfig] = useState(false);
   const [editingBirthday, setEditingBirthday] = useState(null);
+  const [editingNeeds, setEditingNeeds] = useState(null);
+  const [needsDraft, setNeedsDraft] = useState([]);
 
   const bData = turma.bimestres[String(bimestre)] || { atividades: [], notas: {}, config: {} };
   const { atividades, notas, config = {} } = bData;
@@ -298,6 +329,9 @@ export const TabelaNotas = ({
                         </span>
                       )}
                     </div>
+                    <div className="mt-0.5">
+                      <BadgeNecessidades necessidades={al.necessidades} />
+                    </div>
                   </td>
                   <td className="px-2 py-1"><NumCell value={nota.simulado ?? ''} min={0} max={config?.simuladoMaxLanca !== undefined ? Number(config.simuladoMaxLanca) : 10} onChange={(v) => onSetNota(al.id, 'simulado', v)} /></td>
                   {atividades.map((atv) => (
@@ -311,6 +345,11 @@ export const TabelaNotas = ({
                       <button onClick={() => handleClearSingleActivities(al.id, al.nome)} className="text-slate-400 hover:text-cyan-500 transition-colors p-1" title="Limpar notas de atividades">🧹</button>
                     )}
                     <button onClick={() => handleClearSingleSimulado(al.id, al.nome)} className="text-slate-400 hover:text-amber-500 transition-colors p-1" title="Limpar nota do simulado">🧪</button>
+                    <button
+                      onClick={() => { setEditingNeeds(al.id); setNeedsDraft(Array.isArray(al.necessidades) ? [...al.necessidades] : []); }}
+                      className={`transition-colors p-1 ${al.necessidades?.length ? 'text-[#d40840] hover:text-[#f60c49]' : 'text-slate-400 hover:text-[#f60c49]'}`}
+                      title="Necessidades / PCD do aluno"
+                    >🏷</button>
                     <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-red-500 transition-colors p-1" title="Excluir aluno">🗑</button>
                   </td>
                 </tr>
@@ -322,6 +361,55 @@ export const TabelaNotas = ({
 
       {onAddAlunoManual && <AddAlunoForm onAdd={onAddAlunoManual} />}
       <AddAtvForm onAdd={onAddAtv} somaAtual={somaMaxima} maxAtv={atvMax} />
+
+      {/* Modal de Necessidades / PCD (RN-43) */}
+      {editingNeeds && (() => {
+        const alunoEdit = turma.alunos.find((al) => al.id === editingNeeds);
+        return (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/40 backdrop-blur-sm"
+            onClick={() => setEditingNeeds(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Editar necessidades do aluno"
+          >
+            <div
+              className="bg-white rounded-2xl border border-[#dce0f0] shadow-xl p-5 w-full max-w-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-sm font-extrabold text-[#101942] mb-1">
+                Necessidades / PCD — {alunoEdit ? titleCase(alunoEdit.nome) : ''}
+              </h3>
+              <p className="text-[11px] text-[#6070a0] mb-4 leading-relaxed">
+                Selecione as categorias oficiais DUA (RN-43). Dados sensíveis conforme LGPD:
+                visíveis apenas para o professor, nunca enviados ao Portal do Aluno ou a modelos de IA.
+              </p>
+              <SeletorNecessidadesDiario
+                selecionadas={needsDraft}
+                onToggle={(id) => setNeedsDraft((prev) => alternarNecessidade(prev, id))}
+                idPrefix="edit-nec"
+              />
+              <div className="flex justify-end gap-2 mt-5">
+                <button
+                  onClick={() => setEditingNeeds(null)}
+                  className="px-4 py-2 bg-[#f7f8fc] hover:bg-[#eef0f8] border border-[#dce0f0] rounded-xl text-[#101942] text-xs font-bold transition-all"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={() => {
+                    if (onUpdateAluno) onUpdateAluno(turma.id, editingNeeds, { necessidades: needsDraft });
+                    setEditingNeeds(null);
+                  }}
+                  className="px-4 py-2 btn-brand-primary rounded-xl text-white text-xs font-bold transition-all"
+                >
+                  Salvar
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 };

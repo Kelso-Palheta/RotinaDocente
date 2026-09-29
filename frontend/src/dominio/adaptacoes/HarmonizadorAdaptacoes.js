@@ -98,6 +98,36 @@ export class HarmonizadorAdaptacoes {
       diretrizesEngajamento.add('Propor desafios investigativos abertos, pensamento divergente e conexões interdisciplinares.');
     }
 
+    if (has('epilepsia')) {
+      diretrizesLayout.add('Eliminar vídeos, animações e figuras com luz piscante ou efeito estroboscópico.');
+      diretrizesAvaliacao.add('Conceder tempo de prova flexível com pausas programadas, sem cronômetro rígido.');
+      diretrizesMediaDocente.add('Tolerar ausências médicas com recuperação agendada, sem penalização.');
+    }
+
+    if (has('ansiedade')) {
+      diretrizesLinguagem.add('Usar linguagem acolhedora e neutra, sem ameaças de nota nem comparação entre colegas.');
+      diretrizesAvaliacao.add('Oferecer tempo adicional e avaliação sem exposição oral forçada ou correção pública.');
+      diretrizesMediaDocente.add('Manter rotina e instruções previsíveis, antecipando etapas e critérios.');
+    }
+
+    if (has('toc')) {
+      diretrizesAcaoExpressao.add('Permitir pausas e revisões sem penalização, sem exigir "resposta definitiva".');
+      diretrizesAvaliacao.add('Não pontuar estética ou uniformidade gráfica; conceder prazos flexíveis.');
+      diretrizesMediaDocente.add('Antecipar mudanças de formato ou rotina da atividade.');
+    }
+
+    if (has('conduta')) {
+      diretrizesLinguagem.add('Emitir instruções diretas e consistentes, alinhando expectativas antes do início da tarefa.');
+      diretrizesEngajamento.add('Aplicar reforço positivo específico e fragmentar a tarefa em blocos curtos verificáveis.');
+      diretrizesMediaDocente.add('Fazer mediação antes do conflito, evitando confronto ou correção em público.');
+    }
+
+    if (has('outras_condicoes')) {
+      diretrizesMediaDocente.add('Individualizar a adaptação a partir do relatório de acompanhamento (AEE, CAPS ou laudo em investigação).');
+      diretrizesAvaliacao.add('Conceder flexibilidade de tempo e ajuda direta do professor conforme o caso.');
+      diretrizesAcaoExpressao.add('Graduar as tarefas em etapas curtas com registro evolutivo periódico.');
+    }
+
     // ─── 2. Detecção e Fusão de Sinergias para Múltipla Deficiência ─────────
     if (has('tea') && has('di')) {
       sinergiasIdentificadas.push('TEA + Deficiência Intelectual: Aliar literalidade à Leitura Fácil concreta com apoios visuais limpos.');

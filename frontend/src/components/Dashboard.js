@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { PLATFORM_MODULES } from "@/config/modules";
-import { verificarPermissaoModulo, PLANOS_CONFIG } from "@/config/planos";
+import { temAcessoAoModulo } from "@/utils/hasModule";
+import { PLANOS_CONFIG } from "@/config/planos";
 import {
   BookOpen,
   PenTool,
@@ -71,7 +72,7 @@ export default function Dashboard() {
   const planoInfo = PLANOS_CONFIG[planoAtivoId] || PLANOS_CONFIG.gratuito;
 
   const handleCardClick = (mod) => {
-    const temAcesso = verificarPermissaoModulo(perfil, mod.id);
+    const temAcesso = temAcessoAoModulo(perfil, mod.id);
     if (temAcesso) {
       router.push(mod.path);
     } else {
@@ -254,7 +255,7 @@ export default function Dashboard() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {PLATFORM_MODULES.map((mod) => {
-              const temAcesso = verificarPermissaoModulo(perfil, mod.id);
+              const temAcesso = temAcessoAoModulo(perfil, mod.id);
               const Icon = ICON_MAP[mod.icon] || BookOpen;
 
               return (

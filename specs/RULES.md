@@ -146,7 +146,8 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - A atividade adaptada deve preservar a mesma competência ou habilidade da BNCC da atividade regular, alterando as formas de representação, linguagem, mediação e expressão para superar as barreiras de acesso.
 
 2. **RN-32 (Harmonização Sinérgica em Múltipla Deficiência):**
-   - O professor pode selecionar 1 ou múltiplas categorias de necessidades (ex: `tea`, `di`, `tdah`, `baixa_visao`, `cegueira`, `surdez`, `motora`, `dislexia`, `discalculia`, `ah_sd`).
+   - O professor pode selecionar 1 ou múltiplas categorias de necessidades (ex: `tea`, `di`, `tdah`, `baixa_visao`, `cegueira`, `surdez`, `motora`, `dislexia`, `discalculia`, `ah_sd`, `epilepsia`, `ansiedade`, `toc`, `conduta`, `outras_condicoes`).
+   - O catálogo oficial é composto por 15 categorias DUA. As 5 categorias ampliadas (`epilepsia`, `ansiedade`, `toc`, `conduta`, `outras_condicoes`) foram incorporadas para cobrir integralmente a lista de estudantes PCD das redes públicas (CIDs G40, F40/F41/6B04, F42, F91 e condições de saúde como hidrocefalia e síndromes genéticas), mantendo a mesma estrutura de `diretrizesDUA` das categorias base.
    - Quando duas ou mais categorias forem selecionadas simultaneamente, o motor de adaptação deve harmonizar as diretrizes sem contradição:
      - *Exemplo (TEA + DI):* Linguagem literal e previsibilidade (TEA) somada à Leitura Fácil e ancoragem concreta (DI).
      - *Exemplo (Baixa Visão + Motora):* Fonte ampliada e alto contraste (Baixa Visão) combinada com respostas que dispensam escrita cursiva fina (Motora).
@@ -205,6 +206,13 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - O módulo de adaptações possui banco atômico de questões individuais (`QuestaoAdaptada`), permitindo cadastro manual e salvamento (individual ou em lote) das questões geradas pela IA.
     - Cada questão armazena: enunciado, tipo de questão, alternativas (se aplicável), gabarito, apoio visual/audiodescrição, scaffolding/dicas, disciplina, ano escolar, habilidade BNCC e necessidades DUA atendidas.
     - O Montador de Provas permite selecionar questões do banco, reordenar a sequência livremente, personalizar enunciados, definir instruções e vincular a prova a um estudante PEI específico para impressão acessível e geração de guia de mediação.
+
+13. **RN-43 (Configuração de Necessidades Específicas no Diário Pedagógico):**
+    - O aluno cadastrado no Diário Pedagógico pode armazenar o campo opcional `necessidades` (array de IDs do catálogo oficial DUA), gravado junto do próprio aluno dentro da turma (`professores/{userId}/turmas/data`), de forma independente do Banco PEI.
+    - O professor pode definir as necessidades no cadastro manual do aluno e editá-las a qualquer momento pela tabela de notas da turma; as categorias devem ser exibidas como badges de identificação rápida ao lado do nome do aluno.
+    - Todo valor gravado deve ser sanitizado contra o catálogo oficial (`CATEGORIAS_MAP`): IDs desconhecidos são descartados, duplicatas removidas e arrays vazios não são persistidos (compatibilidade com dados legados).
+    - As importações em lote preservam as necessidades quando presentes nos registros de origem.
+    - Os dados de necessidades são tratados como sensíveis (LGPD/LBI): restritos ao professor autenticado, exibidos apenas nas telas do Diário e nunca enviados a modelos públicos de IA nem ao Portal do Aluno.
 
 
 

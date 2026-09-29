@@ -8,7 +8,7 @@ import { AlunoInclusivo } from '../../frontend/src/dominio/adaptacoes/AlunoInclu
 import { HarmonizadorAdaptacoes } from '../../frontend/src/dominio/adaptacoes/HarmonizadorAdaptacoes';
 
 describe('UT-17 (RN-31 & RN-33): Catálogo de Deficiências e Entidade AlunoInclusivo', () => {
-  it('deve listar as 10 categorias oficiais de deficiência e neurodiversidade', () => {
+  it('deve listar as 15 categorias oficiais de deficiência e neurodiversidade (RN-32 ampliado)', () => {
     const ids = CATEGORIAS_DEFICIENCIA.map((c) => c.id);
     expect(ids).toContain('tea');
     expect(ids).toContain('di');
@@ -20,7 +20,7 @@ describe('UT-17 (RN-31 & RN-33): Catálogo de Deficiências e Entidade AlunoIncl
     expect(ids).toContain('dislexia');
     expect(ids).toContain('discalculia');
     expect(ids).toContain('ah_sd');
-    expect(CATEGORIAS_DEFICIENCIA.length).toBe(10);
+    expect(CATEGORIAS_DEFICIENCIA.length).toBe(15);
   });
 
   it('cada categoria deve possuir id, nome, descricao e diretrizesDUA', () => {

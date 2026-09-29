@@ -1,7 +1,6 @@
 /**
  * Configuração Oficial de Planos e Entitlements de Módulos — Gestão Docente
  */
-
 export const PLANOS_CONFIG = {
   // 🆓 Plano Gratuito / Freemium
   gratuito: {
@@ -94,33 +93,47 @@ export const PLANOS_CONFIG = {
 };
 
 /**
- * Verifica se um usuário possui permissão para acessar um determinado módulo.
+ * Helper centralizado: verifica se um perfil tem acesso a um módulo.
+ * Reexportado como canônico via `@/utils/hasModule`.
  * @param {Object} perfil - Perfil do usuário logado
  * @param {string} moduloId - ID do módulo a ser verificado
  * @returns {boolean}
  */
-export function verificarPermissaoModulo(perfil, moduloId) {
-  // Diário Pedagógico é 100% gratuito para todos
+export function temAcessoAoModulo(perfil, moduloId) {
+  // Diário Pedagógico é 100% gratuito para todos (mesmo sem perfil logado)
   if (moduloId === 'diario-planejamento') return true;
 
   if (!perfil) return false;
 
   // Administrador ou plano com acesso total
-  if (perfil.plano === 'combo_total' || perfil.plano === 'hub_completo' || perfil.isAdmin) {
+  if (perfil.isAdmin || perfil.plano === 'combo_total' || perfil.plano === 'hub_completo') {
     return true;
   }
 
-  // Verifica se o array modulos_permitidos contém o ID ou '*'
+  // Permissões explícitas: exige array de verdade (evita match por substring em string malformada)
   if (Array.isArray(perfil.modulos_permitidos)) {
     if (perfil.modulos_permitidos.includes('*') || perfil.modulos_permitidos.includes(moduloId)) {
       return true;
     }
   }
 
-  // Verifica pelo plano associado
+  // Verificação pelo plano associado
   if (perfil.plano && PLANOS_CONFIG[perfil.plano]) {
     return PLANOS_CONFIG[perfil.plano].modulos.includes(moduloId);
   }
 
   return false;
+}
+
+/**
+ * Verifica se um usuário possui permissão para acessar um determinado módulo.
+ * @deprecated Use `temAcessoAoModulo` de `@/utils/hasModule`.
+ * @param {Object} perfil - Perfil do usuário logado
+ * @param {string} moduloId - ID do módulo a ser verificado
+ * @returns {boolean}
+ */
+export function verificarPermissaoModulo(perfil, moduloId) {
+  // Deprecated: delegate to temAcessoAoModulo for backward compatibility
+  console.warn('verificarPermissaoModulo is deprecated; use temAcessoAoModulo instead.');
+  return temAcessoAoModulo(perfil, moduloId);
 }

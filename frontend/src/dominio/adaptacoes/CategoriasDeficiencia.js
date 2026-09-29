@@ -137,6 +137,71 @@ export const CATEGORIAS_DEFICIENCIA = [
       'Oferecer desafios de aprofundamento além do escopo básico da questão regular.',
     ],
   },
+  {
+    id: 'epilepsia',
+    nome: 'Epilepsia / Transtorno Convulsivo',
+    tag: 'Epilepsia',
+    icone: 'Activity',
+    descricao: 'Eliminação de estímulos luminosos piscantes, pausas programadas e tempo de prova flexível.',
+    diretrizesDUA: [
+      'Eliminar vídeos, animações e figuras com luz piscante ou efeito estroboscópico.',
+      'Programar pausas curtas durante atividades longas e evitar marcas de tempo rígidas.',
+      'Conceder tempo de prova flexível e tolerar ausências médicas com recuperação agendada.',
+      'Manter o ambiente de avaliação previsível, sem surpresas de formato ou cronômetro agressivo.',
+    ],
+  },
+  {
+    id: 'ansiedade',
+    nome: 'Transtornos de Ansiedade',
+    tag: 'Ansiedade',
+    icone: 'Heart',
+    descricao: 'Avaliação sem exposição forçada, linguagem acolhedora, tempo adicional e rotina previsível.',
+    diretrizesDUA: [
+      'Evitar exposição oral forçada e correção pública de erros; oferecer formatos alternativos de resposta.',
+      'Usar linguagem acolhedora e neutra, sem ameaças de nota nem comparação entre colegas.',
+      'Conceder tempo adicional e verificar a compreensão do comando sem pressão de velocidade.',
+      'Manter rotina e instruções previsíveis, antecipando etapas e critérios de avaliação.',
+    ],
+  },
+  {
+    id: 'toc',
+    nome: 'Transtorno Obsessivo-Compulsivo (TOC)',
+    tag: 'TOC',
+    icone: 'Repeat',
+    descricao: 'Pausas permitidas, prazos flexíveis e não pontuação de estética ou "resposta definitiva".',
+    diretrizesDUA: [
+      'Permitir pausas e revisões sem penalização, sem exigir "resposta definitiva" de primeira.',
+      'Não pontuar estética, apresentação ou uniformidade gráfica da resposta.',
+      'Conceder prazos flexíveis e antecipar mudanças de formato ou rotina da atividade.',
+      'Evitar cobrança repetitiva de cópias ou reescritas idênticas sem objetivo pedagógico.',
+    ],
+  },
+  {
+    id: 'conduta',
+    nome: 'Transtornos de Conduta / Opositores (TOD)',
+    tag: 'Conduta',
+    icone: 'ShieldAlert',
+    descricao: 'Instruções diretas e consistentes, reforço positivo específico e tarefas em blocos curtos.',
+    diretrizesDUA: [
+      'Emitir instruções diretas e consistentes, alinhando expectativas antes do início da tarefa.',
+      'Aplicar reforço positivo específico e fragmentar a tarefa em blocos curtos verificáveis.',
+      'Fazer mediação antes do conflito, evitando confronto ou correção em público.',
+      'Oferecer escolhas controladas (formato, ordem, parceiro) para ampliar senso de autonomia.',
+    ],
+  },
+  {
+    id: 'outras_condicoes',
+    nome: 'Outras Condições de Saúde',
+    tag: 'Outras',
+    icone: 'Stethoscope',
+    descricao: 'Hidrocefalia, síndromes genéticas e condições sob investigação, com base no relatório de acompanhamento.',
+    diretrizesDUA: [
+      'Individualizar a adaptação a partir do relatório de acompanhamento (AEE, CAPS ou laudo em investigação).',
+      'Conceder flexibilidade de tempo e ajuda direta do professor conforme a necessidade do caso.',
+      'Graduar as tarefas em etapas curtas com registro evolutivo periódico do desempenho.',
+      'Manter comunicação constante com a família e a equipe multiprofissional de apoio.',
+    ],
+  },
 ];
 
 export const CATEGORIAS_MAP = CATEGORIAS_DEFICIENCIA.reduce((acc, cat) => {

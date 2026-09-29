@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { TabelaNotas } from '@/components/diario/TabelaNotas';
 import { ImportModal } from '@/components/diario/ImportModal';
 import { MapaAnual } from '@/components/diario/MapaAnual';
+import { SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
 import { calcTotal, fmt, round2, somaMaxAtv, temNota, statusColor } from '@/utils/diario/calculos';
 import { generateCadernetaPDF, exportCadernetaCSV } from '@/lib/diario/caderneta-export';
 import { Download, FileSpreadsheet, Plus, Upload, Trash2, Calendar } from 'lucide-react';
@@ -43,6 +44,7 @@ export const TurmaView = ({
   const [showAddManual, setShowAddManual] = useState(false);
   const [manualNome, setManualNome] = useState('');
   const [manualData, setManualData] = useState('');
+  const [manualNec, setManualNec] = useState([]);
 
   const stats = statsByBimestre(turma, bimestre);
 
@@ -171,6 +173,11 @@ export const TurmaView = ({
                     maxLength={4}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all font-mono text-center"
                   />
+                  <SeletorNecessidadesDiario
+                    selecionadas={manualNec}
+                    onToggle={(id) => setManualNec((prev) => alternarNecessidade(prev, id))}
+                    idPrefix="manual-nec"
+                  />
                 </div>
                 <div className="flex gap-2 justify-end mt-2">
                   <button
@@ -178,6 +185,7 @@ export const TurmaView = ({
                       setShowAddManual(false);
                       setManualNome('');
                       setManualData('');
+                      setManualNec([]);
                     }}
                     className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-700 text-xs font-medium transition-all"
                   >
@@ -189,10 +197,12 @@ export const TurmaView = ({
                       const birth = manualData.replace(/\D/g, '').slice(0, 4);
                       onAddAlunoManual(turma.id, {
                         nome: manualNome.trim(),
-                        ...(birth.length === 4 ? { dataNascimento: birth } : {})
+                        ...(birth.length === 4 ? { dataNascimento: birth } : {}),
+                        ...(manualNec.length > 0 ? { necessidades: manualNec } : {})
                       });
                       setManualNome('');
                       setManualData('');
+                      setManualNec([]);
                       setShowAddManual(false);
                     }}
                     disabled={!manualNome.trim()}

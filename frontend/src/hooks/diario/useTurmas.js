@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { normalizeNome, cleanNome, genId } from '@/utils/diario/calculos';
+import { criarAlunoDiario, atualizarAlunoDiario } from '@/dominio/diario/AlunoDiario';
 
 export const useTurmas = (initialTurmas, persistTurmas) => {
   const [turmas, setTurmasState] = useState(() => {
@@ -55,11 +56,12 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
         const existentesNormalizados = new Set(t.alunos.map((a) => normalizeNome(a.nome)));
         const novos = nomesNovos
           .map((item) => {
-            // Suporta tanto string quanto objeto { nome, dataNascimento }
+            // Suporta tanto string quanto objeto { nome, dataNascimento, necessidades }
             const isObj = typeof item === 'object' && item !== null;
             const nome = isObj ? item.nome : item;
             const dataNascimento = isObj ? item.dataNascimento : undefined;
-            return { nome, dataNascimento };
+            const necessidades = isObj ? item.necessidades : undefined;
+            return { nome, dataNascimento, necessidades };
           })
           .filter(({ nome }) => {
             const norm = normalizeNome(nome);
@@ -67,11 +69,14 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
             existentesNormalizados.add(norm);
             return true;
           })
-          .map(({ nome, dataNascimento }) => ({
-            id: `al_${genId()}`,
-            nome: cleanNome(nome),
-            ...(dataNascimento ? { dataNascimento } : {})
-          }));
+          .map(({ nome, dataNascimento, necessidades }) =>
+            criarAlunoDiario({
+              id: `al_${genId()}`,
+              nome: cleanNome(nome),
+              dataNascimento,
+              necessidades
+            })
+          );
         const alunos = [...t.alunos, ...novos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
         return { ...t, alunos };
       })
@@ -132,11 +137,12 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const addAlunoManual = useCallback((turmaId, dados) => {
-    const novoAluno = {
+    const novoAluno = criarAlunoDiario({
       id: `al_${genId()}`,
       nome: cleanNome(dados.nome),
-      ...(dados.dataNascimento ? { dataNascimento: dados.dataNascimento } : {})
-    };
+      dataNascimento: dados.dataNascimento,
+      necessidades: dados.necessidades
+    });
     setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
@@ -152,7 +158,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
     setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
-        return { ...t, alunos: t.alunos.map((al) => al.id === alunoId ? { ...al, ...updates } : al) };
+        return { ...t, alunos: t.alunos.map((al) => al.id === alunoId ? atualizarAlunoDiario(al, updates) : al) };
       })
     );
   }, [setTurmas]);
