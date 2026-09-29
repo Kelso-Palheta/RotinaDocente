@@ -1,4 +1,5 @@
 import { getClientAIHeaders } from '@/utils/aiHeaders';
+import { extrairJsonIA } from '@/utils/extrairJsonIA';
 
 const BASE_URL = '/api/maritaca';
 const MODEL = 'sabiazinho-4';
@@ -71,10 +72,7 @@ async function corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nive
 
   const maxTokens = MAX_TOKENS[nivel] || 1024;
   const text = await callAI(content, apiKey, maxTokens);
-  const match = text.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error('IA não retornou JSON válido. Resposta: ' + text.slice(0, 200));
-
-  const parsed = JSON.parse(match[0]);
+  const parsed = extrairJsonIA(text);
   if (typeof parsed.nota !== 'number') throw new Error('Campo "nota" inválido na resposta da IA');
 
   return {
@@ -208,10 +206,7 @@ REGRAS CRÍTICAS DE FORMATAÇÃO (OBRIGATÓRIO):
 }`;
 
   const text = await callAI([{ type: 'text', text: prompt }], apiKey, 4000);
-  const match = text.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error('IA não retornou JSON válido. Resposta: ' + text.slice(0, 300));
-
-  const parsed = JSON.parse(match[0]);
+  const parsed = extrairJsonIA(text);
   if (!Array.isArray(parsed.questoes) || parsed.questoes.length === 0) {
     throw new Error('IA não gerou questões válidas');
   }

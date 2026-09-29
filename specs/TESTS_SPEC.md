@@ -50,6 +50,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-31 (RN-41 & RN-43):** Validar a cobertura integral da Lista de Estudantes PCD 2026 (13 alunos): todo aluno deve mapear ao menos 1 categoria e as condições essenciais (autismo, DI, dislexia, epilepsia, ansiedade, TOC/TOD) devem ser reconhecidas.
 - [x] **UT-32 (RN-43):** Validar a entidade `AlunoDiario` do Diário: sanitização de `necessidades` contra `CATEGORIAS_MAP` (descarte de IDs inválidos, remoção de duplicatas, omissão de array vazio), criação de aluno com necessidades e atualização via merge preservando os demais campos.
 
+### Módulo: Extração Robusta de JSON da IA (`tests/unit/extrair_json_ia.test.js`)
+- [x] **UT-33 (RN-44):** Validar `extrairJsonIA`: JSON limpo, remoção de fences markdown, prosa antes/depois do JSON, reparo de aspas escapadas nos valores (reprodução do bug `Unexpected token '\'`), JSON totalmente escapado, JSON double-stringified (string contendo JSON), preservação de `\"` legítimo em JSON válido e erro claro `IA não retornou JSON válido` quando não há JSON/resposta vazia; além do fluxo `gerarQuestoesComIA` com fetch mockado retornando JSON escapado e do fluxo `importarViaIA` com resposta escapada.
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)

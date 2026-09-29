@@ -1,4 +1,5 @@
 import { getClientAIHeaders } from '@/utils/aiHeaders';
+import { extrairJsonIA } from '@/utils/extrairJsonIA';
 
 // Maritaca AI — sabiazinho-4 (OpenAI-compatible endpoint)
 // Suporta visão (imagens) e texto. PDFs são convertidos para texto via FileReader.
@@ -48,9 +49,7 @@ const buildContent = (arquivo, b64, imageMediaType) => {
 };
 
 const parseResposta = (text) => {
-  const match = text.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error('Maritaca não retornou JSON válido. Resposta: ' + text.slice(0, 200));
-  const parsed = JSON.parse(match[0]);
+  const parsed = extrairJsonIA(text);
   if (!Array.isArray(parsed.alunos)) throw new Error('Formato de resposta inesperado');
   return parsed.alunos
     .map((n) => String(n).toUpperCase().replace(/\s+/g, ' ').trim())

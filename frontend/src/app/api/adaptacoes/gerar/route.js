@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { callAI, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 import { AdaptacaoPromptBuilder } from '@/dominio/adaptacoes/AdaptacaoPromptBuilder';
+import { extrairJsonIA } from '@/utils/extrairJsonIA';
 
 export async function POST(request) {
   try {
@@ -94,7 +95,7 @@ export async function POST(request) {
 
     let parsedResult;
     try {
-      parsedResult = JSON.parse(cleanJson);
+      parsedResult = extrairJsonIA(cleanJson);
     } catch (parseErr) {
       console.warn('[/api/adaptacoes/gerar] Falha ao fazer parse do JSON retornado pela IA:', parseErr);
       return NextResponse.json(
