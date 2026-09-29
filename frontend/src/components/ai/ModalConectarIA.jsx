@@ -194,7 +194,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
             <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-3">
               <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
               <div className="text-xs text-amber-800 leading-relaxed">
-                <strong className="font-bold">Nenhuma chave conectada:</strong> O Gestão Docente opera exclusivamente com a sua chave pessoal. Para corrigir redações, conversar com agentes pedagógicos ou gerar atividades, conecte seu provedor abaixo.
+                <strong className="font-bold">Nenhuma chave conectada:</strong> O Rotina Docente opera exclusivamente com a sua chave pessoal. Para corrigir redações, conversar com agentes pedagógicos ou gerar atividades, conecte seu provedor abaixo.
               </div>
             </div>
           )}

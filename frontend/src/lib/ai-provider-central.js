@@ -1,5 +1,5 @@
 /**
- * Provider de IA Centralizado com BYOK Obrigatório — Gestão Docente
+ * Provider de IA Centralizado com BYOK Obrigatório — Rotina Docente
  *
  * RN-27 & RN-29: Cada professor conecta sua própria chave de API.
  * Provedores homologados: Google Gemini, OpenAI, Anthropic, Maritaca AI, OpenRouter.
@@ -56,7 +56,7 @@ export const PROVIDER_ENDPOINTS = {
       Authorization: `Bearer ${key}`,
       'Content-Type': 'application/json',
       'HTTP-Referer': 'https://rotinadocente-kelso-palhetas-projects.vercel.app',
-      'X-Title': 'Gestao Docente',
+      'X-Title': 'Rotina Docente',
     }),
     isOpenAICompatible: true,
   },

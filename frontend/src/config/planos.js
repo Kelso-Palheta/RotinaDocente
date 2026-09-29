@@ -1,5 +1,5 @@
 /**
- * Configuração Oficial de Planos e Entitlements de Módulos — Gestão Docente
+ * Configuração Oficial de Planos e Entitlements de Módulos — Rotina Docente
  */
 export const PLANOS_CONFIG = {
   // 🆓 Plano Gratuito / Freemium

@@ -1,4 +1,4 @@
-# ⚙️ Tech Stack & Dependências Travadas — Gestão Docente
+# ⚙️ Tech Stack & Dependências Travadas — Rotina Docente
 
 ## 1. Runtime & Frameworks
 - **Runtime:** Node.js `>= 18.x`

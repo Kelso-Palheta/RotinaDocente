@@ -145,7 +145,7 @@ export default function AtividadeContent() {
               <div className="w-7 h-7 rounded-xl bg-[#101942] text-white flex items-center justify-center text-xs font-extrabold shadow-xs">
                 G
               </div>
-              <span className="text-xs text-[#6070a0] font-bold">Gestão Docente</span>
+              <span className="text-xs text-[#6070a0] font-bold">Rotina Docente</span>
             </div>
             <a 
               href={typeof window !== 'undefined' && sessionStorage.getItem('aluno_login') ? '/aluno/notas' : '/aluno'} 

@@ -1,4 +1,4 @@
-# ⚖️ Regras Invariantes de Negócio (RULES) — Gestão Docente
+# ⚖️ Regras Invariantes de Negócio (RULES) — Rotina Docente
 
 Este documento define as regras de negócio inegociáveis do sistema. Qualquer código que viole estas regras será rejeitado pela suíte de testes.
 
@@ -103,7 +103,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - A chave canônica de cada slot é composta por `${dayId}_${slotId}` (ex: `seg_m1`).
 
 2. **RN-24 (Persistência Híbrida Firestore com Fallback LocalStorage):**
-   - Quando o usuário estiver autenticado no sistema Gestão Docente, a grade horária é sincronizada na coleção Firestore `horario_escolar`, com id de documento indexado pelo `userId`.
+   - Quando o usuário estiver autenticado no sistema Rotina Docente, a grade horária é sincronizada na coleção Firestore `horario_escolar`, com id de documento indexado pelo `userId`.
    - Caso o usuário não esteja autenticado ou a conexão com o Firestore falhe, a aplicação deve persistir no `localStorage` com a chave canônica `meu_horario_escolar_data_v1`.
 
 3. **RN-25 (Validação Estrutural de Backup e Restore JSON):**

@@ -94,7 +94,7 @@ export function LandingJourney({ onOpenAuth }) {
             Do planejamento à nota final: tudo em um só lugar.
           </h2>
 <p className="mt-4 text-base sm:text-lg text-white/70">
-             Chega de usar 5 aplicativos diferentes. O Gestão Docente unifica toda a sua rotina letiva em 4 etapas simples e integradas.
+             Chega de usar 5 aplicativos diferentes. O Rotina Docente unifica toda a sua rotina letiva em 4 etapas simples e integradas.
            </p>
         </div>
 

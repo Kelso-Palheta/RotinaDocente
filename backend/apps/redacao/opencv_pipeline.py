@@ -1,5 +1,5 @@
 """
-Pipeline de Visao Computacional em OpenCV — Gestão Docente
+Pipeline de Visao Computacional em OpenCV — Rotina Docente
 Focado em auto-alinhamento de folha A4 manuscrita, correcao de perspectiva
 e remocao de sombras para OCR ultra-rapido (< 500 ms).
 """

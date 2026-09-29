@@ -1,6 +1,6 @@
-# 📚 Especificações do Gestão Docente (SDD)
+# 📚 Especificações do Rotina Docente (SDD)
 
-Bem-vindo à **Fonte Única da Verdade (Single Source of Truth)** do **Gestão Docente** (*Toda a sua rotina letiva em 1 clique*), construída segundo a metodologia de **Spec-Driven Development (SDD)**.
+Bem-vindo à **Fonte Única da Verdade (Single Source of Truth)** do **Rotina Docente** (*Toda a sua rotina letiva em 1 clique*), construída segundo a metodologia de **Spec-Driven Development (SDD)**.
 
 ---
 

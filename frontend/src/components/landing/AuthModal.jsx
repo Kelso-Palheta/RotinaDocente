@@ -84,9 +84,9 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
 
 <h3 className="font-head text-2xl font-extrabold text-[#101942]">
              {modo === "cadastro"
-               ? "Crie sua conta no Gestão Docente"
+               ? "Crie sua conta no Rotina Docente"
                : modo === "login"
-               ? "Bem-vindo de volta ao Gestão Docente"
+               ? "Bem-vindo de volta ao Rotina Docente"
                : "Recuperar sua senha"}
            </h3>
           <p className="text-xs text-[#6070a0] mt-1">

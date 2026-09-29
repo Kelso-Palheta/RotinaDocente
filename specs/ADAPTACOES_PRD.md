@@ -4,7 +4,7 @@
 
 ## 1. Visão Geral do Módulo
 
-O módulo **Elaborador de Atividades Adaptadas** do ecossistema **Gestão Docente** é uma solução assistiva e pedagógica orientada a professores da Educação Básica e do Atendimento Educacional Especializado (AEE). 
+O módulo **Elaborador de Atividades Adaptadas** do ecossistema **Rotina Docente** é uma solução assistiva e pedagógica orientada a professores da Educação Básica e do Atendimento Educacional Especializado (AEE). 
 
 Fundamentado na **LBI (Lei Brasileira de Inclusão nº 13.146/2015)**, nas diretrizes do MEC e nos três pilares do **DUA (Desenho Universal para a Aprendizagem / CAST)** — *Engajamento, Representação, e Ação e Expressão* —, o módulo automatiza a diferenciação curricular de atividades escolares sem empobrecer o conteúdo pedagógico e sem rebaixar a expectativa de aprendizagem dos estudantes.
 

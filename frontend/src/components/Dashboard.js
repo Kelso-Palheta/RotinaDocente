@@ -89,7 +89,7 @@ export default function Dashboard() {
       {/* Header Superior Navy */}
       <header className="bg-[#101942] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-          {/* Logo Gestão Docente */}
+          {/* Logo Rotina Docente */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#f60c49] flex items-center justify-center text-white shadow-md">
               <svg

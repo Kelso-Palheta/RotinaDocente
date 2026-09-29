@@ -95,15 +95,15 @@ export function LandingFooter({ onOpenAuth }) {
                 <ShieldCheck className="w-4 h-4 text-[#22c55e]" />
                 Conformidade Total com LGPD Escolar
               </p>
-              <p>Suporte: suporte@gestaodocente.com.br</p>
-              <p>Ecossistema oficial: gestaodocente.com.br</p>
+              <p>Suporte: suporte@rotinadocente.com.br</p>
+              <p>Ecossistema oficial: rotinadocente.com.br</p>
             </div>
           </div>
         </div>
 
         {/* Linha de Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-4">
-          <p>© {new Date().getFullYear()} Gestão Docente — Toda a sua rotina letiva em 1 clique. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} Rotina Docente — Toda a sua rotina letiva em 1 clique. Todos os direitos reservados.</p>
           <p className="flex items-center gap-1">
             Desenvolvido com <Heart className="w-3.5 h-3.5 text-[#f60c49] fill-[#f60c49]" /> para os professores brasileiros.
           </p>

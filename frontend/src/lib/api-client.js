@@ -1,5 +1,5 @@
 /**
- * Cliente HTTP Oficial — Gestão Docente (Conexao Django REST Framework)
+ * Cliente HTTP Oficial — Rotina Docente (Conexao Django REST Framework)
  * Suporte nativo a JWT (access & refresh tokens) com renovacao transparente.
  */
 

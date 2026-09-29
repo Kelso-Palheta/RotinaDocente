@@ -28,7 +28,7 @@ export function LandingCalculator({ onOpenAuth }) {
               Quanto tempo você vai ganhar de volta?
             </h2>
 <p className="mt-2 text-sm sm:text-base text-[#6070a0]">
-               Arraste o seletor abaixo e veja o impacto real do Gestão Docente na sua qualidade de vida.
+               Arraste o seletor abaixo e veja o impacto real do Rotina Docente na sua qualidade de vida.
              </p>
           </div>
 

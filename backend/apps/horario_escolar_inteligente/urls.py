@@ -1,5 +1,5 @@
 """
-Roteamento do App Horário Escolar Inteligente (Gestão Docente)
+Roteamento do App Horário Escolar Inteligente (Rotina Docente)
 """
 from django.urls import path
 from .apresentacao.views import (
