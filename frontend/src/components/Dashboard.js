@@ -108,7 +108,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="font-head text-xl font-extrabold tracking-tight text-white leading-none">
-                Gestão<span className="text-[#f60c49]">Docente</span>
+                Rotina<span className="text-[#f60c49]">Docente</span>
               </h1>
               <p className="text-xs text-white/60 mt-1 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>

@@ -49,7 +49,7 @@ export function LandingFooter({ onOpenAuth }) {
                 </svg>
               </div>
               <span className="font-head text-lg font-extrabold text-white">
-                Gestão<span className="text-[#f60c49]">Docente</span>
+                Rotina<span className="text-[#f60c49]">Docente</span>
               </span>
             </a>
             <p className="text-xs text-white/60 leading-relaxed">
