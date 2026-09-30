@@ -24,6 +24,7 @@ import {
   parsePlanilhaAlunos,
   gerarArquivoModeloExcel,
 } from "@/dominio/adaptacoes/ImportadorAlunosLote";
+import { montarListaBancoAlunos } from "@/dominio/adaptacoes/ListaBancoComDiario";
 
 export function ModalAlunoPEI({
   isOpen,
@@ -32,6 +33,7 @@ export function ModalAlunoPEI({
   userId = "usuario_atual",
   onSelectAluno,
   abaInicial = "lista",
+  alunosDiario = [],
 }) {
   const [alunos, setAlunos] = useState([]);
   const [modoVisao, setModoVisao] = useState("lista"); // 'lista' | 'criacao' | 'importacao'
@@ -74,6 +76,8 @@ export function ModalAlunoPEI({
       setResultadoImportacao(null);
     }
   }, [isOpen, abaInicial]);
+
+  const alunosVisiveis = montarListaBancoAlunos(alunos, alunosDiario);
 
   if (!isOpen) return null;
 
@@ -243,7 +247,7 @@ export function ModalAlunoPEI({
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                 <span className="text-xs font-bold text-[#6070a0] uppercase tracking-wider">
-                  {alunos.length} Estudante(s) Cadastrado(s)
+                  {alunosVisiveis.length} Estudante(s) Cadastrado(s)
                 </span>
                 <div className="flex items-center gap-2">
                   <button
@@ -273,7 +277,7 @@ export function ModalAlunoPEI({
                 </div>
               </div>
 
-              {alunos.length === 0 ? (
+              {alunosVisiveis.length === 0 ? (
                 <div className="p-8 text-center border-2 border-dashed border-[#dce0f0] rounded-2xl space-y-3">
                   <div className="w-12 h-12 rounded-2xl bg-[#f7f8fc] text-[#9098c0] flex items-center justify-center mx-auto">
                     <Users size={24} />
@@ -302,9 +306,9 @@ export function ModalAlunoPEI({
                 </div>
               ) : (
                 <div className="space-y-2.5">
-                  {alunos.map((a) => (
+                  {alunosVisiveis.map((a) => (
                     <div
-                      key={a.id}
+                      key={a.chave || a.id}
                       onClick={() => {
                         if (onSelectAluno) onSelectAluno(a);
                         onClose();
@@ -316,6 +320,11 @@ export function ModalAlunoPEI({
                           <h4 className="text-sm font-bold text-[#101942] group-hover:text-[#d40840] transition-colors">
                             {a.nome}
                           </h4>
+                          {a.origem === "diario" && (
+                            <span className="text-[10px] font-bold text-[#4338ca] bg-[#eef2ff] px-2 py-0.5 rounded-md border border-[#e0e7ff]">
+                              Diário
+                            </span>
+                          )}
                           {a.turmaNome && (
                             <span className="text-[10px] font-semibold text-[#6070a0] bg-[#f7f8fc] px-2 py-0.5 rounded-md border border-[#dce0f0]">
                               {a.turmaNome}

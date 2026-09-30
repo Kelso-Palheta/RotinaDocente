@@ -63,6 +63,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-38 (RN-46):** Validar `atualizarAlunoDiario` no merge: valores válidos persistem; `nivelSuporte` inválido e textos vazios **removem** o campo do aluno; `nome`, `dataNascimento` e `necessidades` são preservados quando não citados no update.
 - [x] **UT-39 (RN-46):** Validar a ponte: `paraPerfilInclusivo` (aluno completo → 5 campos; aluno legado sem campos → nível 1 e textos vazios; necessidades inválidas descartadas via `sanitizarNecessidades`) e `listarAlunosParaSeletor` (ignora entradas sem `nome`, preserva turma/aluno válidos).
 
+### Módulo: Lista Unificada Banco PEI + Diário (`tests/unit/lista_banco_diario.test.js`)
+- [x] **UT-41 (RN-46):** Validar `montarListaBancoAlunos`: merge preserva a ordem (banco primeiro, depois diário); entrada do Diário ganha `origem: 'diario'`, `chave` estável e perfil via `paraPerfilInclusivo` (necessidades sanitizadas); deduplicação por `nome|turma` normalizados com **Banco PEI vencedor**; homônimos em turmas diferentes permanecem como entradas distintas; entradas sem `nome` (banco ou diário) são descartadas; listas `null`/não-array viram `[]`; `id` real do aluno do Diário é preservado.
+
 ### Módulo: Robustez da Resposta de Geração Adaptada (`tests/unit/visualizador_resposta_robusta.test.js`)
 - [x] **UT-40 (RN-48):** Validar que o `VisualizadorAtividadeAdaptada` renderiza via `renderToString` **sem lançar exceção** com: (a) `guiaMediacao`, `atividadeAdaptada`, `aluno` e `diretrizesHarmonizadas` todos `null`; (b) `atividadeAdaptada.questoes` como objeto mapeado `{1: {...}}` (não-array); (c) `diretrizesHarmonizadas` como string simples; (d) `enunciado` de questão como objeto aninhado (React não renderiza objetos); além de manter a forma feliz canônica intacta (título e contagem de questões renderizados).
 

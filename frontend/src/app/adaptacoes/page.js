@@ -390,8 +390,17 @@ export default function AdaptacoesPage() {
 
   // Quando o professor escolhe um aluno do banco PEI
   const handleSelectAlunoPEI = (aluno) => {
-    setEstudantePEI(aluno);
-    setEstudanteDiario(null);
+    if (aluno.origem === "diario") {
+      setEstudanteDiario({
+        id: aluno.id || "",
+        nome: aluno.nome || "",
+        turmaNome: aluno.turmaNome || "",
+      });
+      setEstudantePEI(null);
+    } else {
+      setEstudantePEI(aluno);
+      setEstudanteDiario(null);
+    }
     setNomeAluno(aluno.nome || "");
     setNecessidades(aluno.necessidades || []);
     setNivelSuporte(aluno.nivelSuporte || 1);
@@ -435,6 +444,18 @@ export default function AdaptacoesPage() {
   const handleAbrirDiario = () => {
     setModalDiarioAberto(true);
     if (turmasDiario === null || erroDiario) carregarTurmasDiario();
+  };
+
+  // Alunos do Diário unificados à lista do Banco de Alunos (RN-46)
+  const alunosDiario = useMemo(
+    () => listarAlunosParaSeletor(turmasDiario),
+    [turmasDiario]
+  );
+
+  const handleAbrirBancoPEI = (aba) => {
+    if (aba) setModalPEIAbaInicial(aba);
+    setModalPEIAberto(true);
+    if (turmasDiario === null && !erroDiario && !carregandoDiario) carregarTurmasDiario();
   };
 
   const handleSelecionarAlunoDiario = (opcao) => {
@@ -586,7 +607,7 @@ export default function AdaptacoesPage() {
             <button
               id="btn-abrir-banco-pei"
               type="button"
-              onClick={() => setModalPEIAberto(true)}
+              onClick={() => handleAbrirBancoPEI()}
               className="px-3.5 py-1.5 rounded-xl border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white hover:bg-[#fff2f6] text-xs font-bold text-[#101942] hover:text-[#d40840] transition-all flex items-center gap-1.5 shadow-2xs"
             >
               <Users size={15} />
@@ -1215,10 +1236,7 @@ export default function AdaptacoesPage() {
                       <button
                         type="button"
                         id="btn-importar-alunos-card2"
-                        onClick={() => {
-                          setModalPEIAbaInicial("importacao");
-                          setModalPEIAberto(true);
-                        }}
+                        onClick={() => handleAbrirBancoPEI("importacao")}
                         className="px-3 py-1.5 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-[#f7f8fc] hover:bg-white rounded-xl text-xs font-bold text-[#101942] transition-colors flex items-center gap-1.5 shadow-2xs"
                         title="Fazer upload de planilha Excel ou CSV com nome dos alunos, turma e deficiências"
                       >
@@ -1228,10 +1246,7 @@ export default function AdaptacoesPage() {
                       <button
                         type="button"
                         id="btn-carregar-banco-pei-card2"
-                        onClick={() => {
-                          setModalPEIAbaInicial("lista");
-                          setModalPEIAberto(true);
-                        }}
+                        onClick={() => handleAbrirBancoPEI("lista")}
                         className="px-3 py-1.5 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-[#f7f8fc] hover:bg-white rounded-xl text-xs font-bold text-[#101942] transition-colors flex items-center gap-1.5 shadow-2xs"
                       >
                         <Users size={14} className="text-[#f60c49]" />
@@ -1334,6 +1349,7 @@ export default function AdaptacoesPage() {
         repository={repository}
         userId={user?.uid || "anonimo"}
         onSelectAluno={handleSelectAlunoPEI}
+        alunosDiario={alunosDiario}
       />
 
       {/* Seletor "Carregar do Diário" (RN-46) */}
