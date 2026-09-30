@@ -21,7 +21,7 @@ export default function CriteriosPage() {
       style={{ backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99,102,241,0.06), transparent)' }}>
       <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200/60 px-4 sm:px-6 py-3 flex items-center gap-3 sticky top-0 z-30 overflow-x-auto no-scrollbar">
         <button onClick={() => router.push('/redacao')}
-          className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-violet-50 hover:bg-violet-100 text-violet-600 border border-violet-200/50 hover:border-violet-300 transition-all duration-300 shadow-sm whitespace-nowrap">
+          className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#fff2f6] hover:bg-[#fde4ec] text-[#f60c49] border border-[#f60c49]/30 hover:border-[#f60c49]/50 transition-all duration-300 shadow-sm whitespace-nowrap">
           <ArrowLeft size={16} /> <span className="hidden sm:inline">Voltar</span>
         </button>
         <h1 className="text-sm font-semibold text-slate-700 flex items-center gap-2 whitespace-nowrap"><BookOpen size={16} /> Critérios INEP</h1>
@@ -29,7 +29,7 @@ export default function CriteriosPage() {
 
       <main className="max-w-3xl mx-auto px-4 py-10 space-y-8">
         <div className="text-center mb-6">
-          <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center shadow-xl shadow-violet-500/20 mb-4">
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f60c49] to-[#d40840] flex items-center justify-center shadow-xl shadow-[#f60c49]/20 mb-4">
             <Shield size={28} color="white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">Competências do ENEM</h2>

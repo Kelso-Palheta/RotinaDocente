@@ -239,7 +239,7 @@ export default function RedacaoPage() {
   }, [studentName, dataNascimento, turmas]);
 
   if (authLoading || loadingTurmas || (!perfil && user)) {
-    return <div className="flex h-screen items-center justify-center bg-[#f8fafc]"><div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-violet-400 animate-pulse shadow-2xl shadow-violet-500/20" /></div>;
+    return <div className="flex h-screen items-center justify-center bg-[#f8fafc]"><div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f60c49] to-[#f60c49]/50 animate-pulse shadow-2xl shadow-[#f60c49]/20" /></div>;
   }
   if (!user) { router.replace('/'); return null; }
   if (!perfil?.modulos_permitidos?.includes('redacao-corretor')) { router.replace('/'); return null; }
@@ -689,13 +689,13 @@ export default function RedacaoPage() {
               <Menu size={20} />
             </button>
             <button onClick={() => router.push('/')}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-violet-50 hover:bg-violet-100 text-violet-600 border border-violet-200/50 hover:border-violet-300 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm whitespace-nowrap">
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#fff2f6] hover:bg-[#fde4ec] text-[#f60c49] border border-[#f60c49]/30 hover:border-[#f60c49]/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm whitespace-nowrap">
               <ArrowLeft size={16} /> <span className="hidden sm:inline">Hub</span>
             </button>
           </div>
           {step !== 'input' && (
             <button onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs text-slate-500 hover:text-violet-600 transition-colors duration-300">
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs text-slate-500 hover:text-[#f60c49] transition-colors duration-300">
               <RefreshCw size={13} /> Nova correção
             </button>
           )}
@@ -718,11 +718,11 @@ export default function RedacaoPage() {
               {/* Hero */}
               <motion.div className="text-center mb-4 sm:mb-6 flex flex-col items-center"
                 initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE_EXPO }}>
-                <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[2rem] bg-gradient-to-br from-violet-600 via-violet-500 to-indigo-500 flex items-center justify-center shadow-xl sm:shadow-2xl shadow-violet-500/25 mb-2 sm:mb-4 ring-2 sm:ring-4 ring-violet-50">
+                <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[2rem] bg-gradient-to-br from-[#f60c49] via-[#d40840] to-[#101942] flex items-center justify-center shadow-xl sm:shadow-2xl shadow-[#f60c49]/25 mb-2 sm:mb-4 ring-2 sm:ring-4 ring-[#fff2f6]">
                   <PenTool className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <h1 className="text-2xl sm:text-[2rem] font-black text-slate-900 tracking-tight" style={{ letterSpacing: '-0.03em' }}>
-                  Redação <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-500">Corrigida</span>
+                  Redação <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f60c49] to-[#d40840]">Corrigida</span>
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-500 mt-1 sm:mt-2 max-w-sm mx-auto leading-relaxed px-4">
                   Correção por IA seguindo as 5 competências oficiais do INEP
@@ -743,10 +743,10 @@ export default function RedacaoPage() {
                     <motion.button key={opt.value} onClick={() => setDepth(opt.value)}
                       whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                       className={`relative p-2 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 overflow-hidden group flex flex-col justify-between h-full
-                        ${depth === opt.value ? 'bg-violet-50 border-violet-300 shadow-sm' : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-white'}`}>
-                      {depth === opt.value && <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent" />}
+                        ${depth === opt.value ? 'bg-[#fff2f6] border-[#f60c49]/50 shadow-sm' : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-white'}`}>
+                      {depth === opt.value && <div className="absolute inset-0 bg-gradient-to-br from-[#f60c49]/5 to-transparent" />}
                       <div className="w-full">
-                        <span className={`relative text-[11px] sm:text-xs font-bold block mb-0.5 sm:mb-1 ${depth === opt.value ? 'text-violet-700' : 'text-slate-700'}`}>{opt.label}</span>
+                        <span className={`relative text-[11px] sm:text-xs font-bold block mb-0.5 sm:mb-1 ${depth === opt.value ? 'text-[#d40840]' : 'text-slate-700'}`}>{opt.label}</span>
                         <p className="relative text-[9px] sm:text-[10px] text-slate-400 leading-tight line-clamp-2 sm:line-clamp-none">{opt.desc}</p>
                       </div>
                       <span className="relative text-[9px] sm:text-[10px] text-slate-400 mt-1.5 sm:mt-2 block font-mono">~{opt.words} pal.</span>
@@ -794,7 +794,7 @@ export default function RedacaoPage() {
                       }
                       if (modoAluno === 'lista') { setStudentName(''); setDataNascimento(''); }
                     }}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300">
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300">
                       <option value="">Selecionar turma...</option>
                       {turmas.map(t => (
                         <option key={t.id} value={t.id}>{t.nome} ({t.alunos.length} alunos)</option>
@@ -805,7 +805,7 @@ export default function RedacaoPage() {
                   <div>
                     <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Bimestre</label>
                     <select value={selectedBimestre} onChange={e => setSelectedBimestre(Number(e.target.value))}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300">
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300">
                       {[1, 2, 3, 4].map(b => (
                         <option key={b} value={b}>{b}º Bimestre</option>
                       ))}
@@ -832,7 +832,7 @@ export default function RedacaoPage() {
                           setDataNascimento('');
                         }
                       }}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300">
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300">
                         <option value="">Selecionar aluno...</option>
                         {alunosDaTurma.map(a => (
                           <option key={a.id} value={a.id}>{a.nome} {a.dataNascimento ? '(nasc: ' + a.dataNascimento + ')' : ''}</option>
@@ -850,7 +850,7 @@ export default function RedacaoPage() {
                     <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Tema</label>
                     <input value={essayTheme} onChange={e => setEssayTheme(e.target.value)}
                       placeholder="Ex: Desafios da IA..."
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300" />
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300" />
                   </div>
                 </div>
 
@@ -858,7 +858,7 @@ export default function RedacaoPage() {
                 <div className="pt-2">
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Texto Motivador (Opcional - Usado para cruzar e verificar plágio)</label>
-                    <button type="button" onClick={() => motivatorFileRef.current?.click()} className="text-xs text-violet-600 hover:text-violet-500 font-semibold flex items-center gap-1">
+                    <button type="button" onClick={() => motivatorFileRef.current?.click()} className="text-xs text-[#f60c49] hover:text-[#d40840] font-semibold flex items-center gap-1">
                       {motivatorExtracting ? (
                         <>
                           <Loader2 size={12} className="animate-spin" /> Processando...
@@ -876,7 +876,7 @@ export default function RedacaoPage() {
                     placeholder={motivatorExtracting ? "Extraindo texto do arquivo enviado..." : "Cole aqui ou importe um arquivo com o texto motivador da redação..."}
                     disabled={motivatorExtracting}
                     rows={3}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300 resize-y" />
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300 resize-y" />
                 </div>
 
                 {/* Nome + Nascimento (manual mode ou auto-preenchido) */}
@@ -886,14 +886,14 @@ export default function RedacaoPage() {
                       <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Nome do Aluno *</label>
                       <input value={studentName} onChange={e => setStudentName(e.target.value)}
                         placeholder="MARIA SILVA"
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300" />
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300" />
                     </div>
                     <div>
                       <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Nascimento (ddmm)</label>
                       <input value={dataNascimento} onChange={e => setDataNascimento(e.target.value.replace(/\D/g, '').slice(0, 4))}
                         placeholder="0704" maxLength={4}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300 font-mono" />
-                      <p className="text-[10px] text-slate-400 mt-1">Login: {loginPrevisto ? <span className="font-mono text-violet-500 font-semibold">{loginPrevisto}</span> : <span className="text-slate-300">—</span>}</p>
+                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300 font-mono" />
+                      <p className="text-[10px] text-slate-400 mt-1">Login: {loginPrevisto ? <span className="font-mono text-[#f60c49] font-semibold">{loginPrevisto}</span> : <span className="text-slate-300">—</span>}</p>
                     </div>
                   </div>
                 )}
@@ -901,9 +901,9 @@ export default function RedacaoPage() {
                 {/* Aluno selecionado da lista — info resumo */}
                 {modoAluno === 'lista' && alunoSelecionado && (
                   <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-100">
-                    <span className="inline-flex items-center gap-1.5 text-sm text-slate-700"><User size={14} className="text-violet-400" /> {alunoSelecionado.nome}</span>
+                    <span className="inline-flex items-center gap-1.5 text-sm text-slate-700"><User size={14} className="text-[#f60c49]/50" /> {alunoSelecionado.nome}</span>
                     {alunoSelecionado.dataNascimento && (
-                      <span className="inline-flex items-center gap-1 text-xs font-mono text-violet-600 bg-violet-50 px-2.5 py-1 rounded-lg">
+                      <span className="inline-flex items-center gap-1 text-xs font-mono text-[#f60c49] bg-[#fff2f6] px-2.5 py-1 rounded-lg">
                         <Shield size={12} /> Login: {loginPrevisto || '—'}
                       </span>
                     )}
@@ -917,7 +917,7 @@ export default function RedacaoPage() {
               <motion.div {...staggerItem(2)}
                 className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-6 shadow-sm space-y-5">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-violet-50 flex items-center justify-center"><FileText size={15} className="text-violet-500" /></div>
+                  <div className="w-8 h-8 rounded-xl bg-[#fff2f6] flex items-center justify-center"><FileText size={15} className="text-[#f60c49]" /></div>
                   <h3 className="text-sm font-bold text-slate-800">Redação</h3>
                   {text && <span className="ml-auto text-[11px] text-slate-400 font-mono tabular-nums">{charCount} caracteres</span>}
                 </div>
@@ -984,7 +984,7 @@ export default function RedacaoPage() {
           {step === 'review' && (
             <motion.div key="review" {...stepTransition} className="space-y-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-violet-50 flex items-center justify-center"><FileText size={18} className="text-violet-500" /></div>
+                <div className="w-10 h-10 rounded-2xl bg-[#fff2f6] flex items-center justify-center"><FileText size={18} className="text-[#f60c49]" /></div>
                 <div>
                   <h2 className="text-xl font-bold text-slate-900 tracking-tight">Revisar Texto Extraído</h2>
                   <p className="text-sm text-slate-400">Confira e edite antes de enviar para correção</p>
@@ -993,12 +993,12 @@ export default function RedacaoPage() {
               <textarea value={text} onChange={e => setText(e.target.value)} rows={16}
                 lang="pt-BR"
                 spellCheck={false}
-                className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300 resize-y font-serif leading-relaxed" />
+                className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300 resize-y leading-relaxed" />
               <div className="flex gap-3">
                 <button onClick={() => { setText(''); setStep('input'); }}
                   className="flex-1 py-3.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-2xl text-sm text-slate-600 font-semibold transition-all duration-300">Voltar</button>
                 <motion.button onClick={handleCorrect} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                  className="flex-1 py-3.5 bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-500 hover:to-indigo-400 rounded-2xl text-white text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-violet-500/20">
+                  className="flex-1 py-3.5 bg-gradient-to-r from-[#f60c49] to-[#d40840] hover:from-[#d40840] hover:to-[#d40840] rounded-2xl text-white text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-[#f60c49]/20">
                   <Sparkles size={16} /> Corrigir Agora
                 </motion.button>
               </div>
@@ -1012,7 +1012,7 @@ export default function RedacaoPage() {
               className="flex flex-col items-center justify-center py-24 space-y-6">
               <motion.div className="relative"
                 animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }}>
-                <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-violet-500 to-indigo-500 flex items-center justify-center shadow-2xl shadow-violet-500/30">
+                <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-[#f60c49] to-[#d40840] flex items-center justify-center shadow-2xl shadow-[#f60c49]/30">
                   <Loader2 size={36} color="white" className="animate-spin" />
                 </div>
               </motion.div>
@@ -1035,7 +1035,7 @@ export default function RedacaoPage() {
               {/* Header */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-violet-500/25">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#f60c49] to-[#d40840] flex items-center justify-center shadow-lg shadow-[#f60c49]/25">
                     <Sparkles size={18} color="white" />
                   </div>
                   <h2 className="text-xl font-bold text-slate-900 tracking-tight">Resultado da Correção</h2>
@@ -1046,7 +1046,7 @@ export default function RedacaoPage() {
               <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 px-1">
                 <span className="inline-flex items-center gap-1.5"><User size={14} /> {studentName}</span>
                 {studentClass && <span className="inline-flex items-center gap-1.5"><BookOpen size={14} /> Turma {studentClass}</span>}
-                {correctionId && <span className="inline-flex items-center gap-1.5 font-mono text-xs bg-violet-50 text-violet-600 px-2.5 py-1 rounded-xl"><Shield size={12} /> Login: {correctionId}</span>}
+                {correctionId && <span className="inline-flex items-center gap-1.5 font-mono text-xs bg-[#fff2f6] text-[#f60c49] px-2.5 py-1 rounded-xl"><Shield size={12} /> Login: {correctionId}</span>}
               </div>
 
               {/* SCORE HERO */}
@@ -1057,7 +1057,7 @@ export default function RedacaoPage() {
                   transition={{ delay: 0.2, duration: 0.8, ease: EASE_EXPO }}
                   className="relative overflow-hidden bg-white/80 backdrop-blur-xl rounded-3xl border border-slate-200/60 p-8 sm:p-10 text-center shadow-sm">
                   {/* Background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/[0.03] via-transparent to-indigo-500/[0.03]" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#f60c49]/[0.03] via-transparent to-[#101942]/[0.03]" />
                   <div className="relative">
                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-[0.15em] mb-3">Nota Final</p>
                     <div className="inline-flex items-baseline gap-2">

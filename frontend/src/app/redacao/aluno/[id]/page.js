@@ -77,7 +77,7 @@ export default function AlunoRedacaoViewPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-500 animate-pulse shadow-2xl shadow-violet-500/20" />
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f60c49] to-[#d40840] animate-pulse shadow-2xl shadow-[#f60c49]/20" />
       </div>
     );
   }
@@ -91,7 +91,7 @@ export default function AlunoRedacaoViewPage() {
           </div>
           <h1 className="text-lg font-bold text-slate-900 mb-2">Não encontrado</h1>
           <p className="text-sm text-slate-400 mb-6">{erro}</p>
-          <a href="/redacao/aluno" className="inline-flex items-center justify-center px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white rounded-xl text-xs font-semibold transition-all">
+          <a href="/redacao/aluno" className="inline-flex items-center justify-center px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-semibold transition-all">
             ← Tentar outro login
           </a>
         </div>
@@ -123,7 +123,7 @@ export default function AlunoRedacaoViewPage() {
           </a>
           <button 
             onClick={handleExportPDF}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-violet-500/10 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-[#f60c49]/10 hover:scale-[1.02] active:scale-[0.98]"
           >
             <Download size={14} /> Baixar PDF
           </button>
@@ -131,9 +131,9 @@ export default function AlunoRedacaoViewPage() {
 
         {/* Student Profile Info Card */}
         <div className="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-violet-500 to-indigo-500" />
+          <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#f60c49] to-[#d40840]" />
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-violet-500 to-indigo-500 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-indigo-500/15">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#f60c49] to-[#d40840] flex items-center justify-center text-white text-xl font-black shadow-lg shadow-[#f60c49]/15">
               {correction.studentName?.charAt(0).toUpperCase()}
             </div>
             <div>
@@ -156,7 +156,7 @@ export default function AlunoRedacaoViewPage() {
         {/* Theme Card */}
         <div className="bg-white border border-slate-200/60 rounded-3xl p-5 shadow-sm space-y-2">
           <div className="flex items-center gap-2">
-            <div className="p-1 bg-violet-50 rounded-lg text-violet-500"><FileText size={14} /></div>
+            <div className="p-1 bg-[#fff2f6] rounded-lg text-[#f60c49]"><FileText size={14} /></div>
             <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Tema Proposto</span>
           </div>
           <p className="text-sm font-semibold text-slate-700 leading-relaxed">
@@ -166,18 +166,18 @@ export default function AlunoRedacaoViewPage() {
 
         {/* Total Score Panel */}
         {correction.totalScore != null && (
-          <div className="bg-gradient-to-br from-violet-600 to-indigo-700 text-white rounded-3xl p-8 shadow-xl shadow-indigo-500/15 text-center relative overflow-hidden flex flex-col items-center justify-center">
+          <div className="bg-gradient-to-br from-[#101942] to-[#1b2a5e] text-white rounded-3xl p-8 shadow-xl shadow-[#f60c49]/15 text-center relative overflow-hidden flex flex-col items-center justify-center">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-6 translate-x-6" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl translate-y-12 -translate-x-12" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#f60c49]/15 rounded-full blur-2xl translate-y-12 -translate-x-12" />
             
-            <p className="text-xs text-indigo-100 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
-              <Award size={14} className="text-indigo-200" /> Nota Final ENEM
+            <p className="text-xs text-white/60 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
+              <Award size={14} className="text-white/70" /> Nota Final ENEM
             </p>
             <div className="flex items-baseline justify-center">
               <span className="text-6xl sm:text-7xl font-black tracking-tighter tabular-nums drop-shadow-md">
                 {correction.totalScore}
               </span>
-              <span className="text-xl text-indigo-200 font-bold ml-1.5">/ 1000</span>
+              <span className="text-xl text-white/70 font-bold ml-1.5">/ 1000</span>
             </div>
           </div>
         )}
@@ -192,7 +192,7 @@ export default function AlunoRedacaoViewPage() {
                 return (
                   <div 
                     key={i} 
-                    className="bg-white border border-slate-200/50 rounded-2xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-300 group"
+                    className="bg-white border border-slate-200/50 rounded-2xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f60c49]/50 group"
                   >
                     <div className="absolute top-0 left-0 w-full h-[3px] bg-slate-100" />
                     <div className="absolute top-0 left-0 h-[3px] transition-all duration-500" style={{ width: `${percentage}%`, backgroundColor: item.color }} />
@@ -227,7 +227,7 @@ export default function AlunoRedacaoViewPage() {
         {/* Pedagogical Report */}
         <div className="bg-white border border-slate-200/60 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
           <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-            <div className="p-1.5 bg-violet-50 rounded-lg text-violet-500"><Sparkles size={16} /></div>
+            <div className="p-1.5 bg-[#fff2f6] rounded-lg text-[#f60c49]"><Sparkles size={16} /></div>
             <h3 className="text-sm font-bold text-slate-800">Relatório Pedagógico Detalhado</h3>
           </div>
           {renderFeedbackText(correction.result)}

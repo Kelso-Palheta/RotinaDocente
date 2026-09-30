@@ -41,6 +41,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - O `callAI` detecta truncamento por token (`finish_reason: "length"` OpenAI-compat, `stop_reason: "max_tokens"` Anthropic, `finishReason: "MAX_TOKENS"` Gemini nativo) e **repete uma única vez com o dobro dos tokens** (máx. 16000), sem repetir em resposta completa.
    - A extração de notas vive em `lib/redacao/scores.js` (`extractScore`), lendo o JSON no início ou no fim da resposta mesmo com fence não fechado (regex por campo).
    - O feedback é renderizado com **markdown estruturado** (headings, listas, tabelas, negrito) por `renderFeedbackText` de `lib/redacao/renderFeedback.jsx`, compartilhado entre a tela do professor e a do aluno; `cleanFeedbackText` remove o JSON (fence no início/fim ou JSON solto com c1–c5) preservando o markdown. Exibir markdown bruto na tela é proibido.
+6. **RN-50 (Padrão Visual do Módulo de Redação):**
+   - Todo componente do módulo de redação (fluxo de correção, tela de resultado, visão do aluno, desempenho, critérios e listas) deve usar os tokens oficiais de marca: acento primário **pink `#f60c49`** (`--pink`, `--pink-dark`, `--pink-light`, `--pink-soft`) e superfícies/textos **navy `#101942`** (`--navy`), com as classes utilitárias `btn-brand-primary`, `btn-brand-navy` e `btn-brand-ghost` nos botões.
+   - É **proibido** o uso da paleta violeta/índigo (`violet-*`, `indigo-*`) como cor de acento no módulo — é uma paleta desconexa do design do projeto. Neutros slate, cores semânticas de status (verde/vermelho/âmbar) e as cores de dados das 5 competências (C1–C5) são permitidas.
+   - Títulos usam a fonte de títulos (Manrope via seletores `h1–h4`/`.font-head`) e o corpo a fonte de texto (Inter); `font-mono` é permitido apenas para códigos, logins e números tabulares. Proibido sobrescrever `font-family` de outra forma (ex.: `font-serif` em campos de texto).
 
 ---
 

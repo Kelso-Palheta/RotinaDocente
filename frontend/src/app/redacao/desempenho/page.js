@@ -288,7 +288,7 @@ export default function DesempenhoPage() {
   if (authLoading || (!perfil && user)) {
     return (
       <div className="flex h-screen items-center justify-center bg-[#f8fafc]">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-500 animate-pulse shadow-2xl shadow-violet-500/20" />
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f60c49] to-[#d40840] animate-pulse shadow-2xl shadow-[#f60c49]/20" />
       </div>
     );
   }
@@ -409,16 +409,16 @@ export default function DesempenhoPage() {
       <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200/60 px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30 shadow-sm overflow-x-auto no-scrollbar gap-4">
         <div className="flex items-center gap-3">
           <button onClick={() => router.push('/redacao')}
-            className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-violet-50 hover:bg-violet-100 text-violet-600 border border-violet-200/50 hover:border-violet-300 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm whitespace-nowrap">
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#fff2f6] hover:bg-[#fde4ec] text-[#f60c49] border border-[#f60c49]/30 hover:border-[#f60c49]/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm whitespace-nowrap">
             <ArrowLeft size={16} /> <span className="hidden sm:inline">Voltar</span>
           </button>
           <div className="h-6 w-px bg-slate-200" />
           <h1 className="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2 tracking-tight whitespace-nowrap">
-            <BarChart3 size={18} className="text-violet-500" /> Minhas Correções
+            <BarChart3 size={18} className="text-[#f60c49]" /> Minhas Correções
           </h1>
         </div>
         {syncStatus && (
-          <span className="text-[10px] sm:text-xs text-violet-600 bg-violet-50 border border-violet-100 px-2 sm:px-3 py-1 rounded-full animate-pulse font-medium whitespace-nowrap">
+          <span className="text-[10px] sm:text-xs text-[#f60c49] bg-[#fff2f6] border border-[#fde4ec] px-2 sm:px-3 py-1 rounded-full animate-pulse font-medium whitespace-nowrap">
             🔄 {syncStatus}
           </span>
         )}
@@ -457,7 +457,7 @@ export default function DesempenhoPage() {
           {/* Vincular */}
           <div className="bg-white/70 backdrop-blur-md border border-slate-200/60 p-5 rounded-2xl shadow-sm space-y-4 md:col-span-1">
             <div className="flex items-center gap-2">
-              <div className="p-1 bg-violet-50 rounded-lg"><Link2 size={16} className="text-violet-500" /></div>
+              <div className="p-1 bg-[#fff2f6] rounded-lg"><Link2 size={16} className="text-[#f60c49]" /></div>
               <h3 className="text-sm font-bold text-slate-800">Vincular Correção</h3>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">Vincule a correção de um aluno informando o login cadastrado (Ex: nome + data de nascimento).</p>
@@ -467,10 +467,10 @@ export default function DesempenhoPage() {
                 onChange={e => { setClaimLogin(e.target.value); setClaimMsg(''); }}
                 onKeyDown={e => e.key === 'Enter' && handleClaim()}
                 placeholder="Ex: maria0704"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-2 focus:ring-violet-400/50 transition-all font-mono"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/50 transition-all font-mono"
               />
               <button onClick={handleClaim} disabled={claiming || !claimLogin.trim()}
-                className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-white text-xs font-bold transition-all shadow-sm">
+                className="w-full py-2.5 bg-[#f60c49] hover:bg-[#d40840] disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-white text-xs font-bold transition-all shadow-sm">
                 {claiming ? 'Vinculando...' : 'Vincular à Conta'}
               </button>
             </div>
@@ -486,7 +486,7 @@ export default function DesempenhoPage() {
           <div className="bg-white/70 backdrop-blur-md border border-slate-200/60 p-5 rounded-2xl shadow-sm space-y-4 md:col-span-2 flex flex-col">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <div className="p-1 bg-violet-50 rounded-lg"><Search size={16} className="text-violet-500" /></div>
+                <div className="p-1 bg-[#fff2f6] rounded-lg"><Search size={16} className="text-[#f60c49]" /></div>
                 <h3 className="text-sm font-bold text-slate-800">Filtrar Histórico</h3>
               </div>
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
@@ -501,7 +501,7 @@ export default function DesempenhoPage() {
                   onClick={() => setSelectedTurma('all')}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                     selectedTurma === 'all'
-                      ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
+                      ? 'bg-[#f60c49] border-[#f60c49] text-white shadow-sm'
                       : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
@@ -513,7 +513,7 @@ export default function DesempenhoPage() {
                     onClick={() => setSelectedTurma(t.id)}
                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                       selectedTurma === t.id
-                        ? 'bg-violet-600 border-violet-600 text-white shadow-sm'
+                        ? 'bg-[#f60c49] border-[#f60c49] text-white shadow-sm'
                         : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                     }`}
                   >
@@ -531,7 +531,7 @@ export default function DesempenhoPage() {
                   onClick={() => setSelectedBimestre(b)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                     selectedBimestre === b
-                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-sm'
+                      ? 'bg-[#f60c49] border-[#f60c49] text-white shadow-sm'
                       : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
@@ -544,7 +544,7 @@ export default function DesempenhoPage() {
               <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input value={search} onChange={e => setSearch(e.target.value)}
                 placeholder={selectedTurma === 'all' ? "Buscar por nome do aluno, turma, tema ou ID..." : "Buscar aluno nesta turma..."}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-2 focus:ring-violet-400/50 transition-all" />
+                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/50 transition-all" />
             </div>
 
             <div className="flex-1 overflow-hidden min-h-[300px] flex flex-col justify-between">
@@ -562,9 +562,9 @@ export default function DesempenhoPage() {
                   
                   {/* Bulk Actions Header */}
                   {selectedIds.size > 0 && selectedTurma === 'all' && (
-                    <div className="bg-indigo-50/80 px-4 py-3 border-b border-indigo-100 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-indigo-900 flex items-center gap-2">
-                        <Check size={16} className="text-indigo-600" />
+                    <div className="bg-[#fff2f6]/80 px-4 py-3 border-b border-[#fde4ec] flex items-center justify-between">
+                      <span className="text-sm font-semibold text-[#101942] flex items-center gap-2">
+                        <Check size={16} className="text-[#f60c49]" />
                         {selectedIds.size} redaç{selectedIds.size === 1 ? 'ão' : 'ões'} selecionada{selectedIds.size === 1 ? '' : 's'}
                       </span>
                       <button
@@ -585,7 +585,7 @@ export default function DesempenhoPage() {
                           <th className="text-left px-4 py-3.5 w-10">
                             <input 
                               type="checkbox" 
-                              className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer"
+                              className="w-4 h-4 rounded text-[#f60c49] focus:ring-[#f60c49] border-slate-300 cursor-pointer"
                               checked={filtered.length > 0 && selectedIds.size === filtered.length}
                               onChange={(e) => {
                                 if (e.target.checked) {
@@ -611,11 +611,11 @@ export default function DesempenhoPage() {
                     <tbody className="divide-y divide-slate-100">
                       {selectedTurma === 'all' ? (
                         filtered.map(c => (
-                          <tr key={c.id} className={`hover:bg-slate-50/50 transition-colors group ${selectedIds.has(c.id) ? 'bg-indigo-50/30' : ''}`}>
+                          <tr key={c.id} className={`hover:bg-slate-50/50 transition-colors group ${selectedIds.has(c.id) ? 'bg-[#fff2f6]/70' : ''}`}>
                             <td className="px-4 py-3">
                               <input 
                                 type="checkbox" 
-                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer"
+                                className="w-4 h-4 rounded text-[#f60c49] focus:ring-[#f60c49] border-slate-300 cursor-pointer"
                                 checked={selectedIds.has(c.id)}
                                 onChange={(e) => {
                                   const next = new Set(selectedIds);
@@ -646,7 +646,7 @@ export default function DesempenhoPage() {
                                   navigator.clipboard.writeText(loginVal);
                                   setToast('Login do aluno copiado!');
                                 }}
-                                className="inline-flex items-center gap-1 font-mono text-[10px] font-semibold text-violet-600 bg-violet-50 hover:bg-violet-100 border border-violet-100 px-2 py-0.5 rounded-full cursor-pointer transition-colors"
+                                className="inline-flex items-center gap-1 font-mono text-[10px] font-semibold text-[#f60c49] bg-[#fff2f6] hover:bg-[#fde4ec] border border-[#fde4ec] px-2 py-0.5 rounded-full cursor-pointer transition-colors"
                                 title="Clique para copiar"
                               >
                                 <Shield size={10} /> {c.loginAluno || c.id.substring(0, 8)}
@@ -655,7 +655,7 @@ export default function DesempenhoPage() {
                             <td className="px-4 py-3 text-right">
                               <div className="flex items-center justify-end gap-1 opacity-80 group-hover:opacity-100 transition-opacity relative">
                                 <button onClick={(e) => { e.stopPropagation(); setActiveMenu(activeMenu === c.id ? null : c.id); }}
-                                  className="p-2 text-slate-400 hover:bg-slate-100 hover:text-violet-500 rounded-xl transition-all"
+                                  className="p-2 text-slate-400 hover:bg-slate-100 hover:text-[#f60c49] rounded-xl transition-all"
                                   title="Ações"
                                 >
                                   <MoreVertical size={14} />
@@ -664,22 +664,22 @@ export default function DesempenhoPage() {
                                 {activeMenu === c.id && (
                                   <div className="absolute right-9 top-0 w-48 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-xl py-1.5 z-30 animate-in fade-in slide-in-from-top-2 duration-150 text-left">
                                     <button onClick={() => { setViewingCorrection(c); setActiveMenu(null); }}
-                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                       <Eye size={12} className="text-slate-400" />
                                       Ver relatório
                                     </button>
                                     <button onClick={() => { handleCopyLink(c); setActiveMenu(null); }}
-                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                       <Link2 size={12} className="text-slate-400" />
                                       Copiar link
                                     </button>
                                     <button onClick={() => { handleCopyLogin(c); setActiveMenu(null); }}
-                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                       <Shield size={12} className="text-slate-400" />
                                       Copiar login
                                     </button>
                                     <a href={`/redacao/aluno/${c.id}`} target="_blank" rel="noopener noreferrer" onClick={() => setActiveMenu(null)}
-                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                      className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                       <ExternalLink size={12} className="text-slate-400" />
                                       Abrir em nova aba
                                     </a>
@@ -729,7 +729,7 @@ export default function DesempenhoPage() {
                                       navigator.clipboard.writeText(displayLogin);
                                       setToast('Login do aluno copiado!');
                                     }}
-                                    className="inline-flex items-center gap-1 font-mono text-[10px] font-semibold text-violet-600 bg-violet-50 hover:bg-violet-100 border border-violet-100 px-2 py-0.5 rounded-full cursor-pointer transition-colors"
+                                    className="inline-flex items-center gap-1 font-mono text-[10px] font-semibold text-[#f60c49] bg-[#fff2f6] hover:bg-[#fde4ec] border border-[#fde4ec] px-2 py-0.5 rounded-full cursor-pointer transition-colors"
                                     title="Clique para copiar"
                                   >
                                     <Shield size={10} /> {displayLogin}
@@ -742,7 +742,7 @@ export default function DesempenhoPage() {
                                 {hasCorrection ? (
                                   <div className="flex items-center justify-end gap-1 opacity-80 group-hover:opacity-100 transition-opacity relative">
                                     <button onClick={(e) => { e.stopPropagation(); setActiveMenu(activeMenu === id ? null : id); }}
-                                      className="p-2 text-slate-400 hover:bg-slate-100 hover:text-violet-500 rounded-xl transition-all"
+                                      className="p-2 text-slate-400 hover:bg-slate-100 hover:text-[#f60c49] rounded-xl transition-all"
                                       title="Ações"
                                     >
                                       <MoreVertical size={14} />
@@ -751,24 +751,24 @@ export default function DesempenhoPage() {
                                     {activeMenu === id && (
                                       <div className="absolute right-9 top-0 w-48 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-xl py-1.5 z-30 animate-in fade-in slide-in-from-top-2 duration-150 text-left">
                                         <button onClick={() => { setViewingCorrection(correction); setActiveMenu(null); }}
-                                          className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                          className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                           <Eye size={12} className="text-slate-400" />
                                           Ver relatório
                                         </button>
                                         <button onClick={() => { handleCopyLink(correction); setActiveMenu(null); }}
-                                          className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                          className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                           <Link2 size={12} className="text-slate-400" />
                                           Copiar link
                                         </button>
                                         {displayLogin && (
                                           <button onClick={() => { handleCopyLogin(correction); setActiveMenu(null); }}
-                                            className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                            className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                             <Shield size={12} className="text-slate-400" />
                                             Copiar login
                                           </button>
                                         )}
                                         <a href={`/redacao/aluno/${correction.id}`} target="_blank" rel="noopener noreferrer" onClick={() => setActiveMenu(null)}
-                                          className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-violet-600 flex items-center gap-2 transition-all">
+                                          className="w-full text-left px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#f60c49] flex items-center gap-2 transition-all">
                                           <ExternalLink size={12} className="text-slate-400" />
                                           Abrir em nova aba
                                         </a>
@@ -810,7 +810,7 @@ export default function DesempenhoPage() {
                 <h2 className="text-lg font-bold text-slate-900">{viewingCorrection.studentName}</h2>
                 <p className="text-xs text-slate-400">
                   Turma {viewingCorrection.studentClass} • Tema: {viewingCorrection.essayTheme}
-                  {viewingCorrection.loginAluno && <span className="ml-2 font-mono text-violet-500">({viewingCorrection.loginAluno})</span>}
+                  {viewingCorrection.loginAluno && <span className="ml-2 font-mono text-[#f60c49]">({viewingCorrection.loginAluno})</span>}
                 </p>
               </div>
               <button onClick={() => setViewingCorrection(null)}
@@ -821,7 +821,7 @@ export default function DesempenhoPage() {
             <div className="p-6 space-y-6">
               {/* Score */}
               {viewingCorrection.totalScore != null && (
-                <div className="text-center py-4 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl">
+                <div className="text-center py-4 bg-gradient-to-br from-[#fff2f6] to-[#eef0f8] rounded-2xl">
                   <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2">Nota Final</p>
                   <span className={`text-6xl font-black tracking-tighter tabular-nums ${viewingCorrection.totalScore >= 600 ? 'text-green-500' : viewingCorrection.totalScore >= 400 ? 'text-blue-500' : 'text-red-500'}`}>
                     {viewingCorrection.totalScore}
@@ -858,7 +858,7 @@ export default function DesempenhoPage() {
               {/* Student link */}
               <div className="text-center pt-2 border-t border-slate-100">
                 <p className="text-xs text-slate-400 mb-2">O aluno acessa esta correção pelo login:</p>
-                <span className="inline-flex items-center gap-1.5 font-mono text-sm font-bold text-violet-600 bg-violet-50 px-3 py-1.5 rounded-xl">
+                <span className="inline-flex items-center gap-1.5 font-mono text-sm font-bold text-[#f60c49] bg-[#fff2f6] px-3 py-1.5 rounded-xl">
                   <Shield size={14} />
                   {viewingCorrection.loginAluno || viewingCorrection.id?.substring(0, 8)}
                 </span>
