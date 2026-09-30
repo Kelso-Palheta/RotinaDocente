@@ -14,6 +14,7 @@ import { extractTextFromDocx } from '@/utils/atividades/docxExtractor';
 import { useTurmas } from '@/hooks/diario/useTurmas';
 import { turmasIniciais } from '@/data/diario/turmasIniciais';
 import { getClientAIHeaders } from '@/utils/aiHeaders';
+import { renderFeedbackText } from '@/lib/redacao/renderFeedback';
 import {
   ArrowLeft, GraduationCap, ExternalLink, Copy, Check,
   FileText, Sparkles, Download, User, BookOpen,
@@ -27,22 +28,6 @@ import { usePathname } from 'next/navigation';
 const EASE_EXPO = [0.19, 1, 0.22, 1];
 const EASE_OUT = [0.16, 1, 0.3, 1];
 const EASE_SPRING = { type: "spring", stiffness: 300, damping: 24 };
-
-function cleanFeedbackText(text) {
-  if (!text) return '';
-  // Remove blocos de código JSON com code-fence
-  let cleaned = text.replace(/```json[\s\S]*?```/g, '');
-  // Remove também blocos JSON brutos no final (sem code-fence)
-  // Procura o último { que contenha c1/c2 para remover o bloco de notas
-  const lastBrace = cleaned.lastIndexOf('{');
-  if (lastBrace !== -1) {
-    const tail = cleaned.slice(lastBrace);
-    if (/"c[1-5]"/.test(tail)) {
-      cleaned = cleaned.slice(0, lastBrace);
-    }
-  }
-  return cleaned.trim();
-}
 
 const COMPETENCIAS = [
   { id: 'c1', label: 'C1 — Domínio da escrita formal', color: '#ef4444', bg: '#fef2f2', bar: '#fca5a5' },
@@ -1125,8 +1110,8 @@ export default function RedacaoPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5, ease: EASE_OUT }}
                 className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-6 sm:p-8 shadow-sm">
-                <div className="prose prose-sm max-w-none text-slate-700 whitespace-pre-wrap leading-relaxed text-[15px]">
-                  {cleanFeedbackText(result)}
+                <div className="max-w-none text-slate-700 leading-relaxed text-[15px]">
+                  {renderFeedbackText(result)}
                 </div>
               </motion.div>
             </motion.div>

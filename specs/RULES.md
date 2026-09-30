@@ -35,6 +35,12 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - A transcrição é de **fidelidade total**: não corrige ortografia, gramática ou pontuação do aluno, ignora a numeração de linhas da margem e retorna apenas o texto transcrito.
    - Sem chave de IA configurada a extração é recusada com erro `AI_KEY_REQUIRED` (orientando a conectar a chave); o texto extraído sempre passa pela etapa **"Revisar Texto Extraído"** para revisão/edição do professor antes da correção.
    - A transcrição usa o **modelo configurado pelo professor** (ou o default do provedor) — nunca um modelo fixo hardcoded. No Gemini, falha de modelo (404 modelo aposentado, 503, 429) aciona a **cascata nativa de fallback** até um modelo disponível da chave, preservando a imagem no payload. Com chave presente, o **erro real do provedor** é propagado à interface; a mensagem `AI_KEY_REQUIRED` nunca pode ser usada como fallback genérico de erro de chamada.
+5. **RN-49 (Feedback de Correção Completo — tokens, notas e renderização):**
+   - O limite de geração (`maxTokens`) é definido pela profundidade: **basic = 3000**, **analyzed = 6000**, **deep = 9000** — nunca um valor fixo de 4000, que cortava a análise profunda (mín. 1200 palavras).
+   - O bloco JSON de notas é o **primeiro bloco da resposta** da IA (o prompt instrui "INICIE a sua resposta EXATAMENTE com este bloco JSON"), garantindo que os cards de nota sobrevivam mesmo em resposta longa.
+   - O `callAI` detecta truncamento por token (`finish_reason: "length"` OpenAI-compat, `stop_reason: "max_tokens"` Anthropic, `finishReason: "MAX_TOKENS"` Gemini nativo) e **repete uma única vez com o dobro dos tokens** (máx. 16000), sem repetir em resposta completa.
+   - A extração de notas vive em `lib/redacao/scores.js` (`extractScore`), lendo o JSON no início ou no fim da resposta mesmo com fence não fechado (regex por campo).
+   - O feedback é renderizado com **markdown estruturado** (headings, listas, tabelas, negrito) por `renderFeedbackText` de `lib/redacao/renderFeedback.jsx`, compartilhado entre a tela do professor e a do aluno; `cleanFeedbackText` remove o JSON (fence no início/fim ou JSON solto com c1–c5) preservando o markdown. Exibir markdown bruto na tela é proibido.
 
 ---
 

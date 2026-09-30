@@ -297,9 +297,20 @@ export async function callAI({
   temperature = 0.5,
   maxTokens = 2000,
   userConfig = null,
+  _truncatedRetry = false,
 }) {
   const resolved = resolveUserConfig(userConfig);
   const { spec, apiKey, model } = resolved;
+
+  const retryWithMoreTokens = () =>
+    callAI({
+      systemPrompt,
+      messages,
+      temperature,
+      maxTokens: Math.min(maxTokens * 2, 16000),
+      userConfig,
+      _truncatedRetry: true,
+    });
 
   if (spec.id === 'anthropic') {
     // Formatação específica para Anthropic Messages API
@@ -332,6 +343,10 @@ export async function callAI({
 
     const text = data?.content?.find((c) => c.type === 'text')?.text || data?.content?.[0]?.text;
     if (!text) throw new Error('[Anthropic AI] Resposta vazia do modelo.');
+    if (data?.stop_reason === 'max_tokens' && !_truncatedRetry) {
+      console.warn('[AI] Resposta truncada pelo Anthropic (stop_reason=max_tokens). Repetindo com o dobro de tokens...');
+      return retryWithMoreTokens();
+    }
     return text;
   }
 
@@ -382,7 +397,14 @@ export async function callAI({
           const answerParts = parts.filter((p) => !p.thought);
           const partsToUse = answerParts.length > 0 ? answerParts : parts;
           const text = partsToUse.map((p) => p.text || '').join('').trim();
-          if (text) return text;
+          if (text) {
+            const finishReason = attempt.data?.candidates?.[0]?.finishReason;
+            if (finishReason === 'MAX_TOKENS' && !_truncatedRetry) {
+              console.warn('[AI] Resposta truncada pelo Gemini nativo (MAX_TOKENS). Repetindo com o dobro de tokens...');
+              return retryWithMoreTokens();
+            }
+            return text;
+          }
         } else {
           const nativeErr = attempt.data?.error?.message || JSON.stringify(attempt.data);
           if (attempt.res.status === 503) {
@@ -401,6 +423,11 @@ export async function callAI({
 
   const content = data?.choices?.[0]?.message?.content;
   if (!content) throw new Error(`[${spec.id.toUpperCase()} AI] Resposta vazia do modelo.`);
+
+  if (data?.choices?.[0]?.finish_reason === 'length' && !_truncatedRetry) {
+    console.warn(`[AI] Resposta truncada (${spec.id}, finish_reason=length). Repetindo com o dobro de tokens...`);
+    return retryWithMoreTokens();
+  }
 
   return content;
 }

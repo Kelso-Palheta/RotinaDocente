@@ -4,6 +4,10 @@ import { MASTER_ENEM_PROMPT } from "./constants";
 import { callAI, executeGeminiNativeCall } from "../ai-provider-central";
 import { AIProviders } from "@/dominio/ai/AIProviders";
 
+// RN-49: limite de tokens por profundidade para o feedback não ser truncado.
+// O prompt de deep pede no mínimo 1200 palavras — 4000 tokens estouravam.
+const DEPTH_MAX_TOKENS = { basic: 3000, analyzed: 6000, deep: 9000 };
+
 export async function generateCorrection(payload) {
   const userConfig = payload.userConfig;
   const provider = userConfig?.provider || "gemini";
@@ -47,7 +51,7 @@ export async function generateCorrection(payload) {
       systemPrompt: finalPrompt,
       messages: [{ role: "user", content: essayContent }],
       temperature: 0.3,
-      maxTokens: 4000,
+      maxTokens: DEPTH_MAX_TOKENS[depth] || 6000,
       userConfig,
     });
   } catch (error) {
