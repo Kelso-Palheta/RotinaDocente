@@ -44,15 +44,16 @@ export async function POST(request) {
 
     return NextResponse.json({ text });
   } catch (error) {
-    if (error.code === 'AI_KEY_REQUIRED') {
+    const message = error?.message || '';
+    if (error?.code === 'AI_KEY_REQUIRED' || message.startsWith('AI_KEY_REQUIRED')) {
       return NextResponse.json(
-        { error: 'AI_KEY_REQUIRED', message: error.message },
+        { error: 'AI_KEY_REQUIRED', message: message.replace(/^AI_KEY_REQUIRED:\s*/, '') },
         { status: 400 }
       );
     }
     console.error('ERRO NA EXTRAÇÃO DE TEXTO:', error?.message || error);
     return NextResponse.json(
-      { error: error?.message || 'Não foi possível extrair o texto desta imagem.' },
+      { error: message || 'Não foi possível extrair o texto desta imagem.' },
       { status: 500 }
     );
   }

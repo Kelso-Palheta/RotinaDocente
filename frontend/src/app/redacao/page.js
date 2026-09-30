@@ -286,11 +286,12 @@ export default function RedacaoPage() {
       return;
     }
 
-    // 1. Arquivos PDF
+    // 1. Arquivos PDF (texto digital direto; se escaneado/manuscrito, transcreve via visão de IA)
     if (name.endsWith('.pdf')) {
       setExtracting(true);
       try {
-        const extractedText = await extractTextFromPDF(file);
+        const { extractTextFromPDFWithVision } = await import('@/utils/atividades/visionExtractor');
+        const extractedText = await extractTextFromPDFWithVision(file);
         if (!extractedText.trim()) {
           throw new Error('Nenhum texto pôde ser extraído deste PDF. Certifique-se de que não é um PDF composto exclusivamente por imagens escaneadas.');
         }
@@ -422,8 +423,11 @@ export default function RedacaoPage() {
     if (!imagePreview) return;
     setExtracting(true); setError('');
     try {
-      const { extractTextFromImage } = await import('@/utils/atividades/pdfExtractor');
-      const text = await extractTextFromImage(imagePreview); // Passa o data URL completo
+      const { extractTextFromImageVision, getMediaTypeFromDataUrl } = await import('@/utils/atividades/visionExtractor');
+      const base64 = imageBase64 || imagePreview.split(',')[1];
+      const text = await extractTextFromImageVision(base64, {
+        mediaType: getMediaTypeFromDataUrl(imagePreview),
+      });
       if (!text || !text.trim()) {
         throw new Error('Não foi possível ler o texto. Tente enviar uma foto mais nítida e bem iluminada.');
       }
@@ -959,7 +963,7 @@ export default function RedacaoPage() {
                   <motion.button onClick={handleExtract} disabled={extracting}
                     whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
                     className="w-full py-3.5 btn-brand-navy rounded-2xl text-white text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-md disabled:opacity-50">
-                    {extracting ? <><Loader2 size={16} className="animate-spin" /> Extraindo texto com OCR...</> : <><Zap size={16} className="text-[#f60c49]" /> Extrair Texto da Imagem</>}
+                    {extracting ? <><Loader2 size={16} className="animate-spin" /> Transcrevendo com IA...</> : <><Zap size={16} className="text-[#f60c49]" /> Extrair Texto da Imagem</>}
                   </motion.button>
                 )}
 

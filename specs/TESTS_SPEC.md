@@ -74,6 +74,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **IT-06 (RN-37 & RN-38):** Testar endpoint `POST /api/adaptacoes/gerar` aceitando quantidade configurável de questões e suporte a reaproveitamento.
 - [x] **IT-07 (RN-39):** Testar endpoint `POST /api/adaptacoes/imagem` gerando imagem via BYOK (Gemini e OpenAI) e tratando erros e ausência de chave.
 - [x] **IT-08 (RN-41):** Testar fluxo completo de importação de arquivo de alunos e salvamento em lote no `AlunoAdaptadoRepository`.
+- [x] **IT-09 (RN-47):** Testar transcrição de imagem de redação manuscrita via visão de IA (`extractTextFromImageVision` → `POST /api/extrair` com headers BYOK `x-user-ai-*`), recusa sem chave (`AI_KEY_REQUIRED`), texto vazio, propagação de erro da rota e PDF escaneado (páginas renderizadas e transcritas individualmente com limite de 10 páginas) contra PDF com camada de texto digital.
 
 
 

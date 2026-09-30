@@ -28,6 +28,12 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - O endpoint de IA deve obrigatoriamente acionar o modelo `sabiazinho-4`. É terminantemente proibido utilizar aliases como `Sabia-4`.
 3. **RN-07 (Devolutiva Pedagógica):**
    - Toda correção deve conter justificativa textual por competência e sugestões práticas de reescrita/melhoria.
+4. **RN-47 (Transcrição de Redação Manuscrita via Visão de IA):**
+   - A extração de texto de **fotografia/imagem de redação manuscrita** é feita exclusivamente por modelo de visão (rota `POST /api/extrair` → `extractTextOnly`), com a chave BYOK do professor enviada nos headers `x-user-ai-*`.
+   - O OCR local (Tesseract.js) fica reservado a **texto impresso/digital** (imagens de texto mecânico e PDFs escaneados de material impresso); é proibido usá-lo como extrator primário de manuscrito, pois não reconhece caligrafia e produz texto ilegível.
+   - **PDF escaneado sem camada de texto** enviado na tela de redação segue o mesmo caminho da visão de IA: cada página é renderizada e transcrita individualmente (limite de 10 páginas por arquivo, com erro claro acima disso); PDF com camada de texto digital continua sendo lido localmente, sem exigir chave de IA.
+   - A transcrição é de **fidelidade total**: não corrige ortografia, gramática ou pontuação do aluno, ignora a numeração de linhas da margem e retorna apenas o texto transcrito.
+   - Sem chave de IA configurada a extração é recusada com erro `AI_KEY_REQUIRED` (orientando a conectar a chave); o texto extraído sempre passa pela etapa **"Revisar Texto Extraído"** para revisão/edição do professor antes da correção.
 
 ---
 

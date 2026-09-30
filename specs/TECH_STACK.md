@@ -25,6 +25,6 @@
 ---
 
 ## 4. Manipulação de Arquivos e Documentos
-- **Extração de Texto:** `pdfjs-dist` (PDF), `mammoth` (DOCX), Tesseract.js (OCR de imagens).
+- **Extração de Texto:** `pdfjs-dist` (PDF), `mammoth` (DOCX), Tesseract.js (OCR de imagem com **texto impresso**), modelo de visão via rota `POST /api/extrair` (**redação manuscrita**: imagem e PDF escaneado — RN-47).
 - **Geração de Relatórios:** `jspdf` + `jspdf-autotable`.
 - **Datas & Calendário:** `date-fns` com `pt-BR`.

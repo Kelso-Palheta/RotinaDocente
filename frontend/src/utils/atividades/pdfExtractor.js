@@ -1,7 +1,7 @@
 let _pdfjsLib = null;
 let _tesseract = null;
 
-async function getPdfjsLib() {
+export async function getPdfjsLib() {
   if (_pdfjsLib) return _pdfjsLib;
   _pdfjsLib = await import('pdfjs-dist');
   const worker = await import('pdfjs-dist/build/pdf.worker.min.mjs');
