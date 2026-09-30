@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NumCell } from '@/components/diario/NumCell';
 import { BadgeNecessidades, SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
 import { calcTotal, fmt, statusColor, somaMaxAtv, round2, temNota, titleCase } from '@/utils/diario/calculos';
+import { gerarLoginAluno, selecionarLoginExibido } from '@/utils/diario/loginAluno';
+import { db } from '@/lib/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const STATUS_STYLES = {
   good: 'text-[#101942] bg-[#eef0f8] border border-[#dce0f0] font-bold',
@@ -112,6 +115,35 @@ export const TabelaNotas = ({
   const [editingBirthday, setEditingBirthday] = useState(null);
   const [editingNeeds, setEditingNeeds] = useState(null);
   const [needsDraft, setNeedsDraft] = useState([]);
+  const [loginsArmazenados, setLoginsArmazenados] = useState({});
+
+  // RN-45 — exibidor canônico: busca os logins ARMAZENADOS no Firestore por nome,
+  // para exibir exatamente o que a rota de login aceita (inclusive legados).
+  useEffect(() => {
+    let cancelado = false;
+    const carregarLogins = async () => {
+      const nomes = [...new Set((turma?.alunos || []).map((al) => al.nome).filter(Boolean))];
+      if (nomes.length === 0) {
+        if (!cancelado) setLoginsArmazenados({});
+        return;
+      }
+      const mapa = {};
+      for (let i = 0; i < nomes.length; i += 30) {
+        const lote = nomes.slice(i, i + 30);
+        const snap = await getDocs(query(collection(db, 'alunoLogin'), where('nome', 'in', lote)));
+        snap.forEach((d) => {
+          const v = d.data();
+          if (v?.nome && v?.login) {
+            if (!mapa[v.nome]) mapa[v.nome] = [];
+            mapa[v.nome].push(v.login);
+          }
+        });
+      }
+      if (!cancelado) setLoginsArmazenados(mapa);
+    };
+    carregarLogins().catch(() => { /* offline/erro: exibe o login canônico calculado */ });
+    return () => { cancelado = true; };
+  }, [turma?.alunos]);
 
   const bData = turma.bimestres[String(bimestre)] || { atividades: [], notas: {}, config: {} };
   const { atividades, notas, config = {} } = bData;
@@ -321,7 +353,7 @@ export const TabelaNotas = ({
                       )}
                       {al.dataNascimento ? (
                         <span className="hidden sm:inline text-[9px] font-mono text-emerald-600 bg-emerald-50 px-1 py-0.5 rounded border border-emerald-200" title="Login do aluno no Portal">
-                          🔑 {al.nome.split(' ')[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}{al.dataNascimento}
+                          🔑 {selecionarLoginExibido(loginsArmazenados[al.nome] || [], al) || gerarLoginAluno(al.nome, al.dataNascimento)}
                         </span>
                       ) : (
                         <span className="hidden sm:inline text-[9px] text-amber-500 font-medium" title="Sem data = sem login no Portal do Aluno">

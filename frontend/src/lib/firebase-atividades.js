@@ -3,7 +3,7 @@ import {
   doc, collection, setDoc, getDoc, getDocs, deleteDoc,
   query, where, serverTimestamp, writeBatch
 } from 'firebase/firestore';
-import { gerarLoginAluno, gerarLoginKey } from '@/utils/diario/loginAluno';
+import { gerarLoginAluno, gerarLoginKey, resolverLoginUnico } from '@/utils/diario/loginAluno';
 import { encodeToken } from '@/utils/diario/tokenUtils';
 
 export async function createAtividade(data) {
@@ -107,7 +107,14 @@ export async function createTokensForAlunoInTurma(professorId, turmaId, aluno) {
 export async function syncAlunoLogin(professorUid, aluno, turmaId) {
   if (!aluno.dataNascimento) return null;
 
-  const login = gerarLoginAluno(aluno.nome, aluno.dataNascimento);
+  const buscarDoc = async (loginCandidato) => {
+    const key = await gerarLoginKey(loginCandidato);
+    const snap = await getDoc(doc(db, 'alunoLogin', key));
+    return snap.exists() ? { nome: snap.data().nome || '' } : null;
+  };
+  const resolucao = await resolverLoginUnico(aluno.nome, aluno.dataNascimento, buscarDoc);
+  if (resolucao.conflito || !resolucao.login) return null;
+  const login = resolucao.login;
   const loginKey = await gerarLoginKey(login);
 
   // 1. Salva/atualiza o doc base do aluno

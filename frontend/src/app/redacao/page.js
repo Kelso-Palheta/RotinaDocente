@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '@/lib/auth-context';
 import { generatePDF } from '@/lib/redacao/pdf-generator';
-import { gerarLoginAluno, gerarLoginKey } from '@/utils/diario/loginAluno';
+import { gerarLoginAluno, gerarLoginKey, resolverLoginsAlunos, resolverLoginUnico } from '@/utils/diario/loginAluno';
 import { db } from '@/lib/firebase';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { vincularAlunoProfessor } from '@/lib/firebase-aluno';
@@ -93,6 +93,22 @@ function AnimatedCounter({ value, color }) {
   }, [value]);
   return <span className="tabular-nums" style={{ color }}>{display}</span>;
 }
+
+// ─── LOGIN DO ALUNO (RN-45) ─────────────────────
+// Resolve o login de um aluno considerando a exceção de homônimos da turma dele.
+const encontrarLoginNaTurma = (turmas, nome) => {
+  const alvo = String(nome || '').trim().toLowerCase();
+  if (!alvo) return null;
+  const turma = turmas.find((t) =>
+    (t.alunos || []).some((a) => (a.nome || '').trim().toLowerCase() === alvo)
+  );
+  if (!turma) return null;
+  return (
+    resolverLoginsAlunos(turma.alunos || []).find(
+      (r) => (r.aluno.nome || '').trim().toLowerCase() === alvo
+    ) || null
+  );
+};
 
 // ─── COMPONENT ───────────────────────────────────
 const STORAGE_KEY = 'diario_turmas';
@@ -227,6 +243,15 @@ export default function RedacaoPage() {
   const [motivatorExtracting, setMotivatorExtracting] = useState(false);
 
   const charCount = text ? text.length : 0;
+
+  // Preview do login que será usado (canônico ou exceção de homônimos da turma — RN-45)
+  const loginPrevisto = useMemo(() => {
+    const dn = dataNascimento.replace(/\D/g, '').slice(0, 4);
+    if (!studentName.trim() || dn.length !== 4) return '';
+    const alvo = encontrarLoginNaTurma(turmas, studentName);
+    if (alvo) return alvo.login;
+    return gerarLoginAluno(studentName.trim(), dn);
+  }, [studentName, dataNascimento, turmas]);
 
   if (authLoading || loadingTurmas || (!perfil && user)) {
     return <div className="flex h-screen items-center justify-center bg-[#f8fafc]"><div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-violet-400 animate-pulse shadow-2xl shadow-violet-500/20" /></div>;
@@ -421,7 +446,19 @@ export default function RedacaoPage() {
     const dn = dataNascimento.replace(/\D/g, '').slice(0, 4);
     let loginAluno = null;
     if (dn.length === 4) {
-      loginAluno = gerarLoginAluno(studentName.trim(), dn);
+      const buscarDoc = async (loginCandidato) => {
+        const key = await gerarLoginKey(loginCandidato);
+        const snap = await getDoc(doc(db, 'alunoLogin', key));
+        return snap.exists() ? { nome: snap.data().nome || '' } : null;
+      };
+      const alvo = encontrarLoginNaTurma(turmas, studentName);
+      const resolucao = await resolverLoginUnico(
+        alvo ? alvo.aluno.nome : studentName.trim(),
+        alvo ? alvo.aluno.dataNascimento : dn,
+        buscarDoc,
+        { homonimo: Boolean(alvo?.homonimo) }
+      );
+      loginAluno = resolucao.login || null;
     }
 
     try {
@@ -867,7 +904,7 @@ export default function RedacaoPage() {
                       <input value={dataNascimento} onChange={e => setDataNascimento(e.target.value.replace(/\D/g, '').slice(0, 4))}
                         placeholder="0704" maxLength={4}
                         className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-50 transition-all duration-300 font-mono" />
-                      <p className="text-[10px] text-slate-400 mt-1">Login: {studentName.trim() && dataNascimento.length === 4 ? <span className="font-mono text-violet-500 font-semibold">{studentName.trim().split(' ')[0].toLowerCase()}{dataNascimento}</span> : <span className="text-slate-300">—</span>}</p>
+                      <p className="text-[10px] text-slate-400 mt-1">Login: {loginPrevisto ? <span className="font-mono text-violet-500 font-semibold">{loginPrevisto}</span> : <span className="text-slate-300">—</span>}</p>
                     </div>
                   </div>
                 )}
@@ -878,7 +915,7 @@ export default function RedacaoPage() {
                     <span className="inline-flex items-center gap-1.5 text-sm text-slate-700"><User size={14} className="text-violet-400" /> {alunoSelecionado.nome}</span>
                     {alunoSelecionado.dataNascimento && (
                       <span className="inline-flex items-center gap-1 text-xs font-mono text-violet-600 bg-violet-50 px-2.5 py-1 rounded-lg">
-                        <Shield size={12} /> Login: {alunoSelecionado.nome.split(' ')[0].toLowerCase()}{alunoSelecionado.dataNascimento}
+                        <Shield size={12} /> Login: {loginPrevisto || '—'}
                       </span>
                     )}
                     {studentClass && <span className="text-xs text-slate-400">Turma {studentClass}</span>}

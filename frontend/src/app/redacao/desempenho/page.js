@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs, doc, deleteDoc, getDoc, setDoc } from 'firebase/firestore';
-import { gerarLoginKey, gerarLoginAluno } from '@/utils/diario/loginAluno';
+import { gerarLoginKey, resolverLoginsAlunos } from '@/utils/diario/loginAluno';
 import { ArrowLeft, BarChart3, Users, TrendingUp, Award, Trash2, Search, ExternalLink, Link2, Shield, AlertCircle, MoreVertical, Eye, Copy, Check, GraduationCap } from 'lucide-react';
 
 export default function DesempenhoPage() {
@@ -134,7 +134,10 @@ export default function DesempenhoPage() {
         }
 
         if (alunoEncontrado && alunoEncontrado.dataNascimento) {
-          const targetLogin = gerarLoginAluno(alunoEncontrado.nome, alunoEncontrado.dataNascimento);
+          const resolvidos = resolverLoginsAlunos(turmaDoAluno.alunos || []);
+          const alvo = resolvidos.find((r) => r.aluno.id === alunoEncontrado.id);
+          const targetLogin = alvo?.login || '';
+          if (!targetLogin) continue;
           const targetKey = await gerarLoginKey(targetLogin);
 
           // Se o login ou ID da correção for diferente do esperado
@@ -345,9 +348,13 @@ export default function DesempenhoPage() {
     const queryStr = search.toLowerCase().trim();
     const students = currentTurma.alunos || [];
 
+    const loginsPorId = new Map(
+      resolverLoginsAlunos(students).map((r) => [r.aluno.id, r.login])
+    );
+
     const rows = [];
     students.forEach(al => {
-      const login = al.dataNascimento ? gerarLoginAluno(al.nome, al.dataNascimento) : '';
+      const login = loginsPorId.get(al.id) || '';
       
       // Busca correções deste aluno
       const studentCorrections = corrections.filter(c => 

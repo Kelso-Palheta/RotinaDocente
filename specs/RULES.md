@@ -219,6 +219,17 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - A ordem das tentativas deve preservar o parse direto em primeiro lugar, para que `\"` legítimos dentro de valores de um JSON válido não sejam corrompidos.
     - O extrator nunca deve propagar um erro cru de `JSON.parse` (ex.: `Unexpected token '\'`) ao usuário; ao falhar todas as tentativas, lança erro claro no padrão `IA não retornou JSON válido`.
 
+---
+
+## 10. Regras do Portal do Aluno (Login e Identidade)
+15. **RN-45 (Login Canônico do Aluno com Exceção de Homônimos):**
+    - O login canônico do aluno é **1º nome real + DDMM** (`gerarLoginAluno`): nome em minúsculas, sem acentos, descartando preposições (`de, da, do, dos, das, e, d`) e anexando os 4 dígitos dia+mês de nascimento (ex: `maria1503`).
+    - **Exceção de homônimos:** quando 2 ou mais alunos da **mesma turma** resultariam no mesmo login canônico (mesmo 1º nome + mesmo DDMM — ex: dois Pedros nascidos em 11/11), **todos os membros do grupo** passam a usar **1º + 2º nome + DDMM** (`gerarLoginDoisNomes`, ex: `pedrohenrique1111`). A resolução é determinística e pura (sem I/O), calculada sobre a lista de alunos da turma.
+    - **Unicidade global na publicação:** antes de gravar `alunoLogin/{sha256(login)}`, a publicação de notas verifica o documento candidato: inexistente ou com `nome` equivalente ao do aluno $\rightarrow$ grava; existente com `nome` divergente (outro estudante de outra turma/perfil) $\rightarrow$ escala para 2 nomes; se mesmo a chave de 2 nomes colidir com `nome` divergente $\rightarrow$ o aluno é reportado como erro de publicação (colisão irreconcetável) para resolução manual, nunca sobrescrevendo a identidade de outro estudante.
+    - **Exibidor canônico:** a tabela do Diário exibe o **login armazenado** no Firestore (busca por `nome`), priorizando o candidato igual ao login canônico e depois o candidato com sufixo numérico; apenas para alunos ainda não publicados exibe o login canônico calculado. O exibidor nunca pode sugerir um formato divergente do que a rota de login aceita.
+    - **Chaves alinhadas:** todas as fontes que geram login para o mesmo aluno (publicação de notas, vínculo de redação, sincronização de atividades, re-homologação de correções e exibição) devem produzir o mesmo login canônico resolvido, de modo que `sha256(login)` da sessão do aluno seja a mesma chave de `professores/{uid}/correcoes/{key}` usada pelo boletim.
+    - **Rota de login:** `POST /api/aluno/login` aceita o login exato normalizado (minúsculas, sem acentos) com fallback legado em maiúsculas; `404` somente quando nenhum dos candidatos localizar o documento.
+
 
 
 

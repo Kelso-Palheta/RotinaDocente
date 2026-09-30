@@ -53,6 +53,11 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Extração Robusta de JSON da IA (`tests/unit/extrair_json_ia.test.js`)
 - [x] **UT-33 (RN-44):** Validar `extrairJsonIA`: JSON limpo, remoção de fences markdown, prosa antes/depois do JSON, reparo de aspas escapadas nos valores (reprodução do bug `Unexpected token '\'`), JSON totalmente escapado, JSON double-stringified (string contendo JSON), preservação de `\"` legítimo em JSON válido e erro claro `IA não retornou JSON válido` quando não há JSON/resposta vazia; além do fluxo `gerarQuestoesComIA` com fetch mockado retornando JSON escapado e do fluxo `importarViaIA` com resposta escapada.
 
+### Módulo: Login do Portal do Aluno (`tests/unit/login_aluno.test.js`)
+- [x] **UT-34 (RN-45):** Validar `gerarLoginAluno` no formato canônico **1º nome + DDMM** (preposições descartadas, acentos removidos, nome único) e `gerarLoginDoisNomes` no formato de exceção **1º + 2º nome + DDMM** (incluindo preposições no meio: `Pedro Vitor Dos Santos Lima` → `pedrovitor1111`), além de `gerarLoginKey` SHA-256 estável.
+- [x] **UT-35 (RN-45):** Validar `resolverLoginsAlunos`: turma sem colisão mantém 1º nome; homônimos na mesma turma (mesmo 1º nome + mesmo DDMM) recebem **todos** o formato de 2 nomes; 1º nome igual com DDMM diferente não colide; aluno sem `dataNascimento` recebe `login` vazio; a ordem dos alunos de entrada é preservada na saída.
+- [x] **UT-36 (RN-45):** Validar `resolverLoginUnico` (unicidade global com I/O injetado): doc candidato inexistente ou com `nome` equivalente mantém o login; doc existente com `nome` divergente escala de 1 para 2 nomes; colisão também na chave de 2 nomes retorna `conflito` sem login; e `selecionarLoginExibido` priorizando (1) candidato igual ao canônico, (2) candidato com sufixo igual ao DDMM do aluno, (3) candidato com 4 dígitos finais, (4) primeiro candidato.
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)

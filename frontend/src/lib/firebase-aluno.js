@@ -138,10 +138,22 @@ export async function limparVinculosOrfaos(professorUid, turmasAtivas, alunosRem
     
     if (!aindaAtivo) {
       try {
-        const loginStr = await import('@/utils/diario/loginAluno').then(m => m.gerarLoginAluno(aluno.nome, aluno.dataNascimento));
-        const loginKey = await gerarLoginKey(loginStr);
-        const { deleteDoc } = await import('firebase/firestore');
-        await deleteDoc(doc(db, 'alunoLogin', loginKey, 'vinculos', professorUid));
+        const m = await import('@/utils/diario/loginAluno');
+        const { deleteDoc, getDoc } = await import('firebase/firestore');
+        // Tenta as duas chaves possíveis (canônica e homônimos — RN-45),
+        // apagando apenas se o doc realmente pertence a este aluno.
+        const candidatos = [
+          m.gerarLoginAluno(aluno.nome, aluno.dataNascimento),
+          m.gerarLoginDoisNomes(aluno.nome, aluno.dataNascimento),
+        ];
+        for (const loginStr of new Set(candidatos)) {
+          const loginKey = await m.gerarLoginKey(loginStr);
+          const baseRef = doc(db, 'alunoLogin', loginKey);
+          const snap = await getDoc(baseRef);
+          if (snap.exists() && snap.data().nome === aluno.nome) {
+            await deleteDoc(doc(db, 'alunoLogin', loginKey, 'vinculos', professorUid));
+          }
+        }
       } catch (e) {
         console.error('Erro ao limpar vinculo órfão:', e);
       }

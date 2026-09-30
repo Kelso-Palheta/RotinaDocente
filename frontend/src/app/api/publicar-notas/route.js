@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { gerarLoginAluno, gerarLoginKey } from '@/utils/diario/loginAluno';
+import { gerarLoginKey, resolverLoginsAlunos, resolverLoginUnico } from '@/utils/diario/loginAluno';
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'dashboard-gestao-notas';
 const FIRESTORE_BASE = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
@@ -17,6 +17,19 @@ async function firestorePatch(path, fields, token) {
     throw new Error(`Firestore ${res.status}: ${err.slice(0, 200)}`);
   }
   return res.json();
+}
+
+async function firestoreGetNome(path, token) {
+  const headers = {};
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const res = await fetch(`${FIRESTORE_BASE}/${path}`, { headers });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Firestore ${res.status}: ${err.slice(0, 200)}`);
+  }
+  const json = await res.json();
+  return { nome: json.fields?.nome?.stringValue || '' };
 }
 
 function toFirestoreValue(v) {
@@ -53,11 +66,13 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Dados inválidos ou incompletos.' }, { status: 400 });
     }
 
-    // Monta a lista plana de todos os alunos a serem publicados
+    // Monta a lista plana de todos os alunos a serem publicados,
+    // já com a resolução de homônimos por turma (RN-45)
     const studentTasks = [];
     for (const turma of turmas) {
-      for (const aluno of (turma.alunos || [])) {
-        studentTasks.push({ aluno, turma });
+      const resolvidos = resolverLoginsAlunos(turma.alunos || []);
+      for (const resolvido of resolvidos) {
+        studentTasks.push({ aluno: resolvido.aluno, turma, homonimo: resolvido.homonimo });
       }
     }
 
@@ -67,13 +82,25 @@ export async function POST(request) {
     const alunosSemData = [];
     const errosDetails = [];
 
-    const publishSingleStudent = async ({ aluno, turma }) => {
+    const publishSingleStudent = async ({ aluno, turma, homonimo }) => {
       if (!aluno.dataNascimento) {
         return { status: 'semData', aluno: { nome: aluno.nome, turma: turma.nome } };
       }
 
       try {
-        const loginStr = gerarLoginAluno(aluno.nome, aluno.dataNascimento);
+        const buscarDoc = async (loginCandidato) => {
+          const key = await gerarLoginKey(loginCandidato);
+          return firestoreGetNome(`alunoLogin/${key}`, token);
+        };
+        const resolucao = await resolverLoginUnico(aluno.nome, aluno.dataNascimento, buscarDoc, { homonimo });
+        if (resolucao.conflito || !resolucao.login) {
+          return {
+            status: 'error',
+            error: 'Colisão de login com outro aluno — resolva homônimos manualmente',
+            nome: aluno.nome,
+          };
+        }
+        const loginStr = resolucao.login;
         const loginKey = await gerarLoginKey(loginStr);
         const now = new Date().toISOString();
 

@@ -226,7 +226,7 @@ export default function AlunoLoginPage() {
                 type="text"
                 value={login}
                 onChange={(e) => { setLogin(e.target.value); setErro(''); }}
-                placeholder="Ex: pedrohenrique1111 ou maria1503"
+                placeholder="Ex: maria1503 (1º nome + DDMM)"
                 className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-2xl px-4 py-3.5 text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all font-mono font-bold"
                 autoFocus
                 disabled={loading}
