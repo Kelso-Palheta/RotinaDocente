@@ -34,6 +34,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - **PDF escaneado sem camada de texto** enviado na tela de redação segue o mesmo caminho da visão de IA: cada página é renderizada e transcrita individualmente (limite de 10 páginas por arquivo, com erro claro acima disso); PDF com camada de texto digital continua sendo lido localmente, sem exigir chave de IA.
    - A transcrição é de **fidelidade total**: não corrige ortografia, gramática ou pontuação do aluno, ignora a numeração de linhas da margem e retorna apenas o texto transcrito.
    - Sem chave de IA configurada a extração é recusada com erro `AI_KEY_REQUIRED` (orientando a conectar a chave); o texto extraído sempre passa pela etapa **"Revisar Texto Extraído"** para revisão/edição do professor antes da correção.
+   - A transcrição usa o **modelo configurado pelo professor** (ou o default do provedor) — nunca um modelo fixo hardcoded. No Gemini, falha de modelo (404 modelo aposentado, 503, 429) aciona a **cascata nativa de fallback** até um modelo disponível da chave, preservando a imagem no payload. Com chave presente, o **erro real do provedor** é propagado à interface; a mensagem `AI_KEY_REQUIRED` nunca pode ser usada como fallback genérico de erro de chamada.
 
 ---
 

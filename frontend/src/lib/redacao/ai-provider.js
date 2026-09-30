@@ -1,7 +1,8 @@
 import OpenAI from "openai";
 import Anthropic from "@anthropic-ai/sdk";
 import { MASTER_ENEM_PROMPT } from "./constants";
-import { callAI } from "../ai-provider-central";
+import { callAI, executeGeminiNativeCall } from "../ai-provider-central";
+import { AIProviders } from "@/dominio/ai/AIProviders";
 
 export async function generateCorrection(payload) {
   const userConfig = payload.userConfig;
@@ -55,6 +56,61 @@ export async function generateCorrection(payload) {
   }
 }
 
+async function transcribeWithGemini(imageBase64, mediaType, key, model) {
+  const prompt = "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu. Ignore a numeração das linhas na margem esquerda. Retorne APENAS a transcrição textual.";
+  const clean = imageBase64.replace(/\s/g, "");
+
+  try {
+    const openai = new OpenAI({
+      apiKey: key,
+      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai",
+    });
+    const response = await openai.chat.completions.create({
+      model,
+      messages: [{
+        role: "user",
+        content: [
+          { type: "text", text: prompt },
+          { type: "image_url", image_url: { url: `data:${mediaType};base64,${clean}` } }
+        ]
+      }]
+    });
+    const text = response.choices?.[0]?.message?.content;
+    if (text) return text;
+  } catch (e) {
+    console.warn("[Gemini OCR] Caminho OpenAI-compat falhou, tentando API nativa com fallback de modelos:", e?.message || e);
+  }
+
+  // API nativa com cascata resiliente (404 modelo aposentado / 503 / 429 → modelos disponíveis da chave)
+  const attempt = await executeGeminiNativeCall({
+    apiKey: key,
+    initialModel: model,
+    geminiContents: [{
+      role: "user",
+      parts: [
+        { text: prompt },
+        { inlineData: { mimeType: mediaType, data: clean } },
+      ],
+    }],
+    temperature: 0.2,
+    maxOutputTokens: 4096,
+  });
+
+  if (attempt.res.ok) {
+    const parts = attempt.data?.candidates?.[0]?.content?.parts || [];
+    const text = parts.map((p) => p.text || "").join("").trim();
+    if (text) return text;
+  }
+
+  const errMsg = attempt.data?.error?.message || JSON.stringify(attempt.data || {});
+  throw new Error(`Gemini falhou na transcrição da imagem (${attempt.res.status}): ${errMsg}`);
+}
+
+/**
+ * Transcreve uma imagem de redação manuscrita usando o provedor/modelo configurados pelo professor.
+ * RN-47: o erro real do provedor é sempre propagado — a mensagem AI_KEY_REQUIRED
+ * só aparece quando de fato não há chave configurada.
+ */
 export async function extractTextOnly(imageBase64, mediaType = "image/jpeg", userConfig = null) {
   console.log("[AI Provider] Extraindo texto da imagem...");
 
@@ -65,88 +121,85 @@ export async function extractTextOnly(imageBase64, mediaType = "image/jpeg", use
     throw new Error("AI_KEY_REQUIRED: Você precisa conectar sua chave de IA para utilizar a extração de texto.");
   }
 
-  if (key) {
-    if (prov === "gemini") {
-      try {
-        const openai = new OpenAI({
-          apiKey: key,
-          baseURL: "https://generativelanguage.googleapis.com/v1beta/openai",
-        });
-        const response = await openai.chat.completions.create({
-          model: "gemini-1.5-flash",
-          messages: [{
-            role: "user",
-            content: [
-              { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu. Ignore a numeração das linhas na margem esquerda. Retorne APENAS a transcrição textual." },
-              { type: "image_url", image_url: { url: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } }
-            ]
-          }]
-        });
-        return response.choices[0].message.content || "";
-      } catch (e) {
-        console.warn("Gemini falhou na extração:", e);
-      }
-    } else if (prov === "openai") {
-      try {
-        const openai = new OpenAI({ apiKey: key });
-        const response = await openai.chat.completions.create({
-          model: "gpt-4o",
-          messages: [{
-            role: "user",
-            content: [
-              { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu, preservando erros para permitir a avaliação posterior. IMPORTANTE: Ignore a numeração das linhas (1, 2, 3... 30) na margem esquerda da folha de redação; transcreva apenas o texto escrito pelo aluno. Retorne APENAS a transcrição textual, sem comentários periféricos." },
-              { type: "image_url", image_url: { url: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } }
-            ]
-          }]
-        });
-        return response.choices[0].message.content || "";
-      } catch (e) {
-        console.warn("OpenAI falhou na extração.", e);
-      }
-    } else if (prov === "anthropic") {
-      try {
-        const anthropic = new Anthropic({ apiKey: key });
-        const response = await anthropic.messages.create({
-          model: "claude-3-5-sonnet-20240620",
-          max_tokens: 3000,
-          messages: [{
-            role: "user",
-            content: [
-              { type: "image", source: { type: "base64", media_type: mediaType, data: imageBase64.replace(/\s/g, '') } },
-              { type: "text", text: "Você é um especialista em transcrição de redações manuscritas. Transcreva fielmente todo o texto desta imagem, exatamente como o aluno escreveu. ATENÇÃO: NÃO corrija nenhum erro ortográfico, gramatical, de concordância ou de pontuação. Ignore a numeração das linhas na margem esquerda. Retorne APENAS o texto transcrito." }
-            ]
-          }],
-        });
-        const block = response.content.find(b => b.type === "text");
-        if (block && block.type === "text") return block.text;
-      } catch (e) {
-        console.warn("Anthropic falhou na extração, tentando fallback...", e);
-      }
-    } else if (prov === "maritaca") {
-      try {
-        const maritaca = new OpenAI({
-          apiKey: key,
-          baseURL: "https://chat.maritaca.ai/api"
-        });
-        const response = await maritaca.chat.completions.create({
-          model: "sabiazinho-4",
-          messages: [{
-            role: "user",
-            content: [
-              { type: "file", file: { filename: "redacao.jpg", file_data: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } },
-              { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija erros de português, de concordância, ortografia ou pontuação. Transcreva exatamente o que está escrito na imagem. Ignore a numeração das linhas. Retorne apenas o texto." }
-            ]
-          }]
-        });
-        return response.choices[0].message.content || "";
-      } catch (e) {
-        console.error("[Maritaca OCR] Falhou:", e?.message || e);
-        throw new Error(`Maritaca OCR falhou: ${e?.message || 'Erro desconhecido'}`);
-      }
+  if (!key) {
+    throw new Error("AI_KEY_REQUIRED: Conecte sua chave de IA para utilizar o recurso de OCR/extração de imagem.");
+  }
+
+  const model = userConfig?.model || AIProviders[prov]?.defaultModel || null;
+
+  if (prov === "gemini") {
+    return transcribeWithGemini(imageBase64, mediaType, key, model);
+  }
+
+  if (prov === "openai") {
+    try {
+      const openai = new OpenAI({ apiKey: key });
+      const response = await openai.chat.completions.create({
+        model,
+        messages: [{
+          role: "user",
+          content: [
+            { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija nenhum erro de português, grafia, concordância ou pontuação. Transcreva exatamente como o aluno escreveu, preservando erros para permitir a avaliação posterior. IMPORTANTE: Ignore a numeração das linhas (1, 2, 3... 30) na margem esquerda da folha de redação; transcreva apenas o texto escrito pelo aluno. Retorne APENAS a transcrição textual, sem comentários periféricos." },
+            { type: "image_url", image_url: { url: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } }
+          ]
+        }]
+      });
+      return response.choices?.[0]?.message?.content || "";
+    } catch (e) {
+      console.warn("OpenAI falhou na extração:", e?.message || e);
+      throw new Error(`OpenAI falhou na transcrição da imagem: ${e?.message || e}`);
     }
   }
 
-  throw new Error("AI_KEY_REQUIRED: Conecte sua chave de IA para utilizar o recurso de OCR/extração de imagem.");
+  if (prov === "anthropic") {
+    try {
+      const anthropic = new Anthropic({ apiKey: key });
+      const response = await anthropic.messages.create({
+        model,
+        max_tokens: 3000,
+        messages: [{
+          role: "user",
+          content: [
+            { type: "image", source: { type: "base64", media_type: mediaType, data: imageBase64.replace(/\s/g, '') } },
+            { type: "text", text: "Você é um especialista em transcrição de redações manuscritas. Transcreva fielmente todo o texto desta imagem, exatamente como o aluno escreveu. ATENÇÃO: NÃO corrija nenhum erro ortográfico, gramatical, de concordância ou de pontuação. Ignore a numeração das linhas na margem esquerda. Retorne APENAS o texto transcrito." }
+          ]
+        }],
+      });
+      const block = response.content.find(b => b.type === "text");
+      if (block) return block.text;
+      throw new Error("Resposta vazia do modelo.");
+    } catch (e) {
+      console.warn("Anthropic falhou na extração:", e?.message || e);
+      throw new Error(`Anthropic falhou na transcrição da imagem: ${e?.message || e}`);
+    }
+  }
+
+  if (prov === "maritaca") {
+    try {
+      const maritaca = new OpenAI({
+        apiKey: key,
+        baseURL: "https://chat.maritaca.ai/api"
+      });
+      const response = await maritaca.chat.completions.create({
+        model: model || "sabiazinho-4",
+        messages: [{
+          role: "user",
+          content: [
+            { type: "file", file: { filename: "redacao.jpg", file_data: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` } },
+            { type: "text", text: "Transcreva fielmente todo o texto desta redação manuscrita. IMPORTANTE: Não corrija erros de português, de concordância, ortografia ou pontuação. Transcreva exatamente o que está escrito na imagem. Ignore a numeração das linhas. Retorne apenas o texto." }
+          ]
+        }]
+      });
+      return response.choices[0].message.content || "";
+    } catch (e) {
+      console.error("[Maritaca OCR] Falhou:", e?.message || e);
+      throw new Error(`Maritaca falhou na transcrição da imagem: ${e?.message || 'Erro desconhecido'}`);
+    }
+  }
+
+  throw new Error(
+    `O provedor "${prov || 'desconhecido'}" não suporta a transcrição de imagens. Conecte uma chave Gemini, OpenAI, Anthropic ou Maritaca nas configurações de IA.`
+  );
 }
 
 async function handleMaritaca(maritaca, text, imageBase64, mediaType = "image/jpeg", prompt) {

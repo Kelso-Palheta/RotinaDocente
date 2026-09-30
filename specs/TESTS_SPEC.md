@@ -75,6 +75,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **IT-07 (RN-39):** Testar endpoint `POST /api/adaptacoes/imagem` gerando imagem via BYOK (Gemini e OpenAI) e tratando erros e ausência de chave.
 - [x] **IT-08 (RN-41):** Testar fluxo completo de importação de arquivo de alunos e salvamento em lote no `AlunoAdaptadoRepository`.
 - [x] **IT-09 (RN-47):** Testar transcrição de imagem de redação manuscrita via visão de IA (`extractTextFromImageVision` → `POST /api/extrair` com headers BYOK `x-user-ai-*`), recusa sem chave (`AI_KEY_REQUIRED`), texto vazio, propagação de erro da rota e PDF escaneado (páginas renderizadas e transcritas individualmente com limite de 10 páginas) contra PDF com camada de texto digital.
+- [x] **IT-10 (RN-47):** Testar que `extractTextOnly` usa o **modelo configurado pelo professor** (Gemini, OpenAI, Anthropic), que modelo Gemini aposentado dispara a **cascata nativa de fallback** até um modelo disponível da chave (com a imagem no payload), que o **erro real do provedor é propagado** (nunca `AI_KEY_REQUIRED` com chave presente) e que provedor sem suporte a visão recebe mensagem clara.
 
 
 

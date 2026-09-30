@@ -178,7 +178,7 @@ export function prioritizeGeminiModels(available = []) {
 /**
  * Executa chamada nativa à API do Google Gemini com fallback resiliente para 503, 429 e 404
  */
-async function executeGeminiNativeCall({
+export async function executeGeminiNativeCall({
   apiKey,
   initialModel,
   geminiContents,
