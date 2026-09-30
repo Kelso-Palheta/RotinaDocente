@@ -251,3 +251,18 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - A ponte é de **leitura única** no momento do carregar: não existe sincronização automática ou bidirecional entre Diário e Banco PEI; alterações posteriores em uma fonte não propagam para a outra.
     - Entradas do doc de turmas sem `nome` válido são ignoradas pelo seletor (nunca propagando erro bruto ao usuário); falha de leitura do Firestore exibe mensagem com "Tentar novamente" sob ação do usuário, sem loop automático.
     - Dados sensíveis (LGPD/LBI): `nivelSuporte`, `hiperfoco` e `observacoes` seguem as mesmas restrições da RN-43 — exibidos apenas nas telas do professor autenticado (Diário e Adaptações), nunca enviados ao Portal do Aluno nem a logs de cliente; encaminhados a modelo de IA somente dentro da geração adaptada iniciada explicitamente pelo professor (chave BYOK dele).
+
+---
+
+## 12. Regras de Robustez da Resposta de Geração Adaptada (Tolerância a Tipos Inválidos da IA)
+17. **RN-48 (Normalização da Resposta de Geração Adaptada — defesa em profundidade):**
+    - A rota `POST /api/adaptacoes/gerar` **nunca** retorna a resposta bruta da IA: tanto o sucesso quanto o fallback de parse passam pela função pura `normalizarRespostaGeracao` (domínio) antes do `NextResponse.json`.
+    - `normalizarRespostaGeracao` coerça tipos estruturais sem descartar informações desconhecidas (spread do objeto original preservado):
+      - `atividadeAdaptada`, `guiaMediacao` e `aluno`: objeto puro (`null`/array/primitivo → `{}`).
+      - `atividadeAdaptada.questoes`: array de objetos (`Array` → filtrada; objeto único/mapeado → `Object.values`; `null`/outro → `[]`); cada questão ganha `alternativas` como array de textos (string única → `[string]`; contéudo não textual → serializado) e campos textuais (`enunciado`, `tipo`, `apoioVisualDescricao`, `apoioVisualPromptIngles`, `dicaScaffolding`) convertidos por `textoSeguro`.
+      - `diretrizesHarmonizadas` e `guiaMediacao.passoAPassoProfessor`: arrays (string não vazia → `[string]`; `null` → `[]`); `aluno.necessidades`: array de strings.
+      - Campos textuais renderizados pela UI (`titulo`, `disciplina`, `anoEscolar`, `instrucoesAluno`, `objetivoPedagogicoInalterado`, `tempoEstimado`, `antecipacaoComportamental`, `criteriosAvaliacaoFlexibilizada`): apenas primitivos são aceitos como-is; objetos/arrays aninhados são serializados via `textoSeguro` (o React **não** renderiza objetos como filhos e derrubaria a página).
+    - O `VisualizadorAtividadeAdaptada` normaliza a resposta **na entrada** (mesma função pura, antes do destructure) para que também dados legados carregados do banco não derrubem a renderização: nenhuma combinação de `null`/tipo errado na resposta pode lançar exceção de cliente (tela preta de erro global do Next).
+    - Ausência de campo continua valendo default da UI (`titulo` → "Atividade Adaptada", listas vazias etc.); a normalização nunca propaga erro bruto da IA ao usuário nem altera a forma feliz canônica.
+    - Mantém-se o fallback estruturado atual (status 200 com atividade mínima) quando o parse do JSON da IA falha.
+    - **Imports e símbolos de render:** todo símbolo usado na renderização (ícones, componentes) deve estar importado no arquivo — um `ReferenceError` de render (caso real: `<BookOpen>` usado no visualizador sem import desde `32fa329`) é da mesma classe de defeito (tela preta global do Next logo após a geração) e é coberto pelo caso feliz da UT-40; a auditoria de símbolos usados × importados em `src/` não pode reintroduzir esse padrão.

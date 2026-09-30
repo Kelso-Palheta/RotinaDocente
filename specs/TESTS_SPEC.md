@@ -63,6 +63,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-38 (RN-46):** Validar `atualizarAlunoDiario` no merge: valores válidos persistem; `nivelSuporte` inválido e textos vazios **removem** o campo do aluno; `nome`, `dataNascimento` e `necessidades` são preservados quando não citados no update.
 - [x] **UT-39 (RN-46):** Validar a ponte: `paraPerfilInclusivo` (aluno completo → 5 campos; aluno legado sem campos → nível 1 e textos vazios; necessidades inválidas descartadas via `sanitizarNecessidades`) e `listarAlunosParaSeletor` (ignora entradas sem `nome`, preserva turma/aluno válidos).
 
+### Módulo: Robustez da Resposta de Geração Adaptada (`tests/unit/visualizador_resposta_robusta.test.js`)
+- [x] **UT-40 (RN-48):** Validar que o `VisualizadorAtividadeAdaptada` renderiza via `renderToString` **sem lançar exceção** com: (a) `guiaMediacao`, `atividadeAdaptada`, `aluno` e `diretrizesHarmonizadas` todos `null`; (b) `atividadeAdaptada.questoes` como objeto mapeado `{1: {...}}` (não-array); (c) `diretrizesHarmonizadas` como string simples; (d) `enunciado` de questão como objeto aninhado (React não renderiza objetos); além de manter a forma feliz canônica intacta (título e contagem de questões renderizados).
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
@@ -76,6 +79,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **IT-08 (RN-41):** Testar fluxo completo de importação de arquivo de alunos e salvamento em lote no `AlunoAdaptadoRepository`.
 - [x] **IT-09 (RN-47):** Testar transcrição de imagem de redação manuscrita via visão de IA (`extractTextFromImageVision` → `POST /api/extrair` com headers BYOK `x-user-ai-*`), recusa sem chave (`AI_KEY_REQUIRED`), texto vazio, propagação de erro da rota e PDF escaneado (páginas renderizadas e transcritas individualmente com limite de 10 páginas) contra PDF com camada de texto digital.
 - [x] **IT-10 (RN-47):** Testar que `extractTextOnly` usa o **modelo configurado pelo professor** (Gemini, OpenAI, Anthropic), que modelo Gemini aposentado dispara a **cascata nativa de fallback** até um modelo disponível da chave (com a imagem no payload), que o **erro real do provedor é propagado** (nunca `AI_KEY_REQUIRED` com chave presente) e que provedor sem suporte a visão recebe mensagem clara.
+- [x] **IT-11 (RN-48):** Testar que `POST /api/adaptacoes/gerar` **normaliza a resposta bruta da IA** (nulls em `guiaMediacao`/`atividadeAdaptada`/`aluno`/`diretrizesHarmonizadas`, `questoes` como objeto mapeado, `alternativas` como string) retornando status 200 com tipos coerentes (objetos e arrays nos lugares certos), e que a forma feliz canônica passa sem corrupção.
 
 
 

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { callAI, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 import { AdaptacaoPromptBuilder } from '@/dominio/adaptacoes/AdaptacaoPromptBuilder';
 import { extrairJsonIA } from '@/utils/extrairJsonIA';
+import { normalizarRespostaGeracao } from '@/dominio/adaptacoes/RespostaGeracaoAdaptada';
 
 export async function POST(request) {
   try {
@@ -99,7 +100,7 @@ export async function POST(request) {
     } catch (parseErr) {
       console.warn('[/api/adaptacoes/gerar] Falha ao fazer parse do JSON retornado pela IA:', parseErr);
       return NextResponse.json(
-        {
+        normalizarRespostaGeracao({
           sucesso: true,
           titulo: `Atividade Adaptada: ${disciplina}`,
           disciplina,
@@ -123,12 +124,12 @@ export async function POST(request) {
             antecipacaoComportamental: 'Ofereça pausas se necessário.',
             criteriosAvaliacaoFlexibilizada: 'Aceitar respostas orais ou parciais.',
           },
-        },
+        }),
         { status: 200 }
       );
     }
 
-    return NextResponse.json(parsedResult, { status: 200 });
+    return NextResponse.json(normalizarRespostaGeracao(parsedResult), { status: 200 });
   } catch (error) {
     console.error('[/api/adaptacoes/gerar] Erro interno:', error);
     return NextResponse.json(

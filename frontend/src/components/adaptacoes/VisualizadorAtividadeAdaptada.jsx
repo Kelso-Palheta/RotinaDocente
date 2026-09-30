@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import {
+  BookOpen,
   Printer,
   Copy,
   Check,
@@ -26,6 +27,7 @@ import {
   Download,
 } from "lucide-react";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
+import { normalizarRespostaGeracao } from "@/dominio/adaptacoes/RespostaGeracaoAdaptada";
 import { useAIConfig } from "@/hooks/useAIConfig";
 
 export function VisualizadorAtividadeAdaptada({
@@ -67,7 +69,7 @@ export function VisualizadorAtividadeAdaptada({
     diretrizesHarmonizadas = [],
     atividadeAdaptada = {},
     guiaMediacao = {},
-  } = resultado;
+  } = normalizarRespostaGeracao(resultado);
 
   const toggleDica = (index) => {
     setDicasAbertas((prev) => ({ ...prev, [index]: !prev[index] }));
