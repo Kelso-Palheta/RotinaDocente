@@ -58,6 +58,11 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-35 (RN-45):** Validar `resolverLoginsAlunos`: turma sem colisão mantém 1º nome; homônimos na mesma turma (mesmo 1º nome + mesmo DDMM) recebem **todos** o formato de 2 nomes; 1º nome igual com DDMM diferente não colide; aluno sem `dataNascimento` recebe `login` vazio; a ordem dos alunos de entrada é preservada na saída.
 - [x] **UT-36 (RN-45):** Validar `resolverLoginUnico` (unicidade global com I/O injetado): doc candidato inexistente ou com `nome` equivalente mantém o login; doc existente com `nome` divergente escala de 1 para 2 nomes; colisão também na chave de 2 nomes retorna `conflito` sem login; e `selecionarLoginExibido` priorizando (1) candidato igual ao canônico, (2) candidato com sufixo igual ao DDMM do aluno, (3) candidato com 4 dígitos finais, (4) primeiro candidato.
 
+### Módulo: Perfil Inclusivo no Diário (`tests/unit/aluno_diario_perfil.test.js`)
+- [x] **UT-37 (RN-46):** Validar `criarAlunoDiario` com os campos novos: `nivelSuporte` 1/2/3 persistidos; `nivelSuporte` 4, `'abc'` ou `null` omitidos; `hiperfoco`/`observacoes` trimados e omitidos quando vazios ou só espaços; campos legados (`nome`, `dataNascimento`, `necessidades`) inalterados.
+- [x] **UT-38 (RN-46):** Validar `atualizarAlunoDiario` no merge: valores válidos persistem; `nivelSuporte` inválido e textos vazios **removem** o campo do aluno; `nome`, `dataNascimento` e `necessidades` são preservados quando não citados no update.
+- [x] **UT-39 (RN-46):** Validar a ponte: `paraPerfilInclusivo` (aluno completo → 5 campos; aluno legado sem campos → nível 1 e textos vazios; necessidades inválidas descartadas via `sanitizarNecessidades`) e `listarAlunosParaSeletor` (ignora entradas sem `nome`, preserva turma/aluno válidos).
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)

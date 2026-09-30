@@ -5,6 +5,7 @@ import { TabelaNotas } from '@/components/diario/TabelaNotas';
 import { ImportModal } from '@/components/diario/ImportModal';
 import { MapaAnual } from '@/components/diario/MapaAnual';
 import { SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
+import { CamposPerfilInclusivo } from '@/components/diario/CamposPerfilInclusivo';
 import { calcTotal, fmt, round2, somaMaxAtv, temNota, statusColor } from '@/utils/diario/calculos';
 import { generateCadernetaPDF, exportCadernetaCSV } from '@/lib/diario/caderneta-export';
 import { Download, FileSpreadsheet, Plus, Upload, Trash2, Calendar } from 'lucide-react';
@@ -45,6 +46,9 @@ export const TurmaView = ({
   const [manualNome, setManualNome] = useState('');
   const [manualData, setManualData] = useState('');
   const [manualNec, setManualNec] = useState([]);
+  const [manualNivel, setManualNivel] = useState(1);
+  const [manualHiperfoco, setManualHiperfoco] = useState('');
+  const [manualObservacoes, setManualObservacoes] = useState('');
 
   const stats = statsByBimestre(turma, bimestre);
 
@@ -178,6 +182,15 @@ export const TurmaView = ({
                     onToggle={(id) => setManualNec((prev) => alternarNecessidade(prev, id))}
                     idPrefix="manual-nec"
                   />
+                  <CamposPerfilInclusivo
+                    nivelSuporte={manualNivel}
+                    onChangeNivel={setManualNivel}
+                    hiperfoco={manualHiperfoco}
+                    onChangeHiperfoco={setManualHiperfoco}
+                    observacoes={manualObservacoes}
+                    onChangeObservacoes={setManualObservacoes}
+                    idPrefix="manual-perfil"
+                  />
                 </div>
                 <div className="flex gap-2 justify-end mt-2">
                   <button
@@ -186,6 +199,9 @@ export const TurmaView = ({
                       setManualNome('');
                       setManualData('');
                       setManualNec([]);
+                      setManualNivel(1);
+                      setManualHiperfoco('');
+                      setManualObservacoes('');
                     }}
                     className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-700 text-xs font-medium transition-all"
                   >
@@ -198,11 +214,17 @@ export const TurmaView = ({
                       onAddAlunoManual(turma.id, {
                         nome: manualNome.trim(),
                         ...(birth.length === 4 ? { dataNascimento: birth } : {}),
-                        ...(manualNec.length > 0 ? { necessidades: manualNec } : {})
+                        ...(manualNec.length > 0 ? { necessidades: manualNec } : {}),
+                        nivelSuporte: manualNivel,
+                        ...(manualHiperfoco.trim() ? { hiperfoco: manualHiperfoco.trim() } : {}),
+                        ...(manualObservacoes.trim() ? { observacoes: manualObservacoes.trim() } : {})
                       });
                       setManualNome('');
                       setManualData('');
                       setManualNec([]);
+                      setManualNivel(1);
+                      setManualHiperfoco('');
+                      setManualObservacoes('');
                       setShowAddManual(false);
                     }}
                     disabled={!manualNome.trim()}

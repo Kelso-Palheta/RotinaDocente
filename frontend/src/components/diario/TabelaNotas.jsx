@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { NumCell } from '@/components/diario/NumCell';
 import { BadgeNecessidades, SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
+import { CamposPerfilInclusivo } from '@/components/diario/CamposPerfilInclusivo';
 import { calcTotal, fmt, statusColor, somaMaxAtv, round2, temNota, titleCase } from '@/utils/diario/calculos';
 import { gerarLoginAluno, selecionarLoginExibido } from '@/utils/diario/loginAluno';
 import { db } from '@/lib/firebase';
@@ -115,6 +116,9 @@ export const TabelaNotas = ({
   const [editingBirthday, setEditingBirthday] = useState(null);
   const [editingNeeds, setEditingNeeds] = useState(null);
   const [needsDraft, setNeedsDraft] = useState([]);
+  const [nivelDraft, setNivelDraft] = useState(1);
+  const [hiperfocoDraft, setHiperfocoDraft] = useState('');
+  const [observacoesDraft, setObservacoesDraft] = useState('');
   const [loginsArmazenados, setLoginsArmazenados] = useState({});
 
   // RN-45 — exibidor canônico: busca os logins ARMAZENADOS no Firestore por nome,
@@ -378,9 +382,15 @@ export const TabelaNotas = ({
                     )}
                     <button onClick={() => handleClearSingleSimulado(al.id, al.nome)} className="text-slate-400 hover:text-amber-500 transition-colors p-1" title="Limpar nota do simulado">🧪</button>
                     <button
-                      onClick={() => { setEditingNeeds(al.id); setNeedsDraft(Array.isArray(al.necessidades) ? [...al.necessidades] : []); }}
+                      onClick={() => {
+                        setEditingNeeds(al.id);
+                        setNeedsDraft(Array.isArray(al.necessidades) ? [...al.necessidades] : []);
+                        setNivelDraft(Number.isInteger(al.nivelSuporte) && [1, 2, 3].includes(al.nivelSuporte) ? al.nivelSuporte : 1);
+                        setHiperfocoDraft(typeof al.hiperfoco === 'string' ? al.hiperfoco : '');
+                        setObservacoesDraft(typeof al.observacoes === 'string' ? al.observacoes : '');
+                      }}
                       className={`transition-colors p-1 ${al.necessidades?.length ? 'text-[#d40840] hover:text-[#f60c49]' : 'text-slate-400 hover:text-[#f60c49]'}`}
-                      title="Necessidades / PCD do aluno"
+                      title="Perfil inclusivo do aluno (necessidades, nível de suporte, âncora)"
                     >🏷</button>
                     <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-red-500 transition-colors p-1" title="Excluir aluno">🗑</button>
                   </td>
@@ -403,24 +413,40 @@ export const TabelaNotas = ({
             onClick={() => setEditingNeeds(null)}
             role="dialog"
             aria-modal="true"
-            aria-label="Editar necessidades do aluno"
+            aria-label="Editar perfil inclusivo do aluno"
           >
             <div
               className="bg-white rounded-2xl border border-[#dce0f0] shadow-xl p-5 w-full max-w-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <h3 className="text-sm font-extrabold text-[#101942] mb-1">
-                Necessidades / PCD — {alunoEdit ? titleCase(alunoEdit.nome) : ''}
+                Perfil Inclusivo — {alunoEdit ? titleCase(alunoEdit.nome) : ''}
               </h3>
               <p className="text-[11px] text-[#6070a0] mb-4 leading-relaxed">
-                Selecione as categorias oficiais DUA (RN-43). Dados sensíveis conforme LGPD:
-                visíveis apenas para o professor, nunca enviados ao Portal do Aluno ou a modelos de IA.
+                Necessidades DUA, nível de suporte, âncora de engajamento e observações (RN-43/RN-46).
+                Dados sensíveis conforme LGPD: visíveis apenas para o professor, nunca enviados ao Portal do Aluno.
               </p>
-              <SeletorNecessidadesDiario
-                selecionadas={needsDraft}
-                onToggle={(id) => setNeedsDraft((prev) => alternarNecessidade(prev, id))}
-                idPrefix="edit-nec"
-              />
+              <div className="space-y-4">
+                <div>
+                  <span className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                    Necessidades / PCD
+                  </span>
+                  <SeletorNecessidadesDiario
+                    selecionadas={needsDraft}
+                    onToggle={(id) => setNeedsDraft((prev) => alternarNecessidade(prev, id))}
+                    idPrefix="edit-nec"
+                  />
+                </div>
+                <CamposPerfilInclusivo
+                  nivelSuporte={nivelDraft}
+                  onChangeNivel={setNivelDraft}
+                  hiperfoco={hiperfocoDraft}
+                  onChangeHiperfoco={setHiperfocoDraft}
+                  observacoes={observacoesDraft}
+                  onChangeObservacoes={setObservacoesDraft}
+                  idPrefix="edit-perfil"
+                />
+              </div>
               <div className="flex justify-end gap-2 mt-5">
                 <button
                   onClick={() => setEditingNeeds(null)}
@@ -430,7 +456,12 @@ export const TabelaNotas = ({
                 </button>
                 <button
                   onClick={() => {
-                    if (onUpdateAluno) onUpdateAluno(turma.id, editingNeeds, { necessidades: needsDraft });
+                    if (onUpdateAluno) onUpdateAluno(turma.id, editingNeeds, {
+                      necessidades: needsDraft,
+                      nivelSuporte: nivelDraft,
+                      hiperfoco: hiperfocoDraft,
+                      observacoes: observacoesDraft,
+                    });
                     setEditingNeeds(null);
                   }}
                   className="px-4 py-2 btn-brand-primary rounded-xl text-white text-xs font-bold transition-all"

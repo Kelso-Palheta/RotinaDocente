@@ -141,7 +141,10 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
       id: `al_${genId()}`,
       nome: cleanNome(dados.nome),
       dataNascimento: dados.dataNascimento,
-      necessidades: dados.necessidades
+      necessidades: dados.necessidades,
+      nivelSuporte: dados.nivelSuporte,
+      hiperfoco: dados.hiperfoco,
+      observacoes: dados.observacoes
     });
     setTurmas((prev) =>
       prev.map((t) => {

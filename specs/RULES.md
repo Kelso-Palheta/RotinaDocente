@@ -233,3 +233,14 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 
 
 
+
+---
+
+## 11. Regras do Perfil Inclusivo do Aluno (Diário ↔ Adaptações)
+16. **RN-46 (Perfil Inclusivo no Cadastro do Diário e Ponte para Atividades Adaptadas):**
+    - O aluno do Diário pode armazenar os campos opcionais `nivelSuporte` (apenas 1, 2 ou 3), `hiperfoco` e `observacoes`, gravados junto do próprio aluno dentro da turma (`professores/{userId}/turmas/data`), com normalização idêntica na criação (`criarAlunoDiario`) e na atualização (`atualizarAlunoDiario`): nível fora de 1–3 ou texto vazio/apenas espaços resulta em **omissão do campo** — dados legados continuam válidos e as leituras usam default nível 1 e textos vazios (nenhuma migração de dados).
+    - O professor define os 3 campos no cadastro manual do aluno e pode editá-los a qualquer momento pela tabela de notas, junto ao editor existente de necessidades (mesmo padrão da RN-43).
+    - O form de Atividades Adaptadas oferece o botão **"Carregar do Diário"** no card de Perfil Inclusivo: lista as turmas do professor autenticado (mesma fonte do Diário) e, ao selecionar um aluno, preenche identificação, necessidades (sanitizadas), nível de suporte, hiperfoco e observações através da função pura `paraPerfilInclusivo`, exibindo o vínculo ativo ("Diário: {nome}") com a ação Desvincular, que restaura o estado vazio default do form.
+    - A ponte é de **leitura única** no momento do carregar: não existe sincronização automática ou bidirecional entre Diário e Banco PEI; alterações posteriores em uma fonte não propagam para a outra.
+    - Entradas do doc de turmas sem `nome` válido são ignoradas pelo seletor (nunca propagando erro bruto ao usuário); falha de leitura do Firestore exibe mensagem com "Tentar novamente" sob ação do usuário, sem loop automático.
+    - Dados sensíveis (LGPD/LBI): `nivelSuporte`, `hiperfoco` e `observacoes` seguem as mesmas restrições da RN-43 — exibidos apenas nas telas do professor autenticado (Diário e Adaptações), nunca enviados ao Portal do Aluno nem a logs de cliente; encaminhados a modelo de IA somente dentro da geração adaptada iniciada explicitamente pelo professor (chave BYOK dele).

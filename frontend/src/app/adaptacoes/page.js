@@ -18,6 +18,8 @@ import { PainelBancoQuestoes } from "@/components/adaptacoes/PainelBancoQuestoes
 import { PainelMontadorProvas } from "@/components/adaptacoes/PainelMontadorProvas";
 import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
 import { extractTextFromDocument } from "@/utils/atividades/documentExtractor";
+import { doc, getDoc } from "firebase/firestore";
+import { paraPerfilInclusivo, listarAlunosParaSeletor } from "@/dominio/diario/AlunoDiario";
 import {
   Sparkles,
   ArrowLeft,
@@ -108,6 +110,12 @@ export default function AdaptacoesPage() {
 
   // Perfil do estudante selecionado ou avulso
   const [estudantePEI, setEstudantePEI] = useState(null);
+  const [estudanteDiario, setEstudanteDiario] = useState(null);
+  const [modalDiarioAberto, setModalDiarioAberto] = useState(false);
+  const [turmasDiario, setTurmasDiario] = useState(null);
+  const [turmaDiarioId, setTurmaDiarioId] = useState("");
+  const [carregandoDiario, setCarregandoDiario] = useState(false);
+  const [erroDiario, setErroDiario] = useState("");
   const [nomeAluno, setNomeAluno] = useState("");
   const [necessidades, setNecessidades] = useState([]);
   const [nivelSuporte, setNivelSuporte] = useState(1);
@@ -178,7 +186,7 @@ export default function AdaptacoesPage() {
         ...resultadoAtiv,
         necessidades: resultadoAtiv.aluno?.necessidades || necessidades,
         alunoNome: resultadoAtiv.aluno?.nome || nomeAluno || estudantePEI?.nome || "Estudante",
-        alunoId: estudantePEI?.id || "",
+        alunoId: estudantePEI?.id || estudanteDiario?.id || "",
         disciplina: resultadoAtiv.disciplina || disciplina,
         anoEscolar: resultadoAtiv.anoEscolar || anoEscolar,
         quantidadeQuestoes: Array.isArray(resultadoAtiv.atividadeAdaptada?.questoes)
@@ -383,6 +391,7 @@ export default function AdaptacoesPage() {
   // Quando o professor escolhe um aluno do banco PEI
   const handleSelectAlunoPEI = (aluno) => {
     setEstudantePEI(aluno);
+    setEstudanteDiario(null);
     setNomeAluno(aluno.nome || "");
     setNecessidades(aluno.necessidades || []);
     setNivelSuporte(aluno.nivelSuporte || 1);
@@ -392,11 +401,57 @@ export default function AdaptacoesPage() {
 
   const handleLimparAlunoPEI = () => {
     setEstudantePEI(null);
+    setEstudanteDiario(null);
     setNomeAluno("");
     setNecessidades([]);
     setNivelSuporte(1);
     setHiperfoco("");
     setObservacoes("");
+  };
+
+  // Ponte "Carregar do Diário" (RN-46): leitura única do doc de turmas
+  const carregarTurmasDiario = async () => {
+    if (!user?.uid) {
+      setErroDiario("Faça login para carregar as turmas do Diário.");
+      return;
+    }
+    setCarregandoDiario(true);
+    setErroDiario("");
+    try {
+      const snap = await getDoc(doc(db, "professores", user.uid, "turmas", "data"));
+      const turmas = snap.exists() && Array.isArray(snap.data()?.turmas) ? snap.data().turmas : [];
+      setTurmasDiario(turmas);
+      setTurmaDiarioId((prev) =>
+        prev && turmas.some((t) => t.id === prev) ? prev : turmas[0]?.id || ""
+      );
+    } catch {
+      setTurmasDiario(null);
+      setErroDiario("Não foi possível carregar as turmas do Diário.");
+    } finally {
+      setCarregandoDiario(false);
+    }
+  };
+
+  const handleAbrirDiario = () => {
+    setModalDiarioAberto(true);
+    if (turmasDiario === null || erroDiario) carregarTurmasDiario();
+  };
+
+  const handleSelecionarAlunoDiario = (opcao) => {
+    const perfil = paraPerfilInclusivo(opcao.aluno);
+    if (!perfil) return;
+    setEstudantePEI(null);
+    setEstudanteDiario({
+      id: opcao.aluno.id || "",
+      nome: perfil.nome,
+      turmaNome: opcao.turmaNome,
+    });
+    setNomeAluno(perfil.nome);
+    setNecessidades(perfil.necessidades);
+    setNivelSuporte(perfil.nivelSuporte);
+    setHiperfoco(perfil.hiperfoco);
+    setObservacoes(perfil.observacoes);
+    setModalDiarioAberto(false);
   };
 
   // Submissão
@@ -1142,6 +1197,19 @@ export default function AdaptacoesPage() {
                         Desvincular
                       </button>
                     </div>
+                  ) : estudanteDiario ? (
+                    <div className="flex items-center gap-2 bg-[#fff2f6] border border-[#fde4ec] px-3 py-1.5 rounded-xl">
+                      <span className="text-xs font-bold text-[#d40840]">
+                        Diário: {estudanteDiario.nome}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleLimparAlunoPEI}
+                        className="text-[11px] text-[#6070a0] hover:text-red-600 underline font-semibold ml-1"
+                      >
+                        Desvincular
+                      </button>
+                    </div>
                   ) : (
                     <div className="flex flex-wrap items-center gap-2">
                       <button
@@ -1168,6 +1236,16 @@ export default function AdaptacoesPage() {
                       >
                         <Users size={14} className="text-[#f60c49]" />
                         Carregar do Banco PEI
+                      </button>
+                      <button
+                        type="button"
+                        id="btn-carregar-diario-card2"
+                        onClick={handleAbrirDiario}
+                        className="px-3 py-1.5 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-[#f7f8fc] hover:bg-white rounded-xl text-xs font-bold text-[#101942] transition-colors flex items-center gap-1.5 shadow-2xs"
+                        title="Carregar o perfil inclusivo de um aluno já cadastrado no Diário Pedagógico (RN-46)"
+                      >
+                        <BookOpen size={14} className="text-[#f60c49]" />
+                        Carregar do Diário
                       </button>
                     </div>
                   )}
@@ -1257,6 +1335,112 @@ export default function AdaptacoesPage() {
         userId={user?.uid || "anonimo"}
         onSelectAluno={handleSelectAlunoPEI}
       />
+
+      {/* Seletor "Carregar do Diário" (RN-46) */}
+      {modalDiarioAberto && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/40 backdrop-blur-sm"
+          onClick={() => setModalDiarioAberto(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Carregar aluno do Diário Pedagógico"
+        >
+          <div
+            className="bg-white rounded-2xl border border-[#dce0f0] shadow-xl p-5 w-full max-w-lg max-h-[80vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="text-sm font-extrabold text-[#101942]">Carregar do Diário</h3>
+              <button
+                type="button"
+                onClick={() => setModalDiarioAberto(false)}
+                aria-label="Fechar seletor do Diário"
+                className="text-[#6070a0] hover:text-[#d40840] p-1 transition-colors"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <p className="text-[11px] text-[#6070a0] mb-4 leading-relaxed">
+              Selecione a turma e o aluno: necessidades, nível de suporte, âncora de engajamento e
+              observações serão preenchidos automaticamente (RN-46).
+            </p>
+
+            {carregandoDiario ? (
+              <div className="flex items-center gap-2 text-xs text-[#6070a0] py-6 justify-center">
+                <Loader2 size={14} className="animate-spin" /> Carregando turmas do Diário...
+              </div>
+            ) : erroDiario ? (
+              <div className="py-6 text-center space-y-3">
+                <p className="text-xs text-[#d40840] font-semibold">{erroDiario}</p>
+                <button
+                  type="button"
+                  onClick={carregarTurmasDiario}
+                  className="px-4 py-2 btn-brand-primary rounded-xl text-white text-xs font-bold transition-all"
+                >
+                  Tentar novamente
+                </button>
+              </div>
+            ) : !turmasDiario || turmasDiario.length === 0 ? (
+              <p className="text-xs text-[#6070a0] py-6 text-center">
+                Nenhuma turma cadastrada no Diário.
+              </p>
+            ) : (
+              <>
+                <label
+                  htmlFor="select-turma-diario"
+                  className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Turma
+                </label>
+                <select
+                  id="select-turma-diario"
+                  value={turmaDiarioId}
+                  onChange={(e) => setTurmaDiarioId(e.target.value)}
+                  className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none focus:border-[#f60c49] focus:ring-2 focus:ring-[#f60c49]/25 transition-all mb-3"
+                >
+                  {turmasDiario.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.nome || t.id}
+                    </option>
+                  ))}
+                </select>
+                {(() => {
+                  const opcoes = listarAlunosParaSeletor(turmasDiario).filter(
+                    (o) => o.turmaId === turmaDiarioId
+                  );
+                  if (opcoes.length === 0) {
+                    return (
+                      <p className="text-xs text-[#6070a0] py-4 text-center">
+                        Nenhum aluno nesta turma.
+                      </p>
+                    );
+                  }
+                  return (
+                    <ul className="overflow-y-auto space-y-1.5 pr-1">
+                      {opcoes.map((o) => (
+                        <li key={o.aluno.id || o.aluno.nome}>
+                          <button
+                            type="button"
+                            onClick={() => handleSelecionarAlunoDiario(o)}
+                            className="w-full text-left px-3 py-2 rounded-xl border border-[#dce0f0] hover:border-[#f60c49] hover:bg-[#fff2f6] transition-all text-xs font-bold text-[#101942] flex items-center justify-between gap-2"
+                          >
+                            <span>{o.aluno.nome}</span>
+                            <span className="text-[10px] font-medium text-[#6070a0]">
+                              {Array.isArray(o.aluno.necessidades) && o.aluno.necessidades.length > 0
+                                ? `${o.aluno.necessidades.length} necessidade(s)`
+                                : "perfil parcial"}
+                            </span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                })()}
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Modal Banco de Atividades Adaptadas (RN-38) */}
       <ModalBancoAtividades
