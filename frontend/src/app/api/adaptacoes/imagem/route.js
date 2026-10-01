@@ -18,7 +18,13 @@ export async function POST(request) {
 
     const body = await request.json();
     const { prompt = '', descricaoApoio = '', disciplina = 'Geral', necessidades = [] } = body;
-    const textoBase = prompt || descricaoApoio;
+
+    // Combina audiodescrição (PT-BR) e prompt detalhado (EN) em um único texto base,
+    // descartando duplicatas e valores vazios (RN-39).
+    const textoBase = [descricaoApoio, prompt]
+      .map((t) => (typeof t === 'string' ? t.trim() : ''))
+      .filter((t, i, arr) => t && arr.indexOf(t) === i)
+      .join(' — ');
 
     if (!textoBase?.trim()) {
       return NextResponse.json(

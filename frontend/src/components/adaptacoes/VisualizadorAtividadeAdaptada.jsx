@@ -27,6 +27,7 @@ import {
   Download,
 } from "lucide-react";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
+import { ImagemPedagogicaBuilder } from "@/dominio/adaptacoes/ImagemPedagogicaBuilder";
 import { normalizarRespostaGeracao } from "@/dominio/adaptacoes/RespostaGeracaoAdaptada";
 import { useAIConfig } from "@/hooks/useAIConfig";
 
@@ -48,6 +49,7 @@ export function VisualizadorAtividadeAdaptada({
 
   // Estados de geração de imagens de apoio visual (RN-39)
   const [imagensQuestoes, setImagensQuestoes] = useState({});
+  const [imagensComErro, setImagensComErro] = useState({});
   const [gerandoImagemIdx, setGerandoImagemIdx] = useState(null);
   const [gerandoTodas, setGerandoTodas] = useState(false);
   const [erroImagem, setErroImagem] = useState("");
@@ -117,6 +119,7 @@ export function VisualizadorAtividadeAdaptada({
               ...getAIHeaders(),
             },
             body: JSON.stringify({
+              prompt: q.apoioVisualPromptIngles || "",
               descricaoApoio: q.apoioVisualDescricao || q.enunciado,
               disciplina,
               necessidades: aluno.necessidades || [],
@@ -134,23 +137,36 @@ export function VisualizadorAtividadeAdaptada({
       }
 
       // 2. Fallback Automático: Pollinations.ai (Grátis, sem chave)
+      // A URL só é publicada após validar que a imagem realmente carrega.
       if (!urlGerada) {
-        const promptBase = q.apoioVisualPromptIngles || q.apoioVisualDescricao || q.enunciado || "educational illustration";
-        const promptIngles = `educational illustration, children style, safe for school, ${promptBase}`;
-        urlGerada = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptIngles)}?width=800&height=400&nologo=true`;
-        
-        // Simular um pequeno delay de rede para dar feedback visual
-        await new Promise((r) => setTimeout(r, 800));
+        const promptFallback = ImagemPedagogicaBuilder.montarPromptFallback({
+          apoioVisualPromptIngles: q.apoioVisualPromptIngles,
+          apoioVisualDescricao: q.apoioVisualDescricao,
+          enunciado: q.enunciado,
+        });
+        const urlTentativa = ImagemPedagogicaBuilder.montarUrlPollinations(promptFallback);
+        await ImagemPedagogicaBuilder.carregarImagemComTimeout(urlTentativa, {
+          timeoutMs: 30000,
+        });
+        urlGerada = urlTentativa;
       }
 
       setImagensQuestoes((prev) => ({
         ...prev,
         [idx]: urlGerada,
       }));
+      setImagensComErro((prev) => {
+        if (!prev[idx]) return prev;
+        const novo = { ...prev };
+        delete novo[idx];
+        return novo;
+      });
       q.imagemUrl = urlGerada;
     } catch (err) {
       console.error("Falha ao gerar imagem:", err);
-      setErroImagem(`Erro na questão ${q.numero || idx + 1}: Falha ao conectar ao serviço de imagens.`);
+      const motivo =
+        err && err.message ? err.message : "Falha ao conectar ao serviço de imagens.";
+      setErroImagem(`Erro na questão ${q.numero || idx + 1}: ${motivo}`);
     } finally {
       setGerandoImagemIdx(null);
     }
@@ -162,7 +178,8 @@ export function VisualizadorAtividadeAdaptada({
     for (let idx = 0; idx < questoes.length; idx++) {
       const q = questoes[idx];
       const temImagem = q.imagemUrl || imagensQuestoes[idx];
-      if (!temImagem && (q.apoioVisualDescricao || q.enunciado)) {
+      const falhou = imagensComErro[idx];
+      if ((!temImagem || falhou) && (q.apoioVisualDescricao || q.enunciado)) {
         await handleGerarImagem(idx, q);
       }
     }
@@ -491,13 +508,56 @@ export function VisualizadorAtividadeAdaptada({
                     </div>
 
                     {/* Apoio Visual & Imagem Gerada (RN-39) */}
-                    {(q.imagemUrl || imagensQuestoes[idx]) ? (
+                    {(q.imagemUrl || imagensQuestoes[idx]) && imagensComErro[idx] ? (
+                      <div className="my-4 p-3.5 bg-red-50 border border-red-200 rounded-2xl space-y-2.5 print:hidden">
+                        <div className="flex items-start gap-2.5">
+                          <AlertCircle size={18} className="text-red-600 flex-shrink-0 mt-0.5" />
+                          <div className="text-xs sm:text-sm text-red-800">
+                            <strong className="block text-[11px] uppercase tracking-wider text-red-700">
+                              Não foi possível carregar a ilustração
+                            </strong>
+                            <span>A imagem está indisponível ou o serviço de imagens falhou.</span>
+                          </div>
+                        </div>
+
+                        {q.apoioVisualDescricao && (
+                          <div className="text-[11px] text-[#6070a0] flex items-start gap-1.5 px-1">
+                            <Eye size={13} className="text-[#f60c49] flex-shrink-0 mt-0.5" />
+                            <span>
+                              <strong className="text-[#101942]">Audiodescrição:</strong> {q.apoioVisualDescricao}
+                            </span>
+                          </div>
+                        )}
+
+                        <button
+                          type="button"
+                          disabled={gerandoImagemIdx === idx}
+                          onClick={() => handleGerarImagem(idx, q)}
+                          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs"
+                        >
+                          {gerandoImagemIdx === idx ? (
+                            <>
+                              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                              <span>Tentando novamente...</span>
+                            </>
+                          ) : (
+                            <>
+                              <RefreshCw size={14} />
+                              <span>Tentar novamente</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    ) : (q.imagemUrl || imagensQuestoes[idx]) ? (
                       <div className="my-4 p-3 bg-slate-50/70 border border-[#dce0f0] rounded-2xl space-y-2.5">
                         <div className="relative group max-w-md mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
                           <img
                             src={q.imagemUrl || imagensQuestoes[idx]}
                             alt={q.apoioVisualDescricao || `Ilustração da Questão ${q.numero || idx + 1}`}
                             className="w-full max-h-72 object-contain bg-white mx-auto"
+                            onError={() =>
+                              setImagensComErro((prev) => ({ ...prev, [idx]: true }))
+                            }
                           />
                           <div className="absolute top-2 right-2 flex items-center gap-1.5 print:hidden">
                             <button

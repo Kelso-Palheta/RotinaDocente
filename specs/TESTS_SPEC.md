@@ -69,6 +69,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Robustez da Resposta de Geração Adaptada (`tests/unit/visualizador_resposta_robusta.test.js`)
 - [x] **UT-40 (RN-48):** Validar que o `VisualizadorAtividadeAdaptada` renderiza via `renderToString` **sem lançar exceção** com: (a) `guiaMediacao`, `atividadeAdaptada`, `aluno` e `diretrizesHarmonizadas` todos `null`; (b) `atividadeAdaptada.questoes` como objeto mapeado `{1: {...}}` (não-array); (c) `diretrizesHarmonizadas` como string simples; (d) `enunciado` de questão como objeto aninhado (React não renderiza objetos); além de manter a forma feliz canônica intacta (título e contagem de questões renderizados).
 
+### Módulo: Fidelidade e Robustez das Ilustrações (`tests/unit/imagens_apoio_visual.test.js`)
+- [x] **UT-42 (RN-39):** Validar (a) `construirPrompt` incorporando **disciplina** e **necessidades** com diretrizes específicas por categoria (`baixa_visao` → alto contraste extremo/contornos espessos, `tea` → sem estampas ambíguas, `tdah` → objeto central único/distratores eliminados, `di` → cena concreta/poucos elementos) mantendo as diretrizes base DUA; (b) `montarPromptFallback` priorizando `apoioVisualPromptIngles` → `apoioVisualDescricao` → `enunciado` com prefixo educacional em inglês; (c) `montarUrlPollinations` codificando o prompt na URL com dimensões padrão; (d) `carregarImagemComTimeout` resolvendo no load, rejeitando no erro do navegador e rejeitando por timeout com tempo configurável (injetando `criarImagem` para teste determinístico).
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
