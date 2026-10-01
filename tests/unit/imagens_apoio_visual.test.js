@@ -120,6 +120,35 @@ describe('UT-42 (RN-39): Fidelidade e robustez das ilustrações de apoio', () =
     });
   });
 
+  describe('UT-43 (RN-39): montarUrlPollinationsFlux (serviço novo com chave)', () => {
+    it('monta a URL gen.pollinations.ai com model=flux, dimensões e a chave', () => {
+      const url = builder.montarUrlPollinationsFlux('educational illustration of a tree', {
+        apiKey: 'sk-abc123',
+      });
+
+      expect(url).toContain('https://gen.pollinations.ai/image/');
+      expect(url).toContain(encodeURIComponent('educational illustration of a tree'));
+      expect(url).toContain('model=flux');
+      expect(url).toContain('key=sk-abc123');
+      expect(url).toContain('width=800');
+      expect(url).toContain('height=400');
+      expect(url).toContain('nologo=true');
+    });
+
+    it('codifica a chave na URL', () => {
+      const url = builder.montarUrlPollinationsFlux('x', { apiKey: 'sk a+b' });
+
+      expect(url).toContain(`key=${encodeURIComponent('sk a+b')}`);
+      expect(url).not.toContain('sk a+b');
+    });
+
+    it('retorna null sem chave ou com chave vazia (chamador usa o legado)', () => {
+      expect(builder.montarUrlPollinationsFlux('x', {})).toBeNull();
+      expect(builder.montarUrlPollinationsFlux('x', { apiKey: '   ' })).toBeNull();
+      expect(builder.montarUrlPollinationsFlux('x')).toBeNull();
+    });
+  });
+
   describe('carregarImagemComTimeout', () => {
     it('resolve quando a imagem carrega com sucesso', async () => {
       const fakeImagem = {};

@@ -71,6 +71,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 
 ### Módulo: Fidelidade e Robustez das Ilustrações (`tests/unit/imagens_apoio_visual.test.js`)
 - [x] **UT-42 (RN-39):** Validar (a) `construirPrompt` incorporando **disciplina** e **necessidades** com diretrizes específicas por categoria (`baixa_visao` → alto contraste extremo/contornos espessos, `tea` → sem estampas ambíguas, `tdah` → objeto central único/distratores eliminados, `di` → cena concreta/poucos elementos) mantendo as diretrizes base DUA; (b) `montarPromptFallback` priorizando `apoioVisualPromptIngles` → `apoioVisualDescricao` → `enunciado` com prefixo educacional em inglês; (c) `montarUrlPollinations` codificando o prompt na URL com dimensões padrão; (d) `carregarImagemComTimeout` resolvendo no load, rejeitando no erro do navegador e rejeitando por timeout com tempo configurável (injetando `criarImagem` para teste determinístico).
+- [x] **UT-43 (RN-39):** Validar `montarUrlPollinationsFlux`: monta a URL `gen.pollinations.ai/image` com `model=flux`, dimensões e a chave codificada quando `apiKey` é informada; retorna `null` quando a chave está ausente ou só contém espaços (sinalizando ao chamador o uso do endpoint legado).
 
 ---
 
@@ -88,6 +89,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **IT-11 (RN-48):** Testar que `POST /api/adaptacoes/gerar` **normaliza a resposta bruta da IA** (nulls em `guiaMediacao`/`atividadeAdaptada`/`aluno`/`diretrizesHarmonizadas`, `questoes` como objeto mapeado, `alternativas` como string) retornando status 200 com tipos coerentes (objetos e arrays nos lugares certos), e que a forma feliz canônica passa sem corrupção.
 - [x] **IT-12 (RN-49):** Testar que `generateCorrection` pede 3000/6000/9000 tokens para `basic`/`analyzed`/`deep`, que o `MASTER_ENEM_PROMPT` traz o bloco JSON das notas **antes** da ETAPA 1 com instrução de iniciar por ele, que `callAI` repete uma única vez com o dobro de tokens ao detectar truncamento (`finish_reason: "length"`, `stop_reason: "max_tokens"`) sem repetir em resposta completa, que `extractScore` extrai as notas com JSON no início (fence aberto) ou truncado sem fechar o fence, e que `cleanFeedbackText` remove o JSON preservando o markdown (`###`, listas, tabelas `|`, negrito `**`).
 - [x] **IT-13 (RN-50):** Testar estaticamente que os arquivos do módulo de redação (`app/redacao/**` + `lib/redacao/renderFeedback.jsx`) não contêm classes `violet-*`/`indigo-*`, que a tela de correção e o renderizador de feedback usam os tokens de marca (`#f60c49`/`btn-brand-*`/`#101942`), mantendo neutros slate e cores semânticas permitidas.
+- [x] **IT-14 (RN-39):** Testar `POST /api/adaptacoes/imagem-fallback`: (a) com `POLLINATIONS_API_KEY` no ambiente chama `gen.pollinations.ai/image` com `model=flux` e devolve `imagemUrl` como data URL base64 a partir do binário; (b) sem chave do servidor usa o endpoint legado `image.pollinations.ai` e devolve a URL validada; (c) falha total de ambos os serviços responde `502` com mensagem de erro; (d) `prompt` ausente/vazio responde `400`.
 
 
 

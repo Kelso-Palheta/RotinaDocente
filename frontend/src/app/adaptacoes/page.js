@@ -754,6 +754,7 @@ export default function AdaptacoesPage() {
                 onAbrirBanco={() => setModalBancoAberto(true)}
                 onSalvarQuestoesNoBanco={handleSalvarQuestoesGeradasNoBanco}
                 onSalvarQuestaoIndividual={handleSalvarQuestaoIndividualDoGerador}
+                onConectarIA={() => setModalIAAberto(true)}
               />
             </div>
           ) : (

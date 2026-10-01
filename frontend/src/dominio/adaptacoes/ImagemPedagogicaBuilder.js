@@ -104,6 +104,26 @@ Diretrizes visuais obrigatórias:
   }
 
   /**
+   * Monta a URL do serviço novo do Pollinations (exige chave) com o modelo Flux.
+   * Retorna null quando não há chave — o chamador deve usar o endpoint legado.
+   * @param {string} prompt
+   * @param {Object} [opcoes]
+   * @param {string} [opcoes.apiKey]
+   * @param {number} [opcoes.width=800]
+   * @param {number} [opcoes.height=400]
+   * @returns {string|null}
+   */
+  static montarUrlPollinationsFlux(prompt, { apiKey, width = 800, height = 400 } = {}) {
+    const chave = typeof apiKey === 'string' ? apiKey.trim() : '';
+    if (!chave) return null;
+
+    const limpo = typeof prompt === 'string' ? prompt : '';
+    return `https://gen.pollinations.ai/image/${encodeURIComponent(
+      limpo
+    )}?model=flux&width=${width}&height=${height}&nologo=true&key=${encodeURIComponent(chave)}`;
+  }
+
+  /**
    * Carrega uma imagem validando o resultado antes de publicar a URL.
    * Rejeita em erro de carregamento ou timeout.
    * @param {string} url

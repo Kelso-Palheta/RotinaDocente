@@ -39,6 +39,7 @@ export function VisualizadorAtividadeAdaptada({
   salvoNoBanco = false,
   onSalvarQuestoesNoBanco = null,
   onSalvarQuestaoIndividual = null,
+  onConectarIA = null,
 }) {
   const { temChave, getAIHeaders } = useAIConfig();
   const [abaAtiva, setAbaAtiva] = useState("aluno"); // 'aluno' | 'mediacao'
@@ -136,7 +137,7 @@ export function VisualizadorAtividadeAdaptada({
         }
       }
 
-      // 2. Fallback Automático: Pollinations.ai (Grátis, sem chave)
+      // 2. Fallback gratuito via servidor (modelo Flux com chave do projeto; legado sem ela)
       // A URL só é publicada após validar que a imagem realmente carrega.
       if (!urlGerada) {
         const promptFallback = ImagemPedagogicaBuilder.montarPromptFallback({
@@ -144,11 +145,19 @@ export function VisualizadorAtividadeAdaptada({
           apoioVisualDescricao: q.apoioVisualDescricao,
           enunciado: q.enunciado,
         });
-        const urlTentativa = ImagemPedagogicaBuilder.montarUrlPollinations(promptFallback);
-        await ImagemPedagogicaBuilder.carregarImagemComTimeout(urlTentativa, {
+        const resFallback = await fetch("/api/adaptacoes/imagem-fallback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: promptFallback }),
+        });
+        const dadosFallback = await resFallback.json().catch(() => ({}));
+        if (!resFallback.ok || !dadosFallback.imagemUrl) {
+          throw new Error(dadosFallback.error || "Serviço de imagens indisponível.");
+        }
+        await ImagemPedagogicaBuilder.carregarImagemComTimeout(dadosFallback.imagemUrl, {
           timeoutMs: 30000,
         });
-        urlGerada = urlTentativa;
+        urlGerada = dadosFallback.imagemUrl;
       }
 
       setImagensQuestoes((prev) => ({
@@ -389,6 +398,27 @@ export function VisualizadorAtividadeAdaptada({
         <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2 print:hidden">
           <AlertCircle size={16} className="flex-shrink-0" />
           <span>{erroImagem}</span>
+        </div>
+      )}
+
+      {/* Convite para chave BYOK quando as imagens usam o serviço gratuito padrão (RN-39) */}
+      {!temChave && (
+        <div className="p-3 bg-indigo-50 border border-indigo-200 text-indigo-950 text-xs rounded-xl flex flex-wrap items-center gap-2.5 print:hidden">
+          <Sparkles size={16} className="text-indigo-600 flex-shrink-0" />
+          <span className="flex-1 min-w-48">
+            Ilustrações geradas com o serviço gratuito padrão. Conecte uma chave{" "}
+            <strong>gratuita do Google AI Studio (Gemini)</strong> para imagens de
+            qualidade superior.
+          </span>
+          {onConectarIA && (
+            <button
+              type="button"
+              onClick={onConectarIA}
+              className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold transition-all shadow-xs"
+            >
+              Conectar IA Grátis
+            </button>
+          )}
         </div>
       )}
 
