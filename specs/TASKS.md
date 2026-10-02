@@ -22,4 +22,15 @@
 ## 🎯 Próximas Entregas (Backlog)
 - [x] **TASK-16:** Otimização do pipeline de OCR para PDFs manuscritos escaneados em lote.
 - [x] **TASK-17:** Banco de Questões Adaptadas Individuais e Montador de Provas Ajustáveis com Vinculação PEI (RN-42).
+- [x] **TASK-18:** Sincronização Meu Horário Escolar ↔ Calendário Pedagógico (RN-51).
+- [x] **TASK-19:** Evolução Longitudinal e Diagnóstico de Competências ENEM (RN-52).
+- [x] **TASK-20:** Leitor Imersivo Acessível com TTS e Limpeza Fonética no Portal do Aluno (RN-53).
+- [x] **TASK-21:** Chamada Rápida e Controle de Infrequência Escolar - LDB Art. 24 (RN-54).
+- [x] **TASK-22:** Telemetria Local de Consumo de IA e Estimativa de Tokens (RN-55).
+
+---
+
+## 🎯 Próximas Entregas (Backlog)
+- [ ] **TASK-23:** Integração dos componentes visuais nas rotas e interfaces de usuário dos módulos respectivos.
+
 

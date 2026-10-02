@@ -285,3 +285,51 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - Ausência de campo continua valendo default da UI (`titulo` → "Atividade Adaptada", listas vazias etc.); a normalização nunca propaga erro bruto da IA ao usuário nem altera a forma feliz canônica.
     - Mantém-se o fallback estruturado atual (status 200 com atividade mínima) quando o parse do JSON da IA falha.
     - **Imports e símbolos de render:** todo símbolo usado na renderização (ícones, componentes) deve estar importado no arquivo — um `ReferenceError` de render (caso real: `<BookOpen>` usado no visualizador sem import desde `32fa329`) é da mesma classe de defeito (tela preta global do Next logo após a geração) e é coberto pelo caso feliz da UT-40; a auditoria de símbolos usados × importados em `src/` não pode reintroduzir esse padrão.
+
+---
+
+## 13. Regras de Integração de Grade e Calendário
+18. **RN-51 (Sincronização Meu Horário Escolar ↔ Calendário Pedagógico):**
+    - A função pura `converterGradeParaAulasSemanais(schedule, days, slots)` mapeia a grade do Meu Horário (`${dayId}_${slotId}`) para a estrutura de dias letivos e slots do Calendário.
+    - Slots marcados como recreio/intervalo (`isBreak: true`) são estritamente ignorados na conversão.
+    - Se uma célula contiver disciplina e turma definidas, gera um item de aula associado ao dia e horário correspondente.
+
+---
+
+## 14. Regras de Diagnóstico Contínuo de Redação ENEM
+19. **RN-52 (Evolução Longitudinal e Diagnóstico de Competências ENEM):**
+    - A função pura `calcularEvolucaoCompetencias(historicoRedacoes)` processa a lista cronológica de correções do aluno.
+    - Calcula a média ponderada/aritmética das notas em cada competência (C1 a C5).
+    - Identifica automaticamente a **Competência Alvo** (menor média entre C1..C5) para intervenção pedagógica prioritária.
+    - Detecta a tendência geral (`ascendente`, `estável` ou `descendente`) comparando as primeiras e as últimas redações.
+
+---
+
+## 15. Regras de Acessibilidade e Leitor Imersivo (TTS)
+20. **RN-53 (Leitor Imersivo com Síntese de Voz e Limpeza Fonética):**
+    - A função pura `prepararTextoParaLeitura(texto)` higieniza marcações HTML e Markdown (`###`, `**`, tabelas, links) para produzir texto foneticamente fluído para o motor de Text-to-Speech (TTS / Web Speech API).
+    - Permite taxa de fala (*rate*) restrita aos limites de conforto cognitivo: entre `0.75` e `1.25`.
+    - Suporta estados canônicos de leitura: `idle`, `playing`, `paused`.
+
+---
+
+## 16. Regras de Frequência Escolar e Alerta Legal de Evasão (LDB)
+21. **RN-54 (Cálculo de Frequência e Alerta de Infrequência - LDB Art. 24):**
+    - A taxa de presença é calculada por `calcularFrequencia(presencas, totalAulas)`: percentual arredondado em 2 casas decimais.
+    - Classificação de risco de reprovação por infrequência (LDB Art. 24 estabelece mínimo de 75% de frequência):
+      - Faltas $< 20\%$ $\rightarrow$ `regular`
+      - $20\% \le$ Faltas $< 25\%$ $\rightarrow$ `alerta` (risco iminente)
+      - Faltas $\ge 25\%$ $\rightarrow$ `critico` (reprovação legal)
+    - Função pura `marcarPresencaTodos(alunos, status)` gera lote inicial em 1 clique para chamada rápida.
+
+---
+
+## 17. Regras de Telemetria e Monitoramento de BYOK
+22. **RN-55 (Telemetria Local de Consumo de IA e Estimativa de Tokens):**
+    - O gateway registra no `localStorage` sob a chave `ia_consumo_telemetria_v1` o resumo agregado de consumo:
+      - `provedor`: `gemini`, `openai`, `anthropic`, `maritaca`, `openrouter`.
+      - `modulo`: `redacao`, `adaptacoes`, `agentes`.
+      - `totalChamadas`: contador incremental.
+      - `tokensEstimados`: soma de tokens de prompt + tokens de completude.
+    - Nenhuma chave de API ou texto confidencial é exposto no payload de telemetria; os dados são 100% locais e visíveis apenas ao professor autenticado.
+

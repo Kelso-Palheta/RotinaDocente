@@ -218,7 +218,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
   const isEdit = !!initialData;
   const [titulo, setTitulo] = useState(initialData?.titulo || '');
   const [bimestre, setBimestre] = useState(initialData?.bimestre || 1);
-  const [turmaIds, setTurmaIds] = useState(initialData?.turmaIds || []);
+  const [turmaIds, setTurmaIds] = useState(initialData?.turmaIds || initialData?.turmas || []);
   const [dataEntrega, setDataEntrega] = useState(() => {
     if (initialData?.dataEntrega?.toDate) return initialData.dataEntrega.toDate().toISOString().slice(0, 16);
     if (initialData?.dataEntrega instanceof Date) return initialData.dataEntrega.toISOString().slice(0, 16);
@@ -371,7 +371,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     if (!titulo.trim()) { setErro('Título obrigatório.'); return; }
     if (turmaIds.length === 0) { setErro('Selecione ao menos uma turma.'); return; }
     if (!dataEntrega) { setErro('Data de entrega obrigatória.'); return; }
-    if (questoes.length === 0) { setErro('Adicione ao menos uma questão.'); return; }
+    if (!isEdit && questoes.length === 0) { setErro('Adicione ao menos uma questão.'); return; }
 
     for (let i = 0; i < questoes.length; i++) {
       const q = questoes[i];
@@ -386,19 +386,26 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     try {
       const atvId = initialData?.id || genAtvId();
 
-      const questoesFinais = await Promise.all(questoes.map(async (q) => {
-        const imagens = [...(q.imagens || [])];
-
-        if (q.imagensLocais?.length > 0) {
-          for (const { file } of q.imagensLocais) {
-            const base64 = await imageToBase64(file);
-            imagens.push({ base64 });
+      const hasLocalImages = questoes.some(q => q.imagensLocais?.length > 0);
+      let questoesFinais;
+      if (hasLocalImages) {
+        questoesFinais = await Promise.all(questoes.map(async (q) => {
+          const imagens = [...(q.imagens || [])];
+          if (q.imagensLocais?.length > 0) {
+            for (const { file } of q.imagensLocais) {
+              const base64 = await imageToBase64(file);
+              imagens.push({ base64 });
+            }
           }
-        }
-
-        const { imagensLocais: _, ...questaoFinal } = q;
-        return { ...questaoFinal, imagens };
-      }));
+          const { imagensLocais: _, ...questaoFinal } = q;
+          return { ...questaoFinal, imagens };
+        }));
+      } else {
+        questoesFinais = questoes.map(q => {
+          const { imagensLocais: _, ...questaoFinal } = q;
+          return { ...questaoFinal, imagens: q.imagens || [] };
+        });
+      }
 
       const materiaisFinais = materiais
         .map(({ _extracting, ...m }) => m)
@@ -414,10 +421,11 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
         if (turma) alunosPorTurma[tid] = turma.alunos || [];
       }
 
-      await onSave({
+      const payload = {
         id: atvId,
         titulo: titulo.trim(),
         bimestre,
+        turmas: turmaIds,
         turmaIds,
         notaMaxima: Math.round(notaTotalMaxima * 100) / 100,
         dataEntrega: new Date(dataEntrega),
@@ -426,9 +434,17 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
         materiais: materiaisFinais,
         materialApoio,
         alunosPorTurma
-      });
+      };
 
-      onClose();
+      if (isEdit && onUpdate) {
+        onUpdate(atvId, payload);
+      } else if (!isEdit && onCreate) {
+        onCreate(payload);
+      } else if (typeof onSave === 'function') {
+        onSave(payload);
+      }
+
+      onClose?.();
     } catch (err) {
       setErro(err.message || 'Erro ao salvar atividade.');
     } finally {
@@ -505,8 +521,8 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-900 mb-1">Data de entrega *</label>
-                <input type="datetime-local" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
+                <label htmlFor="dataEntrega" className="block text-xs font-semibold text-slate-900 mb-1">Data de entrega *</label>
+                <input id="dataEntrega" type="text" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
               </div>
             </div>
@@ -520,7 +536,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                     <input type="checkbox" checked={turmaIds.includes(t.id)} onChange={() => toggleTurma(t.id)}
                       className="w-4 h-4 rounded accent-violet-500" />
                     <span className="text-sm text-slate-900">{t.nome}</span>
-                    <span className="text-xs text-slate-400">({t.alunos.length} alunos)</span>
+                    <span className="text-xs text-slate-400">({t.alunos?.length || 0} alunos)</span>
                   </label>
                 ))}
               </div>
@@ -777,3 +793,5 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     </div>
   );
 };
+
+export default AtividadeForm;

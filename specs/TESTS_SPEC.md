@@ -7,15 +7,15 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ## 1. Testes Unitários (`tests/unit/`)
 
 ### Módulo: Diário & Cálculos (`tests/unit/calculos.test.js`)
-- [ ] **UT-01 (RN-01):** Validar cálculo de média com pesos padrão (Simulado 5.0 + Atividades 5.0).
-- [ ] **UT-02 (RN-01):** Validar cálculo de média com pesos customizados (Simulado 3.0 + Atividades 7.0).
-- [ ] **UT-03 (RN-02):** Validar arredondamento exato com 2 casas decimais (`round2(6.6666)` $\rightarrow$ `6.67`).
-- [ ] **UT-04 (RN-03):** Validar categorização de status (`good`, `warn`, `bad`) conforme limites configurados.
-- [ ] **UT-05 (RN-04):** Validar detecção de extrapolação de soma máxima de atividades.
+- [x] **UT-01 (RN-01):** Validar cálculo de média com pesos padrão (Simulado 5.0 + Atividades 5.0).
+- [x] **UT-02 (RN-01):** Validar cálculo de média com pesos customizados (Simulado 3.0 + Atividades 7.0).
+- [x] **UT-03 (RN-02):** Validar arredondamento exato com 2 casas decimais (`round2(6.6666)` $\rightarrow$ `6.67`).
+- [x] **UT-04 (RN-03):** Validar categorização de status (`good`, `warn`, `bad`) conforme limites configurados.
+- [x] **UT-05 (RN-04):** Validar detecção de extrapolação de soma máxima de atividades.
 
-### Módulo: Redação ENEM (`tests/unit/redacao_scores.test.js`)
-- [ ] **UT-06 (RN-05):** Validar que toda pontuação de competência é múltiplo de 40 no intervalo [0, 200].
-- [ ] **UT-07 (RN-05):** Validar cálculo de nota total como somatório estrito de C1..C5 (0 a 1000).
+### Módulo: Redação ENEM (`tests/unit/enem_score.test.js`)
+- [x] **UT-06 (RN-05):** Validar que toda pontuação de competência é múltiplo de 40 no intervalo [0, 200].
+- [x] **UT-07 (RN-05):** Validar cálculo de nota total como somatório estrito de C1..C5 (0 a 1000).
 
 ### Módulo: Horário Escolar (`tests/unit/horario_escolar.test.js`)
 - [x] **UT-08 (RN-23):** Validar bloqueio de alocação de aula em slot classificado como intervalo (`isBreak: true`).
@@ -73,11 +73,27 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **UT-42 (RN-39):** Validar (a) `construirPrompt` incorporando **disciplina** e **necessidades** com diretrizes específicas por categoria (`baixa_visao` → alto contraste extremo/contornos espessos, `tea` → sem estampas ambíguas, `tdah` → objeto central único/distratores eliminados, `di` → cena concreta/poucos elementos) mantendo as diretrizes base DUA; (b) `montarPromptFallback` priorizando `apoioVisualPromptIngles` → `apoioVisualDescricao` → `enunciado` com prefixo educacional em inglês; (c) `montarUrlPollinations` codificando o prompt na URL com dimensões padrão; (d) `carregarImagemComTimeout` resolvendo no load, rejeitando no erro do navegador e rejeitando por timeout com tempo configurável (injetando `criarImagem` para teste determinístico).
 - [x] **UT-43 (RN-39):** Validar `montarUrlPollinationsFlux`: monta a URL `gen.pollinations.ai/image` com `model=flux`, dimensões e a chave codificada quando `apiKey` é informada; retorna `null` quando a chave está ausente ou só contém espaços (sinalizando ao chamador o uso do endpoint legado).
 
+### Módulo: Integração Meu Horário ↔ Calendário (`tests/unit/grade_calendario_sync.test.js`)
+- [x] **UT-25 (RN-51):** Validar conversão pura da grade `schedule` (`${dayId}_${slotId}`) para slots semanais do Calendário Pedagógico, ignorando intervalos (`isBreak: true`).
+
+### Módulo: Evolução Longitudinal de Redação ENEM (`tests/unit/redacao_evolucao.test.js`)
+- [x] **UT-26 (RN-52):** Validar cálculo de médias por competência (C1..C5), identificação da competência alvo (menor pontuação média) e detecção de tendência longitudinal.
+
+### Módulo: Leitor Imersivo Acessível TTS (`tests/unit/leitor_imersivo_tts.test.js`)
+- [x] **UT-27 (RN-53):** Validar higienização fonética de texto (remoção de markdown, HTML e caracteres especiais) e validação de taxa de fala entre 0.75 e 1.25.
+
+### Módulo: Frequência Escolar & Infrequência LDB (`tests/unit/frequencia_escolar.test.js`)
+- [x] **UT-28 (RN-54):** Validar cálculo percentual de frequência, classificação legal de risco conforme Art. 24 da LDB (`regular`, `alerta`, `critico`) e marcação em lote.
+
+### Módulo: Telemetria Local de IA & BYOK (`tests/unit/telemetria_ia.test.js`)
+- [x] **UT-29 (RN-55):** Validar registro incremental de chamadas de IA e estimativa acumulada de tokens por provedor e módulo em localStorage.
+
+
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
 - [x] **IT-01 (RN-40):** Testar extração de texto de arquivos DOCX, PDF e TXT e endpoint de upload.
-- [ ] **IT-02:** Testar serialização e deserialização do backup em JSON das turmas.
+- [x] **IT-02:** Testar serialização e deserialização do backup em JSON das turmas.
 - [x] **IT-03 (RN-24 & RN-25):** Testar sincronização de grade horária e restore via repositório.
 - [x] **IT-04 (RN-27 & RN-29):** Testar gateway unificado de IA roteando para Gemini, OpenAI, Anthropic, Maritaca e OpenRouter com headers do usuário e rejeitando ausência de chave.
 - [x] **IT-05 (RN-34):** Testar endpoint `POST /api/adaptacoes/gerar` orquestrando conteúdo, perfil multi-select e entrega de atividade adaptada + guia de mediação.
@@ -96,9 +112,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ---
 
 ## 3. Testes de Contrato / API (`tests/contract/`)
-- [ ] **CT-01:** Validar payload de chamada para o modelo `sabiazinho-4`.
+- [x] **CT-01 (RN-06 & RN-27):** Validar payload de chamada para o modelo `sabiazinho-4` na Maritaca AI via contrato HTTP estrito.
 
 ---
 
 ## 4. Testes End-to-End (`tests/e2e/`)
-- [ ] **E2E-01:** Validar carregamento da rota `/meuhorario` (com redirect a partir de `/horario`), renderização da grade, modal de edição e seletor de idioma pt-BR / es-Latam.
+- [x] **E2E-01:** Validar carregamento da rota `/meuhorario` (com redirect a partir de `/horario`), renderização da grade, modal de edição e seletor de idioma pt-BR / es-Latam.
