@@ -70,6 +70,7 @@ export function consolidarFichaAluno360({
   frequenciasTurma = null,
   historicoRedacoes = null,
   parecerManual = '',
+  incluirDiagnosticoClinico = false,
 }) {
   if (!aluno) {
     throw new Error('Aluno não informado para consolidação da ficha 360º');
@@ -208,6 +209,10 @@ export function consolidarFichaAluno360({
     };
   }
 
+  const rotuloSigiloso = incluirDiagnosticoClinico
+    ? (labelsNecessidades.length > 0 ? labelsNecessidades.join(', ') : 'Sem necessidades cadastradas')
+    : (temNecessidades ? 'Metodologias Ativas e Diretrizes de Acessibilidade Pedagógica DUA' : 'Perfil de Desenvolvimento Regular');
+
   return {
     aluno: identificacao,
     turma: {
@@ -224,6 +229,8 @@ export function consolidarFichaAluno360({
     frequencia: frequenciaConsolidada,
     inclusao: {
       temNecessidades,
+      exibirDiagnosticoClinico: Boolean(incluirDiagnosticoClinico),
+      rotuloSigiloso,
       necessidades: necessidadesAluno,
       labels: labelsNecessidades,
       recomendacoes,

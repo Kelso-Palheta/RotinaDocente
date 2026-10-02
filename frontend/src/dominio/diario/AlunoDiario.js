@@ -174,3 +174,24 @@ export function listarAlunosParaSeletor(turmas) {
   }
   return opcoes;
 }
+
+/**
+ * Filtra uma lista de alunos do Diário por presença de necessidades específicas / CID (RN-61).
+ *
+ * @param {Array<Object>} alunos
+ * @param {Object} [options]
+ * @param {boolean} [options.apenasComNecessidades=true]
+ * @returns {Array<Object>}
+ */
+export function filtrarAlunosComNecessidades(alunos, { apenasComNecessidades = true } = {}) {
+  if (!Array.isArray(alunos)) return [];
+  if (!apenasComNecessidades) return alunos;
+
+  return alunos.filter((aluno) => {
+    if (!aluno || typeof aluno !== 'object') return false;
+    const temArrayNecessidades = Array.isArray(aluno.necessidades) && aluno.necessidades.length > 0;
+    const temAnotacaoInclusiva = Boolean(aluno.hiperfoco || aluno.observacoes || aluno.nivelSuporte);
+    return temArrayNecessidades || temAnotacaoInclusiva;
+  });
+}
+

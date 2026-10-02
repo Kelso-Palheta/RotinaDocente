@@ -100,6 +100,13 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Publicação de Atividades Adaptadas Online (`tests/unit/publicador_atividade_adaptada.test.js`)
 - [x] **UT-33 (RN-59):** Validar conversão canônica de atividade adaptada DUA para atividade online com anonimização de gabarito, isolamento por aluno e filtragem de visibilidade no Portal do Aluno.
 
+### Módulo: Integração Atividades da Turma, Filtro de Necessidades e Sigilo LGPD (`tests/unit/atividades_turma_sigilo.test.js`)
+- [x] **UT-34 (RN-60):** Validar extração formatada de texto de atividades da turma (título, instruções, questões objetivas e discursivas) para injeção no gerador adaptado DUA.
+- [x] **UT-35 (RN-61):** Validar filtragem de alunos com necessidades/CID no Diário com alternância por toggle e destaque de badges.
+- [x] **UT-36 (RN-62):** Validar sigilo de dados sensíveis na consolidação 360º (ocultação de CID no relatório familiar vs exibição no dossiê técnico do conselho de classe).
+
+
+
 
 
 ---

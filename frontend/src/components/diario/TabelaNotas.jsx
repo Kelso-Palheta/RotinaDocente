@@ -122,18 +122,29 @@ export const TabelaNotas = ({
   const [observacoesDraft, setObservacoesDraft] = useState('');
   const [loginsArmazenados, setLoginsArmazenados] = useState({});
 
-  const handleExportFicha360 = async (aluno) => {
+  const [alunoFichaModal, setAlunoFichaModal] = useState(null);
+  const [incluirCIDNaExportacao, setIncluirCIDNaExportacao] = useState(false);
+  const [gerandoFichaPDF, setGerandoFichaPDF] = useState(false);
+
+  const handleConfirmarExportFicha360 = async (incluirCID) => {
+    if (!alunoFichaModal) return;
+    setGerandoFichaPDF(true);
     try {
       await generateFichaAluno360PDF({
-        aluno,
+        aluno: alunoFichaModal,
         turma,
         frequenciasTurma: turma?.frequencias,
         professorNome: user?.displayName || user?.email || 'Professor(a)',
+        incluirDiagnosticoClinico: incluirCID,
       });
+      setAlunoFichaModal(null);
     } catch (err) {
       console.error('Erro ao emitir Ficha 360 do aluno:', err);
+    } finally {
+      setGerandoFichaPDF(false);
     }
   };
+
 
   // RN-45 — exibidor canônico: busca os logins ARMAZENADOS no Firestore por nome,
   // para exibir exatamente o que a rota de login aceita (inclusive legados).
@@ -407,7 +418,10 @@ export const TabelaNotas = ({
                       title="Perfil inclusivo do aluno (necessidades, nível de suporte, âncora)"
                     >🏷</button>
                     <button
-                      onClick={() => handleExportFicha360(al)}
+                      onClick={() => {
+                        setIncluirCIDNaExportacao(false);
+                        setAlunoFichaModal(al);
+                      }}
                       className="text-slate-400 hover:text-[#101942] transition-colors p-1"
                       title="Emitir Ficha Pedagógica 360º em PDF (Reunião de Pais e Conselho de Classe)"
                     >📋</button>
@@ -492,6 +506,125 @@ export const TabelaNotas = ({
           </div>
         );
       })()}
+
+      {/* Modal de Emissão da Ficha 360º com Sigilo LGPD (RN-62) */}
+      {alunoFichaModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/50 backdrop-blur-xs"
+          onClick={() => setAlunoFichaModal(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="bg-white rounded-3xl border border-[#dce0f0] shadow-2xl p-6 w-full max-w-md space-y-4 animate-in fade-in zoom-in-95"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-2xl bg-[#fff2f6] border border-[#fde4ec] flex items-center justify-center text-[#f60c49]">
+                  📋
+                </div>
+                <div>
+                  <h3 className="text-sm font-extrabold text-[#101942]">
+                    Ficha Pedagógica 360º
+                  </h3>
+                  <p className="text-[11px] text-[#6070a0] font-medium">
+                    {alunoFichaModal.nome} • {turma.nome}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAlunoFichaModal(null)}
+                className="text-slate-400 hover:text-slate-600 p-1"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <p className="font-bold text-[#101942]">
+                Selecione o nível de privacidade do documento (RN-62):
+              </p>
+
+              <div className="space-y-2">
+                <label
+                  onClick={() => setIncluirCIDNaExportacao(false)}
+                  className={`p-3.5 rounded-2xl border cursor-pointer block transition-all ${
+                    !incluirCIDNaExportacao
+                      ? "border-[#f60c49] bg-[#fff2f6]/40 text-[#101942]"
+                      : "border-[#dce0f0] bg-white text-[#6070a0] hover:border-[#f60c49]/40"
+                  }`}
+                >
+                  <div className="flex items-start gap-2.5">
+                    <input
+                      type="radio"
+                      name="destino_ficha"
+                      checked={!incluirCIDNaExportacao}
+                      onChange={() => setIncluirCIDNaExportacao(false)}
+                      className="mt-0.5 text-[#f60c49] focus:ring-[#f60c49]"
+                    />
+                    <div>
+                      <span className="font-extrabold text-xs block text-[#101942]">
+                        👨‍👩‍👧 Para a Família / Responsáveis (Recomendado)
+                      </span>
+                      <p className="text-[11px] text-[#6070a0] mt-0.5 leading-relaxed">
+                        <strong>Sigilo LGPD:</strong> Oculta códigos de CID e nomes de diagnósticos clínicos. Apresenta o parecer, notas, frequência legal e adaptações metodológicas sem estigmas.
+                      </p>
+                    </div>
+                  </div>
+                </label>
+
+                <label
+                  onClick={() => setIncluirCIDNaExportacao(true)}
+                  className={`p-3.5 rounded-2xl border cursor-pointer block transition-all ${
+                    incluirCIDNaExportacao
+                      ? "border-[#f60c49] bg-[#fff2f6]/40 text-[#101942]"
+                      : "border-[#dce0f0] bg-white text-[#6070a0] hover:border-[#f60c49]/40"
+                  }`}
+                >
+                  <div className="flex items-start gap-2.5">
+                    <input
+                      type="radio"
+                      name="destino_ficha"
+                      checked={incluirCIDNaExportacao}
+                      onChange={() => setIncluirCIDNaExportacao(true)}
+                      className="mt-0.5 text-[#f60c49] focus:ring-[#f60c49]"
+                    />
+                    <div>
+                      <span className="font-extrabold text-xs block text-[#101942]">
+                        🏛️ Conselho de Classe / Coordenação Pedagógica
+                      </span>
+                      <p className="text-[11px] text-[#6070a0] mt-0.5 leading-relaxed">
+                        <strong>Dossiê Interno:</strong> Inclui as categorias completas de diagnóstico (ex: TEA, TDAH) e nível de suporte para análise colegiada.
+                      </p>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setAlunoFichaModal(null)}
+                className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold"
+                disabled={gerandoFichaPDF}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => handleConfirmarExportFicha360(incluirCIDNaExportacao)}
+                disabled={gerandoFichaPDF}
+                className="px-4 py-2 btn-brand-primary rounded-xl text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50"
+              >
+                {gerandoFichaPDF ? "Gerando PDF..." : "Emitir Relatório em PDF"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

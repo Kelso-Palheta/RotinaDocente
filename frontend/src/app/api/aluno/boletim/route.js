@@ -51,6 +51,11 @@ export async function GET(request) {
       const todasAtividades = snap.docs.map((d) => {
         const data = d.data();
         delete data.gabarito;
+        // Blindagem LGPD / LBI (RN-62): Ocultar dados médicos e laudos do portal do aluno
+        delete data.necessidades;
+        delete data.cid;
+        delete data.laudo;
+        delete data.diagnostico;
         if (Array.isArray(data.questoes)) {
           data.questoes = data.questoes.map(({ gabarito: _g, rubrica: _r, ...rest }) => rest);
         }

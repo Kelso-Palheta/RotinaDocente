@@ -13,13 +13,15 @@ import { ProvaAdaptadaRepository } from "@/infraestrutura/adaptacoes/ProvaAdapta
 import { SeletorNecessidades } from "@/components/adaptacoes/SeletorNecessidades";
 import { ModalAlunoPEI } from "@/components/adaptacoes/ModalAlunoPEI";
 import { ModalBancoAtividades } from "@/components/adaptacoes/ModalBancoAtividades";
+import { ModalImportarAtividadeTurma } from "@/components/adaptacoes/ModalImportarAtividadeTurma";
 import { VisualizadorAtividadeAdaptada } from "@/components/adaptacoes/VisualizadorAtividadeAdaptada";
 import { PainelBancoQuestoes } from "@/components/adaptacoes/PainelBancoQuestoes";
 import { PainelMontadorProvas } from "@/components/adaptacoes/PainelMontadorProvas";
 import { ModalConectarIA } from "@/components/ai/ModalConectarIA";
+import { BadgeNecessidades } from "@/components/diario/SeletorNecessidadesDiario";
 import { extractTextFromDocument } from "@/utils/atividades/documentExtractor";
 import { doc, getDoc } from "firebase/firestore";
-import { paraPerfilInclusivo, listarAlunosParaSeletor } from "@/dominio/diario/AlunoDiario";
+import { paraPerfilInclusivo, listarAlunosParaSeletor, filtrarAlunosComNecessidades } from "@/dominio/diario/AlunoDiario";
 import {
   Sparkles,
   ArrowLeft,
@@ -90,6 +92,9 @@ export default function AdaptacoesPage() {
   const [modalPEIAbaInicial, setModalPEIAbaInicial] = useState("lista");
   const [modalBancoAberto, setModalBancoAberto] = useState(false);
   const [modalIAAberto, setModalIAAberto] = useState(false);
+  const [modalImportarAtividadeTurmaAberto, setModalImportarAtividadeTurmaAberto] = useState(false);
+  const [apenasAlunosComNecessidades, setApenasAlunosComNecessidades] = useState(true);
+  const [atividadeTurmaImportadaAviso, setAtividadeTurmaImportadaAviso] = useState("");
 
   // Estado do formulário
   const [modo, setModo] = useState("adaptar"); // 'adaptar' | 'criar'
@@ -884,8 +889,22 @@ export default function AdaptacoesPage() {
                         Cole ou anexe a atividade original (textos, enunciados, questões): *
                       </label>
 
-                      {/* Botão de Anexo de Documento (PDF / Word) */}
-                      <div className="flex items-center gap-2">
+                      {/* Botões de Importação e Anexo de Documento */}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <button
+                          type="button"
+                          id="btn-importar-atividade-turma"
+                          onClick={() => {
+                            if (!turmasDiario) carregarTurmasDiario();
+                            setModalImportarAtividadeTurmaAberto(true);
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#f7f8fc] text-[#101942] hover:bg-[#fff2f6] hover:text-[#d40840] border border-[#dce0f0] hover:border-[#fde4ec] transition-all cursor-pointer shadow-2xs"
+                          title="Importar questões de uma atividade já cadastrada na turma"
+                        >
+                          <FolderOpen size={13} className="text-[#6070a0]" />
+                          Puxar da Turma
+                        </button>
+
                         <input
                           ref={fileInputRef}
                           type="file"
@@ -920,6 +939,22 @@ export default function AdaptacoesPage() {
                         </button>
                       </div>
                     </div>
+
+                    {atividadeTurmaImportadaAviso && (
+                      <div className="mb-3 p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between gap-2 animate-fadeIn">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                          <span>{atividadeTurmaImportadaAviso}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setAtividadeTurmaImportadaAviso("")}
+                          className="text-emerald-600 hover:text-emerald-800 p-1"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    )}
 
                     {/* Card de Documento Anexado com Sucesso */}
                     {arquivoAnexado && (
@@ -1424,35 +1459,82 @@ export default function AdaptacoesPage() {
                   ))}
                 </select>
                 {(() => {
-                  const opcoes = listarAlunosParaSeletor(turmasDiario).filter(
+                  const opcoesTurma = listarAlunosParaSeletor(turmasDiario).filter(
                     (o) => o.turmaId === turmaDiarioId
                   );
-                  if (opcoes.length === 0) {
-                    return (
-                      <p className="text-xs text-[#6070a0] py-4 text-center">
-                        Nenhum aluno nesta turma.
-                      </p>
-                    );
-                  }
+                  const opcoesFiltradas = filtrarAlunosComNecessidades(
+                    opcoesTurma.map((o) => o.aluno),
+                    { apenasComNecessidades: apenasAlunosComNecessidades }
+                  ).map((alunoFiltrado) =>
+                    opcoesTurma.find((o) => o.aluno.id === alunoFiltrado.id || o.aluno.nome === alunoFiltrado.nome)
+                  ).filter(Boolean);
+
                   return (
-                    <ul className="overflow-y-auto space-y-1.5 pr-1">
-                      {opcoes.map((o) => (
-                        <li key={o.aluno.id || o.aluno.nome}>
-                          <button
-                            type="button"
-                            onClick={() => handleSelecionarAlunoDiario(o)}
-                            className="w-full text-left px-3 py-2 rounded-xl border border-[#dce0f0] hover:border-[#f60c49] hover:bg-[#fff2f6] transition-all text-xs font-bold text-[#101942] flex items-center justify-between gap-2"
-                          >
-                            <span>{o.aluno.nome}</span>
-                            <span className="text-[10px] font-medium text-[#6070a0]">
-                              {Array.isArray(o.aluno.necessidades) && o.aluno.necessidades.length > 0
-                                ? `${o.aluno.necessidades.length} necessidade(s)`
-                                : "perfil parcial"}
-                            </span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="space-y-2">
+                      {/* Filtro de AEE / Necessidades Específicas / CID (RN-61) */}
+                      <div className="flex items-center justify-between px-3 py-2 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-[#101942] select-none">
+                          <input
+                            type="checkbox"
+                            id="checkbox-filtro-necessidades"
+                            checked={apenasAlunosComNecessidades}
+                            onChange={(e) => setApenasAlunosComNecessidades(e.target.checked)}
+                            className="rounded border-[#dce0f0] text-[#f60c49] focus:ring-[#f60c49]"
+                          />
+                          <span>Mostrar apenas alunos com necessidades / CID</span>
+                        </label>
+                        <span className="text-[10px] font-semibold text-[#6070a0]">
+                          {opcoesFiltradas.length} aluno(s)
+                        </span>
+                      </div>
+
+                      {opcoesFiltradas.length === 0 ? (
+                        <div className="py-6 px-4 text-center space-y-2 bg-[#f7f8fc] rounded-2xl border border-dashed border-[#dce0f0]">
+                          <p className="text-xs font-bold text-[#101942]">
+                            {apenasAlunosComNecessidades
+                              ? "Nenhum aluno com necessidades ou CID cadastrado nesta turma."
+                              : "Nenhum aluno nesta turma."}
+                          </p>
+                          {apenasAlunosComNecessidades && opcoesTurma.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setApenasAlunosComNecessidades(false)}
+                              className="text-xs text-[#d40840] hover:underline font-bold"
+                            >
+                              Ver todos os {opcoesTurma.length} alunos da turma
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <ul className="overflow-y-auto space-y-1.5 pr-1 max-h-[300px]">
+                          {opcoesFiltradas.map((o) => (
+                            <li key={o.aluno.id || o.aluno.nome}>
+                              <button
+                                type="button"
+                                onClick={() => handleSelecionarAlunoDiario(o)}
+                                className="w-full text-left px-3.5 py-2.5 rounded-xl border border-[#dce0f0] hover:border-[#f60c49] hover:bg-[#fff2f6] transition-all text-xs font-bold text-[#101942] flex items-center justify-between gap-3 group"
+                              >
+                                <div className="space-y-1 min-w-0">
+                                  <span className="group-hover:text-[#d40840] transition-colors truncate block">
+                                    {o.aluno.nome}
+                                  </span>
+                                  {Array.isArray(o.aluno.necessidades) && o.aluno.necessidades.length > 0 && (
+                                    <div className="pt-0.5">
+                                      <BadgeNecessidades necessidades={o.aluno.necessidades} />
+                                    </div>
+                                  )}
+                                </div>
+                                <span className="text-[10px] font-medium text-[#6070a0] shrink-0">
+                                  {Array.isArray(o.aluno.necessidades) && o.aluno.necessidades.length > 0
+                                    ? `${o.aluno.necessidades.length} necessidade(s)`
+                                    : "perfil regular"}
+                                </span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   );
                 })()}
               </>
@@ -1472,6 +1554,26 @@ export default function AdaptacoesPage() {
           setResultado(ativ);
           setSalvoNoBanco(true);
           window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      />
+
+      {/* Modal Puxar Atividade da Turma (RN-60) */}
+      <ModalImportarAtividadeTurma
+        isOpen={modalImportarAtividadeTurmaAberto}
+        onClose={() => setModalImportarAtividadeTurmaAberto(false)}
+        turmas={turmasDiario || []}
+        turmaSelecionadaId={turmaDiarioId}
+        user={user}
+        onImportarAtividade={({ tema: t, disciplina: d, anoEscolar: a, conteudoBase: c }) => {
+          if (t) setTema(t);
+          if (d) setDisciplina(d);
+          if (a) setAnoEscolar(a);
+          if (c) {
+            setConteudoBase(c);
+            setAtividadeTurmaImportadaAviso(
+              `Atividade "${t || 'da turma'}" importada com sucesso! Selecione agora o estudante com deficiência para gerar a versão adaptada DUA.`
+            );
+          }
         }}
       />
 

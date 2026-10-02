@@ -21,6 +21,7 @@ export async function generateFichaAluno360PDF({
   historicoRedacoes = null,
   professorNome = 'Professor(a)',
   parecerManual = '',
+  incluirDiagnosticoClinico = false,
 }) {
   const ficha = consolidarFichaAluno360({
     aluno,
@@ -28,6 +29,7 @@ export async function generateFichaAluno360PDF({
     frequenciasTurma,
     historicoRedacoes,
     parecerManual,
+    incluirDiagnosticoClinico,
   });
 
   const doc = new jsPDF('portrait', 'mm', 'a4');
@@ -189,7 +191,10 @@ export async function generateFichaAluno360PDF({
   if (ficha.inclusao.temNecessidades) {
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(246, 12, 73); // tom de destaque
-    doc.text(`Necessidades Atendidas: ${ficha.inclusao.labels.join(', ')}`, margin + 5, cursorY + 6);
+    const rotuloTexto = ficha.inclusao.exibirDiagnosticoClinico && Array.isArray(ficha.inclusao.labels)
+      ? `Necessidades Atendidas: ${ficha.inclusao.labels.join(', ')}`
+      : `Diretrizes Pedagógicas: ${ficha.inclusao.rotuloSigiloso || 'Apoio Metodológico DUA'}`;
+    doc.text(rotuloTexto, margin + 5, cursorY + 6);
 
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(40, 50, 75);

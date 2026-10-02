@@ -393,6 +393,31 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
       - Questões adaptadas disponibilizam botão de Leitor Imersivo (TTS) com síntese de voz nativa e texto higienizado (`prepararTextoParaLeitura`).
       - Dicas pedagógicas (*scaffolding*) ficam ocultas por padrão e podem ser expandidas pelo aluno em caso de necessidade.
 
+---
+
+## 22. Regras de Integração de Atividades da Turma, Filtro Inclusivo e Sigilo LGPD
+27. **RN-60 (Importação de Atividades Regulares da Turma para Adaptação DUA):**
+    - O gerador de atividades adaptadas (`/adaptacoes`) permite reaproveitar com 1 clique qualquer atividade já cadastrada para a turma no Diário ou no módulo de Atividades:
+      - Função pura `extrairTextoAtividadeTurma(atividade)`:
+        - Recebe o objeto da atividade da turma e extrai ordenadamente o título, instruções e a lista de questões com seus enunciados e alternativas formatadas.
+        - Retorna o texto consolidado pronto para ser injetado no campo `conteudoBase`.
+      - O formulário preenche automaticamente: `tema`, `disciplina`, `anoEscolar` e `conteudoBase`, permitindo ao professor selecionar o estudante com deficiência e gerar a adaptação sem redigitação.
+
+28. **RN-61 (Filtro e Identificação de Estudantes com CID/Necessidades no Diário):**
+    - O seletor "Carregar do Diário" em Atividades Adaptadas prioriza a busca por estudantes elegíveis ao AEE/DUA:
+      - Função pura `filtrarAlunosComNecessidades(alunos, { apenasComNecessidades = true })`:
+        - Quando `apenasComNecessidades: true` (padrão), retorna apenas alunos com `Array.isArray(aluno.necessidades) && aluno.necessidades.length > 0` ou que tenham anotações de perfil inclusivo.
+        - Quando `false`, retorna todos os alunos da turma.
+      - A interface exibe badges de identificação rápida (ex: TEA, TDAH, Baixa Visão) ao lado do nome do estudante e um contador de alunos com necessidades na turma.
+
+29. **RN-62 (Sigilo de Dados Sensíveis de Saúde e Diagnósticos Clínicos - LGPD / LBI):**
+    - **Portal do Aluno (`/aluno`):** É estritamente proibido exibir códigos de CID, laudos médicos ou terminologias diagnósticas estigmatizantes para o estudante. O endpoint `/api/aluno/boletim` remove chaves médicas (`cid`, `laudo`, `necessidades`) das respostas entregues ao aluno. Apenas o badge afirmativo "Acessível DUA" e as ferramentas de suporte (TTS, dicas) são disponibilizados.
+    - **Ficha 360º / Relatório Individual (`generateFichaAluno360PDF`):**
+      - O parâmetro `incluirDiagnosticoClinico: boolean` controla a exibição de dados de saúde no documento:
+        - Quando `false` (padrão para **Relatório da Família / Responsáveis**): a seção de inclusão omite códigos de CID e nomes de patologias, descrevendo exclusivamente as estratégias metodológicas, recursos de acessibilidade e diretrizes pedagógicas ativas (ex: "Estratégias de Apoio Visual, Comunicação Objetiva e Recursos Concretos DUA").
+        - Quando `true` (**Dossiê Técnico para Conselho de Classe / Equipe AEE**): exibe as categorias completas de diagnóstico e nível de suporte para análise colegiada.
+
+
 
 
 
