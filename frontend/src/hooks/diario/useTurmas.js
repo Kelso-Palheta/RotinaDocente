@@ -166,5 +166,21 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
     );
   }, [setTurmas]);
 
-  return { turmas, setTurmas, addTurma, removeTurma, addAlunos, addAlunoManual, removeAluno, removeAlunos, setRecuperacao, updateAluno };
+  const salvarFrequenciasTurma = useCallback((turmaId, frequencias) => {
+    setTurmas((prev) =>
+      prev.map((t) => {
+        if (t.id !== turmaId) return t;
+        return {
+          ...t,
+          frequencias: {
+            ...(t.frequencias || {}),
+            ...frequencias
+          }
+        };
+      })
+    );
+  }, [setTurmas]);
+
+  return { turmas, setTurmas, addTurma, removeTurma, addAlunos, addAlunoManual, removeAluno, removeAlunos, setRecuperacao, updateAluno, salvarFrequenciasTurma };
 };
+

@@ -324,12 +324,18 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 
 ---
 
-## 17. Regras de Telemetria e Monitoramento de BYOK
-22. **RN-55 (Telemetria Local de Consumo de IA e Estimativa de Tokens):**
-    - O gateway registra no `localStorage` sob a chave `ia_consumo_telemetria_v1` o resumo agregado de consumo:
-      - `provedor`: `gemini`, `openai`, `anthropic`, `maritaca`, `openrouter`.
-      - `modulo`: `redacao`, `adaptacoes`, `agentes`.
-      - `totalChamadas`: contador incremental.
-      - `tokensEstimados`: soma de tokens de prompt + tokens de completude.
-    - Nenhuma chave de API ou texto confidencial é exposto no payload de telemetria; os dados são 100% locais e visíveis apenas ao professor autenticado.
+## 18. Regras de Registro e Consolidação de Frequência Escolar
+23. **RN-56 (Registro Diário de Chamada e Consolidação por Aluno):**
+    - O diário armazena o histórico de chamadas sob `turma.frequencias`:
+      - Chave: data no formato ISO `YYYY-MM-DD`.
+      - Conteúdo: `{ quantidadeAulas: number, presencas: Record<string, 'P' | 'F' | 'FJ'>, atualizadoEm?: string }`.
+    - A função pura `consolidarFrequenciaTurma(alunos, frequencias)` processa todo o histórico acumulado e retorna para cada aluno:
+      - `alunoId`, `nome`.
+      - `totalAulas`: soma das aulas ministradas nos dias registrados.
+      - `presencas`: quantidade de aulas com presença (`P`).
+      - `faltas`: quantidade de aulas com ausência injustificada (`F`).
+      - `faltasJustificadas`: quantidade de faltas justificadas (`FJ`).
+      - `percentual`: percentual de frequência arredondado com 2 casas decimais.
+      - `statusLdb`: classificação legal (`regular`, `alerta` ou `critico` conforme RN-54).
+    - Idempotência: salvar a chamada de uma data existente substitui o registro do dia sem duplicar aulas.
 

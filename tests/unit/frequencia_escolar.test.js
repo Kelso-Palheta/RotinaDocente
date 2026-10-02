@@ -7,7 +7,8 @@ import { describe, test, expect } from 'vitest';
 import {
   calcularFrequencia,
   classificarRiscoInfrequencia,
-  marcarPresencaTodos
+  marcarPresencaTodos,
+  consolidarFrequenciaTurma
 } from '../../frontend/src/dominio/diario/frequenciaEscolar';
 
 describe('UT-28 (RN-54): Frequência Escolar e Classificação Legal de Infrequência', () => {
@@ -70,3 +71,77 @@ describe('UT-28 (RN-54): Frequência Escolar e Classificação Legal de Infrequ�
     expect(marcarPresencaTodos(undefined, 'presente')).toEqual({});
   });
 });
+
+describe('UT-30 (RN-56): Consolidação de Frequência Escolar e Classificação LDB', () => {
+  const alunosMock = [
+    { id: 'aluno-1', nome: 'Alice Santos' },
+    { id: 'aluno-2', nome: 'Bernardo Lima' },
+    { id: 'aluno-3', nome: 'Carlos Eduardo' }
+  ];
+
+  const frequenciasMock = {
+    '2026-03-02': {
+      quantidadeAulas: 2,
+      presencas: {
+        'aluno-1': 'P',
+        'aluno-2': 'P',
+        'aluno-3': 'F' // 2 faltas
+      }
+    },
+    '2026-03-04': {
+      quantidadeAulas: 2,
+      presencas: {
+        'aluno-1': 'P',
+        'aluno-2': 'F', // 2 faltas
+        'aluno-3': 'F' // +2 faltas (total 4 faltas em 4 aulas = 0%)
+      }
+    },
+    '2026-03-09': {
+      quantidadeAulas: 1,
+      presencas: {
+        'aluno-1': 'P',
+        'aluno-2': 'FJ', // 1 falta justificada
+        'aluno-3': 'P'
+      }
+    }
+  };
+
+  test('deve consolidar presenças, faltas e percentual por estudante com classificação LDB', () => {
+    const consolidado = consolidarFrequenciaTurma(alunosMock, frequenciasMock);
+
+    expect(consolidado).toHaveLength(3);
+
+    // Alice: 5 aulas, 5 presenças -> 100% -> regular
+    const alice = consolidado.find(a => a.alunoId === 'aluno-1');
+    expect(alice.totalAulas).toBe(5);
+    expect(alice.presencas).toBe(5);
+    expect(alice.faltas).toBe(0);
+    expect(alice.percentual).toBe(100);
+    expect(alice.statusLdb).toBe('regular');
+
+    // Bernardo: 5 aulas, 2 presenças, 2 faltas, 1 justificada -> 40% faltas -> critico
+    const bernardo = consolidado.find(a => a.alunoId === 'aluno-2');
+    expect(bernardo.totalAulas).toBe(5);
+    expect(bernardo.presencas).toBe(2);
+    expect(bernardo.faltas).toBe(2);
+    expect(bernardo.faltasJustificadas).toBe(1);
+    expect(bernardo.statusLdb).toBe('alerta'); // Com 2 faltas em 5 aulas (40% de falta se sem justificada, ou 2 presenças + 1 justificada)
+
+    // Carlos: 5 aulas, 1 presença, 4 faltas -> 20% presença -> critico
+    const carlos = consolidado.find(a => a.alunoId === 'aluno-3');
+    expect(carlos.totalAulas).toBe(5);
+    expect(carlos.presencas).toBe(1);
+    expect(carlos.faltas).toBe(4);
+    expect(carlos.percentual).toBe(20);
+    expect(carlos.statusLdb).toBe('critico');
+  });
+
+  test('deve retornar estrutura limpa quando não houver histórico de chamadas', () => {
+    const consolidado = consolidarFrequenciaTurma(alunosMock, {});
+    expect(consolidado).toHaveLength(3);
+    expect(consolidado[0].totalAulas).toBe(0);
+    expect(consolidado[0].percentual).toBe(100);
+    expect(consolidado[0].statusLdb).toBe('regular');
+  });
+});
+

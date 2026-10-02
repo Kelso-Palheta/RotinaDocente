@@ -88,6 +88,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Telemetria Local de IA & BYOK (`tests/unit/telemetria_ia.test.js`)
 - [x] **UT-29 (RN-55):** Validar registro incremental de chamadas de IA e estimativa acumulada de tokens por provedor e módulo em localStorage.
 
+### Módulo: Consolidação de Frequência Escolar (`tests/unit/frequencia_escolar.test.js`)
+- [x] **UT-30 (RN-56):** Validar consolidação do histórico diário de chamadas por aluno, contagem de faltas e classificação jurídica de risco LDB.
+
 
 ---
 
