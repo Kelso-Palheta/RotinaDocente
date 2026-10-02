@@ -6,6 +6,7 @@ import { BadgeNecessidades, SeletorNecessidadesDiario, alternarNecessidade } fro
 import { CamposPerfilInclusivo } from '@/components/diario/CamposPerfilInclusivo';
 import { calcTotal, fmt, statusColor, somaMaxAtv, round2, temNota, titleCase } from '@/utils/diario/calculos';
 import { gerarLoginAluno, selecionarLoginExibido } from '@/utils/diario/loginAluno';
+import { generateFichaAluno360PDF } from '@/lib/diario/fichaAlunoExport';
 import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
@@ -109,7 +110,7 @@ const AddAtvForm = ({ onAdd, somaAtual, maxAtv }) => {
 export const TabelaNotas = ({
   turma, bimestre, onSetNota, onAddAtv, onRemoveAtv, onRemoveAluno, onRemoveAlunos,
   onUpdateConfig, onClearAtividadesNota, onClearAtividadesTurma, onUpdateAluno, onAddAlunoManual,
-  onClearSimuladoNota, onClearSimuladoTurma
+  onClearSimuladoNota, onClearSimuladoTurma, user
 }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   const [showConfig, setShowConfig] = useState(false);
@@ -120,6 +121,19 @@ export const TabelaNotas = ({
   const [hiperfocoDraft, setHiperfocoDraft] = useState('');
   const [observacoesDraft, setObservacoesDraft] = useState('');
   const [loginsArmazenados, setLoginsArmazenados] = useState({});
+
+  const handleExportFicha360 = async (aluno) => {
+    try {
+      await generateFichaAluno360PDF({
+        aluno,
+        turma,
+        frequenciasTurma: turma?.frequencias,
+        professorNome: user?.displayName || user?.email || 'Professor(a)',
+      });
+    } catch (err) {
+      console.error('Erro ao emitir Ficha 360 do aluno:', err);
+    }
+  };
 
   // RN-45 — exibidor canônico: busca os logins ARMAZENADOS no Firestore por nome,
   // para exibir exatamente o que a rota de login aceita (inclusive legados).
@@ -392,6 +406,11 @@ export const TabelaNotas = ({
                       className={`transition-colors p-1 ${al.necessidades?.length ? 'text-[#d40840] hover:text-[#f60c49]' : 'text-slate-400 hover:text-[#f60c49]'}`}
                       title="Perfil inclusivo do aluno (necessidades, nível de suporte, âncora)"
                     >🏷</button>
+                    <button
+                      onClick={() => handleExportFicha360(al)}
+                      className="text-slate-400 hover:text-[#101942] transition-colors p-1"
+                      title="Emitir Ficha Pedagógica 360º em PDF (Reunião de Pais e Conselho de Classe)"
+                    >📋</button>
                     <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-red-500 transition-colors p-1" title="Excluir aluno">🗑</button>
                   </td>
                 </tr>

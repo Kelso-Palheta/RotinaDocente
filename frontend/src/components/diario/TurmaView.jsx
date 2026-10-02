@@ -268,6 +268,7 @@ export const TurmaView = ({
             onClearAtividadesTurma={onClearAtividadesTurma}
             onClearSimuladoNota={onClearSimuladoNota}
             onClearSimuladoTurma={onClearSimuladoTurma}
+            user={user}
           />
         )}
       </div>

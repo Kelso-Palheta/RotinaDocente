@@ -91,6 +91,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Consolidação de Frequência Escolar (`tests/unit/frequencia_escolar.test.js`)
 - [x] **UT-30 (RN-56):** Validar consolidação do histórico diário de chamadas por aluno, contagem de faltas e classificação jurídica de risco LDB.
 
+### Módulo: Ficha Individual do Aluno 360º (`tests/unit/ficha_aluno_360.test.js`)
+- [x] **UT-31 (RN-57):** Validar consolidação holística do aluno 360º unindo desempenho acadêmico bimestral, apuração de frequência LDB Art. 24, perfil DUA/necessidades e diagnóstico de redação ENEM.
+
 
 ---
 

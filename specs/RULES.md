@@ -339,3 +339,23 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
       - `statusLdb`: classificação legal (`regular`, `alerta` ou `critico` conforme RN-54).
     - Idempotência: salvar a chamada de uma data existente substitui o registro do dia sem duplicar aulas.
 
+---
+
+## 19. Regras da Ficha Individual do Aluno 360º (Conselho de Classe e Reunião de Pais)
+24. **RN-57 (Consolidação da Ficha 360º do Aluno):**
+    - A função pura `consolidarFichaAluno360({ aluno, turma, frequenciasTurma, historicoRedacoes, parecerManual })` consolida todas as dimensões pedagógicas do estudante:
+      - **Identificação**: Nome do aluno, ID/matrícula, nome da turma, ano/série, data de emissão.
+      - **Rendimento Acadêmico**:
+        - Notas bimestrais (B1, B2, B3, B4), Semestre 1, Semestre 2, Exame Final e Total Anual apurados.
+        - Situação de Rendimento: `Aprovado`, `Recuperação`, `Em curso` ou `Reprovado por Nota`.
+      - **Assiduidade e Cumprimento LDB (Art. 24)**:
+        - Dados apurados pelo módulo de frequência: total de aulas, presenças, faltas injustificadas, faltas justificadas e taxa percentual de frequência.
+        - Parecer Legal: `regular` (≥ 80%), `alerta` (75% a 79.99%) ou `critico` (< 75% risco de reprovação).
+      - **Perfil Inclusivo & Acessibilidade DUA**:
+        - Se o aluno possuir o campo `necessidades`, mapeia as diretrizes oficiais DUA e lista adaptações sugeridas. Caso contrário, registra `Perfil de Desenvolvimento Regular`.
+      - **Evolução de Redação e Escrita (se houver)**:
+        - Se houver redações vinculadas, extrai total de textos, média geral, competência de destaque e competência alvo prioritária.
+      - **Síntese e Formalização**:
+        - Espaço para parecer pedagógico qualitativo e campos formais de assinatura do Professor, Coordenação e Responsável Legal.
+
+
