@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run test",
     "build": "next build",
+    "build:check": "npm run test && next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run --dir ../tests --passWithNoTests"
