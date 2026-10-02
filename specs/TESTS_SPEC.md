@@ -94,6 +94,9 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Ficha Individual do Aluno 360º (`tests/unit/ficha_aluno_360.test.js`)
 - [x] **UT-31 (RN-57):** Validar consolidação holística do aluno 360º unindo desempenho acadêmico bimestral, apuração de frequência LDB Art. 24, perfil DUA/necessidades e diagnóstico de redação ENEM.
 
+### Módulo: Diário de Bordo & Ocorrências Pedagógicas (`tests/unit/ocorrencias_pedagogicas.test.js`)
+- [x] **UT-32 (RN-58):** Validar criação, validação de tipos, sanitização de datas, filtragem multifatorial e remoção imutável de ocorrências pedagógicas.
+
 
 ---
 

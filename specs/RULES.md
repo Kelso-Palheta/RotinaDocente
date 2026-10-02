@@ -358,4 +358,22 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
       - **Síntese e Formalização**:
         - Espaço para parecer pedagógico qualitativo e campos formais de assinatura do Professor, Coordenação e Responsável Legal.
 
+---
+
+## 20. Regras do Diário de Bordo e Ocorrências Pedagógicas
+25. **RN-58 (Registro e Gestão de Ocorrências Pedagógicas):**
+    - O diário armazena o histórico de ocorrências e anotações formativas sob `turma.ocorrencias`:
+      - Array de objetos contendo: `id`, `data` (formato ISO `YYYY-MM-DD`), `tipo` (`pedagogica` | `comportamental` | `elogio` | `alinhamento_familia`), `titulo`, `descricao`, `alunoIds` (array de IDs, vazio para a turma toda), `visivelFamilia` (booleano) e `criadoEm`.
+    - A função pura `adicionarOcorrencia(ocorrencias, novaOcorrencia)`:
+      - Valida `tipo` obrigatório e restrito aos 4 tipos canônicos.
+      - Rejeita ocorrências sem `titulo` ou sem `descricao`.
+      - Normaliza a data para ISO `YYYY-MM-DD`.
+      - Atribui identificador único idempotente e timestamp de auditoria.
+      - Retorna novo array imutável ordenado por data decrescente (mais recente primeiro).
+    - A função pura `filtrarOcorrencias(ocorrencias, filtros)`:
+      - Permite filtrar por `tipo`, `alunoId`, `termo` (busca em título e descrição) e `apenasFamilia`.
+    - A função pura `removerOcorrencia(ocorrencias, ocorrenciaId)`:
+      - Remove a ocorrência pelo ID retornando novo array imutável.
+
+
 

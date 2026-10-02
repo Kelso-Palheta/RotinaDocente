@@ -33,6 +33,6 @@
 ## 🎯 Próximas Entregas (Backlog)
 - [x] **TASK-23:** Tela Visual da Aba de Frequência Escolar & Chamada no Diário Pedagógico com Alerta LDB (RN-54 & RN-56 / UT-30).
 - [x] **TASK-24:** Ficha Individual do Aluno 360º para Reunião de Pais e Conselho de Classe em PDF (RN-57 / UT-31).
-- [ ] **TASK-25:** Diário de Bordo e Registro Rápido de Ocorrências Pedagógicas da Turma (RN-58 / UT-32).
+- [x] **TASK-25:** Diário de Bordo e Registro Rápido de Ocorrências Pedagógicas da Turma (RN-58 / UT-32).
 
 

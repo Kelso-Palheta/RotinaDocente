@@ -181,6 +181,32 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
     );
   }, [setTurmas]);
 
-  return { turmas, setTurmas, addTurma, removeTurma, addAlunos, addAlunoManual, removeAluno, removeAlunos, setRecuperacao, updateAluno, salvarFrequenciasTurma };
+  const salvarOcorrenciasTurma = useCallback((turmaId, ocorrencias) => {
+    setTurmas((prev) =>
+      prev.map((t) => {
+        if (t.id !== turmaId) return t;
+        return {
+          ...t,
+          ocorrencias: Array.isArray(ocorrencias) ? ocorrencias : []
+        };
+      })
+    );
+  }, [setTurmas]);
+
+  return {
+    turmas,
+    setTurmas,
+    addTurma,
+    removeTurma,
+    addAlunos,
+    addAlunoManual,
+    removeAluno,
+    removeAlunos,
+    setRecuperacao,
+    updateAluno,
+    salvarFrequenciasTurma,
+    salvarOcorrenciasTurma
+  };
 };
+
 

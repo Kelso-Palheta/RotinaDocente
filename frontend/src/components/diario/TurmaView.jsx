@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { TabelaNotas } from '@/components/diario/TabelaNotas';
 import { TabelaFrequencia } from '@/components/diario/TabelaFrequencia';
+import { DiarioDeBordo } from '@/components/diario/DiarioDeBordo';
 import { ImportModal } from '@/components/diario/ImportModal';
 import { MapaAnual } from '@/components/diario/MapaAnual';
 import { SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
@@ -39,7 +40,7 @@ export const TurmaView = ({
   turma, turmas, bimestre, user, onSetNota, onAddAtv, onRemoveAtv, onUpdateAtvMax,
   onAddAlunos, onRemoveAluno, onRemoveAlunos, onUpdateConfig, onSetRecuperacao,
   onClearAtividadesNota, onClearAtividadesTurma, onAddAlunoManual, onUpdateAluno, onRemoveTurma,
-  onClearSimuladoNota, onClearSimuladoTurma, onSalvarFrequencia
+  onClearSimuladoNota, onClearSimuladoTurma, onSalvarFrequencia, onSalvarOcorrencias
 }) => {
   const [showImport, setShowImport] = useState(false);
   const [view, setView] = useState('bimestre');
@@ -75,6 +76,9 @@ export const TurmaView = ({
               {view === 'frequencia' && (
                 <span className="px-2.5 py-0.5 bg-emerald-50 border border-emerald-200 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-emerald-700">Frequência Escolar & LDB</span>
               )}
+              {view === 'ocorrencias' && (
+                <span className="px-2.5 py-0.5 bg-purple-50 border border-purple-200 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-purple-700">Diário de Bordo & Ocorrências</span>
+              )}
             </div>
 
             {view === 'bimestre' && (
@@ -104,6 +108,14 @@ export const TurmaView = ({
                 }`}
               >
                 Frequência
+              </button>
+              <button 
+                onClick={() => setView('ocorrencias')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  view === 'ocorrencias' ? 'bg-[#101942] text-white shadow-2xs' : 'text-[#6070a0] hover:text-[#101942]'
+                }`}
+              >
+                Diário de Bordo
               </button>
               <button 
                 onClick={() => setView('anual')}
@@ -253,6 +265,11 @@ export const TurmaView = ({
             turma={turma}
             user={user}
             onSalvarFrequencia={onSalvarFrequencia}
+          />
+        ) : view === 'ocorrencias' ? (
+          <DiarioDeBordo
+            turma={turma}
+            onSalvarOcorrencias={onSalvarOcorrencias}
           />
         ) : view === 'anual' ? (
           <MapaAnual turma={turma} onSetRecuperacao={onSetRecuperacao} />

@@ -190,7 +190,7 @@ export default function DiarioPage() {
   }, [user]);
 
   const { turmas, setTurmas, addTurma, removeTurma, addAlunos, addAlunoManual,
-    removeAluno, removeAlunos, setRecuperacao, updateAluno, salvarFrequenciasTurma } = useTurmas(initialTurmas || [], persistir);
+    removeAluno, removeAlunos, setRecuperacao, updateAluno, salvarFrequenciasTurma, salvarOcorrenciasTurma } = useTurmas(initialTurmas || [], persistir);
 
   const { setNota, addAtividade, removeAtividade, updateAtividadeMax, updateConfig,
     clearAtividadesNota, clearAtividadesTurma, clearSimuladoNota, clearSimuladoTurma } = useNotas(setTurmas);
@@ -596,6 +596,7 @@ export default function DiarioPage() {
             onUpdateAluno={updateAluno}
             onRemoveTurma={handleRemoveTurma}
             onSalvarFrequencia={salvarFrequenciasTurma}
+            onSalvarOcorrencias={salvarOcorrenciasTurma}
           />
         ) : (
           <div className="flex-1 flex items-center justify-center">
