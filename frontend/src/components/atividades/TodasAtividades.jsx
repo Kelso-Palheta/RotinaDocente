@@ -224,7 +224,7 @@ export const TodasAtividades = ({
       {showForm && (
         <AtividadeForm
           turmas={turmas}
-          onSave={handleCreate}
+          onCreate={handleCreate}
           onClose={() => setShowForm(false)}
         />
       )}

@@ -373,22 +373,22 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
         <AtividadeForm
           turmas={turmas}
           initialData={atividade}
-          onSave={async (data) => {
-            await useAtividadesHook.updateAtividade(data.id, data);
-            const fresh = await getAtividade(data.id);
+          onUpdate={async (id, payload) => {
+            await useAtividadesHook.updateAtividade(id, payload);
+            const fresh = await getAtividade(id);
             if (fresh) {
               setAtividade(fresh);
               onAtividadeUpdated?.(fresh);
               if (onSyncAtvMapa) {
                 // Sync all current turmas
-                for (const turmaId of data.turmaIds) {
-                  onSyncAtvMapa(turmaId, atividade.bimestre, data.bimestre, data.id || atividade.id, data.titulo, data.notaMaxima, false);
+                for (const turmaId of payload.turmaIds) {
+                  onSyncAtvMapa(turmaId, atividade.bimestre, payload.bimestre, payload.id || atividade.id, payload.titulo, payload.notaMaxima, false);
                 }
                 // Remove from turmas that were unchecked
                 const turmasAntigas = atividade.turmaIds || [];
                 for (const tId of turmasAntigas) {
-                  if (!data.turmaIds.includes(tId)) {
-                    onSyncAtvMapa(tId, atividade.bimestre, data.bimestre, data.id || atividade.id, data.titulo, data.notaMaxima, true);
+                  if (!payload.turmaIds.includes(tId)) {
+                    onSyncAtvMapa(tId, atividade.bimestre, payload.bimestre, payload.id || atividade.id, payload.titulo, payload.notaMaxima, true);
                   }
                 }
               }

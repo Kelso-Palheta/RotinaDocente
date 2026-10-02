@@ -214,7 +214,7 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
   );
 }
 
-export const AtividadeForm = ({ turmas, onSave, onClose, initialData }) => {
+export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData }) => {
   const isEdit = !!initialData;
   const [titulo, setTitulo] = useState(initialData?.titulo || '');
   const [bimestre, setBimestre] = useState(initialData?.bimestre || 1);
