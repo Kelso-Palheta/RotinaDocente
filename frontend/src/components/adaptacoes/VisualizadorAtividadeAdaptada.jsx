@@ -25,10 +25,16 @@ import {
   Image as ImageIcon,
   RefreshCw,
   Download,
+  Globe,
+  Send,
+  X,
 } from "lucide-react";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
 import { ImagemPedagogicaBuilder } from "@/dominio/adaptacoes/ImagemPedagogicaBuilder";
 import { normalizarRespostaGeracao } from "@/dominio/adaptacoes/RespostaGeracaoAdaptada";
+import { converterAdaptadaParaAtividadeOnline } from "@/dominio/adaptacoes/publicadorAtividadeOnline";
+import { createAtividade, createTokensForAtividade } from "@/lib/firebase-atividades";
+import { useOptionalAuth } from "@/lib/auth-context";
 import { useAIConfig } from "@/hooks/useAIConfig";
 
 export function VisualizadorAtividadeAdaptada({
@@ -40,7 +46,11 @@ export function VisualizadorAtividadeAdaptada({
   onSalvarQuestoesNoBanco = null,
   onSalvarQuestaoIndividual = null,
   onConectarIA = null,
+  turmas = [],
+  user: userProp = null,
 }) {
+  const { user: userAuth } = useOptionalAuth();
+  const user = userProp || userAuth;
   const { temChave, getAIHeaders } = useAIConfig();
   const [abaAtiva, setAbaAtiva] = useState("aluno"); // 'aluno' | 'mediacao'
   const [copiado, setCopiado] = useState(false);
@@ -60,6 +70,19 @@ export function VisualizadorAtividadeAdaptada({
   const [espacamentoDuplo, setEspacamentoDuplo] = useState(false);
   const [altoContraste, setAltoContraste] = useState(false);
   const [dicasAbertas, setDicasAbertas] = useState({});
+
+  // Estados para Publicação Online no Portal do Aluno (RN-59)
+  const [modalPublicarOnline, setModalPublicarOnline] = useState(false);
+  const [turmaPublicacaoId, setTurmaPublicacaoId] = useState("");
+  const [bimestrePublicacao, setBimestrePublicacao] = useState(1);
+  const [prazoPublicacao, setPrazoPublicacao] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    return d.toISOString().slice(0, 10);
+  });
+  const [publicandoOnline, setPublicandoOnline] = useState(false);
+  const [publicadoOnlineSucesso, setPublicadoOnlineSucesso] = useState(false);
+  const [erroPublicacao, setErroPublicacao] = useState("");
 
   if (!resultado) return null;
 
@@ -195,6 +218,48 @@ export function VisualizadorAtividadeAdaptada({
     setGerandoTodas(false);
   };
 
+  const handleConfirmarPublicacaoOnline = async (e) => {
+    e.preventDefault();
+    if (!user?.uid) {
+      setErroPublicacao("É necessário estar autenticado para publicar atividades.");
+      return;
+    }
+
+    const tId = turmaPublicacaoId || turmas[0]?.id || resultado.turmaId || "turma_geral";
+    const alId = aluno.id || aluno.uid || `al_${aluno.nome ? aluno.nome.toLowerCase().replace(/\s+/g, '_') : 'adaptado'}`;
+
+    setPublicandoOnline(true);
+    setErroPublicacao("");
+
+    try {
+      const atividadeOnline = converterAdaptadaParaAtividadeOnline({
+        adaptacao: resultado,
+        turmaId: tId,
+        alunoId: alId,
+        professorId: user.uid,
+        bimestre: bimestrePublicacao,
+        prazoEntrega: new Date(`${prazoPublicacao}T23:59:59`).toISOString(),
+      });
+
+      const atividadeId = await createAtividade(atividadeOnline);
+
+      // Cria token de acesso exclusivo para o aluno no Portal
+      await createTokensForAtividade(atividadeId, tId, [
+        { id: alId, nome: aluno.nome || "Estudante" }
+      ]);
+
+      setPublicadoOnlineSucesso(true);
+      setTimeout(() => {
+        setPublicadoOnlineSucesso(false);
+        setModalPublicarOnline(false);
+      }, 3500);
+    } catch (err) {
+      console.error("Erro ao publicar atividade online:", err);
+      setErroPublicacao(err.message || "Falha ao publicar atividade online.");
+    } finally {
+      setPublicandoOnline(false);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -297,6 +362,20 @@ export function VisualizadorAtividadeAdaptada({
               <span className="hidden sm:inline">Ver no</span> Banco
             </button>
           )}
+
+          <button
+            id="btn-publicar-online-aluno"
+            type="button"
+            onClick={() => {
+              setTurmaPublicacaoId(turmas[0]?.id || resultado.turmaId || "");
+              setModalPublicarOnline(true);
+            }}
+            className="px-3.5 py-2 border border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
+            title="Publicar online para o estudante responder no Portal do Aluno com Leitor Imersivo"
+          >
+            <Globe size={15} className="text-purple-600" />
+            <span>Publicar no Portal</span>
+          </button>
 
           <button
             id="btn-copiar-atividade"
@@ -829,6 +908,149 @@ export function VisualizadorAtividadeAdaptada({
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Modal de Publicação Online no Portal do Aluno (RN-59) */}
+      {modalPublicarOnline && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 print:hidden">
+          <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border border-purple-100 space-y-4 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+                  <Globe size={18} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-800">
+                    Publicar no Portal do Aluno
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    Disponibilizar atividade acessível com Leitor de Voz (TTS)
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setModalPublicarOnline(false)}
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {publicadoOnlineSucesso ? (
+              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-3 text-emerald-800 text-xs">
+                <Check size={20} className="text-emerald-600 shrink-0" />
+                <div>
+                  <p className="font-bold">Atividade Publicada com Sucesso!</p>
+                  <p className="text-[11px] text-emerald-700 mt-0.5">
+                    O estudante {aluno.nome || "adaptado"} já pode acessar a atividade no Portal do Aluno com síntese de voz e scaffolding DUA.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleConfirmarPublicacaoOnline} className="space-y-4 text-xs">
+                {erroPublicacao && (
+                  <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 flex items-center gap-2">
+                    <AlertCircle size={16} className="shrink-0" />
+                    <span>{erroPublicacao}</span>
+                  </div>
+                )}
+
+                <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl space-y-1">
+                  <p className="font-semibold text-purple-900">
+                    🔒 Privacidade e Acessibilidade Garantidas (RN-59 / LBI)
+                  </p>
+                  <p className="text-[11px] text-purple-700 leading-relaxed">
+                    Esta atividade adaptada ficará vinculada <strong>exclusivamente</strong> a <strong>{aluno.nome || "este estudante"}</strong>. Nenhum outro aluno da turma terá acesso ou visualização da versão adaptada no Portal.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block">
+                    Turma de Vínculo:
+                  </label>
+                  {turmas && turmas.length > 0 ? (
+                    <select
+                      value={turmaPublicacaoId}
+                      onChange={(e) => setTurmaPublicacaoId(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                      required
+                    >
+                      <option value="">Selecione uma turma...</option>
+                      {turmas.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.nome || t.serie || t.id}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      value={turmaPublicacaoId}
+                      onChange={(e) => setTurmaPublicacaoId(e.target.value)}
+                      placeholder="Identificador da turma (ex: 9A, Turma 1)"
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      required
+                    />
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="font-bold text-slate-700 block">
+                      Bimestre:
+                    </label>
+                    <select
+                      value={bimestrePublicacao}
+                      onChange={(e) => setBimestrePublicacao(Number(e.target.value))}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                    >
+                      <option value={1}>1º Bimestre</option>
+                      <option value={2}>2º Bimestre</option>
+                      <option value={3}>3º Bimestre</option>
+                      <option value={4}>4º Bimestre</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-bold text-slate-700 block">
+                      Prazo de Entrega:
+                    </label>
+                    <input
+                      type="date"
+                      value={prazoPublicacao}
+                      onChange={(e) => setPrazoPublicacao(e.target.value)}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setModalPublicarOnline(false)}
+                    className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold"
+                    disabled={publicandoOnline}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={publicandoOnline}
+                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50"
+                  >
+                    {publicandoOnline ? (
+                      <RefreshCw size={15} className="animate-spin" />
+                    ) : (
+                      <Send size={15} />
+                    )}
+                    {publicandoOnline ? "Publicando..." : "Confirmar Publicação"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       )}
     </div>

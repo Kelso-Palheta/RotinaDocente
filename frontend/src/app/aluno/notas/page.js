@@ -88,6 +88,11 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
         <div className="flex items-center gap-2 mb-1 flex-wrap">
           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${cls}`}>{label}</span>
           <span className="text-[10px] text-[#6070a0] font-semibold">{atividade.bimestre}º Bimestre</span>
+          {atividade.tipoAtividade === 'adaptada' && (
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-50 text-purple-700 border border-purple-200">
+              ✨ Acessível DUA
+            </span>
+          )}
         </div>
         <p className="text-sm font-extrabold text-[#101942] truncate font-head">{atividade.titulo}</p>
         <p className="text-xs text-[#6070a0] mt-0.5 flex items-center gap-1">

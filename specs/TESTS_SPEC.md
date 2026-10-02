@@ -97,6 +97,10 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ### Módulo: Diário de Bordo & Ocorrências Pedagógicas (`tests/unit/ocorrencias_pedagogicas.test.js`)
 - [x] **UT-32 (RN-58):** Validar criação, validação de tipos, sanitização de datas, filtragem multifatorial e remoção imutável de ocorrências pedagógicas.
 
+### Módulo: Publicação de Atividades Adaptadas Online (`tests/unit/publicador_atividade_adaptada.test.js`)
+- [x] **UT-33 (RN-59):** Validar conversão canônica de atividade adaptada DUA para atividade online com anonimização de gabarito, isolamento por aluno e filtragem de visibilidade no Portal do Aluno.
+
+
 
 ---
 

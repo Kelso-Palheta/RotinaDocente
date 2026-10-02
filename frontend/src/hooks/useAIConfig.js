@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '@/lib/auth-context';
+import { useOptionalAuth } from '@/lib/auth-context';
 import { AIConfigService } from '@/aplicacao/ai/AIConfigService';
 
 const service = new AIConfigService();
@@ -11,7 +11,7 @@ const EVENT_NAME = 'rotina_docente_ai_config_changed';
  * Hook React unificado para gerenciamento e consumo da chave de IA (BYOK).
  */
 export function useAIConfig() {
-  const { user } = useAuth();
+  const { user } = useOptionalAuth();
   const [config, setConfig] = useState(() => {
     return service.repository.carregarLocal();
   });

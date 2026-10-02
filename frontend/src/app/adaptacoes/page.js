@@ -755,6 +755,8 @@ export default function AdaptacoesPage() {
                 onSalvarQuestoesNoBanco={handleSalvarQuestoesGeradasNoBanco}
                 onSalvarQuestaoIndividual={handleSalvarQuestaoIndividualDoGerador}
                 onConectarIA={() => setModalIAAberto(true)}
+                turmas={turmasDiario || []}
+                user={user}
               />
             </div>
           ) : (

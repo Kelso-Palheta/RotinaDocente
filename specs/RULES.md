@@ -375,5 +375,24 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - A função pura `removerOcorrencia(ocorrencias, ocorrenciaId)`:
       - Remove a ocorrência pelo ID retornando novo array imutável.
 
+---
+
+## 21. Regras de Publicação Digital de Atividades Adaptadas
+26. **RN-59 (Publicação Online de Atividades Adaptadas no Portal do Aluno):**
+    - O professor pode converter e publicar uma atividade adaptada DUA diretamente para a coleção `atividades`:
+      - Função pura `converterAdaptadaParaAtividadeOnline(params)`:
+        - Recebe: `adaptacao` (objeto gerado pela IA ou recuperado do banco), `turmaId`, `alunoId`, `professorId`, `prazoEntrega`, `bimestre`.
+        - Mapeia as questões para o formato oficial com `numero`, `enunciado`, `notaMaxima` (distribuída ou padrão), `tipo` (`multipla_escolha` ou `discursiva`), `alternativas` estruturadas, `apoioVisualDescricao`, `apoioVisualUrl`, `scaffolding` (dica).
+        - Oculta o gabarito da visão pública e preserva a chave de correção internamente.
+        - Define `tipoAtividade: 'adaptada'`.
+        - Define `alunoExclusivoId: alunoId`: garante que a atividade seja estritamente individual e invisível para os demais alunos da turma.
+    - Função pura `filtrarAtividadesParaAluno(atividades, alunoId)`:
+      - Atividades regulares (`alunoExclusivoId == null` ou `undefined`) são visíveis para qualquer aluno da turma.
+      - Atividades adaptadas com `alunoExclusivoId` são visíveis **única e exclusivamente** para o aluno com `alunoId === alunoExclusivoId`.
+    - Acessibilidade no Portal do Aluno (`/aluno/atividade/[id]`):
+      - Questões adaptadas disponibilizam botão de Leitor Imersivo (TTS) com síntese de voz nativa e texto higienizado (`prepararTextoParaLeitura`).
+      - Dicas pedagógicas (*scaffolding*) ficam ocultas por padrão e podem ser expandidas pelo aluno em caso de necessidade.
+
+
 
 

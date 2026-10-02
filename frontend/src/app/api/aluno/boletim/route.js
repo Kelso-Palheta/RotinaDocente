@@ -48,7 +48,7 @@ export async function GET(request) {
         .where('professorId', '==', professorUid)
         .where('turmaIds', 'array-contains', turmaId)
         .get();
-      atividades = snap.docs.map((d) => {
+      const todasAtividades = snap.docs.map((d) => {
         const data = d.data();
         delete data.gabarito;
         if (Array.isArray(data.questoes)) {
@@ -56,6 +56,9 @@ export async function GET(request) {
         }
         return { id: d.id, ...data };
       });
+
+      const { filtrarAtividadesParaAluno } = await import('@/dominio/adaptacoes/publicadorAtividadeOnline');
+      atividades = filtrarAtividadesParaAluno(todasAtividades, alunoId);
     } catch (e) {
       console.warn('Erro ao buscar atividades:', e.message);
     }
