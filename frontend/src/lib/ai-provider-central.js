@@ -185,6 +185,7 @@ export async function executeGeminiNativeCall({
   systemInstructionText,
   temperature = 0.5,
   maxOutputTokens = 4096,
+  responseMimeType,
   userConfig = null,
 }) {
   let activeModel = initialModel;
@@ -199,6 +200,7 @@ export async function executeGeminiNativeCall({
       generationConfig: {
         temperature,
         maxOutputTokens,
+        ...(responseMimeType ? { responseMimeType } : {}),
       },
     };
     if (systemInstructionText) {
@@ -438,7 +440,7 @@ export async function callAI({
  * @param {{ provider: string, apiKey: string, model?: string }} [userConfig]
  * @returns {Promise<{ data: object, status: number, ok: boolean }>}
  */
-export async function callAIRaw(body, userConfig = null) {
+export async function callAIRaw(body, userConfig = null, _truncatedRetry = false) {
   const resolved = resolveUserConfig(userConfig);
   const { spec, apiKey, model } = resolved;
 
@@ -485,7 +487,7 @@ export async function callAIRaw(body, userConfig = null) {
   // OpenAI Compatible
   const payload = {
     ...body,
-    model: body.model || model,
+    model,
   };
 
   const res = await fetch(spec.baseUrl, {
@@ -496,6 +498,13 @@ export async function callAIRaw(body, userConfig = null) {
 
   const data = await res.json();
 
+  if (res.ok && data?.choices?.[0]?.finish_reason === 'length') {
+    if (_truncatedRetry) {
+      return { data: { error: { message: 'IA retornou resposta truncada. Tente novamente.' } }, status: 502, ok: false };
+    }
+    return callAIRaw({ ...body, max_tokens: Math.min((body.max_tokens || 2048) * 2, 16000) }, userConfig, true);
+  }
+
   if (!res.ok && spec.id === 'gemini') {
     try {
       const msgs = body.messages || [];
@@ -504,31 +513,53 @@ export async function callAIRaw(body, userConfig = null) {
         .filter((m) => m.role !== 'system')
         .map((m) => ({
           role: m.role === 'assistant' ? 'model' : 'user',
-          parts: [{ text: typeof m.content === 'string' ? m.content : JSON.stringify(m.content) }],
+          parts: typeof m.content === 'string' ? [{ text: m.content }] : (m.content || []).map((part) => {
+            if (part.type === 'text') return { text: part.text };
+            if (part.type === 'image_url') {
+              const url = part.image_url.url;
+              const inline = url.match(/^data:([^;]+);base64,(.+)$/s);
+              return inline
+                ? { inlineData: { mimeType: inline[1], data: inline[2] } }
+                : { fileData: { fileUri: url } };
+            }
+            throw new Error(`Tipo de conteúdo não suportado: ${part.type}`);
+          }),
         }));
 
       const requestedMax = body.max_tokens || 2048;
       const effectiveMax = Math.max(requestedMax * 2, 4096);
 
-      const attempt = await executeGeminiNativeCall({
+      const nativeOptions = {
         apiKey,
         initialModel: payload.model || model,
         geminiContents,
         systemInstructionText: systemMsg,
         temperature: body.temperature ?? 0.5,
         maxOutputTokens: effectiveMax,
+        responseMimeType: body.response_format?.type === 'json_object' ? 'application/json' : undefined,
         userConfig,
-      });
+      };
+      let attempt = await executeGeminiNativeCall(nativeOptions);
+
+      if (attempt.res.ok && attempt.data?.candidates?.[0]?.finishReason === 'MAX_TOKENS' && !_truncatedRetry) {
+        attempt = await executeGeminiNativeCall({ ...nativeOptions, initialModel: attempt.model,
+          maxOutputTokens: Math.min(effectiveMax * 2, 16000) });
+      }
 
       if (attempt.res.ok) {
         const parts = attempt.data?.candidates?.[0]?.content?.parts || [];
         const answerParts = parts.filter((p) => !p.thought);
-        const partsToUse = answerParts.length > 0 ? answerParts : parts;
-        const text = partsToUse.map((p) => p.text || '').join('').trim();
+        const text = answerParts.map((p) => p.text || '').join('').trim();
+        if (attempt.data?.candidates?.[0]?.finishReason === 'MAX_TOKENS') {
+          return { data: { error: { message: 'IA retornou resposta truncada. Tente novamente.' } }, status: 502, ok: false };
+        }
+        if (!text) {
+          return { data: { error: { message: 'Gemini não retornou resposta final. Tente novamente.' } }, status: 502, ok: false };
+        }
         const normalizedData = {
           id: `gemini-${Date.now()}`,
           model: attempt.model,
-          choices: [{ message: { role: 'assistant', content: text } }],
+          choices: [{ message: { role: 'assistant', content: text }, finish_reason: 'stop' }],
           usage: attempt.data?.usageMetadata,
         };
         return { data: normalizedData, status: attempt.res.status, ok: true };

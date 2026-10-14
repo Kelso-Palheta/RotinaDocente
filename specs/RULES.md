@@ -239,6 +239,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - Os dados de necessidades são tratados como sensíveis (LGPD/LBI): restritos ao professor autenticado, exibidos apenas nas telas do Diário e nunca enviados a modelos públicos de IA nem ao Portal do Aluno.
 
 14. **RN-44 (Extração Robusta de JSON nas Respostas de IA):**
+    - Correções de atividades solicitam JSON pelo contrato da API, além do prompt. O gateway respeita o modelo BYOK configurado, sem sobrescrevê-lo com modelo de outro provedor; registra o modelo efetivamente retornado. No fallback Gemini, preserva texto/imagens e modo JSON, descarta partes `thought` e repete uma única vez com mais tokens em truncamento; resposta incompleta persistente gera erro, nunca nota inventada.
     - Todo consumo de resposta textual de modelos de IA (geração e correção de questões, correção de redação, importação inteligente de alunos e geração de atividades adaptadas) deve passar por um extrator único (`extrairJsonIA`) que, em cascata: remove blocos markdown (```` ```json ````), extrai o objeto JSON de texto acompanhado de prosa, decodifica strings JSON aninhadas (double-stringified) e repara aspas escapadas (`\"`) remanescentes.
     - A ordem das tentativas deve preservar o parse direto em primeiro lugar, para que `\"` legítimos dentro de valores de um JSON válido não sejam corrompidos.
     - O extrator nunca deve propagar um erro cru de `JSON.parse` (ex.: `Unexpected token '\'`) ao usuário; ao falhar todas as tentativas, lança erro claro no padrão `IA não retornou JSON válido`.
@@ -416,7 +417,6 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
       - O parâmetro `incluirDiagnosticoClinico: boolean` controla a exibição de dados de saúde no documento:
         - Quando `false` (padrão para **Relatório da Família / Responsáveis**): a seção de inclusão omite códigos de CID e nomes de patologias, descrevendo exclusivamente as estratégias metodológicas, recursos de acessibilidade e diretrizes pedagógicas ativas (ex: "Estratégias de Apoio Visual, Comunicação Objetiva e Recursos Concretos DUA").
         - Quando `true` (**Dossiê Técnico para Conselho de Classe / Equipe AEE**): exibe as categorias completas de diagnóstico e nível de suporte para análise colegiada.
-
 
 
 

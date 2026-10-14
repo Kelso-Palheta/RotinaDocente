@@ -2,7 +2,6 @@ import { getClientAIHeaders } from '@/utils/aiHeaders';
 import { extrairJsonIA } from '@/utils/extrairJsonIA';
 
 const BASE_URL = '/api/maritaca';
-const MODEL = 'sabiazinho-4';
 
 const MAX_TOKENS = { superficial: 512, normal: 2048, profunda: 4096 };
 
@@ -12,23 +11,24 @@ const PROFUNDIDADE_INSTRUCAO = {
   profunda: 'Correção PROFUNDA: análise detalhada. Feedback extenso de 4-6 frases. 4-5 critérios detalhados. Aponte pontos fortes, fracos e sugestões específicas de melhoria.'
 };
 
-async function callAI(content, apiKey, maxTokens = 3500) {
+async function callAI(content, apiKey, maxTokens = 3500, jsonMode = false) {
   const res = await fetch(BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       ...getClientAIHeaders(),
     },
-    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, messages: [{ role: 'user', content }] })
+    body: JSON.stringify({ max_tokens: maxTokens, messages: [{ role: 'user', content }],
+      ...(jsonMode ? { response_format: { type: 'json_object' } } : {}) })
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err?.message || err?.error?.message || (typeof err?.error === 'string' ? err.error : null) || `Maritaca API error ${res.status}`);
+    throw new Error(err?.message || err?.error?.message || err?.error?.error?.message || (typeof err?.error === 'string' ? err.error : null) || `Erro na API de IA (${res.status})`);
   }
   const data = await res.json();
   const text = data.choices?.[0]?.message?.content || '';
-  if (!text) throw new Error('Maritaca retornou resposta vazia');
-  return text;
+  if (!text) throw new Error('IA retornou resposta vazia');
+  return { text, modelo: data.model || getClientAIHeaders()['x-user-ai-model'] || null };
 }
 
 function buildDiscursivaPrompt(questao, resposta, materialTexto, nivel = 'normal') {
@@ -71,14 +71,15 @@ async function corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nive
   }
 
   const maxTokens = MAX_TOKENS[nivel] || 1024;
-  const text = await callAI(content, apiKey, maxTokens);
+  const { text, modelo } = await callAI(content, apiKey, maxTokens, true);
   const parsed = extrairJsonIA(text);
   if (typeof parsed.nota !== 'number') throw new Error('Campo "nota" inválido na resposta da IA');
 
   return {
     notaObtida: Math.min(Math.max(Number(parsed.nota), 0), questao.notaMaxima),
     feedback: String(parsed.feedback || '').trim(),
-    criterios: Array.isArray(parsed.criterios) ? parsed.criterios : []
+    criterios: Array.isArray(parsed.criterios) ? parsed.criterios : [],
+    modelo
   };
 }
 
@@ -98,6 +99,7 @@ async function corrigirMultiQuestao({ questoes, respostas, materialTexto = '', n
 
   const resultados = {};
   let notaFinal = 0;
+  const modelos = new Set();
 
   for (const questao of questoes) {
     const resposta = respostas?.[questao.id]?.resposta ?? '';
@@ -106,10 +108,11 @@ async function corrigirMultiQuestao({ questoes, respostas, materialTexto = '', n
       : await corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nivelCorrecao);
 
     resultados[questao.id] = { ...resultado, notaMaxima: questao.notaMaxima };
+    if (resultado.modelo) modelos.add(resultado.modelo);
     notaFinal = Math.round((notaFinal + resultado.notaObtida) * 100) / 100;
   }
 
-  return { resultados, notaFinal, modelo: MODEL };
+  return { resultados, notaFinal, modelo: [...modelos].join(', ') || null };
 }
 
 async function corrigirLegacy({ enunciado, gabarito, respostaTexto, notaMaxima, imagens = [], nivelCorrecao = 'normal' }) {
@@ -125,7 +128,7 @@ async function corrigirLegacy({ enunciado, gabarito, respostaTexto, notaMaxima, 
     notaFinal: resultado.notaObtida,
     feedback: resultado.feedback,
     criterios: resultado.criterios,
-    modelo: MODEL
+    modelo: resultado.modelo
   };
 }
 
@@ -159,7 +162,7 @@ Exemplo:
 Critério 1: 0.5 pts — Identificação do tema: O aluno identifica corretamente o tema central e demonstra entender o contexto.
 Critério 2: 0.8 pts — Argumentação: Apresenta ao menos dois argumentos fundamentados no conteúdo estudado.`;
 
-  const rawRubrica = (await callAI([{ type: 'text', text: prompt }], apiKey, 2048)).trim();
+  const rawRubrica = (await callAI([{ type: 'text', text: prompt }], apiKey, 2048)).text.trim();
   return normalizeRubrica(rawRubrica, questao.notaMaxima);
 }
 
@@ -205,7 +208,7 @@ REGRAS CRÍTICAS DE FORMATAÇÃO (OBRIGATÓRIO):
   ]
 }`;
 
-  const text = await callAI([{ type: 'text', text: prompt }], apiKey, 4000);
+  const { text } = await callAI([{ type: 'text', text: prompt }], apiKey, 4000, true);
   const parsed = extrairJsonIA(text);
   if (!Array.isArray(parsed.questoes) || parsed.questoes.length === 0) {
     throw new Error('IA não gerou questões válidas');
