@@ -112,6 +112,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
+- [x] **Cores bimestrais (RN-18):** Validar limites 0, 4,99, 5, 7,99, 8 e 10, aprovação configurável e ausência de nota; conferir renderização dos quatro bimestres do Mapa Anual com vermelho, azul e verde, sem alterar critérios anuais.
 - [x] **IT-15 (RN-27, RN-44):** Correção de atividades via gateway real com HTTP externo simulado: Gemini/modelo BYOK, JSON explícito, modelo efetivo no resultado, fallback com texto/imagens preservados, descarte de `thought`, repetição única em truncamento e erro claro sem resposta final. Testes em `correcao_atividades_gemini.test.js`.
 - [x] **IT-01 (RN-40):** Testar extração de texto de arquivos DOCX, PDF e TXT e endpoint de upload.
 - [x] **IT-02:** Testar serialização e deserialização do backup em JSON das turmas.

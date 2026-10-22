@@ -90,6 +90,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - Se a turma ou bimestre não possuir notas lançadas, a média analítica deve retornar `null` (ou `0` com indicador visual de dados pendentes), sem gerar erros de divisão por zero (`NaN`).
 
 2. **RN-18 (Faixas de Desempenho e Alertas Pedagógicos):**
+   - O total bimestral, suas médias e a média da turma na barra lateral usam cores padronizadas: abaixo da aprovação configurada (padrão 5), vermelho; aprovado abaixo de 8, azul; excelente a partir de 8, verde. Sem nota usa indicação neutra; zero lançado é nota válida. A mesma regra se aplica aos quatro bimestres de todas as turmas, inclusive no Mapa Anual. Os critérios de recuperação e os totais semestrais/anuais permanecem independentes.
    - A categorização das notas dos alunos nas métricas e distribuições analíticas segue estritamente:
       - **Excelente:** Média $\ge 8.0$ (`excelente`)
       - **Adequado / Aprovado:** $5.0 \le \text{Média} < 8.0$ (ou conforme `mediaAprovacao` configurada) (`aprovado`)

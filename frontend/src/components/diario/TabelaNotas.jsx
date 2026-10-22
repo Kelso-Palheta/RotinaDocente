@@ -4,17 +4,12 @@ import { useState, useEffect } from 'react';
 import { NumCell } from '@/components/diario/NumCell';
 import { BadgeNecessidades, SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
 import { CamposPerfilInclusivo } from '@/components/diario/CamposPerfilInclusivo';
-import { calcTotal, fmt, statusColor, somaMaxAtv, round2, temNota, titleCase } from '@/utils/diario/calculos';
+import { calcTotal, fmt, somaMaxAtv, round2, temNota, titleCase } from '@/utils/diario/calculos';
+import { estiloNotaBimestral } from '@/utils/diario/coresNota';
 import { gerarLoginAluno, selecionarLoginExibido } from '@/utils/diario/loginAluno';
 import { generateFichaAluno360PDF } from '@/lib/diario/fichaAlunoExport';
 import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-
-const STATUS_STYLES = {
-  good: 'text-[#101942] bg-[#eef0f8] border border-[#dce0f0] font-bold',
-  warn: 'text-[#d40840] bg-[#fff2f6] border border-[#fde4ec] font-bold',
-  bad:  'text-red-600 bg-red-50 border border-red-200 font-bold'
-};
 
 const AddAlunoForm = ({ onAdd }) => {
   const [nome, setNome] = useState('');
@@ -285,7 +280,7 @@ export const TabelaNotas = ({
         <div className="flex items-center gap-3">
           {media !== null && (
             <div className="text-sm text-slate-500">
-              Média turma: <span className={`font-mono font-bold ${STATUS_STYLES[statusColor(media, config)].split(' ')[0]}`}>{fmt(media)}</span>
+              Média turma: <span className={`font-mono font-bold ${estiloNotaBimestral(media, config).split(' ')[0]}`}>{fmt(media)}</span>
             </div>
           )}
         </div>
@@ -358,7 +353,6 @@ export const TabelaNotas = ({
             {turma.alunos.map((al, idx) => {
               const nota = notas[al.id] || {};
               const total = calcTotal(nota.simulado, atividades, nota, config);
-              const sc = statusColor(total, config);
               const temNotaAluno = temNota(nota, atividades);
 
               return (
@@ -399,7 +393,7 @@ export const TabelaNotas = ({
                     <td key={atv.id} className="px-2 py-1"><NumCell value={nota[atv.id] ?? ''} min={0} max={atv.max} onChange={(v) => onSetNota(al.id, atv.id, v)} /></td>
                   ))}
                   <td className="px-2 py-1.5 text-center">
-                    {temNotaAluno ? <span className={`font-mono font-bold text-sm px-2 py-0.5 rounded ${STATUS_STYLES[sc]}`}>{fmt(total)}</span> : <span className="text-slate-400 text-xs font-mono">—</span>}
+                    {temNotaAluno ? <span className={`font-mono font-bold text-sm px-2 py-0.5 rounded ${estiloNotaBimestral(total, config)}`}>{fmt(total)}</span> : <span className="text-slate-400 text-xs font-mono">—</span>}
                   </td>
                   <td className="px-3 py-1.5 text-center flex items-center justify-center gap-1">
                     {atividades.length > 0 && (

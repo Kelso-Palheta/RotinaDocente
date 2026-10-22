@@ -1,7 +1,8 @@
 "use client";
 
 import { NumCell } from '@/components/diario/NumCell';
-import { calcDesempenhoAnual, fmt, titleCase, statusColor, round2 } from '@/utils/diario/calculos';
+import { calcDesempenhoAnual, fmt, titleCase, round2 } from '@/utils/diario/calculos';
+import { estiloNotaBimestral } from '@/utils/diario/coresNota';
 
 const ANUAL_MIN = 50;
 const SEM_MIN = 25;
@@ -20,9 +21,9 @@ const STATUS_LABEL = {
   none: { text: '—', emoji: '' }
 };
 
-const BimCell = ({ value, status }) => {
+const BimCell = ({ value, config }) => {
   if (value === null) return <span className="text-slate-400 font-mono text-sm">&mdash;</span>;
-  return <span className={`font-mono text-sm font-bold px-1.5 py-0.5 rounded ${STATUS_STYLES[status] || STATUS_STYLES.none}`}>{fmt(value)}</span>;
+  return <span className={`font-mono text-sm font-bold px-1.5 py-0.5 rounded ${estiloNotaBimestral(value, config)}`}>{fmt(value)}</span>;
 };
 
 const SemestreCell = ({ value }) => {
@@ -80,12 +81,6 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
     return vals.length > 0 ? round2(vals.reduce((a, v) => a + v, 0) / vals.length) : null;
   });
 
-  const getBimStatus = (bIndex, val) => {
-    if (val === null) return 'none';
-    const bData = turma.bimestres[String(bIndex + 1)] || {};
-    return statusColor(val, bData.config);
-  };
-
   const mediaS1 = dadosAlunos.filter((d) => d.S1.total !== null).map((d) => d.S1.total);
   const avgS1 = mediaS1.length > 0 ? round2(mediaS1.reduce((a, v) => a + v, 0) / mediaS1.length) : null;
   const mediaS2 = dadosAlunos.filter((d) => d.S2.total !== null).map((d) => d.S2.total);
@@ -136,13 +131,13 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
                 <tr key={aluno.id} className={`border-b border-slate-100 transition-all ${idx % 2 === 0 ? 'bg-slate-50/80' : 'bg-white'} hover:bg-slate-100`}>
                   <td className="hidden sm:table-cell sticky left-0 z-10 bg-inherit px-3 py-2 text-slate-400 font-mono text-xs">{idx + 1}</td>
                   <td className="sticky left-0 sm:left-[32px] z-10 bg-inherit px-3 py-2 text-slate-900 font-medium shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">{titleCase(aluno.nome)}</td>
-                  <td className="px-2 py-2 text-center border-l border-slate-200"><BimCell value={bimTotais[0]} status={getBimStatus(0, bimTotais[0])} /></td>
-                  <td className="px-2 py-2 text-center"><BimCell value={bimTotais[1]} status={getBimStatus(1, bimTotais[1])} /></td>
+                  <td className="px-2 py-2 text-center border-l border-slate-200"><BimCell value={bimTotais[0]} config={turma.bimestres["1"]?.config} /></td>
+                  <td className="px-2 py-2 text-center"><BimCell value={bimTotais[1]} config={turma.bimestres["2"]?.config} /></td>
                   <td className="px-1 py-1 text-center"><NumCell value={alunoRec.rec1 ?? ''} min={0} max={10} onChange={(v) => onSetRecuperacao(turma.id, aluno.id, 'rec1', v)} placeholder="—" /></td>
                   <td className="px-2 py-2 text-center bg-violet-50/60"><SemestreCell value={S1.total} /></td>
                   <td className="px-1 py-2 text-center"><PrecisaS2Cell s1Total={S1.total} s2Completo={sem2Completo} /></td>
-                  <td className="px-2 py-2 text-center border-l border-slate-200"><BimCell value={bimTotais[2]} status={getBimStatus(2, bimTotais[2])} /></td>
-                  <td className="px-2 py-2 text-center"><BimCell value={bimTotais[3]} status={getBimStatus(3, bimTotais[3])} /></td>
+                  <td className="px-2 py-2 text-center border-l border-slate-200"><BimCell value={bimTotais[2]} config={turma.bimestres["3"]?.config} /></td>
+                  <td className="px-2 py-2 text-center"><BimCell value={bimTotais[3]} config={turma.bimestres["4"]?.config} /></td>
                   <td className="px-1 py-1 text-center"><NumCell value={alunoRec.rec2 ?? ''} min={0} max={10} onChange={(v) => onSetRecuperacao(turma.id, aluno.id, 'rec2', v)} placeholder="—" /></td>
                   <td className="px-2 py-2 text-center bg-violet-50/60"><SemestreCell value={S2.total} /></td>
                   <td className="px-2 py-2 text-center border-l border-slate-200">
@@ -168,7 +163,7 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
               </td>
               {mediaBim.slice(0, 2).map((m, i) => (
                 <td key={i} className="px-2 py-3 text-center border-l border-slate-200">
-                  {m !== null ? <span className={`font-mono font-semibold text-sm ${STATUS_STYLES[statusColor(m, {})].split(' ')[0]}`}>{fmt(m)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
+                  {m !== null ? <span className={`font-mono font-semibold text-sm ${estiloNotaBimestral(m, turma.bimestres[String(i + 1)]?.config).split(' ')[0]}`}>{fmt(m)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
                 </td>
               ))}
               <td className="px-2 py-3 text-center"><span className="text-slate-400 font-mono text-sm">&mdash;</span></td>
@@ -178,7 +173,7 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
               <td className="px-1 py-3 text-center"><span className="text-slate-400 font-mono text-xs">&mdash;</span></td>
               {mediaBim.slice(2, 4).map((m, i) => (
                 <td key={i + 2} className="px-2 py-3 text-center border-l border-slate-200">
-                  {m !== null ? <span className={`font-mono font-semibold text-sm ${STATUS_STYLES[statusColor(m, {})].split(' ')[0]}`}>{fmt(m)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
+                  {m !== null ? <span className={`font-mono font-semibold text-sm ${estiloNotaBimestral(m, turma.bimestres[String(i + 3)]?.config).split(' ')[0]}`}>{fmt(m)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
                 </td>
               ))}
               <td className="px-2 py-3 text-center"><span className="text-slate-400 font-mono text-sm">&mdash;</span></td>

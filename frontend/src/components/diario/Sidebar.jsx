@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { calcTotal, round2, somaMaxAtv, temNota } from '@/utils/diario/calculos';
+import { estiloNotaBimestral } from '@/utils/diario/coresNota';
 
 const BIMESTRES = [1, 2, 3, 4];
 
@@ -19,9 +20,9 @@ const mediaTurma = (turma, bimestre) => {
   return round2(totais.reduce((a, x) => a + x, 0) / totais.length);
 };
 
-const MediaBadge = ({ value }) => {
+const MediaBadge = ({ value, config }) => {
   if (value === null) return <span className="text-slate-400 text-xs font-mono">&mdash;</span>;
-  const color = value >= 7 ? 'text-green-600' : value >= 5 ? 'text-blue-600' : 'text-red-600';
+  const color = estiloNotaBimestral(value, config).split(' ')[0];
   return <span className={`font-mono text-xs font-semibold ${color}`}>{value.toFixed(2).replace('.', ',')}</span>;
 };
 
@@ -192,7 +193,7 @@ export const Sidebar = ({
                   </span>
                   <span className="text-xs text-[#9098c0] font-mono">({turma.alunos.length})</span>
                 </div>
-                <MediaBadge value={media} />
+                <MediaBadge value={media} config={turma.bimestres[String(bimestreSelecionado)]?.config} />
               </button>
             </div>
           );
