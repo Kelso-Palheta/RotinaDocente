@@ -91,6 +91,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 
 2. **RN-18 (Faixas de Desempenho e Alertas Pedagógicos):**
    - O total bimestral, suas médias e a média da turma na barra lateral usam cores padronizadas: abaixo da aprovação configurada (padrão 5), vermelho; aprovado abaixo de 8, azul; excelente a partir de 8, verde. Sem nota usa indicação neutra; zero lançado é nota válida. A mesma regra se aplica aos quatro bimestres de todas as turmas, inclusive no Mapa Anual. Os critérios de recuperação e os totais semestrais/anuais permanecem independentes.
+   - No Portal do Aluno, o total e a classificação bimestral usam o mesmo helper do Diário; um bimestre com atividades cadastradas mas sem nota lançada não pode ser exibido como zero nem como aluno abaixo da média.
    - A categorização das notas dos alunos nas métricas e distribuições analíticas segue estritamente:
       - **Excelente:** Média $\ge 8.0$ (`excelente`)
       - **Adequado / Aprovado:** $5.0 \le \text{Média} < 8.0$ (ou conforme `mediaAprovacao` configurada) (`aprovado`)
@@ -214,6 +215,8 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
    - As imagens geradas são codificadas em base64 e associadas ao campo `imagemUrl` da questão, sendo salvas com a atividade e impressas no Caderno do Estudante e no PDF.
 
 10. **RN-40 (Ingestão de Conteúdo Original via Documentos PDF e Word DOCX/DOC):**
+    - Importação de alunos e materiais dos geradores normal/adaptado compartilham extração: PDF digital é lido localmente; cada página sem texto suficiente de PDF misto/escaneado é renderizada e transcrita por visão BYOK, na ordem original. Imagens JPG/PNG/WebP também são aceitas como material-base. É proibido enviar PDF binário como texto base64 para a IA interpretar.
+    - Documentos têm limite de 15MB; imagens, 7MB; PDFs permitem no máximo 10 páginas que necessitem visão por envio, verificado antes de chamadas pagas. Falhas de visão não geram texto inventado nem acionam fallback silencioso. O modo documento preserva nomes, números e tabelas, sem usar instruções específicas de redação manuscrita. DOCX/DOC/TXT e OCR legado de redações permanecem compatíveis.
     - O elaborador de atividades adaptadas permite a entrada do conteúdo a ser adaptado tanto por digitação/colagem de texto livre quanto por upload de arquivos `.pdf`, `.docx`, `.doc` ou `.txt`.
     - O extrator de documentos processa o arquivo, extrai a estrutura textual completa (títulos, enunciados, textos de apoio e questões) e popula o campo de conteúdo da atividade (`conteudoBase`).
     - O sistema valida formatos suportados (`.pdf`, `.docx`, `.doc`, `.txt`) e limites razoáveis de tamanho (até 15MB).
@@ -422,3 +425,9 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 
 
 
+
+30. **RN-63 (Importação de Notas do Simulado por Imagem/PDF):**
+    - O professor pode enviar um ou mais PDFs/imagens para preencher exclusivamente o campo `simulado` dos alunos já cadastrados na turma e no bimestre selecionados. A extração usa o pipeline visual compartilhado e a chave BYOK; não interpreta bytes de PDF como texto.
+    - Antes de alterar dados, apresenta prévia com nome no documento, aluno correspondente, nota e situação. Acentos, caixa e espaços são normalizados; nomes aproximados, desconhecidos, homônimos e duplicados no documento não recebem associação automática. Nomes/notas extraídos podem ser revisados pelo professor.
+    - Aceita zero e vírgula decimal; recusa valores ausentes, inválidos, negativos e superiores a `simuladoMaxLanca` (padrão 5), sem truncar nem converter escala. IA não inventa notas nem usa total/atividades como simulado quando a coluna não estiver clara.
+    - Importação preenche somente campos vazios (`undefined`, `null`, `''`), preservando notas existentes, inclusive zero. Aplica lote único e revalida o estado atual para proteger edições posteriores à prévia. Não altera atividades, outras turmas, outros bimestres ou o total calculado.

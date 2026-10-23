@@ -1,7 +1,12 @@
 import { useCallback } from 'react';
+import { aplicarImportacaoSimulado } from '@/dominio/diario/importacaoSimulado';
 import { clamp, genId, round2 } from '@/utils/diario/calculos';
 
 export const useNotas = (setTurmas) => {
+  const importarSimulado = useCallback((turmaId, bimestre, registros) => {
+    setTurmas(prev => aplicarImportacaoSimulado(prev, turmaId, bimestre, registros));
+  }, [setTurmas]);
+
   const setNota = useCallback((turmaId, bimestre, alunoId, campo, valor) => {
     setTurmas((prev) =>
       prev.map((t) => {
@@ -219,5 +224,5 @@ export const useNotas = (setTurmas) => {
     );
   }, [setTurmas]);
 
-  return { setNota, addAtividade, removeAtividade, renameAtividade, updateAtividadeMax, updateConfig, clearAtividadesNota, clearAtividadesTurma, clearSimuladoNota, clearSimuladoTurma };
+  return { setNota, importarSimulado, addAtividade, removeAtividade, renameAtividade, updateAtividadeMax, updateConfig, clearAtividadesNota, clearAtividadesTurma, clearSimuladoNota, clearSimuladoTurma };
 };

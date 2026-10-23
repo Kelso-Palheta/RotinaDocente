@@ -63,8 +63,8 @@ export const cleanNome = (s) =>
 
 export const temNota = (nota, atividades) => {
   if (!nota) return false;
-  if (nota.simulado !== undefined && nota.simulado !== '') return true;
-  return (atividades || []).some((a) => nota[a.id] !== undefined && nota[a.id] !== '');
+  if (nota.simulado != null && nota.simulado !== '') return true;
+  return (atividades || []).some((a) => nota[a.id] != null && nota[a.id] !== '');
 };
 
 export const calcSemestre = (n1, n2, rec, w1 = 2, w2 = 3) => {

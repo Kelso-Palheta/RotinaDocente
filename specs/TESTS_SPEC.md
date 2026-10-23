@@ -112,6 +112,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 ---
 
 ## 2. Testes de Integração (`tests/integration/`)
+- [x] **Extração visual compartilhada (RN-40):** PDF digital sem IA; PDF misto preserva ordem e usa visão apenas nas páginas necessárias; limite de páginas antes da visão; chave ausente, imagem ilegível, erro do provedor e tamanho excessivo; importação de nomes recebe texto real; Gemini usa prompt de documento sem alterar prompt de redação e rejeita transcrição truncada. Uploads dos dois geradores preenchem texto revisável. Portal usa as cores bimestrais e distingue nota ausente/null de zero.
 - [x] **Cores bimestrais (RN-18):** Validar limites 0, 4,99, 5, 7,99, 8 e 10, aprovação configurável e ausência de nota; conferir renderização dos quatro bimestres do Mapa Anual com vermelho, azul e verde, sem alterar critérios anuais.
 - [x] **IT-15 (RN-27, RN-44):** Correção de atividades via gateway real com HTTP externo simulado: Gemini/modelo BYOK, JSON explícito, modelo efetivo no resultado, fallback com texto/imagens preservados, descarte de `thought`, repetição única em truncamento e erro claro sem resposta final. Testes em `correcao_atividades_gemini.test.js`.
 - [x] **IT-01 (RN-40):** Testar extração de texto de arquivos DOCX, PDF e TXT e endpoint de upload.
@@ -140,3 +141,8 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 
 ## 4. Testes End-to-End (`tests/e2e/`)
 - [x] **E2E-01:** Validar carregamento da rota `/meuhorario` (com redirect a partir de `/horario`), renderização da grade, modal de edição e seletor de idioma pt-BR / es-Latam.
+
+### Importação de Simulado (RN-63)
+- [x] Domínio: correspondência exata normalizada; homônimos/desconhecidos; duplicatas entre arquivos; zero/vírgula; valores ausentes/inválidos/fora da escala; não sobrescrever notas existentes; atualização imutável somente no campo/bimestre/turma; revalidação contra estado atualizado.
+- [x] Integração: PDF/imagem usa extrator compartilhado e headers BYOK; prompt seleciona simulado e bimestre; JSON estrito, múltiplos arquivos, chave ausente, resposta vazia e erros.
+- [x] Interface: prévia antes de aplicar, revisão dos registros, bloqueio de pendências e confirmação apenas das linhas válidas sem sobrescrever notas.

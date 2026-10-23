@@ -1,52 +1,14 @@
 import { getClientAIHeaders } from '@/utils/aiHeaders';
 import { extrairJsonIA } from '@/utils/extrairJsonIA';
 
-// Maritaca AI — sabiazinho-4 (OpenAI-compatible endpoint)
-// Suporta visão (imagens) e texto. PDFs são convertidos para texto via FileReader.
+import { extractTextFromDocument } from '@/utils/atividades/documentExtractor';
 
 const BASE_URL = '/api/maritaca';
-const MODEL    = 'sabiazinho-4';
 
 const PROMPT =
   'Analise este documento e extraia todos os nomes de alunos encontrados. ' +
   'Retorne APENAS um JSON no formato: {"alunos": ["NOME COMPLETO 1", "NOME COMPLETO 2", ...]} ' +
   'Os nomes devem estar em MAIÚSCULAS. Ignore cabeçalhos, títulos, números, datas e qualquer texto que não seja nome de pessoa.';
-
-const toBase64 = (buffer) => {
-  let binary = '';
-  const bytes = new Uint8Array(buffer);
-  for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
-  return btoa(binary);
-};
-
-const mediaTypeOf = (file) => {
-  const ext = file.name.split('.').pop().toLowerCase();
-  const map = {
-    jpg: 'image/jpeg', jpeg: 'image/jpeg',
-    png: 'image/png', webp: 'image/webp', gif: 'image/gif'
-  };
-  return map[ext] || null;
-};
-
-const buildContent = (arquivo, b64, imageMediaType) => {
-  // Imagem → vision
-  if (imageMediaType) {
-    return [
-      {
-        type: 'image_url',
-        image_url: { url: `data:${imageMediaType};base64,${b64}` }
-      },
-      { type: 'text', text: PROMPT }
-    ];
-  }
-  // PDF → envia base64 como texto descritivo (fallback: pede ao modelo extrair do conteúdo)
-  return [
-    {
-      type: 'text',
-      text: `O arquivo abaixo é um PDF codificado em base64. Decodifique mentalmente e extraia os nomes de alunos.\n\nBase64:\n${b64}\n\n${PROMPT}`
-    }
-  ];
-};
 
 const parseResposta = (text) => {
   const parsed = extrairJsonIA(text);
@@ -57,11 +19,12 @@ const parseResposta = (text) => {
 };
 
 export const importarViaIA = async (arquivo) => {
-  const buffer = await arquivo.arrayBuffer();
-  const b64 = toBase64(buffer);
-  const imageMediaType = mediaTypeOf(arquivo);
-
-  const content = buildContent(arquivo, b64, imageMediaType);
+  const isImage = /\.(?:jpe?g|png|webp)$/i.test(arquivo.name || '') || arquivo.type?.startsWith('image/');
+  const { texto } = isImage
+    ? await extractTextFromDocument(arquivo, { allowImages: true })
+    : await extractTextFromDocument(arquivo);
+  if (!texto?.trim()) throw new Error('Nenhum texto encontrado no arquivo.');
+  const content = [{ type: 'text', text: `${PROMPT}\n\nDOCUMENTO:\n${texto}` }];
 
   const res = await fetch(BASE_URL, {
     method: 'POST',
@@ -70,7 +33,7 @@ export const importarViaIA = async (arquivo) => {
       ...getClientAIHeaders(),
     },
     body: JSON.stringify({
-      model: MODEL,
+      response_format: { type: 'json_object' },
       max_tokens: 4000,
       messages: [{ role: 'user', content }]
     })
@@ -78,7 +41,7 @@ export const importarViaIA = async (arquivo) => {
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    const msg = err?.error?.message || (typeof err?.error === 'string' ? err.error : null) || `Maritaca API error ${res.status}`;
+    const msg = err?.error?.message || err?.error?.error?.message || (typeof err?.error === 'string' ? err.error : null) || `Erro na API de IA ${res.status}`;
     throw new Error(msg);
   }
 

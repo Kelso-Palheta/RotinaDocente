@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { extractTextFromPDF } from '@/utils/atividades/pdfExtractor';
+import { extractTextFromDocument } from '@/utils/atividades/documentExtractor';
 import { imageToBase64 } from '@/utils/atividades/storageUtils';
 import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import { cleanPdfText } from '@/utils/atividades/textUtils';
@@ -265,19 +265,20 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
   const addMaterialPDF = () => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'application/pdf';
+    input.accept = '.pdf,.docx,.doc,.txt,.jpg,.jpeg,.png,.webp';
     input.multiple = true;
     input.onchange = async (e) => {
       const files = Array.from(e.target.files || []);
       for (const file of files) {
         const id = genId();
-        setMateriais(prev => [...prev, { id, tipo: 'pdf', nome: file.name, textoExtraido: '', _extracting: true }]);
+        setMateriais(prev => [...prev, { id, tipo: 'arquivo', nome: file.name, textoExtraido: '', _extracting: true }]);
         try {
-          const texto = await extractTextFromPDF(file);
+          const { texto } = await extractTextFromDocument(file, { allowImages: true });
+          if (!texto.trim()) throw new Error('Nenhum texto legível encontrado no arquivo.');
           setMateriais(prev => prev.map(m => m.id === id ? { ...m, textoExtraido: texto, _extracting: false } : m));
         } catch (err) {
           setMateriais(prev => prev.filter(m => m.id !== id));
-          setErro('Erro ao extrair PDF: ' + err.message);
+          setErro('Erro ao extrair arquivo: ' + err.message);
         }
       }
     };
@@ -550,7 +551,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                 <p className="text-[10px] text-slate-400 mt-0.5">
                   {materialTotal
                     ? `~${Math.round(materialTotal.length / 1000)}k caracteres disponíveis`
-                    : 'Anexe PDFs ou cole textos — a IA usará como base para gerar questões'}
+                    : 'Anexe PDF, Word ou imagem, ou cole textos — a IA usará como base para gerar questões'}
                 </p>
               </div>
               <div className="flex gap-1.5">
@@ -562,7 +563,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                 <button type="button" onClick={addMaterialPDF}
                   className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-50 hover:bg-slate-200 border border-slate-200 rounded-lg text-xs text-slate-400 hover:text-slate-900 transition-all">
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  PDF
+                  PDF / imagem
                 </button>
               </div>
             </div>
@@ -595,8 +596,8 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                         className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 outline-none focus:ring-1 focus:ring-violet-400/50 resize-y"
                       />
                     )}
-                    {mat.tipo === 'pdf' && mat.textoExtraido && !mat._extracting && (
-                      <p className="text-xs text-slate-400 leading-relaxed max-h-24 overflow-y-auto whitespace-pre-wrap bg-slate-50 rounded-lg p-2">{mat.textoExtraido.slice(0, 500)}{mat.textoExtraido.length > 500 ? '…' : ''}</p>
+                    {['pdf', 'arquivo'].includes(mat.tipo) && mat.textoExtraido && !mat._extracting && (
+                      <textarea aria-label={`Texto extraído de ${mat.nome}`} value={mat.textoExtraido} onChange={(e) => updateMaterial(mat.id, 'textoExtraido', e.target.value)} rows={5} className="w-full text-xs text-slate-700 leading-relaxed bg-slate-50 rounded-lg p-2" />
                     )}
                   </div>
                 ))}
@@ -611,7 +612,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                 </button>
                 <button type="button" onClick={addMaterialPDF}
                   className="flex-1 py-3 border border-dashed border-slate-200 rounded-xl text-xs text-slate-400 hover:text-violet-500 hover:border-violet-300 transition-colors text-center">
-                  Carregar PDF
+                  Carregar PDF / imagem
                 </button>
               </div>
             )}

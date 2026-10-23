@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { TabelaNotas } from '@/components/diario/TabelaNotas';
 import { TabelaFrequencia } from '@/components/diario/TabelaFrequencia';
 import { DiarioDeBordo } from '@/components/diario/DiarioDeBordo';
+import { ImportarSimuladoModal } from '@/components/diario/ImportarSimuladoModal';
 import { ImportModal } from '@/components/diario/ImportModal';
 import { MapaAnual } from '@/components/diario/MapaAnual';
 import { SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
@@ -37,12 +38,13 @@ const StatChip = ({ label, value, color }) => (
 );
 
 export const TurmaView = ({
-  turma, turmas, bimestre, user, onSetNota, onAddAtv, onRemoveAtv, onUpdateAtvMax,
+  turma, turmas, bimestre, user, onSetNota, onImportarSimulado, onAddAtv, onRemoveAtv, onUpdateAtvMax,
   onAddAlunos, onRemoveAluno, onRemoveAlunos, onUpdateConfig, onSetRecuperacao,
   onClearAtividadesNota, onClearAtividadesTurma, onAddAlunoManual, onUpdateAluno, onRemoveTurma,
   onClearSimuladoNota, onClearSimuladoTurma, onSalvarFrequencia, onSalvarOcorrencias
 }) => {
   const [showImport, setShowImport] = useState(false);
+  const [showImportSimulado, setShowImportSimulado] = useState(false);
   const [view, setView] = useState('bimestre');
   const [showAddManual, setShowAddManual] = useState(false);
   const [manualNome, setManualNome] = useState('');
@@ -153,6 +155,13 @@ export const TurmaView = ({
               <Upload size={13} />
               <span>Importar Alunos</span>
             </button>
+
+            {view === 'bimestre' && onImportarSimulado && (
+              <button type="button" onClick={() => setShowImportSimulado(true)} className="btn-brand-navy px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+                <Upload size={13} />
+                <span>Importar Simulado</span>
+              </button>
+            )}
 
             {onRemoveTurma && (
               <button 
@@ -290,6 +299,11 @@ export const TurmaView = ({
         )}
       </div>
 
+      {showImportSimulado && (
+        <ImportarSimuladoModal key={`${turma.id}-${bimestre}`} turma={turma} bimestre={bimestre}
+          onConfirm={registros => onImportarSimulado(turma.id, bimestre, registros)}
+          onClose={() => setShowImportSimulado(false)} />
+      )}
       {showImport && (
         <ImportModal turma={turma} onConfirm={(nomes) => onAddAlunos(turma.id, nomes)} onClose={() => setShowImport(false)} />
       )}

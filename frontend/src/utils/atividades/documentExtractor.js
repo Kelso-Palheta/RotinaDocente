@@ -1,5 +1,5 @@
 import * as xlsx from 'xlsx';
-import { extractTextFromPDF as extractFromPdfJs } from './pdfExtractor';
+import { extrairArquivoPDF, extrairImagemDocumento } from '@/infraestrutura/documentos/extracaoVisual';
 
 const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB
 
@@ -115,25 +115,20 @@ export async function extractTextFromDocx(fileOrBuffer) {
  */
 export async function extractTextFromPDF(file) {
   try {
-    if (typeof window !== 'undefined') {
-      return await extractFromPdfJs(file);
-    }
-    // Fallback para ambientes de teste / headless onde pdfjs-dist no browser não está disponível
-    if (file && typeof file.text === 'function') {
-      return await file.text();
-    }
-    return '';
+    return await extrairArquivoPDF(file);
   } catch (err) {
     throw new Error(`Erro ao extrair conteúdo do arquivo PDF: ${err.message}`);
   }
 }
 
 /**
- * Despachante unificado para extração de texto de documentos educacionais (PDF, DOCX, DOC, TXT)
+ * Despachante de documentos educacionais. Imagens exigem allowImages explícito
+ * para preservar o contrato dos consumidores existentes.
  *
  * @param {File|Blob|Object} file - Arquivo selecionado no input ou drag & drop
  * @param {Object} [options] - Opções de configuração
  * @param {number} [options.maxSizeBytes=15728640] - Limite máximo de bytes (padrão 15MB)
+ * @param {boolean} [options.allowImages=false] - Habilita JPG/PNG/WebP por visão BYOK
  * @returns {Promise<{ texto: string, nomeArquivo: string, tamanhoBytes: number, tipo: string, totalCaracteres: number }>}
  */
 export async function extractTextFromDocument(file, options = {}) {
@@ -171,6 +166,10 @@ export async function extractTextFromDocument(file, options = {}) {
     tipoDetectado = 'pdf';
     texto = await extractTextFromPDF(file);
   }
+  else if (options.allowImages === true && (/\.(?:jpe?g|png|webp)$/.test(fileName) || ['image/jpeg', 'image/png', 'image/webp'].includes(fileType))) {
+    tipoDetectado = 'imagem';
+    texto = await extrairImagemDocumento(file, options);
+  }
   // Texto simples TXT / MD
   else if (
     fileName.endsWith('.txt') ||
@@ -188,7 +187,7 @@ export async function extractTextFromDocument(file, options = {}) {
     }
   } else {
     throw new Error(
-      'Formato de arquivo não suportado. Por favor, envie um documento PDF (.pdf), Word (.docx, .doc) ou texto (.txt).'
+      'Formato de arquivo não suportado. Envie PDF, Word ou TXT; imagens JPG/PNG/WebP exigem um fluxo com extração visual habilitada.'
     );
   }
 

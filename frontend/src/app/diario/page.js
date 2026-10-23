@@ -192,7 +192,7 @@ export default function DiarioPage() {
   const { turmas, setTurmas, addTurma, removeTurma, addAlunos, addAlunoManual,
     removeAluno, removeAlunos, setRecuperacao, updateAluno, salvarFrequenciasTurma, salvarOcorrenciasTurma } = useTurmas(initialTurmas || [], persistir);
 
-  const { setNota, addAtividade, removeAtividade, updateAtividadeMax, updateConfig,
+  const { setNota, importarSimulado, addAtividade, removeAtividade, updateAtividadeMax, updateConfig,
     clearAtividadesNota, clearAtividadesTurma, clearSimuladoNota, clearSimuladoTurma } = useNotas(setTurmas);
 
   const [publishing, setPublishing] = useState(false);
@@ -580,6 +580,7 @@ export default function DiarioPage() {
             bimestre={bimestre}
             user={user}
             onSetNota={setNota}
+            onImportarSimulado={importarSimulado}
             onAddAtv={addAtividade}
             onRemoveAtv={removeAtividade}
             onUpdateAtvMax={updateAtividadeMax}

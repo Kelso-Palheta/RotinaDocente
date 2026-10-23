@@ -4,10 +4,7 @@ let _tesseract = null;
 export async function getPdfjsLib() {
   if (_pdfjsLib) return _pdfjsLib;
   _pdfjsLib = await import('pdfjs-dist');
-  const worker = await import('pdfjs-dist/build/pdf.worker.min.mjs');
-  _pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(
-    new Blob([worker.default || ''], { type: 'text/javascript' })
-  );
+  _pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
   return _pdfjsLib;
 }
 

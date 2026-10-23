@@ -96,6 +96,13 @@ Valida a chave do professor com uma requisição de baixo consumo (ping de valid
 
 ---
 
+### 2.4 Extração de Imagem: `POST /api/extrair`
+- Requer headers BYOK canônicos. Recebe `imageBase64` (sem prefixo data URL), `mediaType` e `finalidade` opcional.
+- `finalidade: "documento"`: transcreve livro, lista ou material didático, preservando nomes e números. Sem esse campo, mantém a transcrição de redação manuscrita existente.
+- Sucesso: `{ "text": "texto transcrito" }`. Erros reais do provedor são propagados; falta de chave usa o contrato `AI_KEY_REQUIRED`.
+- Os fluxos de documentos renderizam PDFs no navegador e enviam somente as páginas que necessitam visão, nunca o PDF binário dentro de uma mensagem textual. Limites do cliente: 15MB/documento, 7MB/imagem, 10 páginas com visão por envio.
+- `POST /api/adaptacoes/extrair-documento` mantém Word/TXT; PDFs visuais são processados no navegador. A rota não interpreta bytes de PDF como texto UTF-8.
+
 ## 3. Contratos de Atividades Adaptadas & Educação Inclusiva
 
 ### 3.1 Endpoint de Geração de Atividade Adaptada: `POST /api/adaptacoes/gerar`

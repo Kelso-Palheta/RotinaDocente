@@ -3,64 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
-import { calcTotal, calcSemestre, fmt } from '@/utils/diario/calculos';
+import { BimestreCard } from '@/components/aluno/BimestreCard';
+import { calcTotal, calcSemestre, fmt, temNota } from '@/utils/diario/calculos';
 import { generateBoletimPDF } from '@/lib/aluno/boletim-pdf';
 import { ArrowLeft, PenTool, Sparkles, Download, CheckCircle2, AlertCircle, Clock, BookOpen, User, LogOut } from 'lucide-react';
 
-const BimestreCard = ({ numero, turma, alunoId }) => {
-  const bData = turma.bimestres[String(numero)];
-  if (!bData) return null;
-  const { atividades = [], notas = {}, config } = bData;
-  const nota = notas[alunoId];
-  const total = calcTotal(nota?.simulado, atividades, nota, config);
-
-  return (
-    <div className="bg-white border border-[#dce0f0] rounded-2xl p-4 shadow-2xs hover:border-[#f60c49]/30 transition-all">
-      <div className="flex justify-between items-center mb-3">
-        <h3 className="text-xs font-extrabold text-[#101942] uppercase tracking-wider font-head">{numero}º Bimestre</h3>
-        {total !== null && (
-          <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${
-            total >= 6.0 
-              ? 'bg-[#f0fdf4] text-[#166534] border-[#bbf7d0]' 
-              : 'bg-[#fef2f2] text-[#991b1b] border-[#fecaca]'
-          }`}>
-            {total >= 6.0 ? 'Satisfatório' : 'Atenção'}
-          </span>
-        )}
-      </div>
-
-      {atividades.length > 0 || nota?.simulado != null ? (
-        <div className="space-y-1.5">
-          <div className="flex justify-between text-xs py-1 border-b border-[#dce0f0]/60">
-            <span className="text-[#6070a0] font-medium">Simulado Oficial</span>
-            <span className="font-mono text-[#101942] font-bold tabular-nums">
-              {nota?.simulado != null && nota?.simulado !== '' ? fmt(nota.simulado) : '0,00'}
-            </span>
-          </div>
-          {atividades.map((atv) => {
-            const v = nota?.[atv.id];
-            return (
-              <div key={atv.id} className="flex justify-between text-xs py-1 border-b border-[#dce0f0]/40">
-                <span className="text-[#6070a0] truncate mr-2 max-w-[160px] font-medium" title={atv.nome}>
-                  {atv.nome}
-                </span>
-                <span className="font-mono text-[#101942] font-semibold tabular-nums">
-                  {v != null && v !== '' ? fmt(v) : '0,00'} <span className="text-[#9098c0] font-normal text-[10px]">/ {fmt(atv.max)}</span>
-                </span>
-              </div>
-            );
-          })}
-          <div className="flex justify-between text-sm mt-3 pt-2.5 border-t border-[#dce0f0]">
-            <span className="font-extrabold text-[#101942] font-head">Total do Bimestre</span>
-            <span className="font-extrabold font-mono text-[#f60c49] tabular-nums text-base">{fmt(total)}</span>
-          </div>
-        </div>
-      ) : (
-        <p className="text-xs text-[#9098c0] py-4 text-center">Nenhuma atividade registrada.</p>
-      )}
-    </div>
-  );
-};
 
 const statusAtividade = (entrega, encerrada) => {
   if (!entrega) {
@@ -238,7 +185,7 @@ export default function AlunoNotasPage() {
     if (!bData) { bimTotais.push(null); continue; }
     const { atividades: atvsB = [], notas: notasB = {}, config } = bData;
     const nota = notasB[alunoId];
-    bimTotais.push(atvsB.length > 0 || nota?.simulado != null ? calcTotal(nota?.simulado, atvsB, nota, config) : null);
+    bimTotais.push(temNota(nota, atvsB) ? calcTotal(nota?.simulado, atvsB, nota, config) : null);
   }
   const S1 = calcSemestre(bimTotais[0], bimTotais[1], null, 2, 3);
   const S2 = calcSemestre(bimTotais[2], bimTotais[3], null, 2, 3);

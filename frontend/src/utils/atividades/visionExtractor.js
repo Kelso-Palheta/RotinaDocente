@@ -34,6 +34,7 @@ export async function extractTextFromImageVision(imageBase64, options = {}) {
     body: JSON.stringify({
       imageBase64,
       mediaType: options.mediaType || 'image/jpeg',
+      ...(options.finalidade === 'documento' ? { finalidade: 'documento' } : {}),
     }),
   });
 

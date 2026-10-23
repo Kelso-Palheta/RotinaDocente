@@ -146,7 +146,7 @@ export default function AdaptacoesPage() {
     setErro("");
 
     try {
-      const resultado = await extractTextFromDocument(file);
+      const resultado = await extractTextFromDocument(file, { allowImages: true });
       if (!resultado.texto || !resultado.texto.trim()) {
         throw new Error(
           "Nenhum texto pôde ser extraído do documento. Verifique se o arquivo não é uma digitalização/imagem sem texto reconhecível."
@@ -909,7 +909,7 @@ export default function AdaptacoesPage() {
                           ref={fileInputRef}
                           type="file"
                           id="upload-documento-atividade"
-                          accept=".pdf,.docx,.doc,.txt"
+                          accept=".pdf,.docx,.doc,.txt,.jpg,.jpeg,.png,.webp"
                           className="hidden"
                           onChange={(e) => {
                             if (e.target.files && e.target.files[0]) {
@@ -923,7 +923,7 @@ export default function AdaptacoesPage() {
                           onClick={() => fileInputRef.current?.click()}
                           disabled={extraindoArquivo}
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#fff2f6] text-[#d40840] hover:bg-[#ffe5ed] border border-[#fde4ec] transition-all cursor-pointer disabled:opacity-50 shadow-2xs"
-                          title="Importar prova ou lista a partir de arquivo PDF ou Word"
+                          title="Importar prova ou lista a partir de PDF, Word ou imagem"
                         >
                           {extraindoArquivo ? (
                             <>
@@ -933,7 +933,7 @@ export default function AdaptacoesPage() {
                           ) : (
                             <>
                               <Paperclip size={13} />
-                              Anexar PDF ou Word (.docx)
+                              Anexar PDF, Word ou imagem
                             </>
                           )}
                         </button>
@@ -1009,7 +1009,7 @@ export default function AdaptacoesPage() {
                       <div className="mb-3 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2.5 animate-pulse">
                         <Loader2 size={16} className="animate-spin text-amber-600 flex-shrink-0" />
                         <span className="font-medium">
-                          Processando documento e extraindo questões (PDF/Word)... Aguarde um instante.
+                          Processando documento e extraindo questões (PDF/Word/imagem)... Aguarde um instante.
                         </span>
                       </div>
                     )}
@@ -1039,7 +1039,7 @@ export default function AdaptacoesPage() {
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-[#6070a0]">
                           <Upload size={16} className="text-[#f60c49]" />
                           <span>
-                            Arraste uma prova/lista em <strong>PDF</strong> ou <strong>Word (.docx)</strong> aqui, ou clique para anexar
+                            Arraste uma prova/lista em <strong>PDF</strong> ou <strong>Word (.docx)</strong> ou <strong>imagem</strong> aqui, ou clique para anexar
                           </span>
                         </div>
                       </div>
@@ -1051,7 +1051,7 @@ export default function AdaptacoesPage() {
                       required={modo === "adaptar"}
                       value={conteudoBase}
                       onChange={(e) => setConteudoBase(e.target.value)}
-                      placeholder="Cole aqui o enunciado original da prova, lista de exercícios ou texto didático, ou anexe seu arquivo PDF/Word no botão acima..."
+                      placeholder="Cole aqui o enunciado original da prova, lista de exercícios ou texto didático, ou anexe seu arquivo PDF, Word ou imagem no botão acima..."
                       className="w-full bg-[#f7f8fc] border border-[#dce0f0] focus:bg-white focus:border-[#f60c49] rounded-2xl p-4 text-xs sm:text-sm text-[#101942] outline-none resize-y transition-all leading-relaxed"
                     />
 
@@ -1059,7 +1059,7 @@ export default function AdaptacoesPage() {
                       <span>
                         {conteudoBase.trim()
                           ? `${conteudoBase.length.toLocaleString()} caracteres no editor • Você pode revisar ou editar o texto antes de enviar para a IA.`
-                          : "Suporta arquivos PDF (.pdf), Word (.docx, .doc) e texto (.txt)."}
+                          : "PDF, Word, TXT (até 15MB) e JPG/PNG/WebP (até 7MB). Páginas escaneadas e imagens usam sua chave de IA."}
                       </span>
                       {conteudoBase.trim() && (
                         <button

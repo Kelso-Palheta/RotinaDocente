@@ -22,7 +22,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Payload JSON inválido.' }, { status: 400 });
     }
 
-    const { imageBase64, mediaType } = body;
+    const { imageBase64, mediaType, finalidade } = body;
 
     if (!imageBase64 || typeof imageBase64 !== 'string') {
       return NextResponse.json(
@@ -40,7 +40,9 @@ export async function POST(request) {
     }
 
     const cleanMediaType = mediaType ? String(mediaType).slice(0, 50) : 'image/jpeg';
-    const text = await extractTextOnly(imageBase64, cleanMediaType, userConfig);
+    const text = finalidade === 'documento'
+      ? await extractTextOnly(imageBase64, cleanMediaType, userConfig, { finalidade: 'documento' })
+      : await extractTextOnly(imageBase64, cleanMediaType, userConfig);
 
     return NextResponse.json({ text });
   } catch (error) {
