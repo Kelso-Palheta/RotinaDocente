@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { AtividadeForm } from './AtividadeForm';
 import { AtividadePainel } from './AtividadePainel';
-import { getAtividade } from '@/lib/firebase-atividades';
+import { atividadeNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
 
 const StatusBadge = ({ status }) => {
   const map = {
@@ -38,9 +38,9 @@ export const AtividadesList = ({
   }, [turma?.id, loadAtividades]);
 
   useEffect(() => {
-    const ids = atividades.filter(a => a.bimestre === bimestre).map(a => a.id);
+    const ids = atividades.filter(a => atividadeNoEscopo(a, { turmaId: turma?.id, bimestre })).map(a => a.id);
     if (ids.length > 0) loadEntregasCounts(ids);
-  }, [atividades, bimestre, loadEntregasCounts]);
+  }, [atividades, bimestre, turma?.id, loadEntregasCounts]);
 
   const handleCreate = useCallback(async (data) => {
     const id = await createAtividade(data);
@@ -68,7 +68,7 @@ export const AtividadesList = ({
     setPainelAtividade(null);
   }, [atividades, deleteAtividade, onRemoveAtv, turma, loadAtividades]);
 
-  if (painelAtividade) {
+  if (painelAtividade && atividadeNoEscopo(painelAtividade, { turmaId: turma?.id, bimestre })) {
     return (
       <AtividadePainel
         atividade={painelAtividade}
@@ -93,7 +93,7 @@ export const AtividadesList = ({
     );
   }
 
-  const atividadesFiltradas = atividades.filter(a => a.bimestre === bimestre);
+  const atividadesFiltradas = atividades.filter(a => atividadeNoEscopo(a, { turmaId: turma?.id, bimestre }));
 
   return (
     <div>
@@ -102,9 +102,9 @@ export const AtividadesList = ({
         <div className="flex gap-2">
           <button
             onClick={async () => {
-              if (!window.confirm('Sincronizar notas desta turma para o mapa bimestral?')) return;
+              if (!window.confirm(`Sincronizar somente as notas da turma ${turma.nome}, ${bimestre}º bimestre?`)) return;
               try {
-                const result = await useAtividadesHook.sincronizarTodasAsNotas(turma.id);
+                const result = await useAtividadesHook.sincronizarTodasAsNotas({ turmaId: turma.id, bimestre });
                 alert(`${result.sincronizadas} notas sincronizadas.${result.erros > 0 ? ` ${result.erros} erros.` : ''} Recarregue a página.`);
                 window.location.reload();
               } catch (err) {
@@ -113,7 +113,7 @@ export const AtividadesList = ({
             }}
             className="px-3 py-1.5 bg-green-500 hover:bg-green-400 rounded-lg text-white text-xs font-semibold transition-all"
           >
-            Sincronizar notas
+            Sincronizar turma e bimestre
           </button>
           <button
             onClick={() => setShowForm(true)}

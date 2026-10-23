@@ -147,3 +147,8 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] Domínio: correspondência exata normalizada; homônimos/desconhecidos; duplicatas entre arquivos; zero/vírgula; valores ausentes/inválidos/fora da escala; não sobrescrever notas existentes; atualização imutável somente no campo/bimestre/turma; revalidação contra estado atualizado.
 - [x] Integração: PDF/imagem usa extrator compartilhado e headers BYOK; prompt seleciona simulado e bimestre; JSON estrito, múltiplos arquivos, chave ausente, resposta vazia e erros.
 - [x] Interface: prévia antes de aplicar, revisão dos registros, bloqueio de pendências e confirmação apenas das linhas válidas sem sobrescrever notas.
+
+### Sincronização Isolada de Atividades (RN-64)
+- [x] Domínio: atividade compartilhada em duas turmas; alunos com IDs iguais entre turmas; turma/bimestre/atividade/aluno filtrados; revisada zero; somente corrigidas; bimestre divergente e aluno inexistente; preservação imutável de notas fora do escopo; modo global.
+- [x] Persistência: escopo validado antes de consultar; transação revalida documento atual e grava somente quando existem notas aplicáveis; nenhuma gravação na coleção legada users.
+- [x] Interface/hooks: filtros de turma e bimestre (string/número), chamadas restritas, modo global explícito, painel e correção em lote somente com entregas do recorte; correção individual não sincroniza outras atividades.

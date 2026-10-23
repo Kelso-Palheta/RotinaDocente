@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, query, where, onSnapshot, doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { entregaNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
 import { corrigirAtividade, detectarRespostasSimilares } from '@/utils/atividades/correcaoIA';
 
-export function useEntregas(activityId, onNotaChanged) {
-  const [entregas, setEntregas] = useState([]);
+export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {}) {
+  const [entregasRecebidas, setEntregas] = useState([]);
+  const entregas = useMemo(() => entregasRecebidas.filter(entrega => entregaNoEscopo(entrega, { turmaId, bimestre })), [entregasRecebidas, turmaId, bimestre]);
   const [corrigindo, setCorrigindo] = useState(null);
   const penalizadosRef = useRef(new Set());
 
@@ -85,39 +87,6 @@ export function useEntregas(activityId, onNotaChanged) {
           alunoId: entrega.alunoId,
           notaFinal: notaValor
         });
-
-        try {
-          const atvSnap = await getDoc(doc(db, 'atividades', activityId));
-          const atvData = atvSnap.exists() ? atvSnap.data() : null;
-          const profId = atvData?.professorId;
-          if (profId) {
-            const turmaRef = doc(db, 'users', profId, 'turmas', 'data');
-            const turmaSnap = await getDoc(turmaRef);
-            if (turmaSnap.exists()) {
-              const turmas = turmaSnap.data().turmas || [];
-              const b = String(entrega.bimestre);
-              const idx = turmas.findIndex(t => t.id === entrega.turmaId);
-              if (idx >= 0) {
-                const bData = turmas[idx].bimestres?.[b] || { atividades: [], notas: {} };
-                const notasAtuais = bData.notas || {};
-                const atvs = bData.atividades || [];
-                const atvNoMapa = atvs.find(a => a.nome === atvData?.titulo)
-                  || atvs.find(a => a.id === activityId);
-                const atvId = atvNoMapa?.id || activityId;
-                const alunoNotas = notasAtuais[entrega.alunoId] || {};
-                alunoNotas[atvId] = notaValor;
-                notasAtuais[entrega.alunoId] = alunoNotas;
-                turmas[idx] = {
-                  ...turmas[idx],
-                  bimestres: { ...turmas[idx].bimestres, [b]: { ...bData, notas: notasAtuais } }
-                };
-                await setDoc(turmaRef, { turmas, updatedAt: serverTimestamp() }, { merge: true });
-              }
-            }
-          }
-        } catch (e) {
-          console.error('Erro ao sincronizar nota no mapa bimestral:', e);
-        }
       }
 
       return resultado;
@@ -128,7 +97,7 @@ export function useEntregas(activityId, onNotaChanged) {
     } finally {
       setCorrigindo(null);
     }
-  }, [entregas, activityId, onNotaChanged]);
+  }, [entregas, onNotaChanged]);
 
   // Detecção de plágio
   useEffect(() => {

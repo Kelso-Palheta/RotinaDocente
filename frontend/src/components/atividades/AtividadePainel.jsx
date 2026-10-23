@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { aplicarSincronizacaoAtividades, entregaNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
 import { useEntregas } from '@/hooks/atividades/useEntregas';
 import { getAtividade } from '@/lib/firebase-atividades';
 import { EntregaDrawer } from './EntregaDrawer';
@@ -33,13 +34,20 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
   const [atividade, setAtividade] = useState(atividadeInicial);
 
   const handleNotaChanged = useCallback((info) => {
-    if (onSetNota) {
-      const bim = info.bimestre || atividade.bimestre;
-      onSetNota(info.turmaId, bim, info.alunoId, atividade.id, info.notaFinal);
+    if (!onSetNota) return;
+    const result = aplicarSincronizacaoAtividades({
+      turmas,
+      atividades: [atividade],
+      entregas: [{ ...info, activityId: atividade.id, status: 'corrigido', bimestre: info.bimestre ?? atividade.bimestre }],
+      escopo: { turmaId: currentTurmaId, bimestre: atividade.bimestre },
+    });
+    for (const alteracao of result.alteracoes) {
+      onSetNota(alteracao.turmaId, alteracao.bimestre, alteracao.alunoId, alteracao.atvId, info.notaFinal);
     }
-  }, [atividade.id, atividade.bimestre, onSetNota]);
+  }, [atividade, turmas, currentTurmaId, onSetNota]);
 
-  const { entregas, corrigindo, overrideNota, corrigirEntrega } = useEntregas(atividade.id, handleNotaChanged);
+  const { entregas: recebidas, corrigindo, overrideNota, corrigirEntrega } = useEntregas(atividade.id, handleNotaChanged, { turmaId: currentTurmaId, bimestre: atividade.bimestre });
+  const entregas = useMemo(() => recebidas.filter(entrega => entregaNoEscopo(entrega, { turmaId: currentTurmaId, bimestre: atividade.bimestre })), [recebidas, currentTurmaId, atividade.bimestre]);
   const [alunosInfo, setAlunosInfo] = useState({});
   const [loadingAlunos, setLoadingAlunos] = useState(true);
   const [selectedEntrega, setSelectedEntrega] = useState(null);
@@ -85,17 +93,15 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
   const syncedRef = useRef(new Set());
   useEffect(() => {
     if (!onSetNota) return;
-    for (const e of entregas) {
-      if ((e.status === 'corrigido' || e.status === 'revisado') && !syncedRef.current.has(e.id)) {
-        const nota = e.notaRevisada ?? e.notaFinal;
-        if (nota != null) {
-          syncedRef.current.add(e.id);
-          const bim = e.bimestre || atividade.bimestre;
-          onSetNota(e.turmaId, bim, e.alunoId, atividade.id, nota);
-        }
-      }
+    for (const entrega of entregas) {
+      if (!['corrigido', 'revisado'].includes(entrega.status)) continue;
+      const nota = entrega.notaRevisada ?? entrega.notaFinal;
+      const chave = `${entrega.id}:${nota}`;
+      if (nota == null || syncedRef.current.has(chave)) continue;
+      syncedRef.current.add(chave);
+      handleNotaChanged({ turmaId: entrega.turmaId, bimestre: entrega.bimestre ?? atividade.bimestre, alunoId: entrega.alunoId, notaFinal: nota });
     }
-  }, [entregas, atividade.id, atividade.bimestre, onSetNota]);
+  }, [entregas, atividade.bimestre, handleNotaChanged, onSetNota]);
 
   const handleCorrigir = useCallback(async (entregaId) => {
     const entregaAtual = entregas.find(e => e.id === entregaId);
@@ -111,25 +117,27 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
 
     try {
       const atvCompleta = await getAtividade(atividade.id);
+      if (!atvCompleta || String(atvCompleta.bimestre) !== String(atividade.bimestre) || !atvCompleta.turmaIds?.includes(entregaAtual.turmaId)) {
+        throw new Error('A atividade mudou de turma ou bimestre. Reabra o painel antes de corrigir.');
+      }
       const resultado = await corrigirEntrega(entregaId, atvCompleta, nivelCorrecao);
       if (!resultado || !atvCompleta) return;
 
-      const bim = String(atvCompleta.bimestre || entregaAtual.bimestre);
-      for (const tid of (atvCompleta.turmaIds || [entregaAtual.turmaId])) {
-        onSetNota?.(tid, bim, entregaAtual.alunoId, atividade.id, resultado.notaFinal);
-      }
-
+      const bim = String(atvCompleta.bimestre ?? entregaAtual.bimestre);
       try {
-        await useAtividadesHook.sincronizarTodasAsNotas(entregaAtual.turmaId);
+        const sync = await useAtividadesHook.sincronizarTodasAsNotas({
+          turmaId: entregaAtual.turmaId, bimestre: bim, atividadeId: atividade.id, alunoId: entregaAtual.alunoId,
+        });
+        const publicacao = sync?.publicacoes?.find(item => item.turmaId === entregaAtual.turmaId && item.alunoId === entregaAtual.alunoId && item.bimestre === bim);
+        if (publicacao) await useAtividadesHook.publicarNotaAluno?.(entregaAtual.turmaId, entregaAtual.alunoId, { [bim]: publicacao.dadosBimestre });
       } catch (syncErr) {
-        console.error('Erro ao sincronizar notas:', syncErr);
+        console.error('Erro ao sincronizar a nota corrigida:', syncErr);
       }
 
-      useAtividadesHook.publicarNotaAluno(entregaAtual.turmaId, entregaAtual.alunoId, {});
     } catch (err) {
       alert('Erro na correção: ' + err.message);
     }
-  }, [atividade.id, entregas, corrigirEntrega, nivelCorrecao, useAtividadesHook, onSetNota]);
+  }, [atividade.id, atividade.bimestre, entregas, corrigirEntrega, nivelCorrecao, useAtividadesHook]);
 
   const handleCorrigirTodas = useCallback(async () => {
     const pendentes = entregas.filter(e => e.status === 'entregue');

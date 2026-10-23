@@ -1,7 +1,8 @@
 import { db } from './firebase';
+import { aplicarSincronizacaoAtividades, atividadeNoEscopo, normalizarEscopoSincronizacao } from '@/dominio/diario/sincronizacaoAtividades';
 import {
   doc, collection, setDoc, getDoc, getDocs, deleteDoc,
-  query, where, serverTimestamp, writeBatch
+  query, where, serverTimestamp, writeBatch, runTransaction
 } from 'firebase/firestore';
 import { gerarLoginAluno, gerarLoginKey, resolverLoginUnico } from '@/utils/diario/loginAluno';
 import { encodeToken } from '@/utils/diario/tokenUtils';
@@ -206,79 +207,44 @@ export async function countEntregasPorAtividade(atividadeIds) {
   return counts;
 }
 
-export async function sincronizarTodasAsNotas(professorId, turmaIdFiltro = null) {
+export async function sincronizarTodasAsNotas(professorId, filtro = null) {
+  if (!professorId) throw new Error('Usuário não autenticado.');
+  const escopo = normalizarEscopoSincronizacao(filtro);
   const constraints = [where('professorId', '==', professorId)];
-  if (turmaIdFiltro) constraints.push(where('turmaIds', 'array-contains', turmaIdFiltro));
+  if (escopo.turmaId) constraints.push(where('turmaIds', 'array-contains', escopo.turmaId));
   const atvSnap = await getDocs(query(collection(db, 'atividades'), ...constraints));
-  const atividades = atvSnap.docs.map(d => ({ ...d.data(), id: d.id }));
-  if (!atividades.length) return { sincronizadas: 0, erros: 0, detalhes: [] };
+  // Bimestre é filtrado localmente para não exigir novos índices compostos do Firestore.
+  const atividades = atvSnap.docs.map(d => ({ ...d.data(), id: d.id }))
+    .filter(atv => atv.professorId === professorId && atividadeNoEscopo(atv, escopo));
+  const vazio = { sincronizadas: 0, erros: 0, detalhes: [], publicacoes: [] };
+  if (!atividades.length) return vazio;
 
-  const turmaRef = doc(db, 'professores', professorId, 'turmas', 'data');
-  const turmaSnap = await getDoc(turmaRef);
-  if (!turmaSnap.exists()) return { sincronizadas: 0, erros: 0, detalhes: [] };
-
-  const turmas = turmaSnap.data().turmas || [];
-  let sincronizadas = 0;
-  let erros = 0;
+  const entregas = [];
   const detalhes = [];
-
-  for (const atv of atividades) {
+  for (const atividade of atividades) {
     try {
-      const entregasSnap = await getDocs(query(
-        collection(db, 'entregas'),
-        where('activityId', '==', atv.id)
-      ));
-
-      for (const eDoc of entregasSnap.docs) {
-        const entrega = eDoc.data();
-        const nota = entrega.notaRevisada ?? entrega.notaFinal;
-        if (nota == null) continue;
-
-        const b = String(entrega.bimestre || atv.bimestre);
-
-        for (const turmaId of (atv.turmaIds || [])) {
-          const tIdx = turmas.findIndex(t => t.id === turmaId);
-          if (tIdx < 0) continue;
-
-          const bData = turmas[tIdx].bimestres?.[b] || { atividades: [], notas: {} };
-          const atvs = bData.atividades || [];
-
-          let atvId = null;
-          const porTitulo = atvs.find(a => a.nome?.trim().toLowerCase() === atv.titulo?.trim().toLowerCase());
-          if (porTitulo) atvId = porTitulo.id;
-          
-          if (!atvId) {
-            const porId = atvs.find(a => a.id === atv.id);
-            if (porId) atvId = porId.id;
-          }
-          
-          if (!atvId) {
-            atvId = atv.id;
-            atvs.push({ id: atvId, nome: atv.titulo, max: atv.notaMaxima || 2 });
-          }
-
-          const notasAtuais = { ...(bData.notas || {}) };
-          const alunoNotas = { ...(notasAtuais[entrega.alunoId] || {}) };
-          alunoNotas[atvId] = nota;
-          notasAtuais[entrega.alunoId] = alunoNotas;
-
-          turmas[tIdx] = {
-            ...turmas[tIdx],
-            bimestres: { ...turmas[tIdx].bimestres, [b]: { ...bData, atividades: atvs, notas: notasAtuais } }
-          };
-        }
-        sincronizadas++;
-      }
-    } catch (e) {
-      console.error('Erro ao sincronizar atividade:', atv.id, e);
-      erros++;
-      detalhes.push({ atv: atv.titulo, erro: e.message });
+      const snap = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', atividade.id)));
+      entregas.push(...snap.docs.map(d => ({ ...d.data(), id: d.id, activityId: atividade.id })));
+    } catch (error) {
+      detalhes.push({ atv: atividade.titulo, erro: error.message });
     }
   }
-
-  if (sincronizadas > 0) {
-    await setDoc(turmaRef, { turmas, updatedAt: serverTimestamp() }, { merge: true });
-  }
-
-  return { sincronizadas, erros, detalhes };
+  if (!entregas.length) return { ...vazio, erros: detalhes.length, detalhes };
+  const turmaRef = doc(db, 'professores', professorId, 'turmas', 'data');
+  return runTransaction(db, async transaction => {
+    const turmaSnap = await transaction.get(turmaRef);
+    if (!turmaSnap.exists()) return { ...vazio, erros: detalhes.length, detalhes };
+    const result = aplicarSincronizacaoAtividades({ turmas: turmaSnap.data().turmas || [], atividades, entregas, escopo });
+    if (result.sincronizadas) transaction.set(turmaRef, { turmas: result.turmas, updatedAt: serverTimestamp() }, { merge: true });
+    const publicacoes = [];
+    const vistos = new Set();
+    for (const alteracao of result.alteracoes) {
+      const chave = JSON.stringify([alteracao.turmaId, alteracao.alunoId, alteracao.bimestre]);
+      if (vistos.has(chave)) continue;
+      vistos.add(chave);
+      const turma = result.turmas.find(t => t.id === alteracao.turmaId);
+      publicacoes.push({ ...alteracao, dadosBimestre: turma.bimestres[alteracao.bimestre] });
+    }
+    return { sincronizadas: result.sincronizadas, erros: detalhes.length, detalhes, publicacoes };
+  });
 }

@@ -122,6 +122,11 @@ export function useAtividades(professorId) {
     return syncAlunoLogin(professorId, aluno, turmaId);
   }, [professorId]);
 
+  const sincronizarNotas = useCallback((escopo = null) => {
+    if (!professorId) throw new Error('Usuário não autenticado.');
+    return sincronizarTodasAsNotas(professorId, escopo);
+  }, [professorId]);
+
   return {
     atividades,
     todasAtividades,
@@ -139,6 +144,6 @@ export function useAtividades(professorId) {
     publicarNotas,
     publicarNotaAluno,
     syncLogin,
-    sincronizarTodasAsNotas: (turmaId) => sincronizarTodasAsNotas(professorId, turmaId || null)
+    sincronizarTodasAsNotas: sincronizarNotas
   };
 }

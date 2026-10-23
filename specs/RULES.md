@@ -432,3 +432,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - Antes de alterar dados, apresenta prévia com nome no documento, aluno correspondente, nota e situação. Acentos, caixa e espaços são normalizados; nomes aproximados, desconhecidos, homônimos e duplicados no documento não recebem associação automática. Nomes/notas extraídos podem ser revisados pelo professor.
     - Aceita zero e vírgula decimal; recusa valores ausentes, inválidos, negativos e superiores a `simuladoMaxLanca` (padrão 5), sem truncar nem converter escala. IA não inventa notas nem usa total/atividades como simulado quando a coluna não estiver clara.
     - Importação preenche somente campos vazios (`undefined`, `null`, `''`), preservando notas existentes, inclusive zero. Aplica lote único e revalida o estado atual para proteger edições posteriores à prévia. Não altera atividades, outras turmas, outros bimestres ou o total calculado.
+
+31. **RN-64 (Sincronização Isolada das Notas de Atividades):**
+    - Na visão de uma turma/bimestre, listagem, entregas, correção em lote e sincronização restringem-se à turma e ao bimestre selecionados. Atividades compartilhadas não autorizam gravar a nota de uma entrega em outras turmas.
+    - Cada nota corrigida/revisada pertence exclusivamente a `entrega.turmaId`/`entrega.alunoId` e ao bimestre válido da atividade. Entregas de alunos inexistentes, turmas não vinculadas, outro bimestre ou sem status corrigido/revisado são ignoradas; nota revisada prevalece, inclusive zero.
+    - Correção/revisão individual atualiza somente aquela atividade/aluno/turma/bimestre. É proibido acionar sincronização ampla ou publicar um mapa vazio de bimestres após uma correção.
+    - No Banco Completo sem filtros, permanece a ação explícita `Sincronizar todas as notas`. Com filtros, a sincronização respeita turma/bimestre selecionados. Tipos string/número de bimestre são normalizados.
+    - A persistência usa transação para preservar alterações concorrentes. Fora do escopo, turmas, bimestres, atividades e notas permanecem intactos.

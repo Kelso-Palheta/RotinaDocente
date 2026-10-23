@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { AtividadePainel } from './AtividadePainel';
 import { AtividadeForm } from './AtividadeForm';
+import { atividadeNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
 
 const StatusBadge = ({ status }) => {
   const map = {
@@ -42,11 +43,12 @@ export const TodasAtividades = ({
     }
   }, [todasAtividades, loadEntregasCounts]);
 
-  const filtradas = todasAtividades.filter((atv) => {
-    if (filtroTurma !== 'todas' && !atv.turmaIds?.includes(filtroTurma)) return false;
-    if (filtroBimestre !== 'todos' && atv.bimestre !== Number(filtroBimestre)) return false;
-    return true;
-  });
+  const escopo = {
+    ...(filtroTurma !== 'todas' ? { turmaId: filtroTurma } : {}),
+    ...(filtroBimestre !== 'todos' ? { bimestre: filtroBimestre } : {}),
+  };
+  const temFiltro = Object.keys(escopo).length > 0;
+  const filtradas = todasAtividades.filter(atv => atividadeNoEscopo(atv, escopo));
 
   const handleCreate = async (data) => {
     const id = await createAtividade(data);
@@ -74,6 +76,7 @@ export const TodasAtividades = ({
     return (
       <AtividadePainel
         atividade={painelAtividade}
+        currentTurmaId={filtroTurma !== 'todas' ? filtroTurma : undefined}
         onBack={() => { setPainelAtividade(null); loadAllAtividades(); }}
         onDelete={handleDelete}
         onAtividadeUpdated={(fresh) => setPainelAtividade(fresh)}
@@ -105,9 +108,11 @@ export const TodasAtividades = ({
         <div className="flex gap-2">
           <button
             onClick={async () => {
-              if (!window.confirm('Sincronizar todas as notas corrigidas para o mapa bimestral?')) return;
+              if (!window.confirm(temFiltro ? 'Sincronizar somente as notas das turmas e bimestres filtrados?' : 'Sincronizar todas as notas corrigidas para o mapa bimestral?')) return;
               try {
-                const result = await useAtividadesHook.sincronizarTodasAsNotas();
+                const result = temFiltro
+                  ? await useAtividadesHook.sincronizarTodasAsNotas(escopo)
+                  : await useAtividadesHook.sincronizarTodasAsNotas();
                 alert(`${result.sincronizadas} notas sincronizadas.${result.erros > 0 ? ` ${result.erros} erros.` : ''} Recarregue a página.`);
                 window.location.reload();
               } catch (err) {
@@ -116,7 +121,7 @@ export const TodasAtividades = ({
             }}
             className="px-3 py-1.5 bg-green-500 hover:bg-green-400 rounded-lg text-white text-xs font-semibold transition-all"
           >
-            Sincronizar notas
+            {temFiltro ? 'Sincronizar notas filtradas' : 'Sincronizar todas as notas'}
           </button>
           <button
             onClick={() => setShowForm(true)}
@@ -129,6 +134,7 @@ export const TodasAtividades = ({
 
       <div className="flex gap-3 mb-4">
         <select
+          aria-label="Filtrar atividades por turma"
           value={filtroTurma}
           onChange={(e) => setFiltroTurma(e.target.value)}
           className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 outline-none focus:ring-1 focus:ring-violet-400/50 shadow-sm"
@@ -140,6 +146,7 @@ export const TodasAtividades = ({
         </select>
 
         <select
+          aria-label="Filtrar atividades por bimestre"
           value={filtroBimestre}
           onChange={(e) => setFiltroBimestre(e.target.value)}
           className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-700 outline-none focus:ring-1 focus:ring-violet-400/50 shadow-sm"
