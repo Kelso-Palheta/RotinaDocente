@@ -427,6 +427,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 
 
 30. **RN-63 (Importação de Notas do Simulado por Imagem/PDF):**
+    - A seleção tem botão explícito e visível `Selecionar arquivo`, acessível por teclado, com os nomes dos arquivos escolhidos. `Ler arquivos` inicia a extração somente após a seleção; os controles ficam bloqueados durante leitura/aplicação.
     - O professor pode enviar um ou mais PDFs/imagens para preencher exclusivamente o campo `simulado` dos alunos já cadastrados na turma e no bimestre selecionados. A extração usa o pipeline visual compartilhado e a chave BYOK; não interpreta bytes de PDF como texto.
     - Antes de alterar dados, apresenta prévia com nome no documento, aluno correspondente, nota e situação. Acentos, caixa e espaços são normalizados; nomes aproximados, desconhecidos, homônimos e duplicados no documento não recebem associação automática. Nomes/notas extraídos podem ser revisados pelo professor.
     - Aceita zero e vírgula decimal; recusa valores ausentes, inválidos, negativos e superiores a `simuladoMaxLanca` (padrão 5), sem truncar nem converter escala. IA não inventa notas nem usa total/atividades como simulado quando a coluna não estiver clara.

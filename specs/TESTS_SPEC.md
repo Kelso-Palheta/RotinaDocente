@@ -143,6 +143,7 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] **E2E-01:** Validar carregamento da rota `/meuhorario` (com redirect a partir de `/horario`), renderização da grade, modal de edição e seletor de idioma pt-BR / es-Latam.
 
 ### Importação de Simulado (RN-63)
+- [x] Upload visível: botão abre seletor de arquivos; nomes selecionados aparecem; leitura exige seleção e bloqueia nova seleção durante a extração.
 - [x] Domínio: correspondência exata normalizada; homônimos/desconhecidos; duplicatas entre arquivos; zero/vírgula; valores ausentes/inválidos/fora da escala; não sobrescrever notas existentes; atualização imutável somente no campo/bimestre/turma; revalidação contra estado atualizado.
 - [x] Integração: PDF/imagem usa extrator compartilhado e headers BYOK; prompt seleciona simulado e bimestre; JSON estrito, múltiplos arquivos, chave ausente, resposta vazia e erros.
 - [x] Interface: prévia antes de aplicar, revisão dos registros, bloqueio de pendências e confirmação apenas das linhas válidas sem sobrescrever notas.

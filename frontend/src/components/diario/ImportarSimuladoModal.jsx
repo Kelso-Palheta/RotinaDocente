@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
+import { Upload } from 'lucide-react';
 import { extrairNotasSimulado } from '@/utils/diario/importarSimuladoIA';
 import { notaMaximaSimulado, prepararImportacaoSimulado } from '@/dominio/diario/importacaoSimulado';
 import { fmt } from '@/utils/diario/calculos';
@@ -22,6 +23,7 @@ export function ImportarSimuladoModal({ turma, bimestre, onConfirm, onClose }) {
   const [aplicando, setAplicando] = useState(false);
   const [erro, setErro] = useState('');
   const operacao = useRef(0);
+  const arquivoInput = useRef(null);
   useEffect(() => () => { operacao.current += 1; }, []);
 
   const linhas = prepararImportacaoSimulado(registros, turma, bimestre);
@@ -68,12 +70,22 @@ export function ImportarSimuladoModal({ turma, bimestre, onConfirm, onClose }) {
         </header>
         <div className="p-5 overflow-auto space-y-4">
           <div className="flex flex-wrap items-end gap-3">
-            <label className="flex-1 text-sm font-semibold text-[#101942]">
-              Arquivos com notas do simulado
-              <input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp" disabled={lendo || aplicando}
-                className="block w-full text-xs mt-2 text-[#6070a0]"
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-[#101942] mb-2">Arquivos com notas do simulado</p>
+              <input ref={arquivoInput} type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp" disabled={lendo || aplicando}
+                aria-label="Arquivos com notas do simulado" className="hidden"
                 onChange={event => { setArquivos(Array.from(event.target.files || [])); setRegistros([]); setErro(''); }} />
-            </label>
+              <button type="button" className="btn-brand-navy inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold"
+                disabled={lendo || aplicando} onClick={() => arquivoInput.current?.click()}>
+                <Upload size={16} aria-hidden="true" />
+                Selecionar arquivo
+              </button>
+              <div aria-live="polite" className="mt-2 text-xs text-[#6070a0]">
+                {arquivos.length ? (
+                  <ul aria-label="Arquivos selecionados" className="space-y-1">{arquivos.map((arquivo, i) => <li key={i} className="break-all">{arquivo.name}</li>)}</ul>
+                ) : 'Nenhum arquivo selecionado.'}
+              </div>
+            </div>
             <button type="button" className="btn-brand-primary px-4 py-2 text-sm" disabled={!arquivos.length || lendo || aplicando} onClick={lerArquivos}>
               {lendo ? 'Lendo documentos…' : 'Ler arquivos'}
             </button>
