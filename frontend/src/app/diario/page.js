@@ -11,6 +11,7 @@ import { ContextoAnoDiario } from '@/components/diario/ContextoAnoDiario';
 import { useTurmas } from '@/hooks/diario/useTurmas';
 import { useNotas } from '@/hooks/diario/useNotas';
 import { usePersistenciaDiario } from '@/hooks/diario/usePersistenciaDiario';
+import { dadosIguais } from '@/dominio/diario/comparacao';
 import { migrarCriteriosTurmas } from '@/dominio/diario/criterios';
 import { filtrarTurmasAno, copiarTurmaParaAno, assinaturaPublicacao, anoLetivoTurma, resumirAssinatura } from '@/dominio/diario/evolucao';
 import { confirmarTrocaContexto } from '@/utils/diario/confirmarTrocaContexto';
@@ -49,7 +50,7 @@ export default function DiarioPage() {
     try {
       if (sessionStorage.getItem('diario_userId') !== user?.uid) return null;
       const anterior = JSON.parse(sessionStorage.getItem('diario_turmas') || 'null');
-      return Array.isArray(anterior) && JSON.stringify(anterior) !== JSON.stringify(persistencia.turmas) ? anterior : null;
+      return Array.isArray(anterior) && !dadosIguais(anterior, persistencia.turmas) ? anterior : null;
     } catch { return null; }
   }, [user, persistencia.carregando, persistencia.turmas]);
   const contextoConta = useRef(null);

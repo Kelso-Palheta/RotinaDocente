@@ -1,6 +1,6 @@
 import { db } from '@/lib/firebase';
 import { doc, getDoc, runTransaction } from 'firebase/firestore';
-const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+import { dadosIguais as igual } from '@/dominio/diario/comparacao';
 const limpar = value => JSON.parse(JSON.stringify(value));
 const conflito = () => Object.assign(new Error('Conflito: o Diário mudou em outra aba ou dispositivo. Baixe o rascunho e recarregue a nuvem para revisar.'), { code: 'DIARIO_CONFLITO' });
 

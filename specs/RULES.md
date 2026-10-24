@@ -487,3 +487,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Editor aguarda sucesso, conserva dados no erro e ID entre tentativas. Horário local não muda ao reeditar; gabarito deve apontar alternativa preenchida; nota e critérios usam mesma escala; material pendente impede publicação/geração.
 - Turmas reutilizam persistência por conta/revisão do Diário. Ano/arquivo e troca de contexto não misturam dados. Arquivar atividade conserva notas/entregas e revoga uso pelos alunos.
 - Publicação incompleta é retomável por ID, com acessos reconciliados sem expor cadastros. Com entregas, mudanças estruturais de bimestre, questões, escala e destinatários são recusadas; duplicar é alternativa futura, sem migração destrutiva.
+
+
+### RN-70 — Comparação semântica do Diário
+- A ordem das chaves de objetos não indica alteração de conteúdo. A ordem de arrays, notas, valores zero/null/ausentes e revisão permanecem significativos.
+- Gravações sucessivas e registro de publicação não geram conflito apenas por reordenação de mapas após leitura do Firestore.
+- Recuperar conflito antigo só pode salvar o rascunho quando revisão, existência/origem e conteúdo da base ainda correspondem à nuvem; mudança real continua bloqueada.
+- Aviso de sessão antiga diferente da nuvem usa a mesma comparação de conteúdo, sem apagar ou aplicar dados automaticamente.

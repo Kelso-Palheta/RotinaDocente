@@ -193,3 +193,13 @@ Validação RN-68: **646 testes / 117 arquivos aprovados**, build de produção 
 
 
 Validação RN-69 (24/10/2026): **690 testes / 131 arquivos aprovados** na suíte completa, mais **5 testes reais no emulador Firestore** (`tests/regression/atividades_firestore_emulador.mjs`). Build aprovado; lint sem erros e com dois avisos preexistentes de imagens. Red/green de acesso entre professores documentado em `docs/analises/evidencias-atividades/`. Testes anteriores preservados.
+
+
+### RN-70 — Conflito falso após publicação
+- Comparar mapas aninhados com chaves em ordens distintas; não equiparar notas diferentes, zero/null/ausente nem arrays reordenados.
+- Simular ordenação dos campos no retorno do Firestore: salvar nota e depois registrar publicação sem conflito.
+- Cache pendente equivalente à nuvem não entra em conflito por ordem de campos; conflito antigo equivalente pode repetir salvamento.
+- Revisão/conteúdo/existência/origem diferentes continuam bloqueando gravação e preservando rascunho/nuvem.
+- Aviso de sessão anterior ignora somente diferença de ordem; diferença real continua visível.
+
+Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos arquivos alterados sem erros ou avisos. Comparação e recuperação testadas com dados sintéticos; nenhum registro de produção alterado.

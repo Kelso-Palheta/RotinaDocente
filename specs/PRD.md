@@ -85,3 +85,7 @@ Implementar as recomendações da análise de 23/10/2026 no próprio Diário: pe
 
 ### Correções do Gerador — RN-69
 Aceite: impedir acesso/entrega por identidade não autorizada e vazamento de cadastros; manter entregas anteriores; remover penalidade automática; confirmar salvamento; corrigir fuso, gabarito, imagens e rubricas; preservar dados em falhas; usar persistência segura compartilhada; informar contexto, erros, arquivamento e estado de sincronização/publicação. Novas funcionalidades independentes propostas na auditoria não integram esta correção.
+
+
+### Correção de falso conflito após publicação — RN-70
+Publicar notas e registrar o resultado deve funcionar após serialização/releitura dos mapas do banco, mantendo proteção contra alterações reais em outra aba. Permitir repetir com segurança um conflito antigo causado apenas por ordem de chaves, preservando rascunhos e registros já publicados.

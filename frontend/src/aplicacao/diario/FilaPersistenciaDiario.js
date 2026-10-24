@@ -1,5 +1,5 @@
 import { registrarAlteracao, desfazerAlteracao } from '@/dominio/diario/evolucao';
-const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+import { dadosIguais as igual, basesDiarioIguais } from '@/dominio/diario/comparacao';
 
 /** Fila sequencial independente do ciclo de montagem da página. Nunca descarta o rascunho em erro. */
 export class FilaPersistenciaDiario {
@@ -28,7 +28,7 @@ export class FilaPersistenciaDiario {
       this.historico = Array.isArray(cache?.historico) ? cache.historico : [];
       if (!descartarRascunho && cache?.pendente && Array.isArray(cache.turmas)) {
         this.turmas = cache.turmas;
-        if (!cache.base || !igual(cache.base.turmas, nuvem.turmas) || cache.base.revision !== nuvem.revision) {
+        if (!basesDiarioIguais(cache.base, nuvem)) {
           this.base = cache.base; this.estado = 'conflito'; this.erro = 'Conflito: existe um rascunho e a nuvem mudou. Baixe o rascunho antes de recarregar.';
         } else { this.estado = 'pendente'; this.erro = 'Rascunho recuperado. Clique em tentar novamente para salvar.'; }
       } else { this.turmas = nuvem.turmas; this.estado = 'salvo'; this.erro = ''; this.guardar(false); }
@@ -94,7 +94,13 @@ export class FilaPersistenciaDiario {
   }
   async tentarNovamente() {
     await this.fila;
-    if (this.estado === 'conflito' || !this.base) throw new Error(this.erro || 'Conflito: recarregue a nuvem.');
+    if (!this.base) throw new Error(this.erro || 'Conflito: recarregue a nuvem.');
+    if (this.estado === 'conflito') {
+      // Recupera falsos conflitos antigos sem aceitar alterações de outra aba.
+      const nuvem = await this.repository.carregar();
+      if (!basesDiarioIguais(this.base, nuvem)) throw new Error(this.erro || 'Conflito: a nuvem contém alterações que precisam de revisão.');
+      this.base = nuvem; this.estado = 'pendente'; this.erro = '';
+    }
     return this.salvar(this.turmas, { origem: 'repeticao', descricao: 'Repetir salvamento pendente' });
   }
   desfazer(registro) {
