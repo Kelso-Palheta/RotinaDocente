@@ -24,6 +24,9 @@ import {
   CheckCircle2,
   X,
 } from "lucide-react";
+import {EditorVisualQuestao} from "./EditorVisualQuestao";
+import {pendenciasVisuais} from "@/dominio/adaptacoes/qualidadeVisual";
+import {aguardarImagens} from "@/aplicacao/adaptacoes/arquivoVisual";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
 
 export function PainelMontadorProvas({
@@ -37,6 +40,7 @@ export function PainelMontadorProvas({
   provasSalvas = [],
   alunosPEI = [],
   onNavegarParaBanco,
+  configVisual = {},
 }) {
   const [modalProvasAberto, setModalProvasAberto] = useState(false);
   const [salvando, setSalvando] = useState(false);
@@ -50,6 +54,7 @@ export function PainelMontadorProvas({
   const [abaExibicao, setAbaExibicao] = useState("aluno"); // 'aluno' | 'mediacao'
 
   // Questão sendo editada localmente na prova
+  const [erroVisual, setErroVisual] = useState("");
   const [editandoIdx, setEditandoIdx] = useState(null);
   const [textoEditado, setTextoEditado] = useState("");
 
@@ -68,10 +73,22 @@ export function PainelMontadorProvas({
     }
   };
 
+  const aplicarProva = nova => {
+    const contexto = v => JSON.stringify([v.alunoId,v.necessidades,v.nivelSuporte,v.disciplina,v.anoEscolar]);
+    onAtualizarProva(contexto(nova)!==contexto(prova)?{...nova,questoes:nova.questoes.map(q=>({...q,visual:{...q.visual,aprovacao:null}}))}:nova);
+  };
+  const atualizarImagemQuestao = (id,nova) => {
+    const documentoId=prova.documentoVisualId||prova.id||'em-construcao';
+    onAtualizarProva(atual=>{
+      if((atual.documentoVisualId||atual.id||'em-construcao')!==documentoId)return atual;
+      return {...atual,questoes:atual.questoes.map(q=>q.id===id?nova:q)};
+    });
+  };
   const handleSelecionarAluno = (alunoId) => {
     if (!alunoId) {
-      onAtualizarProva({
+      aplicarProva({
         ...prova,
+        questoes:questoes.map(q=>({...q,visual:{...q.visual,aprovacao:null}})),
         alunoId: "",
         alunoNome: "",
         necessidades: [],
@@ -81,8 +98,9 @@ export function PainelMontadorProvas({
     }
     const aluno = alunosPEI.find((a) => a.id === alunoId);
     if (aluno) {
-      onAtualizarProva({
+      aplicarProva({
         ...prova,
+        questoes:questoes.map(q=>({...q,visual:{...q.visual,aprovacao:null}})),
         alunoId: aluno.id,
         alunoNome: aluno.nome,
         necessidades: aluno.necessidades || [],
@@ -99,10 +117,15 @@ export function PainelMontadorProvas({
   const handleSalvarEdicaoLocal = (index) => {
     const novas = [...questoes];
     novas[index] = { ...novas[index], enunciado: textoEditado.trim() };
-    onAtualizarProva({ ...prova, questoes: novas });
+    aplicarProva({ ...prova, questoes: novas });
     setEditandoIdx(null);
   };
 
+  const imprimir = async () => {
+    const pendencias=pendenciasVisuais(questoes);
+    if(pendencias.length){setErroVisual(pendencias.join(' '));return;}
+    try{await aguardarImagens(document.getElementById('area-impressao-prova'));window.print();}catch(e){setErroVisual(e.message);}
+  };
   // Se modo impressão/visualização acessível ativo
   if (modoImpressao) {
     return (
@@ -189,7 +212,7 @@ export function PainelMontadorProvas({
 
             <button
               type="button"
-              onClick={() => window.print()}
+              onClick={imprimir}
               className="px-4 py-2 bg-linear-to-r from-[#f60c49] to-[#d40840] text-white rounded-xl text-xs font-black shadow-md shadow-[#f60c49]/20 flex items-center gap-1.5"
             >
               <Printer size={15} /> Imprimir / Salvar PDF
@@ -197,6 +220,7 @@ export function PainelMontadorProvas({
           </div>
         </div>
 
+        {erroVisual&&<p role="alert" className="text-red-700 print:hidden">{erroVisual}</p>}
         {/* Folha de Prova Formatada para Impressão */}
         <div
           id="area-impressao-prova"
@@ -249,6 +273,7 @@ export function PainelMontadorProvas({
                       <p className="font-bold flex-1 text-left">{q.enunciado}</p>
                     </div>
 
+                    {q.imagemUrl && <img src={q.imagemUrl} alt={q.apoioVisualDescricao||"Figura da questão"} className="w-full object-contain" style={{maxWidth:`${q.planoVisual?.larguraCm||10}cm`,maxHeight:'16cm'}}/>}
                     {q.apoioVisualDescricao && (
                       <div className="p-3 rounded-xl border border-dashed text-xs bg-gray-50 print:bg-transparent">
                         <strong>[Apoio Visual]:</strong> {q.apoioVisualDescricao}
@@ -266,7 +291,7 @@ export function PainelMontadorProvas({
                       </div>
                     )}
 
-                    {q.tipo === "discursiva" && (
+                    {["discursiva","discursiva_curta"].includes(q.tipo) && (
                       <div className="border border-dashed border-gray-300 rounded-xl h-24 mt-2 print:border-gray-500" />
                     )}
                   </div>
@@ -393,7 +418,7 @@ export function PainelMontadorProvas({
               <input
                 type="text"
                 value={prova.titulo || ""}
-                onChange={(e) => onAtualizarProva({ ...prova, titulo: e.target.value })}
+                onChange={(e) => aplicarProva({ ...prova, titulo: e.target.value })}
                 placeholder="Ex: Avaliação Diagnóstica de Ciências - 1º Bimestre"
                 className="w-full px-3.5 py-2.5 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-bold text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
               />
@@ -405,7 +430,7 @@ export function PainelMontadorProvas({
               </label>
               <select
                 value={prova.anoEscolar || "8º Ano"}
-                onChange={(e) => onAtualizarProva({ ...prova, anoEscolar: e.target.value })}
+                onChange={(e) => aplicarProva({ ...prova, anoEscolar: e.target.value })}
                 className="w-full px-3.5 py-2.5 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
               >
                 <option value="6º Ano">6º Ano</option>
@@ -426,7 +451,7 @@ export function PainelMontadorProvas({
             <textarea
               rows={2}
               value={prova.instrucoes || ""}
-              onChange={(e) => onAtualizarProva({ ...prova, instruções: e.target.value, instrucoes: e.target.value })}
+              onChange={(e) => aplicarProva({ ...prova, instruções: e.target.value, instrucoes: e.target.value })}
               placeholder="Ex: Leia com tranquilidade. Use os apoios visuais para ajudar na compreensão..."
               className="w-full px-3.5 py-2 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
             />
@@ -526,7 +551,7 @@ export function PainelMontadorProvas({
               Nenhuma questão adicionada à prova ainda
             </h4>
             <p className="text-xs text-[#6070a0] max-w-sm mx-auto">
-              Acesse o Banco de Questões e clique em "+ Adicionar à Prova" nas questões desejadas.
+              Acesse o Banco de Questões e clique em &quot;+ Adicionar à Prova&quot; nas questões desejadas.
             </p>
             <button
               type="button"
@@ -643,6 +668,7 @@ export function PainelMontadorProvas({
                     </p>
                   )}
 
+                  {(q.imagemUrl||q.apoioVisualDescricao)&&<EditorVisualQuestao key={`${prova.documentoVisualId||prova.id||"em-construcao"}_${q.id}`} questao={q} {...configVisual} disciplina={prova.disciplina} anoEscolar={prova.anoEscolar} necessidades={prova.necessidades||[]} onChange={nova=>atualizarImagemQuestao(q.id,nova)}/>}
                   {/* Apoio Visual */}
                   {q.apoioVisualDescricao && (
                     <div className="p-2.5 bg-amber-50/70 border border-amber-200/60 rounded-xl text-[11px] text-amber-900 font-medium">

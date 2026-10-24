@@ -1,3 +1,4 @@
+import { possuiVisualV2, mesclarPendentes, salvarDocumentoVisual } from './recursosVisuais';
 /**
  * Repositório de Persistência Híbrida — Banco de Atividades Adaptadas (RN-38 & RN-24)
  * Camada: src/infraestrutura/adaptacoes/
@@ -12,7 +13,8 @@ export class AtividadeAdaptadaRepository {
    * @param {Object} [options]
    * @param {Object|null} [options.firestoreDb] Instância do Firestore (Modular ou Clássico/Mock)
    */
-  constructor({ firestoreDb = null } = {}) {
+  constructor({ firestoreDb = null, recursosVisuais = {} } = {}) {
+    this.recursosVisuais = recursosVisuais;
     this.firestoreDb = firestoreDb;
     this.storageKeyBase = ATIVIDADES_STORAGE_KEY_BASE;
   }
@@ -65,6 +67,10 @@ export class AtividadeAdaptadaRepository {
    * @returns {Promise<Object>}
    */
   async salvarAtividade(userId, atividade) {
+    return salvarDocumentoVisual(this, userId, atividade, preparado => this._salvarAtividade(userId, preparado));
+  }
+
+  async _salvarAtividade(userId, atividade) {
     const rawData = { ...atividade };
 
     const qtdQuestoes =
@@ -85,12 +91,13 @@ export class AtividadeAdaptadaRepository {
     );
 
     // 1. Sempre atualiza localmente (Cache / Fallback)
+    const cacheData = possuiVisualV2(atividadeData) ? { ...atividadeData, sincronizacaoVisual:{ status:'pendente' } } : atividadeData;
     const localList = this._lerLocal(userId);
     const existingIndex = localList.findIndex((a) => a.id === atividadeData.id);
     if (existingIndex >= 0) {
-      localList[existingIndex] = atividadeData;
+      localList[existingIndex] = cacheData;
     } else {
-      localList.unshift(atividadeData); // Mais recentes primeiro
+      localList.unshift(cacheData); // Mais recentes primeiro
     }
     this._gravarLocal(userId, localList);
 
@@ -116,6 +123,7 @@ export class AtividadeAdaptadaRepository {
           await setDoc(docRef, atividadeData, { merge: true });
         }
       } catch (err) {
+        if (possuiVisualV2(atividadeData)) throw err;
         console.warn(
           '[AtividadeAdaptadaRepository] Falha ao sincronizar com Firestore, operando em fallback:',
           err
@@ -168,8 +176,8 @@ export class AtividadeAdaptadaRepository {
 
     let todas = [];
     if (cloudList && Array.isArray(cloudList)) {
-      this._gravarLocal(userId, cloudList);
-      todas = cloudList;
+      todas = mesclarPendentes(cloudList, this._lerLocal(userId));
+      this._gravarLocal(userId, todas);
     } else {
       todas = this._lerLocal(userId);
     }
@@ -231,12 +239,17 @@ export class AtividadeAdaptadaRepository {
       throw new Error(`Atividade adaptada de ID "${atividadeId}" não encontrada.`);
     }
 
+    const documentoVisualId=`visual_reap_${Date.now()}_${Math.random().toString(36).slice(2,9)}`;
     const novaAtividade = {
       ...original,
       id: `ativ_reap_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
       reaproveitadaDe: atividadeId,
+      documentoVisualId,
       alunoId: novoAluno.id || '',
       alunoNome: novoAluno.nome || 'Novo Estudante',
+      aluno:{...original.aluno,...novoAluno,id:novoAluno.id||'',nome:novoAluno.nome||'Novo Estudante'},
+      necessidades:novoAluno.necessidades||original.necessidades||[],
+      atividadeAdaptada:{...original.atividadeAdaptada,questoes:(original.atividadeAdaptada?.questoes||[]).map((q,i)=>({...q,id:`${documentoVisualId}_q_${i+1}`,visual:q.visual?{...q.visual,aprovacao:null}:undefined}))},
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

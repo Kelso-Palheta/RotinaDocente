@@ -7,8 +7,8 @@ Objetivo: verificar um módulo por entrega, apresentar o que funciona, falhas co
 | Referência | Calendário Pedagógico | Analisado; evolução implementada localmente em tarefa anterior |
 | 1 | Diário Pedagógico | Auditoria e melhorias autorizadas implementadas localmente; guia `docs/guias/diario-pedagogico.md` |
 | 2 | Gerador de Atividades | Auditado; correções implementadas localmente. Guia `docs/guias/gerador-atividades.md`; novas funcionalidades continuam propostas |
-| 3 | Atividades Adaptadas (DUA) | Próximo |
-| 4 | Portal do Aluno | Pendente |
+| 3 | Atividades Adaptadas (DUA) | Auditado; imagens RN-72 implementadas localmente com guia `docs/guias/imagens-atividades-adaptadas.md`; demais propostas da auditoria geral permanecem pendentes |
+| 4 | Portal do Aluno | Próximo |
 | 5 | Redação Corrigida | Pendente |
 | 6 | Meu Horário Escolar | Pendente |
 | 7 | Horário Inteligente | Pendente; distinto do Meu Horário Escolar |

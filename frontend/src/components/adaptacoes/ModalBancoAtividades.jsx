@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   X,
   BookOpen,
@@ -39,7 +39,7 @@ export function ModalBancoAtividades({
   const [processandoReaproveitamento, setProcessandoReaproveitamento] = useState(false);
   const [sucessoMsg, setSucessoMsg] = useState("");
 
-  const carregarDados = async () => {
+  const carregarDados = useCallback(async () => {
     if (!repository) return;
     setCarregando(true);
     try {
@@ -56,15 +56,15 @@ export function ModalBancoAtividades({
     } finally {
       setCarregando(false);
     }
-  };
+  },[repository,alunoRepository,userId,filtroNecessidade]);
 
   useEffect(() => {
-    if (isOpen) {
+    const timer=setTimeout(()=>{if (isOpen) {
       carregarDados();
       setReaproveitandoId(null);
       setSucessoMsg("");
-    }
-  }, [isOpen, filtroNecessidade]);
+    }},0);return()=>clearTimeout(timer);
+  }, [isOpen, carregarDados]);
 
   if (!isOpen) return null;
 
@@ -97,6 +97,7 @@ export function ModalBancoAtividades({
     setProcessandoReaproveitamento(true);
     try {
       const clonada = await repository.reaproveitarParaAluno(userId, atividadeId, {
+        ...(alunosPEI.find(a=>a.id===alunoDestinoId)||{}),
         id: alunoDestinoId,
         nome: nomeFinal,
       });

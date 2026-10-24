@@ -98,6 +98,7 @@ export async function POST(request) {
     try {
       parsedResult = extrairJsonIA(cleanJson);
     } catch (parseErr) {
+      if(body.versaoVisual===2)return NextResponse.json({error:'A IA retornou uma atividade incompleta ou inválida. O formulário foi preservado; tente novamente.'},{status:502});
       console.warn('[/api/adaptacoes/gerar] Falha ao fazer parse do JSON retornado pela IA:', parseErr);
       return NextResponse.json(
         normalizarRespostaGeracao({
@@ -129,7 +130,15 @@ export async function POST(request) {
       );
     }
 
-    return NextResponse.json(normalizarRespostaGeracao(parsedResult), { status: 200 });
+    const normalizada=normalizarRespostaGeracao(parsedResult);
+    if(body.versaoVisual===2){
+      const questoes=normalizada.atividadeAdaptada.questoes;
+      const guia=normalizada.guiaMediacao;
+      const invalida=!questoes.length || questoes.length>50 || (quantidadeQuestoes!=='todas' && questoes.length!==Number(quantidadeQuestoes)) || questoes.some(q=>!q.enunciado?.trim() || !['multipla_escolha','associacao','verdadeiro_falso','discursiva_curta','discursiva'].includes(q.tipo) || (q.tipo==='multipla_escolha' && (!q.alternativas?.length || typeof q.gabarito!=='string' || !/^[A-Z]$/.test(q.gabarito) || !q.alternativas.some((_,i)=>String.fromCharCode(65+i)===q.gabarito)))) || !guia.objetivoPedagogicoInalterado?.trim() || !guia.passoAPassoProfessor?.length;
+      if(invalida)return NextResponse.json({error:'A atividade retornada precisa de questões completas, gabarito válido e guia de mediação. Tente gerar novamente; seu material foi preservado.'},{status:502});
+      normalizada.versaoVisual=2;
+    }
+    return NextResponse.json(normalizada, { status: 200 });
   } catch (error) {
     console.error('[/api/adaptacoes/gerar] Erro interno:', error);
     return NextResponse.json(

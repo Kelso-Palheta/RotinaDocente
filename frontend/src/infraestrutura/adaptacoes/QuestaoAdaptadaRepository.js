@@ -1,3 +1,4 @@
+import { possuiVisualV2, mesclarPendentes, salvarDocumentoVisual } from './recursosVisuais';
 /**
  * Repositório de Persistência Híbrida — Banco de Questões Adaptadas (RN-42 & RN-24)
  * Camada: src/infraestrutura/adaptacoes/
@@ -11,7 +12,8 @@ export class QuestaoAdaptadaRepository {
    * @param {Object} [options]
    * @param {Object|null} [options.firestoreDb] Instância do Firestore
    */
-  constructor({ firestoreDb = null } = {}) {
+  constructor({ firestoreDb = null, recursosVisuais = {} } = {}) {
+    this.recursosVisuais = recursosVisuais;
     this.firestoreDb = firestoreDb;
     this.storageKeyBase = QUESTOES_STORAGE_KEY_BASE;
   }
@@ -49,6 +51,10 @@ export class QuestaoAdaptadaRepository {
    * @returns {Promise<Object>}
    */
   async salvarQuestao(userId, questao) {
+    return salvarDocumentoVisual(this, userId, questao, preparado => this._salvarQuestao(userId, preparado));
+  }
+
+  async _salvarQuestao(userId, questao) {
     const raw = { ...questao };
     const data = JSON.parse(JSON.stringify({
       ...raw,
@@ -59,12 +65,13 @@ export class QuestaoAdaptadaRepository {
     }));
 
     // 1. Atualiza cache local
+    const cacheData = possuiVisualV2(data) ? { ...data, sincronizacaoVisual:{ status:'pendente' } } : data;
     const localList = this._lerLocal(userId);
     const existingIndex = localList.findIndex((item) => item.id === data.id);
     if (existingIndex >= 0) {
-      localList[existingIndex] = data;
+      localList[existingIndex] = cacheData;
     } else {
-      localList.unshift(data); // Mais recentes primeiro
+      localList.unshift(cacheData); // Mais recentes primeiro
     }
     this._gravarLocal(userId, localList);
 
@@ -90,6 +97,7 @@ export class QuestaoAdaptadaRepository {
           await setDoc(docRef, data, { merge: true });
         }
       } catch (err) {
+        if (possuiVisualV2(data)) throw err;
         console.warn('[QuestaoAdaptadaRepository] Erro ao sincronizar Firestore:', err);
       }
     }
@@ -162,8 +170,8 @@ export class QuestaoAdaptadaRepository {
 
     let todas = [];
     if (cloudList && Array.isArray(cloudList)) {
-      this._gravarLocal(userId, cloudList);
-      todas = cloudList;
+      todas = mesclarPendentes(cloudList, this._lerLocal(userId));
+      this._gravarLocal(userId, todas);
     } else {
       todas = this._lerLocal(userId);
     }

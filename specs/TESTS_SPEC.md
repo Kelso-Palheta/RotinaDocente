@@ -209,3 +209,14 @@ Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos 
 - Preservar quatro faixas e contagens de uma turma sintética com 35 alunos; títulos e ações continuam acessíveis.
 - Navegação e importação funcionam depois da reorganização; não testar nomes de classes CSS como contrato.
 - Conferir layout renderizado no desktop e celular: altura reduzida no desktop, rótulos sem quebra interna, ausência de sobreposição/rolagem horizontal.
+
+## RN-72 — Imagens adaptadas v2
+
+- Domínio: dados exatos e limites; invalidação de aprovação por mudança; versão e imagem ausente; distribuição; soma exata e dicas preservadas.
+- API v2: edição recebe pixels originais; Google BYOK e timeout; imagem inválida/pequena rejeitada; verificação não aprova; nenhuma troca de provedor em erro. Legado continua compatível.
+- UI: imagem gerada/regerada chega ao salvamento; original/resultado/histórico; aprovação e alteração; estado por questão; erro/cancelamento/lote; impressão com recurso carregado e plano/figura coerentes.
+- Persistência: upload autenticado/isolado, referência estável, erro preserva rascunho; bancos/provas mantêm metadados visuais. Extratores de PDF/listas/notas permanecem compatíveis.
+
+- Acrescentadas regressões de UID/documento/clonagem, edições concorrentes e reordenação, assinatura semântica após Firestore, restauração do plano SVG e troca de referência. A primeira suíte completa desta implementação passou com 752 testes/150 arquivos; repetir após revisão final e registrar resultado no plano.
+
+- Verificação final de entrega: **753 testes em 151 arquivos**, build de produção aprovado após cache limpo, lint zero erros (três avisos de img), prévia sintética em computador/celular aprovada. Bucket/regras, geração com chave real e impressão física continuam pendentes de homologação externa.

@@ -1,3 +1,4 @@
+import { possuiVisualV2, mesclarPendentes, salvarDocumentoVisual } from './recursosVisuais';
 /**
  * Repositório de Persistência Híbrida — Provas e Avaliações Adaptadas (RN-42 & RN-24)
  * Camada: src/infraestrutura/adaptacoes/
@@ -11,7 +12,8 @@ export class ProvaAdaptadaRepository {
    * @param {Object} [options]
    * @param {Object|null} [options.firestoreDb]
    */
-  constructor({ firestoreDb = null } = {}) {
+  constructor({ firestoreDb = null, recursosVisuais = {} } = {}) {
+    this.recursosVisuais = recursosVisuais;
     this.firestoreDb = firestoreDb;
     this.storageKeyBase = PROVAS_STORAGE_KEY_BASE;
   }
@@ -49,6 +51,10 @@ export class ProvaAdaptadaRepository {
    * @returns {Promise<Object>}
    */
   async salvarProva(userId, prova) {
+    return salvarDocumentoVisual(this, userId, prova, preparado => this._salvarProva(userId, preparado));
+  }
+
+  async _salvarProva(userId, prova) {
     const raw = { ...prova };
     const data = JSON.parse(JSON.stringify({
       ...raw,
@@ -59,12 +65,13 @@ export class ProvaAdaptadaRepository {
       createdAt: raw.createdAt || new Date().toISOString(),
     }));
 
+    const cacheData = possuiVisualV2(data) ? { ...data, sincronizacaoVisual:{ status:'pendente' } } : data;
     const localList = this._lerLocal(userId);
     const existingIndex = localList.findIndex((p) => p.id === data.id);
     if (existingIndex >= 0) {
-      localList[existingIndex] = data;
+      localList[existingIndex] = cacheData;
     } else {
-      localList.unshift(data);
+      localList.unshift(cacheData);
     }
     this._gravarLocal(userId, localList);
 
@@ -89,6 +96,7 @@ export class ProvaAdaptadaRepository {
           await setDoc(docRef, data, { merge: true });
         }
       } catch (err) {
+        if (possuiVisualV2(data)) throw err;
         console.warn('[ProvaAdaptadaRepository] Erro ao sincronizar Firestore:', err);
       }
     }
@@ -137,8 +145,8 @@ export class ProvaAdaptadaRepository {
 
     let todas = [];
     if (cloudList && Array.isArray(cloudList)) {
-      this._gravarLocal(userId, cloudList);
-      todas = cloudList;
+      todas = mesclarPendentes(cloudList, this._lerLocal(userId));
+      this._gravarLocal(userId, todas);
     } else {
       todas = this._lerLocal(userId);
     }

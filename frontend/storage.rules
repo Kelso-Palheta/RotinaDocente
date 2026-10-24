@@ -1,0 +1,13 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /professores/{professorId}/imagens-adaptadas/{arquivo} {
+      allow read: if request.auth != null && request.auth.uid == professorId;
+      allow create, update: if request.auth != null && request.auth.uid == professorId
+        && request.resource.size <= 7 * 1024 * 1024
+        && request.resource.contentType.matches('image/(png|jpeg|webp|svg\\+xml)')
+        && arquivo.matches('[a-f0-9]{64}\\.(png|jpg|webp|svg)');
+      allow delete: if request.auth != null && request.auth.uid == professorId;
+    }
+  }
+}

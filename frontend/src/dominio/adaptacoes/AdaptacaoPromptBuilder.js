@@ -159,6 +159,8 @@ Formato esperado:
           "B) ...",
           "C) ..."
         ],
+        "gabarito": "Letra da alternativa correta (A, B, C...) para múltipla escolha; resposta esperada para discursiva",
+        "planoVisual": {"tipo":"ilustracao", "descricao":"Cena precisa coerente com a questão e a idade escolar", "elementosObrigatorios":"Elementos, quantidades e relações que precisam ser preservados", "restricoes":"Evite ruído visual e não revele a resposta", "larguraCm":10},
         "dicaScaffolding": "Dica pedagógica sutil para ajudar o estudante caso hesite na resposta"
       }
     ]

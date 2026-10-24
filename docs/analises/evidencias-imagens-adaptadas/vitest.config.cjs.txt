@@ -1,0 +1,4 @@
+const path = require('path');
+const base = require('./vitest.config.js');
+const dom = base.test.projects.find(p => p.test.name === 'dom');
+module.exports = { ...dom, test: { ...dom.test, include: ['../docs/analises/evidencias-imagens-adaptadas/reproducao.test.jsx'] } };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   BookOpen,
   Printer,
@@ -30,7 +30,11 @@ import {
   X,
 } from "lucide-react";
 import { CATEGORIAS_MAP } from "@/dominio/adaptacoes/CategoriasDeficiencia";
-import { ImagemPedagogicaBuilder } from "@/dominio/adaptacoes/ImagemPedagogicaBuilder";
+import { EditorVisualQuestao } from "./EditorVisualQuestao";
+import {mesclarQuestaoVisual} from "@/dominio/adaptacoes/documentoVisual";
+import { pendenciasVisuais } from "@/dominio/adaptacoes/qualidadeVisual";
+import {prepararRecursosVisuais} from "@/infraestrutura/adaptacoes/recursosVisuais";
+import { aguardarImagens } from "@/aplicacao/adaptacoes/arquivoVisual";
 import { normalizarRespostaGeracao } from "@/dominio/adaptacoes/RespostaGeracaoAdaptada";
 import { converterAdaptadaParaAtividadeOnline } from "@/dominio/adaptacoes/publicadorAtividadeOnline";
 import { createAtividade, createTokensForAtividade } from "@/lib/firebase-atividades";
@@ -39,6 +43,7 @@ import { useAIConfig } from "@/hooks/useAIConfig";
 
 export function VisualizadorAtividadeAdaptada({
   resultado,
+  onAtualizarResultado,
   onVoltar,
   onSalvarNoBanco,
   onAbrirBanco,
@@ -54,14 +59,16 @@ export function VisualizadorAtividadeAdaptada({
   const { temChave, getAIHeaders } = useAIConfig();
   const [abaAtiva, setAbaAtiva] = useState("aluno"); // 'aluno' | 'mediacao'
   const [copiado, setCopiado] = useState(false);
+  const [ultimaVersaoSalva,setUltimaVersaoSalva]=useState(null);
   const [salvandoLocal, setSalvandoLocal] = useState(false);
   const [questoesSalvasNoBanco, setQuestoesSalvasNoBanco] = useState(false);
   const [indicesSalvos, setIndicesSalvos] = useState({});
 
-  // Estados de geração de imagens de apoio visual (RN-39)
-  const [imagensQuestoes, setImagensQuestoes] = useState({});
-  const [imagensComErro, setImagensComErro] = useState({});
-  const [gerandoImagemIdx, setGerandoImagemIdx] = useState(null);
+  const [edicao, setEdicao] = useState(null);
+  const produtores = useRef(new Map());
+  const cancelarLote = useRef(false);
+  const registrarProdutor = useCallback((id, produzir) => { produtores.current.set(id, produzir); return () => produtores.current.delete(id); }, []);
+  const [resumoLote, setResumoLote] = useState("");
   const [gerandoTodas, setGerandoTodas] = useState(false);
   const [erroImagem, setErroImagem] = useState("");
 
@@ -74,6 +81,7 @@ export function VisualizadorAtividadeAdaptada({
   // Estados para Publicação Online no Portal do Aluno (RN-59)
   const [modalPublicarOnline, setModalPublicarOnline] = useState(false);
   const [turmaPublicacaoId, setTurmaPublicacaoId] = useState("");
+  const [alunoPublicacaoId, setAlunoPublicacaoId] = useState("");
   const [bimestrePublicacao, setBimestrePublicacao] = useState(1);
   const [prazoPublicacao, setPrazoPublicacao] = useState(() => {
     const d = new Date();
@@ -85,6 +93,14 @@ export function VisualizadorAtividadeAdaptada({
   const [erroPublicacao, setErroPublicacao] = useState("");
 
   if (!resultado) return null;
+  const preparar = valor => { const v = normalizarRespostaGeracao(valor); return {...v, versaoVisual:2, atividadeAdaptada:{...v.atividadeAdaptada, questoes:v.atividadeAdaptada.questoes.map((q,i)=>({...q,id:q.id||`visual_q_${q.numero||i+1}`}))}}; };
+  const resultadoAtual = edicao?.base === resultado ? edicao.valor : preparar(resultado);
+  const salvoAtual = ultimaVersaoSalva===JSON.stringify(resultadoAtual) || (salvoNoBanco && edicao?.base!==resultado);
+  const atualizarQuestao = (id,q) => {
+    if(onAtualizarResultado){const documentoId=resultadoAtual.documentoVisualId||resultadoAtual.id;onAtualizarResultado(prev=>{if((prev.documentoVisualId||prev.id)!==documentoId)return prev;return mesclarQuestaoVisual(preparar(prev),id,q);});}
+    else setEdicao(prev=>({base:resultado,valor:mesclarQuestaoVisual(prev?.base===resultado?prev.valor:preparar(resultado),id,q)}));
+  };
+
 
 
   const {
@@ -95,7 +111,7 @@ export function VisualizadorAtividadeAdaptada({
     diretrizesHarmonizadas = [],
     atividadeAdaptada = {},
     guiaMediacao = {},
-  } = normalizarRespostaGeracao(resultado);
+  } = resultadoAtual;
 
   const toggleDica = (index) => {
     setDicasAbertas((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -122,100 +138,14 @@ export function VisualizadorAtividadeAdaptada({
     }
   };
 
-  const handleImprimir = () => {
-    window.print();
+  const handleImprimir = async () => {
+    try { const pendencias=pendenciasVisuais(atividadeAdaptada.questoes); if(pendencias.length)throw new Error(pendencias.join(' ')); await aguardarImagens(document.getElementById('area-impressao-atividade')); window.print(); } catch(e) { setErroImagem(e.message); }
   };
-
-  const handleGerarImagem = async (idx, q) => {
-    setErroImagem("");
-    setGerandoImagemIdx(idx);
-
-    try {
-      let urlGerada = null;
-
-      // 1. Tentar usar BYOK (OpenAI DALL-E 3 ou Gemini) se o usuário tiver chave configurada
-      if (temChave) {
-        try {
-          const res = await fetch("/api/adaptacoes/imagem", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              ...getAIHeaders(),
-            },
-            body: JSON.stringify({
-              prompt: q.apoioVisualPromptIngles || "",
-              descricaoApoio: q.apoioVisualDescricao || q.enunciado,
-              disciplina,
-              necessidades: aluno.necessidades || [],
-            }),
-          });
-          const data = await res.json();
-          if (res.ok && data.imagemUrl) {
-            urlGerada = data.imagemUrl;
-          } else {
-            console.warn("Falha no BYOK, caindo no fallback:", data.error);
-          }
-        } catch (apiErr) {
-          console.warn("Erro na API de imagem BYOK:", apiErr);
-        }
-      }
-
-      // 2. Fallback gratuito via servidor (modelo Flux com chave do projeto; legado sem ela)
-      // A URL só é publicada após validar que a imagem realmente carrega.
-      if (!urlGerada) {
-        const promptFallback = ImagemPedagogicaBuilder.montarPromptFallback({
-          apoioVisualPromptIngles: q.apoioVisualPromptIngles,
-          apoioVisualDescricao: q.apoioVisualDescricao,
-          enunciado: q.enunciado,
-        });
-        const resFallback = await fetch("/api/adaptacoes/imagem-fallback", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: promptFallback }),
-        });
-        const dadosFallback = await resFallback.json().catch(() => ({}));
-        if (!resFallback.ok || !dadosFallback.imagemUrl) {
-          throw new Error(dadosFallback.error || "Serviço de imagens indisponível.");
-        }
-        await ImagemPedagogicaBuilder.carregarImagemComTimeout(dadosFallback.imagemUrl, {
-          timeoutMs: 30000,
-        });
-        urlGerada = dadosFallback.imagemUrl;
-      }
-
-      setImagensQuestoes((prev) => ({
-        ...prev,
-        [idx]: urlGerada,
-      }));
-      setImagensComErro((prev) => {
-        if (!prev[idx]) return prev;
-        const novo = { ...prev };
-        delete novo[idx];
-        return novo;
-      });
-      q.imagemUrl = urlGerada;
-    } catch (err) {
-      console.error("Falha ao gerar imagem:", err);
-      const motivo =
-        err && err.message ? err.message : "Falha ao conectar ao serviço de imagens.";
-      setErroImagem(`Erro na questão ${q.numero || idx + 1}: ${motivo}`);
-    } finally {
-      setGerandoImagemIdx(null);
-    }
-  };
-
   const handleGerarTodasImagens = async () => {
-    const questoes = atividadeAdaptada.questoes || [];
-    setGerandoTodas(true);
-    for (let idx = 0; idx < questoes.length; idx++) {
-      const q = questoes[idx];
-      const temImagem = q.imagemUrl || imagensQuestoes[idx];
-      const falhou = imagensComErro[idx];
-      if ((!temImagem || falhou) && (q.apoioVisualDescricao || q.enunciado)) {
-        await handleGerarImagem(idx, q);
-      }
-    }
-    setGerandoTodas(false);
+    setGerandoTodas(true); cancelarLote.current=false; let sucesso=0, falhas=0;
+    const itens=atividadeAdaptada.questoes.filter(q=>q.apoioVisualDescricao&&!q.imagemUrl);
+    for (const q of itens) { if(cancelarLote.current)break; const produzir=produtores.current.get(q.id); if(produzir && await produzir())sucesso++;else falhas++; }
+    setResumoLote(`${sucesso} produzidas · ${falhas} falhas · ${itens.length-sucesso-falhas} não processadas. Todas exigem revisão.`);setGerandoTodas(false);
   };
 
   const handleConfirmarPublicacaoOnline = async (e) => {
@@ -225,15 +155,20 @@ export function VisualizadorAtividadeAdaptada({
       return;
     }
 
-    const tId = turmaPublicacaoId || turmas[0]?.id || resultado.turmaId || "turma_geral";
-    const alId = aluno.id || aluno.uid || `al_${aluno.nome ? aluno.nome.toLowerCase().replace(/\s+/g, '_') : 'adaptado'}`;
+    const turmaDestino=turmas.find(t=>t.id===turmaPublicacaoId);
+    const destinatario=turmaDestino?.alunos?.find(a=>a.id===alunoPublicacaoId);
+    if (!destinatario) { setErroPublicacao("Selecione a turma e o estudante cadastrado no Diário."); return; }
+    const pendencias=pendenciasVisuais(atividadeAdaptada.questoes);
+    if(pendencias.length){setErroPublicacao(pendencias.join(' '));return;}
+    const tId=turmaDestino.id, alId=destinatario.id;
 
     setPublicandoOnline(true);
     setErroPublicacao("");
 
     try {
+      const paraPublicar=await prepararRecursosVisuais(user.uid,resultadoAtual);
       const atividadeOnline = converterAdaptadaParaAtividadeOnline({
-        adaptacao: resultado,
+        adaptacao: {...paraPublicar,aluno:{...aluno,id:alId,nome:destinatario.nome}},
         turmaId: tId,
         alunoId: alId,
         professorId: user.uid,
@@ -245,7 +180,7 @@ export function VisualizadorAtividadeAdaptada({
 
       // Cria token de acesso exclusivo para o aluno no Portal
       await createTokensForAtividade(atividadeId, tId, [
-        { id: alId, nome: aluno.nome || "Estudante" }
+        { id: alId, nome: destinatario.nome }
       ]);
 
       setPublicadoOnlineSucesso(true);
@@ -301,22 +236,22 @@ export function VisualizadorAtividadeAdaptada({
             <button
               id="btn-salvar-no-banco"
               type="button"
-              disabled={salvoNoBanco || salvandoLocal}
+              disabled={salvoAtual || salvandoLocal}
               onClick={async () => {
                 setSalvandoLocal(true);
                 try {
-                  await onSalvarNoBanco(resultado);
-                } finally {
+                  await onSalvarNoBanco(resultadoAtual);setUltimaVersaoSalva(JSON.stringify(resultadoAtual));
+                } catch(e){setErroImagem(e.message||"Falha ao salvar. Seu trabalho continua nesta tela.");} finally {
                   setSalvandoLocal(false);
                 }
               }}
               className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                salvoNoBanco
+                salvoAtual
                   ? "bg-emerald-50 border-emerald-300 text-emerald-700"
                   : "bg-white border-[#dce0f0] hover:border-[#f60c49]/40 text-[#101942] hover:text-[#d40840]"
               }`}
             >
-              {salvoNoBanco ? (
+              {salvoAtual ? (
                 <>
                   <BookmarkCheck size={15} className="text-emerald-600" />
                   Salvo no Banco
@@ -335,9 +270,9 @@ export function VisualizadorAtividadeAdaptada({
               id="btn-salvar-questoes-banco"
               type="button"
               onClick={async () => {
-                await onSalvarQuestoesNoBanco(resultado);
+                try{await onSalvarQuestoesNoBanco(resultadoAtual);
                 setQuestoesSalvasNoBanco(true);
-                setTimeout(() => setQuestoesSalvasNoBanco(false), 3000);
+                setTimeout(() => setQuestoesSalvasNoBanco(false), 3000);}catch(e){setErroImagem(e.message);}
               }}
               className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                 questoesSalvasNoBanco
@@ -367,7 +302,7 @@ export function VisualizadorAtividadeAdaptada({
             id="btn-publicar-online-aluno"
             type="button"
             onClick={() => {
-              setTurmaPublicacaoId(turmas[0]?.id || resultado.turmaId || "");
+              setTurmaPublicacaoId(resultadoAtual.turmaId || "");setAlunoPublicacaoId("");
               setModalPublicarOnline(true);
             }}
             className="px-3.5 py-2 border border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
@@ -467,7 +402,7 @@ export function VisualizadorAtividadeAdaptada({
               title="Gerar imagens automáticas para todas as questões que possuem apoio visual"
             >
               <ImageIcon size={14} className="text-indigo-600" />
-              <span>{gerandoTodas ? "Gerando Imagens..." : "🎨 Ilustrar Todas com IA"}</span>
+              <span>{gerandoTodas ? "Gerando Imagens..." : "Produzir imagens pendentes"}</span>
             </button>
           </div>
         </div>
@@ -485,9 +420,7 @@ export function VisualizadorAtividadeAdaptada({
         <div className="p-3 bg-indigo-50 border border-indigo-200 text-indigo-950 text-xs rounded-xl flex flex-wrap items-center gap-2.5 print:hidden">
           <Sparkles size={16} className="text-indigo-600 flex-shrink-0" />
           <span className="flex-1 min-w-48">
-            Ilustrações geradas com o serviço gratuito padrão. Conecte uma chave{" "}
-            <strong>gratuita do Google AI Studio (Gemini)</strong> para imagens de
-            qualidade superior.
+            Geração e adaptação por IA utilizam sua chave <strong>Google Gemini</strong>. Imagens próprias e desenhos exatos podem ser preparados sem IA. Toda figura exige revisão antes da distribuição.
           </span>
           {onConectarIA && (
             <button
@@ -495,12 +428,14 @@ export function VisualizadorAtividadeAdaptada({
               onClick={onConectarIA}
               className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold transition-all shadow-xs"
             >
-              Conectar IA Grátis
+              Conectar Gemini
             </button>
           )}
         </div>
       )}
 
+      {resumoLote&&<p role="status" className="text-xs print:hidden">{resumoLote}</p>}
+      {gerandoTodas&&<button type="button" className="text-xs underline print:hidden" onClick={()=>{cancelarLote.current=true;}}>Parar lote após esta imagem</button>}
       {/* ÁREA DA ATIVIDADE DO ESTUDANTE (ABA 1) */}
       {abaAtiva === "aluno" && (
         <div
@@ -594,12 +529,12 @@ export function VisualizadorAtividadeAdaptada({
                       {onSalvarQuestaoIndividual && (
                         <button
                           type="button"
-                          onClick={() => {
-                            onSalvarQuestaoIndividual(q, resultado);
+                          onClick={async () => {
+                            try{await onSalvarQuestaoIndividual(q, resultadoAtual);
                             setIndicesSalvos((prev) => ({ ...prev, [idx]: true }));
                             setTimeout(() => {
                               setIndicesSalvos((prev) => ({ ...prev, [idx]: false }));
-                            }, 2500);
+                            }, 2500);}catch(e){setErroImagem(e.message);}
                           }}
                           className={`px-2 py-1 text-xs rounded-xl border transition-all flex items-center gap-1 shrink-0 print:hidden ${
                             indicesSalvos[idx]
@@ -616,120 +551,9 @@ export function VisualizadorAtividadeAdaptada({
                       )}
                     </div>
 
-                    {/* Apoio Visual & Imagem Gerada (RN-39) */}
-                    {(q.imagemUrl || imagensQuestoes[idx]) && imagensComErro[idx] ? (
-                      <div className="my-4 p-3.5 bg-red-50 border border-red-200 rounded-2xl space-y-2.5 print:hidden">
-                        <div className="flex items-start gap-2.5">
-                          <AlertCircle size={18} className="text-red-600 flex-shrink-0 mt-0.5" />
-                          <div className="text-xs sm:text-sm text-red-800">
-                            <strong className="block text-[11px] uppercase tracking-wider text-red-700">
-                              Não foi possível carregar a ilustração
-                            </strong>
-                            <span>A imagem está indisponível ou o serviço de imagens falhou.</span>
-                          </div>
-                        </div>
+                    <details className="my-3 border rounded-xl p-2 text-xs print:hidden"><summary className="cursor-pointer font-bold">Revisar enunciado e gabarito</summary><label className="block mt-2">Enunciado<textarea className="block border rounded p-2 w-full" value={q.enunciado||''} onChange={e=>atualizarQuestao(q.id,{...q,enunciado:e.target.value})}/></label><label className="block mt-2">Formato de resposta<select className="block border rounded p-2 w-full" value={q.tipo||'discursiva_curta'} onChange={e=>atualizarQuestao(q.id,{...q,tipo:e.target.value,...(e.target.value==='discursiva_curta'&&q.alternativas?.length?{enunciado:[q.enunciado,...q.alternativas].join('\n'),alternativas:[]}:{})})}><option value="discursiva_curta">Resposta escrita ou oral</option><option value="multipla_escolha">Múltipla escolha</option>{!['discursiva_curta','multipla_escolha',undefined].includes(q.tipo)&&<option value={q.tipo}>{q.tipo} (revisar formato antes de publicar)</option>}</select></label>{q.alternativas?.length>0&&<label className="block mt-2">Gabarito: letra da alternativa correta<input className="block border rounded p-2 w-full" value={q.gabarito||''} maxLength={1} onChange={e=>atualizarQuestao(q.id,{...q,gabarito:e.target.value.toUpperCase()})}/></label>}</details>
+                    <EditorVisualQuestao key={`${resultadoAtual.documentoVisualId||resultadoAtual.id||"transiente"}_${q.id}`} questao={q} onChange={nova=>atualizarQuestao(q.id,nova)} professorId={user?.uid} temChave={temChave} getAIHeaders={getAIHeaders} disciplina={disciplina} anoEscolar={anoEscolar} necessidades={aluno.necessidades} registroLote={registrarProdutor} bloqueado={gerandoTodas}/>
 
-                        {q.apoioVisualDescricao && (
-                          <div className="text-[11px] text-[#6070a0] flex items-start gap-1.5 px-1">
-                            <Eye size={13} className="text-[#f60c49] flex-shrink-0 mt-0.5" />
-                            <span>
-                              <strong className="text-[#101942]">Audiodescrição:</strong> {q.apoioVisualDescricao}
-                            </span>
-                          </div>
-                        )}
-
-                        <button
-                          type="button"
-                          disabled={gerandoImagemIdx === idx}
-                          onClick={() => handleGerarImagem(idx, q)}
-                          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs"
-                        >
-                          {gerandoImagemIdx === idx ? (
-                            <>
-                              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                              <span>Tentando novamente...</span>
-                            </>
-                          ) : (
-                            <>
-                              <RefreshCw size={14} />
-                              <span>Tentar novamente</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    ) : (q.imagemUrl || imagensQuestoes[idx]) ? (
-                      <div className="my-4 p-3 bg-slate-50/70 border border-[#dce0f0] rounded-2xl space-y-2.5">
-                        <div className="relative group max-w-md mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
-                          <img
-                            src={q.imagemUrl || imagensQuestoes[idx]}
-                            alt={q.apoioVisualDescricao || `Ilustração da Questão ${q.numero || idx + 1}`}
-                            className="w-full max-h-72 object-contain bg-white mx-auto"
-                            onError={() =>
-                              setImagensComErro((prev) => ({ ...prev, [idx]: true }))
-                            }
-                          />
-                          <div className="absolute top-2 right-2 flex items-center gap-1.5 print:hidden">
-                            <button
-                              type="button"
-                              disabled={gerandoImagemIdx === idx}
-                              onClick={() => handleGerarImagem(idx, q)}
-                              className="px-2.5 py-1 bg-white/90 hover:bg-white text-slate-700 text-[10px] font-bold rounded-lg border border-slate-200 shadow-xs flex items-center gap-1 backdrop-blur-xs transition-all"
-                              title="Regerar esta ilustração"
-                            >
-                              <RefreshCw size={11} className={gerandoImagemIdx === idx ? "animate-spin" : ""} />
-                              <span>{gerandoImagemIdx === idx ? "Regerando..." : "Regerar"}</span>
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Legenda e Audiodescrição para Acessibilidade */}
-                        {q.apoioVisualDescricao && (
-                          <div className="text-[11px] text-[#6070a0] flex items-start gap-1.5 px-1">
-                            <Eye size={13} className="text-[#f60c49] flex-shrink-0 mt-0.5" />
-                            <span>
-                              <strong className="text-[#101942]">Audiodescrição:</strong> {q.apoioVisualDescricao}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    ) : q.apoioVisualDescricao ? (
-                      <div
-                        className={`p-3.5 rounded-xl border text-xs sm:text-sm my-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
-                          altoContraste
-                            ? "border-yellow-400 bg-black text-yellow-200"
-                            : "bg-[#fafbfe] border-indigo-200 text-indigo-950"
-                        }`}
-                      >
-                        <div className="flex items-start gap-2.5 flex-1">
-                          <Eye size={18} className="text-indigo-600 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <strong className="block text-[11px] uppercase tracking-wider text-indigo-700">
-                              Apoio Visual / Audiodescrição da Questão:
-                            </strong>
-                            <span>{q.apoioVisualDescricao}</span>
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          disabled={gerandoImagemIdx === idx || gerandoTodas}
-                          onClick={() => handleGerarImagem(idx, q)}
-                          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs flex-shrink-0 print:hidden"
-                        >
-                          {gerandoImagemIdx === idx ? (
-                            <>
-                              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                              <span>Gerando Ilustração...</span>
-                            </>
-                          ) : (
-                            <>
-                              <ImageIcon size={14} />
-                              <span>🎨 Gerar Imagem com IA</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    ) : null}
                   </div>
                 </div>
 
@@ -959,7 +783,7 @@ export function VisualizadorAtividadeAdaptada({
 
                 <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl space-y-1">
                   <p className="font-semibold text-purple-900">
-                    🔒 Privacidade e Acessibilidade Garantidas (RN-59 / LBI)
+                    🔒 Publicação individual com revisão
                   </p>
                   <p className="text-[11px] text-purple-700 leading-relaxed">
                     Esta atividade adaptada ficará vinculada <strong>exclusivamente</strong> a <strong>{aluno.nome || "este estudante"}</strong>. Nenhum outro aluno da turma terá acesso ou visualização da versão adaptada no Portal.
@@ -973,7 +797,7 @@ export function VisualizadorAtividadeAdaptada({
                   {turmas && turmas.length > 0 ? (
                     <select
                       value={turmaPublicacaoId}
-                      onChange={(e) => setTurmaPublicacaoId(e.target.value)}
+                      onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");}}
                       className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
                       required
                     >
@@ -988,7 +812,7 @@ export function VisualizadorAtividadeAdaptada({
                     <input
                       type="text"
                       value={turmaPublicacaoId}
-                      onChange={(e) => setTurmaPublicacaoId(e.target.value)}
+                      onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");}}
                       placeholder="Identificador da turma (ex: 9A, Turma 1)"
                       className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
                       required
@@ -996,6 +820,7 @@ export function VisualizadorAtividadeAdaptada({
                   )}
                 </div>
 
+                <label className="block font-bold">Estudante do Diário<select required value={alunoPublicacaoId} onChange={e=>setAlunoPublicacaoId(e.target.value)} className="block w-full border rounded-xl p-2 mt-1"><option value="">Selecione o estudante…</option>{(turmas.find(t=>t.id===turmaPublicacaoId)?.alunos||[]).map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select></label>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <label className="font-bold text-slate-700 block">

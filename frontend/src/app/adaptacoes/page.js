@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { db } from "@/lib/firebase";
 import { useAIConfig } from "@/hooks/useAIConfig";
+import {criarDocumentoVisual} from "@/dominio/adaptacoes/documentoVisual";
 import { AlunoAdaptadoRepository } from "@/infraestrutura/adaptacoes/AlunoAdaptadoRepository";
 import { AtividadeAdaptadaRepository } from "@/infraestrutura/adaptacoes/AtividadeAdaptadaRepository";
 import { QuestaoAdaptadaRepository } from "@/infraestrutura/adaptacoes/QuestaoAdaptadaRepository";
@@ -49,6 +50,11 @@ import {
 } from "lucide-react";
 
 export default function AdaptacoesPage() {
+  const {user}=useAuth();
+  if(!user)return <div className="p-8 text-[#101942]">Faça login para abrir suas atividades adaptadas.</div>;
+  return <AdaptacoesDaConta key={user.uid}/>;
+}
+function AdaptacoesDaConta() {
   const router = useRouter();
   const { user } = useAuth();
   const { temChave, provider, getAIHeaders } = useAIConfig();
@@ -76,6 +82,7 @@ export default function AdaptacoesPage() {
   const [alunosPEI, setAlunosPEI] = useState([]);
   const [provaEmConstrucao, setProvaEmConstrucao] = useState({
     id: "",
+    documentoVisualId:crypto.randomUUID(),
     titulo: "Avaliação Adaptada",
     disciplina: "Língua Portuguesa",
     anoEscolar: "8º Ano",
@@ -133,6 +140,22 @@ export default function AdaptacoesPage() {
   const [erro, setErro] = useState("");
   const [resultado, setResultado] = useState(null);
   const [salvoNoBanco, setSalvoNoBanco] = useState(false);
+  const [avisoRascunho,setAvisoRascunho]=useState("");
+  const contaRascunho=useRef(null);
+  React.useEffect(()=>{
+    const timer=setTimeout(()=>{
+    if(!user?.uid || contaRascunho.current===user.uid)return;
+    contaRascunho.current=user.uid;
+    setResultado(null);setTurmasDiario(null);setEstudantePEI(null);setEstudanteDiario(null);
+    try{const raw=localStorage.getItem(`rd_adaptacoes_visual_v2_${user.uid}`);if(raw){const v=JSON.parse(raw);if(v?.versaoVisual===2){setResultado(v);setAvisoRascunho("Rascunho visual recuperado desta conta. Confira antes de publicar.");}}}catch{setAvisoRascunho("Não foi possível recuperar o rascunho local.");}
+    },0);return()=>clearTimeout(timer);
+  },[user?.uid]);
+  React.useEffect(()=>{
+    if(!user?.uid || resultado?.versaoVisual!==2)return;
+    const timer=setTimeout(()=>{try{localStorage.setItem(`rd_adaptacoes_visual_v2_${user.uid}`,JSON.stringify(resultado));setAvisoRascunho("Rascunho visual salvo neste navegador.");}catch{setAvisoRascunho("Espaço local insuficiente. Mantenha a tela aberta e salve no banco ou baixe o rascunho.");}},750);
+    return()=>clearTimeout(timer);
+  },[user?.uid,resultado]);
+
 
   // Upload e extração de documentos PDF e Word (RN-40)
   const [arquivoAnexado, setArquivoAnexado] = useState(null);
@@ -198,17 +221,20 @@ export default function AdaptacoesPage() {
           ? resultadoAtiv.atividadeAdaptada.questoes.length
           : quantidadeQuestoes,
       };
-      await atividadeRepo.salvarAtividade(user?.uid || "anonimo", aSalvar);
+      if(!user?.uid)throw new Error("Faça login para salvar a atividade.");
+      const salva=await atividadeRepo.salvarAtividade(user.uid, aSalvar);
+      setResultado(salva);
       setSalvoNoBanco(true);
     } catch (err) {
       console.error("Erro ao salvar no banco:", err);
-      alert("Erro ao salvar atividade no banco: " + err.message);
+      throw err;
     }
   };
 
   // Carregamento de Questões, Provas e Alunos PEI (RN-42)
   React.useEffect(() => {
     const carregarDados = async () => {
+      if(!user?.uid)return;
       try {
         const userId = user?.uid || "anonimo";
         const [qList, pList, aList] = await Promise.all([
@@ -252,7 +278,8 @@ export default function AdaptacoesPage() {
       const userId = user?.uid || "anonimo";
       const questoes = resultadoAtiv.atividadeAdaptada?.questoes || [];
       const formatadas = questoes.map((q, idx) => ({
-        id: `q_ia_${Date.now()}_${idx}_${Math.random().toString(36).slice(2, 6)}`,
+        ...q,
+        id: q.id || `q_ia_${Date.now()}_${idx}_${Math.random().toString(36).slice(2, 6)}`,
         enunciado: q.enunciado || `Questão ${idx + 1}`,
         tipo: q.alternativas && q.alternativas.length > 0 ? "multipla_escolha" : "discursiva",
         alternativas: q.alternativas || [],
@@ -273,7 +300,7 @@ export default function AdaptacoesPage() {
       setQuestoesBanco((prev) => [...salvas, ...prev]);
     } catch (err) {
       console.error("Erro ao salvar lote de questões:", err);
-      alert("Erro ao salvar questões no banco: " + err.message);
+      throw err;
     }
   };
 
@@ -282,7 +309,8 @@ export default function AdaptacoesPage() {
     try {
       const userId = user?.uid || "anonimo";
       const formatada = {
-        id: `q_ia_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+        ...q,
+        id: q.id || `q_ia_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
         enunciado: q.enunciado,
         tipo: q.alternativas && q.alternativas.length > 0 ? "multipla_escolha" : "discursiva",
         alternativas: q.alternativas || [],
@@ -302,7 +330,7 @@ export default function AdaptacoesPage() {
       setQuestoesBanco((prev) => [salva, ...prev]);
     } catch (err) {
       console.error("Erro ao salvar questão individual:", err);
-      alert("Erro ao salvar questão no banco: " + err.message);
+      throw err;
     }
   };
 
@@ -330,7 +358,7 @@ export default function AdaptacoesPage() {
         ...prev,
         disciplina: prev.questoes.length === 0 ? questao.disciplina || prev.disciplina : prev.disciplina,
         anoEscolar: prev.questoes.length === 0 ? questao.anoEscolar || prev.anoEscolar : prev.anoEscolar,
-        questoes: [...(prev.questoes || []), questao],
+        questoes: [...(prev.questoes || []), {...questao,visual:{...questao.visual,aprovacao:null}}],
       };
     });
   };
@@ -424,7 +452,7 @@ export default function AdaptacoesPage() {
   };
 
   // Ponte "Carregar do Diário" (RN-46): leitura única do doc de turmas
-  const carregarTurmasDiario = async () => {
+  const carregarTurmasDiario = React.useCallback(async () => {
     if (!user?.uid) {
       setErroDiario("Faça login para carregar as turmas do Diário.");
       return;
@@ -433,6 +461,7 @@ export default function AdaptacoesPage() {
     setErroDiario("");
     try {
       const snap = await getDoc(doc(db, "professores", user.uid, "turmas", "data"));
+      if(contaRascunho.current!==user.uid)return;
       const turmas = snap.exists() && Array.isArray(snap.data()?.turmas) ? snap.data().turmas : [];
       setTurmasDiario(turmas);
       setTurmaDiarioId((prev) =>
@@ -444,7 +473,7 @@ export default function AdaptacoesPage() {
     } finally {
       setCarregandoDiario(false);
     }
-  };
+  },[user]);
 
   const handleAbrirDiario = () => {
     setModalDiarioAberto(true);
@@ -480,11 +509,13 @@ export default function AdaptacoesPage() {
     setModalDiarioAberto(false);
   };
 
+  React.useEffect(()=>{const timer=setTimeout(()=>{if(user?.uid)carregarTurmasDiario();},0);return()=>clearTimeout(timer);},[user?.uid,carregarTurmasDiario]);
   // Submissão
   const handleGerar = async (e) => {
     e.preventDefault();
     setErro("");
 
+    if(extraindoArquivo){setErro("Aguarde a leitura do material antes de gerar.");return;}
     if (!temChave) {
       setModalIAAberto(true);
       return;
@@ -531,6 +562,7 @@ export default function AdaptacoesPage() {
         method: "POST",
         headers,
         body: JSON.stringify({
+          versaoVisual:2,
           modo,
           conteudoBase,
           tema,
@@ -555,7 +587,7 @@ export default function AdaptacoesPage() {
         throw new Error(data.error || data.message || "Erro ao gerar adaptação.");
       }
 
-      setResultado(data);
+      setResultado({...criarDocumentoVisual(data),aluno:{...data.aluno,id:estudanteDiario?.id||estudantePEI?.id||""},turmaId:turmaDiarioId||""});
       setSalvoNoBanco(false);
       // Rola para o topo suavemente
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -707,6 +739,8 @@ export default function AdaptacoesPage() {
 
       {/* Conteúdo Principal */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        {avisoRascunho&&<div className="mb-4 text-xs p-3 rounded-xl border bg-blue-50 print:hidden" role="status">{avisoRascunho}{resultado&&<button type="button" className="ml-3 underline font-bold" onClick={()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(resultado,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='rascunho-atividade-adaptada.json';link.click();URL.revokeObjectURL(url);}}>Baixar rascunho</button>}</div>}
+
         {abaPrincipal === "banco_questoes" && (
           <PainelBancoQuestoes
             questoes={questoesBanco}
@@ -730,6 +764,7 @@ export default function AdaptacoesPage() {
             onExcluirProva={handleExcluirProva}
             provasSalvas={provasSalvas}
             alunosPEI={alunosPEI}
+            configVisual={{professorId:user?.uid,temChave,getAIHeaders}}
             onNavegarParaBanco={() => setAbaPrincipal("banco_questoes")}
           />
         )}
@@ -753,6 +788,7 @@ export default function AdaptacoesPage() {
 
               <VisualizadorAtividadeAdaptada
                 resultado={resultado}
+                onAtualizarResultado={novo=>{setResultado(novo);setSalvoNoBanco(false);}}
                 onVoltar={() => setResultado(null)}
                 onSalvarNoBanco={handleSalvarNoBanco}
                 salvoNoBanco={salvoNoBanco}
@@ -1358,7 +1394,7 @@ export default function AdaptacoesPage() {
                 <button
                   id="btn-submeter-geracao"
                   type="submit"
-                  disabled={gerando}
+                  disabled={gerando||extraindoArquivo}
                   className="w-full sm:w-auto px-8 py-3.5 bg-[#f60c49] hover:bg-[#d40840] disabled:bg-[#f60c49]/60 text-white rounded-2xl font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {gerando ? (

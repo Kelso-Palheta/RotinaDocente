@@ -500,3 +500,14 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Identificação/abas e indicadores/ações ocupam duas faixas compactas, com quebra responsiva sem sobreposição.
 - Indicadores mantêm cores, contagens e rótulos completos; número e texto lado a lado, sem quebra interna dos rótulos.
 - Exportação, importação, navegação e cálculos permanecem iguais. Em telas estreitas os itens mudam de linha, sem cortar conteúdo nem exigir rolagem horizontal da página.
+
+## RN-72 — Imagens adaptadas revisáveis (contrato visual v2)
+
+- A nova experiência de imagem distingue manter original, adaptar com referência e criar. Original e resultado permanecem vinculados à questão por identificador estável; extração de texto não equivale a adaptação de imagem.
+- Plano visual explicita objetivo/elementos/quantidades/restrições, ano escolar, tamanho final e descrição acessível. Desenhos exatos (contagem, fração, gráfico e geometria) usam dados validados e composição determinística, sem inventar fatos.
+- API v2 valida bytes decodificáveis, limites e resolução; usa configuração explícita compatível e timeout. Gemini selecionado utiliza API Google, sem troca silenciosa para outro serviço. Compatibilidade legada não constitui certificação de qualidade.
+- Aprovação docente é vinculada à versão/imagem/enunciado/plano/descrição. Alterar qualquer elemento invalida aprovação. Verificação por IA é auxílio e nunca aprova automaticamente. Original sem qualidade suficiente pode ser salvo como rascunho, mas não distribuído como figura obrigatória aprovada.
+- Imagem, metadados, histórico e aprovação seguem para atividade/banco/prova/Portal. Salvar recebe o estado visual atualizado. Regenerar mantém versão anterior e não pode aplicar resposta atrasada a outra questão/resultado. Impressão aguarda imagens e bloqueia figura obrigatória ausente ou pendente.
+- Arquivos grandes usam armazenamento de objetos isolado por conta e referências imutáveis; falhas precisam ser apresentadas e não descartar o rascunho. Não introduzir nova dependência do extrator compartilhado de listas/notas.
+- PDFs permitem selecionar página original como referência, mesmo quando têm camada de texto; associação à questão e adequação são revisadas pelo professor. Fonte histórica/artística pode ser mantida, sem apresentar recriação como original.
+- Qualidade é aferida tecnicamente e pedagogicamente; não anunciar perfeição ou acerto de 100%. Revisão visual real, impressão física e disponibilidade dos modelos na conta são etapas de homologação que não podem ser simuladas como concluídas.

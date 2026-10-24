@@ -1,3 +1,4 @@
+import {pendenciasVisuais} from './qualidadeVisual';
 /**
  * Domínio: Acessibilidade & Adaptações
  * Publicação Digital de Atividades Adaptadas no Portal do Aluno
@@ -90,6 +91,10 @@ export function converterAdaptadaParaAtividadeOnline({
     adaptacao.questoes ||
     [];
 
+  if(adaptacao.versaoVisual===2){
+    const pendencias=pendenciasVisuais(questoesBrutas);if(pendencias.length)throw new Error(pendencias.join(' '));
+    if(!questoesBrutas.length)throw new Error('Inclua ao menos uma questão antes de publicar.');
+  }
   const qtdQuestoes = questoesBrutas.length || 1;
   const notaPorQuestao = Math.round((10 / qtdQuestoes) * 100) / 100;
 
@@ -97,6 +102,8 @@ export function converterAdaptadaParaAtividadeOnline({
     const numero = Number(q.numero) || idx + 1;
     const alternativas = normalizarAlternativasQuestao(q.alternativas);
     const tipo = alternativas.length > 0 ? 'multipla_escolha' : 'discursiva';
+    const gabarito=typeof q.gabarito==='string'?q.gabarito.trim():'';
+    if(adaptacao.versaoVisual===2 && alternativas.length && (!alternativas.some(a=>a.id===gabarito)||!['multipla_escolha',undefined].includes(q.tipo)))throw new Error(`Questão ${idx+1}: revise o tipo e informe um gabarito válido antes de publicar.`);
 
     // Normalização das imagens de apoio visual
     const imagens = [];
@@ -114,15 +121,16 @@ export function converterAdaptadaParaAtividadeOnline({
       numero,
       enunciado: q.enunciado || '',
       tipo,
-      notaMaxima: Number(q.notaMaxima) || notaPorQuestao,
+      notaMaxima: Number(q.notaMaxima) || (adaptacao.versaoVisual===2 ? (Math.floor(1000/qtdQuestoes)+(idx<1000%qtdQuestoes?1:0))/100 : notaPorQuestao),
       alternativas,
       apoioVisualDescricao: q.apoioVisualDescricao || '',
       imagens,
-      scaffolding: q.scaffolding || q.dica || '',
+      scaffolding: q.scaffolding || q.dicaScaffolding || q.dica || '',
       gabarito: q.gabarito || '',
     };
   });
 
+  if(adaptacao.versaoVisual===2 && questoesConvertidas.reduce((s,q)=>s+Math.round(q.notaMaxima*100),0)!==1000)throw new Error('A soma das questões deve ser exatamente 10 pontos.');
   const prazoPadrao = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
   return {

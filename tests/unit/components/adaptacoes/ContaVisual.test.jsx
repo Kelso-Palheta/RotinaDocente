@@ -1,0 +1,21 @@
+import React from 'react';
+import {render,screen,waitFor,cleanup} from '@testing-library/react';
+import {afterEach,expect,it,vi} from 'vitest';
+import AdaptacoesPage from '@/app/adaptacoes/page';
+const sessao=vi.hoisted(()=>({user:{uid:'conta-a'}}));
+vi.mock('@/lib/auth-context',()=>({useAuth:()=>({user:sessao.user}),useOptionalAuth:()=>({user:sessao.user})}));
+vi.mock('../../../../frontend/node_modules/next/navigation.js',()=>({useRouter:()=>({push:vi.fn()})}));
+vi.mock('@/hooks/useAIConfig',()=>({useAIConfig:()=>({temChave:true,provider:'gemini',getAIHeaders:()=>({})})}));
+vi.mock('@/lib/firebase',()=>({db:{}}));
+vi.mock('firebase/firestore',()=>({doc:()=>({}),getDoc:async()=>({exists:()=>false})}));
+vi.mock('@/infraestrutura/adaptacoes/AlunoAdaptadoRepository',()=>({AlunoAdaptadoRepository:class{async listarAlunos(){return [];}}}));
+vi.mock('@/infraestrutura/adaptacoes/AtividadeAdaptadaRepository',()=>({AtividadeAdaptadaRepository:class{}}));
+vi.mock('@/infraestrutura/adaptacoes/QuestaoAdaptadaRepository',()=>({QuestaoAdaptadaRepository:class{async listarQuestoes(){return [];}}}));
+vi.mock('@/infraestrutura/adaptacoes/ProvaAdaptadaRepository',()=>({ProvaAdaptadaRepository:class{async listarProvas(){return [];}}}));
+afterEach(()=>{cleanup();localStorage.clear();sessao.user={uid:'conta-a'};});
+it('troca de conta desmonta imediatamente o documento da sessão anterior',async()=>{
+ localStorage.setItem('rd_adaptacoes_visual_v2_conta-a',JSON.stringify({versaoVisual:2,documentoVisualId:'a',titulo:'Documento privado A',atividadeAdaptada:{questoes:[]}}));
+ const {rerender}=render(<AdaptacoesPage/>);await waitFor(()=>expect(screen.getByText('Documento privado A',{selector:'h1'})).toBeInTheDocument());
+ sessao.user={uid:'conta-b'};rerender(<AdaptacoesPage/>);
+ expect(screen.queryByText('Documento privado A',{selector:'h1'})).not.toBeInTheDocument();expect(localStorage.getItem('rd_adaptacoes_visual_v2_conta-b')).toBeNull();
+});

@@ -93,3 +93,7 @@ Publicar notas e registrar o resultado deve funcionar após serialização/relei
 
 ### Cabeçalho compacto do Diário — RN-71
 Reduzir altura do cabeçalho da turma para liberar espaço à tabela de notas. Organizar título/abas e indicadores/ações em duas faixas flexíveis, mantendo leitura e acesso aos controles no desktop e celular.
+
+## Imagens adaptadas com revisão — RN-72
+
+Permitir criar, manter ou editar figuras a partir de referência preservada, com plano visual por questão, desenhos exatos por dados, validação técnica e revisão docente. Salvar a versão atual com histórico e garantir a mesma figura no banco, prova, impressão e Portal. Impedir distribuição de figuras obrigatórias pendentes e informar falhas sem reduzir silenciosamente a qualidade ou trocar provedor.

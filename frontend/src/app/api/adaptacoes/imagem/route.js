@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
 import { ImagemPedagogicaBuilder } from '@/dominio/adaptacoes/ImagemPedagogicaBuilder';
+import { gerarImagemV2 } from '@/infraestrutura/adaptacoes/validarImagemServidor';
+
+export const runtime = 'nodejs';
+export const maxDuration = 60;
 
 export async function POST(request) {
   try {
@@ -17,6 +21,13 @@ export async function POST(request) {
     }
 
     const body = await request.json();
+    if (body.versaoVisual === 2) {
+      try {
+        return NextResponse.json(await gerarImagemV2(body, userConfig, request.signal));
+      } catch (error) {
+        return NextResponse.json({ error: error.seguro ? error.message : 'Falha ao processar a imagem. Tente novamente.' }, { status: error.status || (error.name === 'TimeoutError' || error.name === 'AbortError' ? 504 : 502) });
+      }
+    }
     const { prompt = '', descricaoApoio = '', disciplina = 'Geral', necessidades = [] } = body;
 
     // Combina audiodescrição (PT-BR) e prompt detalhado (EN) em um único texto base,
