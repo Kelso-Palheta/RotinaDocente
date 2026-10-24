@@ -1,23 +1,24 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { db } from '@/lib/firebase';
 import { collection, query, where, onSnapshot, doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { prepararCorrecaoManual, registrarCorrecaoAnterior } from '@/dominio/atividades/correcaoManual';
 import { entregaNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
 import { corrigirAtividade, detectarRespostasSimilares } from '@/utils/atividades/correcaoIA';
 
 export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {}) {
-  const [entregasRecebidas, setEntregas] = useState([]);
-  const entregas = useMemo(() => entregasRecebidas.filter(entrega => entregaNoEscopo(entrega, { turmaId, bimestre })), [entregasRecebidas, turmaId, bimestre]);
+  const [snapshot, setSnapshot] = useState({ activityId: null, entregas: [], erro: '' });
+  const entregas = useMemo(() => snapshot.activityId === activityId ? snapshot.entregas.filter(entrega => entregaNoEscopo(entrega, { turmaId, bimestre })) : [], [snapshot, activityId, turmaId, bimestre]);
   const [corrigindo, setCorrigindo] = useState(null);
-  const penalizadosRef = useRef(new Set());
+  const erro = snapshot.activityId === activityId ? snapshot.erro : '';
 
   useEffect(() => {
     if (!activityId) return;
     const q = query(collection(db, 'entregas'), where('activityId', '==', activityId));
     const unsub = onSnapshot(q, (snap) => {
-      setEntregas(snap.docs.map(d => ({ ...d.data(), id: d.id })));
-    });
+      setSnapshot({ activityId, entregas: snap.docs.map(d => ({ ...d.data(), id: d.id })), erro: '' });
+    }, error => { setSnapshot({ activityId, entregas: [], erro: error.message || 'Erro ao carregar entregas.' }); });
     return () => unsub();
   }, [activityId]);
 
@@ -32,6 +33,17 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
       status: 'revisado'
     }, { merge: true });
   }, [entregas]);
+
+  const corrigirManualmente = useCallback(async (entregaId, atividade, dados, professorId) => {
+    const entrega = entregas.find(item => item.id === entregaId);
+    if (!entrega) throw new Error('Entrega fora do escopo selecionado.');
+    const payload = prepararCorrecaoManual(atividade, entrega, dados, professorId);
+    payload.revisadaEm = serverTimestamp();
+    payload.corrigidoEm = serverTimestamp();
+    await setDoc(doc(db, 'entregas', entregaId), payload, { mergeFields: Object.keys(payload) });
+    onNotaChanged?.({ turmaId: entrega.turmaId, bimestre: entrega.bimestre, alunoId: entrega.alunoId, notaFinal: payload.notaFinal });
+    return payload;
+  }, [entregas, onNotaChanged]);
 
   const corrigirEntrega = useCallback(async (entregaId, atividade, nivelCorrecao = 'normal') => {
     const entrega = entregas.find(e => e.id === entregaId);
@@ -55,8 +67,10 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
           notaFinal: resultado.notaFinal,
           modeloIA: resultado.modelo,
           corrigidoEm: serverTimestamp(),
-          status: 'corrigido'
-        }, { merge: true });
+          status: 'corrigido', tipoCorrecao: 'ia', penalidadePlagio: false, notaRevisada: null, revisadaPorId: null,
+          correcaoAnterior: registrarCorrecaoAnterior(entrega),
+          feedback: resultado.feedback || '', feedbackGeral: '',
+        }, { mergeFields: ['resultados', 'notaOriginal', 'notaFinal', 'modeloIA', 'corrigidoEm', 'status', 'tipoCorrecao', 'penalidadePlagio', 'notaRevisada', 'revisadaPorId', 'correcaoAnterior', 'feedback', 'feedbackGeral'] });
       } else {
         resultado = await corrigirAtividade({
           enunciado: atividade.enunciado,
@@ -75,7 +89,8 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
           criterios: resultado.criterios,
           modeloIA: resultado.modelo,
           corrigidoEm: serverTimestamp(),
-          status: 'corrigido'
+          status: 'corrigido', tipoCorrecao: 'ia', penalidadePlagio: false, notaRevisada: null, revisadaPorId: null, feedbackGeral: '',
+          correcaoAnterior: registrarCorrecaoAnterior(entrega),
         }, { merge: true });
       }
 
@@ -92,55 +107,20 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
       return resultado;
     } catch (err) {
       console.error('Erro na correção por IA:', err);
-      await setDoc(doc(db, 'entregas', entregaId), { status: 'erro_correcao' }, { merge: true });
+      if (!['corrigido', 'revisado'].includes(entrega.status)) {
+        await setDoc(doc(db, 'entregas', entregaId), { status: 'erro_correcao' }, { merge: true });
+      }
       throw err;
     } finally {
       setCorrigindo(null);
     }
   }, [entregas, onNotaChanged]);
 
-  // Detecção de plágio
-  useEffect(() => {
-    const corrigidas = entregas.filter(e =>
-      (e.status === 'corrigido' || e.status === 'revisado') && !e.notaRevisada
-    );
-    if (corrigidas.length < 2) return;
+  // Similaridade orienta revisão humana; jamais grava punição automática.
+  const similaridades = useMemo(() => {
+    const corrigidas = entregas.filter(e => ['corrigido', 'revisado'].includes(e.status) && e.notaRevisada == null && e.tipoCorrecao !== 'manual');
+    return corrigidas.length < 2 ? [] : detectarRespostasSimilares(corrigidas).clusters;
+  }, [entregas]);
 
-    const { clusters, penalizados } = detectarRespostasSimilares(corrigidas);
-    if (clusters.length === 0) return;
-
-    const novosPenalizados = new Set([...penalizados].filter(id => !penalizadosRef.current.has(id)));
-    if (novosPenalizados.size === 0) return;
-
-    (async () => {
-      for (const entrega of corrigidas) {
-        if (novosPenalizados.has(entrega.alunoId)) {
-          penalizadosRef.current.add(entrega.alunoId);
-          const notaOriginal = entrega.notaOriginal ?? entrega.notaFinal ?? 0;
-          const notaPenalizada = Math.round(notaOriginal * 0.5 * 100) / 100;
-          await setDoc(doc(db, 'entregas', entrega.id), {
-            notaOriginal,
-            notaFinal: notaPenalizada,
-            penalidadePlagio: true
-          }, { merge: true });
-          onNotaChanged?.({
-            turmaId: entrega.turmaId,
-            bimestre: entrega.bimestre,
-            alunoId: entrega.alunoId,
-            notaFinal: notaPenalizada
-          });
-        }
-      }
-      const infoClusters = clusters.map(g => ({
-        alunos: g.map(e => e.alunoId),
-        similaridade: 85
-      }));
-      await setDoc(doc(db, 'atividades', activityId), {
-        similares: infoClusters,
-        totalPenalizados: penalizadosRef.current.size
-      }, { merge: true }).catch(() => {});
-    })();
-  }, [entregas, activityId, onNotaChanged]);
-
-  return { entregas, corrigindo, overrideNota, corrigirEntrega };
+  return { entregas, corrigindo, erro, similaridades, overrideNota, corrigirEntrega, corrigirManualmente };
 }

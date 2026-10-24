@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 
 export const dynamic = "force-dynamic";
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import { useTurmas } from '@/hooks/diario/useTurmas';
-import { turmasIniciais } from '@/data/diario/turmasIniciais';
+import { confirmarTrocaContexto } from '@/utils/diario/confirmarTrocaContexto';
+import { usePersistenciaDiario } from '@/hooks/diario/usePersistenciaDiario';
+import { filtrarTurmasAno, anoLetivoTurma } from '@/dominio/diario/evolucao';
 import { useAtividades } from '@/hooks/atividades/useAtividades';
 import { useNotas } from '@/hooks/diario/useNotas';
 import { AtividadesList } from '@/components/atividades/AtividadesList';
@@ -15,130 +17,35 @@ import { Sidebar } from '@/components/diario/Sidebar';
 import { ProfileModal } from '@/components/diario/ProfileModal';
 import { ArrowLeft, GraduationCap, Layers, ExternalLink, Copy, Check, Menu, X, HeartHandshake } from 'lucide-react';
 
-import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
-
-const STORAGE_KEY = 'diario_turmas';
-const USER_KEY = 'diario_userId';
-
-const carregarLocal = () => {
-  try {
-    const raw = sessionStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch { /* ignora */ }
-  return null;
-};
-
-const salvarLocal = (turmas, timestamp = null) => {
-  try {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(turmas));
-    sessionStorage.setItem(STORAGE_KEY + '_lastUpdated', String(timestamp || Date.now()));
-  } catch { /* ignora */ }
-};
-
 export default function AtividadesPage() {
   const { user, perfil, loading, logout } = useAuth();
   const router = useRouter();
 
-  const [initialTurmas, setInitialTurmas] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const raw = sessionStorage.getItem(STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
-      } catch {}
-    }
-    return [];
-  });
-  const [loadingTurmas, setLoadingTurmas] = useState(true);
-
-  // Carrega do Firestore se sessionStorage estiver vazio, ou sync em background
-  useEffect(() => {
-    if (loading) return; // Aguarda o carregamento do estado de autenticação
-    if (!user) {
-      setLoadingTurmas(false);
-      return;
-    }
-
-    (async () => {
-      try {
-        const storedUserId = typeof window !== 'undefined' ? sessionStorage.getItem(USER_KEY) : null;
-        const isSameUser = storedUserId === user.uid;
-        const local = isSameUser ? carregarLocal() : null;
-
-        const ref = doc(db, 'professores', user.uid, 'turmas', 'data');
-        const snap = await getDoc(ref);
-
-        if (snap.exists() && snap.data().turmas?.length > 0) {
-          const cloud = snap.data().turmas;
-          const cloudTime = snap.data().lastUpdated || 0;
-          const localTime = typeof window !== 'undefined' ? Number(sessionStorage.getItem(STORAGE_KEY + '_lastUpdated')) || 0 : 0;
-
-          if (cloudTime >= localTime || !local) {
-            setInitialTurmas(cloud);
-            salvarLocal(cloud, cloudTime);
-          } else {
-            setInitialTurmas(local);
-            await setDoc(ref, { turmas: local, lastUpdated: localTime }, { merge: true });
-          }
-          if (typeof window !== 'undefined') sessionStorage.setItem(USER_KEY, user.uid);
-        } else {
-          // Sem dados no Firestore nem sessionStorage: migra do caminho antigo ou usa padrão
-          const oldRef = doc(db, 'users', user.uid, 'turmas', 'data');
-          const oldSnap = await getDoc(oldRef);
-          if (oldSnap.exists() && oldSnap.data().turmas?.length > 0) {
-            const oldData = oldSnap.data().turmas;
-            await setDoc(ref, { turmas: oldData, lastUpdated: Date.now() }, { merge: true });
-            setInitialTurmas(oldData);
-            salvarLocal(oldData);
-          } else {
-            // Tenta do outro caminho antigo (campo turmas no próprio perfil do professor)
-            const profRef = doc(db, 'professores', user.uid);
-            const profSnap = await getDoc(profRef);
-            if (profSnap.exists() && profSnap.data().turmas?.length > 0) {
-              const oldData = profSnap.data().turmas;
-              await setDoc(ref, { turmas: oldData, lastUpdated: Date.now() }, { merge: true });
-              setInitialTurmas(oldData);
-              salvarLocal(oldData);
-            } else if (local && local.length > 0) {
-              setInitialTurmas(local);
-            } else {
-              setInitialTurmas([]);
-              salvarLocal([]);
-            }
-          }
-          if (typeof window !== 'undefined') sessionStorage.setItem(USER_KEY, user.uid);
-        }
-      } catch (e) {
-        console.error('Erro ao carregar turmas:', e);
-        // Fallback local caso haja falha de rede/conexão para o mesmo usuário
-        const storedUserId = typeof window !== 'undefined' ? sessionStorage.getItem(USER_KEY) : null;
-        if (storedUserId === user.uid) {
-          const local = carregarLocal();
-          if (local) setInitialTurmas(local);
-        }
-      } finally {
-        setLoadingTurmas(false);
-      }
-    })();
-  }, [user, loading]);
-
-  // Persiste no Firestore (subcoleção isolada) + sessionStorage
-  const persistir = (novasTurmas) => {
-    if (loadingTurmas) return; // CRÍTICO: Não persiste enquanto estiver carregando os dados iniciais do Firestore!
-    const nowTime = Date.now();
-    salvarLocal(novasTurmas, nowTime);
-    setInitialTurmas(novasTurmas);
-    if (typeof window !== 'undefined' && user) sessionStorage.setItem(USER_KEY, user.uid);
-    if (!user) return;
-    const ref = doc(db, 'professores', user.uid, 'turmas', 'data');
-    setDoc(ref, { turmas: novasTurmas, lastUpdated: nowTime }, { merge: true }).catch((e) => {
-      console.error('Erro ao salvar turmas:', e);
-    });
-  };
-
-  const { turmas, setTurmas, addTurma, removeTurma, addAlunos } = useTurmas(initialTurmas || [], persistir);
+  const persistencia = usePersistenciaDiario(user?.uid);
+  const { turmas, setTurmas, addTurma, removeTurma } = useTurmas(persistencia.turmas, persistencia.persistir);
   const { addAtividade, removeAtividade, setNota } = useNotas(setTurmas);
-  const atividadesHook = useAtividades(user?.uid);
+  const baseHook = useAtividades(user?.uid);
+  const { aguardarSalvamento, recarregar } = persistencia;
+  const sincronizarBase = baseHook.sincronizarTodasAsNotas;
+  const sincronizarConfirmado = useCallback(async (escopo) => {
+    await aguardarSalvamento();
+    const resultado = await sincronizarBase(escopo);
+    await recarregar();
+    return resultado;
+  }, [aguardarSalvamento, recarregar, sincronizarBase]);
+  const atividadesHook = { ...baseHook, sincronizarTodasAsNotas: sincronizarConfirmado };
+  const [ano, setAno] = useState('legado');
+  const [arquivadas, setArquivadas] = useState(false);
+  const contextoConta = useRef(null);
+  useEffect(() => {
+    if (!user?.uid || persistencia.carregando || contextoConta.current === user.uid) return;
+    contextoConta.current = user.uid;
+    setAno(persistencia.turmas.some(t => !anoLetivoTurma(t)) ? 'legado' : String(new Date().getFullYear()));
+  }, [user?.uid, persistencia.carregando, persistencia.turmas]);
+  const listaContexto = filtrarTurmasAno(turmas, ano, arquivadas);
+  const anos = useMemo(() => [...new Set([new Date().getFullYear(), ...turmas.map(anoLetivoTurma).filter(Boolean)])].sort(), [turmas]);
+  const rotulosEstado = { salvo: 'Salvo na nuvem', salvando: 'Salvando…', pendente: 'Alterações pendentes', falha: 'Falha ao salvar', conflito: 'Conflito: revisar alterações', carregando: 'Carregando…' };
+  const executar = async acao => { try { await acao(); } catch (erro) { window.alert(erro.message); } };
   const [turmaSelecionada, setTurmaSelecionada] = useState(null);
   const [showAlunoDropdown, setShowAlunoDropdown] = useState(false);
   const [alunoLinkCopied, setAlunoLinkCopied] = useState(false);
@@ -147,19 +54,23 @@ export default function AtividadesPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [viewMode, setViewMode] = useState('todas'); // 'turma' | 'todas'
   const [bimestre, setBimestre] = useState(() => {
-    if (typeof window !== 'undefined') return Number(sessionStorage.getItem('atividades_bimestre')) || 1;
+    if (typeof window !== 'undefined') { const salvo = Number(sessionStorage.getItem('atividades_bimestre')); return [1,2,3,4].includes(salvo) ? salvo : 1; }
     return 1;
   });
 
-  const handleSetBimestre = (b) => { setBimestre(b); sessionStorage.setItem('atividades_bimestre', b); };
-  const turmaAtual = turmas.find((t) => t.id === turmaSelecionada?.id) || turmas[0] || null;
+  const handleSetBimestre = (b) => { if (!confirmarTrocaContexto()) return; setBimestre(b); sessionStorage.setItem('atividades_bimestre', b); };
+  const turmaAtual = listaContexto.find((t) => t.id === turmaSelecionada?.id) || listaContexto[0] || null;
 
   const handleAddTurma = (nome) => {
+    if (!persistencia.podeEditar || arquivadas) return;
     const nova = addTurma(nome);
+    setTurmas(atual => atual.map(t => t.id === nova.id ? { ...t, anoLetivo: ano === 'legado' ? new Date().getFullYear() : Number(ano) } : t));
+    if (ano === 'legado') setAno(String(new Date().getFullYear()));
     setTurmaSelecionada(nova);
   };
 
   const handleRemoveTurma = (id) => {
+    if (!persistencia.podeEditar || arquivadas) return;
     removeTurma(id);
     if (turmaSelecionada?.id === id) {
       const restantes = turmas.filter((t) => t.id !== id);
@@ -179,7 +90,7 @@ export default function AtividadesPage() {
   }, [showAlunoDropdown]);
 
   // Auth guard
-  if (loading || loadingTurmas || (!perfil && user)) {
+  if (loading || persistencia.carregando || (!perfil && user)) {
     return (
       <div className="flex h-screen items-center justify-center bg-white">
         <div className="text-center">
@@ -216,16 +127,18 @@ export default function AtividadesPage() {
       {/* Sidebar - Off-canvas on mobile */}
       <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full bg-white border-r border-[#dce0f0]`}>
         <Sidebar
-          turmas={turmas}
+          turmas={listaContexto}
+          backupTurmas={turmas}
           turmaSelecionada={viewMode === 'turma' ? turmaAtual : null}
           bimestreSelecionado={bimestre}
           user={user}
           onClose={() => setSidebarOpen(false)}
-          onSelectTurma={(t) => { setTurmaSelecionada(t); setViewMode('turma'); setSidebarOpen(false); }}
+          onSelectTurma={(t) => { if (!confirmarTrocaContexto()) return; setTurmaSelecionada(t); setViewMode('turma'); setSidebarOpen(false); }}
           onSelectBimestre={handleSetBimestre}
           onAddTurma={handleAddTurma}
           onRemoveTurma={handleRemoveTurma}
-          onReorderTurmas={setTurmas}
+          onReorderTurmas={ordenadas => persistencia.podeEditar && !arquivadas && setTurmas([...turmas.filter(t => !listaContexto.some(c => c.id === t.id)), ...ordenadas])}
+          onImportTurmas={(dados, meta) => persistencia.restaurar(dados, meta)}
           onLogout={() => router.push('/')}
           onOpenProfile={() => setShowProfile(true)}
         />
@@ -246,7 +159,7 @@ export default function AtividadesPage() {
               <Menu size={20} />
             </button>
             <button
-              onClick={() => router.push('/')}
+              onClick={() => confirmarTrocaContexto() && router.push('/')}
               className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#eef0f8] hover:bg-[#dce0f0] text-[#101942] border border-[#dce0f0] transition-all shadow-2xs whitespace-nowrap"
             >
               <ArrowLeft size={16} />
@@ -256,7 +169,7 @@ export default function AtividadesPage() {
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => router.push('/adaptacoes')}
+              onClick={() => confirmarTrocaContexto() && router.push('/adaptacoes')}
               className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-white hover:bg-[#fff2f6] text-[#d40840] border border-[#fde4ec] transition-all shadow-2xs whitespace-nowrap"
               title="Criar ou Adaptar Atividades Inclusivas (DUA/PEI)"
             >
@@ -304,23 +217,33 @@ export default function AtividadesPage() {
             </div>
 
             <button
-              onClick={() => setViewMode('todas')}
+              onClick={() => confirmarTrocaContexto() && setViewMode('todas')}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
                 ${viewMode === 'todas'
                   ? 'bg-[#f60c49] text-white shadow-xs'
                   : 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200'}`}
             >
               <Layers size={13} />
-              Banco Completo
+              Todas as atividades
             </button>
           </div>
         </div>
 
+        <section aria-label="Contexto das atividades" className="px-6 py-3 border-b flex gap-4 items-center flex-wrap text-xs">
+          <span role="status">{rotulosEstado[persistencia.estado] || persistencia.estado}</span>
+          <label>Ano letivo <select aria-label="Ano letivo" value={ano} onChange={e => { if (!confirmarTrocaContexto()) return; setAno(e.target.value); setTurmaSelecionada(null); }} className="border rounded p-2"><option value="legado">Legado — ano não informado</option>{anos.map(a => <option key={a} value={a}>{a}</option>)}</select></label>
+          <label><input type="checkbox" checked={arquivadas} onChange={e => { if (!confirmarTrocaContexto()) return; setArquivadas(e.target.checked); setTurmaSelecionada(null); }} /> Ver turmas arquivadas (consulta)</label>
+          <a href="/diario" className="underline font-bold">Conferir e publicar notas no Diário</a>
+        </section>
+        {persistencia.erro && <div role="alert" className="p-3 bg-amber-50 text-sm">{persistencia.erro} <button onClick={() => executar(persistencia.tentarNovamente)} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
         {/* Content */}
         <div className="flex-1 overflow-auto p-6 bg-[#f7f8fc]">
+          {!persistencia.podeEditar ? <p>Edição bloqueada até concluir carregamento ou revisar conflito. Seu rascunho foi preservado.</p> : <fieldset disabled={arquivadas} className="min-w-0">
+          {arquivadas && <p className="mb-3 text-amber-800 text-sm">Turmas arquivadas: consulte notas e histórico no Diário.</p>}
           {viewMode === 'todas' ? (
             <TodasAtividades
-              turmas={turmas}
+              key={`${user.uid}:${ano}:${arquivadas}`}
+              turmas={listaContexto}
               user={user}
               useAtividadesHook={atividadesHook}
               onAddAtv={addAtividade}
@@ -339,9 +262,11 @@ export default function AtividadesPage() {
                 <span className="text-xs text-[#6070a0] font-mono ml-2">({turmaAtual.alunos.length} alunos)</span>
               </h1>
               <AtividadesList
+                key={`${user.uid}:${turmaAtual.id}:${bimestre}`}
+                user={user}
                 turma={turmaAtual}
                 bimestre={bimestre}
-                turmas={turmas}
+                turmas={listaContexto}
                 useAtividadesHook={atividadesHook}
                 onAddAtv={addAtividade}
                 onRemoveAtv={removeAtividade}
@@ -353,10 +278,11 @@ export default function AtividadesPage() {
               <div className="text-center">
                 <div className="text-6xl mb-4 opacity-20">📝</div>
                 <p className="text-slate-800 font-semibold text-lg">Selecione uma turma</p>
-                <p className="text-sm mt-1 text-slate-400">Escolha uma turma na barra lateral ou use o Banco Completo.</p>
+                <p className="text-sm mt-1 text-slate-400">Escolha uma turma na barra lateral ou use Todas as atividades.</p>
               </div>
             </div>
           )}
+          </fieldset>}
         </div>
       </main>
     </div>

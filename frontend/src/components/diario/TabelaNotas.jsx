@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { PerfilAlunoDiario } from '@/components/diario/PerfilAlunoDiario';
 import { NumCell } from '@/components/diario/NumCell';
 import { BadgeNecessidades, SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
 import { CamposPerfilInclusivo } from '@/components/diario/CamposPerfilInclusivo';
@@ -8,6 +9,9 @@ import { calcTotal, fmt, somaMaxAtv, round2, temNota, titleCase } from '@/utils/
 import { estiloNotaBimestral } from '@/utils/diario/coresNota';
 import { gerarLoginAluno, selecionarLoginExibido } from '@/utils/diario/loginAluno';
 import { generateFichaAluno360PDF } from '@/lib/diario/fichaAlunoExport';
+import { carregarHistoricoFeedbackAluno } from '@/infraestrutura/atividades/historicoFeedback';
+import { validarCriterios, lerNumeroNota, prepararColagemSimulado } from '@/dominio/diario/criterios';
+import { prepararImportacaoSimulado } from '@/dominio/diario/importacaoSimulado';
 import { db } from '@/lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
@@ -79,11 +83,13 @@ const AddAtvForm = ({ onAdd, somaAtual, maxAtv }) => {
   const [nome, setNome] = useState('');
   const [max, setMax] = useState('');
   const dispLeft = round2(maxAtv - somaAtual);
+  const [erro, setErro] = useState('');
 
   const submit = () => {
-    const m = parseFloat(max.replace(',', '.'));
-    if (!nome.trim() || isNaN(m) || m <= 0) return;
-    onAdd(nome.trim(), m);
+    if (!nome.trim()) return;
+    let m;
+    try { m = lerNumeroNota(max, 0.01, maxAtv); if (m === '') throw new Error('Informe a nota máxima.'); } catch (error) { setErro(error.message); return; }
+    onAdd(nome.trim(), m); setErro('');
     setNome('');
     setMax('');
   };
@@ -98,6 +104,7 @@ const AddAtvForm = ({ onAdd, somaAtual, maxAtv }) => {
         className="px-3 sm:px-5 py-1.5 sm:py-2 bg-violet-500 hover:bg-violet-400 hover:scale-[1.03] active:scale-[0.97] rounded-lg text-xs sm:text-sm text-white font-semibold transition-all whitespace-nowrap">
         + Adicionar
       </button>
+      {erro && <span role="alert" className="text-xs text-red-700">{erro}</span>}
     </div>
   );
 };
@@ -105,8 +112,19 @@ const AddAtvForm = ({ onAdd, somaAtual, maxAtv }) => {
 export const TabelaNotas = ({
   turma, bimestre, onSetNota, onAddAtv, onRemoveAtv, onRemoveAluno, onRemoveAlunos,
   onUpdateConfig, onClearAtividadesNota, onClearAtividadesTurma, onUpdateAluno, onAddAlunoManual,
-  onClearSimuladoNota, onClearSimuladoTurma, user
+  onClearSimuladoNota, onClearSimuladoTurma, onImportarSimulado, user
 }) => {
+  const [cadastro, setCadastro] = useState(null);
+  const [erroCadastro, setErroCadastro] = useState('');
+  const [busca, setBusca] = useState('');
+  const [filtro, setFiltro] = useState('todos');
+  const [showAvancadas, setShowAvancadas] = useState(false);
+  const [erroConfig, setErroConfig] = useState('');
+  const [previaConfig, setPreviaConfig] = useState(null);
+  const [showColagem, setShowColagem] = useState(false);
+  const [colagem, setColagem] = useState('');
+  const [previaColagem, setPreviaColagem] = useState(null);
+  const [erroColagem, setErroColagem] = useState('');
   const [selectedIds, setSelectedIds] = useState([]);
   const [showConfig, setShowConfig] = useState(false);
   const [editingBirthday, setEditingBirthday] = useState(null);
@@ -117,15 +135,31 @@ export const TabelaNotas = ({
   const [observacoesDraft, setObservacoesDraft] = useState('');
   const [loginsArmazenados, setLoginsArmazenados] = useState({});
 
+  const [historicoFicha, setHistoricoFicha] = useState([]);
+  const [carregandoHistorico, setCarregandoHistorico] = useState(false);
   const [alunoFichaModal, setAlunoFichaModal] = useState(null);
   const [incluirCIDNaExportacao, setIncluirCIDNaExportacao] = useState(false);
+  const [erroFichaPDF, setErroFichaPDF] = useState('');
   const [gerandoFichaPDF, setGerandoFichaPDF] = useState(false);
+
+  useEffect(() => {
+    if (!alunoFichaModal) return;
+    let ativo = true;
+    carregarHistoricoFeedbackAluno(user?.uid, turma.id, alunoFichaModal.id)
+      .then(historico => { if (ativo) setHistoricoFicha(historico); })
+      .catch(() => { if (ativo) setErroFichaPDF('Falha ao carregar feedback. A exportação tentará carregar novamente.'); })
+      .finally(() => { if (ativo) setCarregandoHistorico(false); });
+    return () => { ativo = false; };
+  }, [alunoFichaModal, user?.uid, turma.id]);
 
   const handleConfirmarExportFicha360 = async (incluirCID) => {
     if (!alunoFichaModal) return;
     setGerandoFichaPDF(true);
+    setErroFichaPDF('');
     try {
+      const historicoAtividades = await carregarHistoricoFeedbackAluno(user?.uid, turma.id, alunoFichaModal.id);
       await generateFichaAluno360PDF({
+        historicoAtividades,
         aluno: alunoFichaModal,
         turma,
         frequenciasTurma: turma?.frequencias,
@@ -135,6 +169,7 @@ export const TabelaNotas = ({
       setAlunoFichaModal(null);
     } catch (err) {
       console.error('Erro ao emitir Ficha 360 do aluno:', err);
+      setErroFichaPDF('Não foi possível carregar o relatório completo. Tente novamente.');
     } finally {
       setGerandoFichaPDF(false);
     }
@@ -178,6 +213,14 @@ export const TabelaNotas = ({
   const [cfgAprov, setCfgAprov] = useState(config?.mediaAprovacao ?? 5);
   const [cfgRecup, setCfgRecup] = useState(config?.mediaRecuperacao ?? 4.99);
 
+  const alunosVisiveis = turma.alunos.filter(al => {
+    const nome = al.nome.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const texto = busca.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    if (!nome.includes(texto)) return false;
+    const nota = notas[al.id] || {};
+    const pendente = nota.simulado == null || nota.simulado === '' || atividades.some(a => nota[a.id] == null || nota[a.id] === '');
+    return filtro === 'pendentes' ? pendente : filtro === 'abaixo' ? temNota(nota, atividades) && calcTotal(nota.simulado, atividades, nota, config) < Number(config.mediaAprovacao ?? 5) : true;
+  });
   const somaMaxima = somaMaxAtv(atividades);
   const atvMax = config?.atividadesMaxFinal !== undefined ? Number(config.atividadesMaxFinal) : 5;
   const excede = somaMaxima > atvMax;
@@ -189,8 +232,9 @@ export const TabelaNotas = ({
   const media = totaisTurma.length > 0 ? round2(totaisTurma.reduce((a, b) => a + b, 0) / totaisTurma.length) : null;
 
   const handleToggleSelectAll = () => {
-    if (selectedIds.length === turma.alunos.length) setSelectedIds([]);
-    else setSelectedIds(turma.alunos.map((al) => al.id));
+    const ids = alunosVisiveis.map(al => al.id);
+    if (ids.every(id => selectedIds.includes(id))) setSelectedIds(prev => prev.filter(id => !ids.includes(id)));
+    else setSelectedIds(prev => [...new Set([...prev, ...ids])]);
   };
 
   const handleToggleSelect = (id) => {
@@ -241,16 +285,39 @@ export const TabelaNotas = ({
   };
 
   const handleSaveConfig = () => {
-    const parseVal = (val, fallback) => { const p = parseFloat(String(val).replace(',', '.')); return isNaN(p) ? fallback : p; };
-    onUpdateConfig({
-      simuladoMaxLanca: parseVal(cfgSimLanca, 5), simuladoMaxFinal: parseVal(cfgSimFinal, 5),
-      atividadesMaxFinal: parseVal(cfgAtvFinal, 5), mediaAprovacao: parseVal(cfgAprov, 5), mediaRecuperacao: parseVal(cfgRecup, 4.99)
-    });
-    setShowConfig(false);
+    try {
+      const next = validarCriterios({ ...config, simuladoMaxLanca: cfgSimLanca, simuladoMaxFinal: cfgSimFinal, atividadesMaxFinal: cfgAtvFinal, mediaAprovacao: cfgAprov, mediaRecuperacao: cfgRecup });
+      setPreviaConfig(next); setErroConfig('');
+    } catch (error) { setErroConfig(error.message); setPreviaConfig(null); }
+  };
+  const conferirColagem = () => {
+    try { setPreviaColagem(prepararImportacaoSimulado(prepararColagemSimulado(colagem), turma, bimestre)); setErroColagem(''); }
+    catch (error) { setErroColagem(error.message); setPreviaColagem(null); }
+  };
+  const aplicarColagem = async () => {
+    try {
+      const registros = previaColagem.filter(l => l.situacao === 'pronto').map(l => ({ nome: l.nome, nota: l.nota }));
+      await onImportarSimulado(turma.id, bimestre, registros);
+      setShowColagem(false); setPreviaColagem(null); setColagem('');
+    } catch { setErroColagem('Não foi possível salvar a colagem. Confira o salvamento e tente novamente.'); }
   };
 
   return (
     <div>
+      <div className="flex flex-wrap gap-3 mb-3 items-center">
+        <label className="text-xs">Buscar aluno<input aria-label="Buscar aluno" value={busca} onChange={e => setBusca(e.target.value)} className="block rounded-lg border p-2" placeholder="Nome do aluno" /></label>
+        <label className="text-xs">Filtrar notas<select aria-label="Filtrar notas" value={filtro} onChange={e => setFiltro(e.target.value)} className="block rounded-lg border p-2"><option value="todos">Todos</option><option value="pendentes">Notas incompletas</option><option value="abaixo">Abaixo da média</option></select></label>
+        {onImportarSimulado && <button className="border rounded-lg p-2 text-xs font-semibold" onClick={() => setShowColagem(v => !v)}>Colar notas do simulado</button>}
+        <button className="border rounded-lg p-2 text-xs" onClick={() => setShowAvancadas(v => !v)}>Opções avançadas</button>
+      </div>
+      <p className="text-xs mb-3" aria-label="Legenda de notas"><span className="text-red-600">Vermelho: abaixo de {fmt(config.mediaAprovacao ?? 5)}</span> · <span className="text-blue-600">Azul: a partir da média, abaixo de 8</span> · <span className="text-green-600">Verde: a partir de {fmt(Math.max(8, Number(config.mediaAprovacao ?? 5)))}</span>. Situação semestral/anual disponível no Resumo anual.</p>
+      {showColagem && <section className="border rounded-xl p-4 mb-4 space-y-3" aria-label="Colar notas">
+        <p className="text-sm">{turma.nome} · {bimestre}º bimestre · Somente simulado. Nome completo e nota separados por tabulação ou ponto e vírgula. Notas existentes são preservadas.</p>
+        <textarea aria-label="Nomes e notas" className="w-full border rounded p-2" value={colagem} onChange={e => { setColagem(e.target.value); setPreviaColagem(null); }} placeholder={'Ana Lima\t4,50'} />
+        <button className="border rounded px-3 py-2" onClick={conferirColagem}>Conferir colagem</button>
+        {erroColagem && <p role="alert" className="text-red-700">{erroColagem}</p>}
+        {previaColagem && <><ul>{previaColagem.map((l, i) => <li key={i}>{l.alunoNome || l.nome} — {fmt(l.nota)} — {({ pronto: 'Pronto para importar', nota_existente: 'Nota existente preservada', ambiguo: 'Nome ambíguo', duplicado: 'Nome duplicado', nao_encontrado: 'Nome não encontrado', nota_invalida: 'Nota inválida', fora_da_escala: 'Fora da escala' })[l.situacao]}</li>)}</ul><button disabled={!previaColagem.some(l => l.situacao === 'pronto')} className="border rounded px-3 py-2 disabled:opacity-50" onClick={aplicarColagem}>Aplicar {previaColagem.filter(l => l.situacao === 'pronto').length} nota(s)</button></>}
+      </section>}
       {/* Cabeçalho bimestre */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div className="flex items-center gap-3 flex-wrap">
@@ -258,7 +325,7 @@ export const TabelaNotas = ({
             Soma máx. atividades: <span className={`font-mono font-semibold ${excede ? 'text-red-500' : 'text-slate-900'}`}>{fmt(somaMaxima)} / {fmt(atvMax)}</span>
           </span>
           {excede && <span className="text-xs bg-red-50 border border-red-200 text-red-600 rounded-full px-2 py-0.5 font-semibold">⚠ excede {fmt(atvMax)} pts</span>}
-          {selectedIds.length > 0 && (
+          {showAvancadas && selectedIds.length > 0 && (
             <button onClick={handleBulkDelete} className="bg-red-500 hover:bg-red-400 text-white text-xs px-3 py-1 rounded-lg transition-colors flex items-center gap-1 font-medium">
               🗑 Excluir selecionados ({selectedIds.length})
             </button>
@@ -266,12 +333,12 @@ export const TabelaNotas = ({
           <button onClick={() => setShowConfig(!showConfig)} className="flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-xs text-slate-600 transition-colors font-medium">
             ⚙ Critérios
           </button>
-          {turma.alunos.length > 0 && atividades.length > 0 && (
+          {showAvancadas && turma.alunos.length > 0 && atividades.length > 0 && (
             <button onClick={handleClearBulkActivities} className="flex items-center gap-1.5 px-2.5 py-1 bg-red-50 text-red-500 hover:text-red-600 border border-red-200 hover:bg-red-100 rounded-lg text-xs transition-colors font-medium">
               🧹 Limpar Atividades
             </button>
           )}
-          {turma.alunos.length > 0 && (
+          {showAvancadas && turma.alunos.length > 0 && (
             <button onClick={handleClearBulkSimulado} className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 text-amber-600 hover:text-amber-700 border border-amber-200 hover:bg-amber-100 rounded-lg text-xs transition-colors font-medium">
               🧪 Limpar Simulados
             </button>
@@ -290,35 +357,43 @@ export const TabelaNotas = ({
       {showConfig && (
         <div className="glass-panel border border-slate-200 rounded-2xl p-5 mb-5 grid grid-cols-2 sm:grid-cols-5 gap-4 items-end">
           <div>
-            <label className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Simulado Máx (Lançamento)</label>
-            <input type="text" value={cfgSimLanca} onChange={(e) => setCfgSimLanca(e.target.value)}
+            <label htmlFor="cfgSimLanca" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Simulado Máx (Lançamento)</label>
+            <input id="cfgSimLanca" type="text" value={cfgSimLanca} onChange={(e) => { setCfgSimLanca(e.target.value); setPreviaConfig(null); }}
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
           </div>
           <div>
-            <label className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Peso Simulado Final</label>
-            <input type="text" value={cfgSimFinal} onChange={(e) => setCfgSimFinal(e.target.value)}
+            <label htmlFor="cfgSimFinal" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Peso Simulado Final</label>
+            <input id="cfgSimFinal" type="text" value={cfgSimFinal} onChange={(e) => { setCfgSimFinal(e.target.value); setPreviaConfig(null); }}
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
           </div>
           <div>
-            <label className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Peso Atividades Final</label>
-            <input type="text" value={cfgAtvFinal} onChange={(e) => setCfgAtvFinal(e.target.value)}
+            <label htmlFor="cfgAtvFinal" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Peso Atividades Final</label>
+            <input id="cfgAtvFinal" type="text" value={cfgAtvFinal} onChange={(e) => { setCfgAtvFinal(e.target.value); setPreviaConfig(null); }}
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
           </div>
           <div>
-            <label className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Média Aprovação (Verde)</label>
-            <input type="text" value={cfgAprov} onChange={(e) => setCfgAprov(e.target.value)}
+            <label htmlFor="cfgAprov" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Média para aprovação</label>
+            <input id="cfgAprov" type="text" value={cfgAprov} onChange={(e) => { setCfgAprov(e.target.value); setPreviaConfig(null); }}
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
           </div>
           <div className="flex gap-2">
             <div className="flex-1">
-              <label className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Média Recup. (Amarelo)</label>
-              <input type="text" value={cfgRecup} onChange={(e) => setCfgRecup(e.target.value)}
+              <label htmlFor="cfgRecup" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Limite de recuperação</label>
+              <input id="cfgRecup" type="text" value={cfgRecup} onChange={(e) => { setCfgRecup(e.target.value); setPreviaConfig(null); }}
                 className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
             </div>
             <button onClick={handleSaveConfig} className="bg-violet-500 hover:bg-violet-400 text-white font-semibold text-xs px-4 py-1.5 rounded-lg transition-all h-[32px] self-end">
-              Salvar
+              Conferir critérios
             </button>
           </div>
+          {erroConfig && <p role="alert" className="col-span-full text-red-700 text-sm">{erroConfig}</p>}
+          <p className="col-span-full text-xs">Simulado: nota ÷ escala × peso. Atividades: soma das notas, limitada ao teto; não são proporcionalizadas.</p>
+          {previaConfig && <div className="col-span-full border rounded-xl p-3 text-sm space-y-2">
+            <p>Prévia: metade do simulado ({fmt(previaConfig.simuladoMaxLanca / 2)}) contribui {fmt(previaConfig.simuladoMaxFinal / 2)}; atividades somam até {fmt(previaConfig.atividadesMaxFinal)}. Total máximo: {fmt(previaConfig.simuladoMaxFinal + previaConfig.atividadesMaxFinal)}.</p>
+            <p>{turma.alunos.filter(al => temNota(notas[al.id], atividades) && calcTotal(notas[al.id]?.simulado, atividades, notas[al.id], config) !== calcTotal(notas[al.id]?.simulado, atividades, notas[al.id], previaConfig)).length} aluno(s) terão o total recalculado. Lançamentos existentes serão preservados.</p>
+            {turma.alunos.some(al => Number(notas[al.id]?.simulado) > previaConfig.simuladoMaxLanca) && <p className="text-amber-700">Há notas existentes acima da nova escala. Revise antes de aplicar.</p>}
+            <button className="rounded border p-2 font-semibold" onClick={async () => { try { await onUpdateConfig(previaConfig); setShowConfig(false); setPreviaConfig(null); } catch { setErroConfig('Não foi possível salvar os critérios. Tente novamente.'); } }}>Aplicar critérios</button>
+          </div>}
         </div>
       )}
 
@@ -328,13 +403,13 @@ export const TabelaNotas = ({
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200 text-left">
               <th className="sticky left-0 z-20 bg-slate-50 px-3 py-3 text-center w-10">
-                <input type="checkbox" checked={turma.alunos.length > 0 && selectedIds.length === turma.alunos.length}
+                <input type="checkbox" checked={alunosVisiveis.length > 0 && alunosVisiveis.every(al => selectedIds.includes(al.id))}
                   onChange={handleToggleSelectAll} className="rounded border-slate-300 text-violet-500 focus:ring-violet-400" />
               </th>
               <th className="hidden sm:table-cell sticky left-10 z-20 bg-slate-50 px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider w-8">#</th>
               <th className="sticky left-10 sm:left-[72px] z-20 bg-slate-50 px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider min-w-[180px] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">Aluno</th>
               <th className="px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-28">
-                Simulado<br /><span className="text-slate-400 font-normal font-mono normal-case tracking-normal">(0–{fmt(config?.simuladoMaxLanca ?? 10)})</span>
+                Simulado<br /><span className="text-slate-400 font-normal font-mono normal-case tracking-normal">(0–{fmt(config?.simuladoMaxLanca ?? 5)})</span>
               </th>
               {atividades.map((atv) => (
                 <th key={atv.id} className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center group">
@@ -350,7 +425,7 @@ export const TabelaNotas = ({
             </tr>
           </thead>
           <tbody>
-            {turma.alunos.map((al, idx) => {
+            {alunosVisiveis.map((al, idx) => {
               const nota = notas[al.id] || {};
               const total = calcTotal(nota.simulado, atividades, nota, config);
               const temNotaAluno = temNota(nota, atividades);
@@ -388,18 +463,20 @@ export const TabelaNotas = ({
                       <BadgeNecessidades necessidades={al.necessidades} />
                     </div>
                   </td>
-                  <td className="px-2 py-1"><NumCell value={nota.simulado ?? ''} min={0} max={config?.simuladoMaxLanca !== undefined ? Number(config.simuladoMaxLanca) : 10} onChange={(v) => onSetNota(al.id, 'simulado', v)} /></td>
+                  <td className="px-2 py-1"><NumCell label={`Simulado de ${al.nome}`} value={nota.simulado ?? ''} min={0} max={config?.simuladoMaxLanca !== undefined ? Number(config.simuladoMaxLanca) : 5} onChange={(v) => onSetNota(al.id, 'simulado', v)} /></td>
                   {atividades.map((atv) => (
-                    <td key={atv.id} className="px-2 py-1"><NumCell value={nota[atv.id] ?? ''} min={0} max={atv.max} onChange={(v) => onSetNota(al.id, atv.id, v)} /></td>
+                    <td key={atv.id} className="px-2 py-1"><NumCell label={`${atv.nome} de ${al.nome}`} value={nota[atv.id] ?? ''} min={0} max={atv.max} onChange={(v) => onSetNota(al.id, atv.id, v)} /></td>
                   ))}
                   <td className="px-2 py-1.5 text-center">
                     {temNotaAluno ? <span className={`font-mono font-bold text-sm px-2 py-0.5 rounded ${estiloNotaBimestral(total, config)}`}>{fmt(total)}</span> : <span className="text-slate-400 text-xs font-mono">—</span>}
                   </td>
-                  <td className="px-3 py-1.5 text-center flex items-center justify-center gap-1">
+                  <td className="px-3 py-1.5 text-center">
+                    <details className="relative"><summary className="cursor-pointer text-xs whitespace-nowrap font-semibold">Ações do aluno</summary><div className="flex flex-col items-start gap-2 bg-white border rounded-xl p-3 min-w-48">
+                    <button className="text-xs" onClick={() => { setCadastro({ ...al }); setErroCadastro(''); }}>Editar cadastro</button>
                     {atividades.length > 0 && (
-                      <button onClick={() => handleClearSingleActivities(al.id, al.nome)} className="text-slate-400 hover:text-cyan-500 transition-colors p-1" title="Limpar notas de atividades">🧹</button>
+                      <button onClick={() => handleClearSingleActivities(al.id, al.nome)} className="text-slate-400 hover:text-cyan-500 transition-colors p-1" title="Limpar notas de atividades">Limpar notas de atividades</button>
                     )}
-                    <button onClick={() => handleClearSingleSimulado(al.id, al.nome)} className="text-slate-400 hover:text-amber-500 transition-colors p-1" title="Limpar nota do simulado">🧪</button>
+                    <button onClick={() => handleClearSingleSimulado(al.id, al.nome)} className="text-slate-400 hover:text-amber-500 transition-colors p-1" title="Limpar nota do simulado">Limpar nota do simulado</button>
                     <button
                       onClick={() => {
                         setEditingNeeds(al.id);
@@ -410,16 +487,18 @@ export const TabelaNotas = ({
                       }}
                       className={`transition-colors p-1 ${al.necessidades?.length ? 'text-[#d40840] hover:text-[#f60c49]' : 'text-slate-400 hover:text-[#f60c49]'}`}
                       title="Perfil inclusivo do aluno (necessidades, nível de suporte, âncora)"
-                    >🏷</button>
+                    >Editar perfil inclusivo</button>
                     <button
                       onClick={() => {
                         setIncluirCIDNaExportacao(false);
+                        setHistoricoFicha([]); setCarregandoHistorico(true); setErroFichaPDF('');
                         setAlunoFichaModal(al);
                       }}
                       className="text-slate-400 hover:text-[#101942] transition-colors p-1"
                       title="Emitir Ficha Pedagógica 360º em PDF (Reunião de Pais e Conselho de Classe)"
-                    >📋</button>
-                    <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-red-500 transition-colors p-1" title="Excluir aluno">🗑</button>
+                    >Relatório e perfil do aluno</button>
+                    <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-red-500 transition-colors p-1" title="Excluir aluno">Remover aluno</button>
+                    </div></details>
                   </td>
                 </tr>
               );
@@ -430,6 +509,21 @@ export const TabelaNotas = ({
 
       {onAddAlunoManual && <AddAlunoForm onAdd={onAddAlunoManual} />}
       <AddAtvForm onAdd={onAddAtv} somaAtual={somaMaxima} maxAtv={atvMax} />
+
+      {cadastro && <div className="fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Editar cadastro do aluno">
+        <div className="bg-white rounded-2xl p-5 w-full max-w-md space-y-3">
+          <h3 className="font-bold">Editar cadastro</h3>
+          <label className="block text-sm">Nome completo<input aria-label="Nome completo" className="block w-full border rounded p-2" value={cadastro.nome} onChange={e => setCadastro({ ...cadastro, nome: e.target.value })} /></label>
+          <label className="block text-sm">Nascimento (ddMM)<input aria-label="Nascimento (ddMM)" className="block w-full border rounded p-2" maxLength={4} value={cadastro.dataNascimento || ''} onChange={e => setCadastro({ ...cadastro, dataNascimento: e.target.value.replace(/\D/g, '').slice(0, 4) })} /></label>
+          <p className="text-xs text-slate-600">Após alterar os dados de acesso, confira o login e publique novamente para atualizar o Portal.</p>
+          {erroCadastro && <p role="alert" className="text-red-700 text-sm">{erroCadastro}</p>}
+          <div className="flex justify-end gap-2"><button className="border rounded p-2" onClick={() => setCadastro(null)}>Cancelar</button><button className="border rounded p-2" onClick={async () => {
+            if (!cadastro.nome.trim() || (cadastro.dataNascimento && !/^\d{4}$/.test(cadastro.dataNascimento))) { setErroCadastro('Informe o nome e uma data com quatro dígitos, ou deixe a data vazia.'); return; }
+            try { await onUpdateAluno?.(turma.id, cadastro.id, { nome: cadastro.nome.trim(), dataNascimento: cadastro.dataNascimento || '' }); setCadastro(null); }
+            catch { setErroCadastro('Não foi possível salvar o cadastro. Tente novamente.'); }
+          }}>Salvar cadastro</button></div>
+        </div>
+      </div>}
 
       {/* Modal de Necessidades / PCD (RN-43) */}
       {editingNeeds && (() => {
@@ -510,7 +604,7 @@ export const TabelaNotas = ({
           aria-modal="true"
         >
           <div
-            className="bg-white rounded-3xl border border-[#dce0f0] shadow-2xl p-6 w-full max-w-md space-y-4 animate-in fade-in zoom-in-95"
+            className="bg-white rounded-3xl border border-[#dce0f0] shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto space-y-4 animate-in fade-in zoom-in-95"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
@@ -536,6 +630,7 @@ export const TabelaNotas = ({
               </button>
             </div>
 
+            <PerfilAlunoDiario aluno={alunoFichaModal} turma={turma} historicoAtividades={historicoFicha} carregando={carregandoHistorico} />
             <div className="space-y-3 text-xs">
               <p className="font-bold text-[#101942]">
                 Selecione o nível de privacidade do documento (RN-62):
@@ -598,6 +693,7 @@ export const TabelaNotas = ({
               </div>
             </div>
 
+            {erroFichaPDF && <p role="alert" className="text-xs text-red-700">{erroFichaPDF}</p>}
             <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
               <button
                 type="button"

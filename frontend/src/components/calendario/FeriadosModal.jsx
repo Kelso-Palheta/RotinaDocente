@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Plus, Trash2, Sparkles, CheckCircle2 } from 'lucide-react';
-import { ScheduleGeneratorEngine } from '@/lib/engines/ScheduleGeneratorEngine';
+import { X, Calendar, Plus, Trash2, Sparkles } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -10,29 +9,49 @@ export function FeriadosModal({
   feriados = [], 
   onAddFeriado, 
   onRemoveFeriado,
-  onImportarFeriadosNacionais
+  onImportarFeriadosNacionais,
+  anoLetivo = new Date().getFullYear()
 }) {
   const [data, setData] = useState('');
+  const [dataFim, setDataFim] = useState('');
+  const [processando, setProcessando] = useState(false);
   const [nome, setNome] = useState('');
   const [erro, setErro] = useState('');
 
   if (!isOpen) return null;
 
-  const handleAdd = (e) => {
+  const executar = async (acao) => {
+    if (processando) return;
+    setErro('');
+    setProcessando(true);
+    try { await acao(); }
+    catch (error) { setErro(error?.message || 'Não foi possível salvar. Tente novamente.'); }
+    finally { setProcessando(false); }
+  };
+  const dataValida = value => /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(`${value}T12:00:00`)) && new Date(`${value}T12:00:00Z`).toISOString().slice(0, 10) === value;
+  const handleAdd = async (e) => {
     e.preventDefault();
     setErro('');
-    if (!data || !nome.trim()) {
-      setErro('Preencha a data e a descrição do feriado/recesso.');
+    if (!dataValida(data) || !nome.trim() || (dataFim && !dataValida(dataFim))) {
+      setErro('Preencha uma data válida e a descrição do feriado/recesso.');
       return;
     }
-
-    onAddFeriado({
-      data,
-      nome: nome.trim()
+    if (dataFim && dataFim < data) {
+      setErro('A data final deve ser igual ou posterior à data inicial.');
+      return;
+    }
+    if (Number(data.slice(0, 4)) !== Number(anoLetivo) || (dataFim && Number(dataFim.slice(0, 4)) !== Number(anoLetivo))) {
+      setErro('Selecione datas dentro do ano letivo escolhido.');
+      return;
+    }
+    await executar(async () => {
+      await onAddFeriado({ data, dataFim: dataFim || data, nome: nome.trim() });
+      setData(''); setDataFim(''); setNome('');
     });
-
-    setData('');
-    setNome('');
+  };
+  const remover = (feriado) => {
+    if (processando || !window.confirm(`Remover ${feriado.nome}? Reabre somente aulas bloqueadas automaticamente; conteúdos futuros não serão redistribuídos.`)) return;
+    return executar(() => onRemoveFeriado(feriado.data));
   };
 
   return (
@@ -49,12 +68,13 @@ export function FeriadosModal({
                 Feriados e Recessos Escolares
               </h2>
               <p className="text-xs text-[#6070a0]">
-                Bloqueia dias não letivos e remaneja as aulas automaticamente
+                Cadastre dias sem aula ou um intervalo de recesso.
               </p>
             </div>
           </div>
           <button 
             onClick={onClose}
+            disabled={processando}
             className="p-1.5 rounded-xl text-[#6070a0] hover:text-[#101942] hover:bg-[#eef0f8] transition-all"
           >
             <X size={18} />
@@ -74,7 +94,8 @@ export function FeriadosModal({
               </span>
             </div>
             <button
-              onClick={onImportarFeriadosNacionais}
+              onClick={() => executar(() => onImportarFeriadosNacionais())}
+              disabled={processando}
               className="btn-brand-primary px-3 py-1.5 text-xs font-bold shrink-0 shadow-xs flex items-center gap-1.5"
             >
               <Sparkles size={13} />
@@ -83,19 +104,31 @@ export function FeriadosModal({
           </div>
 
           {/* Formulário de Adicionar Feriado Manual */}
-          <form onSubmit={handleAdd} className="space-y-3">
+          <form onSubmit={handleAdd} className="space-y-3" noValidate>
+            <fieldset disabled={processando} className="space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-[#6070a0] block font-head">
               Adicionar Feriado / Recesso
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <input
+                aria-label="Data inicial"
                 type="date"
+                min={`${anoLetivo}-01-01`} max={`${anoLetivo}-12-31`}
                 value={data}
                 onChange={(e) => setData(e.target.value)}
                 className="px-3 py-2 text-xs rounded-xl border border-[#dce0f0] bg-[#f7f8fc] text-[#101942] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all"
                 required
               />
               <input
+                aria-label="Data final (opcional)"
+                type="date"
+                min={data || `${anoLetivo}-01-01`} max={`${anoLetivo}-12-31`}
+                value={dataFim}
+                onChange={e => setDataFim(e.target.value)}
+                className="px-3 py-2 text-xs rounded-xl border border-[#dce0f0] bg-[#f7f8fc] text-[#101942]"
+              />
+              <input
+                aria-label="Descrição"
                 type="text"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
@@ -105,16 +138,16 @@ export function FeriadosModal({
               />
             </div>
 
-            {erro && <p className="text-xs text-[#d40840] font-semibold">{erro}</p>}
-
             <button
               type="submit"
               className="w-full py-2 bg-[#101942] hover:bg-[#090f28] text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs"
             >
               <Plus size={14} />
-              <span>Cadastrar e Remanejar Aulas</span>
+              <span>{processando ? 'Salvando...' : 'Cadastrar e remanejar aulas'}</span>
             </button>
+            </fieldset>
           </form>
+          {erro && <p role="alert" className="text-xs text-[#d40840] font-semibold">{erro}</p>}
 
           {/* Lista de Feriados Cadastrados */}
           <div className="space-y-2">
@@ -141,11 +174,13 @@ export function FeriadosModal({
                           {f.nome}
                         </span>
                         <span className="text-[10px] text-[#6070a0] font-medium">
-                          {dataFormatada}
+                          {dataFormatada}{f.dataFim && f.dataFim !== f.data ? ` até ${format(parseISO(f.dataFim), "dd/MM/yyyy")}` : ''}
                         </span>
                       </div>
                       <button
-                        onClick={() => onRemoveFeriado(f.data)}
+                        onClick={() => remover(f)}
+                        disabled={processando}
+                        aria-label={`Remover ${f.nome}`}
                         className="p-1.5 text-[#9098c0] hover:text-[#d40840] hover:bg-[#fff2f6] rounded-lg transition-all"
                         title="Remover feriado"
                       >
@@ -163,6 +198,7 @@ export function FeriadosModal({
         <div className="px-6 py-4 border-t border-[#dce0f0] bg-[#f7f8fc] flex justify-end">
           <button
             onClick={onClose}
+            disabled={processando}
             className="btn-brand-primary px-5 py-2 text-xs font-bold shadow-xs"
           >
             Concluir

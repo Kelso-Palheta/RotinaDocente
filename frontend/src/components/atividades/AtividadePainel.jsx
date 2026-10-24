@@ -1,4 +1,5 @@
 "use client";
+import { decodeToken } from '@/utils/diario/tokenUtils';
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { aplicarSincronizacaoAtividades, entregaNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
@@ -30,11 +31,13 @@ const StatusBadge = ({ status }) => (
   </span>
 );
 
-export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, onBack, onDelete, onAtividadeUpdated, useAtividadesHook, turmas = [], onSyncAtvMapa, onSetNota, user }) => {
+const chaveAluno = (turmaId, alunoId) => JSON.stringify([turmaId, alunoId]);
+
+export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, onBack, onDelete, onAtividadeUpdated, useAtividadesHook, turmas = [], onSyncAtvMapa, onSetNota, user, sincronizacaoAutomatica = true }) => {
   const [atividade, setAtividade] = useState(atividadeInicial);
 
   const handleNotaChanged = useCallback((info) => {
-    if (!onSetNota) return;
+    if (!onSetNota || !sincronizacaoAutomatica) return;
     const result = aplicarSincronizacaoAtividades({
       turmas,
       atividades: [atividade],
@@ -44,55 +47,56 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     for (const alteracao of result.alteracoes) {
       onSetNota(alteracao.turmaId, alteracao.bimestre, alteracao.alunoId, alteracao.atvId, info.notaFinal);
     }
-  }, [atividade, turmas, currentTurmaId, onSetNota]);
+  }, [atividade, turmas, currentTurmaId, onSetNota, sincronizacaoAutomatica]);
 
-  const { entregas: recebidas, corrigindo, overrideNota, corrigirEntrega } = useEntregas(atividade.id, handleNotaChanged, { turmaId: currentTurmaId, bimestre: atividade.bimestre });
+  const { entregas: recebidas, corrigindo, corrigirManualmente, corrigirEntrega, similaridades = [], erro: erroEntregas } = useEntregas(atividade.id, handleNotaChanged, { turmaId: currentTurmaId, bimestre: atividade.bimestre });
   const entregas = useMemo(() => recebidas.filter(entrega => entregaNoEscopo(entrega, { turmaId: currentTurmaId, bimestre: atividade.bimestre })), [recebidas, currentTurmaId, atividade.bimestre]);
   const [alunosInfo, setAlunosInfo] = useState({});
   const [loadingAlunos, setLoadingAlunos] = useState(true);
   const [selectedEntrega, setSelectedEntrega] = useState(null);
+  const [modoDrawer, setModoDrawer] = useState('visualizar');
   const [showUrls, setShowUrls] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [filtroStatus, setFiltroStatus] = useState('todos');
   const [nivelCorrecao, setNivelCorrecao] = useState('normal');
+  const [mensagem, setMensagem] = useState('');
+  const [erroAcao, setErroAcao] = useState('');
+  const [previaSync, setPreviaSync] = useState(false);
+  const [sincronizando, setSincronizando] = useState(false);
+  const [lote, setLote] = useState(null);
+  const loteRef = useRef(false);
 
   useEffect(() => {
+    let ativo = true;
     const load = async () => {
       setLoadingAlunos(true);
       const info = {};
+      const vinculadas = (currentTurmaId ? turmas.filter(t => t.id === currentTurmaId) : turmas.filter(t => atividade.turmaIds?.includes(t.id)));
+      for (const t of vinculadas) for (const aluno of t.alunos || []) {
+        if (!atividade.alunoExclusivoId || atividade.alunoExclusivoId === aluno.id) info[chaveAluno(t.id, aluno.id)] = { alunoId: aluno.id, nome: aluno.nome, turmaId: t.id, token: null };
+      }
       try {
         const snap = await getDocs(collection(db, 'atividades', atividade.id, 'tokens'));
-        snap.forEach((d) => {
+        snap.forEach(d => {
           const data = d.data();
-          if (!currentTurmaId || data.turmaId === currentTurmaId) {
-            info[data.alunoId] = { nome: data.nome, turmaId: data.turmaId, token: data.token };
+          if (!data.revogado && (!currentTurmaId || data.turmaId === currentTurmaId) && atividade.turmaIds?.includes(data.turmaId) && (!atividade.alunoExclusivoId || atividade.alunoExclusivoId === data.alunoId)) {
+            const key = chaveAluno(data.turmaId, data.alunoId);
+            const anterior = info[key];
+            // Token com segredo tem prioridade sobre o legado, independentemente da ordem de leitura.
+            const novo = decodeToken(data.token)?.segredo;
+            if (!anterior?.token || novo) info[key] = { alunoId: data.alunoId, nome: data.nome, turmaId: data.turmaId, token: data.token };
           }
         });
-      } catch { /* ignora */ }
-
-      // Fallback: se não há tokens, carrega alunos direto das turmas vinculadas
-      if (Object.keys(info).length === 0) {
-        const turmasVinculadas = currentTurmaId
-          ? [turmas.find(t => t.id === currentTurmaId)].filter(Boolean)
-          : (atividade.turmaIds || []).map(tid => turmas.find(t => t.id === tid)).filter(Boolean);
-        for (const t of turmasVinculadas) {
-          for (const aluno of (t.alunos || [])) {
-            if (!info[aluno.id]) {
-              info[aluno.id] = { nome: aluno.nome, turmaId: t.id, token: null };
-            }
-          }
-        }
-      }
-
-      setAlunosInfo(info);
-      setLoadingAlunos(false);
+      } catch (error) { if (ativo) setErroAcao('Não foi possível carregar os links de acesso: ' + error.message); }
+      if (ativo) { setAlunosInfo(info); setLoadingAlunos(false); }
     };
     load();
-  }, [atividade.id, atividade.turmaIds, currentTurmaId, turmas]);
+    return () => { ativo = false; };
+  }, [atividade.id, atividade.turmaIds, atividade.alunoExclusivoId, currentTurmaId, turmas]);
 
   const syncedRef = useRef(new Set());
   useEffect(() => {
-    if (!onSetNota) return;
+    if (!onSetNota || !sincronizacaoAutomatica) return;
     for (const entrega of entregas) {
       if (!['corrigido', 'revisado'].includes(entrega.status)) continue;
       const nota = entrega.notaRevisada ?? entrega.notaFinal;
@@ -101,9 +105,28 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
       syncedRef.current.add(chave);
       handleNotaChanged({ turmaId: entrega.turmaId, bimestre: entrega.bimestre ?? atividade.bimestre, alunoId: entrega.alunoId, notaFinal: nota });
     }
-  }, [entregas, atividade.bimestre, handleNotaChanged, onSetNota]);
+  }, [entregas, atividade.bimestre, handleNotaChanged, onSetNota, sincronizacaoAutomatica]);
 
-  const handleCorrigir = useCallback(async (entregaId) => {
+  const sincronizarCorrecao = useCallback(async (entrega, bim) => {
+    if (!sincronizacaoAutomatica) { setMensagem('Correção salva. Confira e sincronize as notas quando concluir a revisão.'); return; }
+    try {
+      const sync = await useAtividadesHook.sincronizarTodasAsNotas({ turmaId: entrega.turmaId, bimestre: bim, atividadeId: atividade.id, alunoId: entrega.alunoId });
+      const publicacao = sync?.publicacoes?.find(item => item.turmaId === entrega.turmaId && item.alunoId === entrega.alunoId && item.bimestre === bim);
+      if (publicacao) await useAtividadesHook.publicarNotaAluno?.(entrega.turmaId, entrega.alunoId, { [bim]: publicacao.dadosBimestre });
+    } catch (error) {
+      setErroAcao('Correção salva, mas o envio da nota falhou: ' + error.message);
+    }
+  }, [atividade.id, useAtividadesHook, sincronizacaoAutomatica]);
+
+  const handleCorrigirManual = useCallback(async (entregaId, dados) => {
+    const entrega = entregas.find(item => item.id === entregaId);
+    const fresh = await getAtividade(atividade.id);
+    if (!entrega || !fresh || String(fresh.bimestre) !== String(atividade.bimestre) || !fresh.turmaIds?.includes(entrega.turmaId)) throw new Error('Entrega fora da turma/bimestre selecionados.');
+    await corrigirManualmente(entregaId, fresh, dados, user?.uid);
+    await sincronizarCorrecao(entrega, String(fresh.bimestre));
+  }, [atividade.id, atividade.bimestre, entregas, corrigirManualmente, user?.uid, sincronizarCorrecao]);
+
+  const handleCorrigir = useCallback(async (entregaId, emLote = false) => {
     const entregaAtual = entregas.find(e => e.id === entregaId);
     if (!entregaAtual) return;
 
@@ -124,32 +147,40 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
       if (!resultado || !atvCompleta) return;
 
       const bim = String(atvCompleta.bimestre ?? entregaAtual.bimestre);
-      try {
-        const sync = await useAtividadesHook.sincronizarTodasAsNotas({
-          turmaId: entregaAtual.turmaId, bimestre: bim, atividadeId: atividade.id, alunoId: entregaAtual.alunoId,
-        });
-        const publicacao = sync?.publicacoes?.find(item => item.turmaId === entregaAtual.turmaId && item.alunoId === entregaAtual.alunoId && item.bimestre === bim);
-        if (publicacao) await useAtividadesHook.publicarNotaAluno?.(entregaAtual.turmaId, entregaAtual.alunoId, { [bim]: publicacao.dadosBimestre });
-      } catch (syncErr) {
-        console.error('Erro ao sincronizar a nota corrigida:', syncErr);
-      }
+      await sincronizarCorrecao(entregaAtual, bim);
 
     } catch (err) {
+      setErroAcao('Erro na correção: ' + err.message);
+      if (emLote) throw err;
       alert('Erro na correção: ' + err.message);
     }
-  }, [atividade.id, atividade.bimestre, entregas, corrigirEntrega, nivelCorrecao, useAtividadesHook]);
+  }, [atividade.id, atividade.bimestre, entregas, corrigirEntrega, nivelCorrecao, sincronizarCorrecao]);
 
   const handleCorrigirTodas = useCallback(async () => {
-    const pendentes = entregas.filter(e => e.status === 'entregue');
-    if (pendentes.length === 0) {
-      alert('Nenhuma entrega pendente de correção.');
-      return;
-    }
+    if (loteRef.current) return;
+    const pendentes = entregas.filter(e => ['entregue', 'erro_correcao'].includes(e.status));
+    if (!pendentes.length) return;
     if (!window.confirm(`Corrigir ${pendentes.length} entrega(s) com IA?`)) return;
-    for (const e of pendentes) {
-      await handleCorrigir(e.id);
-    }
+    loteRef.current = true; setErroAcao('');
+    let feitas = 0; const falhas = [];
+    try {
+      for (const e of pendentes) {
+        setLote({ feitas, total: pendentes.length });
+        try { await handleCorrigir(e.id, true); } catch { falhas.push(e.alunoId); }
+        feitas++;
+      }
+      setMensagem(`Lote concluído: ${feitas - falhas.length} corrigidas, ${falhas.length} falhas.${falhas.length ? ' Tente novamente somente as entregas com erro.' : ''}`);
+    } finally { loteRef.current = false; setLote(null); }
   }, [entregas, handleCorrigir]);
+  const confirmarSync = async () => {
+    setSincronizando(true); setErroAcao('');
+    try {
+      const r = await useAtividadesHook.sincronizarTodasAsNotas({ ...(currentTurmaId ? { turmaId: currentTurmaId } : {}), bimestre: atividade.bimestre, atividadeId: atividade.id });
+      setMensagem(`${r.sincronizadas || 0} notas sincronizadas com o Diário. Publicação no Portal: use Conferir e publicar no Diário.`);
+      setPreviaSync(false);
+    } catch (error) { setErroAcao(error.message); }
+    finally { setSincronizando(false); }
+  };
 
   const entregasFiltradas = filtroStatus === 'todos'
     ? entregas
@@ -164,9 +195,9 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
 
   const alunosVisiveis = filtroStatus === 'todos'
     ? alunosSorted
-    : alunosSorted.filter(([alunoId]) => entregasFiltradas.some(e => e.alunoId === alunoId));
+    : alunosSorted.filter(([, info]) => entregasFiltradas.some(e => e.alunoId === info.alunoId && e.turmaId === info.turmaId));
 
-  const pendentes = entregas.filter(e => e.status === 'entregue').length;
+  const pendentes = entregas.filter(e => ['entregue', 'erro_correcao'].includes(e.status)).length;
   const corrigidas = entregas.filter(e => e.status === 'corrigido' || e.status === 'revisado').length;
 
   return (
@@ -188,6 +219,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
           </p>
         </div>
         <div className="flex gap-2 items-center flex-wrap">
+          {!sincronizacaoAutomatica && <button type="button" onClick={() => setPreviaSync(true)} className="btn-brand-navy px-3 py-1.5 text-xs">Conferir e sincronizar notas</button>}
           {pendentes > 0 && (
             <select
               value={nivelCorrecao}
@@ -203,6 +235,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
           {pendentes > 0 && (
             <button
               onClick={handleCorrigirTodas}
+              disabled={Boolean(lote) || Boolean(corrigindo)}
               className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 rounded-lg text-white text-xs font-semibold transition-all"
             >
               Corrigir Todas ({pendentes})
@@ -224,11 +257,16 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
             onClick={() => onDelete(atividade.id)}
             className="px-3 py-1.5 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg text-xs text-red-500 font-medium transition-all"
           >
-            Excluir
+            Arquivar
           </button>
         </div>
       </div>
 
+      {(erroEntregas || erroAcao) && <p role="alert" className="bg-red-50 text-red-800 rounded p-3 text-sm mb-3">{erroEntregas || erroAcao}</p>}
+      {mensagem && <p role="status" className="bg-blue-50 text-blue-900 rounded p-3 text-sm mb-3">{mensagem}</p>}
+      {lote && <p role="status" className="p-2 text-sm">Corrigindo lote: {lote.feitas}/{lote.total}. Aguarde a conclusão.</p>}
+      {similaridades.length > 0 && <p className="bg-amber-50 text-amber-900 rounded p-3 text-sm mb-3">Alerta de similaridade: {similaridades.length} grupo(s) para revisão humana. As notas foram mantidas. Compare as respostas antes de revisar manualmente.</p>}
+      {previaSync && <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center p-4"><section role="dialog" aria-modal="true" aria-label="Conferir sincronização" className="bg-white rounded-xl p-6 max-w-lg w-full"><h3 className="font-bold">Conferir notas antes de enviar</h3><p className="text-sm my-2">{atividade.titulo} · {atividade.bimestre}º bimestre · {currentTurmaId ? `Turma ${turmas.find(t => t.id === currentTurmaId)?.nome || currentTurmaId}` : 'Turmas vinculadas'}</p><ul className="max-h-52 overflow-auto text-sm">{entregas.filter(e => ['corrigido','revisado'].includes(e.status)).map(e => <li key={e.id}>{alunosInfo[chaveAluno(e.turmaId, e.alunoId)]?.nome || e.alunoId}: {e.notaRevisada ?? e.notaFinal ?? 'Sem nota'}</li>)}</ul><p className="text-xs my-3">Envia somente esta atividade ao Diário. Para disponibilizar notas no Portal, confira e publique pelo Diário.</p><div className="flex gap-3 justify-end"><button disabled={sincronizando} onClick={() => setPreviaSync(false)}>Cancelar</button><button disabled={sincronizando} onClick={confirmarSync} className="btn-brand-primary px-3 py-2">{sincronizando ? 'Sincronizando…' : 'Confirmar sincronização'}</button></div></section></div>}
       {/* Filtros */}
       <div className="flex gap-2 mb-4 flex-wrap">
         {['todos', 'entregue', 'corrigido', 'erro_correcao', 'revisado'].map((s) => (
@@ -278,7 +316,8 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                 }
                 const rows = [];
                 let lastTurmaId = null;
-                for (const [alunoId, info] of alunosVisiveis) {
+                for (const [chave, info] of alunosVisiveis) {
+                  const alunoId = info.alunoId;
                   if (multiplaTurmas && info.turmaId !== lastTurmaId) {
                     lastTurmaId = info.turmaId;
                     const turmaNome = turmas.find(t => t.id === info.turmaId)?.nome || info.turmaId;
@@ -292,10 +331,10 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                       </tr>
                     );
                   }
-                  const entrega = entregasFiltradas.find(e => e.alunoId === alunoId);
+                  const entrega = entregasFiltradas.find(e => e.alunoId === alunoId && e.turmaId === info.turmaId);
                   const nota = entrega?.notaRevisada ?? entrega?.notaFinal;
                   rows.push(
-                    <tr key={alunoId} className="border-b border-slate-200 hover:bg-slate-50 transition-colors">
+                    <tr key={chave} className="border-b border-slate-200 hover:bg-slate-50 transition-colors">
                       <td className="px-4 py-3">
                         <span className="font-medium text-slate-900 text-sm">{info.nome}</span>
                       </td>
@@ -327,7 +366,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                               disabled={corrigindo === entrega.id}
                               className="px-2 py-1 bg-violet-50 hover:bg-violet-100 text-violet-500 rounded text-[10px] font-semibold transition-all disabled:opacity-50"
                             >
-                              {corrigindo === entrega.id ? 'Corrigindo...' : 'Corrigir IA'}
+                              {corrigindo === entrega.id ? 'Corrigindo...' : 'Corrigir com IA'}
                             </button>
                           )}
                           {entrega?.status === 'erro_correcao' && (
@@ -335,12 +374,13 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                               onClick={() => handleCorrigir(entrega.id)}
                               className="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-500 rounded text-[10px] font-semibold transition-all"
                             >
-                              Re-corrigir
+                              Corrigir com IA
                             </button>
                           )}
+                          {entrega && <button type="button" onClick={() => { setModoDrawer('manual'); setSelectedEntrega(entrega); }} className="btn-brand-navy px-2 py-1 text-[10px] font-semibold">Corrigir manualmente</button>}
                           {entrega && (
                             <button
-                              onClick={() => setSelectedEntrega(entrega)}
+                              onClick={() => { setModoDrawer('visualizar'); setSelectedEntrega(entrega); }}
                               className="px-2 py-1 bg-slate-50 hover:bg-slate-200 text-slate-900 rounded text-[10px] font-medium transition-all"
                             >
                               Ver
@@ -360,10 +400,13 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
 
       {selectedEntrega && (
         <EntregaDrawer
-          entrega={selectedEntrega}
+          key={selectedEntrega.id}
+          entrega={entregas.find(item => item.id === selectedEntrega.id) || selectedEntrega}
+          modoInicial={modoDrawer}
+          corrigindo={corrigindo === selectedEntrega.id}
           atividade={atividade}
-          alunoNome={alunosInfo[selectedEntrega.alunoId]?.nome || 'Aluno'}
-          onOverride={(novaNota) => overrideNota(selectedEntrega.id, novaNota, user?.uid)}
+          alunoNome={alunosInfo[chaveAluno(selectedEntrega.turmaId, selectedEntrega.alunoId)]?.nome || 'Aluno'}
+          onManual={dados => handleCorrigirManual(selectedEntrega.id, dados)}
           onCorrigir={() => handleCorrigir(selectedEntrega.id)}
           onClose={() => setSelectedEntrega(null)}
         />
@@ -390,13 +433,13 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
               if (onSyncAtvMapa) {
                 // Sync all current turmas
                 for (const turmaId of payload.turmaIds) {
-                  onSyncAtvMapa(turmaId, atividade.bimestre, payload.bimestre, payload.id || atividade.id, payload.titulo, payload.notaMaxima, false);
+                  await onSyncAtvMapa(turmaId, atividade.bimestre, payload.bimestre, payload.id || atividade.id, payload.titulo, payload.notaMaxima, false);
                 }
                 // Remove from turmas that were unchecked
                 const turmasAntigas = atividade.turmaIds || [];
                 for (const tId of turmasAntigas) {
                   if (!payload.turmaIds.includes(tId)) {
-                    onSyncAtvMapa(tId, atividade.bimestre, payload.bimestre, payload.id || atividade.id, payload.titulo, payload.notaMaxima, true);
+                    await onSyncAtvMapa(tId, atividade.bimestre, payload.bimestre, payload.id || atividade.id, payload.titulo, payload.notaMaxima, true);
                   }
                 }
               }

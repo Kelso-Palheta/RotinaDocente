@@ -1,364 +1,82 @@
 'use client';
 
-import React from 'react';
-import {
-  Sparkles,
-  Plus,
-  Edit2,
-  Trash2,
-  Settings,
-  CheckCircle2,
-  Clock,
-  AlertCircle,
-  LogOut,
-  Calendar as CalendarIcon,
-  BookOpen,
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { BookOpen, Plus, Upload, Sparkles, Edit2, Trash2, Search, Clock } from 'lucide-react';
+import { estadoConteudos } from '@/dominio/calendario/evolucao';
 
+/** Biblioteca completa: vínculos no calendário nunca ocultam o conteúdo. */
 export function Sidebar({
-  turmas = [],
-  turmaSelecionada,
-  onSelectTurma,
-  onOpenConfig,
-  onOpenImport,
-  onOpenAutoDistribuir,
-  onOpenNovoTopico,
-  onOpenEditarTopico,
-  onExcluirTopico,
-  onClearPlanejamento,
-  onCopiarPlanejamento,
-  planejamento,
-  aulas = [],
-  user,
+  planejamento, aulas = [], onOpenNovoTopico, onOpenEditarTopico, onExcluirTopico,
+  onOpenImport, onOpenAutoDistribuir, onClearPlanejamento, onCopiarPlanejamento,
+  turmas = [], turmaSelecionada,
 }) {
-  const router = useRouter();
+  const [categoria, setCategoria] = useState('todos');
+  const [busca, setBusca] = useState('');
+  const topicos = estadoConteudos(planejamento?.topicos || [], aulas);
+  const contagem = topicos.reduce((acc, t) => ({ ...acc, [t.estado]: acc[t.estado] + 1 }), { pendente: 0, agendado: 0, concluido: 0 });
+  const percentual = topicos.length ? Math.round(contagem.concluido / topicos.length * 100) : 0;
+  const normalizar = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
+  const visiveis = topicos.filter(t => (categoria === 'todos' || t.estado === categoria) && normalizar(`${t.titulo || ''} ${t.descricao || ''} ${t.ordem || ''}`).includes(normalizar(busca)));
+  const categorias = [['todos', 'Todos', topicos.length], ['pendente', 'Pendentes', contagem.pendente], ['agendado', 'Agendados', contagem.agendado], ['concluido', 'Concluídos', contagem.concluido]];
+  const cores = { pendente: 'bg-slate-100 text-slate-700', agendado: 'bg-blue-50 text-blue-700', concluido: 'bg-emerald-50 text-emerald-700' };
+  const status = { pendente: 'Pendente', agendado: 'Agendado', concluido: 'Concluído' };
+  const outrasTurmas = turmas.filter(t => t.id !== turmaSelecionada?.id);
+  const acao = 'inline-flex items-center justify-center gap-2 rounded-xl border border-[#dce0f0] px-4 py-2.5 text-sm font-semibold disabled:opacity-40';
 
-  const topicos = planejamento?.topicos || [];
-  const totalTopicos = topicos.length;
-
-  // Cálculo de Progresso Curricular
-  const topicosAssociadosNaTurma = new Set();
-  aulas.forEach((aula) => {
-    if (aula.topicosAssociados) {
-      aula.topicosAssociados.forEach((t) => {
-        const id = t.id || t.topicoId || t.topicoOrdem?.toString() || t.ordem?.toString();
-        if (id) topicosAssociadosNaTurma.add(id);
-      });
-    } else if (aula.topicoId) {
-      topicosAssociadosNaTurma.add(aula.topicoId);
-    }
-  });
-
-  const concluidosCount = aulas.filter(
-    (a) => a.status === 'CONCLUIDA' && ((a.topicosAssociados && a.topicosAssociados.length > 0) || a.topicoTitulo)
-  ).length;
-
-  const agendadosCount = aulas.filter(
-    (a) => (a.status === 'AGENDADA' || !a.status) && ((a.topicosAssociados && a.topicosAssociados.length > 0) || a.topicoTitulo)
-  ).length;
-
-  const alocadosCount = topicos.filter((t) => {
-    const targetId = t.id || t.ordem?.toString();
-    return topicosAssociadosNaTurma.has(targetId);
-  }).length;
-
-  const pendentesCount = Math.max(0, totalTopicos - alocadosCount);
-
-  const percConcluido = totalTopicos > 0 ? Math.round((concluidosCount / totalTopicos) * 100) : 0;
-  const percAgendado = totalTopicos > 0 ? Math.round((agendadosCount / totalTopicos) * 100) : 0;
-  const percPendente = Math.max(0, 100 - percConcluido - percAgendado);
-
-  const outrasTurmas = (turmas || []).filter((t) => t.id !== turmaSelecionada?.id);
-
-  return (
-    <aside className="w-80 lg:w-84 bg-white border-r border-[#dce0f0] flex flex-col h-full z-20 shrink-0 font-sans shadow-xs">
-      {/* Brand Header Compacto */}
-      <div className="px-4 py-3 border-b border-[#dce0f0] flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-[#fff2f6] border border-[#fde4ec] flex items-center justify-center text-[#f60c49] shadow-2xs shrink-0">
-            <CalendarIcon className="w-4 h-4" />
-          </div>
-          <div>
-            <h2 className="font-head font-extrabold text-[#101942] text-sm leading-tight">Calendário</h2>
-            <p className="text-[10px] text-[#6070a0] font-semibold">Planejamento Letivo</p>
-          </div>
-        </div>
+  return <section aria-label="Biblioteca de conteúdos" className="w-full min-w-0 rounded-2xl border border-[#dce0f0] bg-white p-4 sm:p-6 text-[#101942]">
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 className="flex items-center gap-2 text-lg font-bold"><BookOpen size={20} /> Conteúdos</h2>
+        <p className="mt-1 text-sm text-[#6070a0]">Cadastre, revise e acompanhe os conteúdos desta turma.</p>
       </div>
-
-      {/* Seletor de Turmas Compacto em Grade/Pills (Economiza 80% do espaço vertical) */}
-      <div className="px-4 py-3 border-b border-[#dce0f0] bg-[#fbfcfd]">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="font-bold text-[10px] uppercase tracking-wider text-[#6070a0]">
-            Suas Turmas ({turmas.length})
-          </span>
-          {turmaSelecionada && (
-            <button
-              onClick={onOpenConfig}
-              className="text-[11px] font-bold text-[#f60c49] hover:underline flex items-center gap-1"
-              title="Configurar Grade Semanal da Turma Ativa"
-            >
-              <Settings size={12} />
-              <span>Grade</span>
-            </button>
-          )}
-        </div>
-
-        {/* Grade de Botões Compactos de Turma */}
-        <div className="grid grid-cols-4 gap-1.5 max-h-28 overflow-y-auto pr-0.5">
-          {turmas.map((turma) => {
-            const isSelected = turmaSelecionada?.id === turma.id;
-            return (
-              <button
-                key={turma.id}
-                type="button"
-                onClick={() => onSelectTurma(turma)}
-                className={`py-1.5 px-2 rounded-xl text-xs font-extrabold transition-all text-center truncate ${
-                  isSelected
-                    ? 'bg-[#f60c49] text-white shadow-xs scale-102 ring-2 ring-[#f60c49]/20'
-                    : 'bg-white text-[#101942] border border-[#dce0f0] hover:bg-[#f7f8fc] hover:border-[#b4bcd9]'
-                }`}
-                title={turma.nome}
-              >
-                {turma.nome}
-              </button>
-            );
-          })}
-        </div>
+      <div className="flex flex-wrap gap-2">
+        <button type="button" onClick={onOpenNovoTopico} className={`${acao} bg-[#101942] text-white`}><Plus size={16} /> Novo conteúdo</button>
+        <button type="button" onClick={onOpenImport} className={acao}><Upload size={16} /> Importar conteúdos</button>
+        <button type="button" disabled={!topicos.length} onClick={onOpenAutoDistribuir} className={`${acao} text-blue-700`}><Sparkles size={16} /> Distribuir com prévia</button>
       </div>
+    </div>
 
-      {/* Seção Principal: Tópicos de Aula (Ganha máxima altura e visibilidade) */}
-      <div className="flex-1 flex flex-col min-h-0 px-4 py-3">
-        {turmaSelecionada ? (
-          <>
-            {/* Barra de Progresso Curricular Compacta */}
-            {totalTopicos > 0 && (
-              <div className="p-2.5 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl mb-3 space-y-1.5">
-                <div className="flex items-center justify-between text-xs font-bold text-[#101942]">
-                  <span className="text-[11px]">Progresso da Ementa</span>
-                  <span className="text-[#f60c49] font-mono text-xs">{percConcluido}%</span>
-                </div>
+    <div className="my-5 rounded-xl border border-[#dce0f0] bg-[#f7f8fc] p-4">
+      <p className="text-sm font-semibold">{contagem.concluido} de {topicos.length} conteúdos concluídos ({percentual}%)</p>
+      <div role="progressbar" aria-label="Progresso dos conteúdos" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percentual} className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200"><div style={{ width: `${percentual}%` }} className="h-full bg-emerald-500" /></div>
+      <p className="mt-2 text-xs text-[#6070a0]">{aulas.length} aula(s) no calendário. Cada conteúdo conta uma vez no progresso.</p>
+    </div>
 
-                {/* Barra Segmentada */}
-                <div className="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden flex">
-                  <div
-                    style={{ width: `${percConcluido}%` }}
-                    className="h-full bg-emerald-500 transition-all duration-500"
-                    title={`Concluído: ${percConcluido}%`}
-                  />
-                  <div
-                    style={{ width: `${percAgendado}%` }}
-                    className="h-full bg-blue-500 transition-all duration-500"
-                    title={`Agendado: ${percAgendado}%`}
-                  />
-                  <div
-                    style={{ width: `${percPendente}%` }}
-                    className="h-full bg-slate-300 transition-all duration-500"
-                    title={`Pendente: ${percPendente}%`}
-                  />
-                </div>
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <div role="tablist" aria-label="Estado dos conteúdos" className="flex flex-wrap gap-2">
+        {categorias.map(([valor, rotulo, quantidade]) => <button key={valor} type="button" role="tab" aria-selected={categoria === valor} aria-controls="lista-conteudos" onClick={() => setCategoria(valor)} className={`rounded-xl px-3 py-2 text-sm font-semibold ${categoria === valor ? 'bg-[#101942] text-white' : 'bg-[#f7f8fc] text-[#6070a0]'}`}>{rotulo} ({quantidade})</button>)}
+      </div>
+      <label className="flex min-w-0 items-center gap-2 rounded-xl border border-[#dce0f0] px-3 py-2"><Search size={16} className="shrink-0 text-[#6070a0]" /><input type="search" aria-label="Buscar conteúdo" placeholder="Buscar conteúdo..." value={busca} onChange={e => setBusca(e.target.value)} className="w-full min-w-0 text-sm outline-none" /></label>
+    </div>
 
-                {/* Legendas */}
-                <div className="flex items-center justify-between text-[9.5px] font-bold">
-                  <span className="flex items-center gap-1 text-emerald-700">
-                    <CheckCircle2 size={10} className="text-emerald-500" /> {concluidosCount} conc.
-                  </span>
-                  <span className="flex items-center gap-1 text-blue-700">
-                    <Clock size={10} className="text-blue-500" /> {agendadosCount} agend.
-                  </span>
-                  <span className="flex items-center gap-1 text-slate-600">
-                    <AlertCircle size={10} className="text-slate-400" /> {pendentesCount} pend.
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Cabeçalho de Tópicos e Botões */}
-            <div className="mb-2.5 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-[10.5px] uppercase tracking-wider text-[#6070a0] flex items-center gap-1">
-                  <BookOpen size={12} />
-                  <span>Tópicos ({pendentesCount} livres)</span>
-                </span>
-                <div className="flex items-center gap-1.5">
-                  {totalTopicos > 0 && (
-                    <button
-                      onClick={onClearPlanejamento}
-                      className="p-1 text-slate-400 hover:text-red-500 transition-colors rounded-md hover:bg-red-50"
-                      title="Limpar todos os tópicos"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                  <button
-                    onClick={onOpenNovoTopico}
-                    className="text-[11px] font-bold text-[#2563eb] hover:underline flex items-center gap-0.5"
-                    title="Adicionar tópico manualmente"
-                  >
-                    <Plus className="w-3 h-3" />
-                    Novo
-                  </button>
-                  <button
-                    onClick={onOpenImport}
-                    className="text-[11px] font-bold text-[#f60c49] hover:underline flex items-center gap-0.5"
-                    title="Importar ementa com IA"
-                  >
-                    Importar
-                  </button>
-                </div>
-              </div>
-
-              {/* Botão de Distribuição Automática */}
-              {totalTopicos > 0 && pendentesCount > 0 && (
-                <button
-                  type="button"
-                  onClick={onOpenAutoDistribuir}
-                  className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#2563eb] to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 active:scale-98"
-                >
-                  <Sparkles size={13} className="text-amber-300" />
-                  <span>Distribuir Tópicos nas Aulas</span>
-                </button>
-              )}
+    <div id="lista-conteudos" role="tabpanel" className="mt-4">
+      {!visiveis.length ? <p className="rounded-xl border border-dashed border-[#dce0f0] p-8 text-center text-sm text-[#6070a0]">{topicos.length ? 'Nenhum conteúdo corresponde ao filtro.' : 'Nenhum conteúdo cadastrado. Crie um conteúdo ou importe seu planejamento.'}</p> :
+        <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {visiveis.map((topico, index) => <li key={topico.id || topico.ordem || index} draggable={topico.estado === 'pendente'} onDragStart={e => e.dataTransfer.setData('application/json', JSON.stringify(topico))} className="min-w-0 rounded-xl border border-[#dce0f0] p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
+              <span className="text-[#f60c49]">Conteúdo {topico.ordem ?? index + 1}</span>
+              <span className={`rounded-lg px-2 py-1 ${cores[topico.estado]}`}>{status[topico.estado]}</span>
             </div>
+            <h3 className="mt-2 break-words font-semibold">{topico.titulo}</h3>
+            {topico.descricao && <p className="mt-2 whitespace-pre-wrap break-words text-sm text-[#6070a0]">{topico.descricao}</p>}
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+              <span className="flex items-center gap-1 text-xs text-[#6070a0]"><Clock size={13} /> {topico.duracaoEstimadaAulas || 1} tempo(s) estimado(s)</span>
+              <div className="flex gap-2">
+                <button type="button" aria-label={`Editar ${topico.titulo}`} onClick={() => onOpenEditarTopico?.(topico)} className="inline-flex items-center gap-1 rounded-lg border border-blue-100 px-3 py-2 text-xs font-semibold text-blue-700"><Edit2 size={14} /> Editar</button>
+                <button type="button" aria-label={`Excluir ${topico.titulo}`} onClick={() => onExcluirTopico?.(topico.id)} className="inline-flex items-center gap-1 rounded-lg border border-rose-100 px-3 py-2 text-xs font-semibold text-rose-700"><Trash2 size={14} /> Excluir</button>
+              </div>
+            </div>
+          </li>)}
+        </ul>}
+    </div>
 
-            {/* Lista Ampla de Tópicos com Drag & Drop */}
-            <ul className="space-y-2 flex-1 overflow-y-auto pr-1">
-              {!totalTopicos ? (
-                <div className="p-5 rounded-2xl border border-dashed border-[#dce0f0] bg-white text-xs text-[#9098c0] text-center space-y-3 mt-2">
-                  <BookOpen size={24} className="mx-auto text-slate-300" />
-                  <p className="font-semibold text-slate-600">Nenhum plano cadastrado nesta turma.</p>
-                  
-                  <div className="flex flex-col gap-2 pt-1">
-                    <button
-                      onClick={onOpenImport}
-                      className="w-full py-2 px-3 bg-[#f60c49] hover:bg-[#d90a3f] text-white rounded-xl font-bold text-xs shadow-xs transition-all"
-                    >
-                      ✨ Importar Ementa com IA
-                    </button>
-                    <button
-                      onClick={onOpenNovoTopico}
-                      className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition-all"
-                    >
-                      + Criar Tópico Manual
-                    </button>
-                  </div>
-
-                  {outrasTurmas.length > 0 && onCopiarPlanejamento && (
-                    <div className="pt-3 border-t border-slate-100">
-                      <p className="text-[10px] text-slate-400 mb-1.5 font-bold uppercase tracking-wider">
-                        Ou clonar de outra turma:
-                      </p>
-                      <select
-                        defaultValue=""
-                        onChange={(e) => {
-                          if (e.target.value) {
-                            onCopiarPlanejamento(e.target.value);
-                          }
-                        }}
-                        className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none cursor-pointer hover:border-blue-400"
-                      >
-                        <option value="" disabled>
-                          📋 Selecionar turma de origem...
-                        </option>
-                        {outrasTurmas.map((t) => (
-                          <option key={t.id} value={t.id}>
-                            Copiar da Turma {t.nome}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                topicos.map((topico) => {
-                  const targetId = topico.id || topico.ordem?.toString();
-                  const isAssociado = aulas?.some(
-                    (aula) =>
-                      aula.topicoId === targetId ||
-                      (aula.topicosAssociados &&
-                        aula.topicosAssociados.some(
-                          (t) => t.id === targetId || t.topicoId === targetId
-                        ))
-                  );
-
-                  if (isAssociado) return null; // Mostra apenas os pendentes de agendamento
-
-                  return (
-                    <li
-                      key={topico.id}
-                      draggable
-                      onDragStart={(e) => {
-                        e.dataTransfer.setData('application/json', JSON.stringify(topico));
-                      }}
-                      className="p-3 bg-white rounded-xl cursor-grab hover:shadow-md active:cursor-grabbing border border-[#dce0f0] shadow-2xs hover:border-[#f60c49]/40 transition-all group relative"
-                    >
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] font-extrabold text-[#f60c49] uppercase tracking-wider bg-rose-50 px-1.5 py-0.5 rounded-md border border-rose-100">
-                          Aula {topico.ordem}
-                        </span>
-                        {/* Botões de Ação do Tópico (Editar / Excluir) */}
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onOpenEditarTopico(topico);
-                            }}
-                            className="p-1 rounded text-slate-400 hover:text-blue-600 hover:bg-blue-50"
-                            title="Editar Tópico"
-                          >
-                            <Edit2 size={12} />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              if (window.confirm(`Excluir o tópico "${topico.titulo}"?`)) {
-                                onExcluirTopico(topico.id);
-                              }
-                            }}
-                            className="p-1 rounded text-slate-400 hover:text-rose-600 hover:bg-rose-50"
-                            title="Excluir Tópico"
-                          >
-                            <Trash2 size={12} />
-                          </button>
-                        </div>
-                      </div>
-
-                      <div
-                        className="text-xs text-[#101942] font-bold leading-relaxed line-clamp-3"
-                        title={topico.titulo}
-                      >
-                        {topico.titulo}
-                      </div>
-
-                      <div className="text-[10px] text-[#9098c0] font-semibold mt-1.5 flex items-center gap-1">
-                        <Clock size={10} />
-                        <span>{topico.duracaoEstimadaAulas || 1} aula(s) estimadas</span>
-                      </div>
-                    </li>
-                  );
-                })
-              )}
-            </ul>
-          </>
-        ) : (
-          <div className="flex-1 flex items-center justify-center text-center p-4 text-[#6070a0] text-xs font-semibold">
-            Selecione uma turma para gerenciar o plano.
-          </div>
-        )}
-      </div>
-
-      {/* Footer da Sidebar */}
-      <div className="p-3 border-t border-[#dce0f0] bg-[#f7f8fc]">
-        <button
-          onClick={() => router.push('/')}
-          className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-white hover:bg-slate-100 border border-[#dce0f0] text-[#101942] text-xs font-bold transition-all shadow-2xs"
-        >
-          <LogOut size={13} className="text-slate-400" />
-          <span>Voltar ao Hub</span>
-        </button>
-      </div>
-    </aside>
-  );
+    <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[#dce0f0] pt-4">
+      {outrasTurmas.length > 0 && onCopiarPlanejamento && <label className="flex flex-wrap items-center gap-2 text-sm font-semibold">Copiar conteúdos de outra turma
+        <select aria-label="Turma para copiar conteúdos" value="" onChange={e => e.target.value && onCopiarPlanejamento(e.target.value)} className="rounded-lg border border-[#dce0f0] p-2"><option value="">Selecione a turma...</option>{outrasTurmas.map(t => <option key={t.id} value={t.id}>{t.nome || t.name}</option>)}</select>
+      </label>}
+      {Boolean(topicos.length) && onClearPlanejamento && <button type="button" onClick={onClearPlanejamento} className="rounded-lg border border-rose-100 px-3 py-2 text-sm font-semibold text-rose-700">Remover conteúdos do planejamento</button>}
+    </div>
+  </section>;
 }
+
+export const BibliotecaConteudos = Sidebar;

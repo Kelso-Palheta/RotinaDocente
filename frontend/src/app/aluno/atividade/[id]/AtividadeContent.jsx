@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { decodeToken } from '@/utils/diario/tokenUtils';
-import { getAtividadePublica, getEntrega, submitEntrega } from '@/lib/firebase-aluno';
-import { getTokenInfo } from '@/lib/firebase-atividades';
 import { RespostaForm } from './RespostaForm';
 import { ConfirmacaoView } from './ConfirmacaoView';
 import { FeedbackView } from './FeedbackView';
@@ -24,22 +22,20 @@ export default function AtividadeContent() {
 
   useEffect(() => {
     if (!token) {
-      setErroTipo('token_invalido');
-      setEstado('erro');
+      queueMicrotask(() => { setErroTipo('token_invalido'); setEstado('erro'); });
       return;
     }
 
     const decoded = decodeToken(token);
     if (!decoded || decoded.activityId !== activityId) {
-      setErroTipo('token_invalido');
-      setEstado('erro');
+      queueMicrotask(() => { setErroTipo('token_invalido'); setEstado('erro'); });
       return;
     }
 
     fetch(`/api/aluno/atividade/${activityId}?token=${encodeURIComponent(token)}`)
       .then(async (res) => {
         if (!res.ok) {
-          throw new Error('Falha ao carregar atividade.');
+          const error = new Error('Falha ao carregar atividade.'); error.status = res.status; throw error;
         }
         return res.json();
       })
@@ -72,8 +68,8 @@ export default function AtividadeContent() {
           setEstado('form');
         }
       })
-      .catch(() => {
-        setErroTipo('erro_carregamento');
+      .catch(error => {
+        setErroTipo(error.status === 401 ? 'login_necessario' : error.status === 403 ? 'token_invalido' : 'erro_carregamento');
         setEstado('erro');
       });
   }, [activityId, token]);
@@ -87,6 +83,7 @@ export default function AtividadeContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           activityId,
+          token,
           alunoId: alunoInfo.alunoId,
           turmaId: alunoInfo.turmaId,
           bimestre: atividade.bimestre,
@@ -132,7 +129,7 @@ export default function AtividadeContent() {
     return <ErroView tipo={erroTipo} dataEntrega={dataStr} />;
   }
 
-  const prazo = atividade?.dataEntrega?.toDate?.() || new Date(atividade?.dataEntrega || Date.now());
+  const prazo = atividade?.dataEntrega?.toDate?.() || new Date(atividade?.dataEntrega || 0);
   const prazoStr = prazo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   return (

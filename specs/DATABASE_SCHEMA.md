@@ -115,3 +115,32 @@ Provas e avaliações personalizadas montadas a partir do banco de questões.
 - `guiaMediacao`: string opcional
 - `createdAt`: timestamp
 - `updatedAt`: timestamp
+
+## Calendário com escopo anual (RN-66)
+
+Sob `professores/{uid}`, os novos documentos usam chave `{encodeURIComponent(turmaId)}__{anoLetivo}`:
+
+- `grades_horarias/{chave}`: `turmaId`, `anoLetivo`, `dataInicioPeriodo`, `dataFimPeriodo`, `aplicarDesde`, `diasSemana`, `reposicoes` e origem de horários quando informada.
+- `planejamentos/{chave}`: `turmaId`, `anoLetivo`, `topicos`.
+- `feriados_turmas/{chave}`: `turmaId`, `anoLetivo`, `feriados: [{data,nome}]`.
+- `calendario_versoes/{chave}`: `revision`, `turmaId`, `anoLetivo`, `atualizadoEm`.
+- `aulas_agendadas/{id}`: coleção existente; escopo por `turmaId` e ano de `dataAgendada`. Preserva IDs existentes, status e conteúdo, acrescentando `anoLetivo`, `conteudoEncaminhado`, `historicoConteudos`, `topicosPendentes`, `bloqueioAutomatico`, `motivoCancelamento`, `execucao: {justificativa,restante}` e `reposicao` quando aplicáveis.
+
+Leitura legada de documentos `{turmaId}` é aceita somente quando a grade identifica o ano compatível. A gravação cria documentos anuais e não sobrescreve o legado. Cada operação confirma que as leituras do snapshot ainda são atuais; divergência exige recarregar e revisar. Não há migração destrutiva automática nem exigência de novos índices compostos.
+
+### Snapshot de notas no Portal (RN-67)
+`notasAluno/{professorUid}_{turmaId}_{alunoId}.recuperacao`: objeto opcional com `rec1`/`rec2` pertencentes exclusivamente ao aluno do documento. Zero é preservado. Situações semestrais e anuais são derivadas na leitura, sem migração das notas.
+
+### Diário — revisão e contexto (RN-68)
+`professores/{uid}/turmas/data` mantém `turmas` como array compatível com os módulos existentes e acrescenta `revision` inteiro, `schemaVersion: 2` e `lastUpdated`. Vazio é estado válido e não dispara leitura legada. Uma transação valida conteúdo/revisão antes de gravar.
+
+Turma pode incluir `anoLetivo`, `arquivada`, `copiadaDe` e `publicacoes` por bimestre/`ano` contendo `periodo`, `em`, `estado` (`completa`/`parcial`) e digest curto da assinatura. O digest sinaliza desatualização; a proteção de concorrência compara o conteúdo completo. Turmas antigas sem ano ficam em contexto legado, sem atribuição automática.
+
+Cache `diario:{uid}:v2` contém rascunho, base, pendência e até 20 registros de histórico local. Cópia anterior de restauração: `diario_backup_anterior_{uid}`. Contexto: `diario_contexto_{uid}`. Resultado da publicação: `diario_publicacao:{uid}:{ano}`. Nenhum cache de outra conta é usado. Histórico local é limitado e não substitui backup duradouro.
+
+
+## Atividades — RN-69
+- `atividades/{id}`: documento privado do professor, sem `alunosPorTurma` nas novas gravações; `status: arquivada` conserva entregas e notas. Atividade e acessos são publicados num único lote, limitado preventivamente a 449 operações de acesso mais o documento principal.
+- `atividades/{id}/tokens/{vinculo}`: chave Base64URL de JSON `[turmaId, alunoId]`; token novo inclui segredo criptograficamente aleatório. Metadados mínimos `alunoId`, `turmaId`, `nome`, `revogado`. Acessos legados por aluno são lidos com sessão; alterações reconciliam e revogam vínculos removidos sem apagar históricos.
+- Entrega nova: `entregas/{activityId}__{vinculo}`; leitura do antigo `{activityId}_{alunoId}` exige turma/aluno correspondentes. Criação transacional; repetição retorna conflito sem mutação.
+- Regras Firestore restringem atividades/tokens ao professor proprietário, preservam autoria e autorizam entrega legada pelo vínculo com sua atividade. Alunos usam o BFF com Admin SDK, onde a autorização é revalidada.

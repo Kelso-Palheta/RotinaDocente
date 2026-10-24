@@ -1,5 +1,7 @@
+import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 import { jsPDF } from 'jspdf';
 import { consolidarFichaAluno360 } from '@/dominio/diario/fichaAluno';
+import { adicionarHistoricoFeedbackPDF } from '@/lib/aluno/feedback-pdf';
 import { fmt } from '@/utils/diario/calculos';
 
 /**
@@ -19,6 +21,7 @@ export async function generateFichaAluno360PDF({
   turma,
   frequenciasTurma = null,
   historicoRedacoes = null,
+  historicoAtividades = [],
   professorNome = 'Professor(a)',
   parecerManual = '',
   incluirDiagnosticoClinico = false,
@@ -63,6 +66,27 @@ export async function generateFichaAluno360PDF({
   );
 
   let cursorY = 43;
+  const garantirEspaco = (altura) => {
+    if (cursorY + altura <= pageHeight - 18) return;
+    const fonte = doc.getFont?.();
+    const tamanho = doc.getFontSize?.() || 8;
+    const cor = doc.getTextColor?.();
+    doc.addPage();
+    doc.setFont('helvetica', 'bold');doc.setFontSize(9);doc.setTextColor(16,25,66);
+    doc.text(`Ficha 360º • ${ficha.aluno.nome}`, margin, 14);
+    cursorY = 24;
+    doc.setFont(fonte?.fontName || 'helvetica', fonte?.fontStyle || 'normal');
+    doc.setFontSize(tamanho);
+    if (cor) doc.setTextColor(cor);
+  };
+  const escreverTexto = (texto, largura = contentWidth, recuo = 0) => {
+    const linhas = doc.splitTextToSize(String(texto || ''), largura);
+    for (const linha of linhas) {
+      garantirEspaco(5);
+      doc.text(linha, margin + recuo, cursorY);
+      cursorY += 4.5;
+    }
+  };
 
   // ── 1. IDENTIFICAÇÃO DO ESTUDANTE ──
   doc.setFillColor(245, 247, 252);
@@ -131,6 +155,7 @@ export async function generateFichaAluno360PDF({
     if (i === 5) {
       doc.setFont('helvetica', 'bold');
       if (val === 'Aprovado') doc.setTextColor(16, 140, 60);
+      else if (val === 'Em andamento' || val === 'Sem notas') doc.setTextColor(37, 99, 235);
       else if (val === 'Recuperação') doc.setTextColor(210, 130, 10);
       else doc.setTextColor(200, 30, 30);
     }
@@ -138,6 +163,16 @@ export async function generateFichaAluno360PDF({
   });
 
   cursorY += 13;
+  if (ficha.academico.S1 && ficha.academico.S2) {
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(16, 25, 66);
+    [ficha.academico.S1, ficha.academico.S2].forEach((semestre, i) => {
+      doc.text(`${i + 1}º semestre: ${fmt(semestre.total)} — ${ROTULOS_APROVACAO[semestre.status]} (mínimo 25)`, margin, cursorY);
+      cursorY += 5;
+    });
+    cursorY += 2;
+  }
 
   // ── 3. ASSIDUIDADE & CUMPRIMENTO LDB (ART. 24) ──
   doc.setFont('helvetica', 'bold');
@@ -245,6 +280,7 @@ export async function generateFichaAluno360PDF({
     cursorY += 22;
   }
 
+  garantirEspaco(35);
   // ── 6. PARECER QUALITATIVO & OBSERVAÇÕES PEDAGÓGICAS ──
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
@@ -252,23 +288,14 @@ export async function generateFichaAluno360PDF({
   doc.text('5. PARECER DESCRITIVO & ENCAMINHAMENTOS DO CONSELHO', margin, cursorY);
   cursorY += 3;
 
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(margin, cursorY, contentWidth, 34, 2, 2, 'F');
-  doc.setDrawColor(215, 222, 238);
-  doc.roundedRect(margin, cursorY, contentWidth, 34, 2, 2, 'S');
-
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(50, 60, 80);
-
-  const parecerTexto =
-    ficha.parecerPedagogico ||
-    'Estudante com participação e engajamento registrados nas atividades pedagógicas. O presente documento foi analisado pelo conselho docente para alinhamento pedagógico e ciência da família.';
-
-  const splitParecer = doc.splitTextToSize(parecerTexto, contentWidth - 10);
-  doc.text(splitParecer, margin + 5, cursorY + 7);
-
-  cursorY += 40;
+  cursorY += 5;
+  const parecerTexto = ficha.parecerPedagogico || 'Registro destinado ao acompanhamento pedagógico e à ciência da família.';
+  escreverTexto(parecerTexto, contentWidth - 10, 5);
+  cursorY += 8;
+  garantirEspaco(30);
 
   // ── 7. ASSINATURAS FORMAIS ──
   doc.setFont('helvetica', 'normal');
@@ -302,7 +329,23 @@ export async function generateFichaAluno360PDF({
     { align: 'center' }
   );
 
+  if (ficha.ocorrencias.length) {
+    doc.addPage();cursorY=24;
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(16,25,66);
+    doc.text('Ocorrências autorizadas para a família', margin,14);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);
+    for (const ocorrencia of ficha.ocorrencias) {
+      garantirEspaco(18);
+      doc.setFont('helvetica','bold');
+      escreverTexto(`${ocorrencia.data ? ocorrencia.data.split('-').reverse().join('/') : 'Data não registrada'} • ${ocorrencia.titulo}`);
+      doc.setFont('helvetica','normal');
+      escreverTexto(ocorrencia.descricao);
+      cursorY += 5;
+    }
+  }
+
   const nomeSanitizado = (ficha.aluno.nome || 'aluno').replace(/[^a-zA-Z0-9]/g, '_');
+  adicionarHistoricoFeedbackPDF(doc, historicoAtividades);
   doc.save(`Ficha_360_${nomeSanitizado}.pdf`);
   return doc;
 }

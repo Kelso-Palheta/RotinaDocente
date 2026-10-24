@@ -3,8 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
+import { DevolutivasAluno } from '@/components/aluno/DevolutivasAluno';
+import { montarHistoricoFeedback } from '@/dominio/atividades/correcaoManual';
 import { BimestreCard } from '@/components/aluno/BimestreCard';
-import { calcTotal, calcSemestre, fmt, temNota } from '@/utils/diario/calculos';
+import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
+import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 import { generateBoletimPDF } from '@/lib/aluno/boletim-pdf';
 import { ArrowLeft, PenTool, Sparkles, Download, CheckCircle2, AlertCircle, Clock, BookOpen, User, LogOut } from 'lucide-react';
 
@@ -176,20 +179,13 @@ export default function AlunoNotasPage() {
   }
 
   const { notas, nome, turmaId } = dados;
-  const turma = { bimestres: notas.bimestres || {}, alunos: [{ id: dados.alunoId }], recuperacao: {} };
+  const turma = { bimestres: notas.bimestres || {}, alunos: [{ id: dados.alunoId }], recuperacao: { [dados.alunoId]: notas.recuperacao || {} } };
   const alunoId = dados.alunoId;
 
-  const bimTotais = [];
-  for (let b = 1; b <= 4; b++) {
-    const bData = turma.bimestres[String(b)];
-    if (!bData) { bimTotais.push(null); continue; }
-    const { atividades: atvsB = [], notas: notasB = {}, config } = bData;
-    const nota = notasB[alunoId];
-    bimTotais.push(temNota(nota, atvsB) ? calcTotal(nota?.simulado, atvsB, nota, config) : null);
-  }
-  const S1 = calcSemestre(bimTotais[0], bimTotais[1], null, 2, 3);
-  const S2 = calcSemestre(bimTotais[2], bimTotais[3], null, 2, 3);
-  const totalAnual = (S1.total !== null || S2.total !== null) ? (S1.total || 0) + (S2.total || 0) : null;
+  const historicoAtividades = montarHistoricoFeedback({ atividades, entregas, alunoId, turmaId, professorId: dados.professorUid });
+
+  const { bimTotais, S1, S2, totalAnual, statusFinal } = calcDesempenhoAnual(turma, alunoId);
+  const coresSituacao = { good: 'text-green-600', bad: 'text-red-600', warn: 'text-blue-600', none: 'text-slate-400' };
 
   const agora = new Date();
   const pendentes = atividades.filter(atv => {
@@ -231,7 +227,8 @@ export default function AlunoNotasPage() {
                 S1,
                 S2,
                 totalAnual,
-                redacao
+                redacao,
+                historicoAtividades
               })}
               className="btn-brand-ghost px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 shadow-2xs"
               title="Baixar Boletim em PDF"
@@ -268,15 +265,9 @@ export default function AlunoNotasPage() {
             </div>
           </div>
 
-          <div className="flex sm:flex-col items-center sm:items-end gap-1 bg-[#f7f8fc] sm:bg-transparent p-3 sm:p-0 rounded-2xl border sm:border-0 border-[#dce0f0] w-full sm:w-auto justify-between">
-            <span className="text-[11px] font-bold text-[#6070a0] uppercase tracking-wider font-head">Status Anual</span>
-            <span className={`text-sm font-extrabold px-2.5 py-0.5 rounded-full border ${
-              totalAnual !== null && totalAnual >= 50
-                ? 'bg-[#f0fdf4] text-[#166534] border-[#bbf7d0]'
-                : 'bg-[#fff7ed] text-[#9a3412] border-[#fed7aa]'
-            }`}>
-              {totalAnual !== null ? (totalAnual >= 50 ? 'Aprovado' : 'Recuperação') : 'Em Andamento'}
-            </span>
+          <div aria-label="Situação anual" className="p-3 rounded-2xl bg-[#f7f8fc]">
+            <span className="text-[11px] font-bold text-[#6070a0] block">Situação anual</span>
+            <span className={`text-sm font-extrabold ${coresSituacao[statusFinal]}`}>{ROTULOS_APROVACAO[statusFinal]}</span>
           </div>
         </div>
 
@@ -337,30 +328,28 @@ export default function AlunoNotasPage() {
         {/* Resumo Anual */}
         <div className="bg-white border border-[#dce0f0] rounded-3xl p-5 mb-8 shadow-sm">
           <h3 className="text-xs font-extrabold text-[#101942] uppercase tracking-wider mb-4 font-head">Resumo Semestral e Anual</h3>
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="p-3 bg-[#f7f8fc] rounded-2xl border border-[#dce0f0]">
-              <span className="text-[10px] font-bold text-[#6070a0] uppercase tracking-wider block">1º Semestre</span>
-              <p className={`text-lg font-extrabold font-mono tabular-nums mt-0.5 ${S1.total !== null ? (S1.total >= 25 ? 'text-[#166534]' : 'text-[#991b1b]') : 'text-[#101942]'}`}>
-                {S1.total !== null ? fmt(S1.total) : '—'}
-              </p>
-            </div>
-            <div className="p-3 bg-[#f7f8fc] rounded-2xl border border-[#dce0f0]">
-              <span className="text-[10px] font-bold text-[#6070a0] uppercase tracking-wider block">2º Semestre</span>
-              <p className={`text-lg font-extrabold font-mono tabular-nums mt-0.5 ${S2.total !== null ? (S2.total >= 25 ? 'text-[#166534]' : 'text-[#991b1b]') : 'text-[#101942]'}`}>
-                {S2.total !== null ? fmt(S2.total) : '—'}
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            {[S1, S2].map((semestre, i) => (
+              <div key={i} aria-label={`Situação do ${i + 1}º semestre`} className="p-3 bg-[#f7f8fc] rounded-2xl border border-[#dce0f0]">
+                <span className="text-[10px] font-bold text-[#6070a0] uppercase tracking-wider block">{i + 1}º Semestre</span>
+                <p className={`text-lg font-extrabold font-mono tabular-nums ${coresSituacao[semestre.status]}`}>{fmt(semestre.total)}</p>
+                <p className={`text-xs font-bold ${coresSituacao[semestre.status]}`}>{ROTULOS_APROVACAO[semestre.status]}</p>
+                <span className="text-[11px] text-[#6070a0]">Meta mínima: 25,00 pontos</span>
+              </div>
+            ))}
           </div>
           <div className="border-t border-[#dce0f0] pt-4 flex justify-between items-baseline">
             <div>
               <span className="text-xs font-bold text-[#101942] block">Pontuação Total Anual</span>
               <span className="text-[11px] text-[#6070a0]">Meta mínima: 50,00 pontos</span>
             </div>
-            <span className="text-2xl font-extrabold font-mono text-[#f60c49] tabular-nums">
+            <span className={`text-2xl font-extrabold font-mono tabular-nums ${coresSituacao[statusFinal]}`}>
               {totalAnual !== null ? fmt(totalAnual) : '—'}
             </span>
           </div>
         </div>
+
+        <DevolutivasAluno historico={historicoAtividades} />
 
         {/* Atividades Online */}
         {atividades.length > 0 && (

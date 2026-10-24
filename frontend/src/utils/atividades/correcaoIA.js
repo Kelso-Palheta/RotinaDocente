@@ -64,8 +64,9 @@ async function corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nive
 
   if (questao.imagens?.length > 0) {
     for (const img of questao.imagens) {
-      if (img.url) {
-        content.push({ type: 'image_url', image_url: { url: img.url } });
+      const url = img.url || img.base64;
+      if (url) {
+        content.push({ type: 'image_url', image_url: { url } });
       }
     }
   }
@@ -214,6 +215,14 @@ REGRAS CRÍTICAS DE FORMATAÇÃO (OBRIGATÓRIO):
     throw new Error('IA não gerou questões válidas');
   }
 
+  for (const q of parsed.questoes) {
+    if (typeof q.enunciado !== 'string' || !q.enunciado.trim()) throw new Error('IA gerou questão sem enunciado válido.');
+    if (incluirObjetivas) {
+      if (!Array.isArray(q.alternativas) || q.alternativas.filter(a => typeof a.texto === 'string' && a.texto.trim()).length < 2 || !q.alternativas.some(a => a.id === q.gabarito && a.texto?.trim())) throw new Error('IA gerou gabarito ou alternativas inválidas. Gere novamente.');
+      if (new Set(q.alternativas.map(a => a.id)).size !== q.alternativas.length) throw new Error('IA gerou alternativas duplicadas.');
+    } else if (typeof q.rubrica !== 'string' || !q.rubrica.trim()) throw new Error('IA gerou questão sem critérios de correção.');
+    q.tipo = incluirObjetivas ? 'objetiva' : 'discursiva';
+  }
   return parsed.questoes.map(q => ({
     tipo: q.tipo === 'objetiva' ? 'objetiva' : 'discursiva',
     enunciado: q.enunciado?.trim() || '',
@@ -232,39 +241,22 @@ REGRAS CRÍTICAS DE FORMATAÇÃO (OBRIGATÓRIO):
  * Preserva o texto descritivo de cada critério.
  */
 function normalizeRubrica(rubrica, notaMaxima) {
-  if (!rubrica || !notaMaxima) return rubrica;
-
-  // Regex que captura o número de pontos no início de cada linha
-  // Suporta formatos: "2 pts —", "0.5 pts —", "Critério 1: 3 pts —", "1,0 ponto —", etc.
-  const lineRegex = /^(.*?)(\d+(?:[.,]\d+)?)\s*(?:pt|pts|ponto|pontos)?\s*[—\-–:]/i;
-
-  const lines = rubrica.split(/\\n|\n/);
-  const valores = [];
-
-  for (const line of lines) {
-    const m = line.match(lineRegex);
-    if (m) {
-      valores.push(parseFloat(m[2].replace(',', '.')));
-    } else {
-      valores.push(null);
-    }
-  }
-
-  const soma = valores.reduce((s, v) => s + (v ?? 0), 0);
-  if (soma === 0) return rubrica; // nada a normalizar
-
-  const fator = notaMaxima / soma;
-
-  return lines.map((line, i) => {
-    if (valores[i] === null) return line;
-    const novoValor = (Math.round(valores[i] * fator * 100) / 100).toString().replace('.', ',');
-    // substitui apenas o número de pontos, preservando o restante da linha
-    return line.replace(lineRegex, (_, prefix) => {
-      const parts = line.split(/[—\-–]/, 2);
-      const suffix = parts.length > 1 ? line.slice(parts[0].length + 1) : '';
-      return `${prefix}${novoValor} pts — ${suffix.trim()}`;
-    });
-  }).join('\\n');
+  if (!rubrica || !Number.isFinite(Number(notaMaxima)) || Number(notaMaxima) <= 0) return rubrica;
+  const linhas = rubrica.split(/\\n|\n/);
+  const regex = /^(.*?)(\d+(?:[.,]\d+)?)\s*(?:pts?|pontos?)\s*([—\-–:]?)(.*)$/i;
+  const itens = linhas.map((linha, index) => {
+    const match = linha.match(regex);
+    return match ? { index, match, pontos: Number(match[2].replace(',', '.')) } : null;
+  }).filter(Boolean);
+  const soma = itens.reduce((s, item) => s + item.pontos, 0);
+  if (!soma) return rubrica;
+  const totalCentavos = Math.round(Number(notaMaxima) * 100);
+  for (const item of itens) { item.exato = item.pontos * totalCentavos / soma; item.centavos = Math.floor(item.exato); }
+  let resto = totalCentavos - itens.reduce((s, item) => s + item.centavos, 0);
+  const ordem = [...itens].sort((a,b) => (b.exato - b.centavos) - (a.exato - a.centavos) || a.index - b.index);
+  for (const item of ordem) { if (resto-- <= 0) break; item.centavos++; }
+  for (const item of itens) linhas[item.index] = `${item.match[1]}${String(item.centavos / 100).replace('.', ',')} pts — ${item.match[4].trim()}`;
+  return linhas.join('\\n');
 }
 
 

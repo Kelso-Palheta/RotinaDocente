@@ -298,6 +298,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - A função pura `converterGradeParaAulasSemanais(schedule, days, slots)` mapeia a grade do Meu Horário (`${dayId}_${slotId}`) para a estrutura de dias letivos e slots do Calendário.
     - Slots marcados como recreio/intervalo (`isBreak: true`) são estritamente ignorados na conversão.
     - Se uma célula contiver disciplina e turma definidas, gera um item de aula associado ao dia e horário correspondente.
+    - Evolução implementada em 23/10/2026: o Calendário deve carregar os horários cadastrados no Meu Horário Escolar para a turma selecionada, sem exigir redigitação. A identificação usa correspondência exata normalizada; correspondências duvidosas exigem seleção manual, sem misturar turmas por substring.
+    - A integração deve preservar todos os blocos de horário da turma, inclusive horários separados no mesmo dia, ignorando intervalos. Dados de exemplo do Meu Horário não equivalem a uma grade cadastrada pelo professor.
+    - A atualização deve apresentar prévia, período de aplicação e alterações antes de gravar; preservar conteúdos vinculados e aulas realizadas. Conflitos devem ser explicitados, sem excluir silenciosamente o histórico. Repetir a importação da mesma grade não pode duplicar aulas.
+    - Carregar horários e aplicar alterações são etapas distintas: a leitura pode preencher a proposta automaticamente, mas uma mudança no Meu Horário não autoriza apagar/recriar silenciosamente o calendário existente.
 
 ---
 
@@ -439,3 +443,47 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
     - Correção/revisão individual atualiza somente aquela atividade/aluno/turma/bimestre. É proibido acionar sincronização ampla ou publicar um mapa vazio de bimestres após uma correção.
     - No Banco Completo sem filtros, permanece a ação explícita `Sincronizar todas as notas`. Com filtros, a sincronização respeita turma/bimestre selecionados. Tipos string/número de bimestre são normalizados.
     - A persistência usa transação para preservar alterações concorrentes. Fora do escopo, turmas, bimestres, atividades e notas permanecem intactos.
+
+32. **RN-65 (Correção Manual/IA e Devolutivas no Portal e Relatórios):**
+    - Cada entrega permite `Corrigir com IA` e `Corrigir manualmente`. Correção manual não exige chave nem chamada de IA; permite nota e feedback por questão e feedback geral. Em atividade legada, exige nota total e feedback geral.
+    - Notas devem ser números finitos, entre zero e o máximo da questão/atividade; ausência não equivale a zero. Em múltiplas questões, a nota total é a soma arredondada a duas casas das notas das questões. Feedback textual por questão é obrigatório na correção manual.
+    - A entrega corrigida manualmente recebe `tipoCorrecao: manual`, status `revisado`, resultados/feedback atuais, autor e data; preserva registro anterior para auditoria e prevalece sobre o resultado de IA anterior. Correção manual, inclusive zero, não recebe penalização automática posterior. Nova correção IA confirmada explicitamente atualiza nota/feedback e remove a precedência da revisão anterior, preservando-a no histórico.
+    - Portal do Aluno exibe resultado e feedback geral/por questão de ambas as modalidades, inclusive questões objetivas. Relatório PDF do aluno (boletim) e Ficha 360º incluem as devolutivas completas, com paginação, origem da correção, nota, enunciado e resposta quando disponíveis.
+    - Histórico de feedback é restrito ao aluno, turma e atividades do professor correspondente, sem incluir outras entregas ou dados clínicos. Persistência e sincronização continuam respeitando RN-64. Falha ao salvar não fecha o editor nem apresenta sucesso.
+
+33. **RN-66 (Evolução segura do Calendário Pedagógico):**
+    - Aulas distinguem histórico de conteúdo de vínculos ativos: registros PARCIAL/NAO_REALIZADA conservam o conteúdo histórico, mas não tornam o tópico indisponível após devolver/reagendar. Apenas CONCLUIDA conclui conteúdo; estatísticas contam tópicos únicos do plano.
+    - Distribuição reserva a duração em tempos disponíveis, preserva concluídas/parciais e datas anteriores ao início escolhido, exclui conteúdos concluídos ou já vinculados fora do recorte e retorna pendências explícitas. Modos: preencher vagas e reorganizar futuras, com prévia.
+    - Reagendamento preserva histórico e devolve conteúdo sem vaga à lista de pendentes. Todos os feriados de uma operação são bloqueados antes do deslocamento; resultado calculado e persistido deve ser único. Remover um bloqueio reabre somente aulas canceladas automaticamente por ele, sem redistribuir silenciosamente.
+    - Atualização de grade reconcilia horários no período e a partir de data escolhida: preserva aulas realizadas e conteúdos; mudanças incompatíveis exibem conflitos e bloqueiam aplicação até resolução. Nenhuma exclusão silenciosa. Gravação de grade e aulas acontece atomicamente, com revalidação contra alterações concorrentes.
+    - Ano letivo é explícito. Documentos de grade/plano/feriados usam chave turma+ano, com leitura legada somente para o ano compatível e sem sobrescrever os registros legados. Aulas mantêm ano derivável da data. Operações restringem-se a turma/ano/período.
+    - A interface apresenta Calendário, Conteúdos e Configurações, filtros de ano/período, busca e estados de conteúdos (pendentes/agendados/concluídos), edição de conteúdos vinculados, visão de lista em telas estreitas e ações acessíveis por toque.
+    - Importação permite arquivo e texto, extração, revisão editável, mesclar/substituir e confirmação. Substituição não descarta conteúdo vinculado/histórico sem resolução. Recessos aceitam intervalo. Status parcial/não realizado registra justificativa e descrição do restante. PDFs preservam conteúdos completos com paginação.
+    - Limpeza e exclusão de aulas restringem-se ao período selecionado e preservam concluídas/parciais. Operações aguardam persistência, conservam dados em erro e exibem estado de processamento. Troca de turma/ano descarta respostas de carregamentos anteriores.
+
+34. **RN-67 (Aprovação semestral e anual):**
+    - Cada semestre é avaliado separadamente: mínimo de 25 pontos; o ano exige soma de pelo menos 50 pontos. Mantêm-se os pesos bimestrais 2 e 3 e a substituição pela recuperação existente.
+    - Semestre com dois bimestres lançados recebe Aprovado (>=25) ou Recuperação (<25). Semestre incompleto recebe Em andamento; nenhum lançamento recebe Sem notas. Zero é lançamento válido.
+    - Situação anual só é conclusiva com os quatro bimestres lançados: Aprovado (>=50), Recuperação (<50). Antes disso, Em andamento, independentemente do total parcial. A situação anual não substitui a situação de cada semestre.
+    - Mapa Anual, Portal, boletim PDF, Ficha 360º e exportações compartilham a classificação. Metas e pontos faltantes identificam a etapa correta; déficit do primeiro semestre não é apresentado como requisito do segundo. Cores bimestrais permanecem independentes.
+    - Publicação inclui a recuperação apenas do aluno correspondente, inclusive zero. Portal utiliza esse registro no cálculo compartilhado; registros antigos permanecem compatíveis sem recuperação e recebem o campo ao republicar.
+
+35. **RN-68 (Evolução segura e clareza do Diário Pedagógico):**
+    - Migrações preenchem somente critérios ausentes, com versão explícita, sem redefinir personalizações. Configuração exige escala positiva, pesos não negativos com soma positiva e limites válidos. Nota rejeita texto parcial, não finitos e fora da escala, sem truncamento silencioso. Atividades somam até o teto configurado; prévia explica o cálculo e impactos dos critérios.
+    - Carregamento não remove vínculos como efeito lateral, inclusive em falha ou vazio. Persistência usa revisão transacional e fila por conta; falha/conflito conserva rascunho local e exige resolução explícita. Estados visíveis: salvando, salvo na nuvem, pendente e falha/conflito. Lista vazia persiste; saída não cancela alterações pendentes. Cache, histórico e backup são isolados por conta; ano letivo é explícito sem reatribuição silenciosa de notas legadas.
+    - Chamada recupera presenças e quantidade juntas; nova chamada requer conferência explícita. Sobrescrita de chamada existente exige revisão. Sugestões vêm de aulas da turma/data no calendário ou horários cadastrados, sem sobrescrever chamada existente. Feriado/cancelamento permite somente exceção justificada. Falha ao salvar mantém formulário.
+    - Backup/restauração valida estrutura profunda, IDs únicos, notas finitas, configurações e versão. Prévia informa alcance; mesclar não sobrescreve colisões sem escolha explícita; substituir cria cópia de segurança antes de aplicar e aguarda persistência. Erro não exibe sucesso.
+    - Ocorrências familiares da Ficha 360º limitam-se às autorizadas e pertinentes ao aluno ou turma inteira. Prévia identifica registros incluídos e avisa que exportar não envia mensagens nem publica no Portal. Linha do tempo reúne dados existentes com filtro de privacidade.
+    - Interface oferece Notas, Frequência, Ocorrências e Resumo anual; critérios e ações avançadas separados; menu textual de ações do aluno; busca/filtros; navegação por Tab/Enter/Esc e colagem de notas com prévia antes da aplicação. Turma/bimestre sempre identificados.
+    - Publicação é ação explícita com prévia de turma, bimestre/ano, aptos e pendências. Publicar um período preserva períodos já publicados fora do recorte. Resumo de resultados e falhas persiste; repetição restringe-se às falhas. Última publicação e alterações posteriores são indicadas. Salvar, sincronizar atividades e publicar têm explicações distintas.
+    - Visão geral e conferência do fechamento indicam notas ausentes, atividade acima do teto, critérios divergentes, chamadas pendentes e falta de dados de acesso. Alertas abrem a área pertinente. Relatórios identificam alcance anual ou bimestral.
+    - Histórico registra autor, data, origem e valores anterior/novo das edições do Diário; desfazer restaura alterações com confirmação e sem descartar edições concorrentes. Arquivar preserva histórico; promover/copiar alunos cria turma com IDs próprios e bimestres vazios no ano de destino, mantendo origem intacta.
+
+
+## RN-69 — Correções seguras do Gerador de Atividades
+- Aluno acessa somente atividade atribuída, com token aleatório emitido e ativo ou token legado acompanhado de sessão/vínculo vigente. Não retornar cadastro da turma, critérios privados ou dados de terceiros.
+- Turma/aluno/bimestre são derivados do vínculo autorizado. Entrega é validada e criada em transação, sem substituir entrega/correção anterior. IDs novos incluem turma; leitura legada exige correspondência do contexto.
+- Similaridade é somente alerta: nenhuma redução automática de nota. Correção, sincronização e publicação têm estados explícitos no módulo; compatibilidade de componentes legados não habilita publicação automática na página atual.
+- Editor aguarda sucesso, conserva dados no erro e ID entre tentativas. Horário local não muda ao reeditar; gabarito deve apontar alternativa preenchida; nota e critérios usam mesma escala; material pendente impede publicação/geração.
+- Turmas reutilizam persistência por conta/revisão do Diário. Ano/arquivo e troca de contexto não misturam dados. Arquivar atividade conserva notas/entregas e revoga uso pelos alunos.
+- Publicação incompleta é retomável por ID, com acessos reconciliados sem expor cadastros. Com entregas, mudanças estruturais de bimestre, questões, escala e destinatários são recusadas; duplicar é alternativa futura, sem migração destrutiva.

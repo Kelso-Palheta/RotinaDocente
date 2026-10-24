@@ -7,6 +7,7 @@ const voltaUrl = () => {
 
 export const ErroView = ({ tipo, dataEntrega }) => {
   const mensagens = {
+    login_necessario: { titulo: 'Entre no Portal do Aluno', texto: 'Este link antigo exige login. Entre no Portal e abra a atividade pelo seu boletim.' },
     token_invalido: {
       titulo: 'Link inválido',
       texto: 'Este link não é válido ou expirou. Verifique se a URL está correta.'
@@ -48,6 +49,7 @@ export const ErroView = ({ tipo, dataEntrega }) => {
           </div>
           <h1 className="text-lg font-bold text-slate-900 mb-2">{msg.titulo}</h1>
           <p className="text-sm text-slate-400">{msg.texto}</p>
+          {tipo === 'login_necessario' && <a href="/aluno" className="btn-brand-primary inline-block px-4 py-2 mt-4">Entrar no Portal</a>}
         </div>
       </div>
     </div>

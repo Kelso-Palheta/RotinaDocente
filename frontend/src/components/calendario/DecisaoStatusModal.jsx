@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { conteudos } from '@/dominio/calendario/evolucao';
 import { ArrowRight, FastForward, CalendarClock, X, AlertTriangle } from 'lucide-react';
 
 export function DecisaoStatusModal({
@@ -10,9 +11,18 @@ export function DecisaoStatusModal({
   novoStatus,
   onConfirmar,
 }) {
+  const [salvando, setSalvando] = useState(false);
+  const [erro, setErro] = useState('');
   if (!isOpen || !aula) return null;
+  async function confirmar(decisao) {
+    if (salvando) return;
+    setSalvando(true); setErro('');
+    try { await onConfirmar(decisao); onClose(); }
+    catch (error) { setErro(error.message || 'Não foi possível salvar a decisão.'); }
+    finally { setSalvando(false); }
+  }
 
-  const topicosCount = aula.topicosAssociados?.length || 0;
+  const topicosCount = conteudos(aula).length;
   const isNaoRealizada = novoStatus === 'NAO_REALIZADA';
 
   return (
@@ -37,6 +47,7 @@ export function DecisaoStatusModal({
             </div>
             <button
               onClick={onClose}
+              disabled={salvando}
               className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
             >
               <X size={16} />
@@ -46,6 +57,8 @@ export function DecisaoStatusModal({
 
         {/* Opções de Decisão */}
         <div className="p-6 space-y-4">
+          {erro && <p role="alert" className="text-sm text-red-700 bg-red-50 p-3 rounded-xl">{erro}</p>}
+          {salvando && <p role="status" className="text-sm">Salvando decisão…</p>}
           <p className="text-xs text-slate-500 font-medium">
             Selecione a ação pedagógica ideal para o cronograma desta turma:
           </p>
@@ -54,10 +67,8 @@ export function DecisaoStatusModal({
             {/* Opção 1: Smart Shift */}
             <button
               type="button"
-              onClick={() => {
-                onConfirmar('smart_shift');
-                onClose();
-              }}
+              disabled={salvando}
+              onClick={() => confirmar('smart_shift')}
               className="w-full text-left p-4 rounded-2xl border-2 border-blue-100 hover:border-blue-500 bg-blue-50/40 hover:bg-blue-50/80 transition-all group flex items-start gap-4"
             >
               <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-200 flex items-center justify-center text-blue-600 flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -66,12 +77,12 @@ export function DecisaoStatusModal({
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <h4 className="text-sm font-bold text-[#101942]">
-                    Reagendar para a Próxima Aula (Smart Shift)
+                    Reagendar nas próximas aulas
                   </h4>
                   <ArrowRight size={16} className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Transfere o conteúdo desta aula para o próximo dia letivo e <strong>desloca em cascata</strong> os tópicos seguintes (+1 aula) sem perder nada.
+                  Transfere o conteúdo desta aula para o próximo dia letivo e <strong>desloca em cascata</strong> os conteúdos seguintes. Conteúdos sem vaga ficam pendentes.
                 </p>
               </div>
             </button>
@@ -79,10 +90,8 @@ export function DecisaoStatusModal({
             {/* Opção 2: Pular Conteúdo */}
             <button
               type="button"
-              onClick={() => {
-                onConfirmar('pular');
-                onClose();
-              }}
+              disabled={salvando}
+              onClick={() => confirmar('pular')}
               className="w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-slate-400 bg-slate-50/60 hover:bg-slate-100 transition-all group flex items-start gap-4"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-200/60 border border-slate-300 flex items-center justify-center text-slate-600 flex-shrink-0 group-hover:scale-110 transition-transform">
@@ -91,7 +100,7 @@ export function DecisaoStatusModal({
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <h4 className="text-sm font-bold text-[#101942]">
-                    Pular Tópico (Manter Datas Futuras)
+                    Devolver aos pendentes e manter próximas datas
                   </h4>
                   <ArrowRight size={16} className="text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
@@ -108,6 +117,7 @@ export function DecisaoStatusModal({
           <button
             type="button"
             onClick={onClose}
+              disabled={salvando}
             className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200 transition-colors"
           >
             Cancelar

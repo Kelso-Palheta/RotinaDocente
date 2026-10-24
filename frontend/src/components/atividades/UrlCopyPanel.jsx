@@ -8,7 +8,7 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
   const copyUrl = async (alunoId, token) => {
-    const url = `${baseUrl}/aluno/atividade/${activityId}?token=${token}`;
+    const url = `${baseUrl}/aluno/atividade/${activityId}?token=${encodeURIComponent(token)}`;
     try {
       await navigator.clipboard.writeText(url);
     } catch {
@@ -25,8 +25,8 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
 
   const copyAll = async () => {
     const linhas = Object.entries(alunosInfo)
-      .map(([alunoId, info]) => {
-        const url = `${baseUrl}/aluno/atividade/${activityId}?token=${info.token}`;
+      .filter(([, info]) => info.token).map(([alunoId, info]) => {
+        const url = `${baseUrl}/aluno/atividade/${activityId}?token=${encodeURIComponent(info.token)}`;
         return `${info.nome} → ${url}`;
       })
       .join('\n');
@@ -52,6 +52,7 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
           <button onClick={onClose} className="text-slate-400 hover:text-slate-900 text-xl leading-none">&times;</button>
         </div>
 
+        <p className="px-5 pt-3 text-xs text-slate-600">Links antigos exigem login no Portal do Aluno. Cada link pertence somente ao aluno e à turma indicados.</p>
         <div className="flex-1 overflow-y-auto p-5 space-y-2">
           {Object.entries(alunosInfo).length === 0 && (
             <p className="text-sm text-slate-400 text-center py-8">Carregando alunos...</p>
@@ -60,6 +61,7 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
             <div key={alunoId} className="flex items-center gap-2 p-2 hover:bg-slate-50 rounded-lg transition-colors">
               <span className="flex-1 text-sm text-slate-900 truncate">{info.nome}</span>
               <button
+                disabled={!info.token}
                 onClick={() => copyUrl(alunoId, info.token)}
                 className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all flex-shrink-0 ${
                   copiedId === alunoId
@@ -67,7 +69,7 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
                     : 'bg-slate-50 hover:bg-violet-50 text-slate-400 hover:text-violet-500 border border-slate-200'
                 }`}
               >
-                {copiedId === alunoId ? 'Copiado!' : 'Copiar'}
+                {!info.token ? 'Acesso pendente' : copiedId === alunoId ? 'Copiado!' : 'Copiar'}
               </button>
             </div>
           ))}
@@ -77,7 +79,7 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
           <button
             onClick={copyAll}
             className="w-full py-3 bg-violet-500 hover:bg-violet-400 rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary"
-            disabled={Object.keys(alunosInfo).length === 0}
+            disabled={!Object.values(alunosInfo).some(info => info.token)}
           >
             Copiar Todas as URLs
           </button>

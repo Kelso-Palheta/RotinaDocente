@@ -4,10 +4,12 @@ import { gerarLoginKey, resolverLoginsAlunos, resolverLoginUnico } from '@/utils
 const PROJECT_ID = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'dashboard-gestao-notas';
 const FIRESTORE_BASE = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
 
-async function firestorePatch(path, fields, token) {
+async function firestorePatch(path, fields, token, mask = []) {
   const headers = { 'Content-Type': 'application/json' };
   if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch(`${FIRESTORE_BASE}/${path}`, {
+  const query = new URLSearchParams();
+  mask.forEach(field => query.append('updateMask.fieldPaths', field));
+  const res = await fetch(`${FIRESTORE_BASE}/${path}${mask.length ? `?${query}` : ''}`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify({ fields }),
@@ -60,7 +62,9 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Acesso não autorizado. Token de autenticação ausente.' }, { status: 401 });
     }
 
-    const { userId, nomeProfessor, turmas } = await request.json();
+    const { userId, nomeProfessor, turmas, periodo = 'ano', alvos = null } = await request.json();
+    if (periodo !== 'ano' && ![1, 2, 3, 4].includes(Number(periodo))) return NextResponse.json({ error: 'Período inválido.' }, { status: 400 });
+    if (alvos !== null && (!Array.isArray(alvos) || alvos.some(a => !a?.turmaId || !a?.alunoId))) return NextResponse.json({ error: 'Alvos inválidos.' }, { status: 400 });
 
     if (!userId || typeof userId !== 'string' || !Array.isArray(turmas) || turmas.length === 0) {
       return NextResponse.json({ error: 'Dados inválidos ou incompletos.' }, { status: 400 });
@@ -72,7 +76,9 @@ export async function POST(request) {
     for (const turma of turmas) {
       const resolvidos = resolverLoginsAlunos(turma.alunos || []);
       for (const resolvido of resolvidos) {
-        studentTasks.push({ aluno: resolvido.aluno, turma, homonimo: resolvido.homonimo });
+        if (!alvos || alvos.some(a => a.turmaId === turma.id && a.alunoId === resolvido.aluno.id)) {
+          studentTasks.push({ aluno: resolvido.aluno, turma, homonimo: resolvido.homonimo });
+        }
       }
     }
 
@@ -81,6 +87,7 @@ export async function POST(request) {
     let semData = 0;
     const alunosSemData = [];
     const errosDetails = [];
+    const resultados = [];
 
     const publishSingleStudent = async ({ aluno, turma, homonimo }) => {
       if (!aluno.dataNascimento) {
@@ -107,7 +114,12 @@ export async function POST(request) {
         const recordId = `${userId}_${turma.id}_${aluno.id}`;
         const notaFields = toFirestoreValue({
           nome: aluno.nome,
-          bimestres: turma.bimestres || {},
+          bimestres: periodo === 'ano' ? turma.bimestres || {} : { [periodo]: turma.bimestres?.[periodo] || { atividades: [], notas: {} } },
+          recuperacao: periodo === 'ano' ? turma.recuperacao?.[aluno.id] || {} : (() => {
+            const campo = Number(periodo) <= 2 ? 'rec1' : 'rec2';
+            const valor = turma.recuperacao?.[aluno.id]?.[campo];
+            return valor === undefined ? {} : { [campo]: valor };
+          })(),
           atualizadoEm: now,
         }).mapValue.fields;
 
@@ -126,7 +138,9 @@ export async function POST(request) {
             nomeProfessor: { stringValue: nomeProfessor || 'Professor' },
             atualizadoEm: { stringValue: now },
           }, token),
-          firestorePatch(`notasAluno/${recordId}`, notaFields, token),
+          firestorePatch(`notasAluno/${recordId}`, notaFields, token, periodo === 'ano' ? [] : [
+            'nome', 'atualizadoEm', `bimestres.\`${periodo}\``, `recuperacao.${Number(periodo) <= 2 ? 'rec1' : 'rec2'}`,
+          ]),
         ]);
 
         return { status: 'ok' };
@@ -142,7 +156,9 @@ export async function POST(request) {
       const batch = studentTasks.slice(i, i + BATCH_SIZE);
       const results = await Promise.all(batch.map(publishSingleStudent));
 
-      for (const res of results) {
+      for (const [index, res] of results.entries()) {
+        const task = batch[index];
+        resultados.push({ turmaId: task.turma.id, alunoId: task.aluno.id, nome: task.aluno.nome, status: res.status, ...(res.error ? { error: res.error } : {}) });
         if (res.status === 'ok') {
           total++;
         } else if (res.status === 'semData') {
@@ -155,7 +171,7 @@ export async function POST(request) {
       }
     }
 
-    return NextResponse.json({ total, erros, errosDetails, semData, alunosSemData });
+    return NextResponse.json({ total, erros, errosDetails, semData, alunosSemData, resultados });
   } catch (e) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }

@@ -1,3 +1,5 @@
+import { ocorrenciasDoAluno } from './acompanhamento';
+import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 /**
  * Domínio: Diário Pedagógico
  * Consolidação da Ficha 360º Individual do Aluno (Conselho de Classe e Reunião de Pais)
@@ -85,7 +87,7 @@ export function consolidarFichaAluno360({
     matricula: aluno.matricula || aluno.codigo || '—',
     turmaNome: turma?.nome || 'Turma não informada',
     disciplina: turma?.disciplina || 'Geral',
-    anoLetivo: turma?.ano || new Date().getFullYear(),
+    anoLetivo: turma?.anoLetivo || turma?.ano || new Date().getFullYear(),
     emissaoEm: new Date().toISOString(),
   };
 
@@ -93,14 +95,15 @@ export function consolidarFichaAluno360({
   let bimestres = [null, null, null, null];
   let situacao = 'Em curso';
   let totalAnual = null;
+  let S1 = null, S2 = null;
 
   if (turma?.bimestres) {
     const desempenho = calcDesempenhoAnual(turma, alunoId);
     bimestres = desempenho.bimTotais || [null, null, null, null];
     totalAnual = desempenho.totalAnual;
-    if (desempenho.statusFinal === 'good') situacao = 'Aprovado';
-    else if (desempenho.statusFinal === 'warn') situacao = 'Recuperação';
-    else if (desempenho.statusFinal === 'bad') situacao = 'Reprovado por Nota';
+    S1 = desempenho.S1;
+    S2 = desempenho.S2;
+    situacao = ROTULOS_APROVACAO[desempenho.statusFinal];
   } else if (Array.isArray(turma?.avaliacoes)) {
     // Suporte tolerante à estrutura direta de avaliações
     for (let b = 1; b <= 4; b++) {
@@ -223,6 +226,8 @@ export function consolidarFichaAluno360({
     },
     academico: {
       bimestres,
+      S1,
+      S2,
       totalAnual,
       situacao,
     },
@@ -236,6 +241,7 @@ export function consolidarFichaAluno360({
       recomendacoes,
     },
     redacao: redacaoConsolidada,
+    ocorrencias: ocorrenciasDoAluno(turma?.ocorrencias || [], alunoId, {familia:true}),
     parecerPedagogico: parecerManual || '',
   };
 }

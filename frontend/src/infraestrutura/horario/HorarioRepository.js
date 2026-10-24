@@ -76,7 +76,7 @@ export class HorarioRepository {
   /**
    * Carrega a grade horária do Firestore ou LocalStorage (RN-24)
    */
-  async carregarGrade(userId) {
+  async carregarGrade(userId, { somenteReal = false } = {}) {
     let cloudData = null;
 
     // 1. Se autenticado e com Firestore disponível, tenta buscar da nuvem
@@ -90,14 +90,15 @@ export class HorarioRepository {
             cloudData = docSnap.data;
           }
         } else {
-          const { doc, getDoc } = await import('firebase/firestore');
+          const { doc, getDoc, getDocFromServer } = await import('firebase/firestore');
           const docRef = doc(this.firestoreDb, 'horario_escolar', userId);
-          const docSnap = await getDoc(docRef);
+          const docSnap = await (somenteReal ? getDocFromServer(docRef) : getDoc(docRef));
           if (docSnap.exists()) {
             cloudData = docSnap.data();
           }
         }
       } catch (err) {
+        if (somenteReal) throw err;
         console.warn('[HorarioRepository] Erro ao carregar do Firestore, recorrendo ao localStorage:', err);
       }
     }
@@ -113,6 +114,9 @@ export class HorarioRepository {
       }
       return cloudData;
     }
+
+    // Usuário autenticado importa apenas o documento real, sem cache de outra conta.
+    if (somenteReal && userId) return null;
 
     // 2. Fallback: Lê do localStorage
     if (typeof localStorage !== 'undefined') {
@@ -130,6 +134,6 @@ export class HorarioRepository {
     }
 
     // 3. Fallback final: Retorna estado padrão demonstrativo
-    return this.getEstadoInicial();
+    return somenteReal ? null : this.getEstadoInicial();
   }
 }

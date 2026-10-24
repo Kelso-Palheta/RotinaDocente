@@ -43,3 +43,11 @@
 
 
 
+
+
+### RN-69 — Correções do Gerador (24/10/2026)
+- [x] Acesso/entrega/Portal protegidos, dados mínimos, sessão privada e links por vínculo.
+- [x] Editor confirmado, prazo preservado, escala/gabarito/imagens e recuperação de extração.
+- [x] Persistência compartilhada com Diário, contexto, correção/sincronização explícitas, avisos de similaridade sem punição e arquivamento preservando feedback.
+- [x] Suíte 690/690, emulador 5/5, build e lint verificados. Guia e evidências registrados.
+- [ ] Publicar aplicativo e regras Firestore juntos quando solicitado; nenhum deploy ou commit/push executado nesta etapa.

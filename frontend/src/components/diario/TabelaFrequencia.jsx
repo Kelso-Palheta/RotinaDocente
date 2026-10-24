@@ -1,40 +1,60 @@
 "use client";
+import { dataLocalISO } from '@/utils/diario/datas';
 
-import { useState, useMemo } from 'react';
-import { Check, X, AlertTriangle, ShieldAlert, Sparkles, Save, Calendar, Users, Award } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Check, AlertTriangle, ShieldAlert, Sparkles, Save, Calendar } from 'lucide-react';
 import {
   marcarPresencaTodos,
   consolidarFrequenciaTurma
 } from '@/dominio/diario/frequenciaEscolar';
 
+import { sugerirChamada } from '@/dominio/diario/acompanhamento';
+import { carregarContextoChamada } from '@/infraestrutura/diario/ContextoChamadaRepository';
+
 export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
-  const hojeIso = new Date().toISOString().slice(0, 10);
-  const [dataSelecionada, setDataSelecionada] = useState(hojeIso);
-  const [quantidadeAulasDia, setQuantidadeAulasDia] = useState(2);
+  const hojeIso = dataLocalISO();
+  const [dataSelecionada, setDataSelecionada] = useState(() => {
+    const utc = new Date().toISOString().slice(0, 10);
+    // Registros antigos usavam a data UTC. Abra o registro legado sem movê-lo silenciosamente.
+    if (!turma.frequencias?.[hojeIso] && turma.frequencias?.[utc] && !turma.frequencias[utc].atualizadoEm) return utc;
+    return hojeIso;
+  });
+  const [quantidadeAulasDia, setQuantidadeAulasDia] = useState(() => turma.frequencias?.[dataSelecionada]?.quantidadeAulas || 1);
+  const [contexto, setContexto] = useState({});
+  const [rascunhoEditado, setRascunhoEditado] = useState(false);
+  const [justificativa, setJustificativa] = useState(() => turma.frequencias?.[dataSelecionada]?.justificativaExcecao || '');
   const [salvando, setSalvando] = useState(false);
   const [toastMsg, setToastMsg] = useState(null);
 
   // Registro de chamadas acumuladas na turma
-  const frequenciasTurma = turma.frequencias || {};
+  const frequenciasTurma = useMemo(() => turma.frequencias || {}, [turma.frequencias]);
 
   // Estado local das presenças do dia selecionado
   const [presencasDoDia, setPresencasDoDia] = useState(() => {
-    const reg = frequenciasTurma[hojeIso];
+    const reg = frequenciasTurma[dataSelecionada];
     if (reg?.presencas) return { ...reg.presencas };
-    // Por padrão, inicializa todos como presentes
-    return marcarPresencaTodos(turma.alunos || [], 'P');
+    return {};
   });
 
-  // Atualiza o estado local quando a data selecionada mudar
+  const sugestao = sugerirChamada({turma, data: dataSelecionada, ...contexto});
+  useEffect(() => {
+    if (!user?.uid) return;
+    let ativo = true;
+    carregarContextoChamada(user.uid, turma.id, Number(turma.anoLetivo || turma.ano || hojeIso.slice(0,4))).then(resultado => {
+      if (ativo) setContexto(resultado);
+    }).catch(() => { if (ativo) setContexto({aviso:'Sugestões indisponíveis. Confira as aulas.'}); });
+    return () => { ativo = false; };
+  }, [user?.uid, turma.id, turma.anoLetivo, turma.ano, hojeIso]);
+
   const handleMudarData = (novaData) => {
+    if (salvando) return;
+    if (rascunhoEditado && !confirm('Há alterações não salvas nesta chamada. Deseja descartá-las e trocar a data?')) return;
+    const registro = sugerirChamada({turma, data:novaData, ...contexto});
     setDataSelecionada(novaData);
-    const reg = frequenciasTurma[novaData];
-    if (reg) {
-      setQuantidadeAulasDia(Number(reg.quantidadeAulas) || 2);
-      setPresencasDoDia(reg.presencas || {});
-    } else {
-      setPresencasDoDia(marcarPresencaTodos(turma.alunos || [], 'P'));
-    }
+    setQuantidadeAulasDia(registro.quantidadeAulas);
+    setPresencasDoDia(registro.presencas);
+    setRascunhoEditado(false);
+    setJustificativa(registro.justificativaExcecao || '');
   };
 
   const showToast = (msg) => {
@@ -44,6 +64,8 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
 
   // Alterna o status de um aluno no dia selecionado ('P' | 'F' | 'FJ')
   const handleSetStatus = (alunoId, novoStatus) => {
+    if (salvando) return;
+    setRascunhoEditado(true);
     setPresencasDoDia((prev) => ({
       ...prev,
       [alunoId]: novoStatus
@@ -52,18 +74,28 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
 
   // Marca todos com o mesmo status em 1 clique
   const handleMarcarTodos = (status) => {
+    if (salvando) return;
+    if (!confirm('Confirma que conferiu todos os alunos e deseja marcar todos como presentes?')) return;
+    setRascunhoEditado(true);
     setPresencasDoDia(marcarPresencaTodos(turma.alunos || [], status));
     showToast(`Todos marcados como ${status === 'P' ? 'Presentes' : status === 'F' ? 'Ausentes' : 'Justificados'}!`);
   };
 
   // Salva a chamada do dia
   const handleSalvarChamada = async () => {
+    if (salvando) return;
+    if (!(turma.alunos || []).length || (turma.alunos || []).some(a => !['P','F','FJ'].includes(presencasDoDia[a.id]))) { showToast('Confirme a presença de todos os alunos antes de salvar.'); return; }
+    if (sugestao.exigeJustificativa && !justificativa.trim()) { showToast('Informe a justificativa para registrar chamada nesta data.'); return; }
+    if (!dataSelecionada || !Number.isInteger(Number(quantidadeAulasDia)) || Number(quantidadeAulasDia) < 1) { showToast('Confira a data e a quantidade de aulas.'); return; }
+    if (frequenciasTurma[dataSelecionada] && !confirm('Chamada existente: revise quantidade e presenças. Confirma substituir o registro deste dia?')) return;
     setSalvando(true);
     try {
       const novoRegistro = {
         quantidadeAulas: Number(quantidadeAulasDia) || 1,
         presencas: presencasDoDia,
-        atualizadoEm: new Date().toISOString()
+        atualizadoEm: new Date().toISOString(),
+        ...(justificativa.trim() ? {justificativaExcecao:justificativa.trim()} : {}),
+        origem: sugestao.origem
       };
 
       const novasFrequencias = {
@@ -71,7 +103,9 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
         [dataSelecionada]: novoRegistro
       };
 
-      await onSalvarFrequencia?.(turma.id, novasFrequencias);
+      if (!onSalvarFrequencia) throw new Error('Salvamento indisponível.');
+      await onSalvarFrequencia(turma.id, novasFrequencias);
+      setRascunhoEditado(false);
       showToast('Chamada registrada com sucesso!');
     } catch (err) {
       alert('Erro ao salvar chamada: ' + err.message);
@@ -93,7 +127,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
   const criticos = dadosConsolidados.filter((a) => a.statusLdb === 'critico').length;
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-slate-50">
+    <div data-diario-rascunho={rascunhoEditado ? 'true' : 'false'} data-diario-salvando={salvando ? 'true' : 'false'} className="flex-1 flex flex-col overflow-hidden bg-slate-50">
       {/* Toast flutuante */}
       {toastMsg && (
         <div className="fixed top-5 right-5 z-50 bg-[#101942] text-white px-4 py-2 rounded-xl shadow-lg text-xs font-bold animate-in fade-in slide-in-from-top-3">
@@ -101,6 +135,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
         </div>
       )}
 
+      {dataSelecionada !== hojeIso && frequenciasTurma[dataSelecionada] && <p className="p-3 text-xs bg-blue-50 text-blue-900">Chamada existente de {dataSelecionada.split('-').reverse().join('/')}. Confira a data; “Hoje” abre o dia local. Os registros anteriores não foram movidos.</p>}
       {/* Barra de Ações da Chamada */}
       <div className="bg-white border-b border-[#dce0f0] p-4 sm:p-5 flex-shrink-0">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -110,12 +145,14 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
               <div className="flex items-center gap-1.5">
                 <input
                   type="date"
+                  disabled={salvando}
                   value={dataSelecionada}
                   onChange={(e) => handleMudarData(e.target.value)}
                   className="bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] font-bold outline-none focus:ring-1 focus:ring-[#f60c49]"
                 />
                 <button
                   type="button"
+                  disabled={salvando}
                   onClick={() => handleMudarData(hojeIso)}
                   className="px-2.5 py-1.5 bg-[#f7f8fc] hover:bg-slate-200 border border-[#dce0f0] rounded-xl text-[11px] font-semibold text-[#6070a0] transition-colors"
                 >
@@ -127,14 +164,16 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-wider text-[#6070a0] mb-1">Aulas no Dia</label>
               <select
+                disabled={salvando}
                 value={quantidadeAulasDia}
-                onChange={(e) => setQuantidadeAulasDia(Number(e.target.value))}
+                onChange={(e) => { setQuantidadeAulasDia(Number(e.target.value)); setRascunhoEditado(true); }}
                 className="bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] font-bold outline-none focus:ring-1 focus:ring-[#f60c49]"
               >
                 <option value={1}>1 aula</option>
                 <option value={2}>2 aulas (geminadas)</option>
                 <option value={3}>3 aulas</option>
                 <option value={4}>4 aulas</option>
+                {[5,6,7,8,9,10,11,12].map(n => <option key={n} value={n}>{n} aulas</option>)}
               </select>
             </div>
           </div>
@@ -142,11 +181,12 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
           <div className="flex items-center gap-2 flex-wrap">
             <button
               type="button"
+              disabled={salvando}
               onClick={() => handleMarcarTodos('P')}
               className="px-3 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              Todos Presentes (1 clique)
+              Confirmar todos presentes
             </button>
 
             <button
@@ -161,6 +201,12 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
           </div>
         </div>
 
+        <div className="mt-3 text-xs text-slate-600 space-y-2">
+          <p>{frequenciasTurma[dataSelecionada] ? 'Chamada já registrada. Revise antes de substituir.' : 'Nova chamada: marque cada aluno ou confirme todos presentes.'}</p>
+          {contexto.aviso && <p role="status">{contexto.aviso}</p>}
+          {sugestao.origem !== 'manual' && sugestao.origem !== 'registro' && <p>Sugestão do {sugestao.origem === 'horario' ? 'Meu Horário' : 'Calendário'}: {sugestao.quantidadeAulas} aula(s). <button type="button" disabled={salvando} className="underline font-bold" onClick={() => {setQuantidadeAulasDia(sugestao.quantidadeAulas);setRascunhoEditado(true);}}>Usar quantidade sugerida</button></p>}
+          {sugestao.exigeJustificativa && <label className="block text-amber-800">{sugestao.aviso} Justificativa da exceção<input disabled={salvando} aria-label="Justificativa da exceção" className="block border rounded p-2 w-full" value={justificativa} onChange={e=>{setJustificativa(e.target.value);setRascunhoEditado(true);}} /></label>}
+        </div>
         {/* Cards de Resumo LDB */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-4">
           <div className="bg-[#f7f8fc] border border-[#dce0f0] rounded-xl p-2.5 flex items-center gap-3">
@@ -223,7 +269,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
             </thead>
             <tbody className="divide-y divide-[#dce0f0]">
               {(turma.alunos || []).map((aluno, idx) => {
-                const statusHoje = presencasDoDia[aluno.id] || 'P';
+                const statusHoje = presencasDoDia[aluno.id];
                 const consolidado = dadosConsolidados.find((c) => c.alunoId === aluno.id) || {
                   totalAulas: 0,
                   presencas: 0,
@@ -248,6 +294,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                       <div className="inline-flex rounded-lg border border-[#dce0f0] p-0.5 bg-[#f7f8fc]">
                         <button
                           type="button"
+                          disabled={salvando}
                           onClick={() => handleSetStatus(aluno.id, 'P')}
                           className={`px-2 py-1 rounded text-[11px] font-bold transition-all ${
                             statusHoje === 'P'
@@ -260,6 +307,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                         </button>
                         <button
                           type="button"
+                          disabled={salvando}
                           onClick={() => handleSetStatus(aluno.id, 'F')}
                           className={`px-2 py-1 rounded text-[11px] font-bold transition-all ${
                             statusHoje === 'F'
@@ -272,6 +320,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                         </button>
                         <button
                           type="button"
+                          disabled={salvando}
                           onClick={() => handleSetStatus(aluno.id, 'FJ')}
                           className={`px-2 py-1 rounded text-[11px] font-bold transition-all ${
                             statusHoje === 'FJ'

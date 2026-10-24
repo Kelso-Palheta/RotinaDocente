@@ -3,7 +3,7 @@
 export const FeedbackView = ({ entrega, atividade }) => {
   const notaMaxima = atividade?.notaMaxima || 10;
   const nota = entrega.notaRevisada ?? entrega.notaFinal;
-  const statusLabel = entrega.status === 'revisado' ? 'Revisado pelo professor' : 'Corrigido por IA';
+  const statusLabel = entrega.tipoCorrecao === 'manual' || entrega.status === 'revisado' ? 'Corrigido manualmente pelo professor' : 'Corrigido por IA';
   const questoes = atividade?.questoes;
   const resultados = entrega.resultados;
 
@@ -20,6 +20,7 @@ export const FeedbackView = ({ entrega, atividade }) => {
         <p className="text-xs text-slate-400 mt-1">{statusLabel}</p>
       </div>
 
+      {entrega.feedbackGeral && <section className="bg-slate-50 border border-slate-200 rounded-xl p-4"><h3 className="text-sm font-semibold text-slate-900">Feedback geral da atividade</h3><p className="text-sm text-slate-600 whitespace-pre-wrap mt-2">{entrega.feedbackGeral}</p></section>}
       {/* Multi-questão: resultados por questão */}
       {questoes?.length > 0 && resultados ? (
         questoes.map((q, i) => {
@@ -38,12 +39,12 @@ export const FeedbackView = ({ entrega, atividade }) => {
 
               {q.tipo === 'objetiva' && (
                 <p className={`text-xs mt-1 ${res.correto ? 'text-green-600' : 'text-red-500'}`}>
-                  {res.correto ? '✓ Correta' : `✗ Incorreta — ${res.feedback}`}
+                  {res.correto ? '✓ Correta' : '✗ Incorreta'}
                   {resposta && <span className="text-slate-400 ml-1">(marcou: {resposta})</span>}
                 </p>
               )}
 
-              {q.tipo === 'discursiva' && res.feedback && (
+              {res.feedback && (
                 <p className="text-xs text-slate-500 mt-1 leading-relaxed">{res.feedback}</p>
               )}
 

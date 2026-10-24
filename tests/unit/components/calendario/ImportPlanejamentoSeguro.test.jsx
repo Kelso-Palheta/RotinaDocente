@@ -1,0 +1,40 @@
+import {cleanup,fireEvent,render,screen,waitFor} from '@testing-library/react';
+import {ImportPlanejamentoModal} from '@/components/calendario/ImportPlanejamentoModal';
+const mocks=vi.hoisted(()=>({salvar:vi.fn(),extrair:vi.fn()}));
+vi.mock('@/hooks/calendario/useCalendarioPedagogico',()=>({useCalendarioPedagogico:()=>({salvarPlanejamento:mocks.salvar})}));
+vi.mock('@/utils/aiHeaders',()=>({getClientAIHeaders:()=>({'x-user-ai-key':'test','x-user-ai-provider':'gemini'})}));
+vi.mock('@/utils/atividades/documentExtractor',()=>({extractTextFromDocument:mocks.extrair}));
+beforeEach(()=>{vi.clearAllMocks();global.fetch=vi.fn(async()=>({ok:true,json:async()=>({topicos:[{titulo:'Revisar História',descricao:'Capítulo 1',duracaoEstimadaAulas:2}]})}));});
+afterEach(cleanup);
+const props={isOpen:true,onClose:vi.fn(),turmaSelecionada:{id:'t1',nome:'101'},anoLetivo:2027};
+it('extrai sem salvar, permite revisar e aguarda gravação mantendo dados no erro',async()=>{
+ const salvar=vi.fn().mockRejectedValue(new Error('Falha na gravação'));
+ render(<ImportPlanejamentoModal {...props} onSalvar={salvar}/>);
+ fireEvent.change(screen.getByLabelText('Texto do planejamento'),{target:{value:'Plano de história'}});
+ fireEvent.click(screen.getByRole('button',{name:'Extrair conteúdos'}));
+ expect(await screen.findByLabelText('Título do conteúdo 1')).toHaveValue('Revisar História');
+ expect(salvar).not.toHaveBeenCalled();expect(mocks.salvar).not.toHaveBeenCalled();
+ expect(JSON.parse(fetch.mock.calls[0][1].body).anoLetivo).toBe(2027);
+ fireEvent.change(screen.getByLabelText('Título do conteúdo 1'),{target:{value:'Título revisado'}});
+ fireEvent.click(screen.getByLabelText('Substituir conteúdos pendentes'));
+ fireEvent.click(screen.getByRole('button',{name:'Salvar conteúdos'}));
+ expect(await screen.findByRole('alert')).toHaveTextContent('Falha na gravação');
+ expect(screen.getByLabelText('Título do conteúdo 1')).toHaveValue('Título revisado');
+ expect(salvar).toHaveBeenCalledWith(expect.arrayContaining([expect.objectContaining({titulo:'Título revisado'})]),{modo:'substituir'});
+});
+it('arquivo PDF usa extração compartilhada e só estrutura após revisão do texto',async()=>{
+ mocks.extrair.mockResolvedValue({texto:'Plano extraído do PDF'});
+ render(<ImportPlanejamentoModal {...props} onSalvar={vi.fn()}/>);
+ expect(screen.getByRole('button',{name:'Enviar PDF, imagem ou documento'})).toBeVisible();
+ const arquivo=new File(['pdf'],'planejamento.pdf',{type:'application/pdf'});
+ fireEvent.change(screen.getByLabelText('Arquivo do planejamento'),{target:{files:[arquivo]}});
+ await waitFor(()=>expect(screen.getByLabelText('Texto do planejamento')).toHaveValue('Plano extraído do PDF'));
+ expect(mocks.extrair).toHaveBeenCalledWith(arquivo,{allowImages:true});
+ expect(fetch).not.toHaveBeenCalled();
+});
+it('trocar turma/ano limpa texto e prévia',async()=>{
+ const {rerender}=render(<ImportPlanejamentoModal {...props} onSalvar={vi.fn()}/>);
+ fireEvent.change(screen.getByLabelText('Texto do planejamento'),{target:{value:'Contexto antigo'}});
+ rerender(<ImportPlanejamentoModal {...props} anoLetivo={2028} onSalvar={vi.fn()}/>);
+ expect(screen.getByLabelText('Texto do planejamento')).toHaveValue('');
+});

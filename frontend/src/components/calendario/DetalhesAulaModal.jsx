@@ -1,316 +1,89 @@
 'use client';
 
-import React from 'react';
-import {
-  Calendar,
-  Clock,
-  CheckCircle2,
-  AlertCircle,
-  XCircle,
-  FastForward,
-  Trash2,
-  X,
-  BookOpen,
-  Plus,
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { Calendar, Clock, CheckCircle2, AlertCircle, XCircle, Trash2, X, BookOpen, Loader2 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { conteudos } from '@/dominio/calendario/evolucao';
 
-export function DetalhesAulaModal({
-  isOpen,
-  onClose,
-  aula,
-  topicosDisponiveis = [],
-  onUpdateStatus,
-  onRemoveTopico,
-  onAddTopico,
-  onExcluirAula,
-  onExcluirDiaSemana,
-}) {
-  if (!isOpen || !aula) return null;
+export function DetalhesAulaModal(props) {
+  if (!props.isOpen || !props.aula) return null;
+  return <RegistroAula key={props.aula.id} {...props} />;
+}
 
-  const dataFormatada = aula.dataAgendada
-    ? format(parseISO(aula.dataAgendada), "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR })
-    : '';
+function RegistroAula({ onClose, aula, topicosDisponiveis = [], onUpdateStatus, onRemoveTopico, onAddTopico, onExcluirAula, onExcluirDiaSemana }) {
+  const [status, setStatus] = useState(aula.status || 'AGENDADA');
+  const [justificativa, setJustificativa] = useState(aula.execucao?.justificativa || '');
+  const [restante, setRestante] = useState(aula.execucao?.restante || '');
+  const [decisao, setDecisao] = useState('smart_shift');
+  const [ocupado, setOcupado] = useState(false);
+  const [erro, setErro] = useState('');
+  const [selecionado, setSelecionado] = useState('');
+  const topicos = conteudos(aula);
+  const dataFormatada = aula.dataAgendada ? format(parseISO(aula.dataAgendada), "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR }) : '';
+  const diaSemana = aula.dataAgendada ? parseISO(aula.dataAgendada).getDay() : null;
+  const nomeDiaSemana = ['domingos', 'segundas-feiras', 'terças-feiras', 'quartas-feiras', 'quintas-feiras', 'sextas-feiras', 'sábados'][diaSemana];
+  const exigeJustificativa = ['PARCIAL', 'NAO_REALIZADA'].includes(status);
 
-  const diasNomes = ['Domingos', 'Segundas-feiras', 'Terças-feiras', 'Quartas-feiras', 'Quintas-feiras', 'Sextas-feiras', 'Sábados'];
-  let nomeDiaSemana = '';
-  let diaSemanaNum = null;
-  if (aula.dataAgendada) {
-    const [ano, mes, dia] = aula.dataAgendada.split('-').map(Number);
-    diaSemanaNum = new Date(ano, mes - 1, dia).getDay();
-    nomeDiaSemana = diasNomes[diaSemanaNum];
+  async function executar(acao) {
+    if (ocupado) return;
+    setOcupado(true); setErro('');
+    try { await acao(); onClose(); }
+    catch (error) { setErro(error.message || 'Não foi possível salvar. Tente novamente.'); }
+    finally { setOcupado(false); }
   }
 
-  const topicos = aula.topicosAssociados || [];
+  async function salvarRegistro() {
+    if (exigeJustificativa && !justificativa.trim()) { setErro('Informe a justificativa da aula.'); return; }
+    if (status === 'PARCIAL' && !restante.trim()) { setErro('Informe o conteúdo restante da aula parcial.'); return; }
+    await executar(() => onUpdateStatus(aula.id, status, aula, { decisao, execucao: { justificativa: justificativa.trim(), restante: status === 'PARCIAL' ? restante.trim() : '' } }));
+  }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200 flex flex-col">
-        {/* Header da Aula */}
-        <div className="bg-[#101942] text-white p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-36 h-36 bg-[#f60c49]/20 rounded-full blur-2xl pointer-events-none" />
-          <div className="relative z-10 flex items-center justify-between">
-            <div>
-              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#f60c49] bg-[#f60c49]/10 px-2.5 py-0.5 rounded-full border border-[#f60c49]/20">
-                Gerenciar Aula
-              </span>
-              <h3 className="text-base font-bold text-white capitalize mt-1">
-                {dataFormatada}
-              </h3>
-              <p className="text-xs text-slate-300 flex items-center gap-1.5 mt-0.5 font-medium">
-                <Clock size={12} className="text-amber-400" />
-                {aula.horarioInicio} às {aula.horarioFim}
-                {aula.duracaoAlocadaAulas > 1 && (
-                  <span className="ml-2 px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-bold text-[10px]">
-                    Aula Dupla ({aula.duracaoAlocadaAulas} aulas)
-                  </span>
-                )}
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
-            >
-              <X size={16} />
-            </button>
-          </div>
-        </div>
+  const opcoes = [
+    ['CONCLUIDA', 'Concluída', 'Aula lecionada', CheckCircle2, 'text-emerald-600'],
+    ['AGENDADA', 'Agendada', 'No cronograma', Calendar, 'text-blue-600'],
+    ['PARCIAL', 'Parcial', 'Conteúdo incompleto', AlertCircle, 'text-amber-600'],
+    ['NAO_REALIZADA', 'Não realizada', 'Aula não lecionada', XCircle, 'text-rose-600'],
+  ];
 
-        {/* Corpo do Modal */}
-        <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
-          {/* Seção 1: Status da Aula */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-600 block">
-              Status da Aula (Clique para alterar)
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  onUpdateStatus(aula.id, 'CONCLUIDA', aula);
-                  onClose();
-                }}
-                className={`p-3 rounded-2xl border flex items-center gap-2.5 transition-all text-left ${
-                  aula.status === 'CONCLUIDA'
-                    ? 'border-emerald-500 bg-emerald-50 text-emerald-900 shadow-xs font-bold'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
-                <div>
-                  <div className="text-xs font-bold">Concluída</div>
-                  <div className="text-[10px] text-slate-400">Aula lecionada</div>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onUpdateStatus(aula.id, 'AGENDADA', aula);
-                  onClose();
-                }}
-                className={`p-3 rounded-2xl border flex items-center gap-2.5 transition-all text-left ${
-                  aula.status === 'AGENDADA' || !aula.status
-                    ? 'border-blue-500 bg-blue-50 text-blue-900 shadow-xs font-bold'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <Calendar size={18} className="text-blue-600 shrink-0" />
-                <div>
-                  <div className="text-xs font-bold">Agendada</div>
-                  <div className="text-[10px] text-slate-400">No cronograma</div>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onUpdateStatus(aula.id, 'PARCIAL', aula);
-                  onClose();
-                }}
-                className={`p-3 rounded-2xl border flex items-center gap-2.5 transition-all text-left ${
-                  aula.status === 'PARCIAL'
-                    ? 'border-amber-500 bg-amber-50 text-amber-900 shadow-xs font-bold'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <AlertCircle size={18} className="text-amber-600 shrink-0" />
-                <div>
-                  <div className="text-xs font-bold">Parcial</div>
-                  <div className="text-[10px] text-slate-400">Conteúdo incompleto</div>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onUpdateStatus(aula.id, 'NAO_REALIZADA', aula);
-                  onClose();
-                }}
-                className={`p-3 rounded-2xl border flex items-center gap-2.5 transition-all text-left ${
-                  aula.status === 'NAO_REALIZADA'
-                    ? 'border-rose-500 bg-rose-50 text-rose-900 shadow-xs font-bold'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <XCircle size={18} className="text-rose-600 shrink-0" />
-                <div>
-                  <div className="text-xs font-bold">Não Realizada</div>
-                  <div className="text-[10px] text-slate-400">Cancelada / Feriado</div>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Seção 2: Conteúdo / Tópicos Associados a esta Aula */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-600 block">
-                Conteúdo Programado ({topicos.length})
-              </label>
-            </div>
-
-            {topicos.length > 0 ? (
-              <div className="space-y-2">
-                {topicos.map((t, idx) => {
-                  const titulo = t.topicoTitulo || t.titulo || `Aula ${t.topicoOrdem || t.ordem || idx + 1}`;
-                  const topicoId = t.topicoId || t.id || t.ordem || idx;
-                  return (
-                    <div
-                      key={topicoId}
-                      className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between gap-3 shadow-xs"
-                    >
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-black shrink-0 mt-0.5">
-                          {idx + 1}
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-[#101942] leading-snug">
-                            {titulo}
-                          </p>
-                          {t.descricao && (
-                            <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
-                              {t.descricao}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onRemoveTopico(aula.id, topicoId);
-                          onClose();
-                        }}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-bold border border-rose-200 transition-colors shrink-0"
-                        title="Remover este tópico da aula"
-                      >
-                        <Trash2 size={13} />
-                        <span>Desassociar</span>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="p-5 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 text-center space-y-2">
-                <BookOpen size={24} className="text-slate-400 mx-auto" />
-                <p className="text-xs font-semibold text-slate-500">
-                  Nenhum conteúdo vinculado a esta aula.
-                </p>
-                <p className="text-[11px] text-slate-400">
-                  Arraste um tópico da barra lateral ou selecione abaixo para vincular.
-                </p>
-              </div>
-            )}
-
-            {/* Seletor Rápido de Tópico do Plano */}
-            {topicosDisponiveis.length > 0 && (
-              <div className="pt-2">
-                <label className="text-[11px] font-bold text-slate-500 block mb-1">
-                  Vincular Tópico Disponível:
-                </label>
-                <select
-                  defaultValue=""
-                  onChange={(e) => {
-                    const topico = topicosDisponiveis.find((tp) => tp.id === e.target.value);
-                    if (topico) {
-                      onAddTopico(aula.id, topico);
-                      onClose();
-                    }
-                  }}
-                  className="w-full p-2.5 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 outline-none focus:border-blue-500 cursor-pointer"
-                >
-                  <option value="" disabled>
-                    + Selecionar um tópico da ementa para esta aula...
-                  </option>
-                  {topicosDisponiveis.map((tp) => (
-                    <option key={tp.id} value={tp.id}>
-                      Aula {tp.ordem}: {tp.titulo}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Footer com ações de exclusão */}
-        <div className="p-4 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            {onExcluirAula && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      `Excluir apenas o slot desta aula (${dataFormatada} - ${aula.horarioInicio}) do calendário?`
-                    )
-                  ) {
-                    onExcluirAula(aula.id);
-                    onClose();
-                  }
-                }}
-                className="px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 border border-rose-200 text-xs font-bold transition-colors flex items-center gap-1.5"
-                title="Excluir apenas este dia"
-              >
-                <Trash2 size={13} />
-                <span>Excluir este Dia</span>
-              </button>
-            )}
-
-            {onExcluirDiaSemana && diaSemanaNum !== null && (
-              <button
-                type="button"
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      `Excluir TODAS as ${nomeDiaSemana} do ano letivo desta turma?\n\nIsso removerá este dia da grade semanal para você cadastrar outro dia livremente.`
-                    )
-                  ) {
-                    onExcluirDiaSemana(diaSemanaNum, nomeDiaSemana);
-                    onClose();
-                  }
-                }}
-                className="px-3 py-2 rounded-xl text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-xs font-bold transition-colors flex items-center gap-1.5"
-                title={`Excluir todas as ${nomeDiaSemana} do ano`}
-              >
-                <Trash2 size={13} />
-                <span>Excluir todas as {nomeDiaSemana}</span>
-              </button>
-            )}
-          </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="ml-auto px-5 py-2.5 rounded-xl bg-[#101942] text-white text-xs font-bold hover:bg-[#101942]/90 transition-colors shadow-sm"
-          >
-            Fechar
-          </button>
-        </div>
+  return <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/60">
+    <div role="dialog" aria-modal="true" aria-labelledby="registro-aula-titulo" className="bg-white rounded-3xl max-w-xl w-full max-h-[94vh] overflow-hidden shadow-2xl border border-slate-200 flex flex-col text-[#101942]">
+      <header className="bg-[#101942] text-white p-5 flex justify-between items-start gap-3">
+        <div><h2 id="registro-aula-titulo" className="font-bold">Registrar realização da aula</h2><p className="text-sm capitalize mt-1">{dataFormatada}</p><p className="text-xs text-slate-300 flex gap-2 items-center mt-1"><Clock size={13} />{aula.horarioInicio} às {aula.horarioFim} · {aula.duracaoAlocadaAulas || 1} tempo(s)</p></div>
+        <button aria-label="Fechar registro da aula" onClick={onClose} disabled={ocupado} className="p-2 rounded-full bg-white/10"><X size={18} /></button>
+      </header>
+      <div className="p-5 space-y-5 overflow-y-auto">
+        {erro && <div role="alert" className="p-3 text-sm bg-red-50 border border-red-200 text-red-700 rounded-xl">{erro}</div>}
+        {aula.conteudoEncaminhado && <p className="p-3 text-sm bg-amber-50 border border-amber-200 rounded-xl">Este registro preserva o histórico. O conteúdo restante já foi encaminhado para outra aula ou para os pendentes.</p>}
+        <fieldset disabled={ocupado} className="space-y-2"><legend className="text-sm font-semibold mb-2">Status da aula</legend>
+          <div className="grid grid-cols-2 gap-2">{opcoes.map(([valor, titulo, ajuda, Icon, cor]) => <button key={valor} type="button" aria-pressed={status === valor} onClick={() => { setStatus(valor); setErro(''); }} className={`p-3 rounded-xl border flex items-center gap-2 text-left ${status === valor ? 'border-[#101942] bg-slate-100 ring-1 ring-[#101942]' : 'border-slate-200'}`}><Icon size={18} className={cor} /><span><span className="block text-sm font-bold">{titulo}</span><span className="block text-xs text-slate-500">{ajuda}</span></span></button>)}</div>
+        </fieldset>
+        <fieldset disabled={ocupado} className="space-y-3">
+          <label className="block text-sm font-medium" htmlFor="aula-justificativa">{exigeJustificativa ? 'Justificativa' : 'Observação (opcional)'}</label>
+          <textarea id="aula-justificativa" value={justificativa} onChange={e => setJustificativa(e.target.value)} className="w-full border border-slate-300 rounded-xl p-3 text-sm" rows={2} />
+          {status === 'PARCIAL' && <><label className="block text-sm font-medium" htmlFor="aula-restante">Conteúdo restante</label><textarea id="aula-restante" value={restante} onChange={e => setRestante(e.target.value)} className="w-full border border-slate-300 rounded-xl p-3 text-sm" rows={2} /></>}
+          {exigeJustificativa && topicos.length > 0 && <fieldset className="space-y-2 text-sm"><legend className="font-semibold mb-2">Destino do conteúdo {status === 'PARCIAL' ? 'restante' : 'não realizado'}</legend>
+            <label className="block"><input type="radio" name="destino-conteudo" checked={decisao === 'smart_shift'} onChange={() => setDecisao('smart_shift')} /> Reagendar nas próximas aulas</label>
+            <p className="text-xs text-slate-500">Desloca os conteúdos seguintes. Se faltar espaço, os conteúdos sem vaga ficam pendentes.</p>
+            <label className="block"><input type="radio" name="destino-conteudo" checked={decisao === 'pular'} onChange={() => setDecisao('pular')} /> Devolver aos pendentes e manter próximas datas</label>
+          </fieldset>}
+        </fieldset>
+        <section className="space-y-3"><h3 className="text-sm font-semibold">Conteúdos da aula ({topicos.length})</h3>
+          {topicos.length ? topicos.map((topico, index) => {
+            const titulo = topico.topicoTitulo || topico.titulo || `Conteúdo ${topico.topicoOrdem || topico.ordem || index + 1}`;
+            const id = topico.topicoId || topico.id || topico.ordem || index;
+            return <div key={`${id}:${index}`} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-start justify-between gap-3"><div><p className="text-sm font-semibold">{titulo}</p>{topico.descricao && <p className="text-xs text-slate-600 mt-1 whitespace-pre-wrap">{topico.descricao}</p>}</div>
+              {onRemoveTopico && !aula.conteudoEncaminhado && <button aria-label={`Desassociar ${titulo}`} disabled={ocupado} onClick={() => executar(() => onRemoveTopico(aula.id, id))} className="text-red-700 text-xs underline shrink-0">Desassociar</button>}
+            </div>;
+          }) : <p className="text-sm text-slate-500 flex gap-2"><BookOpen size={18} />Nenhum conteúdo vinculado a esta aula.</p>}
+          {onAddTopico && topicosDisponiveis.length > 0 && !aula.conteudoEncaminhado && <label className="block text-sm font-medium">Vincular conteúdo disponível<select aria-label="Vincular conteúdo disponível" value={selecionado} disabled={ocupado} onChange={e => { const valor = e.target.value; setSelecionado(valor); const topico = topicosDisponiveis.find(item => String(item.id) === valor); if (topico) executar(() => onAddTopico(aula.id, topico)); }} className="w-full mt-2 p-3 bg-white border border-slate-300 rounded-xl text-sm"><option value="">Selecione um conteúdo…</option>{topicosDisponiveis.map(topico => <option key={topico.id} value={topico.id}>Conteúdo {topico.ordem}: {topico.titulo}</option>)}</select></label>}
+        </section>
+        {(onExcluirAula || onExcluirDiaSemana) && <details className="border-t pt-3"><summary className="cursor-pointer text-sm font-semibold">Opções avançadas</summary><div className="flex flex-col items-start gap-3 mt-3">
+          {onExcluirAula && <button disabled={ocupado} className="text-sm text-red-700 flex gap-2 items-center" onClick={() => { if (window.confirm(`Excluir esta aula de ${aula.dataAgendada}, ${aula.horarioInicio}? Aulas realizadas serão preservadas.`)) executar(() => onExcluirAula(aula.id)); }}><Trash2 size={15} />Excluir esta aula</button>}
+          {onExcluirDiaSemana && diaSemana !== null && <button disabled={ocupado} className="text-sm text-red-700" onClick={() => { if (window.confirm(`Excluir as aulas futuras não realizadas das ${nomeDiaSemana} desta turma neste ano? Aulas realizadas serão preservadas.`)) executar(() => onExcluirDiaSemana(diaSemana, nomeDiaSemana)); }}>Excluir aulas futuras das {nomeDiaSemana}</button>}
+        </div></details>}
       </div>
+      <footer className="p-4 bg-slate-50 border-t flex justify-end flex-wrap gap-3"><button disabled={ocupado} onClick={onClose} className="btn-brand-ghost">Cancelar</button><button disabled={ocupado || !onUpdateStatus} onClick={salvarRegistro} className="btn-brand-primary flex gap-2 items-center">{ocupado && <Loader2 size={15} className="animate-spin" />}Salvar registro da aula</button></footer>
     </div>
-  );
+  </div>;
 }

@@ -1,20 +1,19 @@
+import { situacoesBoletim } from '@/dominio/diario/aprovacao';
+
 // NOTA = Simulado proporcionalizado + Soma_atividades
 export const calcTotal = (simulado, atividades, notas, config) => {
-  const simMaxLanca = config?.simuladoMaxLanca !== undefined ? Number(config.simuladoMaxLanca) : 5;
-  const simMaxFinal = config?.simuladoMaxFinal !== undefined ? Number(config.simuladoMaxFinal) : 5;
-  const atvMaxFinal = config?.atividadesMaxFinal !== undefined ? Number(config.atividadesMaxFinal) : 5;
-
-  const simVal = clamp(Number(simulado) || 0, 0, simMaxLanca);
+  const finito = (valor, padrao) => Number.isFinite(Number(valor)) ? Number(valor) : padrao;
+  const escala = finito(config?.simuladoMaxLanca ?? 5, 5);
+  const simMaxLanca = escala > 0 ? escala : 5;
+  const simMaxFinal = Math.max(0, finito(config?.simuladoMaxFinal ?? 5, 5));
+  const atvMaxFinal = Math.max(0, finito(config?.atividadesMaxFinal ?? 5, 5));
+  const simVal = clamp(finito(simulado, 0), 0, simMaxLanca);
   const simContri = (simVal / simMaxLanca) * simMaxFinal;
-
-  const somaAtv = atividades.reduce((acc, atv) => {
-    const v = Number(notas?.[atv.id]) || 0;
-    return acc + clamp(v, 0, atv.max);
+  const somaAtv = (atividades || []).reduce((acc, atv) => {
+    const maximo = Math.max(0, finito(atv.max, 0));
+    return acc + clamp(finito(notas?.[atv.id], 0), 0, maximo);
   }, 0);
-
-  const atvContri = Math.min(somaAtv, atvMaxFinal);
-
-  return Math.min(round2(simContri + atvContri), simMaxFinal + atvMaxFinal);
+  return Math.min(round2(simContri + Math.min(somaAtv, atvMaxFinal)), simMaxFinal + atvMaxFinal);
 };
 
 export const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
@@ -129,22 +128,7 @@ export const calcDesempenhoAnual = (turma, alunoId) => {
   const S1 = calcSemestre(bimTotais[0], bimTotais[1], rec1, 2, 3);
   const S2 = calcSemestre(bimTotais[2], bimTotais[3], rec2, 2, 3);
 
-  const hasS1 = S1.total !== null;
-  const hasS2 = S2.total !== null;
-
-  if (!hasS1 && !hasS2) {
-    return { bimTotais, S1, S2, totalAnual: null, statusFinal: 'none' };
-  }
-
-  const totalAnual = round2((S1.total || 0) + (S2.total || 0));
-
-  let statusFinal = 'none';
-  if (totalAnual >= 50) {
-    statusFinal = 'good';
-  } else {
-    const allFilled = bimTotais.every((v) => v !== null);
-    statusFinal = allFilled ? 'bad' : 'warn';
-  }
-
-  return { bimTotais, S1, S2, totalAnual, statusFinal };
+  const totalAnual = S1.total === null && S2.total === null
+    ? null : round2((S1.total || 0) + (S2.total || 0));
+  return { bimTotais, totalAnual, ...situacoesBoletim(bimTotais, S1, S2, totalAnual) };
 };

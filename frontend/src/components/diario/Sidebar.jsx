@@ -1,10 +1,17 @@
 "use client";
 
-import { useState, useRef } from 'react';
-import { calcTotal, round2, somaMaxAtv, temNota } from '@/utils/diario/calculos';
+import { useState, useRef, useSyncExternalStore } from 'react';
+import { calcTotal, round2, temNota } from '@/utils/diario/calculos';
 import { estiloNotaBimestral } from '@/utils/diario/coresNota';
+import { criarBackupVersionado, deserializarBackupTurmas } from '@/dominio/diario/backupTurmas';
+import { RestaurarBackupModal } from './RestaurarBackupModal';
 
 const BIMESTRES = [1, 2, 3, 4];
+const observarCopias = (avisar) => {
+  window.addEventListener('storage', avisar);
+  window.addEventListener('diario-backup-atualizado', avisar);
+  return () => { window.removeEventListener('storage', avisar); window.removeEventListener('diario-backup-atualizado', avisar); };
+};
 
 const mediaTurma = (turma, bimestre) => {
   const b = turma.bimestres[String(bimestre)];
@@ -28,6 +35,7 @@ const MediaBadge = ({ value, config }) => {
 
 export const Sidebar = ({
   turmas,
+  backupTurmas,
   turmaSelecionada,
   bimestreSelecionado,
   user,
@@ -36,46 +44,74 @@ export const Sidebar = ({
   onAddTurma,
   onRemoveTurma,
   onReorderTurmas,
+  onImportTurmas,
   onLogout,
   onOpenProfile,
   onClose
 }) => {
   const [novaTurma, setNovaTurma] = useState('');
   const fileInputRef = useRef(null);
+  const [backup, setBackup] = useState(null);
+  const [mensagemBackup, setMensagemBackup] = useState('');
+  const [erroBackup, setErroBackup] = useState('');
+  const todasTurmas = backupTurmas || turmas;
+  const chaveCopiaAnterior = user?.uid ? `diario_backup_anterior_${user.uid}` : null;
+  const copiaDisponivel = useSyncExternalStore(observarCopias, () => {
+    try { return Boolean(chaveCopiaAnterior && typeof window !== 'undefined' && localStorage.getItem(chaveCopiaAnterior)); }
+    catch { return false; }
+  }, () => false);
+
+  const baixarBackup = (conteudo, prefixo = 'backup-diario') => {
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(conteudo, null, 2));
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', `${prefixo}-${new Date().toISOString().slice(0, 10)}.json`);
+    linkElement.click();
+  };
 
   const handleExport = () => {
     try {
-      const dataStr = JSON.stringify(turmas, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', `backup-notas-${new Date().toISOString().slice(0, 10)}.json`);
-      linkElement.click();
+      baixarBackup(criarBackupVersionado(todasTurmas));
+      setErroBackup('');
     } catch (err) {
-      alert('Erro ao exportar backup: ' + err.message);
+      setErroBackup('Erro ao exportar backup: ' + err.message);
     }
   };
 
   const handleImport = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    e.target.value = '';
+    setErroBackup(''); setMensagemBackup('');
+    if (file.size > 20 * 1024 * 1024) {
+      setErroBackup('O backup deve ter no máximo 20 MB.');
+      return;
+    }
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
-        const parsed = JSON.parse(event.target.result);
-        if (!Array.isArray(parsed)) throw new Error('O arquivo de backup deve ser uma lista de turmas.');
-        const isValid = parsed.every(t => t.id && t.nome && t.alunos && t.bimestres);
-        if (!isValid) throw new Error('Estrutura de turmas inválida no arquivo.');
-        if (window.confirm('Atenção: Carregar este backup substituirá todas as turmas e notas atuais. Deseja continuar?')) {
-          onReorderTurmas(parsed);
-          alert('Backup importado com sucesso!');
-        }
+        setBackup(deserializarBackupTurmas(event.target.result));
       } catch (err) {
-        alert('Erro ao importar backup: ' + err.message);
+        setErroBackup('Erro ao ler backup: ' + err.message);
       }
     };
+    reader.onerror = () => setErroBackup('Não foi possível ler o arquivo. Selecione-o novamente.');
     reader.readAsText(file);
-    e.target.value = '';
+  };
+
+  const aplicarBackup = async (resultado, metadados) => {
+    if (typeof onImportTurmas !== 'function') throw new Error('Restauração indisponível: salvamento não conectado.');
+    await onImportTurmas(resultado, metadados);
+    setMensagemBackup('Backup restaurado e salvo na nuvem.');
+  };
+
+  const baixarCopiaAnterior = () => {
+    try {
+      if (!chaveCopiaAnterior) throw new Error('Entre na sua conta para acessar a cópia.');
+      const copia = JSON.parse(localStorage.getItem(chaveCopiaAnterior));
+      deserializarBackupTurmas(copia);
+      baixarBackup(copia, 'diario-antes-da-restauracao');
+    } catch (error) { setErroBackup(error.message); }
   };
 
   const [draggedIndex, setDraggedIndex] = useState(null);
@@ -201,15 +237,22 @@ export const Sidebar = ({
       </div>
 
       {/* Backup */}
-      <div className="px-3 py-3 border-t border-[#dce0f0] flex gap-2 bg-[#f7f8fc]/40">
+      <div className="px-3 py-3 border-t border-[#dce0f0] bg-[#f7f8fc]/40">
+        <p className="text-[10px] text-[#6070a0] uppercase tracking-wider mb-2 font-bold">Backup e restauração</p>
+        <div className="flex gap-2">
         <button onClick={handleExport} className="flex-1 py-2 bg-white hover:bg-[#fff2f6] border border-[#dce0f0] hover:border-[#fde4ec] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#6070a0] hover:text-[#d40840] transition-all text-center">
-          Exportar
+          Baixar backup
         </button>
         <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-2 bg-white hover:bg-[#fff2f6] border border-[#dce0f0] hover:border-[#fde4ec] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#6070a0] hover:text-[#d40840] transition-all text-center">
-          Importar
+          Restaurar backup
         </button>
-        <input ref={fileInputRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
+        </div>
+        <input ref={fileInputRef} type="file" accept=".json,application/json" aria-label="Arquivo de backup do Diário" className="hidden" onChange={handleImport} />
+        {copiaDisponivel && <button onClick={baixarCopiaAnterior} className="text-xs underline mt-2 text-[#6070a0]">Baixar cópia anterior</button>}
+        {mensagemBackup && <p role="status" className="text-xs text-emerald-700 mt-2">{mensagemBackup}</p>}
+        {erroBackup && <p role="alert" className="text-xs text-red-700 mt-2">{erroBackup}</p>}
       </div>
+      {backup && <RestaurarBackupModal turmasAtuais={todasTurmas} backup={backup} contaId={user?.uid} onAplicar={aplicarBackup} onClose={() => setBackup(null)} />}
 
       {/* Add turma */}
       <div className="px-3 py-4 border-t border-[#dce0f0]">

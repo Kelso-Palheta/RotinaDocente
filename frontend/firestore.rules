@@ -25,22 +25,28 @@ service cloud.firestore {
       }
     }
 
-    // 2. Atividades: criação e leitura autenticada pelo professor
+    // Atividade e acessos pertencem ao professor; alunos utilizam somente o BFF.
+    function ownsActivity(activityId) {
+      return isAuth() && get(/databases/$(database)/documents/atividades/$(activityId)).data.professorId == request.auth.uid;
+    }
     match /atividades/{activityId} {
-      allow read: if isAuth();
-      allow write: if isAuth() && (
-        !exists(/databases/$(database)/documents/atividades/$(activityId)) ||
-        resource.data.professorId == request.auth.uid
-      );
+      allow get: if isAuth() && (!exists(/databases/$(database)/documents/atividades/$(activityId)) || resource.data.professorId == request.auth.uid);
+      allow list: if isAuth() && resource.data.professorId == request.auth.uid;
+      allow create: if isAuth() && request.resource.data.professorId == request.auth.uid;
+      allow update: if ownsActivity(activityId) && request.resource.data.professorId == resource.data.professorId;
+      allow delete: if ownsActivity(activityId);
 
-      match /tokens/{alunoId} {
-        allow read, write: if isAuth();
+      match /tokens/{vinculoId} {
+        allow read: if ownsActivity(activityId);
+        // getAfter permite atividade + acessos no mesmo lote atômico.
+        allow write: if isAuth() && getAfter(/databases/$(database)/documents/atividades/$(activityId)).data.professorId == request.auth.uid;
       }
     }
-
-    // 3. Entregas: acessíveis apenas para o professor autenticado (alunos submetem via BFF)
     match /entregas/{entregaId} {
-      allow read, write: if isAuth();
+      allow read: if isAuth() && ((('professorId' in resource.data) && resource.data.professorId == request.auth.uid) || ownsActivity(resource.data.activityId));
+      allow create: if isAuth() && ownsActivity(request.resource.data.activityId) && request.resource.data.professorId == request.auth.uid;
+      allow update: if ownsActivity(resource.data.activityId) && request.resource.data.activityId == resource.data.activityId;
+      allow delete: if ownsActivity(resource.data.activityId);
     }
 
     // 4. Base de Alunos e Vínculos: gerenciados exclusivamente por professores autenticados

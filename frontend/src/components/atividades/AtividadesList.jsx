@@ -21,6 +21,7 @@ const StatusBadge = ({ status }) => {
 
 export const AtividadesList = ({
   turma,
+  user,
   bimestre,
   turmas,
   useAtividadesHook,
@@ -31,6 +32,8 @@ export const AtividadesList = ({
 }) => {
   const { atividades, loading, loadAtividades, createAtividade, deleteAtividade, entregasCounts, loadEntregasCounts } = useAtividadesHook;
   const [showForm, setShowForm] = useState(false);
+  const [resumoSync, setResumoSync] = useState('');
+  const [enviando, setEnviando] = useState(false);
   const [painelAtividade, setPainelAtividade] = useState(null);
 
   useEffect(() => {
@@ -38,7 +41,7 @@ export const AtividadesList = ({
   }, [turma?.id, loadAtividades]);
 
   useEffect(() => {
-    const ids = atividades.filter(a => atividadeNoEscopo(a, { turmaId: turma?.id, bimestre })).map(a => a.id);
+    const ids = atividades.filter(a => a.status !== 'arquivada' && atividadeNoEscopo(a, { turmaId: turma?.id, bimestre })).map(a => a.id);
     if (ids.length > 0) loadEntregasCounts(ids);
   }, [atividades, bimestre, turma?.id, loadEntregasCounts]);
 
@@ -46,70 +49,68 @@ export const AtividadesList = ({
     const id = await createAtividade(data);
 
     for (const turmaId of data.turmaIds) {
-      onAddAtv(turmaId, data.bimestre, data.titulo, data.notaMaxima, data.id || id);
+      await onAddAtv(turmaId, data.bimestre, data.titulo, data.notaMaxima, data.id || id);
     }
 
     if (turma?.id) loadAtividades(turma.id);
   }, [createAtividade, onAddAtv, turma, loadAtividades]);
 
   const handleDelete = useCallback(async (atvId) => {
-    if (!window.confirm('Excluir esta atividade? Todas as entregas e notas serão removidas.')) return;
+    if (!window.confirm('Arquivar esta atividade em todas as turmas vinculadas? Entregas, notas e devolutivas serão preservadas. O acesso para novas respostas será encerrado.')) return;
 
-    const atv = atividades.find(a => a.id === atvId);
-    await deleteAtividade(atvId, () => {
-      if (atv) {
-        for (const turmaId of atv.turmaIds) {
-          onRemoveAtv(turmaId, atv.bimestre, atv.atvIdNoMapa || atvId);
-        }
-      }
-    });
-
+    await deleteAtividade(atvId);
     if (turma?.id) loadAtividades(turma.id);
     setPainelAtividade(null);
-  }, [atividades, deleteAtividade, onRemoveAtv, turma, loadAtividades]);
+  }, [deleteAtividade, turma, loadAtividades]);
 
   if (painelAtividade && atividadeNoEscopo(painelAtividade, { turmaId: turma?.id, bimestre })) {
     return (
       <AtividadePainel
+        key={`${painelAtividade.id}:${painelAtividade.bimestre}:${turma?.id}`}
+        sincronizacaoAutomatica={false}
         atividade={painelAtividade}
+        user={user}
         currentTurmaId={turma?.id}
         onBack={() => { setPainelAtividade(null); if (turma?.id) loadAtividades(turma.id); }}
         onDelete={handleDelete}
         onAtividadeUpdated={(atv) => { setPainelAtividade(atv); if (turma?.id) loadAtividades(turma.id); }}
         useAtividadesHook={useAtividadesHook}
         turmas={turmas}
-        onSyncAtvMapa={(turmaId, oldBimestre, newBimestre, atvId, titulo, max, isRemoved) => {
+        onSyncAtvMapa={async (turmaId, oldBimestre, newBimestre, atvId, titulo, max, isRemoved) => {
           if (isRemoved) {
-            onRemoveAtv(turmaId, oldBimestre, atvId);
+            await onRemoveAtv(turmaId, oldBimestre, atvId);
             return;
           }
           if (String(oldBimestre) !== String(newBimestre)) {
-            onRemoveAtv(turmaId, oldBimestre, atvId);
+            await onRemoveAtv(turmaId, oldBimestre, atvId);
           }
-          onAddAtv(turmaId, newBimestre, titulo, max, atvId);
+          await onAddAtv(turmaId, newBimestre, titulo, max, atvId);
         }}
         onSetNota={onSetNota}
       />
     );
   }
 
-  const atividadesFiltradas = atividades.filter(a => atividadeNoEscopo(a, { turmaId: turma?.id, bimestre }));
+  const atividadesFiltradas = atividades.filter(a => a.status !== 'arquivada' && atividadeNoEscopo(a, { turmaId: turma?.id, bimestre }));
 
   return (
     <div>
+      {useAtividadesHook.erro && <p role="alert" className="bg-red-50 p-3 text-sm">{useAtividadesHook.erro} <button onClick={() => loadAtividades(turma.id)} className="underline">Tentar carregar novamente</button></p>}
+      {resumoSync && <p role="status" className="bg-blue-50 p-3 text-sm mb-3">{resumoSync}</p>}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider">Atividades</h3>
         <div className="flex gap-2">
           <button
+            disabled={enviando}
             onClick={async () => {
               if (!window.confirm(`Sincronizar somente as notas da turma ${turma.nome}, ${bimestre}º bimestre?`)) return;
+              setEnviando(true);
               try {
                 const result = await useAtividadesHook.sincronizarTodasAsNotas({ turmaId: turma.id, bimestre });
-                alert(`${result.sincronizadas} notas sincronizadas.${result.erros > 0 ? ` ${result.erros} erros.` : ''} Recarregue a página.`);
-                window.location.reload();
+                setResumoSync(`${result.sincronizadas} notas sincronizadas.${result.erros > 0 ? ` ${result.erros} erros; tente novamente.` : ''} Notas enviadas ao Diário; publicação no Portal é feita pelo Diário.`);
               } catch (err) {
-                alert('Erro: ' + err.message);
-              }
+                setResumoSync('Falha ao sincronizar: ' + err.message);
+              } finally { setEnviando(false); }
             }}
             className="px-3 py-1.5 bg-green-500 hover:bg-green-400 rounded-lg text-white text-xs font-semibold transition-all"
           >
@@ -188,6 +189,7 @@ export const AtividadesList = ({
       {showForm && (
         <AtividadeForm
           turmas={turmas}
+          contextoInicial={{ turmaId: turma?.id, bimestre }}
           onCreate={handleCreate}
           onClose={() => setShowForm(false)}
         />

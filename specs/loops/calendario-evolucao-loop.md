@@ -43,3 +43,11 @@
   ✓ tests/unit/calendario_remanejamento.test.js (2 tests)
   7 passed (100% de sucesso)
   ```
+
+## 23/10/2026 — RN-66 e integração RN-51
+
+- Perceber: auditoria identificou perda de histórico ao recriar grade, duplicação, feriados persistidos por caminhos divergentes e interface confusa.
+- Decidir: domínio puro, transação por turma/ano, histórico separado de vínculo ativo, prévia e três áreas de navegação.
+- Agir: reconciliação segura, capacidade/continuações/pendências, feriados em conjunto, integração estrita Meu Horário, importação revisável, registro aguardado e PDF completo.
+- Verificar: 523 testes/87 arquivos aprovados, lint dos arquivos alterados do calendário aprovado, build de produção aprovado, revisão independente e conferência visual sintética desktop/celular. Sem alteração dos testes preexistentes ou de turmas reais.
+- Operação: rota temporária de revisão removida e servidor de teste encerrado. Alterações prontas localmente; commit/push/publicação dependem de solicitação.

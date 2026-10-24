@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { extractTextFromDocument } from '@/utils/atividades/documentExtractor';
 import { imageToBase64 } from '@/utils/atividades/storageUtils';
 import { RichTextEditor } from '@/components/ui/RichTextEditor';
 import { cleanPdfText } from '@/utils/atividades/textUtils';
 import { sugerirRubrica, gerarQuestoesComIA } from '@/utils/atividades/correcaoIA';
 
+const dataValida = valor => {
+  const match = String(valor).match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::\d{2}(?:\.\d{1,3})?)?)?$/);
+  if (!match) return false;
+  const data = new Date(valor);
+  if (!Number.isFinite(data.getTime())) return false;
+  const partes = match[4] ? [data.getFullYear(), data.getMonth()+1, data.getDate(), data.getHours(), data.getMinutes()] : [data.getUTCFullYear(), data.getUTCMonth()+1, data.getUTCDate()];
+  return partes.every((n,i) => n === Number(match[i+1]));
+};
 const BIMESTRES = [1, 2, 3, 4];
 const genId = () => `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
 const genAtvId = () => `atv_${genId()}`;
@@ -214,20 +222,20 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
   );
 }
 
-export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData }) => {
+export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData, contextoInicial = {} }) => {
   const isEdit = !!initialData;
+  const idEstavel = useRef(initialData?.id || genAtvId());
   const [titulo, setTitulo] = useState(initialData?.titulo || '');
-  const [bimestre, setBimestre] = useState(initialData?.bimestre || 1);
-  const [turmaIds, setTurmaIds] = useState(initialData?.turmaIds || initialData?.turmas || []);
+  const [bimestre, setBimestre] = useState(initialData?.bimestre || contextoInicial.bimestre || 1);
+  const [turmaIds, setTurmaIds] = useState(initialData?.turmaIds || initialData?.turmas || (contextoInicial.turmaId ? [contextoInicial.turmaId] : []));
   const [dataEntrega, setDataEntrega] = useState(() => {
-    if (initialData?.dataEntrega?.toDate) return initialData.dataEntrega.toDate().toISOString().slice(0, 16);
-    if (initialData?.dataEntrega instanceof Date) return initialData.dataEntrega.toISOString().slice(0, 16);
-    if (typeof initialData?.dataEntrega === 'string') return new Date(initialData.dataEntrega).toISOString().slice(0, 16);
-    const d = new Date();
-    d.setDate(d.getDate() + 7);
-    d.setHours(23, 59, 0, 0);
-    return d.toISOString().slice(0, 16);
+    let d = initialData?.dataEntrega?.toDate?.() || (initialData?.dataEntrega ? new Date(initialData.dataEntrega) : null);
+    if (!d) { d = new Date(); d.setDate(d.getDate() + 7); d.setHours(23, 59, 0, 0); }
+    if (!Number.isFinite(d.getTime())) return '';
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   });
+  const prazoInicial = useRef(dataEntrega);
   const [questoes, setQuestoes] = useState(() =>
     initialData?.questoes?.length > 0
       ? initialData.questoes.map(q => ({ ...q, imagensLocais: [] }))
@@ -250,6 +258,13 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
   );
   const [saving, setSaving] = useState(false);
   const [erro, setErro] = useState('');
+  const assinatura = JSON.stringify([titulo, bimestre, turmaIds, dataEntrega, questoes, textosBase, materiais]);
+  const inicial = useRef(assinatura);
+  useEffect(() => {
+    const proteger = e => { if (assinatura !== inicial.current || saving) { e.preventDefault(); e.returnValue = ''; } };
+    window.addEventListener('beforeunload', proteger);
+    return () => window.removeEventListener('beforeunload', proteger);
+  }, [assinatura, saving]);
 
   const materialTotal = materiais.map(m => m.textoExtraido || m.texto || '').filter(Boolean).join('\n\n');
 
@@ -262,25 +277,25 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
 
   const addMaterialTexto = () => setMateriais(prev => [...prev, { id: genId(), tipo: 'texto', nome: 'Texto colado', texto: '' }]);
 
+  const lerMaterial = async (id, file) => {
+    setMateriais(prev => prev.map(m => m.id === id ? { ...m, _extracting: true, _erro: '' } : m));
+    try {
+      const { texto } = await extractTextFromDocument(file, { allowImages: true });
+      if (!texto.trim()) throw new Error('Nenhum texto legível encontrado no arquivo.');
+      setMateriais(prev => prev.map(m => m.id === id ? { ...m, textoExtraido: texto, _extracting: false, _erro: '' } : m));
+    } catch (error) {
+      setMateriais(prev => prev.map(m => m.id === id ? { ...m, _extracting: false, _erro: error.message } : m));
+      setErro('Erro ao extrair arquivo: ' + error.message);
+    }
+  };
   const addMaterialPDF = () => {
     const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.pdf,.docx,.doc,.txt,.jpg,.jpeg,.png,.webp';
-    input.multiple = true;
-    input.onchange = async (e) => {
-      const files = Array.from(e.target.files || []);
-      for (const file of files) {
-        const id = genId();
-        setMateriais(prev => [...prev, { id, tipo: 'arquivo', nome: file.name, textoExtraido: '', _extracting: true }]);
-        try {
-          const { texto } = await extractTextFromDocument(file, { allowImages: true });
-          if (!texto.trim()) throw new Error('Nenhum texto legível encontrado no arquivo.');
-          setMateriais(prev => prev.map(m => m.id === id ? { ...m, textoExtraido: texto, _extracting: false } : m));
-        } catch (err) {
-          setMateriais(prev => prev.filter(m => m.id !== id));
-          setErro('Erro ao extrair arquivo: ' + err.message);
-        }
-      }
+    input.type = 'file'; input.accept = '.pdf,.docx,.doc,.txt,.jpg,.jpeg,.png,.webp'; input.multiple = true;
+    input.onchange = async e => {
+      // Registra a fila inteira antes de ler: nenhuma página pode publicar enquanto há arquivo aguardando.
+      const fila = Array.from(e.target.files || []).map(file => ({ id: genId(), file }));
+      setMateriais(prev => [...prev, ...fila.map(({id,file}) => ({ id, tipo: 'arquivo', nome: file.name, textoExtraido: '', _extracting: true, arquivoLocal: file }))]);
+      for (const {id,file} of fila) await lerMaterial(id,file);
     };
     input.click();
   };
@@ -289,6 +304,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
   const removeMaterial = (id) => setMateriais(prev => prev.filter(m => m.id !== id));
 
   const abrirGerarPopup = (tipo) => {
+    if (materiais.some(m => m._extracting || m._erro)) { setErro('Conclua a leitura ou remova os arquivos com falha.'); return; }
     if (!materialTotal.trim()) {
       setErro('Adicione um PDF ou cole um texto no material de apoio antes de gerar.');
       return;
@@ -304,6 +320,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
 
   const handleGerarQuestao = async () => {
     if (!gerarPopup) return;
+    if (materiais.some(m => m._extracting || m._erro)) { setErro('Conclua a leitura ou remova os arquivos com falha.'); return; }
     if (!materialTotal.trim()) {
       setErro('Adicione um PDF ou cole o material de apoio antes de gerar.');
       return;
@@ -314,7 +331,8 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     }
 
     setGerandoQuestoes(true);
-    const pontuacao = parseFloat(gerarPopup.pontuacao.replace(',', '.'));
+    const pontuacao = Number(gerarPopup.pontuacao.replace(',', '.'));
+    if (!Number.isFinite(pontuacao) || pontuacao <= 0 || pontuacao > 10) { setGerandoQuestoes(false); setErro('Pontuação deve ser maior que zero e até 10.'); return; }
     const popupAtual = gerarPopup;
     setGerarPopup(null);
     setErro('');
@@ -322,6 +340,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
       const geradas = await gerarQuestoesComIA({
         materialTexto: materialTotal,
         qtdQuestoes: 1,
+        notaMaxima: pontuacao,
         incluirObjetivas: popupAtual.tipo === 'objetiva',
         dificuldade: popupAtual.dificuldade,
         incluirTextoApoio: popupAtual.incluirTextoApoio,
@@ -370,14 +389,18 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     setErro('');
 
     if (!titulo.trim()) { setErro('Título obrigatório.'); return; }
+    if (![1,2,3,4].includes(Number(bimestre))) { setErro('Selecione um bimestre válido.'); return; }
     if (turmaIds.length === 0) { setErro('Selecione ao menos uma turma.'); return; }
-    if (!dataEntrega) { setErro('Data de entrega obrigatória.'); return; }
+    if (!dataValida(dataEntrega)) { setErro('Data de entrega inválida.'); return; }
+    if (materiais.some(m => m._extracting || m._erro)) { setErro('Conclua a leitura ou remova os arquivos com falha antes de salvar.'); return; }
     if (!isEdit && questoes.length === 0) { setErro('Adicione ao menos uma questão.'); return; }
 
     for (let i = 0; i < questoes.length; i++) {
       const q = questoes[i];
       if (!q.enunciado.trim()) { setErro(`Questão ${i + 1}: enunciado obrigatório.`); return; }
+      if (!Number.isFinite(Number(q.notaMaxima)) || Number(q.notaMaxima) <= 0 || Number(q.notaMaxima) > 10) { setErro(`Questão ${i + 1}: pontuação deve ser maior que zero e até 10.`); return; }
       if (q.tipo === 'objetiva') {
+        if (!q.alternativas.some(a => a.id === q.gabarito && a.texto.trim())) { setErro(`Questão ${i + 1}: gabarito deve indicar uma alternativa preenchida.`); return; }
         const preenchidas = q.alternativas.filter(a => a.texto.trim()).length;
         if (preenchidas < 2) { setErro(`Questão ${i + 1}: preencha ao menos 2 alternativas.`); return; }
       }
@@ -385,7 +408,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
 
     setSaving(true);
     try {
-      const atvId = initialData?.id || genAtvId();
+      const atvId = idEstavel.current;
 
       const hasLocalImages = questoes.some(q => q.imagensLocais?.length > 0);
       let questoesFinais;
@@ -409,7 +432,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
       }
 
       const materiaisFinais = materiais
-        .map(({ _extracting, ...m }) => m)
+        .map(({ _extracting, _erro, arquivoLocal, ...m }) => m)
         .filter(m => (m.textoExtraido || m.texto || '').trim());
 
       const materialApoio = materiaisFinais.length > 0
@@ -429,7 +452,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
         turmas: turmaIds,
         turmaIds,
         notaMaxima: Math.round(notaTotalMaxima * 100) / 100,
-        dataEntrega: new Date(dataEntrega),
+        dataEntrega: isEdit && dataEntrega === prazoInicial.current ? (initialData.dataEntrega?.toDate?.() || new Date(initialData.dataEntrega)) : new Date(dataEntrega),
         textosBase: textosBase.filter(t => t.html.trim() && t.html !== '<p></p>'),
         questoes: questoesFinais,
         materiais: materiaisFinais,
@@ -438,11 +461,11 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
       };
 
       if (isEdit && onUpdate) {
-        onUpdate(atvId, payload);
+        await onUpdate(atvId, payload);
       } else if (!isEdit && onCreate) {
-        onCreate(payload);
-      } else if (typeof onSave === 'function') {
-        onSave(payload);
+        await onCreate(payload);
+      } else {
+        throw new Error('Salvamento indisponível. Reabra a atividade.');
       }
 
       onClose?.();
@@ -497,10 +520,11 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200 max-h-[92vh] overflow-y-auto animate-card-in">
         <div className="sticky top-0 z-10 bg-white p-5 border-b border-slate-200 flex items-center justify-between">
           <h2 className="text-lg font-bold text-slate-900">{isEdit ? 'Editar Atividade' : 'Nova Atividade'}</h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-900 text-2xl leading-none">&times;</button>
+          <button onClick={() => { if (!saving && (assinatura === inicial.current || window.confirm('Descartar alterações não salvas desta atividade?'))) onClose?.(); }} disabled={saving} className="text-slate-400 hover:text-slate-900 text-2xl leading-none">&times;</button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-5 space-y-5">
+        <form onSubmit={handleSubmit} data-diario-rascunho={assinatura !== inicial.current} data-diario-salvando={saving} className="p-5">
+          <fieldset disabled={saving} className="space-y-5">
           <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-900 mb-1">Título *</label>
@@ -511,19 +535,15 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-900 mb-1">Bimestre *</label>
-                <div className="grid grid-cols-4 gap-1">
-                  {BIMESTRES.map(b => (
-                    <button key={b} type="button" onClick={() => setBimestre(b)}
-                      className={`py-2 rounded-lg text-xs font-bold transition-all border ${bimestre === b ? 'bg-violet-500 text-white border-violet-400/20' : 'bg-slate-50 text-slate-400 hover:bg-slate-200 border-slate-200'}`}>
-                      {b}º
-                    </button>
-                  ))}
-                </div>
+                <label htmlFor="atividade-bimestre" className="block text-xs font-semibold text-slate-900 mb-1">Bimestre *</label>
+                <select id="atividade-bimestre" value={bimestre} onChange={e => setBimestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm">
+                  {BIMESTRES.map(b => <option key={b} value={b}>{b}º bimestre</option>)}
+                </select>
+
               </div>
               <div>
                 <label htmlFor="dataEntrega" className="block text-xs font-semibold text-slate-900 mb-1">Data de entrega *</label>
-                <input id="dataEntrega" type="text" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
+                <input id="dataEntrega" type="text" placeholder="AAAA-MM-DDTHH:mm" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
               </div>
             </div>
@@ -587,6 +607,8 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                       <button type="button" onClick={() => removeMaterial(mat.id)}
                         className="text-slate-400 hover:text-red-500 text-xs transition-colors">&times;</button>
                     </div>
+                    {mat._extracting && <p role="status" className="text-xs text-blue-700">Lendo arquivo. Aguarde a extração antes de gerar ou salvar.</p>}
+                    {mat._erro && <div role="alert" className="text-xs text-red-700">{mat._erro} <button type="button" onClick={() => lerMaterial(mat.id, mat.arquivoLocal)} className="underline" aria-label={`Tentar ler ${mat.nome} novamente`}>Tentar novamente</button></div>}
                     {mat.tipo === 'texto' && !mat._extracting && (
                       <textarea
                         value={mat.texto || ''}
@@ -773,6 +795,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             </div>
           </div>
 
+          {materialTotal.length > 4000 && <p role="status" className="text-xs text-amber-800 bg-amber-50 p-3 rounded-xl">Material: {materialTotal.length} caracteres. A IA usa até 8.000 para gerar, 6.000 para corrigir e 4.000 para sugerir critérios. Revise os trechos iniciais usados.</p>}
           {erro && (
             <div className="p-3 bg-red-50 border border-red-100 rounded-xl">
               <p className="text-xs text-red-500">{erro}</p>
@@ -780,7 +803,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
           )}
 
           <div className="flex gap-3 pt-1">
-            <button type="button" onClick={onClose}
+            <button type="button" onClick={() => { if (!saving && (assinatura === inicial.current || window.confirm('Descartar alterações não salvas desta atividade?'))) onClose?.(); }} disabled={saving}
               className="flex-1 py-2.5 bg-slate-50 hover:bg-slate-200 border border-slate-200 rounded-xl text-sm text-slate-500 font-medium transition-all">
               Cancelar
             </button>
@@ -789,6 +812,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
               {saving ? 'Salvando...' : isEdit ? 'Salvar Alterações' : 'Criar Atividade'}
             </button>
           </div>
+          </fieldset>
         </form>
       </div>
     </div>

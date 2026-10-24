@@ -1,4 +1,6 @@
+import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 import { calcDesempenhoAnual, fmt, titleCase } from "@/utils/diario/calculos";
+export { generateRelatorioBimestrePDF, exportBimestreCSV } from './bimestre-export';
 
 /**
  * Gera a Caderneta Escolar Oficial da Turma em PDF (formato Paisagem A4).
@@ -90,10 +92,10 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     // Fundo zebrado
     if (idx % 2 === 1) {
       doc.setFillColor(247, 248, 252);
-      doc.rect(margin, cursorY, maxLineWidth, 6.5, "F");
+      doc.rect(margin, cursorY, maxLineWidth, 11, "F");
     }
     doc.setDrawColor(240, 242, 248);
-    doc.line(margin, cursorY + 6.5, margin + maxLineWidth, cursorY + 6.5);
+    doc.line(margin, cursorY + 11, margin + maxLineWidth, cursorY + 11);
 
     let curX = margin;
 
@@ -115,9 +117,12 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     curX += cols[2].w;
 
     // 1º Sem
-    const s1Color = d.S1.total !== null && d.S1.total >= 25 ? [22, 101, 52] : [153, 27, 27];
+    const s1Color = d.S1.status === 'good' ? [22, 101, 52] : d.S1.status === 'bad' ? [153, 27, 27] : [96, 112, 160];
     doc.setTextColor(s1Color[0], s1Color[1], s1Color[2]);
     doc.text(d.S1.total !== null ? fmt(d.S1.total) : "—", curX + cols[3].w / 2, cursorY + 4.5, { align: "center" });
+    doc.setFontSize(5.5);
+    doc.text(ROTULOS_APROVACAO[d.S1.status], curX + cols[3].w / 2, cursorY + 8.5, { align: "center" });
+    doc.setFontSize(7.5);
     curX += cols[3].w;
 
     // 3º Bim
@@ -130,9 +135,12 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     curX += cols[5].w;
 
     // 2º Sem
-    const s2Color = d.S2.total !== null && d.S2.total >= 25 ? [22, 101, 52] : [153, 27, 27];
+    const s2Color = d.S2.status === 'good' ? [22, 101, 52] : d.S2.status === 'bad' ? [153, 27, 27] : [96, 112, 160];
     doc.setTextColor(s2Color[0], s2Color[1], s2Color[2]);
     doc.text(d.S2.total !== null ? fmt(d.S2.total) : "—", curX + cols[6].w / 2, cursorY + 4.5, { align: "center" });
+    doc.setFontSize(5.5);
+    doc.text(ROTULOS_APROVACAO[d.S2.status], curX + cols[6].w / 2, cursorY + 8.5, { align: "center" });
+    doc.setFontSize(7.5);
     curX += cols[6].w;
 
     // Rec. Final
@@ -155,11 +163,16 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     doc.setTextColor(st.color[0], st.color[1], st.color[2]);
     doc.text(st.label, curX + cols[9].w / 2, cursorY + 4.5, { align: "center" });
 
-    cursorY += 6.5;
+    cursorY += 11;
   });
 
   // ── ASSINATURAS NO FINAL ──
-  cursorY = Math.min(cursorY + 12, pageHeight - 16);
+  if (cursorY + 12 > pageHeight - 16) {
+    doc.addPage();
+    cursorY = 15;
+  } else {
+    cursorY += 12;
+  }
   doc.setDrawColor(180, 190, 210);
   doc.line(margin + 20, cursorY, margin + 90, cursorY);
   doc.line(pageWidth - margin - 90, cursorY, pageWidth - margin - 20, cursorY);
@@ -193,7 +206,9 @@ export const exportCadernetaCSV = (turma) => {
     "2º Semestre",
     "Recuperacao Final",
     "Total Anual",
-    "Situacao Final"
+    "Situacao Final",
+    "Situacao 1º Semestre",
+    "Situacao 2º Semestre"
   ];
 
   const linhas = dadosAlunos.map(d => [
@@ -207,7 +222,9 @@ export const exportCadernetaCSV = (turma) => {
     d.S2.total !== null ? fmt(d.S2.total) : "",
     d.recFinal !== null ? fmt(d.recFinal) : "",
     d.totalAnual !== null ? fmt(d.totalAnual) : "",
-    d.statusFinal === 'good' ? "APROVADO" : (d.statusFinal === 'bad' ? "RECUPERACAO" : "EM ANDAMENTO")
+    ROTULOS_APROVACAO[d.statusFinal].toUpperCase(),
+    ROTULOS_APROVACAO[d.S1.status],
+    ROTULOS_APROVACAO[d.S2.status]
   ]);
 
   const csvContent = "\uFEFF" + [cabecalho.join(";"), ...linhas.map(e => e.join(";"))].join("\n");

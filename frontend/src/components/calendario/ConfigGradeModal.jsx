@@ -1,17 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { X, Plus, Trash2, Sparkles, Clock, CalendarSync, CheckCircle2, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Plus, Trash2, Sparkles, CalendarSync, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/lib/auth-context';
 import { db } from '@/lib/firebase';
 import { HorarioRepository } from '@/infraestrutura/horario/HorarioRepository';
 import { SHIFT_PRESETS } from '@/dominio/horario/entidades';
-import { extrairDiasSemanaPorTurma, listarTurmasDaGrade } from '@/dominio/horario/conversorGradeCalendario';
+import { extrairDiasSemanaPorTurmaEstrito, listarTurmasDaGrade, validarGradeCalendario, normalizarNomeTurma } from '@/dominio/horario/conversorGradeCalendario';
 
-export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, initialGrade }) {
+export function ConfigGradeModal(props) {
+  if (!props.isOpen) return null;
+  const chave = JSON.stringify([props.turmaSelecionada?.id, props.turmaSelecionada?.name, props.turmaSelecionada?.nome, props.anoLetivo, props.initialGrade]);
+  return <ConfigGradeEditor key={chave} {...props} />;
+}
+
+function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, onPreview, anoLetivo = new Date().getFullYear() }) {
   const { user } = useAuth();
 
-  const [dataInicio, setDataInicio] = useState(initialGrade?.dataInicioPeriodo || '2026-02-01');
-  const [dataFim, setDataFim] = useState(initialGrade?.dataFimPeriodo || '2026-12-15');
+  const [dataInicio, setDataInicio] = useState(initialGrade?.dataInicioPeriodo || `${anoLetivo}-02-01`);
+  const [dataFim, setDataFim] = useState(initialGrade?.dataFimPeriodo || `${anoLetivo}-12-15`);
   const [diasSemana, setDiasSemana] = useState(initialGrade?.diasSemana || []);
+
+  const [aplicarDesde, setAplicarDesde] = useState(initialGrade?.dataInicioPeriodo || `${anoLetivo}-02-01`);
+  const [preview, setPreview] = useState(null);
+  const [erro, setErro] = useState('');
+  const [salvando, setSalvando] = useState(false);
+  const [origem, setOrigem] = useState(null);
 
   const [novoDia, setNovoDia] = useState(1); // 1 = Seg
   const [novoInicio, setNovoInicio] = useState('07:30');
@@ -22,27 +34,13 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
   const [carregandoMeuHorario, setCarregandoMeuHorario] = useState(false);
   const [feedbackMeuHorario, setFeedbackMeuHorario] = useState(null);
   const [turmasMeuHorario, setTurmasMeuHorario] = useState([]);
-  const [gradeMeuHorarioCache, setGradeMeuHorarioCache] = useState(null);
 
-  // Sincroniza sempre que a turma ou initialGrade mudar
-  useEffect(() => {
-    if (initialGrade) {
-      setDataInicio(initialGrade.dataInicioPeriodo || '2026-02-01');
-      setDataFim(initialGrade.dataFimPeriodo || '2026-12-15');
-      setDiasSemana(initialGrade.diasSemana || []);
-    } else {
-      setDataInicio('2026-02-01');
-      setDataFim('2026-12-15');
-      setDiasSemana([]);
-    }
-    setFeedbackMeuHorario(null);
-  }, [initialGrade, turmaSelecionada, isOpen]);
-
-  if (!isOpen) return null;
 
   const diasNomes = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
   const handleAddDia = () => {
+    invalidarPreview();
+    setOrigem(null);
     setDiasSemana([...diasSemana, {
       diaSemana: Number(novoDia),
       horarioInicio: novoInicio,
@@ -52,20 +50,31 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
   };
 
   const handleRemoveDia = (index) => {
+    invalidarPreview();
+    setOrigem(null);
     setDiasSemana(diasSemana.filter((_, i) => i !== index));
   };
 
-  const handleSave = () => {
-    if (!dataInicio || !dataFim || diasSemana.length === 0) {
-      alert("Preencha o período letivo e adicione ao menos um dia na grade.");
-      return;
-    }
-    
-    onSave({
-      dataInicioPeriodo: dataInicio,
-      dataFimPeriodo: dataFim,
-      diasSemana
-    });
+  const gradeData = () => validarGradeCalendario({
+    dataInicioPeriodo: dataInicio, dataFimPeriodo: dataFim, diasSemana,
+    aplicarDesde, anoLetivo: Number(anoLetivo), ...(origem ? { origemMeuHorario: origem } : {})
+  });
+  const invalidarPreview = () => { setPreview(null); setErro(''); };
+  const handlePreview = async () => {
+    setSalvando(true); setErro('');
+    try {
+      const dados = gradeData();
+      const resultado = onPreview ? await onPreview(dados) : { resumo: {}, conflitos: [] };
+      setPreview({ ...resultado, dados });
+    } catch (err) { setErro(err.message || 'Não foi possível revisar os horários.'); }
+    finally { setSalvando(false); }
+  };
+  const handleSave = async () => {
+    if (!preview || preview.conflitos?.length) return;
+    setSalvando(true); setErro('');
+    try { await onSave(preview.dados); }
+    catch (err) { setErro(err.message || 'Não foi possível salvar os horários.'); }
+    finally { setSalvando(false); }
   };
 
   // Puxar rotina de aulas automaticamente do Meu Horário
@@ -75,10 +84,7 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
 
     try {
       const repo = new HorarioRepository({ firestoreDb: db });
-      const loaded = gradeMeuHorarioCache || (await repo.carregarGrade(user?.uid || null));
-      if (!gradeMeuHorarioCache && loaded) {
-        setGradeMeuHorarioCache(loaded);
-      }
+      const loaded = await repo.carregarGrade(user?.uid || null, { somenteReal: true });
 
       if (!loaded || !loaded.schedule || Object.keys(loaded.schedule).length === 0) {
         setFeedbackMeuHorario({
@@ -97,25 +103,20 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
         SHIFT_PRESETS[loaded.shift] ||
         SHIFT_PRESETS.manha;
 
-      let rotinaExtraida = extrairDiasSemanaPorTurma(loaded.schedule, slots, nomeAlvo);
-
-      // Se não encontrou exato mas tem turmas na grade, tenta casamento aproximado
-      if (rotinaExtraida.length === 0 && turmasDetectadas.length > 0 && !nomeForcado) {
-        const match = turmasDetectadas.find(
-          (t) =>
-            t.toLowerCase().includes(nomeAlvo.toLowerCase()) ||
-            nomeAlvo.toLowerCase().includes(t.toLowerCase())
-        );
-        if (match) {
-          rotinaExtraida = extrairDiasSemanaPorTurma(loaded.schedule, slots, match);
-        }
+      const correspondencias = turmasDetectadas.filter(nome => normalizarNomeTurma(nome) === normalizarNomeTurma(nomeAlvo));
+      if (!nomeForcado && correspondencias.length > 1) {
+        setFeedbackMeuHorario({ tipo: 'aviso', msg: 'Encontramos mais de uma turma com esse nome. Escolha a turma de origem.' });
+        return;
       }
+      const rotinaExtraida = extrairDiasSemanaPorTurmaEstrito(loaded.schedule, slots, nomeAlvo, { origemExata: Boolean(nomeForcado) });
 
       if (rotinaExtraida.length > 0) {
         setDiasSemana(rotinaExtraida);
+        setOrigem({ turma: nomeAlvo, atualizadoEm: loaded.updatedAt || null });
+        invalidarPreview();
         setFeedbackMeuHorario({
           tipo: 'sucesso',
-          msg: `🎉 ${rotinaExtraida.length} dia(s) importados automaticamente do Meu Horário!`
+          msg: `🎉 ${rotinaExtraida.length} bloco(s) de horários encontrados do Meu Horário!`
         });
       } else {
         setFeedbackMeuHorario({
@@ -135,7 +136,7 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div role="dialog" aria-modal="true" aria-label="Configurar horários" className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
           <div>
@@ -148,12 +149,12 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
               </span>
             )}
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+          <button disabled={salvando} aria-label="Fechar" onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto" onChange={invalidarPreview}>
           {/* Card de Importação Direta do Meu Horário */}
           <div className="bg-gradient-to-r from-violet-50 to-indigo-50 border border-violet-200 rounded-xl p-4 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -190,7 +191,7 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
                 {feedbackMeuHorario.tipo === 'erro' && (
                   <div className="flex items-center gap-2 text-xs font-semibold text-red-700 bg-red-50 px-3 py-2 rounded-lg border border-red-200">
                     <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                    <span>{feedbackMeuHorario.msg}</span>
+                    <span>{feedbackMeuHorario.msg} <a href="/meuhorario" className="underline">Abrir Meu Horário Escolar</a></span>
                   </div>
                 )}
 
@@ -203,8 +204,10 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
 
                     {turmasMeuHorario.length > 0 && (
                       <div className="flex items-center gap-2 pt-1">
-                        <label className="text-xs font-semibold text-slate-700">Vincular a:</label>
+                        <label htmlFor="turma-origem-horario" className="text-xs font-semibold text-slate-700">Turma de origem</label>
                         <select
+                          id="turma-origem-horario"
+                          disabled={carregandoMeuHorario}
                           defaultValue=""
                           onChange={(e) => {
                             if (e.target.value) handlePuxarMeuHorario(e.target.value);
@@ -229,24 +232,28 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
             <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Período Letivo</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Data de Início</label>
-                <input 
-                  type="date" 
-                  value={dataInicio} 
+                <label htmlFor="grade-inicio" className="block text-xs text-gray-500 mb-1">Data de Início</label>
+                <input
+                  id="grade-inicio" type="date"
+                  value={dataInicio}
                   onChange={e => setDataInicio(e.target.value)}
-                  className="w-full border-gray-300 rounded-md shadow-sm text-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500" 
+                  className="w-full border-gray-300 rounded-md shadow-sm text-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Data de Término</label>
-                <input 
-                  type="date" 
-                  value={dataFim} 
+                <label htmlFor="grade-fim" className="block text-xs text-gray-500 mb-1">Data de Término</label>
+                <input
+                  id="grade-fim" type="date"
+                  value={dataFim}
                   onChange={e => setDataFim(e.target.value)}
-                  className="w-full border-gray-300 rounded-md shadow-sm text-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500" 
+                  className="w-full border-gray-300 rounded-md shadow-sm text-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
             </div>
+            <label className="block text-xs text-gray-500 mt-4">Aplicar alterações a partir de
+              <input type="date" value={aplicarDesde} min={dataInicio} max={dataFim} onChange={e => setAplicarDesde(e.target.value)} className="block border rounded p-2 text-gray-900" />
+            </label>
+            <p className="text-xs text-gray-500 mt-2">Ano letivo: {anoLetivo}. Revise o período antes de confirmar.</p>
           </div>
 
           <hr className="border-gray-100" />
@@ -254,13 +261,13 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
           {/* Adicionar Dia Manualmente */}
           <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Rotina Semanal de Aulas</h3>
-            
+
             <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100 mb-4">
               <div className="grid grid-cols-5 gap-3 items-end">
                 <div className="col-span-2">
                   <label className="block text-xs text-indigo-800 mb-1 font-medium">Dia da Semana</label>
-                  <select 
-                    value={novoDia} 
+                  <select
+                    value={novoDia}
                     onChange={e => setNovoDia(e.target.value)}
                     className="w-full border-indigo-200 rounded-md text-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
                   >
@@ -282,7 +289,7 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
                   <input type="number" min="1" max="10" value={novaQtd} onChange={e => setNovaQtd(e.target.value)} className="w-full border-indigo-200 rounded-md text-sm text-gray-900 focus:ring-indigo-500 bg-white" />
                 </div>
               </div>
-              <button 
+              <button
                 type="button"
                 onClick={handleAddDia}
                 className="mt-3 flex items-center justify-center w-full py-2 bg-indigo-100 text-indigo-700 rounded-md text-sm font-medium hover:bg-indigo-200 transition-colors"
@@ -312,20 +319,28 @@ export function ConfigGradeModal({ isOpen, onClose, onSave, turmaSelecionada, in
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500 text-center py-4">Nenhum dia configurado na grade ainda. Clique em "Puxar do Meu Horário" ou adicione acima.</p>
+              <p className="text-sm text-gray-500 text-center py-4">Nenhum dia configurado na grade ainda. Clique em &quot;Puxar do Meu Horário&quot; ou adicione acima.</p>
             )}
           </div>
         </div>
 
+        {erro && <p role="alert" className="px-6 py-3 text-red-700">{erro}</p>}
+        {preview && <div className="px-6 py-4 bg-indigo-50 text-sm text-slate-800">
+          <h3 className="font-bold">Prévia da atualização</h3>
+          <p>{preview.dados.diasSemana.length} bloco(s) semanal(is), de {preview.dados.aplicarDesde} até {preview.dados.dataFimPeriodo}.</p>
+          <p>{preview.resumo?.criadas || 0} aulas criadas · {preview.resumo?.preservadas || 0} preservadas · {preview.resumo?.alteradas || 0} alteradas · {preview.resumo?.removidas || 0} removidas.</p>
+          {preview.conflitos?.map((conflito,i)=><p key={i} className="text-red-700">{conflito}</p>)}
+        </div>}
         <div className="flex items-center justify-end px-6 py-4 border-t border-gray-100 bg-gray-50 space-x-3">
-          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">
+          <button disabled={salvando} onClick={onClose} className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">
             Cancelar
           </button>
-          <button 
-            onClick={handleSave} 
+          <button
+            onClick={preview ? handleSave : handlePreview}
+            disabled={salvando || carregandoMeuHorario || Boolean(preview?.conflitos?.length)}
             className="px-6 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Salvar e Gerar Aulas
+            {salvando ? 'Aguarde...' : preview ? 'Confirmar atualização' : 'Revisar alterações'}
           </button>
         </div>
       </div>

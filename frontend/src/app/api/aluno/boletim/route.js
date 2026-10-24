@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase-admin';
 import { getSessionFromRequest } from '@/lib/aluno/session';
+import { atividadePublica, entregaPublica } from '@/dominio/atividades/acessoAluno';
+import { chaveVinculoAtividade } from '@/utils/diario/tokenUtils';
 
 export async function GET(request) {
   try {
@@ -15,21 +17,11 @@ export async function GET(request) {
     const turmaId = searchParams.get('turmaId');
     const alunoId = searchParams.get('alunoId');
 
-    const vinculoValido = (session.vinculos || []).some(
-      (v) =>
-        v.professorUid === professorUid ||
-        v.turmaId === turmaId ||
-        v.id === professorUid
-    );
-
-    if (!vinculoValido && session.vinculos?.length > 0) {
-      return NextResponse.json(
-        { error: 'Acesso negado aos dados desta turma.' },
-        { status: 403 }
-      );
-    }
-
+    if (![professorUid, turmaId, alunoId, session.loginKey].every(id => typeof id === 'string' && id.length > 0 && id.length <= 512 && !id.includes('/'))) return NextResponse.json({ error: 'Contexto inválido.' }, { status: 400 });
     const db = getAdminDb();
+    const vinculoSnap = await db.doc(`alunoLogin/${session.loginKey}/vinculos/${professorUid}`).get();
+    const vinculo = vinculoSnap.exists ? vinculoSnap.data() : {};
+    if (vinculo.professorUid !== professorUid || vinculo.turmaId !== turmaId || vinculo.alunoId !== alunoId) return NextResponse.json({ error: 'Acesso negado aos dados deste aluno.' }, { status: 403 });
 
     const recordId = `${professorUid}_${turmaId}_${alunoId}`;
     let notasData = null;
@@ -48,22 +40,10 @@ export async function GET(request) {
         .where('professorId', '==', professorUid)
         .where('turmaIds', 'array-contains', turmaId)
         .get();
-      const todasAtividades = snap.docs.map((d) => {
-        const data = d.data();
-        delete data.gabarito;
-        // Blindagem LGPD / LBI (RN-62): Ocultar dados médicos e laudos do portal do aluno
-        delete data.necessidades;
-        delete data.cid;
-        delete data.laudo;
-        delete data.diagnostico;
-        if (Array.isArray(data.questoes)) {
-          data.questoes = data.questoes.map(({ gabarito: _g, rubrica: _r, ...rest }) => rest);
-        }
-        return { id: d.id, ...data };
-      });
+      const todasAtividades = snap.docs.map(d => ({ ...d.data(), id: d.id })).filter(a => !['rascunho', 'publicando'].includes(a.status));
 
       const { filtrarAtividadesParaAluno } = await import('@/dominio/adaptacoes/publicadorAtividadeOnline');
-      atividades = filtrarAtividadesParaAluno(todasAtividades, alunoId);
+      atividades = filtrarAtividadesParaAluno(todasAtividades, alunoId).map(atividadePublica);
     } catch (e) {
       console.warn('Erro ao buscar atividades:', e.message);
     }
@@ -73,7 +53,12 @@ export async function GET(request) {
       const snap = await db.collection('entregas')
         .where('alunoId', '==', alunoId)
         .get();
-      entregas = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      const atividadesPermitidas = new Set(atividades.map(atividade => atividade.id));
+      entregas = snap.docs.map((d) => ({ id: d.id, ...d.data() })).filter(entrega =>
+        entrega.alunoId === alunoId && entrega.turmaId === turmaId &&
+        atividadesPermitidas.has(entrega.activityId) &&
+        (!entrega.professorId || entrega.professorId === professorUid)
+      ).map(entregaPublica);
     } catch (e) {
       console.warn('Erro ao buscar entregas:', e.message);
     }
@@ -88,14 +73,15 @@ export async function GET(request) {
       console.warn('Erro ao buscar redação:', e.message);
     }
 
+    atividades = atividades.filter(a => a.status !== 'arquivada' || entregas.some(e => e.activityId === a.id));
     const tokens = {};
     try {
       await Promise.all(
         atividades.map(async (atv) => {
-          const tokenDoc = await db.doc(`atividades/${atv.id}/tokens/${alunoId}`).get();
-          if (tokenDoc.exists) {
-            tokens[atv.id] = tokenDoc.data().token;
-          }
+          const novo = await db.doc(`atividades/${atv.id}/tokens/${chaveVinculoAtividade(turmaId, alunoId)}`).get();
+          const tokenDoc = novo.exists ? novo : await db.doc(`atividades/${atv.id}/tokens/${alunoId}`).get();
+          const dados = tokenDoc.exists ? tokenDoc.data() : {};
+          if (dados.alunoId === alunoId && dados.turmaId === turmaId && !dados.revogado) tokens[atv.id] = dados.token;
         })
       );
     } catch (e) {

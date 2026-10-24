@@ -1,11 +1,10 @@
+import { planejarDistribuicao, remanejarSeguro, planejarFeriados } from '@/dominio/calendario/evolucao';
+import { validarGradeCalendario } from '@/dominio/horario/conversorGradeCalendario';
 import { 
-  addDays, 
   eachDayOfInterval, 
   getDay, 
   parseISO, 
   format,
-  isBefore,
-  isAfter
 } from 'date-fns';
 
 /**
@@ -28,53 +27,23 @@ export class ScheduleGeneratorEngine {
     const start = parseISO(dataInicio);
     const end = parseISO(dataFim);
 
-    // Lista de todos os dias do período
-    const todosDias = eachDayOfInterval({ start, end });
-
-    let aulasGeradas = [];
-    let ordemSequencial = 1;
-
-    // Mapa para facilitar busca do dia da semana O(1)
-    // d.diaSemana no JS (0 = Domingo, 1 = Seg, 2 = Ter...)
-    const configPorDia = new Map();
-    grade.diasSemana.forEach(d => {
-      configPorDia.set(d.diaSemana, d);
-    });
-
-    todosDias.forEach(diaAtual => {
-      const diaSemanaJs = getDay(diaAtual);
-      
-      if (configPorDia.has(diaSemanaJs)) {
-        const configDia = configPorDia.get(diaSemanaJs);
-        
-        // Se a configuração diz que há N aulas nesse dia, gera N slots?
-        // Sim, se forem geminadas (ex: 2 aulas), podemos gerar 1 card longo "Aula dupla" 
-        // ou 2 cards distintos. Na modelagem, 'duracaoAlocadaAulas' vai indicar isso.
-        
-        const aulaSlot = {
-          id: `slot_${grade.turmaId}_${format(diaAtual, 'yyyy-MM-dd')}_${configDia.horarioInicio.replace(':','')}`,
-          turmaId: grade.turmaId,
-          dataAgendada: format(diaAtual, 'yyyy-MM-dd'),
-          diaSemana: diaSemanaJs,
-          horarioInicio: configDia.horarioInicio,
-          horarioFim: configDia.horarioFim,
-          duracaoAlocadaAulas: configDia.quantidadeAulas,
-          
-          status: 'AGENDADA', // Padrão
-          ordemSequencialIndex: ordemSequencial,
-          
-          // Campos a serem preenchidos no encadeamento de plano de aula (Fase 2)
-          topicoOrdem: null,
-          topicoTitulo: "A Definir (Sem Plano Associado)",
-          planejamentoId: null
-        };
-        
-        aulasGeradas.push(aulaSlot);
-        ordemSequencial++;
+    validarGradeCalendario({ ...grade, anoLetivo:grade.anoLetivo||Number(dataInicio.slice(0,4)), aplicarDesde:grade.aplicarDesde||dataInicio, dataInicioPeriodo: dataInicio, dataFimPeriodo: dataFim });
+    const aulasGeradas=[];
+    let ordemSequencial=1;
+    for (const dia of eachDayOfInterval({start,end})) {
+      const configs=grade.diasSemana.filter(d=>Number(d.diaSemana)===getDay(dia)).sort((a,b)=>a.horarioInicio.localeCompare(b.horarioInicio));
+      for(const config of configs){
+        const data=format(dia,'yyyy-MM-dd');
+        aulasGeradas.push({id:`slot_${grade.turmaId}_${data}_${config.horarioInicio.replace(':','')}`,turmaId:grade.turmaId,anoLetivo:Number(data.slice(0,4)),dataAgendada:data,diaSemana:getDay(dia),horarioInicio:config.horarioInicio,horarioFim:config.horarioFim,duracaoAlocadaAulas:Number(config.quantidadeAulas)||1,status:'AGENDADA',ordemSequencialIndex:ordemSequencial++,topicosAssociados:[],topicoId:null,topicoOrdem:null,topicoTitulo:null,planejamentoId:null});
       }
-    });
+    }
 
-    return aulasGeradas;
+    for(const extra of grade.reposicoes||[]){
+      if(extra.dataAgendada<dataInicio||extra.dataAgendada>dataFim)continue;
+      if(aulasGeradas.some(a=>a.dataAgendada===extra.dataAgendada&&a.horarioInicio<extra.horarioFim&&a.horarioFim>extra.horarioInicio))throw new Error('Uma reposição sobrepõe o novo horário. Revise os horários extras.');
+      aulasGeradas.push({...extra,turmaId:grade.turmaId,anoLetivo:Number(extra.dataAgendada.slice(0,4))});
+    }
+    return aulasGeradas.sort((a,b)=>`${a.dataAgendada} ${a.horarioInicio}`.localeCompare(`${b.dataAgendada} ${b.horarioInicio}`));
   }
 
   /**
@@ -87,51 +56,8 @@ export class ScheduleGeneratorEngine {
    * @returns {Array} Nova lista de aulas com os tópicos remanejados em cascata
    */
   static remanejarAulasEmCascata(aulas, aulaIdOrigem, novoStatus = 'NAO_REALIZADA') {
-    if (!aulas || aulas.length === 0) return [];
-
-    // Clona as aulas para evitar mutação direta
-    const copiaAulas = aulas.map(a => ({
-      ...a,
-      topicosAssociados: a.topicosAssociados ? [...a.topicosAssociados] : []
-    }));
-
-    // Ordena as aulas cronologicamente
-    copiaAulas.sort((a, b) => new Date(a.dataAgendada) - new Date(b.dataAgendada));
-
-    const indexOrigem = copiaAulas.findIndex(a => a.id === aulaIdOrigem);
-    if (indexOrigem === -1) return copiaAulas;
-
-    const aulaOrigem = copiaAulas[indexOrigem];
-    const topicosParaEmpurrar = [...aulaOrigem.topicosAssociados];
-
-    // Atualiza o status da aula de origem com o status escolhido pelo professor (PARCIAL ou NAO_REALIZADA)
-    aulaOrigem.status = novoStatus;
-
-    // Se não tinha tópicos associados para empurrar, encerra
-    if (topicosParaEmpurrar.length === 0) {
-      return copiaAulas;
-    }
-
-    // Percorre em cascata as aulas seguintes ativas (AGENDADA)
-    let bufferTopicos = topicosParaEmpurrar;
-
-    for (let i = indexOrigem + 1; i < copiaAulas.length; i++) {
-      const aulaAtual = copiaAulas[i];
-
-      // Só remaneja em aulas agendadas (não substitui aulas concluídas ou outras já canceladas)
-      if (aulaAtual.status === 'AGENDADA' || !aulaAtual.status) {
-        const topicosOriginais = [...aulaAtual.topicosAssociados];
-        aulaAtual.topicosAssociados = bufferTopicos;
-        bufferTopicos = topicosOriginais;
-
-        // Se o buffer ficou vazio, encerra o remanejamento
-        if (bufferTopicos.length === 0) {
-          break;
-        }
-      }
-    }
-
-    return copiaAulas;
+    if (!aulas?.some(a=>a.id===aulaIdOrigem)) return aulas || [];
+    return remanejarSeguro(aulas,aulaIdOrigem,novoStatus).aulas;
   }
 
   /**
@@ -164,21 +90,7 @@ export class ScheduleGeneratorEngine {
    * @returns {Array} Aulas atualizadas com o feriado aplicado e tópicos remanejados
    */
   static aplicarFeriadoNoCalendario(aulas, dataFeriado, motivo = 'Feriado / Recesso Escolar') {
-    if (!aulas || aulas.length === 0) return [];
-
-    let aulasAtualizadas = [...aulas];
-    const aulasDoDia = aulasAtualizadas.filter(a => a.dataAgendada === dataFeriado);
-
-    aulasDoDia.forEach(aula => {
-      aulasAtualizadas = this.remanejarAulasEmCascata(aulasAtualizadas, aula.id, 'NAO_REALIZADA');
-      const aulaModificada = aulasAtualizadas.find(a => a.id === aula.id);
-      if (aulaModificada) {
-        aulaModificada.motivoCancelamento = motivo;
-        aulaModificada.topicosAssociados = []; // Em feriados/recessos escolares não há conteúdo
-      }
-    });
-
-    return aulasAtualizadas;
+    return planejarFeriados(aulas,[{data:dataFeriado,nome:motivo}]).aulas;
   }
 
   /**
@@ -190,72 +102,7 @@ export class ScheduleGeneratorEngine {
    * @returns {Array} Aulas com os tópicos distribuídos
    */
   static autoDistribuirTopicos(aulas = [], topicos = [], options = {}) {
-    if (!aulas || aulas.length === 0 || !topicos || topicos.length === 0) {
-      return aulas || [];
-    }
-
-    const {
-      dataInicio = format(new Date(), 'yyyy-MM-dd'),
-      modo = 'substituir',
-      feriados = [],
-    } = options;
-
-    const feriadosSet = new Set(feriados.map(f => f.data));
-
-    // Clona e ordena as aulas cronologicamente
-    const copiaAulas = aulas.map(a => ({
-      ...a,
-      topicosAssociados: a.topicosAssociados ? [...a.topicosAssociados] : [],
-    }));
-    copiaAulas.sort((a, b) => new Date(a.dataAgendada) - new Date(b.dataAgendada));
-
-    // Ordena os tópicos por ordem sequencial
-    const topicosOrdenados = [...topicos].sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
-
-    let topicoIndex = 0;
-
-    for (let i = 0; i < copiaAulas.length; i++) {
-      const aula = copiaAulas[i];
-
-      // Se acabaram os tópicos a distribuir, encerra
-      if (topicoIndex >= topicosOrdenados.length) {
-        break;
-      }
-
-      // Se a aula for anterior à data de início configurada, preserva intacta
-      if (aula.dataAgendada < dataInicio) {
-        continue;
-      }
-
-      // Se for feriado ou recesso, não aloca
-      if (feriadosSet.has(aula.dataAgendada)) {
-        continue;
-      }
-
-      // Se a aula estiver cancelada ou já concluída, não sobrescreve
-      if (aula.status === 'NAO_REALIZADA' || aula.status === 'CONCLUIDA') {
-        continue;
-      }
-
-      // Se o modo for apenas vagas e a aula já tiver tópico, preserva
-      if (modo === 'apenas_vagas' && aula.topicosAssociados.length > 0) {
-        continue;
-      }
-
-      // Aloca o próximo tópico disponível com formato normalizado
-      const topicoAtual = topicosOrdenados[topicoIndex];
-      aula.topicosAssociados = [{
-        topicoId: topicoAtual.id || topicoAtual.ordem?.toString(),
-        topicoOrdem: topicoAtual.ordem,
-        topicoTitulo: topicoAtual.titulo,
-        titulo: topicoAtual.titulo,
-        id: topicoAtual.id,
-        duracaoAlocadaAulas: topicoAtual.duracaoEstimadaAulas || 1,
-      }];
-      topicoIndex++;
-    }
-
-    return copiaAulas;
+    return planejarDistribuicao(aulas,topicos,{dataInicio:format(new Date(),'yyyy-MM-dd'),...options}).aulas;
   }
 
   /**
@@ -269,21 +116,9 @@ export class ScheduleGeneratorEngine {
    * @returns {Array} Aulas atualizadas
    */
   static atualizarStatusComDecisao(aulas = [], aulaId, novoStatus, decisao = 'pular') {
-    if (!aulas || aulas.length === 0) return [];
-
-    if (decisao === 'smart_shift' && (novoStatus === 'NAO_REALIZADA' || novoStatus === 'PARCIAL')) {
-      return this.remanejarAulasEmCascata(aulas, aulaId, novoStatus);
-    }
-
-    // Se for 'pular' ou qualquer outro status sem smart shift:
-    // Atualiza o status da aula mantendo intactos seus tópicos associados
-    return aulas.map(a => {
-      if (a.id !== aulaId) return a;
-      return {
-        ...a,
-        status: novoStatus,
-      };
-    });
+    if (!aulas?.some(a=>a.id===aulaId)) return aulas || [];
+    if(!['PARCIAL','NAO_REALIZADA'].includes(novoStatus))return aulas.map(a=>a.id===aulaId?{...a,status:novoStatus}:a);
+    return remanejarSeguro(aulas,aulaId,novoStatus,{decisao}).aulas;
   }
 }
 

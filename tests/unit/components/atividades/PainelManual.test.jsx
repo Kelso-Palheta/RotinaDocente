@@ -1,0 +1,21 @@
+import {cleanup,fireEvent,render,screen,waitFor} from '@testing-library/react';
+import {AtividadePainel} from '@/components/atividades/AtividadePainel';
+const mocks=vi.hoisted(()=>({manual:vi.fn(async()=>{}),atividade:{id:'at',titulo:'Trabalho',bimestre:3,turmaIds:['t'],notaMaxima:2}}));
+vi.mock('@/hooks/atividades/useEntregas',()=>({useEntregas:()=>({entregas:[{id:'e',activityId:'at',turmaId:'t',alunoId:'a',bimestre:3,status:'entregue'}],corrigindo:null,corrigirManualmente:mocks.manual,corrigirEntrega:vi.fn()})}));
+vi.mock('@/components/atividades/EntregaDrawer',()=>({EntregaDrawer:({onManual})=><button onClick={()=>onManual({nota:0,feedback:'Reveja o conteúdo'})}>Salvar manual</button>}));
+vi.mock('@/components/atividades/UrlCopyPanel',()=>({UrlCopyPanel:()=>null}));
+vi.mock('@/components/atividades/AtividadeForm',()=>({AtividadeForm:()=>null}));
+vi.mock('@/lib/firebase',()=>({db:{}}));
+vi.mock('../../../../frontend/node_modules/firebase/firestore/dist/index.mjs',()=>({collection:()=>({}),getDocs:async()=>({forEach:()=>{}})}));
+vi.mock('@/lib/firebase-atividades',()=>({getAtividade:async()=>mocks.atividade}));
+afterEach(cleanup);
+it('salva manual e publica somente aluno, atividade, turma e bimestre corrigidos',async()=>{
+ const sync=vi.fn(async()=>({publicacoes:[{turmaId:'t',alunoId:'a',bimestre:'3',dadosBimestre:{notas:{a:{at:0}}}}]}));
+ const publicar=vi.fn();
+ render(<AtividadePainel atividade={mocks.atividade} user={{uid:'p'}} currentTurmaId="t" turmas={[{id:'t',nome:'301',alunos:[{id:'a',nome:'Ana'}]}]} useAtividadesHook={{sincronizarTodasAsNotas:sync,publicarNotaAluno:publicar}} />);
+ fireEvent.click(await screen.findByRole('button',{name:'Corrigir manualmente'}));
+ fireEvent.click(screen.getByRole('button',{name:'Salvar manual'}));
+ await waitFor(()=>expect(sync).toHaveBeenCalledWith({turmaId:'t',bimestre:'3',atividadeId:'at',alunoId:'a'}));
+ expect(mocks.manual).toHaveBeenCalledWith('e',mocks.atividade,{nota:0,feedback:'Reveja o conteúdo'},'p');
+ expect(publicar).toHaveBeenCalledWith('t','a',{'3':{notas:{a:{at:0}}}});
+});

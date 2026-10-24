@@ -1,3 +1,5 @@
+> Documento histórico de concepção. A implementação vigente está em `specs/ARCHITECTURE.md` (RN-66), e o fluxo atual está em `docs/guias/calendario-pedagogico.md`. Roadmap, versões e pseudocódigo abaixo não representam o estado atual.
+
 # 🏗️ Arquitetura do Módulo: Calendário Pedagógico & Planejamento Inteligente de Aulas
 
 Esta especificação arquitetural projeta o novo módulo de **Calendário Pedagógico & Planejamento Inteligente** integrado ao **Hub Educacional Unificado (SimuladoApp.Edu)**.

@@ -1,0 +1,6 @@
+const cfg = require('/Users/kelsopalheta/Developer/RotinaDocente/frontend/vitest.config.js');
+const dom=cfg.test.projects.find(p=>p.test.name==='dom');
+dom.test.include=['/private/tmp/rd-auditoria-gerador/*.test.jsx'];
+dom.resolve.alias.vitest='/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/vitest/dist/index.js';
+dom.server.fs.allow.push('/private/tmp/rd-auditoria-gerador');
+cfg.test.projects=[dom];module.exports=cfg;

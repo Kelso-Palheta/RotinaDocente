@@ -1,206 +1,55 @@
 "use client";
-
 import { useState } from 'react';
+import { CorrecaoManualForm } from './CorrecaoManualForm';
+import { fmt } from '@/utils/diario/calculos';
 
-function fmt(n) {
-  if (n == null) return '—';
-  return Number(n).toFixed(2).replace('.', ',');
-}
-
-export const EntregaDrawer = ({ entrega, atividade, alunoNome, onOverride, onCorrigir, onClose }) => {
-  const [editando, setEditando] = useState(false);
-  const [novaNota, setNovaNota] = useState('');
-  const notaMaxima = atividade?.notaMaxima || 10;
+export const EntregaDrawer = ({ entrega, atividade, alunoNome, onManual, onCorrigir, onClose, modoInicial = 'visualizar', corrigindo = false }) => {
+  const [manual, setManual] = useState(modoInicial === 'manual');
+  const [erro, setErro] = useState('');
   const notaAtual = entrega.notaRevisada ?? entrega.notaFinal;
-  const questoes = atividade?.questoes?.length > 0 ? atividade.questoes : null;
-  const resultados = entrega.resultados;
-
-  const handleSaveNota = () => {
-    const val = Number(novaNota.replace(',', '.'));
-    if (isNaN(val) || val < 0 || val > notaMaxima) {
-      alert(`Nota deve ser entre 0 e ${notaMaxima}`);
-      return;
-    }
-    onOverride(val);
-    setEditando(false);
-    setNovaNota('');
+  const questoes = atividade?.questoes || [];
+  const corrigirIA = async () => {
+    setErro('');
+    try { await onCorrigir(); } catch (error) { setErro(error.message || 'Falha na correção.'); }
   };
-
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-white border-l border-slate-200 h-full overflow-y-auto animate-card-in">
-        {/* Header */}
-        <div className="p-5 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white z-10">
-          <div>
-            <h3 className="font-semibold text-slate-900">{alunoNome}</h3>
-            <p className="text-xs text-slate-400">
-              {entrega.submittedAt?.toDate
-                ? entrega.submittedAt.toDate().toLocaleDateString('pt-BR', {
-                    day: '2-digit', month: '2-digit', year: 'numeric',
-                    hour: '2-digit', minute: '2-digit'
-                  })
-                : ''}
-            </p>
-          </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-900 text-xl leading-none">&times;</button>
-        </div>
-
+      <section role="dialog" aria-modal="true" aria-label={`Correção de ${alunoNome}`} className="relative w-full max-w-xl bg-white border-l border-[#dce0f0] h-full overflow-y-auto">
+        <header className="p-5 border-b border-[#dce0f0] flex items-center justify-between sticky top-0 bg-white z-10">
+          <div><h3 className="font-semibold text-[#101942]">{alunoNome}</h3>{entrega.submittedAt?.toDate && <p className="text-xs text-[#6070a0]">{entrega.submittedAt.toDate().toLocaleString('pt-BR')}</p>}</div>
+          <button type="button" aria-label="Fechar correção" onClick={onClose} className="text-xl text-[#6070a0]">×</button>
+        </header>
         <div className="p-5 space-y-5">
-          {/* Nota */}
-          <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
-            <div className="flex items-baseline justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-900 uppercase tracking-wider">Nota</span>
-              <span className="text-xs text-slate-400">{notaMaxima.toFixed(1).replace('.', ',')} máx</span>
-            </div>
-
-            {editando ? (
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={novaNota}
-                  onChange={(e) => setNovaNota(e.target.value)}
-                  placeholder="0,0"
-                  className="flex-1 bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50"
-                  autoFocus
-                  onKeyDown={(e) => e.key === 'Enter' && handleSaveNota()}
-                />
-                <button onClick={handleSaveNota}
-                  className="px-3 py-2 bg-violet-500 hover:bg-violet-400 rounded-lg text-white text-xs font-semibold transition-all">
-                  OK
-                </button>
-                <button onClick={() => { setEditando(false); setNovaNota(''); }}
-                  className="px-3 py-2 bg-slate-50 hover:bg-slate-200 rounded-lg text-xs text-slate-400 transition-all">
-                  Cancelar
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-bold font-mono text-violet-500 tabular-nums">
-                  {notaAtual != null ? fmt(notaAtual) : '—'}
-                </span>
-                <button
-                  onClick={() => { setNovaNota(notaAtual != null ? notaAtual.toString().replace('.', ',') : ''); setEditando(true); }}
-                  className="text-xs text-violet-400 hover:text-violet-500 font-medium ml-2"
-                >
-                  {notaAtual != null ? 'Alterar' : 'Atribuir'}
-                </button>
-              </div>
-            )}
-
-            {entrega.notaIA != null && (
-              <p className="text-[10px] text-slate-400 mt-2">
-                Nota IA: {entrega.notaIA.toFixed(1).replace('.', ',')}
-                {entrega.notaRevisada != null && ` → Revisada: ${entrega.notaRevisada.toFixed(2).replace('.', ',')}`}
-              </p>
-            )}
-            {entrega.revisadaPorId && (
-              <p className="text-[10px] text-amber-500 mt-1">Nota revisada manualmente pelo professor</p>
-            )}
-            {entrega.modeloIA && (
-              <p className="text-[10px] text-slate-400 mt-1">Modelo: {entrega.modeloIA}</p>
-            )}
+          <div className="bg-[#f7f8fc] rounded-xl p-4 border border-[#dce0f0]">
+            <p className="text-xs font-semibold text-[#101942]">Nota da atividade</p>
+            <p className="text-2xl font-bold font-mono text-[#101942]">{fmt(notaAtual)} <span className="text-sm">/ {fmt(atividade?.notaMaxima ?? 10)}</span></p>
+            {entrega.notaIA != null && <p className="text-xs text-[#6070a0]">Nota IA anterior: {fmt(entrega.notaIA)}</p>}
+            {entrega.tipoCorrecao === 'manual' || entrega.status === 'revisado' ? <p className="text-xs text-[#6070a0]">Correção manual do professor</p> : entrega.modeloIA && <p className="text-xs text-[#6070a0]">Modelo: {entrega.modeloIA}</p>}
           </div>
-
-          {/* Ação de correção */}
-          {(entrega.status === 'entregue' || entrega.status === 'erro_correcao') && (
-            <button onClick={onCorrigir}
-              className="w-full py-2.5 bg-violet-500 hover:bg-violet-400 rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary">
-              {entrega.status === 'erro_correcao' ? 'Tentar Correção Novamente' : 'Corrigir com IA'}
-            </button>
-          )}
-
-          {/* Resultados por questão (novo formato) */}
-          {questoes && resultados ? (
-            <div>
-              <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">Questões</h4>
-              <div className="space-y-3">
-                {questoes.map((q, i) => {
-                  const res = resultados[q.id];
-                  const resp = entrega.respostas?.[q.id]?.resposta;
-                  return (
-                    <div key={q.id} className="bg-slate-50 border border-slate-200 rounded-xl p-3">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`w-5 h-5 rounded-full text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 ${q.tipo === 'objetiva' ? 'bg-blue-500' : 'bg-violet-500'}`}>{i + 1}</span>
-                        <span className="text-xs text-slate-900 flex-1 truncate">{q.enunciado?.slice(0, 70)}{q.enunciado?.length > 70 ? '…' : ''}</span>
-                        {res && (
-                          <span className={`text-xs font-mono font-bold tabular-nums flex-shrink-0 ${res.notaObtida >= res.notaMaxima ? 'text-green-600' : res.notaObtida > 0 ? 'text-blue-500' : 'text-red-500'}`}>
-                            {res.notaObtida.toFixed(1).replace('.', ',')} / {res.notaMaxima.toFixed(1).replace('.', ',')}
-                          </span>
-                        )}
-                      </div>
-
-                      {resp && (
-                        <div className="bg-white rounded-lg p-2 border border-slate-200 mb-2">
-                          {q.tipo === 'objetiva' ? (
-                            <p className="text-xs text-slate-900">
-                              Marcou: <span className="font-bold">{resp}</span>
-                              {q.alternativas?.find(a => a.id === resp)?.texto && (
-                                <span className="text-slate-400 ml-1">— {q.alternativas.find(a => a.id === resp).texto}</span>
-                              )}
-                            </p>
-                          ) : (
-                            <p className="text-xs text-slate-500 whitespace-pre-wrap leading-relaxed">{resp}</p>
-                          )}
-                        </div>
-                      )}
-
-                      {res && (
-                        <>
-                          {q.tipo === 'objetiva' && (
-                            <p className={`text-xs ${res.correto ? 'text-green-600' : 'text-red-500'}`}>
-                              {res.correto ? '✓ Correta' : `✗ Incorreta — gabarito: ${res.feedback}`}
-                            </p>
-                          )}
-                          {q.tipo === 'discursiva' && res.feedback && (
-                            <p className="text-xs text-slate-500 leading-relaxed">{res.feedback}</p>
-                          )}
-                        </>
-                      )}
-
-                      {!res && <p className="text-xs text-slate-400 italic">Ainda não corrigida</p>}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ) : (
-            <>
-              <div>
-                <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">Resposta</h4>
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
-                  <p className="text-sm text-slate-500 leading-relaxed whitespace-pre-wrap">
-                    {entrega.respostaTexto || '(sem resposta textual)'}
-                  </p>
-                </div>
-              </div>
-
-              {entrega.feedback && (
-                <div>
-                  <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">Feedback da IA</h4>
-                  <div className="bg-violet-50 border border-violet-100 rounded-xl p-4">
-                    <p className="text-sm text-slate-500 leading-relaxed whitespace-pre-wrap">{entrega.feedback}</p>
-                  </div>
-                </div>
-              )}
-
-              {entrega.criterios?.length > 0 && (
-                <div>
-                  <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">Critérios</h4>
-                  <div className="bg-slate-50 border border-slate-200 rounded-xl divide-y divide-slate-200">
-                    {entrega.criterios.map((c, i) => (
-                      <div key={i} className="flex items-center justify-between px-4 py-3">
-                        <span className="text-sm text-slate-500">{c.nome}</span>
-                        <span className="text-xs font-mono text-slate-900 tabular-nums">{c.pontos_obtidos}/{c.pontos_maximos}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button type="button" disabled={corrigindo || manual} onClick={corrigirIA} className="btn-brand-primary px-3 py-2.5 text-sm">{corrigindo ? 'Corrigindo…' : 'Corrigir com IA'}</button>
+            <button type="button" disabled={corrigindo} onClick={() => setManual(true)} className="btn-brand-navy px-3 py-2.5 text-sm">Corrigir manualmente</button>
+          </div>
+          {erro && <p role="alert" className="text-sm text-red-700">{erro}</p>}
+          {manual && <CorrecaoManualForm atividade={atividade} entrega={entrega} onCancel={() => setManual(false)} onSave={async dados => {
+            await onManual(dados);
+            setManual(false);
+          }} />}
+          {questoes.length ? <div className="space-y-3">{questoes.map((q, i) => {
+            const res = entrega.resultados?.[q.id];
+            return <article key={q.id} className="rounded-xl border border-[#dce0f0] p-4 space-y-2">
+              <h4 className="text-sm font-bold text-[#101942]">Questão {i + 1}</h4>
+              <p className="text-sm text-[#101942] whitespace-pre-wrap">{q.enunciado}</p>
+              <p className="text-xs text-[#6070a0] whitespace-pre-wrap">Resposta: {entrega.respostas?.[q.id]?.resposta || '(sem resposta)'}</p>
+              {q.alternativas?.find(a => a.id === entrega.respostas?.[q.id]?.resposta)?.texto && <p className="text-xs text-[#6070a0]">Alternativa marcada: {q.alternativas.find(a => a.id === entrega.respostas?.[q.id]?.resposta).texto}</p>}
+              {res ? <><p className="font-mono text-sm text-[#101942]">{fmt(res.notaObtida)} / {fmt(res.notaMaxima)}</p><p className="text-sm text-[#6070a0] whitespace-pre-wrap">{res.feedback}</p></> : <p className="text-xs text-[#6070a0]">Ainda não corrigida</p>}
+            </article>;
+          })}</div> : <div className="rounded-xl border border-[#dce0f0] p-4"><h4 className="font-semibold text-[#101942]">Resposta</h4><p className="text-sm text-[#6070a0] whitespace-pre-wrap">{entrega.respostaTexto || '(sem resposta textual)'}</p></div>}
+          {!questoes.length && entrega.criterios?.length > 0 && <div className="rounded-xl border border-[#dce0f0] p-4"><h4 className="font-semibold text-[#101942]">Critérios</h4>{entrega.criterios.map((criterio, index) => <p key={index} className="text-sm text-[#6070a0]">{criterio.nome}: {criterio.pontos_obtidos} / {criterio.pontos_maximos}</p>)}</div>}
+          {entrega.feedback && <div className="rounded-xl border border-[#dce0f0] p-4"><h4 className="font-semibold text-[#101942]">Feedback da atividade</h4><p className="text-sm text-[#6070a0] whitespace-pre-wrap">{entrega.feedback}</p></div>}
         </div>
-      </div>
+      </section>
     </div>
   );
 };

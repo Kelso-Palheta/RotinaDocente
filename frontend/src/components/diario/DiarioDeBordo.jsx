@@ -1,4 +1,5 @@
 "use client";
+import { dataLocalISO } from '@/utils/diario/datas';
 
 import React, { useState } from 'react';
 import {
@@ -23,9 +24,11 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
   const [novoTipo, setNovoTipo] = useState('pedagogica');
   const [novoTitulo, setNovoTitulo] = useState('');
   const [novaDescricao, setNovaDescricao] = useState('');
-  const [novaData, setNovaData] = useState(() => new Date().toISOString().slice(0, 10));
+  const [novaData, setNovaData] = useState(() => dataLocalISO());
   const [alunosSelecionados, setAlunosSelecionados] = useState([]);
-  const [visivelFamilia, setVisivelFamilia] = useState(true);
+  const [visivelFamilia, setVisivelFamilia] = useState(false);
+  const [salvando, setSalvando] = useState(false);
+  const [rascunhoEditado, setRascunhoEditado] = useState(false);
   const [erroMsg, setErroMsg] = useState('');
 
   const ocorrenciasFiltradas = filtrarOcorrencias(ocorrencias, {
@@ -36,14 +39,18 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
   });
 
   const handleToggleAluno = (alunoId) => {
+    if (salvando) return;
+    setRascunhoEditado(true);
     setAlunosSelecionados((prev) =>
       prev.includes(alunoId) ? prev.filter((id) => id !== alunoId) : [...prev, alunoId]
     );
   };
 
-  const handleSalvarNova = (e) => {
+  const handleSalvarNova = async (e) => {
     e.preventDefault();
+    if (salvando) return;
     setErroMsg('');
+    setSalvando(true);
 
     try {
       const atualizadas = adicionarOcorrencia(ocorrencias, {
@@ -55,27 +62,43 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
         visivelFamilia,
       });
 
-      if (onSalvarOcorrencias) {
-        onSalvarOcorrencias(turma.id, atualizadas);
-      }
+      if (!onSalvarOcorrencias) throw new Error('Salvamento indisponível.');
+      await onSalvarOcorrencias(turma.id, atualizadas);
 
       // Resetar form
       setNovoTitulo('');
       setNovaDescricao('');
       setAlunosSelecionados([]);
       setMostrarForm(false);
+      setRascunhoEditado(false);
+      setNovoTipo('pedagogica');
+      setVisivelFamilia(false);
+      setNovaData(dataLocalISO());
     } catch (err) {
       setErroMsg(err.message || 'Erro ao registrar ocorrência.');
+    } finally { setSalvando(false); }
+  };
+
+  const handleRemover = async (ocorrenciaId) => {
+    if (salvando) return;
+    if (confirm('Deseja realmente excluir este registro do Diário de Bordo?')) {
+      try {
+        setSalvando(true);
+        const atualizadas = removerOcorrencia(ocorrencias, ocorrenciaId);
+        if (!onSalvarOcorrencias) throw new Error('Salvamento indisponível.');
+        await onSalvarOcorrencias(turma.id, atualizadas);
+      } catch (err) { setErroMsg(err.message || 'Erro ao excluir anotação.'); }
+      finally { setSalvando(false); }
     }
   };
 
-  const handleRemover = (ocorrenciaId) => {
-    if (confirm('Deseja realmente excluir este registro do Diário de Bordo?')) {
-      const atualizadas = removerOcorrencia(ocorrencias, ocorrenciaId);
-      if (onSalvarOcorrencias) {
-        onSalvarOcorrencias(turma.id, atualizadas);
-      }
-    }
+  const fecharFormulario = () => {
+    if (salvando) return;
+    if (rascunhoEditado && !confirm('Há uma anotação não salva. Deseja descartar o rascunho?')) return;
+    setMostrarForm(false);setRascunhoEditado(false);
+    setNovoTitulo('');setNovaDescricao('');setAlunosSelecionados([]);
+    setNovoTipo('pedagogica');setVisivelFamilia(false);
+    setNovaData(dataLocalISO());setErroMsg('');
   };
 
   const getNomeAluno = (id) => {
@@ -84,7 +107,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto max-w-6xl mx-auto w-full">
+    <div data-diario-rascunho={rascunhoEditado ? 'true' : 'false'} data-diario-salvando={salvando ? 'true' : 'false'} className="flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto max-w-6xl mx-auto w-full">
       {/* Topo / Barra de Ações */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#dce0f0]">
         <div>
@@ -100,8 +123,10 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
         </div>
 
         <button
+          disabled={salvando}
           onClick={() => {
-            setMostrarForm(!mostrarForm);
+            if (mostrarForm) { fecharFormulario(); return; }
+            setMostrarForm(true);
             setErroMsg('');
           }}
           className="px-4 py-2 btn-brand-primary rounded-xl text-white text-xs sm:text-sm font-bold shadow-xs hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 self-start md:self-auto"
@@ -110,9 +135,11 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
         </button>
       </div>
 
+      <p className="text-xs text-slate-600 mt-3">Autorizar na Ficha permite incluir o registro no PDF familiar. Isso não envia mensagens nem publica no Portal. Confira a prévia no perfil do aluno antes de exportar.</p>
+      {erroMsg && !mostrarForm && <p role="alert" className="text-red-600 text-xs">{erroMsg}</p>}
       {/* Formulário de Cadastro */}
       {mostrarForm && (
-        <form onSubmit={handleSalvarNova} className="bg-white border border-[#dce0f0] rounded-2xl p-5 my-5 shadow-sm space-y-4">
+        <form onChange={() => setRascunhoEditado(true)} onSubmit={handleSalvarNova} className="bg-white border border-[#dce0f0] rounded-2xl p-5 my-5 shadow-sm space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-sm font-extrabold text-[#101942]">Nova Ocorrência ou Anotação Pedagógica</h3>
             <span className="text-[11px] text-slate-400">RN-58 • Histórico Formativo</span>
@@ -131,6 +158,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
               </label>
               <input
                 type="date"
+                disabled={salvando}
                 value={novaData}
                 onChange={(e) => setNovaData(e.target.value)}
                 className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] font-semibold outline-none focus:bg-white focus:ring-1 focus:ring-[#f60c49]"
@@ -143,6 +171,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                 Tipo de Registro
               </label>
               <select
+                disabled={salvando}
                 value={novoTipo}
                 onChange={(e) => setNovoTipo(e.target.value)}
                 className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] font-semibold outline-none focus:bg-white focus:ring-1 focus:ring-[#f60c49]"
@@ -161,6 +190,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
               </label>
               <input
                 type="text"
+                disabled={salvando}
                 placeholder="Ex: Evolução na produção textual dissertativa"
                 value={novoTitulo}
                 onChange={(e) => setNovoTitulo(e.target.value)}
@@ -176,6 +206,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
             </label>
             <textarea
               rows={3}
+              disabled={salvando}
               placeholder="Descreva o ocorrido, intervenção realizada ou combinados com o aluno/turma..."
               value={novaDescricao}
               onChange={(e) => setNovaDescricao(e.target.value)}
@@ -196,6 +227,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                   <button
                     key={al.id}
                     type="button"
+                    disabled={salvando}
                     onClick={() => handleToggleAluno(al.id)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                       selecionado
@@ -216,26 +248,29 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
             <label className="flex items-center gap-2 cursor-pointer text-xs text-[#101942] font-semibold select-none">
               <input
                 type="checkbox"
+                disabled={salvando}
                 checked={visivelFamilia}
                 onChange={(e) => setVisivelFamilia(e.target.checked)}
                 className="rounded border-slate-300 text-[#f60c49] focus:ring-[#f60c49]"
               />
-              <span>Compartilhar na Ficha 360º / Reunião com Responsáveis</span>
+              <span>Autorizar inclusão na Ficha 360º familiar</span>
             </label>
 
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setMostrarForm(false)}
+                disabled={salvando}
+                onClick={fecharFormulario}
                 className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 text-xs font-bold transition-all"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
+                disabled={salvando}
                 className="px-5 py-2 btn-brand-primary rounded-xl text-white text-xs font-bold transition-all shadow-xs"
               >
-                Salvar Anotação
+                {salvando ? 'Salvando...' : 'Salvar Anotação'}
               </button>
             </div>
           </div>
@@ -334,8 +369,9 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                   </div>
 
                   <button
+                    disabled={salvando}
                     onClick={() => handleRemover(oc.id)}
-                    className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 text-xs font-medium transition-all self-end sm:self-auto"
+                    className="text-slate-400 hover:text-red-500 text-xs font-medium transition-all self-end sm:self-auto"
                     title="Excluir ocorrência"
                   >
                     🗑 Excluir

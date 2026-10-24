@@ -1,0 +1,20 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import { expect, it, vi } from 'vitest';
+vi.mock('@/components/diario/TabelaNotas',()=>({TabelaNotas:({onImportarSimulado})=><div>{onImportarSimulado?'Colagem integrada':'Sem colagem'}</div>}));
+vi.mock('@/components/diario/TabelaFrequencia',()=>({TabelaFrequencia:()=>null}));
+vi.mock('@/components/diario/DiarioDeBordo',()=>({DiarioDeBordo:()=>null}));
+vi.mock('@/components/diario/ImportModal',()=>({ImportModal:()=>null}));
+vi.mock('@/components/diario/ImportarSimuladoModal',()=>({ImportarSimuladoModal:()=>null}));
+import { TurmaView } from '@/components/diario/TurmaView';
+it('áreas e faixas claras, colagem integrada e publicação acionável',()=>{
+ const publicar=vi.fn();const turma={id:'t',nome:'301',alunos:[{id:'a',nome:'Ana'}],bimestres:{1:{atividades:[],notas:{a:{simulado:5}}}}};
+ render(<TurmaView turma={turma} bimestre={1} onImportarSimulado={()=>{}} onPublicar={publicar}/>);
+ expect(screen.getByRole('button',{name:'Notas'})).toBeInTheDocument();
+ expect(screen.getByRole('button',{name:'Ocorrências'})).toBeInTheDocument();
+ expect(screen.getByRole('button',{name:'Resumo anual'})).toBeInTheDocument();
+ expect(screen.getByText('Colagem integrada')).toBeInTheDocument();
+ expect(screen.getByText('Aprovados')).toBeInTheDocument();
+ expect(screen.getByText('Excelentes')).toBeInTheDocument();
+ fireEvent.click(screen.getByRole('button',{name:'Conferir publicação'}));expect(publicar).toHaveBeenCalled();
+ expect(screen.getByRole('button',{name:'Caderneta anual PDF'})).toBeInTheDocument();
+});

@@ -75,6 +75,8 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 
 ### Módulo: Integração Meu Horário ↔ Calendário (`tests/unit/grade_calendario_sync.test.js`)
 - [x] **UT-25 (RN-51):** Validar conversão pura da grade `schedule` (`${dayId}_${slotId}`) para slots semanais do Calendário Pedagógico, ignorando intervalos (`isBreak: true`).
+- [x] **Evolução RN-51:** Carregar horários reais por turma; distinguir nomes semelhantes (ex.: 10/101); seleção manual para nomes diferentes; manter múltiplos blocos no mesmo dia e ignorar intervalos; não importar dados demonstrativos como cadastro real.
+- [x] **Evolução RN-51 — integração/interface:** Exibir prévia antes de aplicar; preservar aulas realizadas e conteúdos; detectar conflitos; repetir importação sem duplicar; tratar ausência de grade e erro de leitura sem alterar o calendário.
 
 ### Módulo: Evolução Longitudinal de Redação ENEM (`tests/unit/redacao_evolucao.test.js`)
 - [x] **UT-26 (RN-52):** Validar cálculo de médias por competência (C1..C5), identificação da competência alvo (menor pontuação média) e detecção de tendência longitudinal.
@@ -152,3 +154,42 @@ Mapeamento formal dos testes obrigatórios por regra de negócio.
 - [x] Domínio: atividade compartilhada em duas turmas; alunos com IDs iguais entre turmas; turma/bimestre/atividade/aluno filtrados; revisada zero; somente corrigidas; bimestre divergente e aluno inexistente; preservação imutável de notas fora do escopo; modo global.
 - [x] Persistência: escopo validado antes de consultar; transação revalida documento atual e grava somente quando existem notas aplicáveis; nenhuma gravação na coleção legada users.
 - [x] Interface/hooks: filtros de turma e bimestre (string/número), chamadas restritas, modo global explícito, painel e correção em lote somente com entregas do recorte; correção individual não sincroniza outras atividades.
+
+### Correção Manual e Devolutivas (RN-65)
+- [x] Domínio: nota zero/vírgula, campos ausentes/inválidos/fora da escala, feedback obrigatório, soma das questões, auditoria e substituição de correção anterior.
+- [x] Hook/UI: duas ações explícitas; manual salva nota/feedback sem IA; escopo preservado; editor mantém dados em erro; manual zero não sofre penalização; aluno lê feedback geral/objetivo/discursivo.
+- [x] Relatórios: histórico exclui outro aluno/turma/professor; boletim e Ficha 360º recebem devolutivas gerais e por questão; PDF pagina feedback longo sem truncar texto nem sobrepor rodapé.
+
+### Calendário seguro e organização (RN-66 / RN-51)
+- [x] Domínio: vários horários/dia, duração por capacidade, concluídos sem repetição, parciais preservadas, pendências, múltiplos feriados, reabertura, progresso por conteúdo e prévia de grade sem perda de vínculos.
+- [x] Persistência: turma/ano e legado compatível; gravação atômica/revalidação concorrente; falha sem sucesso; preservação de histórico e outras turmas/anos.
+- [x] Interface: áreas, filtros, lista móvel, pesquisa/estados, edição de vinculados, prévia e erro mantêm contexto; justificativa, restante, reposição e intervalo de recesso.
+- [x] Horários: origem real, correspondência exata/manual, múltiplos blocos/dia, intervalos ignorados, prévia e atualização sem duplicação.
+- [x] Importação/PDF: arquivos e texto, revisão antes de salvar, mesclar/substituir, erros; exportação sem truncar conteúdo e com paginação.
+
+### Aprovação semestral e anual (RN-67)
+- [x] Limites 24,99/25 e 49,99/50; semestres independentes; ausência versus zero; etapas incompletas; pesos e recuperação preservados.
+- [x] Mapa e Portal distinguem semestre aprovado e ano em andamento; déficit do primeiro semestre identificado corretamente.
+- [x] Boletim, Ficha 360º e exportação usam as mesmas situações, sem recuperação anual prematura; PDFs legíveis.
+- [x] Publicação envia recuperação individual, preserva zero e exclui dados dos outros alunos; Portal aplica a recuperação publicada. Suíte final: 543 testes em 92 arquivos; build e lint dos arquivos alterados aprovados.
+
+### Evolução segura do Diário (RN-68)
+- [x] Migração preserva critérios; escala zero/negativa, não finitos, pesos/limites inválidos e nota parcial/fora de faixa são recusados; cálculo finito e cores/legendas consistentes; teclado e colagem com prévia.
+- [x] Carregamento sem limpeza destrutiva; revisões concorrentes, fila/repetição, conta distinta, lista vazia, saída, pendência local, falha sem sucesso e operações com confirmação real de persistência.
+- [x] Frequência inicial/existente conserva quantidade e alunos; revisão, calendário/horário, feriado e exceção, falha com rascunho; ocorrências e linha do tempo respeitam privacidade; PDFs paginados.
+- [x] Backup profundo/legado/versão/duplicação/notas/configuração, mesclar/substituir, cópia anterior e persistência aguardada antes de sucesso.
+- [x] Publicação por bimestre preserva demais períodos, exige prévia, conta aptos/pendentes, mantém resumo e repete somente falhas; conferência e visão geral indicam alcance correto.
+- [x] Ano/arquivo/cópia de alunos não misturam notas; histórico/desfazer preserva alterações posteriores e registra autoria; filtros e ações textuais navegáveis.
+
+Validação RN-68: **646 testes / 117 arquivos aprovados**, build de produção aprovado e lint dos arquivos alterados sem erros (dois avisos preexistentes de imagens). Testes anteriores preservados.
+
+
+### Gerador seguro (RN-69)
+- Acesso: token não emitido, revogado, legado sem sessão, aluno exclusivo e turma divergentes; token aleatório válido; resposta pública sem turma/rubrica/material privado; entrega válida, reenvio concorrente e preservação de correção.
+- Editor: gravação pendente/erro, ID estável, prazo local e inválido, gabarito vazio, escala inválida, contexto inicial, geração com escala e extração pendente.
+- Correção: imagens base64 encaminhadas; similaridade sem gravação de penalidade; troca de atividade sem dados antigos; erro visível; página com sincronização/publicação explícitas e autoria manual.
+- Ciclo: criação com falha/retomada, reconciliação de acessos, edição estrutural bloqueada com entregas, arquivamento preserva registros, persistência compartilhada com Diário e callbacks aguardados.
+- Suíte anterior integral preservada; executar todos os testes, build e lint antes da conclusão.
+
+
+Validação RN-69 (24/10/2026): **690 testes / 131 arquivos aprovados** na suíte completa, mais **5 testes reais no emulador Firestore** (`tests/regression/atividades_firestore_emulador.mjs`). Build aprovado; lint sem erros e com dois avisos preexistentes de imagens. Red/green de acesso entre professores documentado em `docs/analises/evidencias-atividades/`. Testes anteriores preservados.

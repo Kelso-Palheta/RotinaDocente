@@ -1,0 +1,26 @@
+import {render,fireEvent,screen,cleanup} from '@testing-library/react';
+import {it,expect,vi,afterEach} from 'vitest';
+vi.mock('@/components/ui/RichTextEditor',()=>({RichTextEditor:()=>null}));
+import AtividadeForm from '@/components/atividades/AtividadeForm';
+afterEach(()=>cleanup());
+const base={id:'at',titulo:'Atividade sintética',bimestre:3,turmaIds:['t'],dataEntrega:new Date('2030-11-01T15:00:00.000Z'),questoes:[{id:'q',tipo:'discursiva',enunciado:'Explique o tema.',notaMaxima:2,rubrica:'Critério sintético',alternativas:[],imagens:[]}],materiais:[],textosBase:[]};
+it('REPRODUÇÃO: editor fecha antes da Promise de gravação terminar',()=>{
+ const salvar=vi.fn(()=>new Promise(()=>{})),fechar=vi.fn();
+ render(<AtividadeForm turmas={[{id:'t',nome:'301',alunos:[]}]} initialData={base} onUpdate={salvar} onClose={fechar}/>);
+ fireEvent.click(screen.getByRole('button',{name:'Salvar Alterações'}));
+ expect(salvar).toHaveBeenCalledTimes(1);expect(fechar).toHaveBeenCalledTimes(1);
+});
+it('REPRODUÇÃO: editar sem mudar prazo desloca instante em três horas no fuso de Belém',()=>{
+ const tz=process.env.TZ;process.env.TZ='America/Belem';
+ try {
+  const salvar=vi.fn();render(<AtividadeForm turmas={[{id:'t',nome:'301',alunos:[]}]} initialData={base} onUpdate={salvar} onClose={()=>{}}/>);
+  fireEvent.click(screen.getByRole('button',{name:'Salvar Alterações'}));
+  expect(salvar.mock.calls[0][1].dataEntrega.getTime()-base.dataEntrega.getTime()).toBe(3*60*60*1000);
+ } finally {if(tz===undefined)delete process.env.TZ;else process.env.TZ=tz;}
+});
+it('REPRODUÇÃO: alternativa selecionada como gabarito pode continuar vazia',()=>{
+ const salvar=vi.fn();const dados={...base,questoes:[{...base.questoes[0],tipo:'objetiva',alternativas:[{id:'A',texto:''},{id:'B',texto:'Um'},{id:'C',texto:'Dois'}],gabarito:'A'}]};
+ render(<AtividadeForm turmas={[{id:'t',nome:'301',alunos:[]}]} initialData={dados} onUpdate={salvar} onClose={()=>{}}/>);
+ fireEvent.click(screen.getByRole('button',{name:'Salvar Alterações'}));
+ expect(salvar).toHaveBeenCalledTimes(1);expect(salvar.mock.calls[0][1].questoes[0].alternativas[0].texto).toBe('');
+});

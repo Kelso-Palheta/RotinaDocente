@@ -8,29 +8,27 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
     return [];
   });
 
-  const userEdited = useRef(false);
+  const turmasRef = useRef(initialTurmas || []);
+  const initialFingerprint = useRef(JSON.stringify(initialTurmas || []));
   const persistRef = useRef(persistTurmas);
+  useEffect(() => { persistRef.current = persistTurmas; }, [persistTurmas]);
 
-  // Mantém a ref sempre apontando para o callback mais recente
-  useEffect(() => {
-    persistRef.current = persistTurmas;
-  }, [persistTurmas]);
-
-  // setTurmas é estável — usa a ref para sempre chamar o persist atual
-  const setTurmas = useCallback((newTurmasOrFn) => {
-    userEdited.current = true;
-    setTurmasState((prev) => {
-      const next = typeof newTurmasOrFn === 'function' ? newTurmasOrFn(prev) : newTurmasOrFn;
-      if (persistRef.current) {
-        persistRef.current(next);
-      }
-      return next;
-    });
+  // Efeitos de gravação ficam fora do updater React (executado duas vezes no Strict Mode).
+  const setTurmas = useCallback((newTurmasOrFn, meta = {}) => {
+    const next = typeof newTurmasOrFn === 'function' ? newTurmasOrFn(turmasRef.current) : newTurmasOrFn;
+    turmasRef.current = next;
+    setTurmasState(next);
+    const promise = Promise.resolve(persistRef.current?.(next, meta));
+    promise.catch(() => {});
+    return promise;
   }, []);
 
   useEffect(() => {
-    if (initialTurmas && !userEdited.current) {
-      setTurmasState(initialTurmas);
+    const fingerprint = JSON.stringify(initialTurmas || []);
+    if (fingerprint !== initialFingerprint.current) {
+      initialFingerprint.current = fingerprint;
+      turmasRef.current = initialTurmas || [];
+      setTurmasState(initialTurmas || []);
     }
   }, [initialTurmas]);
 
@@ -46,11 +44,11 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const removeTurma = useCallback((turmaId) => {
-    setTurmas((prev) => prev.filter((t) => t.id !== turmaId));
+    return setTurmas((prev) => prev.filter((t) => t.id !== turmaId));
   }, [setTurmas]);
 
   const addAlunos = useCallback((turmaId, nomesNovos) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const existentesNormalizados = new Set(t.alunos.map((a) => normalizeNome(a.nome)));
@@ -84,7 +82,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const removeAluno = useCallback((turmaId, alunoId) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const alunos = t.alunos.filter((a) => a.id !== alunoId);
@@ -101,7 +99,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
 
   const removeAlunos = useCallback((turmaId, alunoIds) => {
     const idsSet = new Set(alunoIds);
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const alunos = t.alunos.filter((a) => !idsSet.has(a.id));
@@ -119,7 +117,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const setRecuperacao = useCallback((turmaId, alunoId, tipo, valor) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const recObj = t.recuperacao || {};
@@ -158,7 +156,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const updateAluno = useCallback((turmaId, alunoId, updates) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         return { ...t, alunos: t.alunos.map((al) => al.id === alunoId ? atualizarAlunoDiario(al, updates) : al) };
@@ -167,7 +165,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const salvarFrequenciasTurma = useCallback((turmaId, frequencias) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         return {
@@ -182,7 +180,7 @@ export const useTurmas = (initialTurmas, persistTurmas) => {
   }, [setTurmas]);
 
   const salvarOcorrenciasTurma = useCallback((turmaId, ocorrencias) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         return {

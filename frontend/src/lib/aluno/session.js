@@ -1,6 +1,17 @@
 import crypto from 'crypto';
+import { readFileSync } from 'node:fs';
 
-const SESSION_SECRET = process.env.ALUNO_SESSION_SECRET || process.env.SESSION_SECRET || process.env.NEXTAUTH_SECRET || 'simuladoapp_edu_super_secure_secret_key_2026_auth';
+let segredoLocal;
+function segredoSessao() {
+  const configurado = process.env.ALUNO_SESSION_SECRET || process.env.SESSION_SECRET || process.env.NEXTAUTH_SECRET;
+  if (configurado) return configurado;
+  // Compatibilidade de deploy: credencial administrativa já configurada fornece segredo privado estável.
+  const conta = process.env.FIREBASE_SERVICE_ACCOUNT ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT) : process.env.GOOGLE_APPLICATION_CREDENTIALS ? JSON.parse(readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8')) : null;
+  if (conta?.private_key) return crypto.createHmac('sha256', conta.private_key).update('rotina-docente:aluno-session:v2').digest('hex');
+  if (process.env.NODE_ENV === 'production') throw new Error('Configure ALUNO_SESSION_SECRET ou a credencial administrativa do Firebase.');
+  segredoLocal ||= crypto.randomBytes(32).toString('hex');
+  return segredoLocal;
+}
 const COOKIE_NAME = 'aluno_session';
 const TOKEN_EXPIRY_SECONDS = 60 * 60 * 24 * 7; // 7 dias
 
@@ -16,7 +27,7 @@ export function signSessionToken(payload) {
   };
 
   const payloadB64 = Buffer.from(JSON.stringify(data)).toString('base64url');
-  const hmac = crypto.createHmac('sha256', SESSION_SECRET);
+  const hmac = crypto.createHmac('sha256', segredoSessao());
   hmac.update(payloadB64);
   const signatureB64 = hmac.digest('base64url');
 
@@ -36,11 +47,13 @@ export function verifySessionToken(token) {
   const [payloadB64, signatureB64] = parts;
 
   // Verifica assinatura
-  const hmac = crypto.createHmac('sha256', SESSION_SECRET);
+  const hmac = crypto.createHmac('sha256', segredoSessao());
   hmac.update(payloadB64);
   const expectedSig = hmac.digest('base64url');
 
-  if (signatureB64 !== expectedSig) {
+  const recebida = Buffer.from(signatureB64);
+  const esperada = Buffer.from(expectedSig);
+  if (recebida.length !== esperada.length || !crypto.timingSafeEqual(recebida, esperada)) {
     return null; // Assinatura inválida (tentativa de adulteração)
   }
 
@@ -49,7 +62,7 @@ export function verifySessionToken(token) {
     
     // Verifica expiração
     const now = Math.floor(Date.now() / 1000);
-    if (payload.exp && payload.exp < now) {
+    if (!Number.isFinite(payload.exp) || payload.exp <= now) {
       return null; // Token expirado
     }
 

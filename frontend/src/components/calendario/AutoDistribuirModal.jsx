@@ -1,178 +1,72 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Calendar, X, Play, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Sparkles, X } from 'lucide-react';
 import { format } from 'date-fns';
+import { planejarDistribuicao, conteudos } from '@/dominio/calendario/evolucao';
 
-export function AutoDistribuirModal({
-  isOpen,
-  onClose,
-  topicos = [],
-  aulas = [],
-  dataInicioPadrao,
-  onConfirmar,
-}) {
-  const primeiraAulaData = aulas.length > 0 ? aulas[0].dataAgendada : format(new Date(), 'yyyy-MM-dd');
-  const [tipoInicio, setTipoInicio] = useState(dataInicioPadrao || 'inicio_ano'); // 'inicio_ano' | 'hoje' | 'custom'
-  const [dataCustom, setDataCustom] = useState(primeiraAulaData);
-  const [modo, setModo] = useState('substituir'); // 'substituir' | 'apenas_vagas'
+export function AutoDistribuirModal(props) {
+  if (!props.isOpen) return null;
+  return <DistribuicaoEditor key={JSON.stringify([props.dataInicioPadrao, props.dataFim, props.aulas, props.topicos, props.feriados])} {...props} />;
+}
 
-  if (!isOpen) return null;
-
-  const hojeStr = format(new Date(), 'yyyy-MM-dd');
-
-  const getDataInicioEfetiva = () => {
-    if (tipoInicio === 'hoje') return hojeStr;
-    if (tipoInicio === 'inicio_ano') return primeiraAulaData;
-    return dataCustom;
+function DistribuicaoEditor({ onClose, topicos = [], aulas = [], dataInicioPadrao, dataFim, onConfirmar, feriados = [] }) {
+  const hoje = format(new Date(), 'yyyy-MM-dd');
+  const primeiraData = [...aulas].map(a => a.dataAgendada).sort()[0] || hoje;
+  const inicio = dataInicioPadrao === 'inicio_ano' ? primeiraData : /^\d{4}-\d{2}-\d{2}$/.test(dataInicioPadrao || '') ? dataInicioPadrao : hoje;
+  const [dataInicio, setDataInicio] = useState(inicio);
+  const [fim, setFim] = useState(dataFim || [...aulas].map(a => a.dataAgendada).sort().at(-1) || hoje);
+  const [modo, setModo] = useState('apenas_vagas');
+  const [preview, setPreview] = useState(null);
+  const [erro, setErro] = useState('');
+  const [ocupado, setOcupado] = useState(false);
+  const invalidar = () => { setPreview(null); setErro(''); };
+  const rotulos = a => conteudos(a).map(t => `${t.topicoTitulo || t.titulo || topicos.find(x => String(x.id || x.ordem) === String(t.topicoId || t.id || t.topicoOrdem))?.titulo || 'Conteúdo'} (${t.duracaoAlocadaAulas || 1} tempo(s))`).join('; ') || 'Sem conteúdo';
+  const revisar = () => {
+    try {
+      const dataValida = valor => /^\d{4}-\d{2}-\d{2}$/.test(valor) && !Number.isNaN(Date.parse(valor)) && new Date(`${valor}T12:00:00Z`).toISOString().slice(0, 10) === valor;
+      if (!dataValida(dataInicio) || !dataValida(fim) || dataInicio > fim) throw new Error('Informe um período válido para a distribuição.');
+      const opts = { dataInicio, dataFim: fim, modo, feriados };
+      setPreview({ ...planejarDistribuicao(aulas, topicos, opts), opts });
+      setErro('');
+    } catch (err) { setErro(err.message || 'Não foi possível revisar a distribuição.'); }
+  };
+  const confirmar = async () => {
+    if (!preview || ocupado) return;
+    setOcupado(true); setErro('');
+    try { await onConfirmar(preview.opts); onClose(); }
+    catch (err) { setErro(err.message || 'Não foi possível salvar a distribuição.'); }
+    finally { setOcupado(false); }
   };
 
-  const dataEfetiva = getDataInicioEfetiva();
-
-  // Calcula quantos slots elegíveis existem a partir da dataEfetiva
-  const slotsElegiveis = aulas.filter(
-    (a) => a.dataAgendada >= dataEfetiva && a.status !== 'NAO_REALIZADA' && a.status !== 'CONCLUIDA'
-  );
-
-  const totalTopicos = topicos.length;
-  const vagasDisponiveis = slotsElegiveis.length;
-
-  const handleConfirmar = () => {
-    onConfirmar({
-      dataInicio: dataEfetiva,
-      modo,
-    });
-    onClose();
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200 flex flex-col">
-        {/* Header */}
-        <div className="bg-[#101942] text-white p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[#f60c49]/20 rounded-full blur-2xl pointer-events-none" />
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-[#f60c49] flex items-center justify-center text-white shadow-lg">
-                <Sparkles size={20} />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white">Distribuição Automática</h3>
-                <p className="text-xs text-slate-300">Alocar tópicos de planejamento em 1 clique</p>
-              </div>
-            </div>
-            <button
-              onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
-            >
-              <X size={16} />
-            </button>
+  return <div role="dialog" aria-modal="true" aria-label="Distribuir conteúdos" className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white text-[#101942] shadow-xl">
+      <header className="flex items-center justify-between bg-[#101942] p-5 text-white"><h2 className="flex items-center gap-2 font-bold"><Sparkles size={20} /> Distribuir conteúdos</h2><button type="button" disabled={ocupado} aria-label="Fechar" onClick={onClose} className="rounded-lg p-2"><X size={18} /></button></header>
+      <div className="space-y-5 overflow-y-auto p-5">
+        <fieldset disabled={ocupado} className="space-y-4" onChange={invalidar}>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="text-sm font-semibold">Distribuir a partir de<input type="date" aria-label="Distribuir a partir de" value={dataInicio} onChange={e => setDataInicio(e.target.value)} className="mt-1 block w-full rounded-lg border p-2" /></label>
+            <label className="text-sm font-semibold">Até<input type="date" aria-label="Distribuir até" value={fim} onChange={e => setFim(e.target.value)} className="mt-1 block w-full rounded-lg border p-2" /></label>
           </div>
-        </div>
-
-        {/* Corpo do Modal */}
-        <div className="p-6 space-y-6">
-          {/* Seletor de Ponto de Partida */}
-          <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-600">
-              A partir de qual data começar a distribuir?
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => setTipoInicio('hoje')}
-                className={`p-3 rounded-2xl border text-left transition-all ${
-                  tipoInicio === 'hoje'
-                    ? 'border-[#2563eb] bg-blue-50/50 text-[#101942] shadow-xs'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <div className="text-xs font-extrabold">A partir de Hoje</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">
-                  {format(new Date(), 'dd/MM/yyyy')}
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setTipoInicio('inicio_ano')}
-                className={`p-3 rounded-2xl border text-left transition-all ${
-                  tipoInicio === 'inicio_ano'
-                    ? 'border-[#2563eb] bg-blue-50/50 text-[#101942] shadow-xs'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <div className="text-xs font-extrabold">Início do Ano</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">
-                  1ª aula da turma
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setTipoInicio('custom')}
-                className={`p-3 rounded-2xl border text-left transition-all ${
-                  tipoInicio === 'custom'
-                    ? 'border-[#2563eb] bg-blue-50/50 text-[#101942] shadow-xs'
-                    : 'border-slate-200 hover:bg-slate-50 text-slate-600'
-                }`}
-              >
-                <div className="text-xs font-extrabold">Personalizada</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">
-                  Escolher data
-                </div>
-              </button>
-            </div>
-
-            {tipoInicio === 'custom' && (
-              <div className="pt-2">
-                <input
-                  type="date"
-                  value={dataCustom}
-                  onChange={(e) => setDataCustom(e.target.value)}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-[#101942] outline-none focus:border-blue-500"
-                />
-              </div>
-            )}
-          </div>
-
-          {/* Resumo da Distribuição */}
-          <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-2 text-xs">
-            <div className="flex items-center justify-between text-slate-600 font-medium">
-              <span>Total de tópicos no plano:</span>
-              <span className="font-extrabold text-[#101942]">{totalTopicos}</span>
-            </div>
-            <div className="flex items-center justify-between text-slate-600 font-medium">
-              <span>Aulas disponíveis a partir de {format(new Date(dataEfetiva + 'T12:00:00'), 'dd/MM/yyyy')}:</span>
-              <span className="font-extrabold text-blue-600">{vagasDisponiveis}</span>
-            </div>
-            <div className="pt-2 border-t border-slate-200 flex items-center gap-2 text-slate-500 text-[11px]">
-              <CheckCircle2 size={14} className="text-emerald-500 flex-shrink-0" />
-              <span>Aulas passadas e concluídas são rigorosamente preservadas.</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer com Ações */}
-        <div className="p-5 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200 transition-colors"
-          >
-            Cancelar
-          </button>
-          <button
-            type="button"
-            onClick={handleConfirmar}
-            disabled={totalTopicos === 0 || vagasDisponiveis === 0}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#f60c49] hover:bg-[#d40840] text-white text-xs font-bold shadow-md transition-all disabled:opacity-50"
-          >
-            <Play size={14} />
-            Distribuir Agora ({Math.min(totalTopicos, vagasDisponiveis)} aulas)
-          </button>
-        </div>
+          <div className="flex flex-wrap gap-2"><button type="button" onClick={() => { setDataInicio(hoje); invalidar(); }} className="rounded-lg border px-3 py-2 text-xs">A partir de hoje</button><button type="button" onClick={() => { setDataInicio(primeiraData); invalidar(); }} className="rounded-lg border px-3 py-2 text-xs">Primeira aula da turma</button></div>
+          <fieldset className="space-y-2"><legend className="mb-2 text-sm font-bold">Como distribuir?</legend>
+            <label className="flex items-start gap-2 rounded-lg border p-3"><input type="radio" name="modo-distribuir" value="apenas_vagas" checked={modo === 'apenas_vagas'} onChange={e => setModo(e.target.value)} /><span><span className="block text-sm font-semibold">Preencher aulas vazias</span><span className="text-xs text-slate-500">Mantém os conteúdos já agendados.</span></span></label>
+            <label className="flex items-start gap-2 rounded-lg border p-3"><input type="radio" name="modo-distribuir" value="substituir" checked={modo === 'substituir'} onChange={e => setModo(e.target.value)} /><span><span className="block text-sm font-semibold">Reorganizar aulas futuras</span><span className="text-xs text-slate-500">Redistribui os conteúdos nas aulas agendadas do período escolhido.</span></span></label>
+          </fieldset>
+        </fieldset>
+        <p className="rounded-lg bg-blue-50 p-3 text-xs text-blue-800">Preserva aulas anteriores à data escolhida, aulas concluídas e parciais. Dias sem aula permanecem bloqueados.</p>
+        {preview && <section aria-label="Prévia da distribuição" className="space-y-3">
+          <h3 className="font-bold">Prévia da distribuição</h3>
+          <p className="text-sm">{preview.resumo.alteradas} aula(s) alterada(s) · {preview.resumo.preservadas} preservada(s) · {preview.pendentes.length} conteúdo(s) sem vaga.</p>
+          {preview.pendentes.length > 0 && <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900"><p className="font-bold">Permanecerão pendentes</p><ul className="mt-1 list-inside list-disc">{preview.pendentes.map((t, i) => <li key={t.id || i}>{t.topicoTitulo || t.titulo}: {t.duracaoRestante || t.duracaoAlocadaAulas || 1} tempo(s) sem vaga</li>)}</ul></div>}
+          <div className="space-y-2">{preview.aulas.filter(a => a.dataAgendada >= dataInicio && a.dataAgendada <= fim).map(a => {
+            const anterior = aulas.find(x => x.id === a.id) || {};
+            return <details key={a.id} className="rounded-lg border p-3 text-sm"><summary className="cursor-pointer font-semibold">{a.dataAgendada} · {a.horarioInicio || 'Sem horário'} · {rotulos(a)}</summary><p className="mt-2 text-slate-600">Antes: {rotulos(anterior)}</p><p className="mt-1">Depois: {rotulos(a)}</p><p className="mt-1 text-xs text-slate-500">Estado da aula: {a.status || 'AGENDADA'}</p></details>;
+          })}</div>
+        </section>}
+        {erro && <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{erro}</p>}
       </div>
+      <footer className="flex justify-end gap-3 border-t p-4"><button type="button" disabled={ocupado} onClick={onClose} className="rounded-xl border px-4 py-2 text-sm">Cancelar</button><button type="button" disabled={ocupado || !topicos.length || (preview && !preview.resumo.alteradas)} onClick={preview ? confirmar : revisar} className="rounded-xl bg-[#f60c49] px-4 py-2 text-sm font-bold text-white disabled:opacity-40">{ocupado ? 'Salvando...' : preview ? 'Confirmar distribuição' : 'Revisar distribuição'}</button></footer>
     </div>
-  );
+  </div>;
 }

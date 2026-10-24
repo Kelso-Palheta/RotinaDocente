@@ -28,11 +28,15 @@ O **Rotina Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema d
    - Geração de devolutiva pedagógica e exportação em PDF formatado.
 3. **Calendário Pedagógico:**
    - Configuração de grade horária semanal por turma e período letivo.
-   - Importação inteligente de planos de aula anuais com IA (`sabiazinho-4`).
+   - Integração com Meu Horário Escolar: carregar os horários cadastrados da turma, apresentar prévia e atualizar o calendário preservando conteúdos e aulas realizadas; manter vários horários no mesmo dia e permitir correspondência manual entre turmas quando necessário.
+   - Importação de planos por arquivo ou texto com IA configurada pelo professor, revisão editável e escolha de adicionar ou substituir conteúdos pendentes.
    - Distribuição automática de planejamento em 1 clique (Auto-Schedule) com data inicial configurável.
    - Drag and Drop de tópicos para aulas com remanejamento automático.
    - Decisão interativa ao mudar status: Smart Shift (empurrar em cascata) ou Pular Conteúdo.
-   - Monitoramento visual de cumprimento do currículo (% concluído, agendado e pendente).
+   - Monitoramento por conteúdos únicos (% concluído, agendado e pendente), biblioteca pesquisável e edição dos conteúdos vinculados.
+   - Áreas Calendário, Conteúdos e Configurações; filtros de turma/ano/período; lista por data em telas estreitas.
+   - Prévia antes de alterar horários, distribuir, remanejar ou limpar; proteção do histórico, pendências sem vaga e cadastro de reposição.
+   - Registro de justificativa/restante, intervalos de recesso e PDF completo paginado.
 4. **Gerador de Atividades & Questões:**
    - Criação de listas de exercícios e provas alinhadas à BNCC e descritores do SAEB/ENEM.
 5. **Portal do Aluno:**
@@ -62,7 +66,22 @@ O **Rotina Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema d
 
 ---
 
+### Correção de atividades e devolutivas (RN-65)
+- Professor escolhe IA ou correção manual, com nota e comentário por questão; manual independe de chave de IA.
+- Aluno consulta feedback no Portal e boletim PDF. Ficha 360º inclui o mesmo histórico pedagógico, restrito ao aluno/turma/professor.
+
 ## 4. Critérios de Sucesso e Métricas
 - **Tempo de Correção de Redação:** < 20 segundos por texto.
 - **Precisão de Cálculo de Médias:** 100% de exatidão aritmética conforme os critérios configurados pelo professor.
 - **Disponibilidade Offline:** Tolerância a falhas de rede com sincronização local via `localStorage`.
+
+### Aprovação por semestre (RN-67)
+- Aluno com 25 pontos no primeiro semestre vê “Aprovado” nessa etapa, mesmo sem notas do segundo semestre; o ano permanece “Em andamento”. A mesma regra vale para o segundo semestre.
+- Mapa, Portal e relatórios mostram situações independentes de S1, S2 e ano, com metas 25/25/50. Não altera notas lançadas, pesos ou recuperação.
+
+### Diário Pedagógico — melhorias da auditoria (RN-68)
+Implementar as recomendações da análise de 23/10/2026 no próprio Diário: persistência confiável com conflitos explícitos, critérios preservados/validados, frequência conectada ao calendário, backup revisável, ocorrências autorizadas na Ficha, ações e nomes claros, lançamento com teclado e colagem revisável, busca/filtros, publicação por período com prévia/resultados, visão geral, fechamento, linha do tempo, histórico/desfazer e organização por ano/arquivamento/promoção. Preservar notas e contratos legados compatíveis; não publicar nem enviar mensagens automaticamente.
+
+
+### Correções do Gerador — RN-69
+Aceite: impedir acesso/entrega por identidade não autorizada e vazamento de cadastros; manter entregas anteriores; remover penalidade automática; confirmar salvamento; corrigir fuso, gabarito, imagens e rubricas; preservar dados em falhas; usar persistência segura compartilhada; informar contexto, erros, arquivamento e estado de sincronização/publicação. Novas funcionalidades independentes propostas na auditoria não integram esta correção.

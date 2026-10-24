@@ -1,17 +1,21 @@
 import { useCallback } from 'react';
 import { aplicarImportacaoSimulado } from '@/dominio/diario/importacaoSimulado';
-import { clamp, genId, round2 } from '@/utils/diario/calculos';
+import { genId, round2 } from '@/utils/diario/calculos';
+import { lerNumeroNota, validarCriterios } from '@/dominio/diario/criterios';
 
 export const useNotas = (setTurmas) => {
   const importarSimulado = useCallback((turmaId, bimestre, registros) => {
-    setTurmas(prev => aplicarImportacaoSimulado(prev, turmaId, bimestre, registros));
+    return setTurmas(prev => aplicarImportacaoSimulado(prev, turmaId, bimestre, registros), { origem: 'importacao', descricao: 'Importar notas do simulado' });
   }, [setTurmas]);
 
   const setNota = useCallback((turmaId, bimestre, alunoId, campo, valor) => {
-    setTurmas((prev) =>
+    const numero = lerNumeroNota(valor, 0, Number.MAX_VALUE);
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
+        const max = campo === 'simulado' ? Number(t.bimestres[b]?.config?.simuladoMaxLanca ?? 5) : Number(t.bimestres[b]?.atividades?.find(a => a.id === campo)?.max ?? 10);
+        lerNumeroNota(numero, 0, max);
         const notasAnteriores = t.bimestres[b]?.notas || {};
         return {
           ...t,
@@ -23,26 +27,29 @@ export const useNotas = (setTurmas) => {
                 ...notasAnteriores,
                 [alunoId]: {
                   ...(notasAnteriores[alunoId] || {}),
-                  [campo]: valor === '' ? '' : Number(valor)
+                  [campo]: numero
                 }
               }
             }
           }
         };
-      })
+      }),
+      { origem: 'manual', descricao: 'Lançar nota' }
     );
   }, [setTurmas]);
 
   const addAtividade = useCallback((turmaId, bimestre, nome, max, atvIdNoMapa) => {
+    const maximo = lerNumeroNota(max, 0.01, 100);
+    if (maximo === '') throw new Error('Informe a nota máxima da atividade.');
     const id = atvIdNoMapa || `atv_${genId()}`;
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
         const bData = t.bimestres[b] || { atividades: [], notas: {} };
         const atividades = [...(bData.atividades || [])];
         const index = atividades.findIndex((a) => a.id === id);
-        const novaAtv = { id, nome: nome.trim(), max: round2(clamp(Number(max) || 0, 0, 10)) };
+        const novaAtv = { id, nome: nome.trim(), max: round2(maximo) };
 
         if (index >= 0) {
           atividades[index] = novaAtv;
@@ -60,12 +67,13 @@ export const useNotas = (setTurmas) => {
             }
           }
         };
-      })
+      }),
+      { origem: 'manual', descricao: 'Adicionar atividade' }
     );
   }, [setTurmas]);
 
   const removeAtividade = useCallback((turmaId, bimestre, atvId) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -79,12 +87,13 @@ export const useNotas = (setTurmas) => {
           ...t,
           bimestres: { ...t.bimestres, [b]: { ...t.bimestres[b], atividades, notas } }
         };
-      })
+      }),
+      { origem: 'limpeza', descricao: 'Remover atividade' }
     );
   }, [setTurmas]);
 
   const renameAtividade = useCallback((turmaId, bimestre, atvId, novoNome) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -100,12 +109,13 @@ export const useNotas = (setTurmas) => {
             }
           }
         };
-      })
+      }),
+      { origem: 'manual', descricao: 'Renomear atividade' }
     );
   }, [setTurmas]);
 
   const updateConfig = useCallback((turmaId, bimestre, newConfig) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -116,19 +126,17 @@ export const useNotas = (setTurmas) => {
             ...t.bimestres,
             [b]: {
               ...bData,
-              config: {
-                ...(bData.config || { simuladoMaxLanca: 5, simuladoMaxFinal: 5, atividadesMaxFinal: 5, mediaAprovacao: 5, mediaRecuperacao: 4.99 }),
-                ...newConfig
-              }
+              config: validarCriterios({ ...(bData.config || {}), ...newConfig })
             }
           }
         };
-      })
+      }),
+      { origem: 'criterios', descricao: 'Alterar critérios' }
     );
   }, [setTurmas]);
 
   const clearAtividadesNota = useCallback((turmaId, bimestre, alunoId) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -144,12 +152,13 @@ export const useNotas = (setTurmas) => {
             [b]: { ...bData, notas }
           }
         };
-      })
+      }),
+      { origem: 'limpeza', descricao: 'Limpar atividades do aluno' }
     );
   }, [setTurmas]);
 
   const clearAtividadesTurma = useCallback((turmaId, bimestre) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -166,12 +175,13 @@ export const useNotas = (setTurmas) => {
             [b]: { ...bData, notas }
           }
         };
-      })
+      }),
+      { origem: 'limpeza', descricao: 'Limpar atividades da turma' }
     );
   }, [setTurmas]);
 
   const clearSimuladoNota = useCallback((turmaId, bimestre, alunoId) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -182,12 +192,13 @@ export const useNotas = (setTurmas) => {
         const { simulado: _, ...atividades } = alunoNotas;
         notas[alunoId] = atividades;
         return { ...t, bimestres: { ...t.bimestres, [b]: { ...bData, notas } } };
-      })
+      }),
+      { origem: 'limpeza', descricao: 'Limpar simulado do aluno' }
     );
   }, [setTurmas]);
 
   const clearSimuladoTurma = useCallback((turmaId, bimestre) => {
-    setTurmas((prev) =>
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -199,12 +210,15 @@ export const useNotas = (setTurmas) => {
           notas[alId] = atividades;
         });
         return { ...t, bimestres: { ...t.bimestres, [b]: { ...bData, notas } } };
-      })
+      }),
+      { origem: 'limpeza', descricao: 'Limpar simulados da turma' }
     );
   }, [setTurmas]);
 
   const updateAtividadeMax = useCallback((turmaId, bimestre, atvId, novoMax) => {
-    setTurmas((prev) =>
+    const maximo = lerNumeroNota(novoMax, 0.01, 100);
+    if (maximo === '') throw new Error('Informe a nota máxima da atividade.');
+    return setTurmas((prev) =>
       prev.map((t) => {
         if (t.id !== turmaId) return t;
         const b = String(bimestre);
@@ -215,12 +229,13 @@ export const useNotas = (setTurmas) => {
             [b]: {
               ...t.bimestres[b],
               atividades: (t.bimestres[b]?.atividades || []).map((a) =>
-                a.id === atvId ? { ...a, max: round2(clamp(Number(novoMax) || 0, 0, 10)) } : a
+                a.id === atvId ? { ...a, max: round2(maximo) } : a
               )
             }
           }
         };
-      })
+      }),
+      { origem: 'criterios', descricao: 'Alterar limite da atividade' }
     );
   }, [setTurmas]);
 

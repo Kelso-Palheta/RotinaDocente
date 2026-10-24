@@ -6,28 +6,27 @@ import { TabelaFrequencia } from '@/components/diario/TabelaFrequencia';
 import { DiarioDeBordo } from '@/components/diario/DiarioDeBordo';
 import { ImportarSimuladoModal } from '@/components/diario/ImportarSimuladoModal';
 import { ImportModal } from '@/components/diario/ImportModal';
+import { confirmarTrocaContexto } from '@/utils/diario/confirmarTrocaContexto';
+import { VisaoGeralTurma } from '@/components/diario/VisaoGeralTurma';
+import { faixaNotaBimestral } from '@/utils/diario/coresNota';
 import { MapaAnual } from '@/components/diario/MapaAnual';
 import { SeletorNecessidadesDiario, alternarNecessidade } from '@/components/diario/SeletorNecessidadesDiario';
 import { CamposPerfilInclusivo } from '@/components/diario/CamposPerfilInclusivo';
 import { calcTotal, fmt, round2, somaMaxAtv, temNota, statusColor } from '@/utils/diario/calculos';
-import { generateCadernetaPDF, exportCadernetaCSV } from '@/lib/diario/caderneta-export';
+import { generateCadernetaPDF, exportCadernetaCSV, generateRelatorioBimestrePDF, exportBimestreCSV } from '@/lib/diario/caderneta-export';
 import { Download, FileSpreadsheet, Plus, Upload, Trash2, Calendar } from 'lucide-react';
 
 const statsByBimestre = (turma, bimestre) => {
-  const b = turma.bimestres[String(bimestre)];
-  if (!b) return { aprovados: 0, recuperacao: 0, reprovados: 0, semNota: 0 };
-  const { atividades, notas, config } = b;
-  let aprovados = 0, naMedia = 0, abaixo = 0, semNota = 0;
-  turma.alunos.forEach((al) => {
-    const nota = notas[al.id];
-    if (!temNota(nota, atividades)) { semNota++; return; }
-    const t = calcTotal(nota.simulado, atividades, nota, config);
-    const sc = statusColor(t, config);
-    if (sc === 'good') aprovados++;
-    else if (sc === 'warn') naMedia++;
-    else abaixo++;
+  const b = turma.bimestres[String(bimestre)] || {};
+  const { atividades = [], notas = {}, config } = b;
+  const contagem = { aprovados: 0, excelentes: 0, abaixo: 0, semNota: 0 };
+  turma.alunos.forEach(aluno => {
+    const nota = notas[aluno.id];
+    const faixa = temNota(nota, atividades) ? faixaNotaBimestral(calcTotal(nota.simulado, atividades, nota, config), config) : 'sem_nota';
+    const chave = { aprovado: 'aprovados', excelente: 'excelentes', abaixo: 'abaixo', sem_nota: 'semNota' }[faixa];
+    contagem[chave]++;
   });
-  return { aprovados, naMedia, abaixo, semNota };
+  return contagem;
 };
 
 const StatChip = ({ label, value, color }) => (
@@ -41,7 +40,7 @@ export const TurmaView = ({
   turma, turmas, bimestre, user, onSetNota, onImportarSimulado, onAddAtv, onRemoveAtv, onUpdateAtvMax,
   onAddAlunos, onRemoveAluno, onRemoveAlunos, onUpdateConfig, onSetRecuperacao,
   onClearAtividadesNota, onClearAtividadesTurma, onAddAlunoManual, onUpdateAluno, onRemoveTurma,
-  onClearSimuladoNota, onClearSimuladoTurma, onSalvarFrequencia, onSalvarOcorrencias
+  onClearSimuladoNota, onClearSimuladoTurma, onSalvarFrequencia, onSalvarOcorrencias, onPublicar
 }) => {
   const [showImport, setShowImport] = useState(false);
   const [showImportSimulado, setShowImportSimulado] = useState(false);
@@ -85,9 +84,9 @@ export const TurmaView = ({
 
             {view === 'bimestre' && (
               <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3 mt-3 lg:mt-2">
-                <StatChip label="Acima da Média" value={stats.aprovados} color="border-[#bbf7d0] text-[#166534] bg-[#f0fdf4]" />
-                <StatChip label="Na Média" value={stats.naMedia} color="border-[#fed7aa] text-[#9a3412] bg-[#fff7ed]" />
-                <StatChip label="Recuperação" value={stats.abaixo} color="border-[#fecaca] text-[#991b1b] bg-[#fef2f2]" />
+                <StatChip label="Excelentes" value={stats.excelentes} color="border-green-200 text-green-700 bg-green-50" />
+                <StatChip label="Aprovados" value={stats.aprovados} color="border-blue-200 text-blue-700 bg-blue-50" />
+                <StatChip label="Abaixo da média" value={stats.abaixo} color="border-[#fecaca] text-[#991b1b] bg-[#fef2f2]" />
                 {stats.semNota > 0 && <StatChip label="Sem nota" value={stats.semNota} color="border-[#dce0f0] text-[#6070a0] bg-[#f7f8fc]" />}
               </div>
             )}
@@ -96,15 +95,15 @@ export const TurmaView = ({
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 flex-wrap justify-end">
             <div className="flex items-center bg-[#f7f8fc] p-1 rounded-xl border border-[#dce0f0] shadow-2xs">
               <button 
-                onClick={() => setView('bimestre')}
+                onClick={() => confirmarTrocaContexto() && setView('bimestre')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'bimestre' ? 'bg-[#101942] text-white shadow-2xs' : 'text-[#6070a0] hover:text-[#101942]'
                 }`}
               >
-                Bimestre
+                Notas
               </button>
               <button 
-                onClick={() => setView('frequencia')}
+                onClick={() => confirmarTrocaContexto() && setView('frequencia')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'frequencia' ? 'bg-[#101942] text-white shadow-2xs' : 'text-[#6070a0] hover:text-[#101942]'
                 }`}
@@ -112,31 +111,33 @@ export const TurmaView = ({
                 Frequência
               </button>
               <button 
-                onClick={() => setView('ocorrencias')}
+                onClick={() => confirmarTrocaContexto() && setView('ocorrencias')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'ocorrencias' ? 'bg-[#101942] text-white shadow-2xs' : 'text-[#6070a0] hover:text-[#101942]'
                 }`}
               >
-                Diário de Bordo
+                Ocorrências
               </button>
               <button 
-                onClick={() => setView('anual')}
+                onClick={() => confirmarTrocaContexto() && setView('anual')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'anual' ? 'bg-[#101942] text-white shadow-2xs' : 'text-[#6070a0] hover:text-[#101942]'
                 }`}
               >
-                Mapa Anual
+                Resumo anual
               </button>
             </div>
 
             {/* Botões de Exportação */}
+            {view === 'bimestre' && <details className="relative text-xs"><summary className="cursor-pointer border rounded-xl p-2 font-bold">Relatório do {bimestre}º bimestre</summary><div className="absolute top-full right-0 z-30 w-52 bg-white border rounded-xl shadow p-3 space-y-3"><p>Somente turma {turma.nome}, {bimestre}º bimestre.</p><button type="button" onClick={() => generateRelatorioBimestrePDF(turma, bimestre, user?.email)} className="block underline">Baixar PDF do bimestre</button><button type="button" onClick={() => exportBimestreCSV(turma, bimestre)} className="block underline">Baixar CSV do bimestre</button></div></details>}
+
             <button
               onClick={() => generateCadernetaPDF(turma, user?.email)}
               className="btn-brand-ghost px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 shadow-2xs"
               title="Baixar Caderneta Oficial em PDF"
             >
               <Download size={13} className="text-[#f60c49]" />
-              <span>Caderneta PDF</span>
+              <span>Caderneta anual PDF</span>
             </button>
 
             <button
@@ -145,7 +146,7 @@ export const TurmaView = ({
               title="Exportar notas em planilha Excel/CSV"
             >
               <FileSpreadsheet size={13} className="text-[#166534]" />
-              <span>Excel/CSV</span>
+              <span>CSV anual</span>
             </button>
 
             <button 
@@ -179,7 +180,8 @@ export const TurmaView = ({
       </div>
 
       {/* Body */}
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-3 sm:p-6">
+        <VisaoGeralTurma turma={turma} bimestre={bimestre} onAbrir={area => confirmarTrocaContexto() && (area === 'publicar' ? onPublicar?.() : setView(area))} />
         {turma.alunos.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full gap-4 text-center max-w-md mx-auto">
             <div className="text-6xl opacity-20">📃</div>
@@ -289,6 +291,7 @@ export const TurmaView = ({
             onRemoveAluno={onRemoveAluno} onRemoveAlunos={onRemoveAlunos}
             onAddAlunoManual={(dados) => onAddAlunoManual(turma.id, dados)}
             onUpdateAluno={onUpdateAluno}
+            onImportarSimulado={onImportarSimulado}
             onUpdateConfig={(cfg) => onUpdateConfig(turma.id, bimestre, cfg)}
             onClearAtividadesNota={onClearAtividadesNota}
             onClearAtividadesTurma={onClearAtividadesTurma}

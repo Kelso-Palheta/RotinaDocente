@@ -1,4 +1,6 @@
+import { situacoesBoletim, ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 import { jsPDF } from "jspdf";
+import { adicionarHistoricoFeedbackPDF } from "@/lib/aluno/feedback-pdf";
 import { fmt } from "@/utils/diario/calculos";
 
 /**
@@ -12,6 +14,7 @@ export const generateBoletimPDF = ({
   S1 = {},
   S2 = {},
   totalAnual = null,
+  historicoAtividades = [],
   redacao = null
 }) => {
   const doc = new jsPDF("portrait", "mm", "a4");
@@ -99,29 +102,31 @@ export const generateBoletimPDF = ({
   // ── RESUMO SEMESTRAL E ANUAL ──
   cursorY += 6;
   doc.setFillColor(247, 248, 252);
-  doc.roundedRect(margin, cursorY, maxLineWidth, 22, 2, 2, "F");
+  doc.roundedRect(margin, cursorY, maxLineWidth, 32, 2, 2, "F");
   doc.setDrawColor(220, 224, 240);
-  doc.roundedRect(margin, cursorY, maxLineWidth, 22, 2, 2, "S");
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(96, 112, 160);
-  doc.text("1º SEMESTRE", margin + 10, cursorY + 7);
-  doc.text("2º SEMESTRE", margin + 65, cursorY + 7);
-  doc.text("TOTAL ANUAL", margin + 120, cursorY + 7);
-
-  doc.setFontSize(13);
-  doc.setTextColor(16, 25, 66);
-  doc.text(S1?.total !== null ? fmt(S1.total) : "—", margin + 10, cursorY + 16);
-  doc.text(S2?.total !== null ? fmt(S2.total) : "—", margin + 65, cursorY + 16);
-
-  const statusAnual = totalAnual !== null ? (totalAnual >= 50 ? "APROVADO" : "EM RECUPERAÇÃO") : "EM ANDAMENTO";
-  const corStatus = totalAnual !== null && totalAnual >= 50 ? [22, 101, 52] : [246, 12, 73];
-
-  doc.setTextColor(corStatus[0], corStatus[1], corStatus[2]);
-  doc.text(`${totalAnual !== null ? fmt(totalAnual) : "—"} (${statusAnual})`, margin + 120, cursorY + 16);
-
-  cursorY += 30;
+  doc.roundedRect(margin, cursorY, maxLineWidth, 32, 2, 2, "S");
+  const situacoes = situacoesBoletim(bimTotais, S1, S2, totalAnual);
+  const cores = { good: [22, 101, 52], bad: [153, 27, 27], warn: [37, 99, 235], none: [100, 116, 139] };
+  [
+    { label: '1º SEMESTRE', total: S1.total, status: situacoes.S1.status, meta: 25 },
+    { label: '2º SEMESTRE', total: S2.total, status: situacoes.S2.status, meta: 25 },
+    { label: 'TOTAL ANUAL', total: totalAnual, status: situacoes.statusFinal, meta: 50 },
+  ].forEach((etapa, i) => {
+    const x = margin + 7 + i * (maxLineWidth / 3);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(96, 112, 160);
+    doc.text(etapa.label, x, cursorY + 7);
+    doc.setTextColor(...cores[etapa.status]);
+    doc.setFontSize(13);
+    doc.text(fmt(etapa.total), x, cursorY + 15);
+    doc.setFontSize(8);
+    doc.text(ROTULOS_APROVACAO[etapa.status], x, cursorY + 22);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(96, 112, 160);
+    doc.text(`Mínimo: ${fmt(etapa.meta)} pontos`, x, cursorY + 28);
+  });
+  cursorY += 40;
 
   // ── SEÇÃO DE REDAÇÃO ENEM SE HOUVER ──
   if (redacao) {
@@ -156,5 +161,7 @@ export const generateBoletimPDF = ({
   doc.text("Assinatura da Coordenação Pedagógica", margin + 40, cursorY + 5, { align: "center" });
   doc.text("Assinatura do Responsável", pageWidth - margin - 40, cursorY + 5, { align: "center" });
 
+  adicionarHistoricoFeedbackPDF(doc, historicoAtividades);
   doc.save(`boletim_${nomeAluno.replace(/\s+/g, "_")}_${new Date().toISOString().slice(0, 10)}.pdf`);
+  return doc;
 };

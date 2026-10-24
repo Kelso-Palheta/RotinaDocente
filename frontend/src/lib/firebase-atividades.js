@@ -5,41 +5,78 @@ import {
   query, where, serverTimestamp, writeBatch, runTransaction
 } from 'firebase/firestore';
 import { gerarLoginAluno, gerarLoginKey, resolverLoginUnico } from '@/utils/diario/loginAluno';
-import { encodeToken } from '@/utils/diario/tokenUtils';
+import { criarTokenAtividade, chaveVinculoAtividade, decodeToken } from '@/utils/diario/tokenUtils';
 
+const limparAtividade = data => {
+  const { alunosPorTurma: _alunos, ...rest } = data;
+  return JSON.parse(JSON.stringify(rest));
+};
+const dadosToken = (activityId, turmaId, aluno, anterior) => ({
+  token: anterior?.token && decodeToken(anterior.token)?.segredo ? anterior.token : criarTokenAtividade(aluno.id, activityId, turmaId),
+  nome: aluno.nome || '', turmaId, alunoId: aluno.id, revogado: false,
+});
+async function planejarTokens(activityId, alunosPorTurma, turmaIds, nova = false) {
+  const snap = nova ? { docs: [] } : await getDocs(collection(db, 'atividades', activityId, 'tokens'));
+  const existentes = new Map(snap.docs.map(d => [d.id, d.data()]));
+  const operacoes = [];
+  const desejados = new Set();
+  for (const turmaId of turmaIds) {
+    for (const aluno of alunosPorTurma[turmaId] || []) {
+      const key = chaveVinculoAtividade(turmaId, aluno.id);
+      desejados.add(key);
+      operacoes.push({ ref: doc(db, 'atividades', activityId, 'tokens', key), data: dadosToken(activityId, turmaId, aluno, existentes.get(key)) });
+    }
+  }
+  for (const [key, data] of existentes) {
+    const continua = turmaIds.includes(data.turmaId) && (!Object.hasOwn(alunosPorTurma, data.turmaId) || alunosPorTurma[data.turmaId].some(a => a.id === data.alunoId));
+    if (!desejados.has(key) && !continua && !data.revogado) operacoes.push({ ref: doc(db, 'atividades', activityId, 'tokens', key), data: { ...data, revogado: true } });
+  }
+  return operacoes;
+}
+async function gravarComTokens(id, data, alunosPorTurma, nova = false) {
+  const operacoes = alunosPorTurma ? await planejarTokens(id, alunosPorTurma, data.turmaIds || [], nova) : [];
+  if (operacoes.length > 449) throw new Error('Muitos acessos em uma operação. Publique em grupos menores de turmas. Nenhum dado foi gravado.');
+  const batch = writeBatch(db);
+  const limpos = limparAtividade({ ...data, id });
+  if (data.createdAt) limpos.createdAt = data.createdAt;
+  batch.set(doc(db, 'atividades', id), { ...limpos, updatedAt: serverTimestamp() });
+  for (const op of operacoes) batch.set(op.ref, op.data);
+  await batch.commit();
+}
 export async function createAtividade(data) {
   const id = data.id || `atv_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
   const ref = doc(db, 'atividades', id);
-  const sanitizedData = JSON.parse(JSON.stringify(data));
-  await setDoc(ref, {
-    ...sanitizedData,
-    id,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp()
-  });
+  const atual = await getDoc(ref);
+  if (atual.exists()) {
+    const existente = atual.data();
+    if (existente.professorId !== data.professorId) throw new Error('Atividade pertence a outra conta.');
+    // Repetição após falha do mapa não cria outra atividade nem redefine publicação.
+    if (existente.status === 'arquivada') throw new Error('Atividade arquivada. Reabra o editor para criar outra.');
+    await updateAtividade(id, data);
+    return id;
+  }
+  await gravarComTokens(id, { ...data, createdAt: serverTimestamp() }, data.alunosPorTurma, true);
   return id;
 }
-
 export async function updateAtividade(id, data) {
   const ref = doc(db, 'atividades', id);
-  const sanitizedData = JSON.parse(JSON.stringify(data));
-  await setDoc(ref, { ...sanitizedData, updatedAt: serverTimestamp() }, { merge: true });
+  const atual = await getDoc(ref);
+  if (!atual.exists()) throw new Error('Atividade não encontrada.');
+  const anterior = atual.data();
+  const entregas = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', id)));
+  const campos = ['bimestre', 'turmaIds', 'questoes', 'notaMaxima'];
+  const estrutural = campos.some(k => data[k] !== undefined && JSON.stringify(data[k]) !== JSON.stringify(anterior[k]));
+  if (estrutural && entregas.docs.length) throw new Error('Esta atividade já possui entregas. Preserve bimestre, turmas, questões e escala; crie outra atividade para mudar a estrutura.');
+  if (estrutural && anterior.professorId) {
+    const diario = await getDoc(doc(db, 'professores', anterior.professorId, 'turmas', 'data'));
+    const temNotas = diario.exists() && diario.data().turmas?.some(t => Object.values(t.bimestres || {}).some(b => Object.values(b.notas || {}).some(n => n[id] != null || (anterior.atvIdNoMapa && n[anterior.atvIdNoMapa] != null))));
+    if (temNotas) throw new Error('A atividade já tem notas no Diário. A estrutura e o bimestre foram preservados.');
+  }
+  await gravarComTokens(id, { ...anterior, ...data, professorId: anterior.professorId }, data.alunosPorTurma);
 }
-
+/** Arquivar conserva entregas, devolutivas, acessos e notas históricas. */
 export async function deleteAtividade(id) {
-  const ref = doc(db, 'atividades', id);
-  await deleteDoc(ref);
-
-  const entregasSnap = await getDocs(
-    query(collection(db, 'entregas'), where('activityId', '==', id))
-  );
-  const batch = writeBatch(db);
-  entregasSnap.forEach((docSnap) => batch.delete(docSnap.ref));
-
-  const tokensSnap = await getDocs(collection(db, 'atividades', id, 'tokens'));
-  tokensSnap.forEach((docSnap) => batch.delete(docSnap.ref));
-
-  await batch.commit();
+  await setDoc(doc(db, 'atividades', id), { status: 'arquivada', arquivadaEm: serverTimestamp(), updatedAt: serverTimestamp() }, { merge: true });
 }
 
 export async function listAtividades(professorId, turmaId) {
@@ -67,16 +104,13 @@ export async function getAtividade(id) {
 }
 
 export async function createTokensForAtividade(activityId, turmaId, alunos) {
+  if (alunos.length > 449) throw new Error('Turma excede o limite de acessos por operação.');
+  const atuais = await getDocs(collection(db, 'atividades', activityId, 'tokens'));
+  const mapa = new Map(atuais.docs.map(d => [d.id, d.data()]));
   const batch = writeBatch(db);
   for (const aluno of alunos) {
-    const token = encodeToken(aluno.id, activityId);
-    const ref = doc(db, 'atividades', activityId, 'tokens', aluno.id);
-    batch.set(ref, {
-      token,
-      nome: aluno.nome,
-      turmaId,
-      alunoId: aluno.id
-    });
+    const key = chaveVinculoAtividade(turmaId, aluno.id);
+    batch.set(doc(db, 'atividades', activityId, 'tokens', key), dadosToken(activityId, turmaId, aluno, mapa.get(key)));
   }
   await batch.commit();
 }
@@ -89,20 +123,9 @@ export async function getTokenInfo(activityId, alunoId) {
 
 export async function createTokensForAlunoInTurma(professorId, turmaId, aluno) {
   const atividades = await listAtividades(professorId, turmaId);
-  if (atividades.length === 0) return;
-
-  const batch = writeBatch(db);
   for (const atv of atividades) {
-    const token = encodeToken(aluno.id, atv.id);
-    const ref = doc(db, 'atividades', atv.id, 'tokens', aluno.id);
-    batch.set(ref, {
-      token,
-      nome: aluno.nome,
-      turmaId,
-      alunoId: aluno.id
-    });
+    if (!atv.alunoExclusivoId || atv.alunoExclusivoId === aluno.id) await createTokensForAtividade(atv.id, turmaId, [aluno]);
   }
-  await batch.commit();
 }
 
 export async function syncAlunoLogin(professorUid, aluno, turmaId) {
@@ -180,6 +203,7 @@ export async function syncSingleNotasAluno(professorUid, turmaId, alunoId, bimes
 export async function countEntregasPendentes(escopo, { professorId, turmaId, bimestre } = {}) {
   const constraints = [where('status', '==', 'entregue')];
   if (escopo === 'turma') {
+    if (professorId) constraints.push(where('professorId', '==', professorId));
     constraints.push(where('turmaId', '==', turmaId));
     constraints.push(where('bimestre', '==', Number(bimestre)));
   } else {

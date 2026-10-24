@@ -1,50 +1,44 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BookOpen, X, Check, Trash2 } from 'lucide-react';
 
-export function TopicoModal({
-  isOpen,
-  onClose,
-  topicoEmEdicao = null,
-  onSalvar,
-  onExcluir,
-}) {
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [duracao, setDuracao] = useState(1);
+export function TopicoModal(props) {
+  if (!props.isOpen) return null;
+  return <ConteudoEditor key={JSON.stringify(props.topicoEmEdicao || {})} {...props} />;
+}
 
-  useEffect(() => {
-    if (topicoEmEdicao) {
-      setTitulo(topicoEmEdicao.titulo || '');
-      setDescricao(topicoEmEdicao.descricao || '');
-      setDuracao(topicoEmEdicao.duracaoEstimadaAulas || 1);
-    } else {
-      setTitulo('');
-      setDescricao('');
-      setDuracao(1);
-    }
-  }, [topicoEmEdicao, isOpen]);
-
-  if (!isOpen) return null;
+function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir }) {
+  const [titulo, setTitulo] = useState(topicoEmEdicao?.titulo || '');
+  const [descricao, setDescricao] = useState(topicoEmEdicao?.descricao || '');
+  const [duracao, setDuracao] = useState(topicoEmEdicao?.duracaoEstimadaAulas || 1);
+  const [ocupado, setOcupado] = useState(false);
+  const [erro, setErro] = useState('');
 
   const isEdicao = Boolean(topicoEmEdicao);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!titulo.trim()) return;
-
-    onSalvar({
-      ...(topicoEmEdicao || {}),
-      titulo: titulo.trim(),
-      descricao: descricao.trim(),
-      duracaoEstimadaAulas: Number(duracao) || 1,
-    });
-    onClose();
+    if (!titulo.trim() || ocupado) return;
+    if (!Number.isInteger(Number(duracao)) || Number(duracao) < 1 || Number(duracao) > 100) { setErro('Informe uma duração inteira entre 1 e 100 tempos.'); return; }
+    setOcupado(true); setErro('');
+    try {
+      const { estado: _estado, ...original } = topicoEmEdicao || {};
+      await onSalvar({ ...original, titulo: titulo.trim(), descricao: descricao.trim(), duracaoEstimadaAulas: Number(duracao) });
+      onClose();
+    } catch (err) { setErro(err.message || 'Não foi possível salvar o conteúdo.'); }
+    finally { setOcupado(false); }
+  };
+  const excluir = async () => {
+    if (ocupado || !window.confirm(`Excluir o conteúdo "${titulo}"?`)) return;
+    setOcupado(true); setErro('');
+    try { await onExcluir(topicoEmEdicao.id); onClose(); }
+    catch (err) { setErro(err.message || 'Não foi possível excluir o conteúdo.'); }
+    finally { setOcupado(false); }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div role="dialog" aria-modal="true" aria-label="Conteúdo" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200 flex flex-col">
         {/* Header */}
         <div className="bg-[#101942] text-white p-5 flex items-center justify-between">
@@ -54,7 +48,7 @@ export function TopicoModal({
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                {isEdicao ? 'Editar Tópico de Aula' : 'Novo Tópico de Aula'}
+                {isEdicao ? 'Editar conteúdo' : 'Novo conteúdo'}
               </h3>
               <p className="text-[11px] text-slate-300">
                 {isEdicao ? 'Atualize as informações do conteúdo' : 'Adicione manualmente ao planejamento'}
@@ -62,6 +56,7 @@ export function TopicoModal({
             </div>
           </div>
           <button
+            disabled={ocupado}
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors"
           >
@@ -71,12 +66,13 @@ export function TopicoModal({
 
         {/* Formulário */}
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
+          <fieldset disabled={ocupado} className="space-y-4">
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1 block">
-              Título do Tópico / Conteúdo *
+            <label htmlFor="conteudo-titulo" className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1 block">
+              Título do conteúdo
             </label>
             <input
-              type="text"
+              id="conteudo-titulo" type="text"
               required
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
@@ -90,6 +86,7 @@ export function TopicoModal({
               Descrição / Habilidades BNCC (Opcional)
             </label>
             <textarea
+              aria-label="Descrição / Habilidades BNCC"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="Ex: Habilidade EM13MAT101 - Vértice da parábola e raízes reais"
@@ -100,12 +97,12 @@ export function TopicoModal({
 
           <div>
             <label className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-1 block">
-              Duração Estimada (Aulas)
+              Duração estimada (tempos)
             </label>
             <input
-              type="number"
+              aria-label="Duração estimada em tempos" type="number"
               min={1}
-              max={10}
+              max={100}
               value={duracao}
               onChange={(e) => setDuracao(e.target.value)}
               className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-[#101942] outline-none focus:border-blue-500"
@@ -117,12 +114,7 @@ export function TopicoModal({
             {isEdicao && onExcluir ? (
               <button
                 type="button"
-                onClick={() => {
-                  if (window.confirm(`Tem certeza que deseja excluir o tópico "${titulo}"?`)) {
-                    onExcluir(topicoEmEdicao.id);
-                    onClose();
-                  }
-                }}
+                onClick={excluir}
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors"
               >
                 <Trash2 size={14} />
@@ -133,7 +125,8 @@ export function TopicoModal({
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={onClose}
+                disabled={ocupado}
+            onClick={onClose}
                 className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition-colors"
               >
                 Cancelar
@@ -143,10 +136,12 @@ export function TopicoModal({
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#2563eb] hover:bg-blue-700 text-white text-xs font-bold shadow-md transition-all"
               >
                 <Check size={14} />
-                {isEdicao ? 'Salvar Alterações' : 'Adicionar Tópico'}
+                {ocupado ? 'Aguarde...' : isEdicao ? 'Salvar alterações' : 'Adicionar conteúdo'}
               </button>
             </div>
           </div>
+          </fieldset>
+          {erro && <p role="alert" className="text-sm text-red-700">{erro}</p>}
         </form>
       </div>
     </div>

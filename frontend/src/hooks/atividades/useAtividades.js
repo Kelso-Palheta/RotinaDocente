@@ -1,11 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import {
   createAtividade as fbCreate,
   updateAtividade as fbUpdate,
   deleteAtividade as fbDelete,
   listAtividades as fbList,
   listAllAtividades as fbListAll,
-  createTokensForAtividade,
   syncAlunoLogin,
   syncNotasAluno,
   syncSingleNotasAluno,
@@ -18,46 +17,52 @@ export function useAtividades(professorId) {
   const [atividades, setAtividades] = useState([]);
   const [todasAtividades, setTodasAtividades] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState('');
+  const conta = useRef(professorId);
+  const pedidos = useRef({ turma: 0, todas: 0, contagem: 0 });
+  const [donoLista, setDonoLista] = useState(professorId);
   const [pendentesTurma, setPendentesTurma] = useState(0);
   const [pendentesTodas, setPendentesTodas] = useState(0);
   const [entregasCounts, setEntregasCounts] = useState({});
+  useEffect(() => {
+    conta.current = professorId;
+    const sequencias = pedidos.current;
+    sequencias.turma++; sequencias.todas++; sequencias.contagem++;
+    let ativo = true;
+    queueMicrotask(() => {
+      if (ativo) { setAtividades([]); setTodasAtividades([]); setEntregasCounts({}); setErro(''); setLoading(false); setDonoLista(professorId); }
+    });
+    return () => { ativo = false; sequencias.turma++; sequencias.todas++; };
+  }, [professorId]);
 
-  const loadAtividades = useCallback(async (turmaId) => {
+  const loadAtividades = useCallback(async turmaId => {
     if (!professorId || !turmaId) return;
-    setLoading(true);
-    try {
-      const list = await fbList(professorId, turmaId);
-      setAtividades(list);
-    } catch (err) {
-      console.error('Erro ao carregar atividades:', err);
-    } finally {
-      setLoading(false);
-    }
+    const pedido = ++pedidos.current.turma;
+    const atual = () => pedido === pedidos.current.turma && conta.current === professorId;
+    setLoading(true); setAtividades([]); setErro('');
+    try { const lista = await fbList(professorId, turmaId); if (atual()) setAtividades(lista); }
+    catch (error) { if (atual()) { setAtividades([]); setErro(error.message); } }
+    finally { if (atual()) setLoading(false); }
   }, [professorId]);
 
   const loadAllAtividades = useCallback(async () => {
     if (!professorId) return;
-    setLoading(true);
+    const pedido = ++pedidos.current.todas;
+    const atual = () => pedido === pedidos.current.todas && conta.current === professorId;
+    setLoading(true); setTodasAtividades([]); setErro('');
     try {
-      const list = await fbListAll(professorId);
-      list.sort((a, b) => {
-        const da = a.dataEntrega?.toDate?.() || new Date(a.dataEntrega || 0);
-        const db = b.dataEntrega?.toDate?.() || new Date(b.dataEntrega || 0);
-        return db - da;
-      });
-      setTodasAtividades(list);
-    } catch (err) {
-      console.error('Erro ao carregar todas as atividades:', err);
-    } finally {
-      setLoading(false);
-    }
+      const lista = await fbListAll(professorId);
+      lista.sort((a,b) => (b.dataEntrega?.toDate?.() || new Date(b.dataEntrega || 0)) - (a.dataEntrega?.toDate?.() || new Date(a.dataEntrega || 0)));
+      if (atual()) setTodasAtividades(lista);
+    } catch (error) { if (atual()) { setTodasAtividades([]); setErro(error.message); } }
+    finally { if (atual()) setLoading(false); }
   }, [professorId]);
 
   const loadPendentes = useCallback(async (turmaId, bimestre) => {
     if (!professorId) return;
     try {
       if (turmaId && bimestre) {
-        const count = await countEntregasPendentes('turma', { turmaId, bimestre });
+        const count = await countEntregasPendentes('turma', { professorId, turmaId, bimestre });
         setPendentesTurma(count);
       }
       const countAll = await countEntregasPendentes('todas', { professorId });
@@ -88,12 +93,7 @@ export function useAtividades(professorId) {
 
     const id = await fbCreate(atvData);
 
-    // Cria tokens para todos os alunos das turmas vinculadas
-    for (const turmaId of data.turmaIds) {
-      if (data.alunosPorTurma?.[turmaId]) {
-        await createTokensForAtividade(id, turmaId, data.alunosPorTurma[turmaId]);
-      }
-    }
+    // Atividade e acessos são gravados juntos pela infraestrutura.
 
     return id;
   }, [professorId]);
@@ -104,7 +104,7 @@ export function useAtividades(professorId) {
 
   const deleteAtividade = useCallback(async (id, onRemoveFromMapa) => {
     await fbDelete(id);
-    if (onRemoveFromMapa) onRemoveFromMapa(id);
+    if (onRemoveFromMapa) await onRemoveFromMapa(id);
   }, []);
 
   const publicarNotas = useCallback(async (turma) => {
@@ -128,8 +128,9 @@ export function useAtividades(professorId) {
   }, [professorId]);
 
   return {
-    atividades,
-    todasAtividades,
+    atividades: donoLista === professorId ? atividades : [],
+    todasAtividades: donoLista === professorId ? todasAtividades : [],
+    erro,
     loading,
     pendentesTurma,
     pendentesTodas,

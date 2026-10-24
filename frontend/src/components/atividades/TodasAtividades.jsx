@@ -29,6 +29,8 @@ export const TodasAtividades = ({
 }) => {
   const { todasAtividades, loading, loadAllAtividades, createAtividade, deleteAtividade, entregasCounts, loadEntregasCounts } = useAtividadesHook;
   const [showForm, setShowForm] = useState(false);
+  const [resumoSync, setResumoSync] = useState('');
+  const [enviando, setEnviando] = useState(false);
   const [painelAtividade, setPainelAtividade] = useState(null);
   const [filtroTurma, setFiltroTurma] = useState('todas');
   const [filtroBimestre, setFiltroBimestre] = useState('todos');
@@ -48,26 +50,19 @@ export const TodasAtividades = ({
     ...(filtroBimestre !== 'todos' ? { bimestre: filtroBimestre } : {}),
   };
   const temFiltro = Object.keys(escopo).length > 0;
-  const filtradas = todasAtividades.filter(atv => atividadeNoEscopo(atv, escopo));
+  const filtradas = todasAtividades.filter(atv => atv.status !== 'arquivada' && turmas.some(t => atv.turmaIds?.includes(t.id)) && atividadeNoEscopo(atv, escopo));
 
   const handleCreate = async (data) => {
     const id = await createAtividade(data);
     for (const turmaId of data.turmaIds) {
-      onAddAtv(turmaId, data.bimestre, data.titulo, data.notaMaxima, data.id || id);
+      await onAddAtv(turmaId, data.bimestre, data.titulo, data.notaMaxima, data.id || id);
     }
     loadAllAtividades();
   };
 
   const handleDelete = async (atvId) => {
-    if (!window.confirm('Excluir esta atividade? Todas as entregas e notas serão removidas.')) return;
-    const atv = todasAtividades.find(a => a.id === atvId);
-    await deleteAtividade(atvId, () => {
-      if (atv) {
-        for (const turmaId of atv.turmaIds || []) {
-          onRemoveAtv(turmaId, atv.bimestre, atv.id);
-        }
-      }
-    });
+    if (!window.confirm('Arquivar esta atividade em todas as turmas vinculadas? Entregas, notas e devolutivas serão preservadas. O acesso para novas respostas será encerrado.')) return;
+    await deleteAtividade(atvId);
     loadAllAtividades();
     setPainelAtividade(null);
   };
@@ -75,6 +70,8 @@ export const TodasAtividades = ({
   if (painelAtividade) {
     return (
       <AtividadePainel
+        key={`${painelAtividade.id}:${painelAtividade.bimestre}:${filtroTurma}`}
+        sincronizacaoAutomatica={false}
         atividade={painelAtividade}
         currentTurmaId={filtroTurma !== 'todas' ? filtroTurma : undefined}
         onBack={() => { setPainelAtividade(null); loadAllAtividades(); }}
@@ -83,15 +80,15 @@ export const TodasAtividades = ({
         useAtividadesHook={useAtividadesHook}
         turmas={turmas}
         user={user}
-        onSyncAtvMapa={(turmaId, oldBimestre, newBimestre, atvId, titulo, max, isRemoved) => {
+        onSyncAtvMapa={async (turmaId, oldBimestre, newBimestre, atvId, titulo, max, isRemoved) => {
           if (isRemoved) {
-            onRemoveAtv(turmaId, oldBimestre, atvId);
+            await onRemoveAtv(turmaId, oldBimestre, atvId);
             return;
           }
           if (String(oldBimestre) !== String(newBimestre)) {
-            onRemoveAtv(turmaId, oldBimestre, atvId);
+            await onRemoveAtv(turmaId, oldBimestre, atvId);
           }
-          onAddAtv(turmaId, newBimestre, titulo, max, atvId);
+          await onAddAtv(turmaId, newBimestre, titulo, max, atvId);
         }}
         onSetNota={onSetNota}
       />
@@ -100,24 +97,27 @@ export const TodasAtividades = ({
 
   return (
     <div>
+      {useAtividadesHook.erro && <p role="alert" className="bg-red-50 p-3 text-sm">{useAtividadesHook.erro} <button onClick={() => loadAllAtividades()} className="underline">Tentar carregar novamente</button></p>}
+      {resumoSync && <p role="status" className="bg-blue-50 p-3 text-sm mb-3">{resumoSync}</p>}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider">Banco de Atividades</h3>
+          <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider">Todas as atividades</h3>
           <span className="text-xs text-slate-400 font-mono">({filtradas.length})</span>
         </div>
         <div className="flex gap-2">
           <button
+            disabled={enviando}
             onClick={async () => {
-              if (!window.confirm(temFiltro ? 'Sincronizar somente as notas das turmas e bimestres filtrados?' : 'Sincronizar todas as notas corrigidas para o mapa bimestral?')) return;
+              if (!window.confirm(temFiltro ? 'Sincronizar somente as notas das turmas e bimestres filtrados?' : 'Sincronizar todas as notas corrigidas, de todas as turmas, anos e bimestres, para o Diário?')) return;
+              setEnviando(true);
               try {
                 const result = temFiltro
                   ? await useAtividadesHook.sincronizarTodasAsNotas(escopo)
                   : await useAtividadesHook.sincronizarTodasAsNotas();
-                alert(`${result.sincronizadas} notas sincronizadas.${result.erros > 0 ? ` ${result.erros} erros.` : ''} Recarregue a página.`);
-                window.location.reload();
+                setResumoSync(`${result.sincronizadas} notas sincronizadas.${result.erros > 0 ? ` ${result.erros} erros; tente novamente.` : ''} Notas enviadas ao Diário; publicação no Portal é feita pelo Diário.`);
               } catch (err) {
-                alert('Erro: ' + err.message);
-              }
+                setResumoSync('Falha ao sincronizar: ' + err.message);
+              } finally { setEnviando(false); }
             }}
             className="px-3 py-1.5 bg-green-500 hover:bg-green-400 rounded-lg text-white text-xs font-semibold transition-all"
           >
@@ -231,6 +231,7 @@ export const TodasAtividades = ({
       {showForm && (
         <AtividadeForm
           turmas={turmas}
+          contextoInicial={{ ...(filtroTurma !== 'todas' ? { turmaId: filtroTurma } : {}), ...(filtroBimestre !== 'todos' ? { bimestre: Number(filtroBimestre) } : {}) }}
           onCreate={handleCreate}
           onClose={() => setShowForm(false)}
         />
