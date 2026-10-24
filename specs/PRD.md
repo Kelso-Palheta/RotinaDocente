@@ -89,3 +89,7 @@ Aceite: impedir acesso/entrega por identidade não autorizada e vazamento de cad
 
 ### Correção de falso conflito após publicação — RN-70
 Publicar notas e registrar o resultado deve funcionar após serialização/releitura dos mapas do banco, mantendo proteção contra alterações reais em outra aba. Permitir repetir com segurança um conflito antigo causado apenas por ordem de chaves, preservando rascunhos e registros já publicados.
+
+
+### Cabeçalho compacto do Diário — RN-71
+Reduzir altura do cabeçalho da turma para liberar espaço à tabela de notas. Organizar título/abas e indicadores/ações em duas faixas flexíveis, mantendo leitura e acesso aos controles no desktop e celular.

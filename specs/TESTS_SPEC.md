@@ -203,3 +203,9 @@ Validação RN-69 (24/10/2026): **690 testes / 131 arquivos aprovados** na suít
 - Aviso de sessão anterior ignora somente diferença de ordem; diferença real continua visível.
 
 Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos arquivos alterados sem erros ou avisos. Comparação e recuperação testadas com dados sintéticos; nenhum registro de produção alterado.
+
+
+### RN-71 — Cabeçalho compacto
+- Preservar quatro faixas e contagens de uma turma sintética com 35 alunos; títulos e ações continuam acessíveis.
+- Navegação e importação funcionam depois da reorganização; não testar nomes de classes CSS como contrato.
+- Conferir layout renderizado no desktop e celular: altura reduzida no desktop, rótulos sem quebra interna, ausência de sobreposição/rolagem horizontal.

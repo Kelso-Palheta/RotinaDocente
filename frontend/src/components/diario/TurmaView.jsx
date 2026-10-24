@@ -30,9 +30,9 @@ const statsByBimestre = (turma, bimestre) => {
 };
 
 const StatChip = ({ label, value, color }) => (
-  <div className={`flex flex-col items-center px-2 sm:px-5 py-0.5 sm:py-2.5 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-105 ${color}`}>
-    <span className="font-bold text-base sm:text-xl font-mono tracking-tight tabular-nums">{value}</span>
-    <span className="text-[8px] sm:text-[10px] uppercase font-bold tracking-wider opacity-75">{label}</span>
+  <div className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border px-2.5 py-1 ${color}`}>
+    <dt className="text-[10px] font-bold uppercase leading-4 tracking-wide opacity-80">{label}</dt>
+    <dd className="order-first font-mono text-base font-bold leading-6 tracking-tight tabular-nums">{value}</dd>
   </div>
 );
 
@@ -62,9 +62,8 @@ export const TurmaView = ({
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex-shrink-0 px-3 sm:px-6 pt-3 sm:pt-5 pb-2 sm:pb-4 border-b border-[#dce0f0] bg-white">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3">
-          <div>
+      <section aria-label="Cabeçalho da turma" className="shrink-0 border-b border-[#dce0f0] bg-white px-3 py-2.5 sm:px-6 sm:py-3">
+        <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               <h1 className="text-lg sm:text-2xl font-extrabold text-[#101942] tracking-tight font-head">Turma {turma.nome}</h1>
               <span className="text-xs text-[#6070a0] font-mono font-semibold">({turma.alunos.length} alunos)</span>
@@ -81,19 +80,7 @@ export const TurmaView = ({
                 <span className="px-2.5 py-0.5 bg-purple-50 border border-purple-200 rounded-full text-[10px] font-extrabold uppercase tracking-wider text-purple-700">Diário de Bordo & Ocorrências</span>
               )}
             </div>
-
-            {view === 'bimestre' && (
-              <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3 mt-3 lg:mt-2">
-                <StatChip label="Excelentes" value={stats.excelentes} color="border-green-200 text-green-700 bg-green-50" />
-                <StatChip label="Aprovados" value={stats.aprovados} color="border-blue-200 text-blue-700 bg-blue-50" />
-                <StatChip label="Abaixo da média" value={stats.abaixo} color="border-[#fecaca] text-[#991b1b] bg-[#fef2f2]" />
-                {stats.semNota > 0 && <StatChip label="Sem nota" value={stats.semNota} color="border-[#dce0f0] text-[#6070a0] bg-[#f7f8fc]" />}
-              </div>
-            )}
-          </div>
-
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 flex-wrap justify-end">
-            <div className="flex items-center bg-[#f7f8fc] p-1 rounded-xl border border-[#dce0f0] shadow-2xs">
+            <nav aria-label="Áreas da turma" className="flex min-w-0 flex-wrap items-center bg-[#f7f8fc] p-1 rounded-xl border border-[#dce0f0] shadow-2xs">
               <button 
                 onClick={() => confirmarTrocaContexto() && setView('bimestre')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
@@ -126,8 +113,18 @@ export const TurmaView = ({
               >
                 Resumo anual
               </button>
-            </div>
-
+            </nav>
+        </div>
+        <div className="mt-2 flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            {view === 'bimestre' && (
+              <dl aria-label="Resumo de desempenho" className="flex flex-wrap items-center gap-1.5">
+                <StatChip label="Excelentes" value={stats.excelentes} color="border-green-200 text-green-700 bg-green-50" />
+                <StatChip label="Aprovados" value={stats.aprovados} color="border-blue-200 text-blue-700 bg-blue-50" />
+                <StatChip label="Abaixo da média" value={stats.abaixo} color="border-[#fecaca] text-[#991b1b] bg-[#fef2f2]" />
+                {stats.semNota > 0 && <StatChip label="Sem nota" value={stats.semNota} color="border-[#dce0f0] text-[#6070a0] bg-[#f7f8fc]" />}
+              </dl>
+            )}
+          <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
             {/* Botões de Exportação */}
             {view === 'bimestre' && <details className="relative text-xs"><summary className="cursor-pointer border rounded-xl p-2 font-bold">Relatório do {bimestre}º bimestre</summary><div className="absolute top-full right-0 z-30 w-52 bg-white border rounded-xl shadow p-3 space-y-3"><p>Somente turma {turma.nome}, {bimestre}º bimestre.</p><button type="button" onClick={() => generateRelatorioBimestrePDF(turma, bimestre, user?.email)} className="block underline">Baixar PDF do bimestre</button><button type="button" onClick={() => exportBimestreCSV(turma, bimestre)} className="block underline">Baixar CSV do bimestre</button></div></details>}
 
@@ -177,7 +174,7 @@ export const TurmaView = ({
             )}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Body */}
       <div className="flex-1 overflow-auto p-3 sm:p-6">

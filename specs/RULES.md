@@ -494,3 +494,9 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Gravações sucessivas e registro de publicação não geram conflito apenas por reordenação de mapas após leitura do Firestore.
 - Recuperar conflito antigo só pode salvar o rascunho quando revisão, existência/origem e conteúdo da base ainda correspondem à nuvem; mudança real continua bloqueada.
 - Aviso de sessão antiga diferente da nuvem usa a mesma comparação de conteúdo, sem apagar ou aplicar dados automaticamente.
+
+
+### RN-71 — Cabeçalho compacto de turma
+- Identificação/abas e indicadores/ações ocupam duas faixas compactas, com quebra responsiva sem sobreposição.
+- Indicadores mantêm cores, contagens e rótulos completos; número e texto lado a lado, sem quebra interna dos rótulos.
+- Exportação, importação, navegação e cálculos permanecem iguais. Em telas estreitas os itens mudam de linha, sem cortar conteúdo nem exigir rolagem horizontal da página.
