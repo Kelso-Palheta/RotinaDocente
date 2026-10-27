@@ -249,3 +249,12 @@ Validação RN-75 (27/10/2026): **828 testes em 174 arquivos** aprovados — 806
 - [x] **UT-55 (RN-76):** Ao trocar de conta, a grade anterior não permanece editável durante o carregamento.
 
 Validação RN-76 (27/10/2026): **851 testes em 177 arquivos** aprovados — 828 preexistentes preservados e 23 novos. Build de produção exit 0; lint dos arquivos alterados sem problemas. Nenhum teste ou evidência histórica foi alterado; a chave base deixou de conter aulas de conta autenticada.
+
+## RN-77 — Correção de atividades: orçamento de payload com imagem
+- [x] **UT-56 (RN-77):** `validarPayloadIA` aceita requisição com imagem de ~300 KB e recusa total acima de 4 MB, imagem acima de 1,6 MB, mais de 4 imagens e texto acima de 60.000 caracteres, nomeando o campo e o valor.
+- [x] **UT-57 (RN-77):** `selecionarImagensCorrecao` mantém imagem que já cabe, reduz a excedente usando o redutor injetado e omite a que não cabe nem reduzida, respeitando o orçamento e o máximo de 4 imagens.
+- [x] **UT-58 (RN-77):** `truncarResposta` corta em 20.000 caracteres com marcação, sinaliza `respostaTruncada` e não altera texto curto.
+- [x] **UT-59 (RN-77):** `corrigirAtividade` conclui correção com imagem realista (~300 KB de base64), preserva a leitura da imagem e agrega `avisos` quando alguma imagem é omitida.
+- [x] **UT-60 (RN-77):** `POST /api/maritaca` aceita imagem de ~300 KB (HTTP 200) e recusa imagem de 8 MB com HTTP 400 nomeando imagem e limite, sem chamar o provedor.
+
+Validação RN-77 (27/10/2026): **866 testes em 178 arquivos** aprovados — 851 preexistentes preservados e 15 novos. Build de produção exit 0; lint dos arquivos alterados sem problemas. Nenhum teste ou evidência histórica foi alterado. O teto único de 50 KB foi substituído por orçamento por campo (4 MB total, 1,6 MB por imagem, 4 imagens, 60.000 caracteres de texto), com redução da cópia enviada, degradação declarada sem imagem e truncamento explícito de resposta longa.

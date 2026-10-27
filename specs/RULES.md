@@ -543,3 +543,11 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - `somenteReal` permanece estrito: lê apenas a nuvem, propaga erro e devolve `null` em modo anônimo, sem cache nem demonstração. Calendário e Diário mantêm esse caminho.
 - Na interface, o cabeçalho distingue nuvem, somente dispositivo, salvando, pendente e falha; pendente e falha oferecem nova tentativa. Ao trocar de conta, a grade anterior deixa de ser editável enquanto a nova carrega.
 - Nenhuma aula é apagada ou migrada em silêncio. Falha local preserva o rascunho em memória e permite repetir a gravação.
+
+## RN-77 — Correção de atividades: orçamento de payload com imagem
+- O limite do gateway de IA (`POST /api/maritaca`) é um orçamento declarado, não um teto único: até 4 MB de JSON por requisição, até 4 imagens por mensagem, até 1,6 MB por imagem e até 60.000 caracteres de texto. O limite anterior de 50 KB não pode ser restaurado: uma foto de questão já comprimida (~40 KB binários) vira ~64 KB em base64 e o excede antes do enunciado.
+- Rejeição por orçamento informa o campo e o valor — total, imagem (índice, tamanho e limite), quantidade de imagens ou tamanho do texto. Mensagem genérica de “payload excede o limite” não é suficiente. A recusa ocorre antes de chamar o provedor: nenhum token é consumido e a entrega permanece reenviável.
+- A imagem enviada para correção é uma cópia de trabalho: pode ser reduzida em dimensão/qualidade sem alterar a imagem armazenada na atividade. Imagem que já cabe no orçamento não é recodificada.
+- Se a imagem não couber nem após redução, a correção continua sem ela e o resultado registra a omissão (`avisoCorrecao`, `imagensOmitidas`, `semImagem`). A tela exibe o aviso e pede revisão manual. Uma imagem não pode derrubar a correção inteira, nem a correção pode declarar ter lido imagem omitida.
+- Resposta discursiva acima de 20.000 caracteres é truncada apenas no prompt, com marcação explícita (`respostaTruncada`); a resposta original da entrega permanece intacta.
+- A degradação não publica nota automaticamente: correção, revisão, sincronização e publicação seguem o fluxo normal da RN-69.

@@ -66,11 +66,12 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
           notaOriginal: resultado.notaFinal,
           notaFinal: resultado.notaFinal,
           modeloIA: resultado.modelo,
+          avisosCorrecao: resultado.avisos || [],
           corrigidoEm: serverTimestamp(),
           status: 'corrigido', tipoCorrecao: 'ia', penalidadePlagio: false, notaRevisada: null, revisadaPorId: null,
           correcaoAnterior: registrarCorrecaoAnterior(entrega),
           feedback: resultado.feedback || '', feedbackGeral: '',
-        }, { mergeFields: ['resultados', 'notaOriginal', 'notaFinal', 'modeloIA', 'corrigidoEm', 'status', 'tipoCorrecao', 'penalidadePlagio', 'notaRevisada', 'revisadaPorId', 'correcaoAnterior', 'feedback', 'feedbackGeral'] });
+        }, { mergeFields: ['resultados', 'notaOriginal', 'notaFinal', 'modeloIA', 'avisosCorrecao', 'corrigidoEm', 'status', 'tipoCorrecao', 'penalidadePlagio', 'notaRevisada', 'revisadaPorId', 'correcaoAnterior', 'feedback', 'feedbackGeral'] });
       } else {
         resultado = await corrigirAtividade({
           enunciado: atividade.enunciado,
@@ -88,6 +89,7 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
           feedback: resultado.feedback,
           criterios: resultado.criterios,
           modeloIA: resultado.modelo,
+          avisosCorrecao: resultado.avisoCorrecao ? [resultado.avisoCorrecao] : [],
           corrigidoEm: serverTimestamp(),
           status: 'corrigido', tipoCorrecao: 'ia', penalidadePlagio: false, notaRevisada: null, revisadaPorId: null, feedbackGeral: '',
           correcaoAnterior: registrarCorrecaoAnterior(entrega),

@@ -44,6 +44,7 @@ export const EntregaDrawer = ({ entrega, atividade, alunoNome, onManual, onCorri
               <p className="text-xs text-[#6070a0] whitespace-pre-wrap">Resposta: {entrega.respostas?.[q.id]?.resposta || '(sem resposta)'}</p>
               {q.alternativas?.find(a => a.id === entrega.respostas?.[q.id]?.resposta)?.texto && <p className="text-xs text-[#6070a0]">Alternativa marcada: {q.alternativas.find(a => a.id === entrega.respostas?.[q.id]?.resposta).texto}</p>}
               {res ? <><p className="font-mono text-sm text-[#101942]">{fmt(res.notaObtida)} / {fmt(res.notaMaxima)}</p><p className="text-sm text-[#6070a0] whitespace-pre-wrap">{res.feedback}</p></> : <p className="text-xs text-[#6070a0]">Ainda não corrigida</p>}
+              {res?.avisoCorrecao && <p role="status" className="text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1.5">{res.avisoCorrecao}</p>}
             </article>;
           })}</div> : <div className="rounded-xl border border-[#dce0f0] p-4"><h4 className="font-semibold text-[#101942]">Resposta</h4><p className="text-sm text-[#6070a0] whitespace-pre-wrap">{entrega.respostaTexto || '(sem resposta textual)'}</p></div>}
           {!questoes.length && entrega.criterios?.length > 0 && <div className="rounded-xl border border-[#dce0f0] p-4"><h4 className="font-semibold text-[#101942]">Critérios</h4>{entrega.criterios.map((criterio, index) => <p key={index} className="text-sm text-[#6070a0]">{criterio.nome}: {criterio.pontos_obtidos} / {criterio.pontos_maximos}</p>)}</div>}

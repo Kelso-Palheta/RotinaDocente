@@ -1,5 +1,8 @@
 import { getClientAIHeaders } from '@/utils/aiHeaders';
 import { extrairJsonIA } from '@/utils/extrairJsonIA';
+import { medirPayload } from '@/dominio/atividades/orcamentoPayloadIA';
+import { ORCAMENTO_CORRECAO, selecionarImagensCorrecao, truncarResposta } from '@/aplicacao/atividades/orcamentoCorrecao';
+import { reduzirImagemParaCorrecao } from '@/utils/atividades/imagemCorrecao';
 
 const BASE_URL = '/api/maritaca';
 
@@ -60,15 +63,28 @@ Retorne APENAS JSON válido, sem blocos markdown:
 }
 
 async function corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nivel = 'normal') {
-  const content = [{ type: 'text', text: buildDiscursivaPrompt(questao, resposta, materialTexto, nivel) }];
+  const { texto: respostaSegura, truncada: respostaTruncada } = truncarResposta(resposta);
+  const prompt = buildDiscursivaPrompt(questao, respostaSegura, materialTexto, nivel);
 
-  if (questao.imagens?.length > 0) {
-    for (const img of questao.imagens) {
-      const url = img.url || img.base64;
-      if (url) {
-        content.push({ type: 'image_url', image_url: { url } });
-      }
-    }
+  // Orçamento do prompt antes das imagens: o que sobra é o teto da cópia enviada.
+  const caracteresDoPrompt = medirPayload({ messages: [{ role: 'user', content: [{ type: 'text', text: prompt }] }] });
+  const disponivel = Math.max(0, ORCAMENTO_CORRECAO.alvoTotalCaracteres - caracteresDoPrompt);
+  const selecao = await selecionarImagensCorrecao(questao.imagens || [], {
+    orcamentoCaracteres: disponivel,
+    reduzir: url => reduzirImagemParaCorrecao(url),
+  });
+
+  const content = [{ type: 'text', text: prompt }];
+  for (const imagem of selecao.imagens) {
+    content.push({ type: 'image_url', image_url: { url: imagem.url } });
+  }
+
+  const avisos = [];
+  if (selecao.omitidas > 0) {
+    avisos.push(`Corrigido sem ${selecao.omitidas} ${selecao.omitidas === 1 ? 'imagem' : 'imagens'} da questão (arquivo acima do limite de envio). Revise manualmente.`);
+  }
+  if (respostaTruncada) {
+    avisos.push('A resposta do aluno foi truncada no envio para a IA; confira a correção manualmente.');
   }
 
   const maxTokens = MAX_TOKENS[nivel] || 1024;
@@ -80,7 +96,11 @@ async function corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nive
     notaObtida: Math.min(Math.max(Number(parsed.nota), 0), questao.notaMaxima),
     feedback: String(parsed.feedback || '').trim(),
     criterios: Array.isArray(parsed.criterios) ? parsed.criterios : [],
-    modelo
+    modelo,
+    imagensOmitidas: selecao.omitidas,
+    semImagem: (questao.imagens?.length || 0) > 0 && selecao.semImagem,
+    respostaTruncada,
+    ...(avisos.length ? { avisoCorrecao: avisos.join(' ') } : {}),
   };
 }
 
@@ -99,21 +119,23 @@ async function corrigirMultiQuestao({ questoes, respostas, materialTexto = '', n
   const apiKey = 'client-side';
 
   const resultados = {};
+  const avisos = [];
   let notaFinal = 0;
   const modelos = new Set();
 
-  for (const questao of questoes) {
+  for (const [indice, questao] of questoes.entries()) {
     const resposta = respostas?.[questao.id]?.resposta ?? '';
     const resultado = questao.tipo === 'objetiva'
       ? corrigirObjetiva(questao, resposta)
       : await corrigirDiscursiva(questao, resposta, materialTexto, apiKey, nivelCorrecao);
 
     resultados[questao.id] = { ...resultado, notaMaxima: questao.notaMaxima };
+    if (resultado.avisoCorrecao) avisos.push(`Questão ${indice + 1}: ${resultado.avisoCorrecao}`);
     if (resultado.modelo) modelos.add(resultado.modelo);
     notaFinal = Math.round((notaFinal + resultado.notaObtida) * 100) / 100;
   }
 
-  return { resultados, notaFinal, modelo: [...modelos].join(', ') || null };
+  return { resultados, notaFinal, modelo: [...modelos].join(', ') || null, avisos };
 }
 
 async function corrigirLegacy({ enunciado, gabarito, respostaTexto, notaMaxima, imagens = [], nivelCorrecao = 'normal' }) {
@@ -129,7 +151,8 @@ async function corrigirLegacy({ enunciado, gabarito, respostaTexto, notaMaxima, 
     notaFinal: resultado.notaObtida,
     feedback: resultado.feedback,
     criterios: resultado.criterios,
-    modelo: resultado.modelo
+    modelo: resultado.modelo,
+    ...(resultado.avisoCorrecao ? { avisoCorrecao: resultado.avisoCorrecao } : {}),
   };
 }
 

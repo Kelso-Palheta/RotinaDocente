@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { callAIRaw, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
+import { validarPayloadIA } from '@/dominio/atividades/orcamentoPayloadIA';
 
 /**
  * Gateway de IA unificado (BYOK Obrigatório).
@@ -25,10 +26,11 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Payload JSON inválido.' }, { status: 400 });
     }
 
-    // Validação de limite de tamanho total do payload (DoS protection)
-    const jsonStr = JSON.stringify(body);
-    if (jsonStr.length > 50000) {
-      return NextResponse.json({ error: 'Payload excede o limite máximo permitido (50KB).' }, { status: 400 });
+    // Orçamento de payload declarado por campo (RN-77). Substitui o teto único de
+    // 50 KB, que nenhuma imagem de questão consegue respeitar (~40 KB → ~64 KB em base64).
+    const validacao = validarPayloadIA(body);
+    if (!validacao.ok) {
+      return NextResponse.json({ error: validacao.erro }, { status: 400 });
     }
 
     // Valida se possui messages ou prompt

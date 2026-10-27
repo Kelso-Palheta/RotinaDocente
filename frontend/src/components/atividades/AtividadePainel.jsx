@@ -149,6 +149,10 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
       const bim = String(atvCompleta.bimestre ?? entregaAtual.bimestre);
       await sincronizarCorrecao(entregaAtual, bim);
 
+      // RN-77: imagem omitida ou resposta truncada não pode passar em silêncio.
+      if (resultado.avisos?.length) setMensagem(resultado.avisos.join(' '));
+      return resultado;
+
     } catch (err) {
       setErroAcao('Erro na correção: ' + err.message);
       if (emLote) throw err;
@@ -162,14 +166,17 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     if (!pendentes.length) return;
     if (!window.confirm(`Corrigir ${pendentes.length} entrega(s) com IA?`)) return;
     loteRef.current = true; setErroAcao('');
-    let feitas = 0; const falhas = [];
+    let feitas = 0; const falhas = []; let comAviso = 0;
     try {
       for (const e of pendentes) {
         setLote({ feitas, total: pendentes.length });
-        try { await handleCorrigir(e.id, true); } catch { falhas.push(e.alunoId); }
+        try {
+          const resultado = await handleCorrigir(e.id, true);
+          if (resultado?.avisos?.length) comAviso++;
+        } catch { falhas.push(e.alunoId); }
         feitas++;
       }
-      setMensagem(`Lote concluído: ${feitas - falhas.length} corrigidas, ${falhas.length} falhas.${falhas.length ? ' Tente novamente somente as entregas com erro.' : ''}`);
+      setMensagem(`Lote concluído: ${feitas - falhas.length} corrigidas, ${falhas.length} falhas.${falhas.length ? ' Tente novamente somente as entregas com erro.' : ''}${comAviso ? ` ${comAviso} corrigida(s) sem alguma imagem — revise manualmente.` : ''}`);
     } finally { loteRef.current = false; setLote(null); }
   }, [entregas, handleCorrigir]);
   const confirmarSync = async () => {
