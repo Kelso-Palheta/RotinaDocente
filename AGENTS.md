@@ -63,3 +63,10 @@ meu-projeto/
 ## Preferência de publicação
 - Após concluir as alterações autorizadas e aprovar as validações necessárias, fazer commit e push automaticamente, sem pedir nova confirmação.
 - Não publicar código com falhas conhecidas nas verificações. Preservar alterações alheias e informar o resultado do commit/push.
+
+## Divisão de tarefas com DeepSeek no OpenCode
+- O usuário utiliza DeepSeek gratuitamente pelo OpenCode. Priorizar essa opção para reduzir o consumo do ChatGPT quando a tarefa for adequada.
+- Ao iniciar novas tarefas, indicar quais partes podem ser executadas pelo DeepSeek: documentação, textos, ajustes visuais, funções isoladas e implementações delimitadas com especificação/testes de aceite claros.
+- Para as partes indicadas ao DeepSeek, fornecer prompt pronto para copiar no OpenCode, com escopo, arquivos, critérios de aceite, testes e restrições. Não executar essas partes aqui por padrão; aguardar o resultado para revisão, salvo pedido explícito para implementá-las aqui.
+- Reservar este chat prioritariamente para análise, especificação, decisões de arquitetura e revisão dos diffs. Mudanças críticas de autenticação, isolamento de contas, persistência, migração e regras de notas exigem atenção e revisão independente; não presumir correção apenas por testes aprovados.
+- Avaliar economia pelo esforço total de implementação, revisão e retrabalho. Não prometer percentuais de economia sem medição nem enviar mensagens/iniciar tarefas externas automaticamente.
