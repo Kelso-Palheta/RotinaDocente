@@ -94,3 +94,11 @@
 - [x] RN-80: resultados atrasados por conta, rascunho pendente, preservação do legado e conflito revisável.
 - [x] RN-80: Portal conserva seções válidas, sinaliza tokens e ignora pedidos antigos; avisos legados visíveis.
 - [x] Verificação final: 902 testes/198 arquivos, lint sem alertas e build de produção aprovados. Publicação autorizada após validação.
+
+## 27/10/2026 — Recuperação semestral (RN-81)
+- [x] Confirmar regra: uma ou várias atividades, soma total de 0 a 10; sem média automática.
+- [x] Especificar isolamento, lançamento revisável em rec1/rec2 e preservação da fórmula 25/25/50.
+- [x] Preparar plano e prompt delimitado para DeepSeek/OpenCode em `docs/plans/2026-10-27-recuperacao-semestral.md`.
+- [ ] Implementar domínio, criação/entrega/correção, lançamento e feedback conforme R81-01..08, com TDD.
+- [ ] Revisar independentemente autorização, versão concorrente, dados legados e notas antes de liberar.
+- [ ] Executar suíte completa, lint/build e homologação visual; publicar implementação aprovada.

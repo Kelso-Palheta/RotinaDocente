@@ -126,3 +126,10 @@ Permitir criar, manter ou editar figuras a partir de referência preservada, com
 
 ## Analytics e revisão de preservação (RN-79/RN-80)
 Implementar propostas de `docs/analises/2026-10-27-dashboard-analytics.md` e corrigir achados de `2026-10-27-revisao-implementacoes-recentes.md`. Aceite: mesma nota/critério em tela/PDF, filtros explícitos, cobertura/pendências, 25/25/50, conta isolada, rascunhos preservados e nenhuma seção válida apagada por falha parcial.
+
+## Recuperação semestral por atividades (RN-81 — a implementar)
+Permitir ao professor criar uma ou várias atividades de recuperação, regulares ou adaptadas, para alunos selecionados de uma turma e semestre. A distribuição total vale 10 pontos; a nota obtida é a soma das parcelas, de 0 a 10. Exemplo: duas atividades valendo 4 e 6; notas 3 e 5 geram recuperação 8, sem média automática.
+
+Fluxo: selecionar turma/ano/semestre e alunos → distribuir 10 pontos → criar/enviar atividades → corrigir com IA ou manualmente → conferir parcelas e efeito no semestre → confirmar lançamento em Rec. 1/Rec. 2 → publicar boletim. Atividades pendentes permanecem pendentes, sem zero inventado. O Portal e o relatório individual apresentam a devolutiva; a publicação das notas continua explícita.
+
+Aceite: isolamento entre conta/turma/ano/semestre/aluno, recuperação fora da sincronização bimestral, repetição idempotente, preservação de notas anteriores e conflitos revisáveis. Reutilizar fórmula atual de substituição da menor nota e aprovação 25/25/50. Não alterar armazenamento das imagens nem plano Firebase nesta entrega. Plano e prompt para OpenCode: `docs/plans/2026-10-27-recuperacao-semestral.md`.

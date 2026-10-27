@@ -24,4 +24,4 @@ Cada etapa considera o código local atual e preserva alterações das tarefas a
 
 **Lembrete combinado:** ao final das nossas tarefas, retomar e concluir a configuração do armazenamento das imagens de Atividades Adaptadas. Lembrete por etapa, sem data ou horário agendado.
 
-**Novo lembrete:** adicionar atividades de recuperação semestral.
+**Recuperação semestral — em andamento:** regra confirmada em 27/10/2026: uma ou várias atividades, somando de 0 a 10. RN-81 e plano/prompt em `docs/plans/2026-10-27-recuperacao-semestral.md`. Implementação e revisão ainda pendentes; manter lembrete até entrega funcional.
