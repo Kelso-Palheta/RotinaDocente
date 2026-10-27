@@ -10,14 +10,15 @@ import { calcTotal, temNota, round2 } from '../diario/calculos';
  * @param {number|null} nota
  * @returns {'excelente' | 'aprovado' | 'recuperacao' | 'critico' | 'sem_nota'}
  */
-export function classificarFaixaNota(nota) {
-  if (nota === null || nota === undefined || isNaN(nota)) {
+export function classificarFaixaNota(nota, config = {}) {
+  if (nota === null || nota === undefined || nota === '' || !Number.isFinite(Number(nota))) {
     return 'sem_nota';
   }
+  const aprovacao = Number(config.mediaAprovacao ?? 5);
+  const recuperacao = Number(config.mediaRecuperacao ?? 4);
+  if (nota < aprovacao) return nota >= (recuperacao === 4.99 ? 4 : recuperacao) ? 'recuperacao' : 'critico';
   if (nota >= 8.0) return 'excelente';
-  if (nota >= 5.0) return 'aprovado';
-  if (nota >= 4.0) return 'recuperacao';
-  return 'critico';
+  return 'aprovado';
 }
 
 /**
@@ -57,12 +58,12 @@ export function calcularMetricasTurma(turma, bimestre = '1') {
         alunoId: aluno.id,
         nome: aluno.nome,
         nota: total,
-        classificacao: classificarFaixaNota(total),
+        classificacao: classificarFaixaNota(total, config),
       });
 
       if (total >= (config?.mediaAprovacao ?? 5)) {
         aprovados++;
-      } else if (total >= (config?.mediaRecuperacao ?? 4)) {
+      } else if (classificarFaixaNota(total, config) === 'recuperacao') {
         emRecuperacao++;
       } else {
         emRisco++;
@@ -240,6 +241,7 @@ export function obterAlunosEmRisco(turmas = [], bimestre = '1') {
           nota: nv.nota,
           classificacao: nv.classificacao,
           bimestre: Number(bimestre),
+          minimo: Number(turma.bimestres?.[String(bimestre)]?.config?.mediaAprovacao ?? 5),
         });
       }
     });

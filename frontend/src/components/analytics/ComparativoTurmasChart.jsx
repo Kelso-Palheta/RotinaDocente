@@ -1,15 +1,8 @@
 'use client';
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { corFaixa } from '@/dominio/analytics/analise';
+import { faixaNotaBimestral } from '@/utils/diario/coresNota';
 
 function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
@@ -20,10 +13,13 @@ function CustomTooltip({ active, payload, label }) {
         <p className="text-slate-300 font-medium">{data.disciplina || 'Geral'}</p>
         <div className="pt-1 space-y-0.5 border-t border-white/10">
           <p className="text-emerald-400 font-semibold">
-            Média da Turma: {data.media !== null ? `${data.media.toFixed(2).replace('.', ',')} pts` : 'Sem dados'}
+            % da escala: {data.media !== null ? `${data.media.toFixed(2).replace('.', ',')} %` : 'Sem dados'}
           </p>
           <p className="text-blue-300">
-            Aprovação: {data.taxaAprovacao}%
+            No mínimo:{' '}
+            {data.taxaAprovacao === null || data.taxaAprovacao === undefined
+              ? 'Indisponível'
+              : `${data.taxaAprovacao}%`}
           </p>
           <p className="text-slate-400">
             Alunos avaliados: {data.avaliados} de {data.totalAlunos}
@@ -35,13 +31,15 @@ function CustomTooltip({ active, payload, label }) {
   return null;
 }
 
-export function ComparativoTurmasChart({ turmasMetricas = [] }) {
+export function ComparativoTurmasChart({ turmasMetricas = [], bimestral = true }) {
   const chartData = turmasMetricas.map((tm) => ({
     id: tm.turmaId,
     nome: tm.turmaNome?.length > 14 ? `${tm.turmaNome.slice(0, 12)}...` : tm.turmaNome,
     nomeCompleto: tm.turmaNome,
     disciplina: tm.disciplina,
-    media: tm.mediaTurma,
+    media: tm.percentualEscala ?? tm.mediaTurma,
+    notaOriginal: tm.mediaTurma,
+    cor: tm.cor || corFaixa(faixaNotaBimestral(tm.mediaTurma)),
     taxaAprovacao: tm.taxaAprovacao,
     avaliados: tm.totalAvaliados,
     totalAlunos: tm.totalAlunos,
@@ -49,36 +47,62 @@ export function ComparativoTurmasChart({ turmasMetricas = [] }) {
 
   const temDados = chartData.some((d) => d.media !== null);
 
-  const getCorBarra = (media) => {
-    if (media === null) return '#94a3b8';
-    if (media >= 7.0) return '#10b981';
-    if (media >= 5.0) return '#3b82f6';
-    if (media >= 4.0) return '#f59e0b';
-    return '#f60c49';
-  };
-
   return (
     <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div>
           <h4 className="text-base font-bold text-[#101942]">Comparativo entre Turmas</h4>
           <p className="text-xs text-slate-500 font-medium">
-            Média de notas obtidas por turma no período
+            Percentual da escala de cada turma; consulte as notas originais abaixo
           </p>
         </div>
-        <div className="flex items-center gap-3 text-xs font-medium text-slate-500">
+        <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500">
+          {bimestral && (
+            <span className="flex items-center gap-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />{' '}
+              {bimestral ? 'Excelente (≥ 8)' : 'Etapa semestral/anual'}
+            </span>
+          )}
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> ≥ 7.0
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> No mínimo configurado
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> ≥ 5.0
+            <span className="w-2.5 h-2.5 rounded-full bg-[#f60c49]" /> Abaixo do mínimo
           </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#f60c49]" /> &lt; 4.0
-          </span>
+          {!bimestral && (
+            <span className="flex items-center gap-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-slate-400" /> Em andamento / sem dados
+            </span>
+          )}
         </div>
       </div>
 
+      <details>
+        <summary className="cursor-pointer text-sm">Ver notas por turma</summary>
+        <table className="text-sm w-full">
+          <caption className="sr-only">Comparativo de turmas</caption>
+          <thead>
+            <tr>
+              <th>Turma</th>
+              <th>Média original</th>
+              <th>% da escala</th>
+              <th>Avaliados</th>
+            </tr>
+          </thead>
+          <tbody>
+            {chartData.map((d) => (
+              <tr key={d.id}>
+                <td>{d.nomeCompleto}</td>
+                <td>{d.notaOriginal ?? 'Sem dados'}</td>
+                <td>{d.media ?? '—'}</td>
+                <td>
+                  {d.avaliados}/{d.totalAlunos}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
       {!temDados ? (
         <div className="h-64 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
           <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
@@ -98,18 +122,11 @@ export function ComparativoTurmasChart({ turmasMetricas = [] }) {
                 tickLine={false}
                 axisLine={{ stroke: '#cbd5e1' }}
               />
-              <YAxis
-                domain={[0, 10]}
-                ticks={[0, 2, 4, 6, 8, 10]}
-                stroke="#64748b"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
+              <YAxis domain={[0, 100]} stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="media" radius={[8, 8, 0, 0]} maxBarSize={40}>
                 {chartData.map((entry) => (
-                  <Cell key={entry.id} fill={getCorBarra(entry.media)} />
+                  <Cell key={entry.id} fill={entry.cor} />
                 ))}
               </Bar>
             </BarChart>

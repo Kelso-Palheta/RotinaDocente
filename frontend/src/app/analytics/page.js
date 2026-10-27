@@ -1,311 +1,351 @@
 'use client';
-
-import { useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
-import { db } from '@/lib/firebase';
-import { doc, getDoc } from 'firebase/firestore';
-import {
-  GraduationCap,
-  TrendingUp,
-  Award,
-  AlertTriangle,
-  Users,
-  BookOpen,
-  ArrowRight,
-} from 'lucide-react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import {
-  calcularMetricasTurma,
-  calcularMetricasGlobais,
-  calcularEvolucaoBimestral,
-  calcularDistribuicaoNotas,
-  obterAlunosEmRisco,
-} from '@/utils/analytics/metricas';
-import { MetricCard } from '@/components/analytics/MetricCard';
+import { useAuth } from '@/lib/auth-context';
+import { useDadosAnalytics } from '@/hooks/analytics/useDadosAnalytics';
+import { faixaNotaBimestral } from '@/utils/diario/coresNota';
+import { montarAnalise, corFaixa } from '@/dominio/analytics/analise';
+import { anoLetivoTurma, filtrarTurmasAno } from '@/dominio/diario/evolucao';
+import { fmt } from '@/utils/diario/calculos';
+import { AnalyticsHeader } from '@/components/analytics/AnalyticsHeader';
+import { AlunosRiscoTable } from '@/components/analytics/AlunosRiscoTable';
+import { ComparativoTurmasChart } from '@/components/analytics/ComparativoTurmasChart';
 import { EvolucaoChart } from '@/components/analytics/EvolucaoChart';
 import { DistribuicaoChart } from '@/components/analytics/DistribuicaoChart';
-import { ComparativoTurmasChart } from '@/components/analytics/ComparativoTurmasChart';
-import { AlunosRiscoTable } from '@/components/analytics/AlunosRiscoTable';
-import { AnalyticsHeader } from '@/components/analytics/AnalyticsHeader';
 import { generateAnalyticsPDF } from '@/lib/analytics/pdf-generator';
-import Toast from '@/components/ui/Toast';
-import { useToast } from '@/hooks/useToast';
-import { AnimatePresence } from 'framer-motion';
-
-const STORAGE_KEY = 'diario_turmas';
+import { DialogoAnalytics } from '@/components/analytics/DialogoAnalytics';
+import { PerfilAlunoDiario } from '@/components/diario/PerfilAlunoDiario';
 
 export default function AnalyticsPage() {
   const { user, perfil, loading } = useAuth();
-  const router = useRouter();
-  const { toast, showToast, hideToast } = useToast();
+  if (loading)
+    return (
+      <p role="status" className="p-6">
+        Carregando sua conta…
+      </p>
+    );
+  if (!user)
+    return (
+      <main className="p-6">
+        <p>Entre na sua conta para consultar os indicadores.</p>
+        <Link href="/">Voltar ao Hub</Link>
+      </main>
+    );
+  if (!perfil || (!perfil.isAdmin && !perfil.modulos_permitidos?.includes('analytics-pedagogico')))
+    return (
+      <main className="p-6">
+        <p>Acesso ao Analytics indisponível para esta conta.</p>
+        <Link href="/">Voltar ao Hub</Link>
+      </main>
+    );
+  return (
+    <AnalyticsConta
+      key={user.uid}
+      uid={user.uid}
+      professorNome={perfil.nome || user.displayName || 'Professor(a)'}
+    />
+  );
+}
 
-  const [turmas, setTurmas] = useState([]);
-  const [loadingData, setLoadingData] = useState(true);
-  const [turmaSelecionadaId, setTurmaSelecionadaId] = useState(null); // null = todas
-  const [bimestreSelecionado, setBimestreSelecionado] = useState('1');
-  const [exportingPDF, setExportingPDF] = useState(false);
-
-  // Carrega turmas do LocalStorage e Firestore
-  useEffect(() => {
-    let mounted = true;
-
-    const carregarTurmas = async () => {
-      let turmasLocais = [];
-      if (typeof window !== 'undefined') {
-        try {
-          const raw = sessionStorage.getItem(STORAGE_KEY);
-          if (raw) turmasLocais = JSON.parse(raw);
-        } catch {}
-      }
-
-      if (mounted && turmasLocais.length > 0) {
-        setTurmas(turmasLocais);
-        setLoadingData(false);
-      }
-
-      if (user && db) {
-        try {
-          const ref = doc(db, 'diario_turmas', user.uid);
-          const snap = await getDoc(ref);
-          if (snap.exists() && mounted) {
-            const data = snap.data();
-            if (Array.isArray(data.turmas) && data.turmas.length > 0) {
-              setTurmas(data.turmas);
-            }
-          }
-        } catch (e) {
-          console.warn('[Analytics] Erro ao sincronizar do Firestore:', e);
-        } finally {
-          if (mounted) setLoadingData(false);
-        }
-      } else {
-        if (mounted) setLoadingData(false);
-      }
-    };
-
-    carregarTurmas();
-
-    return () => {
-      mounted = false;
-    };
-  }, [user]);
-
-  // Turma ativa (ou null para consolidado)
-  const turmaAtiva = useMemo(() => {
-    if (!turmaSelecionadaId) return null;
-    return turmas.find((t) => t.id === turmaSelecionadaId) || null;
-  }, [turmas, turmaSelecionadaId]);
-
-  // Cálculos de métricas derivados
-  const metricas = useMemo(() => {
-    if (turmaAtiva) {
-      const mt = calcularMetricasTurma(turmaAtiva, bimestreSelecionado);
-      return {
-        totalTurmas: 1,
-        totalAlunos: mt.totalAlunos,
-        totalAvaliados: mt.totalAvaliados,
-        mediaGeral: mt.mediaTurma,
-        taxaAprovacao: mt.taxaAprovacao,
-        taxaRisco: mt.taxaRisco,
-        turmasMetricas: [mt],
-      };
-    }
-    return calcularMetricasGlobais(turmas, bimestreSelecionado);
-  }, [turmas, turmaAtiva, bimestreSelecionado]);
-
-  // Evolução bimestral
-  const evolucaoData = useMemo(() => {
-    return calcularEvolucaoBimestral(turmaAtiva || turmas);
-  }, [turmas, turmaAtiva]);
-
-  // Distribuição de notas
-  const distribuicaoData = useMemo(() => {
-    return calcularDistribuicaoNotas(turmaAtiva || turmas, bimestreSelecionado);
-  }, [turmas, turmaAtiva, bimestreSelecionado]);
-
-  // Alunos em risco
-  const alunosEmRisco = useMemo(() => {
-    return obterAlunosEmRisco(turmaAtiva ? [turmaAtiva] : turmas, bimestreSelecionado);
-  }, [turmas, turmaAtiva, bimestreSelecionado]);
-
-  const handleExportPDF = async () => {
+function AnalyticsConta({ uid, professorNome }) {
+  const dados = useDadosAnalytics(uid);
+  const [anoEscolhido, setAno] = useState(null);
+  const [arquivadas, setArquivadas] = useState(false);
+  const [turmaId, setTurmaId] = useState(null);
+  const [periodo, setPeriodo] = useState(() => {
     try {
-      setExportingPDF(true);
-      showToast('Gerando Relatório Executivo em PDF...', 'info');
-
-      const turmaNome = turmaSelecionadaId
-        ? turmas.find((t) => t.id === turmaSelecionadaId)?.nome || 'Turma Selecionada'
-        : 'Todas as Turmas';
-
+      const c = JSON.parse(localStorage.getItem(`diario_contexto_${uid}`) || '{}');
+      return [1, 2, 3, 4].includes(Number(c.bimestre))
+        ? String(c.bimestre)
+        : String(Math.min(4, Math.floor(new Date().getMonth() / 3) + 1));
+    } catch {
+      return '1';
+    }
+  });
+  const [aba, setAba] = useState('geral');
+  const [exportando, setExportando] = useState(false);
+  const [erroPDF, setErroPDF] = useState('');
+  const [alunoAberto, setAlunoAberto] = useState(null);
+  const anos = useMemo(
+    () =>
+      [...new Set([new Date().getFullYear(), ...dados.turmas.map(anoLetivoTurma).filter(Boolean)])].sort(),
+    [dados.turmas],
+  );
+  const ano = anoEscolhido || (dados.turmas.some((t) => !anoLetivoTurma(t)) ? 'legado' : String(anos.at(-1)));
+  const contexto = filtrarTurmasAno(dados.turmas, ano, arquivadas);
+  const selecaoInvalida = Boolean(turmaId && !contexto.some((t) => t.id === turmaId));
+  const turmas = turmaId ? contexto.filter((t) => t.id === turmaId) : contexto;
+  const analise = montarAnalise(turmas, periodo);
+  const corMedia =
+    analise.criteriosDiferentes || analise.escalasDiferentes
+      ? undefined
+      : analise.bimestral
+        ? corFaixa(faixaNotaBimestral(analise.mediaGeral, { mediaAprovacao: analise.linhas[0]?.minimo }))
+        : analise.totalParciais
+          ? '#94a3b8'
+          : corFaixa(
+              analise.mediaGeral === null
+                ? 'sem_nota'
+                : analise.mediaGeral >= analise.linhas[0]?.minimo
+                  ? 'aprovado'
+                  : 'abaixo',
+            );
+  const evolucao = ['1', '2', '3', '4'].map((b) => {
+    const a = montarAnalise(turmas, b);
+    const ls = a.linhas.filter((l) => l.nota !== null && l.escala > 0);
+    return {
+      bimestre: `${b}º Bim`,
+      media: ls.length
+        ? Math.round((ls.reduce((s, l) => s + (l.nota / l.escala) * 100, 0) / ls.length) * 100) / 100
+        : null,
+      avaliados: ls.length,
+      unidade: '%',
+    };
+  });
+  const alunoTurma = alunoAberto && turmas.find((t) => t.id === alunoAberto.turmaId);
+  const aluno = alunoTurma?.alunos.find((a) => a.id === alunoAberto.alunoId);
+  const exportar = async () => {
+    setExportando(true);
+    setErroPDF('');
+    try {
       await generateAnalyticsPDF({
-        turmas: turmaAtiva ? [turmaAtiva] : turmas,
-        metricas: {
-          totalAlunos: metricas.totalAlunos,
-          mediaGeral: metricas.mediaGeral || 0,
-          taxaAprovacao: metricas.taxaAprovacao || 0,
-          taxaRecuperacao: metricas.taxaRisco || 0,
-        },
-        alunosEmRisco,
-        turmaSelecionadaNome: turmaNome,
-        bimestre: bimestreSelecionado,
-        professorNome: perfil?.nome || user?.displayName || user?.email?.split('@')[0] || 'Professor(a)',
+        analise,
+        ano,
+        professorNome,
+        turmaSelecionadaNome: turmaId ? turmas[0]?.nome : 'Todas as turmas do filtro',
+        origem: dados.origem,
+        atualizadoEm: dados.atualizadoEm,
       });
-
-      showToast('Relatório baixado com sucesso!', 'success');
-    } catch (err) {
-      console.error('Erro ao gerar PDF do Analytics:', err);
-      showToast('Erro ao gerar relatório: ' + err.message, 'error');
+    } catch (e) {
+      setErroPDF(`Não foi possível exportar: ${e.message}`);
     } finally {
-      setExportingPDF(false);
+      setExportando(false);
     }
   };
-
-  if (loading || loadingData) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#101942] to-[#2563eb] animate-pulse shadow-lg" />
-          <p className="text-sm font-semibold text-slate-500">Carregando painel analítico...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const temTurmas = turmas.length > 0;
-
+  const abrirAluno = (l) => {
+    setAlunoAberto(l);
+  };
+  const trocarContexto = (acao) => {
+    acao();
+    setTurmaId(null);
+    setAlunoAberto(null);
+    setErroPDF('');
+  };
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col relative">
-      <AnimatePresence>
-        {toast && (
-          <Toast
-            key={toast.id}
-            message={toast.message}
-            type={toast.type}
-            duration={toast.duration}
-            onClose={hideToast}
-          />
-        )}
-      </AnimatePresence>
-
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 space-y-6">
-        {/* Cabeçalho e Filtros */}
-        <AnalyticsHeader
-          turmas={turmas}
-          turmaSelecionadaId={turmaSelecionadaId}
-          onSelectTurma={setTurmaSelecionadaId}
-          bimestreSelecionado={bimestreSelecionado}
-          onSelectBimestre={setBimestreSelecionado}
-          onExportPDF={handleExportPDF}
-          exportingPDF={exportingPDF}
-        />
-
-        {!temTurmas ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-slate-200 shadow-sm max-w-md mx-auto space-y-4 my-12">
-            <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto shadow-inner">
-              <BookOpen size={32} />
-            </div>
-            <h3 className="text-lg font-bold text-[#101942]">Nenhuma turma cadastrada</h3>
-            <p className="text-xs text-slate-500">
-              Cadastre suas turmas e lance as notas no Diário Pedagógico para visualizar relatórios e gráficos analíticos completos.
+    <main className="min-h-screen bg-slate-50 text-[#101942] p-3 md:p-6 space-y-4 max-w-7xl mx-auto">
+      <AnalyticsHeader
+        turmas={contexto}
+        turmaSelecionadaId={turmaId}
+        onSelectTurma={(id) => {
+          setTurmaId(id);
+          setAlunoAberto(null);
+        }}
+        bimestreSelecionado={periodo}
+        onSelectBimestre={(p) => {
+          setPeriodo(p);
+          setAlunoAberto(null);
+        }}
+        anos={anos}
+        ano={ano}
+        onSelectAno={(a) => trocarContexto(() => setAno(a))}
+        arquivadas={arquivadas}
+        onArquivadas={(a) => trocarContexto(() => setArquivadas(a))}
+        onExportPDF={() => setAba('relatorios')}
+        exportingPDF={exportando}
+        exportDisabled={dados.carregando || selecaoInvalida}
+      />
+      <div className="text-sm flex gap-3 flex-wrap items-center">
+        <span>
+          Origem: {dados.origem || 'carregando'} ·{' '}
+          {dados.atualizadoEm
+            ? `Consultado em ${new Date(dados.atualizadoEm).toLocaleString('pt-BR')}`
+            : 'Atualização não confirmada'}
+        </span>
+        <button type="button" className="underline" disabled={dados.carregando} onClick={dados.recarregar}>
+          Atualizar dados
+        </button>
+        <Link href="/diario" className="underline">
+          Abrir Diário
+        </Link>
+      </div>
+      {dados.erro && (
+        <p role="alert" className="p-3 rounded-lg bg-amber-50 text-amber-900">
+          {dados.erro}{' '}
+          {dados.origem === 'cache local'
+            ? 'Exibindo cópia deste dispositivo; dados podem estar desatualizados.'
+            : ''}
+        </p>
+      )}
+      {dados.carregando ? (
+        <p role="status">Carregando notas do Diário…</p>
+      ) : selecaoInvalida ? (
+        <p role="alert">
+          A turma selecionada não está disponível neste filtro. Selecione novamente; o escopo não foi
+          ampliado.
+        </p>
+      ) : !contexto.length ? (
+        <section className="bg-white p-6 rounded-xl">
+          <h2 className="font-bold">
+            {dados.erro ? 'Consulta indisponível neste filtro' : 'Nenhuma turma neste filtro'}
+          </h2>
+          <p>Confira ano letivo e turmas arquivadas. Notas e cadastros são feitos no Diário.</p>
+        </section>
+      ) : (
+        <>
+          <nav aria-label="Áreas do Analytics" className="flex flex-wrap gap-2">
+            {[
+              ['geral', 'Visão geral'],
+              ['atencao', 'Atenção e pendências'],
+              ['evolucao', 'Evolução'],
+              ['relatorios', 'Relatórios'],
+            ].map(([id, nome]) => (
+              <button
+                type="button"
+                key={id}
+                aria-pressed={aba === id}
+                onClick={() => setAba(id)}
+                className={`px-4 py-2 rounded-lg border ${aba === id ? 'bg-[#101942] text-white' : 'bg-white'}`}
+              >
+                {nome}
+              </button>
+            ))}
+          </nav>
+          <p className="text-sm">
+            {analise.rotulo} · {analise.totalTurmas} turma(s) · {analise.totalAlunos} matrículas. Uma pessoa
+            pode ter vínculos em mais de uma turma/disciplina.
+          </p>
+          {analise.criteriosDiferentes && (
+            <p className="text-sm bg-amber-50 p-3">
+              Há critérios diferentes entre as turmas. Confira os mínimos abaixo; comparações gráficas usam
+              percentual da escala.
             </p>
-            <Link
-              href="/diario"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#101942] text-white text-xs font-bold shadow-md hover:bg-[#101942]/90 transition-colors"
-            >
-              Ir para o Diário Pedagógico
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-        ) : (
-          <>
-            {/* Grid de KPIs Superiores */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <MetricCard
-                title="Média Geral"
-                value={
-                  metricas.mediaGeral !== null
-                    ? `${metricas.mediaGeral.toFixed(2).replace('.', ',')}`
-                    : '—'
-                }
-                subtitle={
-                  metricas.mediaGeral !== null
-                    ? metricas.mediaGeral >= 6.0
-                      ? 'Desempenho acima da média'
-                      : 'Rendimento requer atenção'
-                    : 'Sem notas lançadas'
-                }
-                icon={GraduationCap}
-                color={
-                  metricas.mediaGeral === null
-                    ? 'blue'
-                    : metricas.mediaGeral >= 7.0
-                    ? 'emerald'
-                    : metricas.mediaGeral >= 5.0
-                    ? 'blue'
-                    : 'rose'
-                }
-                delay={0.05}
+          )}
+          {aba === 'geral' && (
+            <>
+              <dl className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                {[
+                  ['Média', analise.escalasDiferentes ? 'Escalas diferentes' : fmt(analise.mediaGeral)],
+                  ['Cobertura', `${analise.totalAvaliados}/${analise.totalAlunos} avaliados`],
+                  [
+                    analise.bimestral ? 'No mínimo bimestral' : 'Aprovados nas etapas concluídas',
+                    analise.taxaAprovacao === null ? 'Indisponível' : `${analise.taxaAprovacao}%`,
+                  ],
+                  [
+                    'Atenção',
+                    analise.taxaAtencao === null
+                      ? 'Indisponível'
+                      : `${analise.emAtencao.length} (${analise.taxaAtencao}%)`,
+                  ],
+                ].map(([k, v]) => (
+                  <div key={k} className="p-4 bg-white border rounded-xl">
+                    <dt className="text-sm">{k}</dt>
+                    <dd className="font-bold text-xl" style={k === 'Média' ? { color: corMedia } : undefined}>
+                      {v}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="text-sm">
+                {analise.totalSemNota} sem nota · {analise.totalParciais} resultados parciais.{' '}
+                {analise.bimestral
+                  ? 'Indicadores bimestrais são provisórios; não definem aprovação semestral.'
+                  : 'Percentuais usam somente etapas concluídas; em andamento não equivale a reprovação.'}
+              </p>
+              <DistribuicaoChart distribuicao={analise.distribuicao} />
+              <ComparativoTurmasChart turmasMetricas={analise.turmasMetricas} bimestral={analise.bimestral} />
+            </>
+          )}
+          {aba === 'atencao' && (
+            <>
+              <AlunosRiscoTable
+                alunos={analise.emAtencao}
+                totalAvaliados={analise.totalAvaliados}
+                totalParciais={analise.totalParciais}
+                onSelectAluno={abrirAluno}
               />
-
-              <MetricCard
-                title="Taxa de Aprovação"
-                value={`${metricas.taxaAprovacao}%`}
-                subtitle={`${metricas.totalAvaliados} avaliados no ${bimestreSelecionado}º Bim`}
-                icon={Award}
-                color="emerald"
-                delay={0.1}
+              <AlunosRiscoTable
+                titulo="Lançamentos pendentes ou parciais"
+                alunos={analise.linhas.filter((l) => l.nota === null || l.parcial)}
+                totalAvaliados={analise.totalAlunos}
+                onSelectAluno={abrirAluno}
               />
-
-              <MetricCard
-                title="Alunos em Alerta"
-                value={alunosEmRisco.length}
-                subtitle={`${metricas.taxaRisco}% em risco/recuperação`}
-                icon={AlertTriangle}
-                color={alunosEmRisco.length > 0 ? 'rose' : 'emerald'}
-                delay={0.15}
-              />
-
-              <MetricCard
-                title="Total de Estudantes"
-                value={metricas.totalAlunos}
-                subtitle={
-                  turmaAtiva
-                    ? `Turma: ${turmaAtiva.nome}`
-                    : `${turmas.length} turmas cadastradas`
-                }
-                icon={Users}
-                color="purple"
-                delay={0.2}
-              />
-            </div>
-
-            {/* Grid de Gráficos Principais */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Gráfico 1: Evolução Histórica nos 4 Bimestres */}
-              <EvolucaoChart
-                data={evolucaoData}
-                titulo={
-                  turmaAtiva
-                    ? `Evolução — ${turmaAtiva.nome}`
-                    : 'Evolução Global (Todas as Turmas)'
-                }
-              />
-
-              {/* Gráfico 2: Distribuição por Faixas de Nota */}
-              <DistribuicaoChart distribuicao={distribuicaoData} />
-            </div>
-
-            {/* Gráfico 3: Comparativo entre Turmas (quando visão consolidada) */}
-            {!turmaAtiva && turmas.length > 1 && (
-              <ComparativoTurmasChart turmasMetricas={metricas.turmasMetricas} />
-            )}
-
-            {/* Radar de Alunos em Situação de Risco */}
-            <AlunosRiscoTable alunos={alunosEmRisco} />
-          </>
-        )}
-      </main>
-    </div>
+            </>
+          )}
+          {aba === 'evolucao' && <EvolucaoChart data={evolucao} percentual escalaMax={100} />}
+          {aba === 'relatorios' && (
+            <section className="bg-white border rounded-xl p-4 space-y-3">
+              <h2 className="font-bold">
+                Conferir relatório · {analise.rotulo} · {ano}
+              </h2>
+              <p className="text-sm">
+                Inclui todas as {analise.totalAlunos} matrículas deste filtro, notas ausentes/parciais e
+                critérios. Origem: {dados.origem}. Exportar não publica nem homologa notas.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead>
+                    <tr>
+                      {['Estudante', 'Turma', 'Nota', 'Situação', 'Critério'].map((x) => (
+                        <th className="p-2" key={x}>
+                          {x}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {analise.linhas.map((l) => (
+                      <tr className="border-t" key={`${l.turmaId}:${l.alunoId}`}>
+                        <td className="p-2">{l.nome}</td>
+                        <td className="p-2">{l.turmaNome}</td>
+                        <td className="p-2 font-bold" style={{ color: l.cor }}>
+                          {fmt(l.nota)}
+                        </td>
+                        <td className="p-2">
+                          {l.situacao}
+                          {l.parcial ? ' · parcial' : ''}
+                        </td>
+                        <td className="p-2">{l.criterio}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <button
+                className="btn-brand-navy rounded-lg p-3 disabled:opacity-50"
+                onClick={exportar}
+                disabled={exportando}
+              >
+                {exportando ? 'Gerando…' : 'Baixar PDF deste filtro'}
+              </button>
+              {erroPDF && <p role="alert">{erroPDF}</p>}
+            </section>
+          )}
+          <details className="bg-white border rounded-lg p-3">
+            <summary className="cursor-pointer">Critérios e interpretação</summary>
+            <p className="text-sm my-2">
+              Vermelho: abaixo do mínimo; azul: no mínimo, abaixo de 8; verde: excelente a partir de 8.
+              Semestre exige 25 pontos, ano 50, com pesos e recuperação do Diário. Atenção é orientação para
+              revisão docente.
+            </p>
+            <ul className="text-sm">
+              {[...new Set(analise.linhas.map((l) => `${l.turmaNome}: ${l.criterio}`))].map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+          </details>
+        </>
+      )}
+      {aluno && (
+        <DialogoAnalytics rotulo={`Acompanhamento de ${aluno.nome}`} onFechar={() => setAlunoAberto(null)}>
+          <PerfilAlunoDiario aluno={aluno} turma={alunoTurma} onFechar={() => setAlunoAberto(null)} />
+          <Link
+            className="underline text-sm"
+            href={`/diario?turmaId=${encodeURIComponent(alunoTurma.id)}&bimestre=${alunoAberto.bimestre || 1}&alunoId=${encodeURIComponent(aluno.id)}`}
+          >
+            Abrir turma e período no Diário
+          </Link>
+        </DialogoAnalytics>
+      )}
+    </main>
   );
 }

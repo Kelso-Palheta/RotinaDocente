@@ -265,3 +265,12 @@ Validação RN-77 (27/10/2026): **866 testes em 178 arquivos** aprovados — 851
 - [x] **UT-63 (RN-78):** o alerta usa plural correto, abre o painel com nomes, percentuais e trechos, e o botão de revisão abre a entrega do aluno sem alterar nota.
 
 Validação RN-78 (27/10/2026): **875 testes em 180 arquivos** aprovados — 866 preexistentes preservados e 9 novos. Build de produção exit 0; lint dos arquivos alterados sem problemas. Nenhum teste ou evidência histórica foi alterado. A comparação passou de Jaccard de palavras únicas para shingles de 3 palavras normalizadas, o alerta abriu painel com nomes/trechos/pares e as contagens passaram a respeitar plural.
+
+## RN-79 / RN-80 — Regressões adicionais
+- Analytics: mínimos 7/5, limites 5/8, zero/ausência/parcial, taxa de atenção reconciliada, pesos por matrícula, escalas heterogêneas, semestre incompleto/25 e ano/50/recuperação; dataset e PDF iguais, mais de 12 alertas e nomes longos.
+- Leitor: cache de outra conta ignorado, nuvem vazia, erro com cache próprio, resposta atrasada após troca e retry; acesso negado sem consulta.
+- UI: filtros ano/arquivo/turma, seleção removida, radar sem avaliados, busca/paginação e navegação contextual, prévia/PDF.
+- Horário: conclusão tardia de A não permite gravar A em B; retry usa contexto atual; pendência sobrevive recarga; legado preservado com nuvem vazia; somenteReal ignora rascunho.
+- Portal: após resposta parcial, conservar nota/entrega/token anteriores; vazio confirmado limpa só seção bem-sucedida; falhas.tokens visível; avisos de correção legada preservados.
+
+Validação RN-79/RN-80 (27/10/2026): **902 testes em 198 arquivos** aprovados (875 preservados e 27 novos); lint dos arquivos alterados sem erros/avisos; build de produção aprovado com certificados do sistema (`NODE_USE_SYSTEM_CA=1`). Rodada simultânea anterior foi interrompida após timeouts; os dois casos passaram isoladamente e as suítes completas posteriores passaram sem alterar testes/limites. Prévia sintética 1440/390 px, foco/Escape e relatório PDF de 42 matrículas/3 páginas conferidos. Nenhum dado real foi escrito.

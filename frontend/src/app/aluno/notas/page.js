@@ -111,7 +111,9 @@ export default function AlunoNotasPage() {
       return;
     }
 
-    const { professorUid, turmaId, alunoId, loginKey } = alunoData;
+    let ativo = true;
+    const aindaAtual = () => ativo && sessionStorage.getItem('aluno_login') === raw;
+    const { professorUid, turmaId, alunoId } = alunoData;
     const url = `/api/aluno/boletim?professorUid=${encodeURIComponent(professorUid)}&turmaId=${encodeURIComponent(turmaId)}&alunoId=${encodeURIComponent(alunoId)}`;
 
     fetch(url)
@@ -122,10 +124,14 @@ export default function AlunoNotasPage() {
         return res.json();
       })
       .then(async (data) => {
-        setDados({ ...alunoData, notas: data.notas || {} });
+        if (!aindaAtual()) return;
+        setDados(anterior => ({ ...alunoData, notas: data.falhas?.notas ? anterior?.notas || {} : data.notas || {} }));
         setFalhas(data.falhas || {});
-        setRedacoes(data.redacoes || (data.redacao ? [data.redacao] : []));
-        if (data.redacao) {
+        if (!data.falhas?.redacoes) {
+          setRedacoes(data.redacoes || (data.redacao ? [data.redacao] : []));
+          setRedacao(data.redacao || null);
+        }
+        if (data.redacao && !data.falhas?.redacoes) {
           setRedacao(data.redacao);
           if (alunoData.openRedacao) {
             sessionStorage.setItem('redacao_aluno', JSON.stringify({ professorUid: alunoData.professorUid }));
@@ -135,21 +141,23 @@ export default function AlunoNotasPage() {
         }
 
         const atvsData = data.atividades || [];
-        setAtividades(
+        if (!data.falhas?.atividades) setAtividades(
           atvsData.sort((a, b) => {
             const pa = a.dataEntrega?.toDate?.() || new Date(a.dataEntrega);
             const pb = b.dataEntrega?.toDate?.() || new Date(b.dataEntrega);
             return pa - pb;
           })
         );
-        setEntregas(data.entregas || []);
-        setTokens(data.tokens || {});
+        if (!data.falhas?.entregas) setEntregas(data.entregas || []);
+        if (!data.falhas?.tokens) setTokens(data.tokens || {});
       })
       .catch((err) => {
+        if (!aindaAtual()) return;
         console.error('Erro ao carregar boletim:', err);
         setErro('Erro ao carregar dados. Tente novamente mais tarde.');
       })
-      .finally(() => { setLoading(false); setRecarregando(false); });
+      .finally(() => { if (aindaAtual()) { setLoading(false); setRecarregando(false); } });
+    return () => { ativo = false; };
   }, [router,tentativa]);
 
   const handleLogout = async () => {
@@ -291,7 +299,8 @@ export default function AlunoNotasPage() {
           </div>
         </div>
 
-        {erro && dados && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Algumas informações não foram atualizadas agora. O que já está na tela continua válido.</AvisoSecao>}
+        {erro && dados && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Algumas informações não foram atualizadas agora. A versão anterior continua na tela; pode estar desatualizada.</AvisoSecao>}
+        {falhas.tokens && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar os acessos às atividades. Tente novamente para abrir tarefas e devolutivas.</AvisoSecao>}
         {falhas.notas && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar suas notas. Isso não significa que você não tenha nota publicada.</AvisoSecao>}
         {falhas.atividades && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar suas atividades. Isso não significa que não existam tarefas.</AvisoSecao>}
         {falhas.entregas && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar suas entregas e devolutivas. O comprovante pode estar indisponível até a próxima tentativa.</AvisoSecao>}
@@ -387,7 +396,7 @@ export default function AlunoNotasPage() {
             <div className="space-y-3">
               {abaAtual.length === 0 ? (
                 <p className="text-xs text-[#9098c0] text-center py-8 bg-white border border-dashed border-[#dce0f0] rounded-2xl">
-                  Nenhuma atividade nesta categoria.
+                  {falhas.atividades || falhas.entregas ? 'Não foi possível confirmar todas as atividades desta categoria. Tente novamente.' : 'Nenhuma atividade nesta categoria.'}
                 </p>
               ) : (
                 abaAtual.map(atv => (

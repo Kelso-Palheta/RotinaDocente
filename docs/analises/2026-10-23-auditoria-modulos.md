@@ -12,8 +12,8 @@ Objetivo: verificar um módulo por entrega, apresentar o que funciona, falhas co
 | 5 | Redação Corrigida | Auditoria e melhorias RN-73 implementadas localmente; guia `docs/guias/redacao-corrigida.md`; validação concluída; commit/push autorizados |
 | 6 | Meu Horário Escolar | Auditado em `2026-10-27-meu-horario-escolar.md`; Gerador Mágico retirado por decisão do usuário (RN-74); demais melhorias propostas |
 | 7 | Horário Inteligente | Auditado em `2026-10-27-horario-inteligente.md`; falhas, contratos e organização documentados; sem implementação |
-| 8 | Dashboard Analytics | Auditado em `2026-10-27-dashboard-analytics.md`; inconsistências reproduzidas; melhorias propostas, sem implementação |
-| 9 | Agentes Pedagógicos IA | Próximo, após revisão das implementações recentes solicitada pelo usuário |
+| 8 | Dashboard Analytics | Auditoria e melhorias RN-79 implementadas; guia `docs/guias/dashboard-analytics.md`; 902 testes e build aprovados |
+| 9 | Agentes Pedagógicos IA | Próximo; revisão recente corrigida por RN-80; 902 testes e build aprovados |
 | Transversal | Conexão de IA, permissões e integração entre módulos | Consolidar ao fim, sem repetir achados já registrados |
 
 Cada etapa considera o código local atual e preserva alterações das tarefas anteriores. A situação publicada em produção pode ser diferente até commit/push/deploy.

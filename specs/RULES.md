@@ -558,3 +558,19 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Similaridade é somente alerta: nenhuma nota, publicação ou penalidade é alterada automaticamente. `penalizados` permanece informativo e a revisão manual (`notaRevisada`) retira a entrega do alerta.
 - O painel não substitui a decisão docente: informa a diferença entre cópia e coincidência de vocabulário e identifica o grupo por ordem decrescente de similaridade.
 - Contagens na interface respeitam plural: “1 grupo”/“2 grupos” e “1 corrigida”/“2 corrigidas”.
+
+## RN-79 — Analytics coerente e consultivo
+- Leitura usa DiarioRepository autenticado; cache apenas `diario:<uid>:v2`, sem gravar/migrar dados. Troca de conta invalida requisições; falha, vazio, rascunho e nuvem são distintos.
+- Contexto explícito: ano (incluindo legado), turmas ativas/arquivadas, turma por ID e bimestre/semestre/ano. Seleção removida não amplia escopo silenciosamente.
+- Tela/PDF usam dataset único; zero, ausência e parcial são distintos. Taxa de atenção inclui recuperação + crítico; denominador é avaliado, contagem representa matrículas. Sem avaliados exibe indisponível.
+- Aprovação usa mínimo configurado; cores bimestrais usam RN-18. Faixa analítica de atenção usa mínimo configurado, exceto valor legado 4,99, que conserva faixa histórica a partir de 4, sem modificar notas nem recuperação escolar.
+- Semestre/ano reutilizam calcDesempenhoAnual (25/25/50 e recuperação), distinguindo em andamento. Médias brutas de escalas distintas não são consolidadas; comparações gráficas indicam percentual da escala. Critérios divergentes são informados.
+- Radar/pendências têm busca, paginação e acesso ao Diário contextual. Sugestões não criam provas nem decidem situação escolar. Gráficos possuem alternativa textual.
+- PDF inclui contexto/origem/atualização/critérios e todos os alunos, com paginação e nomes completos; ausência nunca vira zero. Exportação não homologa resultado.
+
+## RN-80 — Preservação após revisão das implementações
+- Salvamentos/repetições do Horário são vinculados ao UID de origem; resultado atrasado não altera estado de outra conta. Repetição de carregamento não salva grade vazia.
+- Enquanto há conflito conhecido no Horário, toda edição normal (inclusive tema/turno) fica apenas no rascunho; só o reenvio explicitamente confirmado escreve na nuvem.
+- Horário guarda pendência por conta até confirmação da nuvem; conflito conserva rascunho e oferece conferir nuvem ou reenviar explicitamente. Leitura somenteReal continua estrita. Backup legado separado sobrevive à gravação do índice até decisão explícita.
+- Portal atualiza apenas seções sem falha, mantém versões anteriores com aviso e trata falha de tokens. Resultados atrasados de outra sessão não são aplicados.
+- Avisos de correção sem imagem/truncada aparecem também em entregas legadas, inclusive após reabrir a correção.

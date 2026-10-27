@@ -112,11 +112,11 @@ const AddAtvForm = ({ onAdd, somaAtual, maxAtv }) => {
 export const TabelaNotas = ({
   turma, bimestre, onSetNota, onAddAtv, onRemoveAtv, onRemoveAluno, onRemoveAlunos,
   onUpdateConfig, onClearAtividadesNota, onClearAtividadesTurma, onUpdateAluno, onAddAlunoManual,
-  onClearSimuladoNota, onClearSimuladoTurma, onImportarSimulado, user
+  onClearSimuladoNota, onClearSimuladoTurma, onImportarSimulado, user, alunoInicialId
 }) => {
   const [cadastro, setCadastro] = useState(null);
   const [erroCadastro, setErroCadastro] = useState('');
-  const [busca, setBusca] = useState('');
+  const [busca, setBusca] = useState(() => turma.alunos?.find(a => a.id === alunoInicialId)?.nome || '');
   const [filtro, setFiltro] = useState('todos');
   const [showAvancadas, setShowAvancadas] = useState(false);
   const [erroConfig, setErroConfig] = useState('');

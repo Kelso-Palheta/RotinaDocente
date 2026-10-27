@@ -8,6 +8,8 @@
  * - Toda falha é reportada em `persistencia`, nunca escondida como sucesso.
  */
 
+import { dadosIguais } from '@/dominio/diario/comparacao';
+
 export const LOCAL_STORAGE_KEY = 'meu_horario_escolar_data_v1';
 
 const temSchedule = (valor) =>
@@ -67,6 +69,10 @@ export class HorarioRepository {
   /** Índice sem aulas: permite localizar a conta sem vazar a grade. */
   gravarIndiceConta(userId) {
     if (!userId) return;
+    const base = this.lerLocal(this.storageKey);
+    if (temSchedule(base) && Object.keys(base.schedule).length) {
+      if (!this.gravarLocal(`${this.storageKey}:legado`, base)) return;
+    }
     this.gravarLocal(this.storageKey, {
       conta: userId,
       chave: this.chaveConta(userId),
@@ -89,7 +95,7 @@ export class HorarioRepository {
    * Salva a grade no LocalStorage e no Firestore, informando onde de fato gravou.
    * O payload continua no retorno por compatibilidade com a RN-24.
    */
-  async salvarGrade(userId, state) {
+  async salvarGrade(userId, state, { somenteLocal = false } = {}) {
     const payload = {
       teacherName: state.teacherName || 'Prof. Usuário',
       schoolName: state.schoolName || '',
@@ -103,14 +109,17 @@ export class HorarioRepository {
 
     const persistencia = { local: 'falha', nuvem: 'nao_aplicavel', estado: 'falha' };
 
-    const localOk = this.gravarLocal(this.chaveConta(userId), payload);
+    const operacao = `${Date.now()}-${Math.random()}`;
+    const localOk = this.gravarLocal(this.chaveConta(userId), { ...payload, _sync: { pendente: Boolean(userId), operacao } });
     persistencia.local = localOk ? 'ok' : 'falha';
     if (localOk && userId) this.gravarIndiceConta(userId);
 
-    if (userId && this.firestoreDb) {
+    if (userId && this.firestoreDb && !somenteLocal) {
       try {
         await this.salvarNaNuvem(userId, payload);
         persistencia.nuvem = 'ok';
+        const atual = this.lerLocal(this.chaveConta(userId));
+        if (atual?._sync?.operacao === operacao) this.gravarLocal(this.chaveConta(userId), { ...payload, _sync: { pendente: false, operacao } });
       } catch (err) {
         persistencia.nuvem = 'falha';
         console.warn('[HorarioRepository] Falha ao sincronizar Firestore:', err);
@@ -158,6 +167,13 @@ export class HorarioRepository {
       }
     }
 
+    const local = somenteReal ? null : this.lerLocal(this.chaveConta(userId));
+    if (temSchedule(local) && local._sync?.pendente) {
+      const conteudo = valor => Object.fromEntries(['schedule','teacherName','schoolName','customSlots','shift','theme','showSaturday'].map(chave => [chave, valor?.[chave] ?? null]));
+      const igual = (a,b) => dadosIguais(conteudo(a), conteudo(b));
+      return { ...local, persistencia: { origem: 'local', estado: 'pendente', conflito: Boolean(cloudData && !igual(local, cloudData)), nuvem: cloudData || null } };
+    }
+
     if (cloudData && typeof cloudData === 'object') {
       if (!somenteReal) {
         // Mantém o cache da própria conta atualizado; nunca grava grade na chave base.
@@ -169,7 +185,6 @@ export class HorarioRepository {
 
     if (somenteReal) return null;
 
-    const local = this.lerLocal(this.chaveConta(userId));
     if (temSchedule(local)) {
       return { ...local, persistencia: { origem: 'local' } };
     }
@@ -182,7 +197,7 @@ export class HorarioRepository {
    * É apenas detectado; a migração exige confirmação explícita.
    */
   detectarCacheLegado() {
-    const base = this.lerLocal(this.storageKey);
+    const base = this.lerLocal(`${this.storageKey}:legado`) || this.lerLocal(this.storageKey);
     if (!temSchedule(base)) return { disponivel: false, aulas: 0, atualizadoEm: null };
     const aulas = Object.keys(base.schedule).length;
     if (aulas === 0) return { disponivel: false, aulas: 0, atualizadoEm: null };
@@ -192,12 +207,12 @@ export class HorarioRepository {
   /** Copia o rascunho legado para a conta somente quando `aceitar` é verdadeiro. */
   migrarCacheLegado(userId, aceitar = false) {
     if (!userId || !aceitar) return null;
-    const base = this.lerLocal(this.storageKey);
+    const base = this.lerLocal(`${this.storageKey}:legado`) || this.lerLocal(this.storageKey);
     if (!temSchedule(base)) return null;
 
-    const payload = { ...base, updatedAt: new Date().toISOString() };
+    const payload = { ...base, updatedAt: new Date().toISOString(), _sync: { pendente: true } };
     if (!this.gravarLocal(this.chaveConta(userId), payload)) return null;
-    this.gravarIndiceConta(userId);
+    this.descartarCacheLegado(userId);
     return payload;
   }
 
@@ -205,6 +220,8 @@ export class HorarioRepository {
   descartarCacheLegado(userId) {
     if (typeof localStorage === 'undefined') return;
     try {
+      if (temSchedule(this.lerLocal(this.storageKey))) localStorage.removeItem(this.storageKey);
+      localStorage.removeItem(`${this.storageKey}:legado`);
       if (userId) {
         this.gravarIndiceConta(userId);
       } else {

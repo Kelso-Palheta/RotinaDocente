@@ -1,5 +1,7 @@
 # Dashboard Analytics — auditoria e proposta de organização
 
+Atualização posterior: propostas implementadas pela RN-79. Consulte `docs/guias/dashboard-analytics.md` e a validação em `docs/validacoes/analytics-rn79/`. Os achados abaixo preservam o estado da auditoria anterior à correção.
+
 Data: 27/10/2026. Escopo: `/analytics`, cálculos, gráficos, radar e exportação PDF do código local. Entrega de análise, sem alteração funcional. Dados de teste inteiramente fictícios; nenhuma conta real foi consultada.
 
 ## Conclusão

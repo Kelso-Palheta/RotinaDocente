@@ -37,7 +37,7 @@ const StatChip = ({ label, value, color }) => (
 );
 
 export const TurmaView = ({
-  turma, turmas, bimestre, user, onSetNota, onImportarSimulado, onAddAtv, onRemoveAtv, onUpdateAtvMax,
+  turma, turmas, bimestre, user, alunoInicialId, onSetNota, onImportarSimulado, onAddAtv, onRemoveAtv, onUpdateAtvMax,
   onAddAlunos, onRemoveAluno, onRemoveAlunos, onUpdateConfig, onSetRecuperacao,
   onClearAtividadesNota, onClearAtividadesTurma, onAddAlunoManual, onUpdateAluno, onRemoveTurma,
   onClearSimuladoNota, onClearSimuladoTurma, onSalvarFrequencia, onSalvarOcorrencias, onPublicar
@@ -282,8 +282,8 @@ export const TurmaView = ({
         ) : view === 'anual' ? (
           <MapaAnual turma={turma} onSetRecuperacao={onSetRecuperacao} />
         ) : (
-          <TabelaNotas
-            turma={turma} bimestre={bimestre} onSetNota={handleSetNota}
+          <TabelaNotas key={`${turma.id}:${bimestre}:${alunoInicialId || ""}`}
+            turma={turma} bimestre={bimestre} alunoInicialId={alunoInicialId} onSetNota={handleSetNota}
             onAddAtv={handleAddAtv} onRemoveAtv={handleRemoveAtv}
             onRemoveAluno={onRemoveAluno} onRemoveAlunos={onRemoveAlunos}
             onAddAlunoManual={(dados) => onAddAlunoManual(turma.id, dados)}

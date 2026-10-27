@@ -1,5 +1,7 @@
 # Revisão das implementações recentes
 
+Atualização posterior: falhas corrigidas pela RN-80, incluindo proteção central de conflito apontada na revisão independente final. Consulte `docs/guias/preservacao-horario-portal.md` e a validação em `docs/validacoes/analytics-rn79/`. As reproduções abaixo registram o estado anterior às correções.
+
 Data: 27/10/2026. Revisão solicitada pelo usuário após concluir Dashboard Analytics. Escopo: commits `0d65d4a` (Portal/RN-75), `49f04d7` (Meu Horário/RN-76), `9dd3a27` (correção com imagens/RN-77) e `5088f26` (similaridade/RN-78). Não houve alteração funcional nesta revisão.
 
 ## Resultado

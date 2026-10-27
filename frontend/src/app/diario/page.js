@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { resolverContextoAnalytics } from '@/dominio/analytics/contextoDiario';
 import { useAuth } from '@/lib/auth-context';
 import { Sidebar } from '@/components/diario/Sidebar';
 import { TurmaView } from '@/components/diario/TurmaView';
@@ -39,6 +40,7 @@ export default function DiarioPage() {
   const [arquivadas, setArquivadas] = useState(false);
   const [turmaSelecionada, setTurmaSelecionada] = useState(null);
   const [bimestre, setBimestre] = useState(1);
+  const [alunoConsulta, setAlunoConsulta] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [publicacao, setPublicacao] = useState(null);
@@ -84,6 +86,11 @@ export default function DiarioPage() {
     let ativo = true;
     queueMicrotask(() => {
       if (!ativo) return;
+      const contextoAnalytics = resolverContextoAnalytics(window.location.search, turmas);
+      if (contextoAnalytics) {
+        setTurmaSelecionada(contextoAnalytics.turmaId); setAno(contextoAnalytics.ano); setArquivadas(contextoAnalytics.arquivadas); setBimestre(contextoAnalytics.bimestre); setAlunoConsulta(contextoAnalytics.alunoId);
+        window.history.replaceState(null, '', '/diario'); return;
+      }
       const nome = new URLSearchParams(window.location.search).get('turma');
       if (!nome) return;
       const encontrada = turmas.find(t => t.nome.trim().toLocaleLowerCase('pt-BR') === nome.trim().toLocaleLowerCase('pt-BR'));
@@ -187,7 +194,7 @@ export default function DiarioPage() {
       {rascunhoAnterior && <div className="p-3 bg-blue-50 text-blue-900 text-xs flex flex-wrap gap-3"><p>Há dados de uma sessão anterior desta conta diferentes da nuvem. Baixe para conferir e, se necessário, use Restaurar backup. Eles não foram aplicados automaticamente.</p><button type="button" className="underline font-bold" onClick={() => baixarJSON({ formato: 'rotina-docente-turmas', versao: 1, criadoEm: new Date().toISOString(), turmas: rascunhoAnterior }, 'diario-rascunho-anterior.json')}>Baixar rascunho anterior</button></div>}
       {ultimoResultado && <div className="p-2 border-b bg-slate-50 text-xs flex justify-between gap-2"><span>Última publicação: {ultimoResultado.resultados.filter(r => r.status === 'ok').length} publicados · {ultimoResultado.resultados.filter(r => r.status === 'error').length} falhas · {ultimoResultado.resultados.filter(r => r.status === 'semData').length} sem nascimento</span><button type="button" onClick={() => setPublicacao({ turmaInicialId: 'todas', resultadoInicial: ultimoResultado })} className="underline">Ver resultado / repetir falhas</button></div>}
       {!persistencia.podeEditar ? <div className="p-6 text-sm">Edição bloqueada até revisar o carregamento ou conflito. Seu rascunho permanece preservado.</div> : turmaAtual ? <div className="flex-1 flex flex-col overflow-hidden">{turmaAtual.arquivada && <p className="p-2 bg-amber-50 text-xs">Turma arquivada. Reative em “Organizar turma” para editar.</p>}<fieldset disabled={Boolean(turmaAtual.arquivada)} className="flex-1 flex flex-col min-h-0 min-w-0">
-        <TurmaView key={`${user.uid}-${turmaAtual.id}-${bimestre}`} turma={turmaAtual} turmas={turmas} bimestre={bimestre} user={user}
+        <TurmaView key={`${user.uid}-${turmaAtual.id}-${bimestre}`} turma={turmaAtual} turmas={turmas} bimestre={bimestre} user={user} alunoInicialId={alunoConsulta}
           onPublicar={() => setPublicacao({ turmaInicialId: turmaAtual.id })}
           onSetNota={notas.setNota} onImportarSimulado={notas.importarSimulado} onAddAtv={notas.addAtividade} onRemoveAtv={notas.removeAtividade} onUpdateAtvMax={notas.updateAtividadeMax}
           onAddAlunos={addAlunos} onRemoveAluno={handleRemoveAluno} onRemoveAlunos={handleRemoveAlunos} onUpdateConfig={notas.updateConfig} onSetRecuperacao={setRecuperacao}

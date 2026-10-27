@@ -88,3 +88,9 @@
 - [ ] Homologação visual em celular/computador e leitor de tela continuam pendentes.
 - [ ] Fila transacional/revisão de salvamento (P1 da auditoria) permanece proposta.
 \n
+## 27/10/2026 — Analytics e correções de preservação
+- [x] RN-79: fonte autenticada, dataset comum, critérios, cobertura, filtros e visões semestrais/anuais.
+- [x] RN-79: radar/pendências, acesso contextual ao Diário, prévia e PDF integral paginado.
+- [x] RN-80: resultados atrasados por conta, rascunho pendente, preservação do legado e conflito revisável.
+- [x] RN-80: Portal conserva seções válidas, sinaliza tokens e ignora pedidos antigos; avisos legados visíveis.
+- [x] Verificação final: 902 testes/198 arquivos, lint sem alertas e build de produção aprovados. Publicação autorizada após validação.

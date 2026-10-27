@@ -73,6 +73,11 @@ export default function HorarioApp() {
   const [contaCarregada, setContaCarregada] = useState(undefined);
   const [legado, setLegado] = useState(null);
   const ultimoSalvamento = useRef(null);
+  const geracaoConta = useRef(0);
+  const operacaoSalvamento = useRef(0);
+  const [tentativaCarga, setTentativaCarga] = useState(0);
+  const [conflitoNuvem, setConflitoNuvem] = useState(null);
+  const [verNuvem, setVerNuvem] = useState(false);
 
   // Modais
   const [slotModalOpen, setSlotModalOpen] = useState(false);
@@ -112,6 +117,9 @@ export default function HorarioApp() {
   useEffect(() => {
     let isMounted = true;
     const contaAtual = user?.uid || null;
+    const controle = geracaoConta;
+    const geracao = ++controle.current;
+    ultimoSalvamento.current = null;
     async function init() {
       try {
         const loaded = await repo.carregarGrade(contaAtual);
@@ -124,6 +132,10 @@ export default function HorarioApp() {
           setCustomSlots(loaded.customSlots || null);
           setSchedule(loaded.schedule || {});
           setSyncStatus(mapearEstadoSync(loaded.persistencia));
+          setVerNuvem(false);
+          setConflitoNuvem(loaded.persistencia?.conflito ? loaded.persistencia.nuvem : null);
+          if (loaded.persistencia?.estado === 'pendente') ultimoSalvamento.current = { uid: contaAtual, payload: loaded };
+
 
           const semAulasProprias = !loaded.schedule || Object.keys(loaded.schedule).length === 0;
           if (contaAtual && semAulasProprias) {
@@ -142,6 +154,7 @@ export default function HorarioApp() {
         console.error("Falha ao inicializar grade:", err);
         if (isMounted) {
           setSchedule({});
+          setTeacherName('Prof. Usuário'); setSchoolName('Minha Escola'); setLegado(null); setConflitoNuvem(null);
           setCustomSlots(null);
           setSyncStatus("error");
         }
@@ -155,8 +168,9 @@ export default function HorarioApp() {
     init();
     return () => {
       isMounted = false;
+      if (controle.current === geracao) controle.current++;
     };
-  }, [repo, user]);
+  }, [repo, user?.uid, tentativaCarga]);
 
   // Aplicar tema no html / container
   useEffect(() => {
@@ -172,7 +186,7 @@ export default function HorarioApp() {
   }, [shift, customSlots]);
 
   // Salvar alterações
-  const saveState = async (nextState) => {
+  const saveState = async (nextState, { confirmarNuvem = false } = {}) => {
     setSyncStatus("saving");
     const payload = {
       teacherName: nextState.teacherName ?? teacherName,
@@ -183,18 +197,31 @@ export default function HorarioApp() {
       customSlots: nextState.customSlots !== undefined ? nextState.customSlots : customSlots,
       schedule: nextState.schedule ?? schedule,
     };
-    ultimoSalvamento.current = payload;
+    const uidOrigem = user?.uid || null;
+    const geracao = geracaoConta.current;
+    const operacao = ++operacaoSalvamento.current;
+    ultimoSalvamento.current = { uid: uidOrigem, payload };
 
     try {
-      const resultado = await repo.salvarGrade(user?.uid || null, payload);
+      // Toda edição normal fica no rascunho enquanto houver conflito conhecido.
+      const resultado = conflitoNuvem && !confirmarNuvem
+        ? await repo.salvarGrade(uidOrigem, payload, { somenteLocal: true })
+        : await repo.salvarGrade(uidOrigem, payload);
+      if (geracao !== geracaoConta.current || operacao !== operacaoSalvamento.current) return;
       setSyncStatus(mapearEstadoSync(resultado?.persistencia));
+      if (resultado?.persistencia?.estado === 'nuvem') setConflitoNuvem(null);
     } catch (err) {
       console.warn("Erro ao sincronizar:", err);
-      setSyncStatus("error");
+      if (geracao === geracaoConta.current && operacao === operacaoSalvamento.current) setSyncStatus("error");
     }
   };
 
-  const repetirSalvamento = () => saveState(ultimoSalvamento.current || {});
+  const repetirSalvamento = () => {
+    const ultimo = ultimoSalvamento.current;
+    if (!ultimo || ultimo.uid !== (user?.uid || null)) { setTentativaCarga(n => n + 1); return; }
+    if (conflitoNuvem && !window.confirm('A nuvem contém uma versão diferente. Reenviar este rascunho substituirá a grade da sua conta na nuvem. Conferiu as duas versões?')) return;
+    return saveState(ultimo.payload, { confirmarNuvem: true });
+  };
 
   const importarRascunhoLegado = () => {
     try {
@@ -206,11 +233,11 @@ export default function HorarioApp() {
         setShowSaturday(Boolean(migrado.showSaturday));
         setCustomSlots(migrado.customSlots || null);
         setSchedule(migrado.schedule || {});
-        setSyncStatus("local");
-      }
-    } finally {
-      setLegado(null);
-    }
+        setSyncStatus("pending");
+        ultimoSalvamento.current = { uid: user?.uid || null, payload: migrado };
+        setLegado(null);
+      } else { showToast('Não foi possível importar. O rascunho foi preservado.'); }
+    } catch (err) { showToast('Não foi possível importar. O rascunho foi preservado.'); }
   };
 
   const descartarRascunhoLegado = () => {
@@ -765,6 +792,11 @@ export default function HorarioApp() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="main-container">
+        {conflitoNuvem && <section role="alert" className="no-print p-4 mb-4 rounded-lg border border-amber-300 bg-amber-50 text-sm">
+          <p>Seu rascunho pendente foi preservado. A nuvem tem outra versão; confira antes de reenviar.</p>
+          <button type="button" className="underline" onClick={() => setVerNuvem(v => !v)}>Conferir versão da nuvem</button>
+          {verNuvem && <div className="mt-2"><p>{conflitoNuvem.teacherName} · {conflitoNuvem.schoolName}</p><ul>{Object.entries(conflitoNuvem.schedule || {}).map(([id,aula]) => <li key={id}>{id}: {aula.subject} · {aula.grade} · {aula.room}</li>)}</ul><p>Esta conferência não substitui seu rascunho.</p></div>}
+        </section>}
         {legado && (
           <div role="status" data-testid="legacy-draft" className="no-print" style={{
             display: "flex",

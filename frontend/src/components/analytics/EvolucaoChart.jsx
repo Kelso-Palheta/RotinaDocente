@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
@@ -17,7 +9,10 @@ function CustomTooltip({ active, payload, label }) {
       <div className="bg-[#101942] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
         <p className="font-bold text-sm text-white">{label}</p>
         <p className="text-emerald-400 font-semibold">
-          Média: {data.media !== null ? `${data.media.toFixed(2).replace('.', ',')} pts` : 'Sem dados'}
+          Média:{' '}
+          {data.media !== null
+            ? `${data.media.toFixed(2).replace('.', ',')} ${data.unidade || 'pts'}`
+            : 'Sem dados'}
         </p>
         <p className="text-slate-300">
           Avaliados: {data.avaliados} {data.avaliados === 1 ? 'aluno' : 'alunos'}
@@ -28,7 +23,12 @@ function CustomTooltip({ active, payload, label }) {
   return null;
 }
 
-export function EvolucaoChart({ data = [], titulo = 'Evolução do Rendimento por Bimestre' }) {
+export function EvolucaoChart({
+  data = [],
+  titulo = 'Evolução do Rendimento por Bimestre',
+  escalaMax = 10,
+  percentual = false,
+}) {
   // Prepara dados para o Recharts (troca null por undefined para não desenhar quebras estranhas)
   const chartData = data.map((d) => ({
     ...d,
@@ -48,10 +48,36 @@ export function EvolucaoChart({ data = [], titulo = 'Evolução do Rendimento po
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#f60c49]" />
-          <span className="text-xs font-semibold text-slate-600">Meta: 6.0</span>
+          <span className="text-xs font-semibold text-slate-600">
+            {percentual ? '% da escala de cada turma' : 'Notas do Diário'}
+          </span>
         </div>
       </div>
 
+      <details>
+        <summary className="cursor-pointer text-sm">Ver dados da evolução</summary>
+        <table className="text-sm w-full">
+          <caption className="sr-only">Evolução por bimestre</caption>
+          <thead>
+            <tr>
+              <th>Período</th>
+              <th>Média</th>
+              <th>Avaliados</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((d) => (
+              <tr key={d.bimestre}>
+                <td>{d.bimestre}</td>
+                <td>
+                  {d.media === null ? 'Sem dados' : d.media.toFixed(2)} {percentual ? '%' : 'pts'}
+                </td>
+                <td>{d.avaliados}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
       {!temDados ? (
         <div className="h-64 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
           <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
@@ -78,8 +104,7 @@ export function EvolucaoChart({ data = [], titulo = 'Evolução do Rendimento po
                 axisLine={{ stroke: '#cbd5e1' }}
               />
               <YAxis
-                domain={[0, 10]}
-                ticks={[0, 2, 4, 6, 8, 10]}
+                domain={[0, escalaMax]}
                 stroke="#64748b"
                 fontSize={12}
                 tickLine={false}

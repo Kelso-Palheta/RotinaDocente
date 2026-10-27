@@ -185,8 +185,9 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
       await sincronizarCorrecao(entregaAtual, bim);
 
       // RN-77: imagem omitida ou resposta truncada não pode passar em silêncio.
-      if (resultado.avisos?.length) setMensagem(resultado.avisos.join(' '));
-      return resultado;
+      const avisos = resultado.avisos || (resultado.avisoCorrecao ? [resultado.avisoCorrecao] : []);
+      if (avisos.length) setMensagem(avisos.join(' '));
+      return { ...resultado, avisos };
 
     } catch (err) {
       setErroAcao('Erro na correção: ' + err.message);

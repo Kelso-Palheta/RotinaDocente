@@ -31,6 +31,7 @@ export const EntregaDrawer = ({ entrega, atividade, alunoNome, onManual, onCorri
             <button type="button" disabled={corrigindo || manual} onClick={corrigirIA} className="btn-brand-primary px-3 py-2.5 text-sm">{corrigindo ? 'Corrigindo…' : 'Corrigir com IA'}</button>
             <button type="button" disabled={corrigindo} onClick={() => setManual(true)} className="btn-brand-navy px-3 py-2.5 text-sm">Corrigir manualmente</button>
           </div>
+          {!questoes.length && entrega.avisosCorrecao?.length > 0 && <p role="status" className="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3">{entrega.avisosCorrecao.join(" ")}</p>}
           {erro && <p role="alert" className="text-sm text-red-700">{erro}</p>}
           {manual && <CorrecaoManualForm atividade={atividade} entrega={entrega} onCancel={() => setManual(false)} onSave={async dados => {
             await onManual(dados);

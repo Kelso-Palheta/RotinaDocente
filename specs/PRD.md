@@ -123,3 +123,6 @@ Permitir criar, manter ou editar figuras a partir de referência preservada, com
 - Salvar informa onde gravou (`nuvem`, `local`, `pendente`, `falha`); falha não é anunciada como sincronizada e oferece nova tentativa.
 - Conta nova começa vazia, sem grade de demonstração; a leitura estrita usada por Calendário e Diário permanece inalterada.
 - Ao trocar de conta, a grade anterior não permanece editável durante o carregamento.
+
+## Analytics e revisão de preservação (RN-79/RN-80)
+Implementar propostas de `docs/analises/2026-10-27-dashboard-analytics.md` e corrigir achados de `2026-10-27-revisao-implementacoes-recentes.md`. Aceite: mesma nota/critério em tela/PDF, filtros explícitos, cobertura/pendências, 25/25/50, conta isolada, rascunhos preservados e nenhuma seção válida apagada por falha parcial.
