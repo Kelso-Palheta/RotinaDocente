@@ -11,8 +11,8 @@ Objetivo: verificar um módulo por entrega, apresentar o que funciona, falhas co
 | 4 | Portal do Aluno | Auditado em `2026-10-27-portal-aluno.md`; sugestões e falhas documentadas, sem implementação |
 | 5 | Redação Corrigida | Auditoria e melhorias RN-73 implementadas localmente; guia `docs/guias/redacao-corrigida.md`; validação concluída; commit/push autorizados |
 | 6 | Meu Horário Escolar | Auditado em `2026-10-27-meu-horario-escolar.md`; Gerador Mágico retirado por decisão do usuário (RN-74); demais melhorias propostas |
-| 7 | Horário Inteligente | Próximo; distinto do Meu Horário Escolar |
-| 8 | Dashboard Analytics | Pendente |
+| 7 | Horário Inteligente | Auditado em `2026-10-27-horario-inteligente.md`; falhas, contratos e organização documentados; sem implementação |
+| 8 | Dashboard Analytics | Próximo |
 | 9 | Agentes Pedagógicos IA | Pendente |
 | Transversal | Conexão de IA, permissões e integração entre módulos | Consolidar ao fim, sem repetir achados já registrados |
 

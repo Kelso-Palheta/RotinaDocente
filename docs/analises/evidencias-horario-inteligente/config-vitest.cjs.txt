@@ -1,0 +1,1 @@
+const base=require('./vitest.config.js');const p=base.test.projects.find(p=>p.test.name==='node');module.exports={...p,test:{...p.test,include:['../docs/analises/evidencias-horario-inteligente/reproducao.test.js']}};
