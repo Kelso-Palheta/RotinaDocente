@@ -1,0 +1,1 @@
+const base=require('./vitest.config.js');module.exports={...base,test:{...base.test,projects:base.test.projects.map(p=>({...p,test:{...p.test,include:[p.test.name==='node'?'../docs/analises/evidencias-analytics/calculos.test.jsx':'../docs/analises/evidencias-analytics/carregamento.test.jsx']}}))}};
