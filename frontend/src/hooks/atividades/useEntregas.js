@@ -119,10 +119,13 @@ export function useEntregas(activityId, onNotaChanged, { turmaId, bimestre } = {
   }, [entregas, onNotaChanged]);
 
   // Similaridade orienta revisão humana; jamais grava punição automática.
-  const similaridades = useMemo(() => {
+  const deteccaoSimilaridade = useMemo(() => {
     const corrigidas = entregas.filter(e => ['corrigido', 'revisado'].includes(e.status) && e.notaRevisada == null && e.tipoCorrecao !== 'manual');
-    return corrigidas.length < 2 ? [] : detectarRespostasSimilares(corrigidas).clusters;
+    if (corrigidas.length < 2) return { clusters: [], grupos: [] };
+    return detectarRespostasSimilares(corrigidas);
   }, [entregas]);
+  const similaridades = deteccaoSimilaridade.clusters || [];
+  const gruposSimilaridade = deteccaoSimilaridade.grupos || [];
 
-  return { entregas, corrigindo, erro, similaridades, overrideNota, corrigirEntrega, corrigirManualmente };
+  return { entregas, corrigindo, erro, similaridades, gruposSimilaridade, overrideNota, corrigirEntrega, corrigirManualmente };
 }

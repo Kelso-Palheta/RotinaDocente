@@ -258,3 +258,10 @@ Validação RN-76 (27/10/2026): **851 testes em 177 arquivos** aprovados — 828
 - [x] **UT-60 (RN-77):** `POST /api/maritaca` aceita imagem de ~300 KB (HTTP 200) e recusa imagem de 8 MB com HTTP 400 nomeando imagem e limite, sem chamar o provedor.
 
 Validação RN-77 (27/10/2026): **866 testes em 178 arquivos** aprovados — 851 preexistentes preservados e 15 novos. Build de produção exit 0; lint dos arquivos alterados sem problemas. Nenhum teste ou evidência histórica foi alterado. O teto único de 50 KB foi substituído por orçamento por campo (4 MB total, 1,6 MB por imagem, 4 imagens, 60.000 caracteres de texto), com redução da cópia enviada, degradação declarada sem imagem e truncamento explícito de resposta longa.
+
+## RN-78 — Alerta de similaridade acionável
+- [x] **UT-61 (RN-78):** normalização ignora acento/pontuação e shingles de 3 palavras detectam resposta copiada; o mesmo vocabulário em ordem diferente e respostas diferentes com vocabulário comum não formam grupo.
+- [x] **UT-62 (RN-78):** `detectarRespostasSimilares` devolve grupos com alunos, trechos e similaridade de cada par, mantém `clusters`/`penalizados` compatíveis e não altera nem grava nota.
+- [x] **UT-63 (RN-78):** o alerta usa plural correto, abre o painel com nomes, percentuais e trechos, e o botão de revisão abre a entrega do aluno sem alterar nota.
+
+Validação RN-78 (27/10/2026): **875 testes em 180 arquivos** aprovados — 866 preexistentes preservados e 9 novos. Build de produção exit 0; lint dos arquivos alterados sem problemas. Nenhum teste ou evidência histórica foi alterado. A comparação passou de Jaccard de palavras únicas para shingles de 3 palavras normalizadas, o alerta abriu painel com nomes/trechos/pares e as contagens passaram a respeitar plural.

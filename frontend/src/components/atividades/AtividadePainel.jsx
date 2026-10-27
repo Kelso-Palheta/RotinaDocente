@@ -6,6 +6,8 @@ import { aplicarSincronizacaoAtividades, entregaNoEscopo } from '@/dominio/diari
 import { useEntregas } from '@/hooks/atividades/useEntregas';
 import { getAtividade } from '@/lib/firebase-atividades';
 import { EntregaDrawer } from './EntregaDrawer';
+import { SimilaridadePainel } from './SimilaridadePainel';
+import { textoComparavel } from '@/dominio/atividades/similaridadeRespostas';
 import { UrlCopyPanel } from './UrlCopyPanel';
 import { AtividadeForm } from './AtividadeForm';
 import { db } from '@/lib/firebase';
@@ -49,7 +51,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     }
   }, [atividade, turmas, currentTurmaId, onSetNota, sincronizacaoAutomatica]);
 
-  const { entregas: recebidas, corrigindo, corrigirManualmente, corrigirEntrega, similaridades = [], erro: erroEntregas } = useEntregas(atividade.id, handleNotaChanged, { turmaId: currentTurmaId, bimestre: atividade.bimestre });
+  const { entregas: recebidas, corrigindo, corrigirManualmente, corrigirEntrega, similaridades = [], gruposSimilaridade = [], erro: erroEntregas } = useEntregas(atividade.id, handleNotaChanged, { turmaId: currentTurmaId, bimestre: atividade.bimestre });
   const entregas = useMemo(() => recebidas.filter(entrega => entregaNoEscopo(entrega, { turmaId: currentTurmaId, bimestre: atividade.bimestre })), [recebidas, currentTurmaId, atividade.bimestre]);
   const [alunosInfo, setAlunosInfo] = useState({});
   const [loadingAlunos, setLoadingAlunos] = useState(true);
@@ -65,6 +67,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
   const [sincronizando, setSincronizando] = useState(false);
   const [lote, setLote] = useState(null);
   const loteRef = useRef(false);
+  const [mostrarSimilaridade, setMostrarSimilaridade] = useState(false);
 
   useEffect(() => {
     let ativo = true;
@@ -93,6 +96,38 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     load();
     return () => { ativo = false; };
   }, [atividade.id, atividade.turmaIds, atividade.alunoExclusivoId, currentTurmaId, turmas]);
+
+  const gruposSimilaridadeExibicao = useMemo(() => {
+    const base = gruposSimilaridade.length
+      ? gruposSimilaridade
+      : (similaridades || []).map(grupo => ({
+          alunos: grupo.map(entrega => ({
+            alunoId: entrega.alunoId,
+            turmaId: entrega.turmaId ?? null,
+            entregaId: entrega.id ?? null,
+            texto: textoComparavel(entrega),
+          })),
+          pares: [],
+          similaridadeMinima: 0,
+          similaridadeMaxima: 0,
+        }));
+    return base.map(grupo => ({
+      ...grupo,
+      alunos: (grupo.alunos || []).map(aluno => ({
+        ...aluno,
+        nome: alunosInfo[chaveAluno(aluno.turmaId, aluno.alunoId)]?.nome || aluno.alunoId,
+      })),
+    }));
+  }, [gruposSimilaridade, similaridades, alunosInfo]);
+
+  const abrirEntregaDoGrupo = useCallback((aluno) => {
+    const entrega = entregas.find(item => (aluno.entregaId && item.id === aluno.entregaId)
+      || (item.alunoId === aluno.alunoId && item.turmaId === aluno.turmaId));
+    setMostrarSimilaridade(false);
+    if (!entrega) return;
+    setModoDrawer('visualizar');
+    setSelectedEntrega(entrega);
+  }, [entregas]);
 
   const syncedRef = useRef(new Set());
   useEffect(() => {
@@ -176,7 +211,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
         } catch { falhas.push(e.alunoId); }
         feitas++;
       }
-      setMensagem(`Lote concluído: ${feitas - falhas.length} corrigidas, ${falhas.length} falhas.${falhas.length ? ' Tente novamente somente as entregas com erro.' : ''}${comAviso ? ` ${comAviso} corrigida(s) sem alguma imagem — revise manualmente.` : ''}`);
+      setMensagem(`Lote concluído: ${feitas - falhas.length} ${feitas - falhas.length === 1 ? 'corrigida' : 'corrigidas'}, ${falhas.length} ${falhas.length === 1 ? 'falha' : 'falhas'}.${falhas.length ? ' Tente novamente somente as entregas com erro.' : ''}${comAviso ? ` ${comAviso} ${comAviso === 1 ? 'corrigida' : 'corrigidas'} sem alguma imagem — revise manualmente.` : ''}`);
     } finally { loteRef.current = false; setLote(null); }
   }, [entregas, handleCorrigir]);
   const confirmarSync = async () => {
@@ -272,7 +307,15 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
       {(erroEntregas || erroAcao) && <p role="alert" className="bg-red-50 text-red-800 rounded p-3 text-sm mb-3">{erroEntregas || erroAcao}</p>}
       {mensagem && <p role="status" className="bg-blue-50 text-blue-900 rounded p-3 text-sm mb-3">{mensagem}</p>}
       {lote && <p role="status" className="p-2 text-sm">Corrigindo lote: {lote.feitas}/{lote.total}. Aguarde a conclusão.</p>}
-      {similaridades.length > 0 && <p className="bg-amber-50 text-amber-900 rounded p-3 text-sm mb-3">Alerta de similaridade: {similaridades.length} grupo(s) para revisão humana. As notas foram mantidas. Compare as respostas antes de revisar manualmente.</p>}
+      {similaridades.length > 0 && (
+        <div role="status" className="bg-amber-50 text-amber-900 rounded p-3 text-sm mb-3 flex flex-wrap items-center justify-between gap-2">
+          <span>Alerta de similaridade: {similaridades.length} {similaridades.length === 1 ? 'grupo' : 'grupos'} para revisão humana. As notas foram mantidas.</span>
+          <button type="button" onClick={() => setMostrarSimilaridade(true)} className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-100 hover:bg-amber-200 border border-amber-300">
+            Ver {similaridades.length === 1 ? 'grupo' : 'grupos'}
+          </button>
+        </div>
+      )}
+      {mostrarSimilaridade && <SimilaridadePainel grupos={gruposSimilaridadeExibicao} onAbrir={abrirEntregaDoGrupo} onFechar={() => setMostrarSimilaridade(false)} />}
       {previaSync && <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center p-4"><section role="dialog" aria-modal="true" aria-label="Conferir sincronização" className="bg-white rounded-xl p-6 max-w-lg w-full"><h3 className="font-bold">Conferir notas antes de enviar</h3><p className="text-sm my-2">{atividade.titulo} · {atividade.bimestre}º bimestre · {currentTurmaId ? `Turma ${turmas.find(t => t.id === currentTurmaId)?.nome || currentTurmaId}` : 'Turmas vinculadas'}</p><ul className="max-h-52 overflow-auto text-sm">{entregas.filter(e => ['corrigido','revisado'].includes(e.status)).map(e => <li key={e.id}>{alunosInfo[chaveAluno(e.turmaId, e.alunoId)]?.nome || e.alunoId}: {e.notaRevisada ?? e.notaFinal ?? 'Sem nota'}</li>)}</ul><p className="text-xs my-3">Envia somente esta atividade ao Diário. Para disponibilizar notas no Portal, confira e publique pelo Diário.</p><div className="flex gap-3 justify-end"><button disabled={sincronizando} onClick={() => setPreviaSync(false)}>Cancelar</button><button disabled={sincronizando} onClick={confirmarSync} className="btn-brand-primary px-3 py-2">{sincronizando ? 'Sincronizando…' : 'Confirmar sincronização'}</button></div></section></div>}
       {/* Filtros */}
       <div className="flex gap-2 mb-4 flex-wrap">

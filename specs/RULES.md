@@ -551,3 +551,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Se a imagem não couber nem após redução, a correção continua sem ela e o resultado registra a omissão (`avisoCorrecao`, `imagensOmitidas`, `semImagem`). A tela exibe o aviso e pede revisão manual. Uma imagem não pode derrubar a correção inteira, nem a correção pode declarar ter lido imagem omitida.
 - Resposta discursiva acima de 20.000 caracteres é truncada apenas no prompt, com marcação explícita (`respostaTruncada`); a resposta original da entrega permanece intacta.
 - A degradação não publica nota automaticamente: correção, revisão, sincronização e publicação seguem o fluxo normal da RN-69.
+
+## RN-78 — Alerta de similaridade acionável e comparável
+- O alerta de similaridade precisa permitir a comparação que anuncia: abre painel com os grupos, nomes dos alunos, trecho da resposta de cada um, percentual de cada par e acesso à entrega para revisão. Um contador sem detalhe não atende.
+- A comparação usa shingles de 3 palavras sobre texto normalizado (minúsculas, sem acentos e sem pontuação), portanto é sensível à ordem: duas respostas com o mesmo vocabulário em ordens diferentes não são tratadas como cópia. Respostas com menos de 20 caracteres continuam fora da análise.
+- Similaridade é somente alerta: nenhuma nota, publicação ou penalidade é alterada automaticamente. `penalizados` permanece informativo e a revisão manual (`notaRevisada`) retira a entrega do alerta.
+- O painel não substitui a decisão docente: informa a diferença entre cópia e coincidência de vocabulário e identifica o grupo por ordem decrescente de similaridade.
+- Contagens na interface respeitam plural: “1 grupo”/“2 grupos” e “1 corrigida”/“2 corrigidas”.
