@@ -97,3 +97,14 @@ Reduzir altura do cabeçalho da turma para liberar espaço à tabela de notas. O
 ## Imagens adaptadas com revisão — RN-72
 
 Permitir criar, manter ou editar figuras a partir de referência preservada, com plano visual por questão, desenhos exatos por dados, validação técnica e revisão docente. Salvar a versão atual com histórico e garantir a mesma figura no banco, prova, impressão e Portal. Impedir distribuição de figuras obrigatórias pendentes e informar falhas sem reduzir silenciosamente a qualidade ou trocar provedor.
+
+## RN-73 — Redação segura, revisável e com histórico
+- Cada redação tem ID único, alunoId/turmaId/anoLetivo separados do login; salvar nova redação nunca substitui outra. Registros legados permanecem legíveis, sem migração/apagamento no carregamento.
+- Abrir o módulo não grava turmas. Usar persistência compartilhada isolada por conta; não sobrescrever Diário por timestamp de cache.
+- Consulta discente exige sessão, vínculo vigente e propriedade da redação, publicação e ausência de arquivamento. Projeção pública exclui campos internos; legado exige loginKey/login equivalente, nunca apenas professor.
+- Correção usa BYOK/provedor escolhido (substitui exclusividade antiga da RN-06); Gemini chama Google. Avaliação completa valida cinco competências 0/40/80/120/160/200, soma estrita; parcial não inventa zeros nem total de 1000. Anulação explícita persiste motivo e zeros. JSON incompleto não é resultado válido.
+- Correção IA e manual seguem revisão docente; rascunho, corrigido/revisado, publicado e arquivado têm estados explícitos. Revisões registram autor/data e versão anterior. Publicar exige confirmação; legado publicado mantém compatibilidade segura.
+- Texto original, tema, motivadores, fonte, contexto e resultado permanecem em rascunho por conta; erro de salvamento permite repetir sem consumir IA. Falha de identificação encerra processamento. Requisições antigas não afetam outro contexto.
+- Extração PDF é por página: preservar texto digital e transcrever páginas escaneadas, com limite e revisão. Correção direta não descarta imagem. Seleção de arquivo informa limites e progresso.
+- Arquivar/restaurar não apaga vínculos de notas/atividades. Importação/migração legada é explícita, com backup/prévia, sem destruição ou associação automática por nome.
+- Histórico e métricas usam os mesmos filtros de turma/ano/bimestre/aluno. Falha visível com repetição. Feedback e PDF usam contrato de notas/versão/data coerente. Evolução normaliza scoreData/totalScore, excluindo avaliações parciais ou inválidas.

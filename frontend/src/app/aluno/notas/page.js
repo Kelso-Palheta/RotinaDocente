@@ -81,6 +81,9 @@ export default function AlunoNotasPage() {
   const [erro, setErro] = useState('');
   const [abaAtv, setAbaAtv] = useState('pendentes');
   const [redacao, setRedacao] = useState(null);
+  const [redacoes, setRedacoes] = useState([]);
+  const [erroRedacoes,setErroRedacoes]=useState(false);
+  const [tentativa,setTentativa]=useState(0);
 
   useEffect(() => {
     const raw = sessionStorage.getItem('aluno_login');
@@ -111,6 +114,8 @@ export default function AlunoNotasPage() {
       .then(async (data) => {
         setDados({ ...alunoData, notas: data.notas || {} });
 
+        setErroRedacoes(Boolean(data.falhas?.redacoes));
+        setRedacoes(data.redacoes || (data.redacao ? [data.redacao] : []));
         if (data.redacao) {
           setRedacao(data.redacao);
           if (alunoData.openRedacao) {
@@ -136,7 +141,7 @@ export default function AlunoNotasPage() {
         setErro('Erro ao carregar dados. Tente novamente mais tarde.');
       })
       .finally(() => setLoading(false));
-  }, [router]);
+  }, [router,tentativa]);
 
   const handleLogout = async () => {
     try {
@@ -271,43 +276,15 @@ export default function AlunoNotasPage() {
           </div>
         </div>
 
-        {/* Card da Redação se houver */}
-        {redacao && (
-          <div className="bg-gradient-to-r from-[#fff2f6] to-white border border-[#fde4ec] rounded-3xl p-5 mb-8 flex flex-col sm:flex-row items-center gap-4 justify-between shadow-xs">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#fde4ec] flex items-center justify-center shrink-0 text-[#f60c49] shadow-2xs">
-                <PenTool size={22} />
-              </div>
-              <div>
-                <h3 className="font-head font-extrabold text-[#101942] text-base flex items-center gap-2">
-                  Redação ENEM Corrigida por IA <Sparkles size={16} className="text-[#f60c49]" />
-                </h3>
-                <p className="text-xs text-[#6070a0] mt-0.5 line-clamp-1">
-                  Tema: <span className="font-semibold text-[#101942]">{redacao.essayTheme}</span>
-                </p>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="text-[11px] bg-[#fff2f6] text-[#d40840] border border-[#fde4ec] px-2 py-0.5 rounded-full font-bold">
-                    Nota Final: {redacao.totalScore} pts
-                  </span>
-                  {redacao.bimestre && (
-                    <span className="text-[11px] bg-white border border-[#dce0f0] text-[#6070a0] px-2 py-0.5 rounded-full font-semibold">
-                      {redacao.bimestre}º Bimestre
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                sessionStorage.setItem('redacao_aluno', JSON.stringify({ professorUid: dados.professorUid }));
-                router.push(`/redacao/aluno/${redacao.id}`);
-              }}
-              className="w-full sm:w-auto btn-brand-primary px-4 py-2 text-xs font-bold shadow-xs whitespace-nowrap"
-            >
-              Ver Relatório Detalhado
-            </button>
-          </div>
-        )}
+        {erroRedacoes && <div role="alert" className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4"><p>Não foi possível carregar as redações. Isso não significa que seu histórico esteja vazio.</p><button className="underline mt-2" onClick={()=>{setLoading(true);setTentativa(t=>t+1);}}>Tentar carregar redações novamente</button></div>}
+        {redacoes.length > 0 && <section className="space-y-3 mb-8" aria-label="Redações publicadas">
+          <h2 className="font-bold text-lg">Minhas redações</h2>
+          {redacoes.map(r=><article key={r.id} className="bg-white border border-[#dce0f0] rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+            <div><h3 className="font-bold">{r.essayTheme}</h3><p className="text-sm">{r.bimestre}º bimestre · {r.anoLetivo || 'Ano não informado'}</p><p className="text-sm">{r.totalScore==null?'Avaliação parcial — sem nota total':`Nota Final: ${r.totalScore} / 1000`} · {r.revisadoEm?'Revisada pelo professor':(r.metodoCorrecao || r.tipoCorrecao)==='manual'?'Correção manual':'Devolutiva pedagógica'}</p></div>
+            <button className="btn-brand-primary rounded-xl px-4 py-2" onClick={()=>{sessionStorage.setItem('redacao_aluno',JSON.stringify({professorUid:dados.professorUid}));router.push(`/redacao/aluno/${r.id}`);}}>Ver relatório</button>
+          </article>)}
+        </section>}
+
 
         {/* Grid dos 4 Bimestres */}
         <div className="mb-8">

@@ -1,7 +1,7 @@
 import OpenAI from "openai";
-import Anthropic from "@anthropic-ai/sdk";
 import { MASTER_ENEM_PROMPT } from "./constants";
 import { callAI, executeGeminiNativeCall } from "../ai-provider-central";
+import { normalizarCompetencias } from "./scores";
 import { AIProviders } from "@/dominio/ai/AIProviders";
 
 // RN-49: limite de tokens por profundidade para o feedback não ser truncado.
@@ -25,22 +25,24 @@ export async function generateCorrection(payload) {
 
   console.log(`[AI Provider] Iniciando correção (${depth}) via ${provider} para ${studentName}`);
 
-  // openrouter e maritaca não suportam vision diretamente neste fluxo — transcrever antes
-  const needsTranscriptionFallback = provider !== "openai" && provider !== "anthropic";
-
-  if (needsTranscriptionFallback && imageBase64 && !text) {
-    console.log(`[Vision Fallback] Transcrevendo imagem antes de corrigir com ${provider}...`);
-    text = await extractTextOnly(imageBase64, mediaType, userConfig);
+  // Correção compartilha contrato textual; toda imagem é transcrita no provedor escolhido.
+  if (imageBase64) {
+    const transcription = await extractTextOnly(imageBase64, mediaType, userConfig);
+    if (!transcription.trim()) throw new Error('Não foi possível ler o texto da imagem. Revise a fonte antes de corrigir.');
+    text = text ? `${text}\n\nTexto transcrito da imagem:\n${transcription}` : transcription;
     imageBase64 = undefined;
   }
 
+  const selected = normalizarCompetencias(competencies);
   const finalPrompt = MASTER_ENEM_PROMPT
     .replace(/{theme}/g, essayTheme)
     .replace(/{studentName}/g, studentName)
     .replace(/{studentClass}/g, studentClass)
     .replace(/{depth}/g, depth)
     .replace(/{competencies}/g, competencies)
-    .replace(/{motivatorText}/g, motivatorText);
+    .replace(/{motivatorText}/g, motivatorText)
+    + (selected.length < 5 ? `\nCONTRATO DE AVALIAÇÃO PARCIAL: avaliar somente ${selected.join(', ')}. O JSON inicial deve conter somente essas competências, total:null e anulada:false. Não inventar notas das demais competências nem anunciar nota total. Essa instrução substitui o modelo completo acima.` : '')
+    + '\nSe anular, inclua motivoAnulacao explícito e cinco competências e total iguais a zero. Não conclua número de linhas com base somente em texto extraído sem preservar a diagramação original.';
 
   try {
     const essayContent = text
@@ -258,78 +260,4 @@ export async function extractTextOnly(imageBase64, mediaType = "image/jpeg", use
   throw new Error(
     `O provedor "${prov || 'desconhecido'}" não suporta a transcrição de imagens. Conecte uma chave Gemini, OpenAI, Anthropic ou Maritaca nas configurações de IA.`
   );
-}
-
-async function handleMaritaca(maritaca, text, imageBase64, mediaType = "image/jpeg", prompt) {
-  const model = process.env.MARITACA_MODEL || "sabiazinho-4";
-  const content = [];
-
-  if (imageBase64) {
-    content.push({
-      type: "file",
-      file: { filename: "redacao.jpg", file_data: `data:${mediaType};base64,${imageBase64.replace(/\s/g, '')}` }
-    });
-  }
-
-  content.push({
-    type: "text",
-    text: text ? `Redação para correção: \n\n${text}` : "Por favor, corrija a redação contida no arquivo/imagem enviado utilizando os critérios do INEP."
-  });
-
-  const response = await maritaca.chat.completions.create({
-    model,
-    messages: [
-      { role: "system", content: prompt },
-      { role: "user", content },
-    ],
-    temperature: 0.3,
-  });
-
-  return response.choices[0].message.content;
-}
-
-async function handleOpenAI(openai, text, imageBase64, prompt) {
-  const content = [];
-  if (text) content.push({ type: "text", text: `Redação para correção: \n\n${text}` });
-  if (imageBase64) {
-    content.push({
-      type: "image_url",
-      image_url: { url: `data:image/jpeg;base64,${imageBase64.replace(/\s/g, '')}` },
-    });
-  }
-
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      { role: "system", content: prompt },
-      { role: "user", content },
-    ],
-    temperature: 0.3,
-  });
-
-  return response.choices[0].message.content;
-}
-
-async function handleAnthropic(anthropic, text, imageBase64, mediaType = "image/jpeg", prompt) {
-  const content = [];
-  if (imageBase64) {
-    content.push({
-      type: "image",
-      source: { type: "base64", media_type: mediaType, data: imageBase64.replace(/\s/g, '') },
-    });
-  }
-  if (text) {
-    content.push({ type: "text", text: `Redação para correção: \n\n${text}` });
-  }
-
-  const response = await anthropic.messages.create({
-    model: "claude-3-5-sonnet-20240620",
-    max_tokens: 4000,
-    temperature: 0.3,
-    system: prompt,
-    messages: [{ role: "user", content }],
-  });
-
-  const block = response.content.find(b => b.type === "text");
-  return block && block.type === "text" ? block.text : "Ocorreu um erro na geração da resposta.";
 }

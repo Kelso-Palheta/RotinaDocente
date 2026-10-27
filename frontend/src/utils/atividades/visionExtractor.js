@@ -66,71 +66,39 @@ async function renderPageToDataUrl(page) {
 
 /**
  * Processa um documento PDF já carregado (RN-47):
- * 1. Tenta a camada de texto digital (PDF gerado no computador) — sem IA;
- * 2. Se escaneado/manuscrito (texto insuficiente), renderiza cada página e
+ * 1. Preserva a camada digital de cada página, sem IA;
+ * 2. Nas páginas sem camada de texto, renderiza os pixels e
  *    transcreve pela visão de IA, uma chamada por página.
  * @param {{ numPages: number, getPage: (i:number)=>Promise<any> }} pdf
- * @param {{ headers?: Record<string,string>, maxPages?: number, renderPage?: (page:any)=>Promise<string> }} [options]
+ * @param {{ headers?: Record<string,string>, maxPages?: number, renderPage?: (page:any)=>Promise<string>, onProgress?: (progress:{page:number,total:number})=>void }} [options]
  * @returns {Promise<string>}
  */
 export async function extractTextFromPDFDocument(pdf, options = {}) {
-  const textParts = [];
-  let totalChars = 0;
-
+  const pages = [];
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const content = await page.getTextContent();
-    const text = content.items
-      .map((item) => item.str)
-      .join(' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-    if (text) {
-      textParts.push(text);
-      totalChars += text.length;
+    const text = content.items.map(item => `${item.str || ''}${item.hasEOL ? '\n' : ' '}`).join('').trim();
+    pages.push({ page, text });
+  }
+  // Texto digital curto continua sendo texto; apenas páginas vazias exigem OCR.
+  const scanned = pages.filter(page => !page.text);
+  const maxPages = options.maxPages ?? MAX_VISION_PAGES;
+  if (scanned.length > maxPages) throw new Error(`PDF escaneado com ${scanned.length} páginas excede o limite de ${maxPages} páginas para transcrição por IA. Envie apenas as páginas da redação.`);
+  const headers = options.headers || getClientAIHeaders();
+  if (scanned.length && !headers['x-user-ai-key']) throw new Error('AI_KEY_REQUIRED: Conecte sua chave de IA nas configurações para transcrever a redação manuscrita.');
+  const renderPage = options.renderPage || renderPageToDataUrl;
+  const parts = [];
+  for (let index = 0; index < pages.length; index++) {
+    options.onProgress?.({page:index+1,total:pages.length});
+    const entry = pages[index];
+    if (entry.text) parts.push(entry.text);
+    else {
+      const dataUrl = await renderPage(entry.page);
+      parts.push(await extractTextFromImageVision(String(dataUrl).split(',')[1] || '', {mediaType:getMediaTypeFromDataUrl(dataUrl),headers}));
     }
   }
-
-  if (totalChars >= 50) return textParts.join('\n\n');
-
-  const maxPages = options.maxPages ?? MAX_VISION_PAGES;
-  if (pdf.numPages > maxPages) {
-    throw new Error(
-      `PDF escaneado com ${pdf.numPages} páginas excede o limite de ${maxPages} páginas para transcrição por IA. Envie apenas as páginas da redação.`
-    );
-  }
-
-  const headers = options.headers || getClientAIHeaders();
-  if (!headers['x-user-ai-key']) {
-    throw new Error(
-      'AI_KEY_REQUIRED: Conecte sua chave de IA nas configurações para transcrever a redação manuscrita.'
-    );
-  }
-
-  const renderPage = options.renderPage || renderPageToDataUrl;
-  const pages = [];
-  for (let i = 1; i <= pdf.numPages; i++) {
-    pages.push(await renderPage(await pdf.getPage(i)));
-  }
-
-  const transcricoes = [];
-  for (const dataUrl of pages) {
-    const base64 = String(dataUrl).split(',')[1] || '';
-    transcricoes.push(
-      await extractTextFromImageVision(base64, {
-        mediaType: getMediaTypeFromDataUrl(dataUrl),
-        headers,
-      })
-    );
-  }
-
-  const texto = transcricoes.join('\n\n').trim();
-  if (!texto) {
-    throw new Error(
-      'Não foi possível ler o texto do PDF. Tente um arquivo mais nítido, bem iluminado e sem sombras.'
-    );
-  }
-  return texto;
+  return parts.join('\n\n').trim();
 }
 
 /**

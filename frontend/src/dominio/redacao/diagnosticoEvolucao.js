@@ -1,3 +1,4 @@
+import { normalizarNotasHistorico } from './historico';
 /**
  * Dominio: Redação ENEM
  * Diagnóstico Longitudinal e Evolução de Competências (C1..C5)
@@ -9,24 +10,6 @@
  * @param {any} redacao 
  * @returns {{ c1: number, c2: number, c3: number, c4: number, c5: number, total: number }}
  */
-function extrairCompetencias(redacao) {
-  if (!redacao || typeof redacao !== 'object') {
-    return { c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, total: 0 };
-  }
-
-  const fonte = redacao.competencias || redacao.scores || redacao;
-
-  const c1 = Number(fonte.c1 ?? fonte.C1 ?? 0) || 0;
-  const c2 = Number(fonte.c2 ?? fonte.C2 ?? 0) || 0;
-  const c3 = Number(fonte.c3 ?? fonte.C3 ?? 0) || 0;
-  const c4 = Number(fonte.c4 ?? fonte.C4 ?? 0) || 0;
-  const c5 = Number(fonte.c5 ?? fonte.C5 ?? 0) || 0;
-
-  const total = Number(redacao.total ?? fonte.total ?? (c1 + c2 + c3 + c4 + c5)) || 0;
-
-  return { c1, c2, c3, c4, c5, total };
-}
-
 /**
  * Calcula médias das competências C1 a C5, identifica a competência prioritária e a tendência.
  * 
@@ -50,7 +33,8 @@ export function calcularEvolucaoCompetencias(historicoRedacoes) {
     };
   }
 
-  const itens = historicoRedacoes.map(extrairCompetencias);
+  const itens = historicoRedacoes.map(normalizarNotasHistorico).filter(Boolean);
+  if (!itens.length) return calcularEvolucaoCompetencias([]);
   const n = itens.length;
 
   const somas = { c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, total: 0 };

@@ -51,3 +51,14 @@
 - [x] Persistência compartilhada com Diário, contexto, correção/sincronização explícitas, avisos de similaridade sem punição e arquivamento preservando feedback.
 - [x] Suíte 690/690, emulador 5/5, build e lint verificados. Guia e evidências registrados.
 - [ ] Publicar aplicativo e regras Firestore juntos quando solicitado; nenhum deploy ou commit/push executado nesta etapa.
+
+## 27/10/2026 — RN-73 Redação Corrigida
+- [x] Contratos de notas completas, parciais e anulação; rubrica interna rastreável, BYOK escolhido.
+- [x] ID próprio por redação, versões, gravação transacional/idempotente, rascunhos privados e repetição de salvamento sem IA.
+- [x] Remoção de migração/exclusão lateral; associação legada revisável com backup; arquivo reversível e vínculos preservados.
+- [x] Autorização discente vigente e projeção; histórico publicado no Portal e falha explícita por seção de redações.
+- [x] Correção/revisão manual, publicação confirmada, filtros/métricas/evolução e relatórios coerentes.
+- [x] PDF misto por página, referência visual consistente e extração sem descarte da imagem.
+- [x] Suíte completa: 805 testes em 167 arquivos, sem alterar testes preexistentes.
+- [ ] Publicação desta versão (commit/push/deploy ainda não realizados nesta tarefa).
+- [ ] Homologação pedagógica integral da cartilha 2026: download oficial indisponível durante conferência; sem alegação de certificação oficial.

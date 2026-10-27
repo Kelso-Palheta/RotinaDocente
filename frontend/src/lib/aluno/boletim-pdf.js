@@ -1,6 +1,7 @@
 import { situacoesBoletim, ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 import { jsPDF } from "jspdf";
 import { adicionarHistoricoFeedbackPDF } from "@/lib/aluno/feedback-pdf";
+import { normalizarNotasHistorico } from '@/dominio/redacao/historico';
 import { fmt } from "@/utils/diario/calculos";
 
 /**
@@ -145,7 +146,8 @@ export const generateBoletimPDF = ({
     doc.setTextColor(16, 25, 66);
     const temaCortado = redacao.essayTheme?.length > 70 ? redacao.essayTheme.substring(0, 67) + "..." : redacao.essayTheme;
     doc.text(`Tema: ${temaCortado}`, margin + 5, cursorY + 13);
-    doc.text(`Nota Final: ${redacao.totalScore} / 1000 pontos`, margin + 5, cursorY + 19);
+    const notasRedacao=normalizarNotasHistorico(redacao);
+    doc.text(redacao.modo==='parcial'?'Avaliação parcial — sem total ENEM':notasRedacao?`Nota Final: ${notasRedacao.total} / 1000 pontos`:'Nota de redação em conferência', margin + 5, cursorY + 19);
 
     cursorY += 30;
   }

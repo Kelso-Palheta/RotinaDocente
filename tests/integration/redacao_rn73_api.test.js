@@ -1,0 +1,10 @@
+import {it,expect,vi,beforeEach} from 'vitest';
+const m=vi.hoisted(()=>({result:'{"c1":160}',generate:vi.fn(),config:{provider:'gemini',apiKey:'fake',model:'gemini'}}));
+vi.mock('@/lib/redacao/ai-provider',()=>({generateCorrection:async payload=>{m.generate(payload);return m.result;}}));
+vi.mock('@/lib/ai-provider-central',()=>({extractUserAIConfigFromHeaders:()=>m.config}));
+import {POST} from '@/app/api/corrigir/route';
+const request=body=>new Request('http://localhost/api/corrigir',{method:'POST',body:JSON.stringify({text:'Texto de teste',...body})});
+beforeEach(()=>m.generate.mockClear());
+it('RN73 rota recusa JSON incompleto com erro 422',async()=>{m.result='{"c1":160}';const response=await POST(request({}));expect(response.status).toBe(422);expect((await response.json()).error).toBe('INVALID_ENEM_SCORES');});
+it('RN73 rota valida parcial e mantém provedor escolhido',async()=>{m.result='{"c1":160,"c3":80,"total":null}';const response=await POST(request({competencies:'c1, c3'}));expect(response.status).toBe(200);expect((await response.json()).scores.total).toBeNull();expect(m.generate.mock.calls[0][0].userConfig.provider).toBe('gemini');});
+it('RN73 dados inválidos não consomem IA',async()=>{for(const body of [{text:{}},{motivatorText:'a'.repeat(25001)},{competencies:'c1,c8'},{competencies:[]},{depth:'invalid'}]){const response=await POST(request(body));expect(response.status).toBe(400);}expect(m.generate).not.toHaveBeenCalled();});

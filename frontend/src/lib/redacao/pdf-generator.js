@@ -1,121 +1,36 @@
-import { jsPDF } from "jspdf";
+import { jsPDF } from 'jspdf';
+import { normalizarNotasHistorico,dataRedacao } from '@/dominio/redacao/historico';
+import { cleanFeedbackText } from './renderFeedback';
 
-export const generatePDF = (
-  content,
-  studentName = "Estudante",
-  studentClass = "N/A",
-  essayTheme = "Geral",
-  scoreData = null
-) => {
-  const doc = new jsPDF("portrait", "mm", "a4");
-
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const margin = 20;
-  const maxLineWidth = pageWidth - margin * 2;
-
-  // ── HEADER ──
-  doc.setFillColor(30, 10, 60);
-  doc.rect(0, 0, pageWidth, 55, "F");
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.setTextColor(255, 255, 255);
-  doc.text("Relatório de Correção ENEM", margin, 20);
-
-  doc.setFontSize(10);
-  doc.setTextColor(200, 200, 240);
-  doc.text("ALUNO(A): " + studentName.toUpperCase(), margin, 32);
-  doc.text("TURMA: " + studentClass.toUpperCase(), margin, 38);
-  doc.text("TEMA: " + essayTheme.toUpperCase(), margin, 44);
-  doc.text("DATA: " + new Date().toLocaleDateString("pt-BR"), margin, 50);
-
-  let cursorY = 65;
-
-  // ── SCORES ──
-  if (scoreData && scoreData.length > 0) {
-    const totalScore = scoreData.reduce((acc, s) => acc + s.A, 0);
-
-    doc.setFillColor(109, 40, 217);
-    doc.roundedRect(margin, cursorY, maxLineWidth, 15, 2, 2, "F");
-    doc.setFontSize(14);
-    doc.setTextColor(255, 255, 255);
-    doc.text("NOTA FINAL: " + totalScore + " / 1000", pageWidth / 2, cursorY + 10, { align: "center" });
-
-    cursorY += 25;
-
-    const colW = maxLineWidth / 5;
-    scoreData.forEach((s, i) => {
-      const x = margin + i * colW;
-      doc.setFillColor(245, 245, 255);
-      doc.rect(x, cursorY, colW - 2, 20, "F");
-      doc.setDrawColor(200, 200, 255);
-      doc.rect(x, cursorY, colW - 2, 20, "S");
-
-      doc.setFontSize(8);
-      doc.setTextColor(100, 100, 150);
-      doc.text(s.subject, x + (colW - 2) / 2, cursorY + 7, { align: "center" });
-
-      doc.setFontSize(12);
-      doc.setTextColor(30, 10, 60);
-      doc.text(String(s.A), x + (colW - 2) / 2, cursorY + 15, { align: "center" });
-    });
-    cursorY += 30;
-  }
-
-  // ── CONTENT ──
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(30, 10, 60);
-  doc.text("ANALISE PEDAGOGICA", margin, cursorY);
-  cursorY += 8;
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(60, 60, 70);
-
-  const cleanContent = content
-    .replace(/```json[\s\S]*?```/g, "")
-    .replace(/\{[\s]*?"c1"[\s\S]*?\}/g, "")
-    .replace(/^[| \-:]+[| \-:]+$/gm, "")
-    .replace(/\|/g, " ")
-    .replace(/\*\*(.*?)\*\*/g, "$1")
-    .replace(/[^\x00-\x7FÀ-ɏḀ-ỿ]/g, "")
-    .replace(/#{1,3}\s?/g, "")
-    .trim();
-
-  const lines = doc.splitTextToSize(cleanContent, maxLineWidth);
-
-  lines.forEach((line) => {
-    if (cursorY > pageHeight - 25) {
-      doc.addPage();
-      cursorY = 20;
-    }
-    doc.text(line, margin, cursorY);
-    cursorY += 5;
-  });
-
-  // ── FOOTER ──
-  const pageCount = doc.internal.getNumberOfPages();
-  for (let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.setFontSize(7);
-    doc.setTextColor(150, 150, 150);
-    doc.text(
-      "Redação Corrigida ENEM 2026 - Página " + i + " de " + pageCount,
-      pageWidth / 2,
-      pageHeight - 8,
-      { align: "center" }
-    );
-  }
-
-  const pdfBlob = doc.output("blob");
-  const url = URL.createObjectURL(pdfBlob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "Resultado_" + studentName.replace(/\s+/g, "_") + ".pdf";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+/** A sexta opção preserva a assinatura histórica e acrescenta versão/data/contexto. */
+export const generatePDF=(content,studentName='Estudante',studentClass='N/A',essayTheme='Geral',scoreData=null,metadata={})=>{
+  const doc=new jsPDF('portrait','mm','a4');
+  const width=doc.internal.pageSize.getWidth();const height=doc.internal.pageSize.getHeight();const margin=20;const maxWidth=width-margin*2;
+  let y=22;
+  const escrever=(texto,{size=10,bold=false,color=[55,65,81],gap=5}={})=>{
+    doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size);doc.setTextColor(...color);
+    const lines=doc.splitTextToSize(String(texto || ''),maxWidth);
+    for(const line of lines){if(y>height-22){doc.addPage();y=22;}doc.text(line,margin,y);y+=gap;}
+    y+=2;
+  };
+  escrever('Relatório de Correção ENEM',{size:20,bold:true,color:[16,25,66],gap:8});
+  escrever(`Aluno(a): ${studentName}`,{bold:true});escrever(`Turma: ${studentClass}`);escrever(`Tema: ${essayTheme}`);
+  const data=dataRedacao(metadata);
+  escrever(`Correção: ${data.getTime()>0?data.toLocaleDateString('pt-BR'):'Data original não informada'}`);
+  escrever(`Exportado em: ${new Date().toLocaleDateString('pt-BR')} · Versão ${metadata.revision ?? 'legada'} · ${metadata.status || 'Resultado para conferência'}`,{size:8});
+  if(metadata.anoLetivo)escrever(`Ano letivo: ${metadata.anoLetivo} · ${metadata.bimestre || '?'}º bimestre`,{size:8});
+  y+=4;
+  const notas=normalizarNotasHistorico({...metadata,scoreData});
+  if(metadata.modo==='parcial') escrever('Avaliação parcial — sem total ENEM comparável.',{bold:true,color:[16,25,66]});
+  else if(notas) escrever(`NOTA FINAL: ${notas.total} / 1000`,{size:15,bold:true,color:[246,12,73],gap:7});
+  else escrever('Conferir notas — avaliação completa válida indisponível.',{bold:true,color:[160,70,15]});
+  if(Array.isArray(scoreData)) escrever(scoreData.map(item=>`${item.subject}: ${Number.isFinite(item.A)?item.A:'Não avaliada'}/200`).join('   '),{size:10});
+  if(metadata.anulada) escrever(`Anulação: ${metadata.motivoAnulacao || 'Motivo não informado'}`,{bold:true});
+  y+=4;escrever('ANÁLISE PEDAGÓGICA',{size:12,bold:true,color:[16,25,66],gap:6});
+  const clean=cleanFeedbackText(String(content || '')).replace(/\*\*(.*?)\*\*/g,'$1').replace(/^#{1,6}\s*/gm,'').replace(/\|/g,' ').replace(/[^\x00-\x7FÀ-ɏḀ-ỿ\n]/g,'');
+  for(const paragraph of clean.split('\n')) escrever(paragraph || ' ',{size:10,gap:5});
+  const count=doc.internal.getNumberOfPages();
+  for(let i=1;i<=count;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(120,120,130);doc.text(`Rotina Docente · Redação Corrigida · Página ${i} de ${count}`,width/2,height-9,{align:'center'});}
+  const filename=String(studentName).replace(/[^\p{L}\p{N}_-]/gu,'_').slice(0,100);
+  doc.save(`Resultado_${filename}.pdf`);return doc;
 };

@@ -1,57 +1,31 @@
 import { NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase-admin';
 import { getSessionFromRequest } from '@/lib/aluno/session';
+import { podeLerRedacao, redacaoPublica } from '@/dominio/redacao/acessoAluno';
 
+const validId = value => typeof value === 'string' && value.length > 0 && value.length <= 512 && !value.includes('/');
 export async function GET(request, { params }) {
   try {
-    const { id: redacaoId } = await params;
+    const { id } = await params;
     const session = getSessionFromRequest(request);
-
-    if (!session) {
-      return NextResponse.json({ error: 'Não autorizado. Faça login.' }, { status: 401 });
-    }
-
-    const { searchParams } = new URL(request.url);
-    const professorUid = searchParams.get('professorUid');
-
-    const vinculoValido = (session.vinculos || []).some(
-      (v) => v.professorUid === professorUid || v.id === professorUid
-    );
-
-    if (!vinculoValido && session.vinculos?.length > 0 && professorUid) {
-      return NextResponse.json({ error: 'Acesso negado a esta redação.' }, { status: 403 });
-    }
-
+    if (!session) return NextResponse.json({error:'Não autorizado. Faça login.'},{status:401});
+    const professorUid = new URL(request.url).searchParams.get('professorUid');
+    if (!validId(id) || !validId(session.loginKey) || (professorUid && !validId(professorUid))) return NextResponse.json({error:'Contexto inválido.'},{status:400});
+    const candidates = professorUid ? [professorUid] : [...new Set((session.vinculos || []).map(v=>v.professorUid || v.id).filter(validId))];
     const db = getAdminDb();
-    let correction = null;
-
-    if (professorUid) {
-      const snap = await db.doc(`professores/${professorUid}/correcoes/${redacaoId}`).get();
-      if (snap.exists) {
-        correction = { id: snap.id, ...snap.data() };
-      }
+    let found = false;
+    for (const uid of candidates) {
+      const live = await db.doc(`alunoLogin/${session.loginKey}/vinculos/${uid}`).get();
+      if (!live.exists || live.data().professorUid !== uid) continue;
+      const snap = await db.doc(`professores/${uid}/correcoes/${id}`).get();
+      if (!snap.exists) continue;
+      found = true;
+      const correction = {...snap.data(),id:snap.id};
+      if (podeLerRedacao(correction,session,live.data(),uid)) return NextResponse.json({correction:redacaoPublica(correction)});
     }
-
-    if (!correction) {
-      for (const v of session.vinculos || []) {
-        const pUid = v.professorUid || v.id;
-        if (pUid) {
-          const snap = await db.doc(`professores/${pUid}/correcoes/${redacaoId}`).get();
-          if (snap.exists) {
-            correction = { id: snap.id, ...snap.data() };
-            break;
-          }
-        }
-      }
-    }
-
-    if (!correction) {
-      return NextResponse.json({ error: 'Redação não encontrada.' }, { status: 404 });
-    }
-
-    return NextResponse.json({ correction });
+    return NextResponse.json({error:found || professorUid ? 'Acesso negado a esta redação.' : 'Redação não encontrada.'},{status:found || professorUid ? 403 : 404});
   } catch (error) {
-    console.error('[/api/aluno/redacao/[id]] Erro:', error);
-    return NextResponse.json({ error: 'Erro interno ao buscar redação.' }, { status: 500 });
+    console.error('[/api/aluno/redacao/[id]] Erro:',error);
+    return NextResponse.json({error:'Erro interno ao buscar redação.'},{status:500});
   }
 }

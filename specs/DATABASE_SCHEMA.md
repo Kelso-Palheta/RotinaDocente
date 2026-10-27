@@ -144,3 +144,8 @@ Cache `diario:{uid}:v2` contém rascunho, base, pendência e até 20 registros d
 - `atividades/{id}/tokens/{vinculo}`: chave Base64URL de JSON `[turmaId, alunoId]`; token novo inclui segredo criptograficamente aleatório. Metadados mínimos `alunoId`, `turmaId`, `nome`, `revogado`. Acessos legados por aluno são lidos com sessão; alterações reconciliam e revogam vínculos removidos sem apagar históricos.
 - Entrega nova: `entregas/{activityId}__{vinculo}`; leitura do antigo `{activityId}_{alunoId}` exige turma/aluno correspondentes. Criação transacional; repetição retorna conflito sem mutação.
 - Regras Firestore restringem atividades/tokens ao professor proprietário, preservam autoria e autorizam entrega legada pelo vínculo com sua atividade. Alunos usam o BFF com Admin SDK, onde a autorização é revalidada.
+
+## RN-73 — Correções
+professores/{uid}/correcoes/{idUnico}: schemaVersion 2; alunoId, turmaId, turmaNome/studentClass, anoLetivo, bimestre, loginAluno/loginKey; originalText; result; scoreData; totalScore (null parcial); assessmentMode, competencias; anulada/motivo; status rascunho|revisado|publicado|arquivado; createdAt/updatedAt/publishedAt; revisoes com versão anterior, autor e data. Legados não são reescritos ao carregar. Vínculo existente do Diário preservado; módulo redação não remove nem altera contexto existente incompatível.
+
+Novas redações RN-73 também registram `rubricaVersao`, `rubricaFonte` e `rubricaHomologada:false`. A referência é para conferência docente; schemaVersion não equivale a homologação da edição oficial. `historico` armazena versões anteriores com autor/data, e `revision` protege atualização concorrente.

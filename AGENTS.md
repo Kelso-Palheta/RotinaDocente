@@ -59,3 +59,7 @@ meu-projeto/
 3. Escrever os testes automatizados na pasta `tests/` apropriada.
 4. Implementar a solução respeitando as camadas de `src/`.
 5. Executar os testes e confirmar aprovação de 100% da suíte antes de finalizar a tarefa.
+
+## Preferência de publicação
+- Após concluir as alterações autorizadas e aprovar as validações necessárias, fazer commit e push automaticamente, sem pedir nova confirmação.
+- Não publicar código com falhas conhecidas nas verificações. Preservar alterações alheias e informar o resultado do commit/push.

@@ -1,55 +1,36 @@
-/**
- * RN-49: Extração das notas do bloco JSON devolvido pela IA na correção de redação.
- * Funciona com o JSON no início ou no fim da resposta e é robusto a corte de tokens
- * (regex individual por campo quando o fence não fecha).
- */
-export function extractScore(fullText) {
-  try {
-    // Estrategia 1: tentar extrair do bloco ```json ... ```
-    const fenceMatch = fullText.match(/```json([\s\S]*?)```/);
-    if (fenceMatch) {
-      try {
-        const obj = JSON.parse(fenceMatch[1].trim());
-        if (obj.c1 !== undefined) {
-          const c1 = Number(obj.c1) || 0;
-          const c2 = Number(obj.c2) || 0;
-          const c3 = Number(obj.c3) || 0;
-          const c4 = Number(obj.c4) || 0;
-          const c5 = Number(obj.c5) || 0;
-          const total = Number(obj.total) || (c1 + c2 + c3 + c4 + c5);
-          return { total, items: [
-            { subject: 'C1', A: c1, fullMark: 200 },
-            { subject: 'C2', A: c2, fullMark: 200 },
-            { subject: 'C3', A: c3, fullMark: 200 },
-            { subject: 'C4', A: c4, fullMark: 200 },
-            { subject: 'C5', A: c5, fullMark: 200 },
-          ]};
-        }
-      } catch (e) { /* continua */ }
-    }
+import { validarPontuacaoCompetencia } from '@/dominio/redacao/enemScoreValidator';
 
-    // Estrategia 2: extrair campos c1-c5 diretamente com regex individuais
-    // Robusto contra JSON com objetos aninhados ou resposta truncada
-    const getField = (key) => {
-      const m = fullText.match(new RegExp(`"${key}"\\s*:\\s*(\\d+)`));
-      return m ? Number(m[1]) : 0;
-    };
-    const c1 = getField('c1');
-    const c2 = getField('c2');
-    const c3 = getField('c3');
-    const c4 = getField('c4');
-    const c5 = getField('c5');
-    if (c1 > 0 || c2 > 0 || c3 > 0 || c4 > 0 || c5 > 0) {
-      const totalM = fullText.match(/"total"\s*:\s*(\d+)/);
-      const total = totalM ? Number(totalM[1]) : (c1 + c2 + c3 + c4 + c5);
-      return { total, items: [
-        { subject: 'C1', A: c1, fullMark: 200 },
-        { subject: 'C2', A: c2, fullMark: 200 },
-        { subject: 'C3', A: c3, fullMark: 200 },
-        { subject: 'C4', A: c4, fullMark: 200 },
-        { subject: 'C5', A: c5, fullMark: 200 },
-      ]};
+/** Competências selecionadas; ausência representa avaliação completa. */
+export function normalizarCompetencias(value) {
+  if (!value || /^(todas|completa)$/i.test(String(value))) return ['C1','C2','C3','C4','C5'];
+  const values = Array.isArray(value) ? value : String(value).split(/[,;\s]+/);
+  return [...new Set(values.map(v => String(v).toUpperCase().replace(/^([1-5])$/, 'C$1')).filter(v => /^C[1-5]$/.test(v)))].sort();
+}
+
+/** Extrai notas completas sem inventar ausências; mantém compatibilidade com campos completos sem fence. */
+export function extractScore(fullText, options = {}) {
+  if (typeof fullText !== 'string') return null;
+  const selected = normalizarCompetencias(options.competencies);
+  if (!selected.length) return null;
+  let obj;
+  const fence = fullText.match(/```json\s*([\s\S]*?)```/i);
+  const raw = fence?.[1] || fullText.trim();
+  try { obj = JSON.parse(raw); } catch {
+    // Campos completos também podem preceder um feedback cortado. Não aceitar números parciais.
+    obj = {};
+    for (const key of ['c1','c2','c3','c4','c5','total','anulada','motivoAnulacao','motivo_anulacao']) {
+      const match = fullText.match(new RegExp(`"${key}"\\s*:\\s*("(?:[^"\\\\]|\\\\.)*"|-?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|true|false|null)(?=\\s*[,}\\n]|\\s*$)`));
+      if (match) { try { obj[key] = JSON.parse(match[1]); } catch { return null; } }
     }
-  } catch (e) { /* ignora */ }
-  return null;
+  }
+  if (!obj || typeof obj !== 'object') return null;
+  const items = selected.map(subject => ({subject,A:obj[subject.toLowerCase()],fullMark:200}));
+  if (items.some(item => !validarPontuacaoCompetencia(item.A))) return null;
+  const anulada = obj.anulada === true;
+  const motivoAnulacao = String(obj.motivoAnulacao || obj.motivo_anulacao || obj.motivo || '').trim();
+  const completa = selected.length === 5;
+  const sum = items.reduce((total,item)=>total+item.A,0);
+  if (completa && obj.total !== undefined && obj.total !== sum) return null;
+  if (anulada && (!motivoAnulacao || !completa || sum !== 0)) return null;
+  return {total:completa ? sum : null,items,modo:completa?'completa':'parcial',anulada,...(anulada?{motivoAnulacao}:{})};
 }

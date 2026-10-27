@@ -182,3 +182,6 @@ Em publicação bimestral, máscaras atômicas de campos atualizam somente `bime
 - `GET /api/aluno/atividade/:id?token=...`: exige acesso emitido e vínculo vigente; token novo com segredo aleatório ou legado com sessão/vínculo revalidado no banco. Resposta pública por lista de campos permitidos. Sem cache. Arquivada permite apenas devolutiva já existente.
 - `POST /api/aluno/entregar`: recebe `activityId`, `token` e respostas. Identificadores opcionais enviados pelo cliente devem coincidir com o acesso. Validação de contexto, prazo e respostas dentro da transação. 401 sem credencial, 403 acesso/contexto inválido, 400 resposta/prazo inválido, 409 entrega existente. Nunca sobrescreve correção.
 - `GET /api/aluno/boletim`: valida `loginKey` da sessão contra vínculo vigente exato professor/turma/aluno. Aplica a mesma projeção pública, encontra tokens novos/legados e conserva feedback de atividade arquivada com entrega.
+
+## RN-73 — Redação
+POST /api/corrigir: BYOK obrigatório, texto/imagem, competências e profundidade validados; retorna result + scores válidos (completa/parcial/anulada), não persiste. Erro de avaliação inválida não retorna nota zero artificial. GET /api/aluno/redacao/:id: exige vínculo atual, identidade e estado publicado; projection pública. Boletim retorna redação atual publicada e lista autorizada redacoes para histórico.

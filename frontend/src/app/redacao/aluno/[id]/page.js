@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { generatePDF } from '@/lib/redacao/pdf-generator';
@@ -13,7 +14,7 @@ export default function AlunoRedacaoViewPage() {
   const [correction, setCorrection] = useState(null);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState('');
-  const [backUrl, setBackUrl] = useState('/redacao/aluno');
+  const backUrl = '/aluno/notas';
 
   const compLabels = [
     'Gramática e Escrita',
@@ -22,12 +23,6 @@ export default function AlunoRedacaoViewPage() {
     'Coesão e Coerência',
     'Proposta de Intervenção'
   ];
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('aluno_login')) {
-      setBackUrl('/aluno');
-    }
-  }, []);
 
   useEffect(() => {
     const load = async () => {
@@ -69,7 +64,8 @@ export default function AlunoRedacaoViewPage() {
         correction.studentName,
         correction.studentClass,
         correction.essayTheme,
-        correction.scoreData
+        correction.scoreData,
+        correction
       );
     }
   };
@@ -91,9 +87,9 @@ export default function AlunoRedacaoViewPage() {
           </div>
           <h1 className="text-lg font-bold text-slate-900 mb-2">Não encontrado</h1>
           <p className="text-sm text-slate-400 mb-6">{erro}</p>
-          <a href="/redacao/aluno" className="inline-flex items-center justify-center px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-semibold transition-all">
+          <Link href="/redacao/aluno" className="inline-flex items-center justify-center px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-semibold transition-all">
             ← Tentar outro login
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -101,27 +97,28 @@ export default function AlunoRedacaoViewPage() {
 
   const scores = correction?.scoreData?.map((item, i) => {
     const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6'];
-    return { ...item, color: colors[i] || '#6366f1' };
+    const index=Math.max(0,Number(String(item.subject).replace(/\D/g,''))-1);
+    return { ...item, color: colors[index] || '#101942', label:compLabels[index] || item.subject };
   });
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-[#f8fafc] py-8 px-4 font-sans"
       style={{
         backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99,102,241,0.05), transparent)',
       }}
     >
       <div className="max-w-3xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
-        
+
         {/* Navigation Bar */}
         <div className="flex items-center justify-between">
-          <a 
-            href={backUrl} 
+          <Link
+            href={backUrl}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200/80 text-slate-600 hover:bg-slate-50 hover:text-slate-800 transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98]"
           >
-            <ArrowLeft size={14} /> {backUrl === '/aluno' ? 'Voltar ao Portal' : 'Buscar outro login'}
-          </a>
-          <button 
+            <ArrowLeft size={14} /> Voltar ao Portal
+          </Link>
+          <button
             onClick={handleExportPDF}
             className="inline-flex items-center gap-2 px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-[#f60c49]/10 hover:scale-[1.02] active:scale-[0.98]"
           >
@@ -144,7 +141,7 @@ export default function AlunoRedacaoViewPage() {
                 )}
                 {correction.createdAt && (
                   <span className="flex items-center gap-1">
-                    <Calendar size={12} /> 
+                    <Calendar size={12} />
                     {correction.createdAt.toDate?.().toLocaleDateString('pt-BR') || new Date(correction.createdAt).toLocaleDateString('pt-BR')}
                   </span>
                 )}
@@ -164,12 +161,15 @@ export default function AlunoRedacaoViewPage() {
           </p>
         </div>
 
+        {correction.totalScore==null && <p className="rounded-xl bg-slate-100 p-4 font-semibold">Avaliação parcial — apenas as competências selecionadas; sem nota total sobre 1000.</p>}
+        {correction.anulada && <p role="status" className="rounded-xl bg-red-50 p-4">Redação anulada: {correction.motivoAnulacao}</p>}
+        {correction.originalText && <details className="rounded-xl border bg-white p-4"><summary>Texto original avaliado</summary><p className="whitespace-pre-wrap mt-3">{correction.originalText}</p></details>}
         {/* Total Score Panel */}
         {correction.totalScore != null && (
           <div className="bg-gradient-to-br from-[#101942] to-[#1b2a5e] text-white rounded-3xl p-8 shadow-xl shadow-[#f60c49]/15 text-center relative overflow-hidden flex flex-col items-center justify-center">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-6 translate-x-6" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#f60c49]/15 rounded-full blur-2xl translate-y-12 -translate-x-12" />
-            
+
             <p className="text-xs text-white/60 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
               <Award size={14} className="text-white/70" /> Nota Final ENEM
             </p>
@@ -190,15 +190,15 @@ export default function AlunoRedacaoViewPage() {
               {scores.map((item, i) => {
                 const percentage = Math.min(100, Math.max(0, ((item.A || 0) / 200) * 100));
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className="bg-white border border-slate-200/50 rounded-2xl p-4 shadow-sm relative overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f60c49]/50 group"
                   >
                     <div className="absolute top-0 left-0 w-full h-[3px] bg-slate-100" />
                     <div className="absolute top-0 left-0 h-[3px] transition-all duration-500" style={{ width: `${percentage}%`, backgroundColor: item.color }} />
-                    
+
                     <div className="flex justify-between items-center mb-1">
-                      <span className="font-mono text-xs font-bold text-slate-400 uppercase">C{i+1}</span>
+                      <span className="font-mono text-xs font-bold text-slate-400 uppercase">{item.subject}</span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-50 border border-slate-100 text-slate-400 font-bold font-mono">/200</span>
                     </div>
 
@@ -209,8 +209,8 @@ export default function AlunoRedacaoViewPage() {
                     </div>
 
                     <div>
-                      <p className="text-[9px] text-slate-400 font-semibold leading-tight line-clamp-2" title={compLabels[i]}>
-                        {compLabels[i]}
+                      <p className="text-[9px] text-slate-400 font-semibold leading-tight line-clamp-2" title={item.label}>
+                        {item.label}
                       </p>
                       {/* Visual progress bar */}
                       <div className="w-full h-1 bg-slate-50 border border-slate-100 rounded-full mt-2 overflow-hidden">

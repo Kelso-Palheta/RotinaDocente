@@ -1,0 +1,13 @@
+import {it,expect,vi,beforeEach} from 'vitest';
+const m=vi.hoisted(()=>({session:{loginKey:'lk',login:'ana1234',vinculos:[{professorUid:'p'}]},vinculo:{professorUid:'p',turmaId:'t',alunoId:'a'},correction:{},exists:true}));
+vi.mock('@/lib/aluno/session',()=>({getSessionFromRequest:()=>m.session}));
+vi.mock('@/lib/firebase-admin',()=>({getAdminDb:()=>({doc:path=>({get:async()=>({id:path.split('/').pop(),exists:path.includes('/vinculos/')?m.exists:true,data:()=>path.includes('/vinculos/')?m.vinculo:m.correction})})})}));
+import {GET} from '@/app/api/aluno/redacao/[id]/route';
+const get=()=>GET(new Request('http://localhost/api/aluno/redacao/r?professorUid=p'),{params:Promise.resolve({id:'r'})});
+beforeEach(()=>{m.exists=true;m.correction={schemaVersion:2,alunoId:'a',turmaId:'t',loginKey:'lk',status:'publicado',result:'Feedback',scoreData:{total:600},privateNote:'segredo',versions:[{private:'old'}]};});
+it('RN73 nega colega e identidade contraditória',async()=>{m.correction.alunoId='b';expect((await get()).status).toBe(403);});
+it('RN73 exige vínculo vigente',async()=>{m.exists=false;expect((await get()).status).toBe(403);});
+it('RN73 nega rascunho e arquivo',async()=>{for(const status of ['corrigido','revisado','rascunho','arquivado']){m.correction.status=status;expect((await get()).status).toBe(403);}});
+it('RN73 proprietário publicado recebe somente campos públicos',async()=>{const response=await get();expect(response.status).toBe(200);const {correction}=await response.json();expect(correction.result).toBe('Feedback');expect(correction).not.toHaveProperty('privateNote');expect(correction).not.toHaveProperty('versions');expect(correction).not.toHaveProperty('loginKey');});
+it('RN73 legado só com identificação explícita',async()=>{m.correction={login:'ana1234',result:'Legado'};expect((await get()).status).toBe(200);m.correction={studentName:'Ana',result:'Alheio'};expect((await get()).status).toBe(403);});
+it('RN73 chave legada identifica proprietário com vínculo vigente, sem aceitar contradições',async()=>{m.correction={result:'Legado por chave'};const read=()=>GET(new Request('http://localhost/api/aluno/redacao/lk?professorUid=p'),{params:Promise.resolve({id:'lk'})});expect((await read()).status).toBe(200);m.correction.loginKey='outro';expect((await read()).status).toBe(403);});

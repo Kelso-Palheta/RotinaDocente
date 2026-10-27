@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase-admin';
 import { getSessionFromRequest } from '@/lib/aluno/session';
 import { atividadePublica, entregaPublica } from '@/dominio/atividades/acessoAluno';
+import { podeLerRedacao, redacaoPublica } from '@/dominio/redacao/acessoAluno';
 import { chaveVinculoAtividade } from '@/utils/diario/tokenUtils';
 
 export async function GET(request) {
@@ -63,13 +64,23 @@ export async function GET(request) {
       console.warn('Erro ao buscar entregas:', e.message);
     }
 
+    const falhas = {};
     let redacao = null;
+    let redacoes = [];
     try {
-      const redacaoSnap = await db.doc(`professores/${professorUid}/correcoes/${session.loginKey}`).get();
-      if (redacaoSnap.exists) {
-        redacao = { id: redacaoSnap.id, ...redacaoSnap.data() };
+      const collection = db.collection(`professores/${professorUid}/correcoes`);
+      const snap = await collection.where('alunoId', '==', alunoId).get();
+      redacoes = snap.docs.map(d => ({...d.data(),id:d.id})).filter(r => podeLerRedacao(r,session,vinculo,professorUid)).map(redacaoPublica);
+      const legacy = await db.doc(`professores/${professorUid}/correcoes/${session.loginKey}`).get();
+      if (legacy.exists) {
+        const data = {...legacy.data(),id:legacy.id};
+        if (podeLerRedacao(data,session,vinculo,professorUid) && !redacoes.some(r => r.id === data.id)) redacoes.push(redacaoPublica(data));
       }
+      const time = value => value?.toMillis?.() || (value?._seconds || value?.seconds || 0)*1000 || Date.parse(value || '') || 0;
+      redacoes.sort((a,b)=>time(b.publicadoEm || b.publishedAt || b.createdAt)-time(a.publicadoEm || a.publishedAt || a.createdAt));
+      redacao = redacoes[0] || null;
     } catch (e) {
+      falhas.redacoes = true;
       console.warn('Erro ao buscar redação:', e.message);
     }
 
@@ -100,6 +111,8 @@ export async function GET(request) {
       entregas,
       tokens,
       redacao,
+      redacoes,
+      falhas,
     });
   } catch (error) {
     console.error('[/api/aluno/boletim] Erro:', error);

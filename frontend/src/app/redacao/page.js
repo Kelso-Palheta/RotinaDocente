@@ -1,1125 +1,221 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
-import { generatePDF } from '@/lib/redacao/pdf-generator';
-import { gerarLoginAluno, gerarLoginKey, resolverLoginsAlunos, resolverLoginUnico } from '@/utils/diario/loginAluno';
-import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { vincularAlunoProfessor } from '@/lib/firebase-aluno';
-import { extractTextFromPDF } from '@/utils/atividades/pdfExtractor';
-import { extractTextFromDocx } from '@/utils/atividades/docxExtractor';
-import { useTurmas } from '@/hooks/diario/useTurmas';
-import { turmasIniciais } from '@/data/diario/turmasIniciais';
+import { usePersistenciaDiario } from '@/hooks/diario/usePersistenciaDiario';
 import { getClientAIHeaders } from '@/utils/aiHeaders';
+import { resolverLoginsAlunos, gerarLoginKey, resolverLoginUnico } from '@/utils/diario/loginAluno';
+import { db } from '@/lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { salvarRedacao } from '@/lib/redacao/repositorio';
+import RevisaoRedacao from '@/components/redacao/RevisaoRedacao';
 import { renderFeedbackText } from '@/lib/redacao/renderFeedback';
-import {
-  ArrowLeft, GraduationCap, ExternalLink, Copy, Check,
-  FileText, Sparkles, Download, User, BookOpen,
-  Zap, Camera, Loader2, Trash2, RefreshCw, BarChart3,
-  ChevronRight, PenTool, Clock, Target, Shield,
-  LayoutDashboard, History, LogOut, Menu, X
-} from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { RUBRICA_REDACAO } from '@/dominio/redacao/rubrica';
+import { generatePDF } from '@/lib/redacao/pdf-generator';
 
-// ─── TOKENS ──────────────────────────────────────
-const EASE_EXPO = [0.19, 1, 0.22, 1];
-const EASE_OUT = [0.16, 1, 0.3, 1];
-const EASE_SPRING = { type: "spring", stiffness: 300, damping: 24 };
-
-const COMPETENCIAS = [
-  { id: 'c1', label: 'C1 — Domínio da escrita formal', color: '#ef4444', bg: '#fef2f2', bar: '#fca5a5' },
-  { id: 'c2', label: 'C2 — Compreensão da proposta', color: '#f97316', bg: '#fff7ed', bar: '#fdba74' },
-  { id: 'c3', label: 'C3 — Seleção de argumentos', color: '#eab308', bg: '#fefce8', bar: '#fde047' },
-  { id: 'c4', label: 'C4 — Mecanismos linguísticos', color: '#22c55e', bg: '#f0fdf4', bar: '#86efac' },
-  { id: 'c5', label: 'C5 — Proposta de intervenção', color: '#3b82f6', bg: '#eff6ff', bar: '#93c5fd' },
-];
-
-const DEPTH_OPTIONS = [
-  { value: 'basic', label: 'Básico', desc: 'Nota + justificativa curta', words: '400' },
-  { value: 'analyzed', label: 'Analítico', desc: 'Nota + erros + checklist', words: '900' },
-  { value: 'deep', label: 'Profundo', desc: 'Análise exaustiva + reescrita', words: '1200+' },
-];
-
-const stepTransition = {
-  initial: { opacity: 0, y: 24, filter: 'blur(8px)' },
-  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  exit: { opacity: 0, y: -16, filter: 'blur(4px)' },
-  transition: { duration: 0.5, ease: EASE_EXPO }
-};
-
-const staggerItem = (i) => ({
-  initial: { opacity: 0, y: 20, scale: 0.96 },
-  animate: { opacity: 1, y: 0, scale: 1 },
-  transition: { delay: 0.08 + i * 0.06, duration: 0.45, ease: EASE_OUT }
-});
-
-function AnimatedCounter({ value, color }) {
-  const [display, setDisplay] = useState(0);
-  useEffect(() => {
-    const target = value || 0;
-    if (target === 0) { 
-      // Em vez de chamar o setState imediatamente de forma síncrona, agendamos pro próximo tick do React
-      requestAnimationFrame(() => setDisplay(0)); 
-      return; 
-    }
-    const duration = 1200;
-    const start = performance.now();
-    const tick = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [value]);
-  return <span className="tabular-nums" style={{ color }}>{display}</span>;
-}
-
-// ─── LOGIN DO ALUNO (RN-45) ─────────────────────
-// Resolve o login de um aluno considerando a exceção de homônimos da turma dele.
-const encontrarLoginNaTurma = (turmas, nome) => {
-  const alvo = String(nome || '').trim().toLowerCase();
-  if (!alvo) return null;
-  const turma = turmas.find((t) =>
-    (t.alunos || []).some((a) => (a.nome || '').trim().toLowerCase() === alvo)
-  );
-  if (!turma) return null;
-  return (
-    resolverLoginsAlunos(turma.alunos || []).find(
-      (r) => (r.aluno.nome || '').trim().toLowerCase() === alvo
-    ) || null
-  );
-};
-
-// ─── COMPONENT ───────────────────────────────────
-const STORAGE_KEY = 'diario_turmas';
-const USER_KEY = 'diario_userId';
-
-const carregarLocal = () => {
-  try { const raw = sessionStorage.getItem(STORAGE_KEY); if (raw) return JSON.parse(raw); } catch {}
-  return null;
-};
-
-const salvarLocal = (turmas, timestamp = null) => {
-  try {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(turmas));
-    sessionStorage.setItem(STORAGE_KEY + '_lastUpdated', String(timestamp || Date.now()));
-  } catch { /* ignora */ }
-};
+const COMPETENCIAS = ['c1', 'c2', 'c3', 'c4', 'c5'];
+const field = 'w-full border border-slate-300 rounded-xl p-3 bg-white text-[#101942]';
+const box = 'rounded-2xl border border-slate-200 bg-white p-5 space-y-4';
+const vazio = () => ({ turmaId:'', alunoId:'', nome:'', turmaNome:'', anoLetivo:'', bimestre:1, tema:'', texto:'', motivador:'', depth:'analyzed', competencias:[...COMPETENCIAS], fonte:null });
+const chaveRascunho = uid => `redacao_rascunho_v2_${uid}`;
+const chaveContexto = (uid,form) => `${chaveRascunho(uid)}:contexto:${form.turmaId ? `${encodeURIComponent(form.turmaId)}:${encodeURIComponent(form.alunoId || 'sem-aluno')}` : 'avulsa'}`;
+const readImage = file => new Promise((resolve,reject) => { const reader=new FileReader(); reader.onload=()=>resolve(reader.result); reader.onerror=()=>reject(new Error('Não foi possível abrir a imagem.')); reader.readAsDataURL(file); });
 
 export default function RedacaoPage() {
-  const { user, perfil, loading: authLoading } = useAuth();
+  const { user, perfil, loading } = useAuth();
   const router = useRouter();
-  const fileRef = useRef(null);
-  const motivatorFileRef = useRef(null);
+  const diario = usePersistenciaDiario(user?.uid);
+  const [form,setForm] = useState(vazio);
+  const [etapa,setEtapa] = useState('input');
+  const [registro,setRegistro] = useState(null);
+  const [recuperavel,setRecuperavel] = useState(null);
+  const [rascunhos,setRascunhos] = useState([]);
+  const [conta,setConta] = useState(null);
+  const [dirty,setDirty] = useState(false);
+  const [erro,setErro] = useState('');
+  const [aviso,setAviso] = useState('');
+  const [busy,setBusy] = useState('');
+  const [imagem,setImagem] = useState('');
+  const [zoom,setZoom] = useState(false);
+  const [manual,setManual] = useState(false);
+  const [notas,setNotas] = useState({});
+  const [comentario,setComentario] = useState('');
+  const [salvo,setSalvo] = useState(false);
+  const [revisaoDirty,setRevisaoDirty]=useState(false);
+  const uidRef = useRef(user?.uid);
+  const operacao = useRef(0);
+  const emAndamento = useRef(false);
+  uidRef.current = user?.uid;
 
-  const [initialTurmas, setInitialTurmas] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const raw = sessionStorage.getItem(STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
-      } catch {}
-    }
-    return [];
-  });
-  const [loadingTurmas, setLoadingTurmas] = useState(true);
-
-  // Carrega do Firestore se sessionStorage estiver vazio, ou sync em background
   useEffect(() => {
-    if (authLoading) return; // Aguarda o carregamento do estado de autenticação
-    if (!user) {
-      setTimeout(() => setLoadingTurmas(false), 0);
-      return;
+    operacao.current++;
+    setRevisaoDirty(false);setForm(vazio()); setRegistro(null); setEtapa('input'); setDirty(false); setSalvo(false); setImagem(''); setBusy(''); setManual(false); setNotas({}); setComentario(''); setErro('');setAviso('');
+    setConta(user?.uid || null);
+    try { const lista=Object.keys(localStorage).filter(k=>k.startsWith(`${chaveRascunho(user?.uid)}:contexto:`)).flatMap(k=>{try{const d=JSON.parse(localStorage.getItem(k));return d?.userId===user?.uid && typeof d.form?.texto==='string'?[d]:[];}catch{return [];}});setRascunhos(lista);const d=JSON.parse(localStorage.getItem(chaveRascunho(user?.uid)) || 'null'); setRecuperavel(d?.userId===user?.uid && d?.form && typeof d.form.texto==='string' ? d : lista[0] || null); }
+    catch { setRecuperavel(null);setRascunhos([]); }
+  }, [user?.uid]);
+
+  useEffect(() => {
+    if (!dirty || !user?.uid || conta!==user.uid || (!form.texto && !registro && !comentario)) return;
+    try { const data=JSON.stringify({userId:user.uid,form,registro,etapa,manual,notas,comentario,updatedAt:new Date().toISOString()});localStorage.setItem(chaveRascunho(user.uid),data);localStorage.setItem(chaveContexto(user.uid,form),data); }
+    catch { setAviso('O rascunho continua nesta tela, mas não coube no armazenamento local. Copie o texto antes de sair.'); }
+  }, [dirty,form,registro,etapa,manual,notas,comentario,user?.uid,conta]);
+  useEffect(() => {
+    const sair=e=>{ if(dirty || revisaoDirty || busy){e.preventDefault();e.returnValue='';} };
+    window.addEventListener('beforeunload',sair);
+    return ()=>window.removeEventListener('beforeunload',sair);
+  }, [dirty,revisaoDirty,busy]);
+  useEffect(() => { if (!loading && !user) router.replace('/'); }, [loading,user,router]);
+
+  const turmas=(diario.turmas || []).filter(t=>!t.arquivada);
+  const turma=turmas.find(t=>t.id===form.turmaId);
+  const aluno=turma?.alunos?.find(a=>a.id===form.alunoId);
+  const mudar=patch=>{
+    const mudouContexto=('turmaId' in patch && patch.turmaId!==form.turmaId) || ('alunoId' in patch && patch.alunoId!==form.alunoId);
+    if(mudouContexto && (form.texto || registro || comentario)){
+      if(!window.confirm('Trocar aluno ou turma? O rascunho atual ficará guardado neste dispositivo e o novo texto começará vazio.'))return;
+      try{const d={userId:user.uid,form,registro,etapa,manual,notas,comentario,updatedAt:new Date().toISOString()};localStorage.setItem(chaveContexto(user.uid,form),JSON.stringify(d));setRascunhos(prev=>[...prev.filter(r=>chaveContexto(user.uid,r.form)!==chaveContexto(user.uid,form)),d]);}catch{setErro('Não foi possível guardar o rascunho. Copie o texto antes de trocar.');return;}
+      patch={...patch,texto:'',fonte:null};setImagem('');setManual(false);setNotas({});setComentario('');setEtapa('input');
     }
+    operacao.current++; setForm(f=>({...f,...patch})); setDirty(true); setErro(''); setRegistro(null);setSalvo(false); };
+  const recuperar=()=>{ if(busy)return;operacao.current++;setImagem('');setZoom(false);const d=recuperavel;setForm({...vazio(),...d.form});setRegistro(d.registro || null);setEtapa(d.registro?'result':'input');setManual(Boolean(d.manual));setNotas(d.notas || {});setComentario(d.comentario || '');setDirty(true);setRecuperavel(null);setSalvo(false); };
+  const novo=()=>{ if((dirty || revisaoDirty) && !window.confirm('Iniciar outra redação? O rascunho atual ficará guardado neste dispositivo.')) return;operacao.current++;setForm(vazio());setRegistro(null);setEtapa('input');setDirty(false);setSalvo(false);setRevisaoDirty(false);setManual(false);setNotas({});setComentario('');setImagem('');setErro('');setRecuperavel(null);localStorage.removeItem(chaveRascunho(user.uid)); };
 
-    (async () => {
-      try {
-        const storedUserId = typeof window !== 'undefined' ? sessionStorage.getItem(USER_KEY) : null;
-        const isSameUser = storedUserId === user.uid;
-        const local = isSameUser ? carregarLocal() : null;
-
-        const ref = doc(db, 'professores', user.uid, 'turmas', 'data');
-        const snap = await getDoc(ref);
-
-        if (snap.exists() && snap.data().turmas?.length > 0) {
-          const cloud = snap.data().turmas;
-          const cloudTime = snap.data().lastUpdated || 0;
-          const localTime = typeof window !== 'undefined' ? Number(sessionStorage.getItem(STORAGE_KEY + '_lastUpdated')) || 0 : 0;
-
-          if (cloudTime >= localTime || !local) {
-            setInitialTurmas(cloud);
-            salvarLocal(cloud, cloudTime);
-          } else {
-            setInitialTurmas(local);
-            await setDoc(ref, { turmas: local, lastUpdated: localTime }, { merge: true });
-          }
-          if (typeof window !== 'undefined') sessionStorage.setItem(USER_KEY, user.uid);
-        } else {
-          // Sem dados no Firestore nem sessionStorage: migra do caminho antigo ou usa padrão
-          const oldRef = doc(db, 'users', user.uid, 'turmas', 'data');
-          const oldSnap = await getDoc(oldRef);
-          if (oldSnap.exists() && oldSnap.data().turmas?.length > 0) {
-            const oldData = oldSnap.data().turmas;
-            await setDoc(ref, { turmas: oldData, lastUpdated: Date.now() }, { merge: true });
-            setInitialTurmas(oldData);
-            salvarLocal(oldData);
-          } else {
-            // Tenta do outro caminho antigo (campo turmas no próprio perfil do professor)
-            const profRef = doc(db, 'professores', user.uid);
-            const profSnap = await getDoc(profRef);
-            if (profSnap.exists() && profSnap.data().turmas?.length > 0) {
-              const oldData = profSnap.data().turmas;
-              await setDoc(ref, { turmas: oldData, lastUpdated: Date.now() }, { merge: true });
-              setInitialTurmas(oldData);
-              salvarLocal(oldData);
-            } else if (local && local.length > 0) {
-              setInitialTurmas(local);
-            } else {
-              setInitialTurmas([]);
-              salvarLocal([]);
-            }
-          }
-          if (typeof window !== 'undefined') sessionStorage.setItem(USER_KEY, user.uid);
-        }
-      } catch (e) {
-        console.error('Erro ao carregar turmas:', e);
-        // Fallback local caso haja falha de rede/conexão para o mesmo usuário
-        const storedUserId = typeof window !== 'undefined' ? sessionStorage.getItem(USER_KEY) : null;
-        if (storedUserId === user.uid) {
-          const local = carregarLocal();
-          if (local) setInitialTurmas(local);
-        }
-      } finally {
-        setLoadingTurmas(false);
-      }
-    })();
-  }, [user, authLoading]);
-
-  const { turmas } = useTurmas(initialTurmas || [], () => {});
-
-  const [turmaSelecionada, setTurmaSelecionada] = useState(null);
-  const [alunoSelecionado, setAlunoSelecionado] = useState(null);
-  const [modoAluno, setModoAluno] = useState('lista'); // 'lista' | 'manual'
-
-  const [studentName, setStudentName] = useState('');
-  const [studentClass, setStudentClass] = useState('');
-  const [essayTheme, setEssayTheme] = useState('');
-  const [motivatorText, setMotivatorText] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [depth, setDepth] = useState('analyzed');
-  const [selectedBimestre, setSelectedBimestre] = useState(1);
-  const [selectedCompetencies, setSelectedCompetencies] = useState(['c1', 'c2', 'c3', 'c4', 'c5']);
-  const [step, setStep] = useState('input');
-  const [text, setText] = useState('');
-  const [imageBase64, setImageBase64] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [extracting, setExtracting] = useState(false);
-  const [result, setResult] = useState(null);
-  const [scores, setScores] = useState(null);
-  const [correctionId, setCorrectionId] = useState(null);
-  const [error, setError] = useState('');
-  const [showAlunoDropdown, setShowAlunoDropdown] = useState(false);
-  const [alunoLinkCopied, setAlunoLinkCopied] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [motivatorExtracting, setMotivatorExtracting] = useState(false);
-
-  const charCount = text ? text.length : 0;
-
-  // Preview do login que será usado (canônico ou exceção de homônimos da turma — RN-45)
-  const loginPrevisto = useMemo(() => {
-    const dn = dataNascimento.replace(/\D/g, '').slice(0, 4);
-    if (!studentName.trim() || dn.length !== 4) return '';
-    const alvo = encontrarLoginNaTurma(turmas, studentName);
-    if (alvo) return alvo.login;
-    return gerarLoginAluno(studentName.trim(), dn);
-  }, [studentName, dataNascimento, turmas]);
-
-  if (authLoading || loadingTurmas || (!perfil && user)) {
-    return <div className="flex h-screen items-center justify-center bg-[#f8fafc]"><div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f60c49] to-[#f60c49]/50 animate-pulse shadow-2xl shadow-[#f60c49]/20" /></div>;
-  }
-  if (!user) { router.replace('/'); return null; }
-  if (!perfil?.modulos_permitidos?.includes('redacao-corretor')) { router.replace('/'); return null; }
-
-  const toggleCompetency = (id) => setSelectedCompetencies(prev =>
-    prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]);
-
-  const handleFilePick = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setError('');
-    const name = file.name.toLowerCase();
-    
-    // 0. Arquivos Word (.docx)
-    if (name.endsWith('.docx')) {
-      setExtracting(true);
-      try {
-        const extractedText = await extractTextFromDocx(file);
-        if (!extractedText.trim()) {
-          throw new Error('Nenhum texto pôde ser extraído deste documento Word.');
-        }
-        setText(extractedText);
-        setStep('review');
-      } catch (err) {
-        setError('Erro ao extrair texto do documento Word: ' + err.message);
-      } finally {
-        setExtracting(false);
-      }
-      return;
-    }
-
-    // 1. Arquivos PDF (texto digital direto; se escaneado/manuscrito, transcreve via visão de IA)
-    if (name.endsWith('.pdf')) {
-      setExtracting(true);
-      try {
-        const { extractTextFromPDFWithVision } = await import('@/utils/atividades/visionExtractor');
-        const extractedText = await extractTextFromPDFWithVision(file);
-        if (!extractedText.trim()) {
-          throw new Error('Nenhum texto pôde ser extraído deste PDF. Certifique-se de que não é um PDF composto exclusivamente por imagens escaneadas.');
-        }
-        setText(extractedText);
-        setStep('review');
-      } catch (err) {
-        setError('Erro ao extrair texto do PDF: ' + err.message);
-      } finally {
-        setExtracting(false);
-      }
-      return;
-    }
-
-    // 2. Arquivos de Texto (.txt)
-    if (name.endsWith('.txt')) {
-      try {
-        const textContent = await file.text();
-        setText(textContent);
-        setStep('review');
-      } catch (err) {
-        setError('Erro ao ler arquivo de texto: ' + err.message);
-      }
-      return;
-    }
-
-    // 3. Imagens HEIC (converter para JPG)
-    if (name.endsWith('.heic')) {
-      try {
-        const heic2any = (await import('heic2any')).default;
-        const converted = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.9 });
-        const blob = Array.isArray(converted) ? converted[0] : converted;
-        const reader = new FileReader();
-        reader.onload = () => { setImageBase64(reader.result.split(',')[1]); setImagePreview(reader.result); };
-        reader.readAsDataURL(blob);
-      } catch (err) { setError('Erro ao converter HEIC: ' + err.message); }
-      return;
-    }
-
-    // 4. Imagens padrão (JPG, PNG, etc.)
-    const reader = new FileReader();
-    reader.onload = () => { setImageBase64(reader.result.split(',')[1]); setImagePreview(reader.result); };
-    reader.readAsDataURL(file);
-  };
-
-  const handleMotivatorFilePick = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setError('');
-    const name = file.name.toLowerCase();
-
-    // 0. Arquivos Word (.docx)
-    if (name.endsWith('.docx')) {
-      setMotivatorExtracting(true);
-      try {
-        const extractedText = await extractTextFromDocx(file);
-        if (!extractedText.trim()) {
-          throw new Error('Nenhum texto pôde ser extraído deste documento Word.');
-        }
-        setMotivatorText(extractedText);
-      } catch (err) {
-        setError('Erro ao extrair texto do Word motivador: ' + err.message);
-      } finally {
-        setMotivatorExtracting(false);
-      }
-      return;
-    }
-
-    // 1. Arquivos PDF
-    if (name.endsWith('.pdf')) {
-      setMotivatorExtracting(true);
-      try {
-        const extractedText = await extractTextFromPDF(file);
-        if (!extractedText.trim()) {
-          throw new Error('Nenhum texto pôde ser extraído deste PDF. Certifique-se de que não é um PDF composto exclusivamente por imagens escaneadas.');
-        }
-        setMotivatorText(extractedText);
-      } catch (err) {
-        setError('Erro ao extrair texto do PDF motivador: ' + err.message);
-      } finally {
-        setMotivatorExtracting(false);
-      }
-      return;
-    }
-
-    // 2. Arquivos de Texto (.txt)
-    if (name.endsWith('.txt')) {
-      try {
-        const textContent = await file.text();
-        setMotivatorText(textContent);
-      } catch (err) {
-        setError('Erro ao ler arquivo de texto motivador: ' + err.message);
-      }
-      return;
-    }
-
-    // 3. Imagens (requerem OCR via API)
-    setMotivatorExtracting(true);
+  const importar=async(e,motivador=false)=>{
+    const file=e.target.files?.[0]; e.target.value='';if(!file)return;
+    const ext=file.name.split('.').pop().toLowerCase();
+    const image=file.type.startsWith('image/') || ['heic','heif'].includes(ext);
+    const max=image?7*1024*1024:15*1024*1024;
+    if(file.size>max){setErro(`Arquivo excede ${image?7:15} MB.`);return;}
+    if(!image && !['pdf','docx','txt'].includes(ext)){setErro('Envie imagem, PDF, DOCX ou TXT.');return;}
+    const token=++operacao.current,uid=user.uid;
+    const atual=()=>token===operacao.current && uidRef.current===uid;
+    setBusy(motivador?'Lendo motivadores…':'Lendo arquivo…');setErro('');if(!motivador)setImagem('');
     try {
-      let activeBlob = file;
-      if (name.endsWith('.heic')) {
-        const heic2any = (await import('heic2any')).default;
-        const converted = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.9 });
-        activeBlob = Array.isArray(converted) ? converted[0] : converted;
+      let text='',preview='';
+      if(ext==='pdf'){
+        const {extractTextFromPDFWithVision}=await import('@/utils/atividades/visionExtractor');
+        text=await extractTextFromPDFWithVision(file,{onProgress:p=>{if(atual())setBusy(`Lendo PDF: página ${p.page || p.pagina || ''}…`);}});
+      } else if(ext==='docx') { const {extractTextFromDocx}=await import('@/utils/atividades/docxExtractor');text=await extractTextFromDocx(file); }
+      else if(ext==='txt') text=await file.text();
+      else {
+        let blob=file;
+        if(['heic','heif'].includes(ext)){ const convert=(await import('heic2any')).default;const result=await convert({blob:file,toType:'image/jpeg',quality:.9});blob=Array.isArray(result)?result[0]:result; }
+        const url=await readImage(blob);
+        preview=url;
+        const {extractTextFromImageVision,getMediaTypeFromDataUrl}=await import('@/utils/atividades/visionExtractor');
+        text=await extractTextFromImageVision(url.split(',')[1],{mediaType:getMediaTypeFromDataUrl(url),...(motivador?{finalidade:'documento'}:{})});
       }
-      
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const { extractTextFromImage } = await import('@/utils/atividades/pdfExtractor');
-          const text = await extractTextFromImage(reader.result);
-          if (!text || !text.trim()) {
-            throw new Error('Nenhum texto pôde ser extraído da imagem. Tente uma imagem com melhor resolução.');
-          }
-          setMotivatorText(text);
-        } catch (err) {
-          setError('Erro ao extrair texto da imagem do motivador: ' + err.message);
-        } finally {
-          setMotivatorExtracting(false);
-        }
-      };
-      reader.readAsDataURL(activeBlob);
-    } catch (err) {
-      setError('Erro ao processar imagem do motivador: ' + err.message);
-      setMotivatorExtracting(false);
-    }
+      if(!atual())return;
+      if(!text?.trim())throw new Error('Nenhum texto legível. Tente uma foto mais nítida ou outro arquivo.');
+      setForm(f=>({...f,...(motivador?{motivador:text}:{texto:text,fonte:{nome:file.name,tipo:file.type}})}));
+      setDirty(true);setRegistro(null);setSalvo(false);if(!motivador){setImagem(preview);setEtapa('review');}
+    }catch(error){if(atual())setErro(error.message);}
+    finally {if(atual())setBusy('');}
   };
 
-  const handleExtract = async () => {
-    if (!imagePreview) return;
-    setExtracting(true); setError('');
+  const salvar=async(data=registro)=>{
+    if(!data || emAndamento.current)return;
+    emAndamento.current=true;const uid=user.uid;
+    setBusy('Salvando redação…');setErro('');
     try {
-      const { extractTextFromImageVision, getMediaTypeFromDataUrl } = await import('@/utils/atividades/visionExtractor');
-      const base64 = imageBase64 || imagePreview.split(',')[1];
-      const text = await extractTextFromImageVision(base64, {
-        mediaType: getMediaTypeFromDataUrl(imagePreview),
-      });
-      if (!text || !text.trim()) {
-        throw new Error('Não foi possível ler o texto. Tente enviar uma foto mais nítida e bem iluminada.');
-      }
-      setText(text);
-      setStep('review');
-    } catch (err) { 
-      setError('Erro ao extrair texto: ' + err.message); 
-      setStep('input');
-    } finally { 
-      setExtracting(false); 
-    }
+      const saved=await salvarRedacao(uid,data.id,data);
+      if(uidRef.current!==uid)return;
+      setRegistro(saved || {...data,revision:1});setSalvo(true);setDirty(false);try{localStorage.removeItem(chaveRascunho(uid));localStorage.removeItem(chaveContexto(uid,form));}catch{setAviso('Salvo na nuvem. Não foi possível limpar a cópia local; descarte-a quando o armazenamento estiver disponível.');}setRecuperavel(null);
+    }catch(error){if(uidRef.current===uid){setErro(`Resultado preservado. Não foi possível salvar: ${error.message}`);setDirty(true);}}
+    finally{emAndamento.current=false;if(uidRef.current===uid)setBusy('');}
   };
 
-  const handleCorrect = async () => {
-    const trimmed = text.trim();
-    if (!trimmed) { setError('Cole ou extraia o texto da redação.'); return; }
-    if (!studentName.trim()) { setError('Informe o nome do aluno.'); return; }
-    setStep('correcting'); setError('');
-
-    const dn = dataNascimento.replace(/\D/g, '').slice(0, 4);
-    let loginAluno = null;
-    if (dn.length === 4) {
-      const buscarDoc = async (loginCandidato) => {
-        const key = await gerarLoginKey(loginCandidato);
-        const snap = await getDoc(doc(db, 'alunoLogin', key));
-        return snap.exists() ? { nome: snap.data().nome || '' } : null;
-      };
-      const alvo = encontrarLoginNaTurma(turmas, studentName);
-      const resolucao = await resolverLoginUnico(
-        alvo ? alvo.aluno.nome : studentName.trim(),
-        alvo ? alvo.aluno.dataNascimento : dn,
-        buscarDoc,
-        { homonimo: Boolean(alvo?.homonimo) }
-      );
-      loginAluno = resolucao.login || null;
-    }
-
+  const corrigir=async(usarIA=true)=>{
+    if(emAndamento.current || busy)return;
+    if(!form.texto.trim() || !form.nome.trim() || !form.competencias.length){setErro('Informe aluno, texto e ao menos uma competência.');return;}
+    const token=++operacao.current,uid=user.uid;
+    const atual=()=>token===operacao.current && uidRef.current===uid;
+    emAndamento.current=true;setBusy(usarIA?'Corrigindo com IA…':'Preparando correção manual…');setErro('');
     try {
-      const res = await fetch('/api/corrigir', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getClientAIHeaders(),
-        },
-        body: JSON.stringify({
-          text: trimmed,
-          studentName: studentName.trim(),
-          studentClass: studentClass.trim() || 'N/A',
-          essayTheme: essayTheme.trim() || 'Geral',
-          depth,
-          competencies: selectedCompetencies.join(', '),
-          userId: user.uid,
-          loginAluno,
-          nomeProfessor: perfil?.nome || user?.displayName || '',
-          motivatorText: motivatorText.trim(),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || data.error);
-
-      // Determinar o ID da correção client-side para usar o token autenticado do Firebase
-      let corrId;
-      if (loginAluno) {
-        corrId = await gerarLoginKey(loginAluno);
-
-        await vincularAlunoProfessor({
-          login: loginAluno,
-          nome: studentName.trim(),
-          professorUid: user.uid,
-          turmaId: studentClass.trim() || 'N/A',
-          modulo: 'redacao',
-          nomeProfessor: perfil?.nome || user?.displayName || ''
-        });
-      } else {
-        const a = Math.random().toString(36).substring(2, 5).toUpperCase();
-        const b = Math.random().toString(36).substring(2, 5).toUpperCase();
-        corrId = `${a}-${b}`;
+      // A associação usa apenas a seleção explícita; nome digitado nunca seleciona outro aluno.
+      let loginAluno=null,loginKey=null;
+      if(aluno?.dataNascimento){
+        const resolvido=resolverLoginsAlunos(turma.alunos).find(r=>r.aluno.id===aluno.id);
+        const r=await resolverLoginUnico(aluno.nome,aluno.dataNascimento,async login=>{
+          const snap=await getDoc(doc(db,'alunoLogin',await gerarLoginKey(login)));
+          return snap.exists()?{nome:snap.data().nome}:null;
+        },{homonimo:!!resolvido?.homonimo});
+        if(r.conflito)throw new Error('Login em conflito. Confira o cadastro do aluno antes de continuar.');
+        loginAluno=r.login;loginKey=await gerarLoginKey(loginAluno);
       }
-
-      const corrData = {
-        id: corrId,
-        studentName: studentName.trim(),
-        studentClass: studentClass.trim() || 'N/A',
-        essayTheme: essayTheme.trim() || 'Geral',
-        bimestre: Number(selectedBimestre),
-        motivatorText: motivatorText.trim(),
-        result: data.result || '',
-        scoreData: data.scores?.items || [],
-        totalScore: data.scores?.total || 0,
-        userId: user.uid,
-        createdAt: serverTimestamp()
-      };
-      if (loginAluno) {
-        corrData.loginAluno = loginAluno;
+      let result,scores;
+      if(usarIA){
+        const headers=getClientAIHeaders();
+        if(!headers['x-user-ai-key'])throw new Error('Conecte sua chave de IA no Hub para corrigir com IA. A correção manual continua disponível.');
+        const response=await fetch('/api/corrigir',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify({text:form.texto.trim(),studentName:form.nome,studentClass:form.turmaNome,essayTheme:form.tema,depth:form.depth,competencies:form.competencias,motivatorText:form.motivador})});
+        const data=await response.json();if(!response.ok)throw new Error(data.message || data.error || 'Falha na correção.');
+        result=data.result;scores=data.scores;
+        if(!result || !scores?.items?.length)throw new Error('A IA não retornou avaliação válida. O texto foi preservado.');
+      }else{
+        if(!comentario.trim())throw new Error('Escreva a devolutiva da correção manual.');
+        if(form.competencias.some(c=>notas[c]==='' || notas[c]===undefined))throw new Error('Selecione uma nota para cada competência avaliada.');
+        const items=form.competencias.map(c=>({subject:c.toUpperCase(),A:Number(notas[c]),fullMark:200}));
+        scores={items,total:items.length===5?items.reduce((s,c)=>s+c.A,0):null,modo:items.length===5?'completa':'parcial',anulada:false};result=comentario.trim();
       }
-
-      // Salva a correção no Firestore usando o usuário logado
-      const corrRef = doc(db, 'professores', user.uid, 'correcoes', corrId);
-      await setDoc(corrRef, corrData);
-
-      setResult(data.result);
-      setScores(data.scores);
-      setCorrectionId(loginAluno || corrId);
-      setStep('result');
-    } catch (err) { setError('Erro na correção: ' + err.message); setStep('review'); }
+      if(!atual())return;
+      const data={id:crypto.randomUUID(),schemaVersion:2,rubricaVersao:RUBRICA_REDACAO.versao,rubricaFonte:RUBRICA_REDACAO.fonte,rubricaHomologada:RUBRICA_REDACAO.homologacaoOficial,userId:uid,studentName:form.nome.trim(),studentClass:form.turmaNome || 'Avulsa',turmaNome:form.turmaNome || 'Avulsa',turmaId:turma?.id || null,alunoId:aluno?.id || null,anoLetivo:turma?.anoLetivo || form.anoLetivo || null,bimestre:Number(form.bimestre),essayTheme:form.tema.trim() || 'Tema livre',originalText:form.texto,motivatorText:form.motivador,fonte:form.fonte,loginAluno,loginKey,result,scoreData:scores.items,totalScore:scores.total,modo:scores.modo || (scores.total===null?'parcial':'completa'),nomeProfessor:perfil?.nome || user?.displayName || 'Professor',assessmentMode:scores.modo || (scores.total===null?'parcial':'completa'),competencias:form.competencias,anulada:!!scores.anulada,motivoAnulacao:scores.motivoAnulacao || '',metodoCorrecao:usarIA?'ia':'manual',status:'corrigido',createdAt:new Date().toISOString(),revision:0};
+      setRegistro(data);setEtapa('result');setDirty(true);setSalvo(false);
+      // O resultado fica visível e no rascunho antes da gravação. Erro repete apenas salvar.
+      emAndamento.current=false;await salvar(data);
+    }catch(error){if(atual()){setErro(error.message);setEtapa('review');}}
+    finally{emAndamento.current=false;if(atual())setBusy('');}
   };
 
-  const handleReset = () => {
-    setStep('input'); setText(''); setImageBase64(null); setImagePreview(null);
-    setResult(null); setScores(null); setCorrectionId(null); setError('');
-    setStudentName(''); setStudentClass(''); setEssayTheme(''); setMotivatorText(''); setDataNascimento('');
-    setTurmaSelecionada(null); setAlunoSelecionado(null); setModoAluno('lista');
-    setSelectedBimestre(1);
-  };
-
-  const handleExportPDF = () => {
-    if (result) generatePDF(result, studentName, studentClass, essayTheme,
-      scores?.items || COMPETENCIAS.map(c => ({ subject: c.label.split(' ')[0], A: 0, fullMark: 200 })));
-  };
-
-  const totalScore = scores?.total || (scores?.items?.reduce((s, i) => s + i.A, 0) ?? null);
-
-  const handleSelectAluno = (aluno) => {
-    if (!aluno) {
-      setAlunoSelecionado(null);
-      setStudentName('');
-      setDataNascimento('');
-      return;
-    }
-    setAlunoSelecionado(aluno);
-    setStudentName(aluno.nome);
-    setDataNascimento(aluno.dataNascimento || '');
-    if (turmaSelecionada) {
-      const t = turmas.find(t => t.id === turmaSelecionada);
-      if (t) setStudentClass(t.nome);
-    }
-  };
-
-  const turmaAtual = turmaSelecionada
-    ? turmas.find(t => t.id === turmaSelecionada) : null;
-  const alunosDaTurma = turmaAtual?.alunos || [];
-
-  const sidebarItems = [
-    { label: 'Nova Correção', icon: History, action: handleReset },
-    { label: 'Minhas Correções', icon: LayoutDashboard, href: '/redacao/desempenho' },
-    { label: 'Critérios INEP', icon: BookOpen, href: '/redacao/criterios' },
-  ];
-
-  return (
-    <div className="h-screen flex overflow-hidden bg-[#f8fafc]"
-      style={{
-        backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99,102,241,0.06), transparent), radial-gradient(ellipse 60% 60% at 100% 100%, rgba(99,102,241,0.03), transparent)',
-      }}>
-
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* ══════ SIDEBAR ══════ */}
-      <aside className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 w-64 flex-shrink-0 bg-white border-r border-[#dce0f0] flex flex-col h-full font-sans`}>
-        {/* Logo */}
-        <div className="px-5 pt-6 pb-4 border-b border-[#dce0f0] flex items-center justify-between">
-          <button onClick={() => router.push('/')} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity text-left">
-            <div className="w-8 h-8 rounded-xl bg-[#f60c49] flex items-center justify-center shadow-sm text-white">
-              <Zap size={16} color="white" />
-            </div>
-            <div>
-              <span className="font-head font-extrabold text-[#101942] tracking-tight text-sm block leading-none">
-                Redação ENEM
-              </span>
-              <p className="text-[10px] text-[#6070a0] font-medium mt-0.5">Correção Pedagógica</p>
-            </div>
-          </button>
-          <button onClick={() => setSidebarOpen(false)} className="md:hidden p-1.5 rounded-lg text-[#6070a0] hover:text-[#101942] hover:bg-[#eef0f8] transition-all" aria-label="Fechar menu">
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        {/* User */}
-        <div className="px-5 py-4 border-b border-[#dce0f0] bg-[#f7f8fc]/50">
-          <div className="flex items-center gap-3">
-            {user?.photoURL ? (
-              <img src={user.photoURL} alt="" className="w-8 h-8 rounded-xl border border-[#dce0f0]" referrerPolicy="no-referrer" />
-            ) : (
-              <div className="w-8 h-8 rounded-xl bg-[#fff2f6] border border-[#fde4ec] flex items-center justify-center text-[#d40840] font-extrabold text-xs">
-                {user?.displayName?.[0] || user?.email?.[0]?.toUpperCase() || 'P'}
-              </div>
-            )}
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-[#101942] truncate">{user?.displayName || 'Professor'}</p>
-              <p className="text-[10px] text-[#6070a0] truncate">{user?.email}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Nav Items */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {sidebarItems.map((item, idx) => {
-            const Icon = item.icon;
-            const isNova = item.label === 'Nova Correção';
-            return item.href ? (
-              <a
-                key={idx}
-                href={item.href}
-                className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#101942] hover:bg-[#f7f8fc] hover:text-[#f60c49] transition-all"
-              >
-                <Icon size={16} className="text-[#6070a0]" />
-                {item.label}
-              </a>
-            ) : (
-              <button
-                key={idx}
-                onClick={item.action}
-                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left ${
-                  isNova
-                    ? 'bg-[#fff2f6] text-[#d40840] border border-[#fde4ec] shadow-2xs'
-                    : 'text-[#101942] hover:bg-[#f7f8fc]'
-                }`}
-              >
-                <Icon size={16} className={isNova ? 'text-[#f60c49]' : 'text-[#6070a0]'} />
-                {item.label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Bottom */}
-        <div className="px-3 py-4 border-t border-slate-100 space-y-2">
-          {/* Student link dropdown */}
-          <div className="relative">
-            <button onClick={() => setShowAlunoDropdown(!showAlunoDropdown)}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-all duration-200">
-              <GraduationCap size={17} className="text-slate-400" />
-              Portal do Aluno
-              <ExternalLink size={11} className="ml-auto text-slate-300" />
-            </button>
-            {showAlunoDropdown && (
-              <div className="absolute left-0 bottom-full mb-1 w-44 bg-white border border-slate-200 rounded-xl shadow-lg z-40 overflow-hidden animate-card-in">
-                <button onClick={() => { navigator.clipboard.writeText(`${window.location.origin}/redacao/aluno`); setAlunoLinkCopied(true); setTimeout(() => setAlunoLinkCopied(false), 2000); setShowAlunoDropdown(false); }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors">
-                  {alunoLinkCopied ? <Check size={15} className="text-green-500" /> : <Copy size={15} />}
-                  {alunoLinkCopied ? 'Copiado!' : 'Copiar link'}
-                </button>
-                <div className="border-t border-slate-100" />
-                <a href="/redacao/aluno" target="_blank" rel="noopener noreferrer"
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors">
-                  <ExternalLink size={15} /> Abrir em nova aba
-                </a>
-              </div>
-            )}
-          </div>
-
-          <button onClick={() => router.push('/')}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-500 hover:text-red-500 hover:bg-red-50 transition-all duration-200">
-            <LogOut size={17} />
-            Sair
-          </button>
-        </div>
-      </aside>
-
-      {/* ══════ MAIN ══════ */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top bar */}
-        <header className="flex-shrink-0 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 px-4 sm:px-6 py-2.5 flex items-center gap-3 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="md:hidden p-2 -ml-2 rounded-xl text-slate-500 hover:bg-slate-100 transition-colors"
-            >
-              <Menu size={20} />
-            </button>
-            <button onClick={() => router.push('/')}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#fff2f6] hover:bg-[#fde4ec] text-[#f60c49] border border-[#f60c49]/30 hover:border-[#f60c49]/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm whitespace-nowrap">
-              <ArrowLeft size={16} /> <span className="hidden sm:inline">Hub</span>
-            </button>
-          </div>
-          {step !== 'input' && (
-            <button onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs text-slate-500 hover:text-[#f60c49] transition-colors duration-300">
-              <RefreshCw size={13} /> Nova correção
-            </button>
-          )}
-          <div className="flex-1" />
-          {step === 'result' && result && (
-            <button onClick={handleExportPDF}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-white hover:bg-slate-50 text-slate-600 border border-slate-200/60 transition-all duration-300 shadow-sm">
-              <Download size={16} /> PDF
-            </button>
-          )}
-        </header>
-
-        {/* Content */}
-        <main className="flex-1 overflow-auto">
-          <div className="max-w-3xl mx-auto w-full px-4 py-6 sm:py-10">
-        <AnimatePresence mode="wait">
-          {/* ══════ INPUT ══════ */}
-          {step === 'input' && (
-            <motion.div key="input" {...stepTransition} className="space-y-4 sm:space-y-5">
-              {/* Hero */}
-              <motion.div className="text-center mb-4 sm:mb-6 flex flex-col items-center"
-                initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE_EXPO }}>
-                <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-2xl sm:rounded-[2rem] bg-gradient-to-br from-[#f60c49] via-[#d40840] to-[#101942] flex items-center justify-center shadow-xl sm:shadow-2xl shadow-[#f60c49]/25 mb-2 sm:mb-4 ring-2 sm:ring-4 ring-[#fff2f6]">
-                  <PenTool className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                </div>
-                <h1 className="text-2xl sm:text-[2rem] font-black text-slate-900 tracking-tight" style={{ letterSpacing: '-0.03em' }}>
-                  Redação <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f60c49] to-[#d40840]">Corrigida</span>
-                </h1>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1 sm:mt-2 max-w-sm mx-auto leading-relaxed px-4">
-                  Correção por IA seguindo as 5 competências oficiais do INEP
-                </p>
-              </motion.div>
-
-              {/* Correção Config */}
-              <motion.div {...staggerItem(0)}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-6 shadow-sm space-y-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center"><Target size={15} className="text-amber-500" /></div>
-                  <h3 className="text-sm font-bold text-slate-800">Configuração da Correção</h3>
-                </div>
-
-                {/* Depth */}
-                <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
-                  {DEPTH_OPTIONS.map(opt => (
-                    <motion.button key={opt.value} onClick={() => setDepth(opt.value)}
-                      whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                      className={`relative p-2 sm:p-4 rounded-xl sm:rounded-2xl border text-left transition-all duration-300 overflow-hidden group flex flex-col justify-between h-full
-                        ${depth === opt.value ? 'bg-[#fff2f6] border-[#f60c49]/50 shadow-sm' : 'bg-slate-50 border-slate-200 hover:border-slate-300 hover:bg-white'}`}>
-                      {depth === opt.value && <div className="absolute inset-0 bg-gradient-to-br from-[#f60c49]/5 to-transparent" />}
-                      <div className="w-full">
-                        <span className={`relative text-[11px] sm:text-xs font-bold block mb-0.5 sm:mb-1 ${depth === opt.value ? 'text-[#d40840]' : 'text-slate-700'}`}>{opt.label}</span>
-                        <p className="relative text-[9px] sm:text-[10px] text-slate-400 leading-tight line-clamp-2 sm:line-clamp-none">{opt.desc}</p>
-                      </div>
-                      <span className="relative text-[9px] sm:text-[10px] text-slate-400 mt-1.5 sm:mt-2 block font-mono">~{opt.words} pal.</span>
-                    </motion.button>
-                  ))}
-                </div>
-
-                {/* Competency pills */}
-                <div>
-                  <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-2.5">Competências</p>
-                  <div className="flex flex-wrap gap-2">
-                    {COMPETENCIAS.map(c => {
-                      const active = selectedCompetencies.includes(c.id);
-                      return (
-                        <motion.button key={c.id} onClick={() => toggleCompetency(c.id)}
-                          whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
-                          className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-300 border
-                            ${active ? 'shadow-sm' : 'bg-white border-slate-200 text-slate-400 hover:border-slate-300'}`}
-                          style={active ? { color: c.color, backgroundColor: c.bg, borderColor: c.bar } : {}}>
-                          <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: c.color }} />
-                          {c.label.split(' ')[0]}
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Turma + Aluno Selector */}
-              <motion.div {...staggerItem(1)}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-5 shadow-sm space-y-4">
-                {/* Turma selector */}
-                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Turma</label>
-                    <select value={turmaSelecionada || ''} onChange={e => {
-                      const tid = e.target.value;
-                      setTurmaSelecionada(tid || null);
-                      setAlunoSelecionado(null);
-                      if (tid) {
-                        const t = turmas.find(t => t.id === tid);
-                        if (t) setStudentClass(t.nome);
-                      } else {
-                        setStudentClass('');
-                      }
-                      if (modoAluno === 'lista') { setStudentName(''); setDataNascimento(''); }
-                    }}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300">
-                      <option value="">Selecionar turma...</option>
-                      {turmas.map(t => (
-                        <option key={t.id} value={t.id}>{t.nome} ({t.alunos.length} alunos)</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Bimestre</label>
-                    <select value={selectedBimestre} onChange={e => setSelectedBimestre(Number(e.target.value))}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300">
-                      {[1, 2, 3, 4].map(b => (
-                        <option key={b} value={b}>{b}º Bimestre</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Aluno</label>
-                    {turmaSelecionada && alunosDaTurma.length > 0 ? (
-                      <select value={alunoSelecionado?.id || ''} onChange={e => {
-                        const aid = e.target.value;
-                        if (aid === '__manual__') {
-                          setModoAluno('manual');
-                          setAlunoSelecionado(null);
-                          setStudentName('');
-                          setDataNascimento('');
-                        } else if (aid) {
-                          setModoAluno('lista');
-                          const al = alunosDaTurma.find(a => a.id === aid);
-                          handleSelectAluno(al);
-                        } else {
-                          setAlunoSelecionado(null);
-                          setStudentName('');
-                          setDataNascimento('');
-                        }
-                      }}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300">
-                        <option value="">Selecionar aluno...</option>
-                        {alunosDaTurma.map(a => (
-                          <option key={a.id} value={a.id}>{a.nome} {a.dataNascimento ? '(nasc: ' + a.dataNascimento + ')' : ''}</option>
-                        ))}
-                        <option value="__manual__">✎ Digitar manualmente...</option>
-                      </select>
-                    ) : (
-                      <p className="text-xs text-slate-400 pt-2.5">
-                        {turmaSelecionada ? 'Turma sem alunos cadastrados.' : 'Selecione uma turma primeiro.'}
-                      </p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Tema</label>
-                    <input value={essayTheme} onChange={e => setEssayTheme(e.target.value)}
-                      placeholder="Ex: Desafios da IA..."
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300" />
-                  </div>
-                </div>
-
-                {/* Texto Motivador */}
-                <div className="pt-2">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Texto Motivador (Opcional - Usado para cruzar e verificar plágio)</label>
-                    <button type="button" onClick={() => motivatorFileRef.current?.click()} className="text-xs text-[#f60c49] hover:text-[#d40840] font-semibold flex items-center gap-1">
-                      {motivatorExtracting ? (
-                        <>
-                          <Loader2 size={12} className="animate-spin" /> Processando...
-                        </>
-                      ) : (
-                        <>
-                          <Download size={12} className="rotate-180" /> Importar arquivo...
-                        </>
-                      )}
-                    </button>
-                    <input ref={motivatorFileRef} type="file" accept="image/*,.heic,.HEIC,.pdf,.txt,.docx" className="hidden" onChange={handleMotivatorFilePick} />
-                  </div>
-                  <textarea value={motivatorText} onChange={e => setMotivatorText(e.target.value)}
-                    lang="pt-BR"
-                    placeholder={motivatorExtracting ? "Extraindo texto do arquivo enviado..." : "Cole aqui ou importe um arquivo com o texto motivador da redação..."}
-                    disabled={motivatorExtracting}
-                    rows={3}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300 resize-y" />
-                </div>
-
-                {/* Nome + Nascimento (manual mode ou auto-preenchido) */}
-                {modoAluno === 'manual' && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Nome do Aluno *</label>
-                      <input value={studentName} onChange={e => setStudentName(e.target.value)}
-                        placeholder="MARIA SILVA"
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300" />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">Nascimento (ddmm)</label>
-                      <input value={dataNascimento} onChange={e => setDataNascimento(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                        placeholder="0704" maxLength={4}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-300 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300 font-mono" />
-                      <p className="text-[10px] text-slate-400 mt-1">Login: {loginPrevisto ? <span className="font-mono text-[#f60c49] font-semibold">{loginPrevisto}</span> : <span className="text-slate-300">—</span>}</p>
-                    </div>
-                  </div>
-                )}
-
-                {/* Aluno selecionado da lista — info resumo */}
-                {modoAluno === 'lista' && alunoSelecionado && (
-                  <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-slate-100">
-                    <span className="inline-flex items-center gap-1.5 text-sm text-slate-700"><User size={14} className="text-[#f60c49]/50" /> {alunoSelecionado.nome}</span>
-                    {alunoSelecionado.dataNascimento && (
-                      <span className="inline-flex items-center gap-1 text-xs font-mono text-[#f60c49] bg-[#fff2f6] px-2.5 py-1 rounded-lg">
-                        <Shield size={12} /> Login: {loginPrevisto || '—'}
-                      </span>
-                    )}
-                    {studentClass && <span className="text-xs text-slate-400">Turma {studentClass}</span>}
-                    {!alunoSelecionado.dataNascimento && <span className="text-xs text-amber-500">⚠ Sem data de nascimento — login não será gerado</span>}
-                  </div>
-                )}
-              </motion.div>
-
-              {/* Upload Zone */}
-              <motion.div {...staggerItem(2)}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-6 shadow-sm space-y-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-[#fff2f6] flex items-center justify-center"><FileText size={15} className="text-[#f60c49]" /></div>
-                  <h3 className="text-sm font-bold text-slate-800">Redação</h3>
-                  {text && <span className="ml-auto text-[11px] text-slate-400 font-mono tabular-nums">{charCount} caracteres</span>}
-                </div>
-
-                {!imagePreview ? (
-                  <motion.button onClick={() => fileRef.current?.click()}
-                    whileHover={{ scale: 1.01, borderColor: 'rgba(139,92,246,0.4)', backgroundColor: 'rgba(139,92,246,0.02)' }}
-                    whileTap={{ scale: 0.99 }}
-                    className="w-full py-12 border-2 border-dashed border-slate-300 rounded-2xl text-center transition-colors duration-300 bg-slate-50/50 cursor-pointer">
-                    <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-slate-100 flex items-center justify-center">
-                      <Camera size={24} className="text-slate-400" />
-                    </div>
-                    <p className="text-sm text-slate-600 font-medium">Clique para selecionar ou fotografar a redação</p>
-                    <p className="text-xs text-slate-400 mt-1">Imagem (JPG, PNG, HEIC), PDF, Word (.docx) ou Texto (.txt)</p>
-                    <input ref={fileRef} type="file" accept="image/*,.heic,.HEIC,.pdf,.txt,.docx" className="hidden" onChange={handleFilePick} />
-                  </motion.button>
-                ) : (
-                  <div className="relative group">
-                    <img src={imagePreview} alt="Redação" className="w-full rounded-2xl border border-slate-200 max-h-72 object-contain bg-slate-100/50" />
-                    <button onClick={() => { setImagePreview(null); setImageBase64(null); }}
-                      className="absolute top-3 right-3 p-2 bg-red-500/90 hover:bg-red-500 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm">
-                      <Trash2 size={14} />
-                    </button>
-                  </div>
-                )}
-
-                {imagePreview && !text && (
-                  <motion.button onClick={handleExtract} disabled={extracting}
-                    whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                    className="w-full py-3.5 btn-brand-navy rounded-2xl text-white text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-md disabled:opacity-50">
-                    {extracting ? <><Loader2 size={16} className="animate-spin" /> Transcrevendo com IA...</> : <><Zap size={16} className="text-[#f60c49]" /> Extrair Texto da Imagem</>}
-                  </motion.button>
-                )}
-
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 h-px bg-[#dce0f0]" />
-                  <span className="text-[11px] text-[#6070a0] font-bold uppercase tracking-wider">ou cole o texto</span>
-                  <div className="flex-1 h-px bg-[#dce0f0]" />
-                </div>
-
-                <textarea value={text} onChange={e => setText(e.target.value)}
-                  lang="pt-BR"
-                  spellCheck={false}
-                  placeholder="Cole aqui o texto da redação para correção..."
-                  rows={8}
-                  className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-2xl px-5 py-4 text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:border-[#f60c49] focus:ring-4 focus:ring-[#f60c49]/10 transition-all duration-300 resize-y leading-relaxed" />
-              </motion.div>
-
-              {/* CTA */}
-              <motion.button onClick={handleCorrect}
-                disabled={!text.trim() || !studentName.trim() || selectedCompetencies.length === 0}
-                whileHover={text.trim() && studentName.trim() ? { scale: 1.015 } : {}}
-                whileTap={text.trim() && studentName.trim() ? { scale: 0.985 } : {}}
-                className="w-full py-4.5 btn-brand-primary rounded-2xl text-white text-base font-extrabold transition-all duration-300 flex items-center justify-center gap-2.5 shadow-xl disabled:opacity-40 disabled:cursor-not-allowed">
-                <Sparkles size={20} /> Corrigir Redação com IA
-              </motion.button>
-
-              {error && <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-                className="p-4 bg-[#fff2f6] border border-[#fde4ec] rounded-2xl text-sm font-semibold text-[#d40840]">{error}</motion.div>}
-            </motion.div>
-          )}
-
-          {/* ══════ REVIEW ══════ */}
-          {step === 'review' && (
-            <motion.div key="review" {...stepTransition} className="space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#fff2f6] flex items-center justify-center"><FileText size={18} className="text-[#f60c49]" /></div>
-                <div>
-                  <h2 className="text-xl font-bold text-slate-900 tracking-tight">Revisar Texto Extraído</h2>
-                  <p className="text-sm text-slate-400">Confira e edite antes de enviar para correção</p>
-                </div>
-              </div>
-              <textarea value={text} onChange={e => setText(e.target.value)} rows={16}
-                lang="pt-BR"
-                spellCheck={false}
-                className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm text-slate-900 outline-none focus:border-[#f60c49]/50 focus:ring-4 focus:ring-[#fff2f6] transition-all duration-300 resize-y leading-relaxed" />
-              <div className="flex gap-3">
-                <button onClick={() => { setText(''); setStep('input'); }}
-                  className="flex-1 py-3.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-2xl text-sm text-slate-600 font-semibold transition-all duration-300">Voltar</button>
-                <motion.button onClick={handleCorrect} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                  className="flex-1 py-3.5 bg-gradient-to-r from-[#f60c49] to-[#d40840] hover:from-[#d40840] hover:to-[#d40840] rounded-2xl text-white text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-[#f60c49]/20">
-                  <Sparkles size={16} /> Corrigir Agora
-                </motion.button>
-              </div>
-              {error && <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-sm text-red-600">{error}</div>}
-            </motion.div>
-          )}
-
-          {/* ══════ CORRECTING ══════ */}
-          {step === 'correcting' && (
-            <motion.div key="correcting" {...stepTransition}
-              className="flex flex-col items-center justify-center py-24 space-y-6">
-              <motion.div className="relative"
-                animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }}>
-                <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-[#f60c49] to-[#d40840] flex items-center justify-center shadow-2xl shadow-[#f60c49]/30">
-                  <Loader2 size={36} color="white" className="animate-spin" />
-                </div>
-              </motion.div>
-              <div className="text-center space-y-2">
-                <h2 className="text-xl font-bold text-slate-900">Corrigindo redação</h2>
-                <p className="text-sm text-slate-400 max-w-xs mx-auto leading-relaxed">A IA está analisando as 5 competências do ENEM com os critérios oficiais do INEP.</p>
-                <motion.p className="text-xs text-slate-400 font-mono"
-                  animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2, repeat: Infinity }}>
-                  Isso pode levar até 60 segundos
-                </motion.p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ══════ RESULT ══════ */}
-          {step === 'result' && result && (
-            <motion.div key="result" initial={{ opacity: 0, scale: 0.92, filter: 'blur(16px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-              transition={{ duration: 0.8, ease: EASE_EXPO }} className="space-y-6">
-              {/* Header */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#f60c49] to-[#d40840] flex items-center justify-center shadow-lg shadow-[#f60c49]/25">
-                    <Sparkles size={18} color="white" />
-                  </div>
-                  <h2 className="text-xl font-bold text-slate-900 tracking-tight">Resultado da Correção</h2>
-                </div>
-              </div>
-
-              {/* Student info row */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 px-1">
-                <span className="inline-flex items-center gap-1.5"><User size={14} /> {studentName}</span>
-                {studentClass && <span className="inline-flex items-center gap-1.5"><BookOpen size={14} /> Turma {studentClass}</span>}
-                {correctionId && <span className="inline-flex items-center gap-1.5 font-mono text-xs bg-[#fff2f6] text-[#f60c49] px-2.5 py-1 rounded-xl"><Shield size={12} /> Login: {correctionId}</span>}
-              </div>
-
-              {/* SCORE HERO */}
-              {totalScore != null && (
-                <motion.div
-                  initial={{ opacity: 0, y: 40, scale: 0.85 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ delay: 0.2, duration: 0.8, ease: EASE_EXPO }}
-                  className="relative overflow-hidden bg-white/80 backdrop-blur-xl rounded-3xl border border-slate-200/60 p-8 sm:p-10 text-center shadow-sm">
-                  {/* Background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#f60c49]/[0.03] via-transparent to-[#101942]/[0.03]" />
-                  <div className="relative">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-[0.15em] mb-3">Nota Final</p>
-                    <div className="inline-flex items-baseline gap-2">
-                      <span className={`text-[5rem] sm:text-[7rem] font-black tracking-tighter leading-none tabular-nums
-                        ${totalScore >= 600 ? 'text-green-500' : totalScore >= 400 ? 'text-blue-500' : 'text-red-500'}`}>
-                        <AnimatedCounter value={totalScore} color="currentColor" />
-                      </span>
-                      <span className="text-2xl sm:text-3xl text-slate-300 font-bold">/1000</span>
-                    </div>
-                    <p className={`text-sm font-semibold mt-3 ${totalScore >= 600 ? 'text-green-600' : totalScore >= 400 ? 'text-blue-600' : 'text-red-500'}`}>
-                      {totalScore >= 600 ? '✓ Desempenho satisfatório' : totalScore >= 400 ? '⚠ Precisa de atenção' : '✗ Abaixo do esperado'}
-                    </p>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* COMPETENCY BARS */}
-              {scores?.items?.length > 0 && (
-                <div className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-6 shadow-sm space-y-4">
-                  <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-[0.1em] mb-1">Competências ENEM</h3>
-                  {scores.items.map((item, i) => {
-                    const comp = COMPETENCIAS[i] || COMPETENCIAS[0];
-                    const pct = Math.min((item.A / 200) * 100, 100);
-                    return (
-                      <motion.div key={i}
-                        initial={{ opacity: 0, x: -24 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.35 + i * 0.1, duration: 0.5, ease: EASE_OUT }}>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="text-xs font-semibold" style={{ color: comp.color }}>{comp.label.split(' ')[0]}</span>
-                          <span className="text-xs font-mono font-bold tabular-nums text-slate-500">{item.A} <span className="text-slate-300 font-normal">/ 200</span></span>
-                        </div>
-                        <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-                          <motion.div className="h-full rounded-full"
-                            style={{ backgroundColor: comp.color }}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${pct}%` }}
-                            transition={{ delay: 0.45 + i * 0.1, duration: 0.8, ease: EASE_EXPO }}
-                          />
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* FEEDBACK TEXT */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5, ease: EASE_OUT }}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl border border-slate-200/60 p-6 sm:p-8 shadow-sm">
-                <div className="max-w-none text-slate-700 leading-relaxed text-[15px]">
-                  {renderFeedbackText(result)}
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-          </div>
-        </main>
-      </div>
+  if(loading || (user && conta!==user.uid))return <p className="p-8">Carregando Redação…</p>;
+  if(!user)return null;
+  if(!perfil?.modulos_permitidos?.includes('redacao-corretor'))return <p className="p-8">Seu plano não inclui Redação Corrigida. <Link href="/">Voltar ao Hub</Link></p>;
+  const contexto=form.nome ? `${form.turmaNome || 'Avulsa'} · ${form.nome} · ${form.bimestre}º bimestre`:'Selecione turma e aluno ou crie uma redação avulsa.';
+  const label=(texto,children)=><label className="block space-y-1"><span className="text-sm font-semibold">{texto}</span>{children}</label>;
+  return <main onClickCapture={e=>{const link=e.target.closest('a');if(!link)return;if(busy){e.preventDefault();e.stopPropagation();setErro('Aguarde o processamento terminar antes de sair.');}else if((dirty || revisaoDirty) && !window.confirm('Sair desta redação? O texto ficará no rascunho deste dispositivo; a imagem precisará ser reenviada.')){e.preventDefault();e.stopPropagation();}}} className="min-h-screen bg-slate-50 text-[#101942] p-4 sm:p-8">
+    <div className="max-w-5xl mx-auto space-y-5">
+      <header className="flex flex-wrap items-center justify-between gap-3"><div><Link href="/" className="text-sm underline">Voltar ao Hub</Link><h1 className="text-2xl font-bold">Redação Corrigida</h1></div><nav className="flex flex-wrap gap-3"><Link className="btn-brand-navy rounded-xl px-4 py-2" href="/redacao/desempenho">Histórico e evolução</Link><Link href="/redacao/criterios" className="underline py-2">Critérios ENEM</Link><button className="btn-brand-ghost rounded-xl px-4 py-2" disabled={!!busy} onClick={novo}>Nova redação</button></nav></header>
+      <p className="text-sm">Enviar → Revisar texto → Corrigir → Revisar resultado → Disponibilizar. Salvamento e publicação são etapas separadas.</p>
+      <p className="rounded-xl bg-[#fff2f6] border border-[#f60c49]/20 p-3 font-semibold">{contexto}</p>
+      {recuperavel && <section className={box}><p>Há um rascunho desta conta neste dispositivo. Fonte original deve ser reenviada para comparação visual.</p><button className="btn-brand-primary rounded-xl px-4 py-2" disabled={!!busy} onClick={recuperar}>Recuperar rascunho</button><button className="ml-3 underline" disabled={!!busy} onClick={()=>{setRecuperavel(null);localStorage.removeItem(chaveRascunho(user.uid));}}>Descartar rascunho</button></section>}
+      {rascunhos.length>0 && <details className={box}><summary>Rascunhos por aluno ({rascunhos.length})</summary>{rascunhos.map(d=><button key={chaveContexto(user.uid,d.form)} disabled={!!busy} className="block underline text-left py-2" onClick={()=>setRecuperavel(d)}>{d.form.nome || 'Aluno não selecionado'} · {d.form.turmaNome || 'Avulsa'} · {d.form.bimestre}º bimestre — recuperar</button>)}</details>}
+      {erro && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-4">{erro}</p>}
+      {aviso && <p role="status" className="rounded-xl bg-amber-50 p-4">{aviso}</p>}
+      {busy && <p role="status" aria-live="polite" className="p-4 bg-blue-50 rounded-xl">{busy}</p>}
+      {etapa!=='result' && <fieldset disabled={!!busy} className="space-y-5">
+        <section className={box}><h2 className="font-bold">1. Identificar redação</h2>
+          {diario.erro && <p role="alert">Turmas indisponíveis: {diario.erro} <button type="button" onClick={()=>diario.tentarNovamente?.().catch(e=>setErro(e.message))} className="underline">Tentar novamente</button></p>}
+          <div className="grid sm:grid-cols-3 gap-3">
+            {label('Turma',<select className={field} value={form.turmaId} disabled={diario.carregando} onChange={e=>{const t=turmas.find(t=>t.id===e.target.value);mudar({turmaId:t?.id || '',alunoId:'',nome:'',turmaNome:t?.nome || '',anoLetivo:t?.anoLetivo || ''});}}><option value="">Redação avulsa</option>{turmas.map(t=><option key={t.id} value={t.id}>{t.nome} · {t.anoLetivo || 'Ano não informado'}</option>)}</select>)}
+            {turma?label('Aluno',<select className={field} value={form.alunoId} onChange={e=>{const a=turma.alunos.find(a=>a.id===e.target.value);mudar({alunoId:a?.id || '',nome:a?.nome || ''});}}><option value="">Selecionar aluno</option>{turma.alunos.map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select>):label('Nome do aluno',<input className={field} value={form.nome} onChange={e=>mudar({nome:e.target.value})} maxLength={100}/>)}
+            {label('Bimestre',<select className={field} value={form.bimestre} onChange={e=>mudar({bimestre:Number(e.target.value)})}>{[1,2,3,4].map(b=><option key={b} value={b}>{b}º bimestre</option>)}</select>)}
+            {label('Ano letivo',<input className={field} value={form.anoLetivo} onChange={e=>mudar({anoLetivo:e.target.value})} maxLength={4} inputMode="numeric"/>)}
+            {label('Tema',<input className={field} value={form.tema} onChange={e=>mudar({tema:e.target.value})} maxLength={500}/>)}
+          </div><p className="text-sm text-slate-600">Redação avulsa não publica para aluno por associação automática de nome. Escolha o aluno cadastrado para disponibilizar no Portal.</p>
+        </section>
+        <section className={box}><h2 className="font-bold">2. Enviar e revisar texto</h2>
+          <label className="block font-semibold">Enviar redação<input className={`${field} mt-2`} type="file" accept="image/*,.heic,.heif,.pdf,.docx,.txt" onChange={e=>importar(e)}/></label><p className="text-sm text-slate-600">Imagem até 7 MB; PDF, DOCX e TXT até 15 MB. Até 10 páginas escaneadas. Fotografe sem sombras e com a folha inteira. Confira a transcrição sem corrigir os erros do aluno.</p>
+          {form.fonte && <p>Fonte: {form.fonte.nome}</p>}
+          {imagem && <button onClick={()=>setZoom(true)} type="button" className="block text-left"><img src={imagem} alt="Fonte original da redação; ampliar para conferir" className="max-h-72 max-w-full object-contain border rounded-xl"/><span className="underline">Ampliar original</span></button>}
+          {label('Texto original / transcrição',<textarea className={field} rows={12} value={form.texto} spellCheck={false} lang="pt-BR" maxLength={25000} onChange={e=>mudar({texto:e.target.value})}/>)}
+          <p className="text-sm">{form.texto.length}/25.000 caracteres. A IA pode errar na transcrição e na avaliação; revise antes de disponibilizar.</p>
+          <details><summary className="cursor-pointer font-semibold">Textos motivadores (opcional)</summary><label className="block mt-3">Enviar motivador<input type="file" className={field} accept="image/*,.heic,.pdf,.docx,.txt" onChange={e=>importar(e,true)}/></label>{label('Texto motivador',<textarea className={field} rows={5} value={form.motivador} onChange={e=>mudar({motivador:e.target.value})} maxLength={25000}/>)}</details>
+          <button className="btn-brand-navy rounded-xl px-4 py-2" type="button" onClick={()=>setEtapa('review')}>Conferi o texto</button>
+        </section>
+        {etapa==='review' && <section className={box}><h2 className="font-bold">3. Configurar avaliação</h2><p>Critérios pedagógicos internos v2, sujeitos à revisão docente. Completa: cinco competências e total /1000. Seleção parcial: apenas competências escolhidas, sem nota total comparável.</p>
+          <div className="flex flex-wrap gap-4">{COMPETENCIAS.map(c=><label key={c}><input type="checkbox" checked={form.competencias.includes(c)} onChange={e=>mudar({competencias:e.target.checked?[...form.competencias,c].sort():form.competencias.filter(x=>x!==c)})}/> {c.toUpperCase()}</label>)}</div>
+          {label('Profundidade do feedback',<select className={field} value={form.depth} onChange={e=>mudar({depth:e.target.value})}><option value="basic">Básico — justificativa e dicas</option><option value="analyzed">Analítico — exemplos e checklist</option><option value="deep">Profundo — análise e reescrita</option></select>)}
+          <p className="text-sm">IA conectada: {getClientAIHeaders()['x-user-ai-provider'] || 'nenhuma'} · {getClientAIHeaders()['x-user-ai-model'] || 'modelo padrão'}. <Link className="underline" href="/">Conectar IA no Hub</Link></p>
+          <div className="flex flex-wrap gap-3"><button type="button" className="btn-brand-primary rounded-xl px-4 py-3" onClick={()=>corrigir(true)}>Corrigir com IA</button><button type="button" className="btn-brand-navy rounded-xl px-4 py-3" onClick={()=>setManual(true)}>Corrigir manualmente</button></div>
+          {manual && <div className="space-y-3"><h3 className="font-semibold">Correção manual — não usa chave de IA</h3><div className="grid grid-cols-2 sm:grid-cols-5 gap-3">{form.competencias.map(c=>label(`Nota ${c.toUpperCase()}`,<select key={c} className={field} value={notas[c]??''} onChange={e=>{setNotas(n=>({...n,[c]:e.target.value}));setDirty(true);}}><option value="">Selecionar</option>{[0,40,80,120,160,200].map(n=><option key={n} value={n}>{n}</option>)}</select>))}</div>{label('Devolutiva e justificativas por competência',<textarea rows={7} className={field} value={comentario} onChange={e=>{setComentario(e.target.value);setDirty(true);}}/>)}<button type="button" className="btn-brand-primary rounded-xl px-4 py-3" onClick={()=>corrigir(false)}>Salvar correção manual</button></div>}
+        </section>}
+        {etapa!=='review' && <p className="text-sm">Após conferir o texto, escolha Corrigir com IA ou Corrigir manualmente.</p>}
+      </fieldset>}
+      {etapa==='result' && registro && <div className="space-y-5"><section className={box}><h2 className="font-bold">4. Revisar resultado</h2><p role="status">{salvo?'Salvo no histórico. Revise antes da publicação.':'Resultado preservado neste dispositivo; salvamento pendente.'}</p>{!salvo && <button disabled={!!busy} className="btn-brand-primary rounded-xl px-4 py-3" onClick={()=>salvar()}>Tentar salvar novamente</button>}<p className="font-bold text-xl">{registro.totalScore===null?'Avaliação parcial — sem total':`${registro.totalScore} / 1000`}</p><div className="flex flex-wrap gap-4">{registro.scoreData.map(c=><span key={c.subject}>{c.subject}: {c.A}/200</span>)}</div>{renderFeedbackText(registro.result)}<button className="btn-brand-ghost rounded-xl px-4 py-2" onClick={()=>generatePDF(registro.result,registro.studentName,registro.studentClass,registro.essayTheme,registro.scoreData,registro)}>Exportar relatório PDF</button></section>{salvo && <RevisaoRedacao key={`${registro.id}:${registro.revision}`} redacao={registro} professorUid={user.uid} onDirtyChange={setRevisaoDirty} onSaved={r=>{setRegistro(r);setDirty(false);}}/>}</div>}
+      {dirty && <p className="text-xs text-slate-500">Rascunho privado desta conta salvo neste dispositivo. A imagem original não é armazenada no rascunho; reenvie se recarregar.</p>}
     </div>
-  );
+    {zoom && <div role="dialog" aria-modal="true" aria-label="Original ampliado" className="fixed inset-0 z-50 bg-white p-4 overflow-auto"><button className="btn-brand-navy rounded-xl p-3 mb-3" onClick={()=>setZoom(false)}>Fechar original</button><img src={imagem} alt="Redação original ampliada" className="max-w-none w-auto"/></div>}
+  </main>;
 }

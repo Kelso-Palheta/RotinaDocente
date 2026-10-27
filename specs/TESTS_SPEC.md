@@ -220,3 +220,9 @@ Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos 
 - Acrescentadas regressões de UID/documento/clonagem, edições concorrentes e reordenação, assinatura semântica após Firestore, restauração do plano SVG e troca de referência. A primeira suíte completa desta implementação passou com 752 testes/150 arquivos; repetir após revisão final e registrar resultado no plano.
 
 - Verificação final de entrega: **753 testes em 151 arquivos**, build de produção aprovado após cache limpo, lint zero erros (três avisos de img), prévia sintética em computador/celular aprovada. Bucket/regras, geração com chave real e impressão física continuam pendentes de homologação externa.
+
+## RN-73 — regressões de Redação
+- Negar redação alheia mesmo do mesmo professor; vínculo removido, rascunho e arquivado negados; permitir legítima e legado identificado, projection explícita.
+- Validar notas completas/parciais/anulação, ausência vs zero, total inconsistente, imagem na API, PDF misto.
+- Abertura não grava turmas nem migra/apaga histórico; duas redações sobrevivem; arquivamento preserva vínculos; filtros/contagens iguais.
+- Revisão manual sem IA, rascunho por conta, reenvio somente salvamento após erro, revisão/publicação explícita, versões, evolução e PDF coerentes.

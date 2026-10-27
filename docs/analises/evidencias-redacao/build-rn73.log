@@ -1,0 +1,62 @@
+> simuladoapp-edu@0.1.0 build
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 15.3s
+  Running TypeScript ...
+  Finished TypeScript in 192ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/37) ...
+  Generating static pages using 7 workers (9/37)
+  Generating static pages using 7 workers (18/37)
+  Generating static pages using 7 workers (27/37)
+✓ Generating static pages using 7 workers (37/37) in 669ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /adaptacoes
+├ ○ /agentes
+├ ○ /agentes/linguagens
+├ ○ /aluno
+├ ƒ /aluno/atividade/[id]
+├ ○ /aluno/notas
+├ ○ /analytics
+├ ƒ /api/adaptacoes/extrair-documento
+├ ƒ /api/adaptacoes/gerar
+├ ƒ /api/adaptacoes/imagem
+├ ƒ /api/adaptacoes/imagem-fallback
+├ ƒ /api/adaptacoes/verificar-imagem
+├ ƒ /api/agentes
+├ ƒ /api/ai/test
+├ ƒ /api/aluno/atividade/[id]
+├ ƒ /api/aluno/boletim
+├ ƒ /api/aluno/entregar
+├ ƒ /api/aluno/login
+├ ƒ /api/aluno/logout
+├ ƒ /api/aluno/redacao/[id]
+├ ƒ /api/aluno/sessao
+├ ƒ /api/calendario/importar
+├ ƒ /api/corrigir
+├ ƒ /api/extrair
+├ ƒ /api/integracao/simulado
+├ ƒ /api/maritaca
+├ ƒ /api/publicar-notas
+├ ○ /atividades
+├ ○ /calendario
+├ ○ /diario
+├ ○ /horario
+├ ○ /meuhorario
+├ ○ /redacao
+├ ○ /redacao/aluno
+├ ƒ /redacao/aluno/[id]
+├ ○ /redacao/criterios
+└ ○ /redacao/desempenho
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

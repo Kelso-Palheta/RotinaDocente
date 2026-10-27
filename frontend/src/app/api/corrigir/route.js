@@ -2,10 +2,6 @@ import { NextResponse } from 'next/server';
 import { generateCorrection } from '@/lib/redacao/ai-provider';
 import { extractScore } from '@/lib/redacao/scores';
 import { extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
-import { db } from '@/lib/firebase';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { gerarLoginKey } from '@/utils/diario/loginAluno';
-import { vincularAlunoProfessor } from '@/lib/firebase-aluno';
 
 export const maxDuration = 60;
 
@@ -23,13 +19,24 @@ export async function POST(request) {
       );
     }
 
-    const body = await request.json();
+    let body;
+    try { body = await request.json(); } catch { return NextResponse.json({error:'Corpo JSON inválido.'},{status:400}); }
+    if (!body || typeof body !== 'object' || Array.isArray(body)) return NextResponse.json({error:'Dados da redação inválidos.'},{status:400});
 
     const {
       text, imageBase64, studentName, studentClass,
-      essayTheme, depth, competencies, userId,
-      loginAluno, loginKey, motivatorText
+      essayTheme, depth, competencies,
+      loginAluno, motivatorText
     } = body;
+
+    const strings = {text,imageBase64,motivatorText,studentName,studentClass,essayTheme};
+    if (Object.values(strings).some(value => value !== undefined && value !== null && typeof value !== 'string')) return NextResponse.json({error:'Texto, imagem e identificação devem ser textos.'},{status:400});
+    if ((motivatorText?.length || 0) > 25000) return NextResponse.json({error:'Texto motivador excede o limite de 25.000 caracteres.'},{status:400});
+    if (depth !== undefined && !['basic','analyzed','deep'].includes(depth)) return NextResponse.json({error:'Profundidade de avaliação inválida.'},{status:400});
+    if (competencies !== undefined) {
+      const parts = Array.isArray(competencies) ? competencies : typeof competencies === 'string' ? competencies.split(/[,;\s]+/).filter(Boolean) : [];
+      if (!parts.length || !parts.every(value => typeof value === 'string' && /^(c[1-5]|[1-5]|todas|completa)$/i.test(value))) return NextResponse.json({error:'Selecione competências válidas de C1 a C5.'},{status:400});
+    }
 
     // 1. Validação de tamanho máximo de payload (DoS protection)
     if (text && typeof text === 'string' && text.length > 25000) {
@@ -40,7 +47,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Imagem excede o limite máximo de 8MB.' }, { status: 400 });
     }
 
-    if (!text && !imageBase64) {
+    if (!text?.trim() && !imageBase64?.trim()) {
       return NextResponse.json(
         { error: 'Você precisa enviar um texto ou uma imagem da redação.' },
         { status: 400 }
@@ -57,8 +64,9 @@ export async function POST(request) {
       essayTheme: cleanTheme, depth, competencies, motivatorText, userConfig
     });
 
-    const scores = result ? extractScore(result) : null;
+    const scores = result ? extractScore(result, { competencies }) : null;
 
+    if (!scores) return NextResponse.json({error:'INVALID_ENEM_SCORES', message:'A IA retornou notas incompletas ou inconsistentes. Revise a avaliação antes de salvar.',result}, {status:422});
     return NextResponse.json({ result, scores, login: loginAluno });
   } catch (error) {
     console.error('ERRO NA API DE CORREÇÃO:', error);
