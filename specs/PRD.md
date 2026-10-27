@@ -108,3 +108,8 @@ Permitir criar, manter ou editar figuras a partir de referência preservada, com
 - Extração PDF é por página: preservar texto digital e transcrever páginas escaneadas, com limite e revisão. Correção direta não descarta imagem. Seleção de arquivo informa limites e progresso.
 - Arquivar/restaurar não apaga vínculos de notas/atividades. Importação/migração legada é explícita, com backup/prévia, sem destruição ou associação automática por nome.
 - Histórico e métricas usam os mesmos filtros de turma/ano/bimestre/aluno. Falha visível com repetição. Feedback e PDF usam contrato de notas/versão/data coerente. Evolução normaliza scoreData/totalScore, excluindo avaliações parciais ou inválidas.
+
+## RN-74 — Simplificar Meu Horário Escolar
+- Remover botão, modal e acionamento do Gerador Mágico do Meu Horário Escolar, por decisão do usuário. Não substituir por outro gerador.
+- Preservar cadastro/edição manual, horários e intervalos personalizados, importação PDF/JSON, backup, impressão e integração com o Calendário. Horário Inteligente é módulo distinto e não integra esta remoção.
+- Demais achados da auditoria de Meu Horário Escolar permanecem propostas, sem implementação automática.

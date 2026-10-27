@@ -62,3 +62,9 @@
 - [x] Suíte completa: 805 testes em 167 arquivos, sem alterar testes preexistentes.
 - [ ] Publicação desta versão (commit/push/deploy ainda não realizados nesta tarefa).
 - [ ] Homologação pedagógica integral da cartilha 2026: download oficial indisponível durante conferência; sem alegação de certificação oficial.
+
+## 27/10/2026 — RN-74 Meu Horário Escolar
+- [x] Retirar interface/acionamento do Gerador Mágico, sem substituto.
+- [x] Confirmar cadastro manual, importação e configuração preservados.
+- [x] 806 testes/168 arquivos aprovados; build e lint do escopo aprovados.
+- [ ] Demais propostas da auditoria aguardam autorização para implementação.

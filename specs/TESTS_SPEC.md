@@ -226,3 +226,6 @@ Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos 
 - Validar notas completas/parciais/anulação, ausência vs zero, total inconsistente, imagem na API, PDF misto.
 - Abertura não grava turmas nem migra/apaga histórico; duas redações sobrevivem; arquivamento preserva vínculos; filtros/contagens iguais.
 - Revisão manual sem IA, rascunho por conta, reenvio somente salvamento após erro, revisão/publicação explícita, versões, evolução e PDF coerentes.
+
+## RN-74 — Meu Horário sem Gerador Mágico
+- Tela não apresenta botão/modal de geração; cadastro manual abre normalmente. Preservar controles de importação/configuração, rota, idiomas, persistência e integração existentes.

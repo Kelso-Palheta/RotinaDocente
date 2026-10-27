@@ -1,0 +1,1 @@
+const base=require('./vitest.config.js');const projeto=base.test.projects.find(p=>p.test.name==='node');module.exports={...projeto,test:{...projeto.test,include:['../docs/analises/evidencias-meu-horario/reproducao.test.js']}};

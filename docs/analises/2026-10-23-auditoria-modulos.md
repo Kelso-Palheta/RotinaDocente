@@ -10,8 +10,8 @@ Objetivo: verificar um módulo por entrega, apresentar o que funciona, falhas co
 | 3 | Atividades Adaptadas (DUA) | Auditado; imagens RN-72 implementadas localmente com guia `docs/guias/imagens-atividades-adaptadas.md`; demais propostas da auditoria geral permanecem pendentes |
 | 4 | Portal do Aluno | Auditado em `2026-10-27-portal-aluno.md`; sugestões e falhas documentadas, sem implementação |
 | 5 | Redação Corrigida | Auditoria e melhorias RN-73 implementadas localmente; guia `docs/guias/redacao-corrigida.md`; validação concluída; commit/push autorizados |
-| 6 | Meu Horário Escolar | Próximo |
-| 7 | Horário Inteligente | Pendente; distinto do Meu Horário Escolar |
+| 6 | Meu Horário Escolar | Auditado em `2026-10-27-meu-horario-escolar.md`; Gerador Mágico retirado por decisão do usuário (RN-74); demais melhorias propostas |
+| 7 | Horário Inteligente | Próximo; distinto do Meu Horário Escolar |
 | 8 | Dashboard Analytics | Pendente |
 | 9 | Agentes Pedagógicos IA | Pendente |
 | Transversal | Conexão de IA, permissões e integração entre módulos | Consolidar ao fim, sem repetir achados já registrados |
