@@ -71,6 +71,15 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
   );
 };
 
+const AvisoSecao = ({ children, onRetry, tentando, rotulo = 'Tentar novamente' }) => (
+  <div role="alert" className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
+    <p className="text-xs">{children}</p>
+    <button className="underline mt-2 text-xs" onClick={onRetry} disabled={tentando}>
+      {tentando ? 'Tentando carregar novamente...' : rotulo}
+    </button>
+  </div>
+);
+
 export default function AlunoNotasPage() {
   const router = useRouter();
   const [dados, setDados] = useState(null);
@@ -82,7 +91,8 @@ export default function AlunoNotasPage() {
   const [abaAtv, setAbaAtv] = useState('pendentes');
   const [redacao, setRedacao] = useState(null);
   const [redacoes, setRedacoes] = useState([]);
-  const [erroRedacoes,setErroRedacoes]=useState(false);
+  const [falhas, setFalhas] = useState({});
+  const [recarregando, setRecarregando] = useState(false);
   const [tentativa,setTentativa]=useState(0);
 
   useEffect(() => {
@@ -113,8 +123,7 @@ export default function AlunoNotasPage() {
       })
       .then(async (data) => {
         setDados({ ...alunoData, notas: data.notas || {} });
-
-        setErroRedacoes(Boolean(data.falhas?.redacoes));
+        setFalhas(data.falhas || {});
         setRedacoes(data.redacoes || (data.redacao ? [data.redacao] : []));
         if (data.redacao) {
           setRedacao(data.redacao);
@@ -140,7 +149,7 @@ export default function AlunoNotasPage() {
         console.error('Erro ao carregar boletim:', err);
         setErro('Erro ao carregar dados. Tente novamente mais tarde.');
       })
-      .finally(() => setLoading(false));
+      .finally(() => { setLoading(false); setRecarregando(false); });
   }, [router,tentativa]);
 
   const handleLogout = async () => {
@@ -153,6 +162,12 @@ export default function AlunoNotasPage() {
       sessionStorage.removeItem('aluno_vinculos');
     }
     router.push('/aluno');
+  };
+
+  const recarregarSecoes = () => {
+    setErro('');
+    setRecarregando(true);
+    setTentativa(t => t + 1);
   };
 
   if (loading) {
@@ -173,7 +188,7 @@ export default function AlunoNotasPage() {
           <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#fff2f6] border border-[#fde4ec] flex items-center justify-center text-[#f60c49]">
             <AlertCircle size={28} />
           </div>
-          <h1 className="text-lg font-extrabold text-[#101942] mb-2 font-head">Sem dados</h1>
+          <h1 className="text-lg font-extrabold text-[#101942] mb-2 font-head">Não foi possível carregar</h1>
           <p className="text-xs text-[#6070a0] mb-6">{erro}</p>
           <button onClick={handleLogout} className="btn-brand-primary px-5 py-2.5 text-xs font-bold">
             Voltar ao Login
@@ -276,7 +291,11 @@ export default function AlunoNotasPage() {
           </div>
         </div>
 
-        {erroRedacoes && <div role="alert" className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4"><p>Não foi possível carregar as redações. Isso não significa que seu histórico esteja vazio.</p><button className="underline mt-2" onClick={()=>{setLoading(true);setTentativa(t=>t+1);}}>Tentar carregar redações novamente</button></div>}
+        {erro && dados && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Algumas informações não foram atualizadas agora. O que já está na tela continua válido.</AvisoSecao>}
+        {falhas.notas && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar suas notas. Isso não significa que você não tenha nota publicada.</AvisoSecao>}
+        {falhas.atividades && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar suas atividades. Isso não significa que não existam tarefas.</AvisoSecao>}
+        {falhas.entregas && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando}>Não foi possível carregar suas entregas e devolutivas. O comprovante pode estar indisponível até a próxima tentativa.</AvisoSecao>}
+        {falhas.redacoes && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando} rotulo="Tentar carregar redações novamente">Não foi possível carregar as redações. Isso não significa que seu histórico esteja vazio.</AvisoSecao>}
         {redacoes.length > 0 && <section className="space-y-3 mb-8" aria-label="Redações publicadas">
           <h2 className="font-bold text-lg">Minhas redações</h2>
           {redacoes.map(r=><article key={r.id} className="bg-white border border-[#dce0f0] rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
@@ -292,7 +311,9 @@ export default function AlunoNotasPage() {
             Notas por Bimestre
           </h2>
           {(!turma.bimestres || Object.keys(turma.bimestres).length === 0) ? (
-            !redacao && <p className="text-xs text-[#9098c0] bg-white p-6 rounded-2xl border border-dashed border-[#dce0f0] text-center">Nenhuma nota publicada ainda.</p>
+            !redacao && (falhas.notas
+              ? <p className="text-xs text-[#9a3412] bg-amber-50 p-6 rounded-2xl border border-amber-200 text-center">Não foi possível confirmar suas notas agora. Use o botão de nova tentativa acima.</p>
+              : <p className="text-xs text-[#9098c0] bg-white p-6 rounded-2xl border border-dashed border-[#dce0f0] text-center">Nenhuma nota publicada ainda.</p>)
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[1, 2, 3, 4].map((b) => (

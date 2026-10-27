@@ -41,6 +41,9 @@ O **Rotina Docente** (*Toda a sua rotina letiva em 1 clique*) é o ecossistema d
    - Criação de listas de exercícios e provas alinhadas à BNCC e descritores do SAEB/ENEM.
 5. **Portal do Aluno:**
    - Consulta de notas bimestrais e pareceres pedagógicos com autenticação segura.
+   - Indisponibilidade de uma seção é informada e repetível; nunca confundida com ausência de notas.
+   - Nota não lançada é distinguida de zero lançado, com a fórmula e a aprovação vigentes preservadas.
+   - Devolutiva objetiva e de múltipla escolha mostram resposta marcada e acerto; comprovante usa a data real da entrega.
 6. **Agentes Pedagógicos (MVP):**
    - **Agente Ensino Médio:** Assistente conversacional especializado em ENEM, vestibulares, competências C1–C5 de redação e habilidades BNCC do Ensino Médio (`EM13...`). Atende professores do 1º ao 3º EM.
    - **Agente Fundamental II:** Assistente conversacional especializado em descritores SAEB, habilidades BNCC do Ensino Fundamental II (`EF06...` a `EF09...`) e avaliações diagnósticas estaduais. Atende professores do 6º ao 9º ano.

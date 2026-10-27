@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { validarLoginAluno } from '@/lib/firebase-aluno';
+import { INSTRUCAO_ACESSO, EXEMPLO_ACESSO, NOTA_COLISAO } from '@/dominio/aluno/instrucaoAcesso';
 import { GraduationCap, ArrowLeft, ArrowRight, BookOpen, PenTool, CheckCircle2, User } from 'lucide-react';
 
 export default function AlunoLoginPage() {
@@ -232,8 +233,9 @@ export default function AlunoLoginPage() {
                 disabled={loading}
               />
               <p className="text-[11px] text-[#6070a0] mt-2 text-left leading-relaxed">
-                Insira seus 2 primeiros nomes + dia e mês de nascimento.<br />
-                Exemplo: <strong>Pedro Henrique</strong> nascido em 11/11 → <span className="font-mono text-[#101942] font-bold">pedrohenrique1111</span>
+                {INSTRUCAO_ACESSO}<br />
+                Exemplo: <span className="font-mono text-[#101942] font-bold">{EXEMPLO_ACESSO}</span><br />
+                {NOTA_COLISAO}
               </p>
             </div>
 

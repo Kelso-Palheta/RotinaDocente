@@ -3,6 +3,14 @@
 import { calcTotal, fmt, temNota } from '@/utils/diario/calculos';
 import { estiloNotaBimestral, faixaNotaBimestral } from '@/utils/diario/coresNota';
 
+const preenchido = (valor) => valor !== null && valor !== undefined && valor !== '';
+
+const SemLancamento = () => (
+  <span className="text-[#9098c0]" title="Ainda não publicado" aria-label="Ainda não publicado">
+    —
+  </span>
+);
+
 export const BimestreCard = ({ numero, turma, alunoId }) => {
   const bData = turma.bimestres[String(numero)];
   if (!bData) return null;
@@ -11,6 +19,7 @@ export const BimestreCard = ({ numero, turma, alunoId }) => {
   const total = temNota(nota, atividades) ? calcTotal(nota?.simulado, atividades, nota, config) : null;
   const faixa = faixaNotaBimestral(total, config);
   const labels = { abaixo: 'Abaixo da média', aprovado: 'Na média', excelente: 'Excelente' };
+  const semLancamento = !preenchido(nota?.simulado) || atividades.some((atv) => !preenchido(nota?.[atv.id]));
 
   return (
     <div className="bg-white border border-[#dce0f0] rounded-2xl p-4 shadow-2xs hover:border-[#f60c49]/30 transition-all">
@@ -28,7 +37,7 @@ export const BimestreCard = ({ numero, turma, alunoId }) => {
           <div className="flex justify-between text-xs py-1 border-b border-[#dce0f0]/60">
             <span className="text-[#6070a0] font-medium">Simulado Oficial</span>
             <span className="font-mono text-[#101942] font-bold tabular-nums">
-              {nota?.simulado != null && nota?.simulado !== '' ? fmt(nota.simulado) : '0,00'}
+              {preenchido(nota?.simulado) ? fmt(nota.simulado) : <SemLancamento />}
             </span>
           </div>
           {atividades.map((atv) => {
@@ -39,7 +48,7 @@ export const BimestreCard = ({ numero, turma, alunoId }) => {
                   {atv.nome}
                 </span>
                 <span className="font-mono text-[#101942] font-semibold tabular-nums">
-                  {v != null && v !== '' ? fmt(v) : '0,00'} <span className="text-[#9098c0] font-normal text-[10px]">/ {fmt(atv.max)}</span>
+                  {preenchido(v) ? fmt(v) : <SemLancamento />} <span className="text-[#9098c0] font-normal text-[10px]">/ {fmt(atv.max)}</span>
                 </span>
               </div>
             );
@@ -48,6 +57,9 @@ export const BimestreCard = ({ numero, turma, alunoId }) => {
             <span className="font-extrabold text-[#101942] font-head">Total do Bimestre</span>
             <span className={`font-extrabold font-mono tabular-nums text-base px-2 py-0.5 rounded ${estiloNotaBimestral(total, config)}`}>{fmt(total)}</span>
           </div>
+          {semLancamento && (
+            <p className="text-[10px] text-[#9098c0] pt-1.5">— Ainda não publicado. O total considera apenas o que já foi lançado.</p>
+          )}
         </div>
       ) : (
         <p className="text-xs text-[#9098c0] py-4 text-center">Nenhuma nota publicada neste bimestre.</p>
@@ -55,4 +67,3 @@ export const BimestreCard = ({ numero, turma, alunoId }) => {
     </div>
   );
 };
-

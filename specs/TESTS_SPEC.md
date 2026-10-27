@@ -229,3 +229,13 @@ Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos 
 
 ## RN-74 — Meu Horário sem Gerador Mágico
 - Tela não apresenta botão/modal de geração; cadastro manual abre normalmente. Preservar controles de importação/configuração, rota, idiomas, persistência e integração existentes.
+
+## RN-75 — Portal do Aluno: estados, nota ausente e devolutiva
+- [x] **UT-44 (RN-75):** `interpretarDataEntrega` aceita Timestamp, `{seconds}`, `{_seconds}`, número e ISO; descarta data ausente/inválida e não devolve a data atual.
+- [x] **UT-45 (RN-75):** `ConfirmacaoView` exibe a data serializada da entrega e, sem data válida, declara indisponibilidade em vez de “enviada agora”.
+- [x] **UT-46 (RN-75):** `FeedbackView` apresenta resposta marcada e “Correta/Incorreta” para `objetiva` e `multipla_escolha`, incluindo grafias alternativas, sem alterar o caso discursivo.
+- [x] **UT-47 (RN-75):** `BimestreCard` mostra `0,00` apenas para zero lançado; critério ausente aparece como traço com “Ainda não publicado”, preservando total, cores e fórmula.
+- [x] **UT-48 (RN-75):** `GET /api/aluno/boletim` sinaliza `falhas` por seção (`notas`, `atividades`, `entregas`, `tokens`) e mantém as demais seções e o HTTP 200.
+- [x] **UT-49 (RN-75):** A instrução de acesso usa primeiro nome + DDMM e trata o segundo nome como exceção de colisão.
+
+Validação RN-75 (27/10/2026): **828 testes em 174 arquivos** aprovados — 806 preexistentes preservados e 22 novos. Build de produção aprovado (exit 0); lint dos arquivos alterados sem novos problemas (1 erro preexistente em `frontend/src/app/aluno/page.js:24`, confirmado no HEAD). Nenhum teste ou evidência histórica foi alterado.

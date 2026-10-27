@@ -25,6 +25,7 @@ export async function GET(request) {
     if (vinculo.professorUid !== professorUid || vinculo.turmaId !== turmaId || vinculo.alunoId !== alunoId) return NextResponse.json({ error: 'Acesso negado aos dados deste aluno.' }, { status: 403 });
 
     const recordId = `${professorUid}_${turmaId}_${alunoId}`;
+    const falhas = {};
     let notasData = null;
     try {
       const notasSnap = await db.doc(`notasAluno/${recordId}`).get();
@@ -32,6 +33,7 @@ export async function GET(request) {
         notasData = notasSnap.data();
       }
     } catch (e) {
+      falhas.notas = true;
       console.warn('Erro ao buscar notas:', e.message);
     }
 
@@ -46,6 +48,7 @@ export async function GET(request) {
       const { filtrarAtividadesParaAluno } = await import('@/dominio/adaptacoes/publicadorAtividadeOnline');
       atividades = filtrarAtividadesParaAluno(todasAtividades, alunoId).map(atividadePublica);
     } catch (e) {
+      falhas.atividades = true;
       console.warn('Erro ao buscar atividades:', e.message);
     }
 
@@ -61,10 +64,10 @@ export async function GET(request) {
         (!entrega.professorId || entrega.professorId === professorUid)
       ).map(entregaPublica);
     } catch (e) {
+      falhas.entregas = true;
       console.warn('Erro ao buscar entregas:', e.message);
     }
 
-    const falhas = {};
     let redacao = null;
     let redacoes = [];
     try {
@@ -96,6 +99,7 @@ export async function GET(request) {
         })
       );
     } catch (e) {
+      falhas.tokens = true;
       console.warn('Erro ao buscar tokens:', e.message);
     }
 

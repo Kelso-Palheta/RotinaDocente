@@ -1,13 +1,15 @@
 "use client";
 
+import { interpretarDataEntrega } from '@/dominio/atividades/dataEntrega';
+
 const voltaUrl = () => {
   if (typeof window !== 'undefined' && sessionStorage.getItem('aluno_login')) return '/aluno/notas';
   return '/aluno';
 };
 
 export const ConfirmacaoView = ({ submittedAt }) => {
-  const data = submittedAt?.toDate ? submittedAt.toDate() : new Date();
-  const dataStr = data.toLocaleDateString('pt-BR', {
+  const data = interpretarDataEntrega(submittedAt);
+  const dataStr = data?.toLocaleDateString('pt-BR', {
     day: '2-digit', month: '2-digit', year: 'numeric',
     hour: '2-digit', minute: '2-digit'
   });
@@ -29,8 +31,17 @@ export const ConfirmacaoView = ({ submittedAt }) => {
           </div>
           <h1 className="text-lg font-bold text-slate-900 mb-2">Entrega recebida!</h1>
           <p className="text-sm text-slate-400 mb-6">
-            Sua resposta foi enviada em {dataStr}.<br />
-            Em breve você verá sua nota e o feedback aqui.
+            {dataStr ? (
+              <>
+                Sua resposta foi enviada em {dataStr}.<br />
+                Em breve você verá sua nota e o feedback aqui.
+              </>
+            ) : (
+              <>
+                Data de entrega indisponível. Sua resposta foi registrada, mas não foi possível recuperar o horário do envio.<br />
+                Em breve você verá sua nota e o feedback aqui.
+              </>
+            )}
           </p>
           <p className="text-xs text-slate-400">
             Você pode recarregar esta página para verificar se a correção já foi concluída.

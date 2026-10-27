@@ -527,3 +527,10 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Remover botão, modal e acionamento do Gerador Mágico do Meu Horário Escolar, por decisão do usuário. Não substituir por outro gerador.
 - Preservar cadastro/edição manual, horários e intervalos personalizados, importação PDF/JSON, backup, impressão e integração com o Calendário. Horário Inteligente é módulo distinto e não integra esta remoção.
 - Demais achados da auditoria de Meu Horário Escolar permanecem propostas, sem implementação automática.
+
+## RN-75 — Portal do Aluno: indisponibilidade, nota ausente e devolutiva
+- Falha de leitura de uma seção não é ausência de conteúdo. `GET /api/aluno/boletim` informa `falhas` por seção (`notas`, `atividades`, `entregas`, `tokens`, `redacoes`), mantém as seções lidas e continua respondendo 200; a tela apresenta o aviso da seção, permite nova tentativa e preserva o que já foi exibido. Nenhuma seção com falha é anunciada como “sem dados”.
+- Nota não lançada difere de zero. Critério sem lançamento é exibido como traço com indicação “Ainda não publicado”; zero lançado permanece `0,00`. A fórmula bimestral, as cores e a aprovação 25/25/50 não mudam.
+- Devolutiva objetiva reconhece `objetiva` e `multipla_escolha`, inclusive variações de grafia, e apresenta resposta marcada e indicador de acerto/erro. Objetiva e múltipla escolha compartilham a mesma apresentação; o selo de método reflete correção manual, IA ou revisão.
+- Comprovante de entrega usa a data serializada da entrega (Timestamp, `{seconds}`, `{_seconds}`, número ou texto ISO). Data ausente ou inválida é declarada indisponível; nunca é substituída pela data atual do dispositivo.
+- Instrução de acesso usa a mesma regra do login: primeiro nome + DDMM. O segundo nome aparece apenas como exceção de colisão, sem prometer formato que o gerador não aplica.

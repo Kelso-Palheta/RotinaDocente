@@ -68,3 +68,11 @@
 - [x] Confirmar cadastro manual, importação e configuração preservados.
 - [x] 806 testes/168 arquivos aprovados; build e lint do escopo aprovados.
 - [ ] Demais propostas da auditoria aguardam autorização para implementação.
+
+## 27/10/2026 — RN-75 Portal do Aluno (P1)
+- [x] Especificar RN-75, contrato de `falhas` por seção e UT-44..UT-49 antes da implementação.
+- [x] Domínio: interpretação de data de entrega e normalização de tipo objetivo.
+- [x] Portal: comprovante, devolutiva de múltipla escolha, nota não lançada e instrução de acesso.
+- [x] Boletim: falhas por seção com nova tentativa, preservando dados já lidos.
+- [x] Suíte completa: 828 testes/174 arquivos (806 preservados + 22 novos); build exit 0; lint sem novos problemas; nenhum teste preexistente alterado.
+- [ ] Homologação visual em celular/computador e leitor de tela continuam pendentes.

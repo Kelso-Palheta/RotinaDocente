@@ -1,5 +1,7 @@
 "use client";
 
+import { ehQuestaoObjetiva, rotuloAcerto } from '@/dominio/atividades/devolutivaAluno';
+
 export const FeedbackView = ({ entrega, atividade }) => {
   const notaMaxima = atividade?.notaMaxima || 10;
   const nota = entrega.notaRevisada ?? entrega.notaFinal;
@@ -26,20 +28,21 @@ export const FeedbackView = ({ entrega, atividade }) => {
         questoes.map((q, i) => {
           const res = resultados[q.id];
           const resposta = entrega.respostas?.[q.id]?.resposta;
+          const objetiva = ehQuestaoObjetiva(q.tipo);
           if (!res) return null;
           return (
             <div key={q.id} className="bg-slate-50 border border-slate-200 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className={`w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center ${q.tipo === 'objetiva' ? 'bg-blue-500' : 'bg-violet-500'}`}>{i + 1}</span>
+                <span className={`w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center ${objetiva ? 'bg-blue-500' : 'bg-violet-500'}`}>{i + 1}</span>
                 <span className="text-xs font-semibold text-slate-900 flex-1 truncate">{q.enunciado?.slice(0, 60)}{q.enunciado?.length > 60 ? '…' : ''}</span>
                 <span className={`text-xs font-mono font-bold tabular-nums ${res.notaObtida >= res.notaMaxima ? 'text-green-600' : res.notaObtida > 0 ? 'text-blue-500' : 'text-red-500'}`}>
                   {res.notaObtida.toFixed(1).replace('.', ',')} / {res.notaMaxima.toFixed(1).replace('.', ',')}
                 </span>
               </div>
 
-              {q.tipo === 'objetiva' && (
+              {objetiva && (
                 <p className={`text-xs mt-1 ${res.correto ? 'text-green-600' : 'text-red-500'}`}>
-                  {res.correto ? '✓ Correta' : '✗ Incorreta'}
+                  {res.correto ? '✓' : '✗'} {rotuloAcerto(res.correto)}
                   {resposta && <span className="text-slate-400 ml-1">(marcou: {resposta})</span>}
                 </p>
               )}
