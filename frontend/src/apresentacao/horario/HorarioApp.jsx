@@ -21,6 +21,7 @@ import { parseScheduleFromPdfText } from "../../aplicacao/horario/pdfSchedulePar
 import { extractTextFromPDF } from "@/utils/atividades/pdfExtractor";
 import { HorarioRepository } from "../../infraestrutura/horario/HorarioRepository";
 import { tHorario } from "./i18n";
+import { mapearEstadoSync, chaveRotuloSync, precisaNovaTentativa } from "./estadoSincronizacao";
 import "./horario.css";
 
 const COLOR_PALETTE = [
@@ -68,7 +69,10 @@ export default function HorarioApp() {
   const [theme, setTheme] = useState("light");
   const [customSlots, setCustomSlots] = useState(null);
   const [schedule, setSchedule] = useState({});
-  const [syncStatus, setSyncStatus] = useState("local"); // 'cloud' | 'local' | 'saving'
+  const [syncStatus, setSyncStatus] = useState("local"); // 'cloud' | 'local' | 'saving' | 'pending' | 'error'
+  const [contaCarregada, setContaCarregada] = useState(undefined);
+  const [legado, setLegado] = useState(null);
+  const ultimoSalvamento = useRef(null);
 
   // Modais
   const [slotModalOpen, setSlotModalOpen] = useState(false);
@@ -104,12 +108,13 @@ export default function HorarioApp() {
     setTimeout(() => setToastMsg(null), 3500);
   };
 
-  // Carregar dados na montagem
+  // Carregar dados na montagem e a cada troca de conta
   useEffect(() => {
     let isMounted = true;
+    const contaAtual = user?.uid || null;
     async function init() {
       try {
-        const loaded = await repo.carregarGrade(user?.uid || null);
+        const loaded = await repo.carregarGrade(contaAtual);
         if (isMounted && loaded) {
           setTeacherName(loaded.teacherName || "Prof. Usuário");
           setSchoolName(loaded.schoolName || "Minha Escola");
@@ -118,12 +123,33 @@ export default function HorarioApp() {
           setTheme(loaded.theme || "light");
           setCustomSlots(loaded.customSlots || null);
           setSchedule(loaded.schedule || {});
-          setSyncStatus(user ? "cloud" : "local");
+          setSyncStatus(mapearEstadoSync(loaded.persistencia));
+
+          const semAulasProprias = !loaded.schedule || Object.keys(loaded.schedule).length === 0;
+          if (contaAtual && semAulasProprias) {
+            try {
+              const detectado = repo.detectarCacheLegado?.();
+              setLegado(detectado?.disponivel ? detectado : null);
+            } catch (err) {
+              console.warn("Falha ao verificar rascunho legado:", err);
+              setLegado(null);
+            }
+          } else {
+            setLegado(null);
+          }
         }
       } catch (err) {
         console.error("Falha ao inicializar grade:", err);
+        if (isMounted) {
+          setSchedule({});
+          setCustomSlots(null);
+          setSyncStatus("error");
+        }
       } finally {
-        if (isMounted) setLoading(false);
+        if (isMounted) {
+          setContaCarregada(contaAtual);
+          setLoading(false);
+        }
       }
     }
     init();
@@ -157,13 +183,43 @@ export default function HorarioApp() {
       customSlots: nextState.customSlots !== undefined ? nextState.customSlots : customSlots,
       schedule: nextState.schedule ?? schedule,
     };
+    ultimoSalvamento.current = payload;
 
     try {
-      await repo.salvarGrade(user?.uid || null, payload);
-      setSyncStatus(user ? "cloud" : "local");
+      const resultado = await repo.salvarGrade(user?.uid || null, payload);
+      setSyncStatus(mapearEstadoSync(resultado?.persistencia));
     } catch (err) {
       console.warn("Erro ao sincronizar:", err);
-      setSyncStatus("local");
+      setSyncStatus("error");
+    }
+  };
+
+  const repetirSalvamento = () => saveState(ultimoSalvamento.current || {});
+
+  const importarRascunhoLegado = () => {
+    try {
+      const migrado = repo.migrarCacheLegado?.(user?.uid || null, true);
+      if (migrado) {
+        setTeacherName(migrado.teacherName || "Prof. Usuário");
+        setSchoolName(migrado.schoolName || "Minha Escola");
+        setShift(migrado.shift || "manha");
+        setShowSaturday(Boolean(migrado.showSaturday));
+        setCustomSlots(migrado.customSlots || null);
+        setSchedule(migrado.schedule || {});
+        setSyncStatus("local");
+      }
+    } finally {
+      setLegado(null);
+    }
+  };
+
+  const descartarRascunhoLegado = () => {
+    try {
+      repo.descartarCacheLegado?.(user?.uid || null);
+    } catch (err) {
+      console.warn("Falha ao descartar rascunho legado:", err);
+    } finally {
+      setLegado(null);
     }
   };
 
@@ -457,7 +513,9 @@ export default function HorarioApp() {
     setTempSlots(next);
   };
 
-  if (loading) {
+  const contaAtual = user?.uid || null;
+
+  if (loading || contaCarregada !== contaAtual) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="w-10 h-10 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin" />
@@ -511,11 +569,31 @@ export default function HorarioApp() {
                     {t("appTitle")}
                   </span>
                 </h1>
-                <p className="brand-subtitle">
-                  {syncStatus === "cloud" ? "☁️ Sincronizado no Firestore" : "💾 Persistência Local"}
+                <p className="brand-subtitle" data-testid="sync-status">
+                  {t(chaveRotuloSync(syncStatus))}
                 </p>
               </div>
             </Link>
+            {precisaNovaTentativa(syncStatus) && (
+              <button
+                type="button"
+                onClick={repetirSalvamento}
+                style={{
+                  marginLeft: "0.5rem",
+                  padding: "0.3rem 0.6rem",
+                  borderRadius: "9999px",
+                  border: "1px solid var(--primary-border)",
+                  background: "var(--primary-light)",
+                  color: "var(--primary)",
+                  fontSize: "0.7rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {t("retrySync")}
+              </button>
+            )}
           </div>
 
           {/* Dados do Professor e Escola */}
@@ -687,6 +765,35 @@ export default function HorarioApp() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="main-container">
+        {legado && (
+          <div role="status" data-testid="legacy-draft" className="no-print" style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.75rem",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0.75rem 1rem",
+            marginBottom: "1rem",
+            borderRadius: "0.75rem",
+            border: "1px solid var(--primary-border)",
+            background: "var(--primary-light)",
+            color: "var(--primary)",
+            fontSize: "0.8rem",
+            fontWeight: 600,
+          }}>
+            <span>
+              {t("legacyDraft")} · {legado.aulas} aula(s)
+            </span>
+            <span style={{ display: "flex", gap: "0.5rem" }}>
+              <button type="button" onClick={importarRascunhoLegado} style={{ fontWeight: 700, textDecoration: "underline", cursor: "pointer", background: "none", border: "none", color: "inherit" }}>
+                {t("legacyDraftImport")}
+              </button>
+              <button type="button" onClick={descartarRascunhoLegado} style={{ fontWeight: 700, textDecoration: "underline", cursor: "pointer", background: "none", border: "none", color: "inherit" }}>
+                {t("legacyDraftDismiss")}
+              </button>
+            </span>
+          </div>
+        )}
         {/* BARRA DE ESTATÍSTICAS COMPACTA */}
         <section className="stats-bar no-print">
           <div className="stats-strip-left">

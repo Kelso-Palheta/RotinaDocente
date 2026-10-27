@@ -239,3 +239,13 @@ Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos 
 - [x] **UT-49 (RN-75):** A instrução de acesso usa primeiro nome + DDMM e trata o segundo nome como exceção de colisão.
 
 Validação RN-75 (27/10/2026): **828 testes em 174 arquivos** aprovados — 806 preexistentes preservados e 22 novos. Build de produção aprovado (exit 0); lint dos arquivos alterados sem novos problemas (1 erro preexistente em `frontend/src/app/aluno/page.js:24`, confirmado no HEAD). Nenhum teste ou evidência histórica foi alterado.
+
+## RN-76 — Meu Horário Escolar: conta isolada e estado de salvamento
+- [x] **UT-50 (RN-76):** Conta B, sem documento na nuvem, não recebe a grade da conta A; a chave base não contém aulas de conta autenticada.
+- [x] **UT-51 (RN-76):** `salvarGrade` informa `estado` `nuvem`, `local`, `pendente` e `falha` conforme nuvem/local; falha local e de nuvem não viram sucesso.
+- [x] **UT-52 (RN-76):** `carregarGrade` informa origem `nuvem`, `local` e `padrao`; conta nova sem documento começa vazia, sem grade de demonstração.
+- [x] **UT-53 (RN-76):** Rascunho legado é detectado, não aplicado automaticamente e só migra com confirmação explícita; descartar impede nova oferta.
+- [x] **UT-54 (RN-76):** `mapearEstadoSync` traduz persistência em estado de tela e o cabeçalho exibe o rótulo correspondente.
+- [x] **UT-55 (RN-76):** Ao trocar de conta, a grade anterior não permanece editável durante o carregamento.
+
+Validação RN-76 (27/10/2026): **851 testes em 177 arquivos** aprovados — 828 preexistentes preservados e 23 novos. Build de produção exit 0; lint dos arquivos alterados sem problemas. Nenhum teste ou evidência histórica foi alterado; a chave base deixou de conter aulas de conta autenticada.

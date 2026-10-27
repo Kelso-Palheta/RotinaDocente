@@ -534,3 +534,12 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Devolutiva objetiva reconhece `objetiva` e `multipla_escolha`, inclusive variações de grafia, e apresenta resposta marcada e indicador de acerto/erro. Objetiva e múltipla escolha compartilham a mesma apresentação; o selo de método reflete correção manual, IA ou revisão.
 - Comprovante de entrega usa a data serializada da entrega (Timestamp, `{seconds}`, `{_seconds}`, número ou texto ISO). Data ausente ou inválida é declarada indisponível; nunca é substituída pela data atual do dispositivo.
 - Instrução de acesso usa a mesma regra do login: primeiro nome + DDMM. O segundo nome aparece apenas como exceção de colisão, sem prometer formato que o gerador não aplica.
+
+## RN-76 — Meu Horário Escolar: isolamento por conta e salvamento verificável
+- Cache local é por conta (`meu_horario_escolar_data_v1:<uid>`); o usuário anônimo usa a chave base. Conta autenticada nunca lê a grade de outra conta, mesmo existindo cache legado ou índice no dispositivo.
+- A chave base não guarda mais grade de conta autenticada: registra apenas um índice sem aulas (conta, chave, data), para orientar a migração. Migrar rascunho legado é explícito — detectar, informar quantidade/data, aplicar só com confirmação e permitir descartar; nunca automático no carregamento.
+- `salvarGrade` devolve `persistencia: {local, nuvem, estado}` com `estado` em `nuvem | local | pendente | falha`. Falha não é mais apresentada como sincronização; o payload continua no retorno para compatibilidade com a RN-24.
+- `carregarGrade` informa `persistencia.origem` (`nuvem | local | padrao`). Conta sem documento na nuvem e sem cache próprio começa vazia; nenhuma grade de demonstração é apresentada como agenda real.
+- `somenteReal` permanece estrito: lê apenas a nuvem, propaga erro e devolve `null` em modo anônimo, sem cache nem demonstração. Calendário e Diário mantêm esse caminho.
+- Na interface, o cabeçalho distingue nuvem, somente dispositivo, salvando, pendente e falha; pendente e falha oferecem nova tentativa. Ao trocar de conta, a grade anterior deixa de ser editável enquanto a nova carrega.
+- Nenhuma aula é apagada ou migrada em silêncio. Falha local preserva o rascunho em memória e permite repetir a gravação.

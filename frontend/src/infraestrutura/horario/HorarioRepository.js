@@ -1,12 +1,17 @@
 /**
- * Repositório de Persistência Híbrida — Módulo Horário Escolar (RN-24)
+ * Repositório de Persistência Híbrida — Módulo Horário Escolar (RN-24 / RN-76)
  * Camada: src/infraestrutura/horario/
- * Suporta Firestore (autenticado) com fallback transparente para localStorage.
+ *
+ * - Firestore (autenticado) com cache local por conta.
+ * - A chave base guarda a grade completa apenas do usuário anônimo; para
+ *   conta autenticada registra somente um índice sem aulas.
+ * - Toda falha é reportada em `persistencia`, nunca escondida como sucesso.
  */
 
-import { SAMPLE_SCHEDULE } from '../../dominio/horario/entidades';
-
 export const LOCAL_STORAGE_KEY = 'meu_horario_escolar_data_v1';
+
+const temSchedule = (valor) =>
+  Boolean(valor) && typeof valor === 'object' && Boolean(valor.schedule) && typeof valor.schedule === 'object';
 
 export class HorarioRepository {
   constructor({ firestoreDb = null } = {}) {
@@ -14,8 +19,38 @@ export class HorarioRepository {
     this.storageKey = LOCAL_STORAGE_KEY;
   }
 
+  /** Chave do cache local de uma conta; a chave base é do modo anônimo. */
+  chaveConta(userId) {
+    return userId ? `${LOCAL_STORAGE_KEY}:${userId}` : LOCAL_STORAGE_KEY;
+  }
+
+  lerLocal(chave) {
+    if (typeof localStorage === 'undefined') return null;
+    try {
+      const bruto = localStorage.getItem(chave);
+      if (!bruto) return null;
+      const dados = JSON.parse(bruto);
+      return dados && typeof dados === 'object' ? dados : null;
+    } catch (err) {
+      console.warn('[HorarioRepository] Erro ao ler do localStorage:', err);
+      return null;
+    }
+  }
+
+  gravarLocal(chave, valor) {
+    if (typeof localStorage === 'undefined') return false;
+    try {
+      localStorage.setItem(chave, JSON.stringify(valor));
+      return true;
+    } catch (err) {
+      console.warn('[HorarioRepository] Falha ao salvar no localStorage:', err);
+      return false;
+    }
+  }
+
   /**
-   * Obtém estado padrão inicial caso não exista nada salvo
+   * Estado inicial sem aulas. Nenhuma grade de demonstração é apresentada
+   * como agenda real (RN-76).
    */
   getEstadoInicial() {
     return {
@@ -25,12 +60,34 @@ export class HorarioRepository {
       showSaturday: false,
       theme: 'light',
       customSlots: null,
-      schedule: SAMPLE_SCHEDULE,
+      schedule: {},
     };
   }
 
+  /** Índice sem aulas: permite localizar a conta sem vazar a grade. */
+  gravarIndiceConta(userId) {
+    if (!userId) return;
+    this.gravarLocal(this.storageKey, {
+      conta: userId,
+      chave: this.chaveConta(userId),
+      atualizadoEm: new Date().toISOString(),
+    });
+  }
+
+  async salvarNaNuvem(userId, payload) {
+    if (typeof this.firestoreDb.collection === 'function') {
+      // Compatibilidade com interface clássica ou mock
+      await this.firestoreDb.collection('horario_escolar').doc(userId).set(payload, { merge: true });
+      return;
+    }
+    // Modular SDK (firebase/firestore)
+    const { doc, setDoc } = await import('firebase/firestore');
+    await setDoc(doc(this.firestoreDb, 'horario_escolar', userId), payload, { merge: true });
+  }
+
   /**
-   * Salva a grade no Firestore e/ou LocalStorage (RN-24)
+   * Salva a grade no LocalStorage e no Firestore, informando onde de fato gravou.
+   * O payload continua no retorno por compatibilidade com a RN-24.
    */
   async salvarGrade(userId, state) {
     const payload = {
@@ -44,96 +101,117 @@ export class HorarioRepository {
       updatedAt: new Date().toISOString(),
     };
 
-    // 1. Sempre salva localmente no localStorage como cache / fallback
-    if (typeof localStorage !== 'undefined') {
-      try {
-        localStorage.setItem(this.storageKey, JSON.stringify(payload));
-      } catch (err) {
-        console.warn('[HorarioRepository] Falha ao salvar no localStorage:', err);
-      }
-    }
+    const persistencia = { local: 'falha', nuvem: 'nao_aplicavel', estado: 'falha' };
 
-    // 2. Se autenticado e Firestore configurado, tenta salvar na nuvem
+    const localOk = this.gravarLocal(this.chaveConta(userId), payload);
+    persistencia.local = localOk ? 'ok' : 'falha';
+    if (localOk && userId) this.gravarIndiceConta(userId);
+
     if (userId && this.firestoreDb) {
       try {
-        if (typeof this.firestoreDb.collection === 'function') {
-          // Compatibilidade com interface clássica ou mock
-          await this.firestoreDb.collection('horario_escolar').doc(userId).set(payload, { merge: true });
-        } else {
-          // Modular SDK (firebase/firestore)
-          const { doc, setDoc } = await import('firebase/firestore');
-          const docRef = doc(this.firestoreDb, 'horario_escolar', userId);
-          await setDoc(docRef, payload, { merge: true });
-        }
+        await this.salvarNaNuvem(userId, payload);
+        persistencia.nuvem = 'ok';
       } catch (err) {
-        console.warn('[HorarioRepository] Falha ao sincronizar Firestore, operando em fallback:', err);
+        persistencia.nuvem = 'falha';
+        console.warn('[HorarioRepository] Falha ao sincronizar Firestore:', err);
       }
     }
 
-    return payload;
+    if (persistencia.nuvem === 'ok') {
+      persistencia.estado = 'nuvem';
+    } else if (!userId) {
+      persistencia.estado = persistencia.local === 'ok' ? 'local' : 'falha';
+    } else {
+      persistencia.estado = persistencia.local === 'ok' ? 'pendente' : 'falha';
+    }
+
+    return { ...payload, persistencia };
+  }
+
+  async lerDaNuvem(userId, somenteReal) {
+    if (typeof this.firestoreDb.collection === 'function') {
+      const docSnap = await this.firestoreDb.collection('horario_escolar').doc(userId).get();
+      if (docSnap && typeof docSnap.data === 'function') return docSnap.data();
+      if (docSnap && docSnap.exists) return docSnap.data;
+      return null;
+    }
+    const { doc, getDoc, getDocFromServer } = await import('firebase/firestore');
+    const docRef = doc(this.firestoreDb, 'horario_escolar', userId);
+    const docSnap = await (somenteReal ? getDocFromServer(docRef) : getDoc(docRef));
+    return docSnap.exists() ? docSnap.data() : null;
   }
 
   /**
-   * Carrega a grade horária do Firestore ou LocalStorage (RN-24)
+   * Carrega a grade horária do Firestore ou do cache local da própria conta.
+   * `persistencia.origem` informa `nuvem`, `local` ou `padrao`.
    */
   async carregarGrade(userId, { somenteReal = false } = {}) {
-    let cloudData = null;
+    if (somenteReal && !userId) return null;
 
-    // 1. Se autenticado e com Firestore disponível, tenta buscar da nuvem
+    let cloudData = null;
     if (userId && this.firestoreDb) {
       try {
-        if (typeof this.firestoreDb.collection === 'function') {
-          const docSnap = await this.firestoreDb.collection('horario_escolar').doc(userId).get();
-          if (docSnap && typeof docSnap.data === 'function') {
-            cloudData = docSnap.data();
-          } else if (docSnap && docSnap.exists) {
-            cloudData = docSnap.data;
-          }
-        } else {
-          const { doc, getDoc, getDocFromServer } = await import('firebase/firestore');
-          const docRef = doc(this.firestoreDb, 'horario_escolar', userId);
-          const docSnap = await (somenteReal ? getDocFromServer(docRef) : getDoc(docRef));
-          if (docSnap.exists()) {
-            cloudData = docSnap.data();
-          }
-        }
+        cloudData = await this.lerDaNuvem(userId, somenteReal);
       } catch (err) {
         if (somenteReal) throw err;
-        console.warn('[HorarioRepository] Erro ao carregar do Firestore, recorrendo ao localStorage:', err);
+        console.warn('[HorarioRepository] Erro ao carregar do Firestore, recorrendo ao cache local:', err);
       }
     }
 
     if (cloudData && typeof cloudData === 'object') {
-      // Atualiza cache local com o dado mais recente da nuvem
-      if (typeof localStorage !== 'undefined') {
-        try {
-          localStorage.setItem(this.storageKey, JSON.stringify(cloudData));
-        } catch {
-          // ignore
-        }
+      if (!somenteReal) {
+        // Mantém o cache da própria conta atualizado; nunca grava grade na chave base.
+        this.gravarLocal(this.chaveConta(userId), cloudData);
+        this.gravarIndiceConta(userId);
       }
-      return cloudData;
+      return { ...cloudData, persistencia: { origem: 'nuvem' } };
     }
 
-    // Usuário autenticado importa apenas o documento real, sem cache de outra conta.
-    if (somenteReal && userId) return null;
+    if (somenteReal) return null;
 
-    // 2. Fallback: Lê do localStorage
-    if (typeof localStorage !== 'undefined') {
-      try {
-        const localRaw = localStorage.getItem(this.storageKey);
-        if (localRaw) {
-          const parsed = JSON.parse(localRaw);
-          if (parsed && typeof parsed === 'object') {
-            return parsed;
-          }
-        }
-      } catch (err) {
-        console.warn('[HorarioRepository] Erro ao ler do localStorage:', err);
-      }
+    const local = this.lerLocal(this.chaveConta(userId));
+    if (temSchedule(local)) {
+      return { ...local, persistencia: { origem: 'local' } };
     }
 
-    // 3. Fallback final: Retorna estado padrão demonstrativo
-    return somenteReal ? null : this.getEstadoInicial();
+    return { ...this.getEstadoInicial(), persistencia: { origem: 'padrao' } };
+  }
+
+  /**
+   * Rascunho gravado antes do isolamento por conta vive na chave base.
+   * É apenas detectado; a migração exige confirmação explícita.
+   */
+  detectarCacheLegado() {
+    const base = this.lerLocal(this.storageKey);
+    if (!temSchedule(base)) return { disponivel: false, aulas: 0, atualizadoEm: null };
+    const aulas = Object.keys(base.schedule).length;
+    if (aulas === 0) return { disponivel: false, aulas: 0, atualizadoEm: null };
+    return { disponivel: true, aulas, atualizadoEm: base.updatedAt || null };
+  }
+
+  /** Copia o rascunho legado para a conta somente quando `aceitar` é verdadeiro. */
+  migrarCacheLegado(userId, aceitar = false) {
+    if (!userId || !aceitar) return null;
+    const base = this.lerLocal(this.storageKey);
+    if (!temSchedule(base)) return null;
+
+    const payload = { ...base, updatedAt: new Date().toISOString() };
+    if (!this.gravarLocal(this.chaveConta(userId), payload)) return null;
+    this.gravarIndiceConta(userId);
+    return payload;
+  }
+
+  /** Retira a oferta de migração sem apagar a grade já salva da conta. */
+  descartarCacheLegado(userId) {
+    if (typeof localStorage === 'undefined') return;
+    try {
+      if (userId) {
+        this.gravarIndiceConta(userId);
+      } else {
+        localStorage.removeItem(this.storageKey);
+      }
+    } catch (err) {
+      console.warn('[HorarioRepository] Falha ao descartar rascunho legado:', err);
+    }
   }
 }

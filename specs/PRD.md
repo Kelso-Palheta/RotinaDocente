@@ -116,3 +116,10 @@ Permitir criar, manter ou editar figuras a partir de referência preservada, com
 - Remover botão, modal e acionamento do Gerador Mágico do Meu Horário Escolar, por decisão do usuário. Não substituir por outro gerador.
 - Preservar cadastro/edição manual, horários e intervalos personalizados, importação PDF/JSON, backup, impressão e integração com o Calendário. Horário Inteligente é módulo distinto e não integra esta remoção.
 - Demais achados da auditoria de Meu Horário Escolar permanecem propostas, sem implementação automática.
+
+## RN-76 — Meu Horário Escolar: conta isolada e salvamento verificável
+- O cache local é isolado por conta; conta autenticada nunca lê a grade de outra conta, e a chave base não guarda aulas de conta autenticada.
+- Rascunho legado é apenas detectado e só migra com confirmação explícita; descartar não apaga a grade da conta.
+- Salvar informa onde gravou (`nuvem`, `local`, `pendente`, `falha`); falha não é anunciada como sincronizada e oferece nova tentativa.
+- Conta nova começa vazia, sem grade de demonstração; a leitura estrita usada por Calendário e Diário permanece inalterada.
+- Ao trocar de conta, a grade anterior não permanece editável durante o carregamento.

@@ -76,3 +76,15 @@
 - [x] Boletim: falhas por seção com nova tentativa, preservando dados já lidos.
 - [x] Suíte completa: 828 testes/174 arquivos (806 preservados + 22 novos); build exit 0; lint sem novos problemas; nenhum teste preexistente alterado.
 - [ ] Homologação visual em celular/computador e leitor de tela continuam pendentes.
+
+## 27/10/2026 — RN-76 Meu Horário Escolar (P0)
+- [x] Especificar RN-76 e UT-50..UT-55 antes da implementação.
+- [x] Cache local por conta; chave base apenas como índice sem aulas para conta autenticada.
+- [x] `salvarGrade`/`carregarGrade` informam `persistencia` (`nuvem`, `local`, `pendente`, `falha`) sem esconder erro.
+- [x] Estado inicial sem grade de demonstração e `somenteReal` estrito preservado para Calendário e Diário.
+- [x] Rascunho legado detectado e migrado só com confirmação explícita; descarte sem apagar a conta.
+- [x] Interface com rótulo de sincronização, nova tentativa e bloqueio de edição ao trocar de conta.
+- [x] Suíte completa: 851 testes/177 arquivos (828 preservados + 23 novos); build exit 0; lint sem problemas.
+- [ ] Homologação visual em celular/computador e leitor de tela continuam pendentes.
+- [ ] Fila transacional/revisão de salvamento (P1 da auditoria) permanece proposta.
+\n
