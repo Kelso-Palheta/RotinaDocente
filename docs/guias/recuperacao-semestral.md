@@ -20,4 +20,4 @@ Atividades adaptadas podem ser vinculadas ao conjunto pelo fluxo de publicação
 
 O aluno consulta atividades liberadas e devolutivas no Portal. O boletim usa as notas publicadas; uma correção recém-salva não atualiza automaticamente o resultado publicado.
 
-Validação técnica: 1.018 testes aprovados em 28/10/2026. Homologação em sessão real, visual e PDF exportado permanece pendente; ver `docs/analises/2026-10-28-revisao-final-recuperacao-semestral.md`.
+Validação técnica: 1.018 testes aprovados em 28/10/2026. Homologação real do fluxo manual e publicação no Portal concluída com dados sintéticos; deploy confirmado. PDF e apresentação exigem ajustes antes da aprovação integral. IA real e leitor de tela não verificados. Ver `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md`.

@@ -346,3 +346,9 @@ Commit `67c6a1b`: **1.002 testes/215 arquivos aprovados**, build exit 0 e lint d
 ### Validação independente final de `75f5dd6` — 28/10/2026
 
 Execução independente: **1.018 testes/219 arquivos aprovados**, lint de produção exit 0 (2 avisos preexistentes de imagem) e build exit 0. Reproduções anteriores passaram sem editar testes. Montagem 4+6, atividade única 10, recuperação adaptada e liberação/congelamento conferidos no código e nos testes. Revisão técnica dos bloqueios aprovada; homologação real/visual/PDF permanece pendente, sem declarar esses aceites concluídos. Relatório: `docs/analises/2026-10-28-revisao-final-recuperacao-semestral.md`. O código `75f5dd6` já estava no remoto ao início da revisão; deploy não foi confirmado.
+
+## Homologação real — 28/10/2026
+
+Deploy Vercel e fluxo real com dados sintéticos confirmados: montagem 4+6, entrega, correção manual 3+5=8, lançamento rec1, publicação parcial e feedback no Portal/PDF. S1 20→32, S2=25, anual 45→57; repetição idempotente (revisão 4→4), aluno pendente e turma de controle preservados. Dados temporários removidos. Portal conferido em 390/1440 px e foco por Tab; leitor de tela, IA real, estresse concorrente e Analytics manual não verificados.
+
+Homologação PDF/visual parcial: classificação bimestral divergente no boletim, sobreposição da turma na ficha, 100% de frequência sem registros, prazo ISO não interpretado no cartão e ações cortadas no professor em 390 px. Correções ainda pendentes; não marcar todos os aceites concluídos. Relatório, evidências e prompt DeepSeek: `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md`. Nenhum código/teste alterado nesta rodada; 1.018 testes/lint/build referem-se à revisão técnica anterior.

@@ -27,3 +27,5 @@
 - O commit `75f5dd6` já estava em `origin/master` ao iniciar a revisão. Isso confirma publicação do código no Git; não confirma deploy, versão servida pelo Vercel ou execução bem-sucedida no ambiente publicado.
 
 Guia operacional: `docs/guias/recuperacao-semestral.md`. Próxima homologação: montar um conjunto de teste 4+6, verificar indisponibilidade antes de 10, entregar após liberação, corrigir manualmente/IA, conferir efeito, lançar somente no semestre escolhido e publicar; conferir Portal e PDF com os mesmos valores e feedback, sem usar alunos reais para ensaio.
+
+Atualização posterior: deploy e homologação real executados em 28/10, com aprovação do fluxo manual/Portal e achados de PDF/apresentação. Ver [relatório da sessão real](2026-10-28-homologacao-real-recuperacao-semestral.md). Os limites acima descrevem a revisão técnica original.
