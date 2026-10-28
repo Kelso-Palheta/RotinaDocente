@@ -14,7 +14,7 @@ import { gerarLoginAluno, gerarLoginKey, resolverLoginUnico } from '@/utils/diar
 import { criarTokenAtividade, chaveVinculoAtividade, decodeToken } from '@/utils/diario/tokenUtils';
 
 const limparAtividade = data => {
-  const { alunosPorTurma: _alunos, ...rest } = data;
+  const { alunosPorTurma: _alunos, conjuntoVersao: _versao, ...rest } = data;
   return JSON.parse(JSON.stringify(rest));
 };
 const dadosToken = (activityId, turmaId, aluno, anterior) => ({
@@ -55,7 +55,7 @@ async function gravarComTokens(id, data, alunosPorTurma, nova = false, extras = 
  * Recuperação não pode ser criada/editada fora do conjunto, com bimestre
  * falso, outra turma/semestre ou distribuição acima de 10 pontos.
  */
-async function prepararRecuperacao(data, id) {
+async function prepararRecuperacao(data, id, atividadeAnterior = null) {
   if (!ehAtividadeRecuperacao(data)) return [];
   const professorId = data.professorId;
   const turmaId = data.turmaIds?.[0];
@@ -75,6 +75,15 @@ async function prepararRecuperacao(data, id) {
     throw new Error('Atividade não pertence a este conjunto, turma ou semestre.');
   }
 
+  // A composição do conjunto é versionada. Uma tela antiga não pode gravar
+  // parcela sobre uma versão que o professor já alterou em outra aba.
+  if (data.conjuntoVersao != null && Number(data.conjuntoVersao) !== Number(conjunto.versao || 1)) {
+    throw Object.assign(
+      new Error('A composição da recuperação mudou. Reabra o conjunto e tente novamente.'),
+      { code: 'RECUPERACAO_CONJUNTO_OBSOLETO' },
+    );
+  }
+
   const destinatarios = Array.isArray(data.destinatariosIds) ? data.destinatariosIds : conjunto.destinatariosIds;
   if (!destinatarios?.length || destinatarios.some(alunoId => !conjunto.destinatariosIds.includes(alunoId))) {
     throw new Error('Destinatário fora do conjunto de recuperação.');
@@ -91,10 +100,38 @@ async function prepararRecuperacao(data, id) {
     substituirId: id,
   });
 
+  // Depois da primeira entrega a distribuição fica congelada: mudar escala ou
+  // retirar parcela invalidaria notas já conferidas e o snapshot da prévia.
+  const idsAtuais = [...new Set([...(conjunto.atividadeIds || []), id].map(String))].sort();
+  const idsNovos = [...new Set([...irmaos.map(atv => String(atv.id)), String(id)])].sort();
+  const escalaMudou = Boolean(atividadeAnterior)
+    && Number(atividadeAnterior.notaMaxima) !== Number(data.notaMaxima);
+  const escalasAnteriores = conjunto.escalas && typeof conjunto.escalas === 'object' ? conjunto.escalas : null;
+  const irmaosMudaram = Boolean(escalasAnteriores)
+    && irmaos.some(atv => Number(atv.notaMaxima) !== Number(escalasAnteriores[atv.id]));
+  const composicaoMudou = idsAtuais.join('|') !== idsNovos.join('|') || escalaMudou || irmaosMudaram;
+
+  if (composicaoMudou && id) {
+    const idsConferidos = [...new Set([...irmaos.map(atv => atv.id), id])];
+    for (const atividadeId of idsConferidos) {
+      const entregas = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', atividadeId)));
+      if (entregas.docs.length) {
+        throw new Error('A recuperação já possui entregas. A composição e a escala ficam congeladas; crie outro conjunto para mudar a distribuição.');
+      }
+    }
+  }
+
+  const escalas = {
+    ...(escalasAnteriores || {}),
+    ...Object.fromEntries(irmaos.map(atv => [atv.id, Number(atv.notaMaxima)])),
+    [id]: Number(data.notaMaxima),
+  };
+
   return [{
     ref: conjuntoRef,
     data: {
       atividadeIds: [...new Set([...irmaos.map(atv => atv.id), id])],
+      escalas,
       estado: composicao.completo ? 'pronto' : 'rascunho',
       versao: Number(conjunto.versao || 1) + 1,
       atualizadoEm: serverTimestamp(),
@@ -136,7 +173,7 @@ export async function updateAtividade(id, data) {
     if (temNotas) throw new Error('A atividade já tem notas no Diário. A estrutura e o bimestre foram preservados.');
   }
   const consolidada = { ...anterior, ...data, professorId: anterior.professorId };
-  const extras = await prepararRecuperacao(consolidada, id);
+  const extras = await prepararRecuperacao(consolidada, id, anterior);
   await gravarComTokens(id, consolidada, data.alunosPorTurma, false, extras);
 }
 /** Arquivar conserva entregas, devolutivas, acessos e notas históricas. */

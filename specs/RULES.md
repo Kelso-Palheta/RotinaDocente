@@ -575,7 +575,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Portal atualiza apenas seções sem falha, mantém versões anteriores com aviso e trata falha de tokens. Resultados atrasados de outra sessão não são aplicados.
 - Avisos de correção sem imagem/truncada aparecem também em entregas legadas, inclusive após reabrir a correção.
 
-## RN-81 — Atividades de recuperação semestral (implementado; revisão independente pendente)
+## RN-81 — Atividades de recuperação semestral (correções da revisão aplicadas; publicação retida)
 - Decisão do usuário em 27/10/2026: a recuperação pode conter uma ou várias atividades; a nota total é de 0 a 10. As notas são somadas, sem média automática ou multiplicação pela quantidade de atividades. Exemplo: atividades valendo 4 e 6, com notas 3 e 5, resultam em recuperação 8.
 - Cada conjunto identifica professor, turma por ID, ano letivo (incluindo legado explícito), semestre 1 ou 2 e alunos destinatários por ID. Os destinatários são escolhidos pelo professor; nomes e ordem alfabética não definem vínculo. Cada aluno tem um único conjunto vigente por turma/ano/semestre; histórico não é apagado.
 - A distribuição de pontos deve totalizar 10 para finalizar o conjunto. Rascunho pode estar incompleto; valores inválidos ou soma acima de 10 são recusados, sem truncar ou normalizar silenciosamente. Todos os destinatários recebem a distribuição completa; adaptações individuais podem usar conjuntos distintos, mantendo o total 10 para cada aluno.
@@ -592,3 +592,13 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Lançamento usa `RecuperacaoRepository` transacional: revalida revisão do Diário, conjunto, versão, composição e entregas; prévia desatualizada gera `RECUPERACAO_PREVIA_OBSOLETA` e Diário divergente gera `DIARIO_CONFLITO`.
 - Idempotência por `chaveLancamentoRecuperacao({conjuntoId, versao, alunoId, semestre, totalCentesimos})`. Proveniência fica em `turmas[].recuperacaoLancamentos[alunoId].rec1|rec2`, nunca dentro dos números de `recuperacao`.
 - Limitação declarada: fórmula existente, sincronização e backup foram cobertos por testes novos; homologação visual 390/1440 px, leitor de tela, exportação real de PDF e publicação no Portal continuam pendentes de conferência.
+
+### Correções de 27/10/2026 após revisão independente
+- O ano letivo do conjunto é derivado da turma (`anoLetivoDaTurma`) e a tela não aceita ano digitado; turma sem ano exige `legado` explícito, nunca o ano do relógio. Conjunto de ano diferente da turma é recusado na prévia, na sessão e no lançamento.
+- A prévia carrega snapshot integral por aluno (parcelas, status, nota revisada/final, pendências, composição canônica e destinatários). O repositório recusa gravar quando qualquer um desses elementos mudou, com `RECUPERACAO_PREVIA_OBSOLETA`.
+- Conjuntos são criados, editados e cancelados em transação com locks determinísticos por turma/ano/semestre/aluno, versão incremental e conferência de versão na edição. Conjuntos legados sem lock são verificados antes da transação (risco residual declarado).
+- Composição, escala e destinatários ficam congelados depois da primeira entrega, inclusive no caminho de gravação (`firebase-atividades`), que confere a versão do conjunto e grava `escalas`.
+- Histórico de lançamentos é cumulativo (`recuperacaoLancamentos[alunoId].rec1|rec2.historico`); repetição idêntica é ignorada sem apagar histórico, e nota manual divergente só é substituída com confirmação explícita.
+- A versão adaptada pode ser publicada diretamente como parcela de um conjunto de recuperação, com conjunto, semestre, ano, pontos e destinatário derivados do contexto; a distribuição das questões soma exatamente os pontos da parcela.
+- Portal, devolutivas e PDF usam `rotuloPeriodo`, exibindo semestre para recuperação e bimestre para atividade regular, sem “undefinedº bimestre”.
+- Pendências: concorrência real em sessão autenticada, Analytics, PDF real, homologação visual/teclado/leitor de tela e publicação funcional no Portal.

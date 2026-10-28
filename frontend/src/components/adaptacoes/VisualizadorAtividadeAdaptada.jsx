@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BookOpen,
   Printer,
@@ -38,6 +38,7 @@ import { aguardarImagens } from "@/aplicacao/adaptacoes/arquivoVisual";
 import { normalizarRespostaGeracao } from "@/dominio/adaptacoes/RespostaGeracaoAdaptada";
 import { converterAdaptadaParaAtividadeOnline } from "@/dominio/adaptacoes/publicadorAtividadeOnline";
 import { createAtividade, createTokensForAtividade } from "@/lib/firebase-atividades";
+import { listConjuntosRecuperacao, listarAtividadesDoConjunto } from "@/lib/firebase-recuperacao";
 import { useOptionalAuth } from "@/lib/auth-context";
 import { useAIConfig } from "@/hooks/useAIConfig";
 
@@ -91,6 +92,49 @@ export function VisualizadorAtividadeAdaptada({
   const [publicandoOnline, setPublicandoOnline] = useState(false);
   const [publicadoOnlineSucesso, setPublicadoOnlineSucesso] = useState(false);
   const [erroPublicacao, setErroPublicacao] = useState("");
+
+  // Recuperação semestral: publicar a versão adaptada como parcela do conjunto.
+  const [modoPublicacao, setModoPublicacao] = useState("regular");
+  const [conjuntosRecuperacao, setConjuntosRecuperacao] = useState([]);
+  const [conjuntoPublicacaoId, setConjuntoPublicacaoId] = useState("");
+  const [pontosPublicacao, setPontosPublicacao] = useState("");
+  const [conjuntosConsultados, setConjuntosConsultados] = useState(false);
+  const [erroConjuntos, setErroConjuntos] = useState("");
+
+  useEffect(() => {
+    if (modoPublicacao !== "recuperacao" || !user?.uid || !turmaPublicacaoId) return undefined;
+    let ativo = true;
+    const conta = user.uid;
+    const turma = turmaPublicacaoId;
+    (async () => {
+      try {
+        const lista = await listConjuntosRecuperacao(conta, { turmaId: turma });
+        const comSaldo = [];
+        for (const conjunto of lista) {
+          const atividades = await listarAtividadesDoConjunto(conta, conjunto.id);
+          const distribuido = atividades.reduce((soma, atividade) => soma + Number(atividade.notaMaxima || 0), 0);
+          comSaldo.push({ ...conjunto, restante: Math.round((10 - distribuido) * 100) / 100 });
+        }
+        if (!ativo) return;
+        setConjuntosRecuperacao(comSaldo);
+        const primeiro = comSaldo.find(conjunto => conjunto.restante > 0);
+        setConjuntoPublicacaoId(primeiro?.id || "");
+        setPontosPublicacao(primeiro ? String(primeiro.restante).replace('.', ',') : "");
+        setConjuntosConsultados(true);
+      } catch (error) {
+        if (ativo) {
+          setErroConjuntos(error.message);
+          setConjuntosConsultados(true);
+        }
+      }
+    })();
+    return () => { ativo = false; };
+  }, [modoPublicacao, user?.uid, turmaPublicacaoId]);
+
+  const conjuntoSelecionado = useMemo(
+    () => conjuntosRecuperacao.find(conjunto => conjunto.id === conjuntoPublicacaoId) || null,
+    [conjuntosRecuperacao, conjuntoPublicacaoId],
+  );
 
   if (!resultado) return null;
   const preparar = valor => { const v = normalizarRespostaGeracao(valor); return {...v, versaoVisual:2, atividadeAdaptada:{...v.atividadeAdaptada, questoes:v.atividadeAdaptada.questoes.map((q,i)=>({...q,id:q.id||`visual_q_${q.numero||i+1}`}))}}; };
@@ -162,6 +206,28 @@ export function VisualizadorAtividadeAdaptada({
     if(pendencias.length){setErroPublicacao(pendencias.join(' '));return;}
     const tId=turmaDestino.id, alId=destinatario.id;
 
+    let recuperacao = null;
+    if (modoPublicacao === "recuperacao") {
+      if (!conjuntoSelecionado) { setErroPublicacao("Selecione o conjunto de recuperação semestral."); return; }
+      if (!conjuntoSelecionado.destinatariosIds.includes(alId)) {
+        setErroPublicacao("Este estudante não é destinatário do conjunto selecionado.");
+        return;
+      }
+      const pontos = Number(String(pontosPublicacao).replace(',', '.'));
+      if (!Number.isFinite(pontos) || pontos <= 0) { setErroPublicacao("Informe os pontos desta atividade na recuperação."); return; }
+      if (Math.round(pontos * 100) > Math.round(conjuntoSelecionado.restante * 100)) {
+        setErroPublicacao(`Restam ${conjuntoSelecionado.restante.toFixed(2).replace('.', ',')} pontos no conjunto.`);
+        return;
+      }
+      recuperacao = {
+        conjuntoId: conjuntoSelecionado.id,
+        conjuntoVersao: conjuntoSelecionado.versao,
+        semestre: conjuntoSelecionado.semestre,
+        anoLetivo: conjuntoSelecionado.anoLetivo,
+        pontosMaximos: pontos,
+      };
+    }
+
     setPublicandoOnline(true);
     setErroPublicacao("");
 
@@ -174,6 +240,7 @@ export function VisualizadorAtividadeAdaptada({
         professorId: user.uid,
         bimestre: bimestrePublicacao,
         prazoEntrega: new Date(`${prazoPublicacao}T23:59:59`).toISOString(),
+        recuperacao,
       });
 
       const atividadeId = await createAtividade(atividadeOnline);
@@ -797,7 +864,7 @@ export function VisualizadorAtividadeAdaptada({
                   {turmas && turmas.length > 0 ? (
                     <select
                       value={turmaPublicacaoId}
-                      onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");}}
+                      onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");setConjuntosRecuperacao([]);setConjuntoPublicacaoId("");setPontosPublicacao("");setConjuntosConsultados(false);setErroConjuntos("");}}
                       className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
                       required
                     >
@@ -812,7 +879,7 @@ export function VisualizadorAtividadeAdaptada({
                     <input
                       type="text"
                       value={turmaPublicacaoId}
-                      onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");}}
+                      onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");setConjuntosRecuperacao([]);setConjuntoPublicacaoId("");setPontosPublicacao("");setConjuntosConsultados(false);setErroConjuntos("");}}
                       placeholder="Identificador da turma (ex: 9A, Turma 1)"
                       className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
                       required
@@ -821,26 +888,104 @@ export function VisualizadorAtividadeAdaptada({
                 </div>
 
                 <label className="block font-bold">Estudante do Diário<select required value={alunoPublicacaoId} onChange={e=>setAlunoPublicacaoId(e.target.value)} className="block w-full border rounded-xl p-2 mt-1"><option value="">Selecione o estudante…</option>{(turmas.find(t=>t.id===turmaPublicacaoId)?.alunos||[]).map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select></label>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label className="font-bold text-slate-700 block">
-                      Bimestre:
+
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block">Finalidade:</label>
+                  <select
+                    aria-label="Finalidade da publicação"
+                    value={modoPublicacao}
+                    onChange={(e) => {
+                      const novo = e.target.value;
+                      setModoPublicacao(novo);
+                      setConjuntosRecuperacao([]);
+                      setConjuntoPublicacaoId("");
+                      setPontosPublicacao("");
+                      setConjuntosConsultados(false);
+                      setErroConjuntos("");
+                    }}
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                  >
+                    <option value="regular">Atividade regular (bimestre)</option>
+                    <option value="recuperacao">Recuperação semestral</option>
+                  </select>
+                </div>
+
+                {modoPublicacao === "recuperacao" && (
+                  <div className="space-y-3 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                    {erroConjuntos && <p role="alert" className="text-rose-700">{erroConjuntos}</p>}
+                    {!conjuntosConsultados && <p className="text-amber-800">Carregando conjuntos...</p>}
+                    {conjuntosConsultados && !conjuntosRecuperacao.length && (
+                      <p className="text-amber-800">Nenhum conjunto de recuperação nesta turma. Crie um em Atividades › Recuperação semestral.</p>
+                    )}
+                    <label className="block font-bold text-amber-900">Conjunto
+                      <select
+                        aria-label="Conjunto de recuperação"
+                        value={conjuntoPublicacaoId}
+                        onChange={(e) => {
+                          const conjunto = conjuntosRecuperacao.find(c => c.id === e.target.value);
+                          setConjuntoPublicacaoId(e.target.value);
+                          setPontosPublicacao(conjunto ? String(conjunto.restante).replace('.', ',') : "");
+                        }}
+                        className="block w-full border border-amber-200 rounded-xl p-2 mt-1 bg-white"
+                      >
+                        <option value="">Selecione o conjunto…</option>
+                        {conjuntosRecuperacao.map(conjunto => (
+                          <option key={conjunto.id} value={conjunto.id} disabled={conjunto.restante <= 0}>
+                            {conjunto.semestre}º semestre · {conjunto.anoLetivo} · restam {conjunto.restante.toFixed(2).replace('.', ',')}
+                          </option>
+                        ))}
+                      </select>
                     </label>
-                    <select
-                      value={bimestrePublicacao}
-                      onChange={(e) => setBimestrePublicacao(Number(e.target.value))}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
-                    >
-                      <option value={1}>1º Bimestre</option>
-                      <option value={2}>2º Bimestre</option>
-                      <option value={3}>3º Bimestre</option>
-                      <option value={4}>4º Bimestre</option>
-                    </select>
+                    <label className="block font-bold text-amber-900">Pontos desta atividade
+                      <input
+                        aria-label="Pontos desta atividade na recuperação"
+                        value={pontosPublicacao}
+                        onChange={(e) => setPontosPublicacao(e.target.value)}
+                        inputMode="decimal"
+                        className="block w-full border border-amber-200 rounded-xl p-2 mt-1 bg-white"
+                      />
+                    </label>
+                    <p className="text-[11px] text-amber-800">
+                      A distribuição das questões será proporcional aos pontos informados e somará exatamente essa parcela. Lançar a nota continua sendo uma ação separada em Recuperação semestral.
+                    </p>
                   </div>
+                )}
+
+                {modoPublicacao === "regular" && (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-700 block">
+                        Bimestre:
+                      </label>
+                      <select
+                        value={bimestrePublicacao}
+                        onChange={(e) => setBimestrePublicacao(Number(e.target.value))}
+                        className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                      >
+                        <option value={1}>1º Bimestre</option>
+                        <option value={2}>2º Bimestre</option>
+                        <option value={3}>3º Bimestre</option>
+                        <option value={4}>4º Bimestre</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="font-bold text-slate-700 block">
+                        Prazo de Entrega:
+                      </label>
+                      <input
+                        type="date"
+                        value={prazoPublicacao}
+                        onChange={(e) => setPrazoPublicacao(e.target.value)}
+                        className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {modoPublicacao === "recuperacao" && (
                   <div className="space-y-1">
-                    <label className="font-bold text-slate-700 block">
-                      Prazo de Entrega:
-                    </label>
+                    <label className="font-bold text-slate-700 block">Prazo de Entrega:</label>
                     <input
                       type="date"
                       value={prazoPublicacao}
@@ -849,7 +994,7 @@ export function VisualizadorAtividadeAdaptada({
                       required
                     />
                   </div>
-                </div>
+                )}
 
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
                   <button

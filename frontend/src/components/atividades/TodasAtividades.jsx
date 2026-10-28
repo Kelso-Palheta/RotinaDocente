@@ -5,6 +5,7 @@ import { AtividadePainel } from './AtividadePainel';
 import { AtividadeForm } from './AtividadeForm';
 import { atividadeNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
 import { ehAtividadeRecuperacao } from '@/dominio/atividades/recuperacaoSemestral';
+import { rotuloPeriodo } from '@/dominio/atividades/correcaoManual';
 
 const StatusBadge = ({ status }) => {
   const map = {
@@ -191,7 +192,7 @@ export const TodasAtividades = ({
                       <h4 className="font-semibold text-slate-800 text-sm truncate">{atv.titulo}</h4>
                       <StatusBadge status={encerrada ? 'encerrada' : atv.status || 'ativa'} />
                       <span className="text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
-                        {atv.bimestre}º bimestre
+                        {rotuloPeriodo(atv)}
                       </span>
                     </div>
                     <p className="text-xs text-slate-500 mt-1">

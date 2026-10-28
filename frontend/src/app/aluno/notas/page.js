@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
 import { DevolutivasAluno } from '@/components/aluno/DevolutivasAluno';
-import { montarHistoricoFeedback } from '@/dominio/atividades/correcaoManual';
+import { montarHistoricoFeedback, rotuloPeriodo } from '@/dominio/atividades/correcaoManual';
 import { BimestreCard } from '@/components/aluno/BimestreCard';
 import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
 import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
@@ -37,7 +37,7 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1 flex-wrap">
           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${cls}`}>{label}</span>
-          <span className="text-[10px] text-[#6070a0] font-semibold">{atividade.bimestre}º Bimestre</span>
+          <span className="text-[10px] text-[#6070a0] font-semibold">{rotuloPeriodo(atividade)}</span>
           {atividade.tipoAtividade === 'adaptada' && (
             <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-purple-50 text-purple-700 border border-purple-200">
               ✨ Acessível DUA

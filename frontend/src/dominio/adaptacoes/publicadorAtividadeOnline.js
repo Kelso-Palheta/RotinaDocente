@@ -69,6 +69,7 @@ export function converterAdaptadaParaAtividadeOnline({
   professorId,
   bimestre = 1,
   prazoEntrega,
+  recuperacao = null,
 }) {
   if (!adaptacao || typeof adaptacao !== 'object') {
     throw new Error('A adaptação é obrigatória para conversão online.');
@@ -86,6 +87,27 @@ export function converterAdaptadaParaAtividadeOnline({
     throw new Error('O ID do professor é obrigatório.');
   }
 
+  // Recuperação semestral: a atividade adaptada é uma parcela do conjunto,
+  // não uma atividade de bimestre. Sem contexto íntegro, nada é publicado.
+  let contextoRecuperacao = null;
+  if (recuperacao) {
+    const conjuntoId = typeof recuperacao.conjuntoId === 'string' ? recuperacao.conjuntoId.trim() : '';
+    const semestre = String(recuperacao.semestre ?? '').trim();
+    const pontos = Number(recuperacao.pontosMaximos);
+    if (!conjuntoId) throw new Error('Conjunto de recuperação obrigatório.');
+    if (!['1', '2'].includes(semestre)) throw new Error('Semestre da recuperação inválido.');
+    if (!Number.isFinite(pontos) || pontos <= 0 || pontos > 10) {
+      throw new Error('A parcela da recuperação deve valer mais que zero e até 10 pontos.');
+    }
+    contextoRecuperacao = {
+      conjuntoId,
+      semestre,
+      pontosCentesimos: Math.round(pontos * 100),
+      conjuntoVersao: recuperacao.conjuntoVersao ?? null,
+      anoLetivo: recuperacao.anoLetivo ?? null,
+    };
+  }
+
   const questoesBrutas =
     adaptacao.atividadeAdaptada?.questoes ||
     adaptacao.questoes ||
@@ -97,6 +119,13 @@ export function converterAdaptadaParaAtividadeOnline({
   }
   const qtdQuestoes = questoesBrutas.length || 1;
   const notaPorQuestao = Math.round((10 / qtdQuestoes) * 100) / 100;
+  // Recuperação distribui a parcela inteira em centésimos, sem sobra.
+  const baseRecuperacao = contextoRecuperacao
+    ? Math.floor(contextoRecuperacao.pontosCentesimos / qtdQuestoes)
+    : 0;
+  const restoRecuperacao = contextoRecuperacao
+    ? contextoRecuperacao.pontosCentesimos % qtdQuestoes
+    : 0;
 
   const questoesConvertidas = questoesBrutas.map((q, idx) => {
     const numero = Number(q.numero) || idx + 1;
@@ -116,12 +145,16 @@ export function converterAdaptadaParaAtividadeOnline({
       });
     }
 
+    const notaQuestao = contextoRecuperacao
+      ? (baseRecuperacao + (idx < restoRecuperacao ? 1 : 0)) / 100
+      : Number(q.notaMaxima) || (adaptacao.versaoVisual===2 ? (Math.floor(1000/qtdQuestoes)+(idx<1000%qtdQuestoes?1:0))/100 : notaPorQuestao);
+
     return {
       id: `q_${numero}`,
       numero,
       enunciado: q.enunciado || '',
       tipo,
-      notaMaxima: Number(q.notaMaxima) || (adaptacao.versaoVisual===2 ? (Math.floor(1000/qtdQuestoes)+(idx<1000%qtdQuestoes?1:0))/100 : notaPorQuestao),
+      notaMaxima: notaQuestao,
       alternativas,
       apoioVisualDescricao: q.apoioVisualDescricao || '',
       imagens,
@@ -130,15 +163,22 @@ export function converterAdaptadaParaAtividadeOnline({
     };
   });
 
-  if(adaptacao.versaoVisual===2 && questoesConvertidas.reduce((s,q)=>s+Math.round(q.notaMaxima*100),0)!==1000)throw new Error('A soma das questões deve ser exatamente 10 pontos.');
+  if (adaptacao.versaoVisual === 2) {
+    const soma = questoesConvertidas.reduce((s, q) => s + Math.round(q.notaMaxima * 100), 0);
+    if (contextoRecuperacao && soma !== contextoRecuperacao.pontosCentesimos) {
+      throw new Error('A soma das questões deve ser exatamente o valor da parcela da recuperação.');
+    }
+    if (!contextoRecuperacao && soma !== 1000) {
+      throw new Error('A soma das questões deve ser exatamente 10 pontos.');
+    }
+  }
   const prazoPadrao = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
-  return {
+  const comum = {
     titulo: adaptacao.titulo || 'Atividade Adaptada',
     descricao: adaptacao.atividadeAdaptada?.instrucoesAluno || 'Atividade adaptada de acordo com as diretrizes DUA.',
     disciplina: adaptacao.disciplina || 'Geral',
     anoEscolar: adaptacao.anoEscolar || '',
-    bimestre: Number(bimestre) || 1,
     turmaIds: [turmaId],
     professorId,
     tipoAtividade: 'adaptada',
@@ -146,8 +186,26 @@ export function converterAdaptadaParaAtividadeOnline({
     alunoNome: adaptacao.aluno?.nome || '',
     necessidades: adaptacao.aluno?.necessidades || [],
     questoes: questoesConvertidas,
-    notaMaxima: 10,
     dataEntrega: prazoEntrega || prazoPadrao,
+  };
+
+  if (contextoRecuperacao) {
+    return {
+      ...comum,
+      finalidade: 'recuperacao_semestral',
+      conjuntoRecuperacaoId: contextoRecuperacao.conjuntoId,
+      conjuntoVersao: contextoRecuperacao.conjuntoVersao,
+      semestre: contextoRecuperacao.semestre,
+      anoLetivo: contextoRecuperacao.anoLetivo,
+      destinatariosIds: [alunoId],
+      notaMaxima: contextoRecuperacao.pontosCentesimos / 100,
+    };
+  }
+
+  return {
+    ...comum,
+    bimestre: Number(bimestre) || 1,
+    notaMaxima: 10,
   };
 }
 

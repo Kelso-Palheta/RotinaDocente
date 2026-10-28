@@ -5,7 +5,7 @@ export function DevolutivasAluno({ historico = [] }) {
       <h2 className="text-sm font-extrabold text-[#101942]">Devolutivas das atividades</h2>
       {historico.map((atividade, index) => (
         <details key={`${atividade.atividadeId}-${index}`} className="bg-white border border-[#dce0f0] rounded-2xl p-4 text-sm text-[#101942]">
-          <summary className="cursor-pointer font-bold">{atividade.titulo} · {atividade.bimestre}º bimestre</summary>
+          <summary className="cursor-pointer font-bold">{atividade.titulo} · {atividade.periodo || (atividade.finalidade === 'recuperacao_semestral' ? `${atividade.semestre}º semestre` : `${atividade.bimestre}º bimestre`)}</summary>
           {atividade.feedback && <p className="mt-3 whitespace-pre-wrap">{atividade.feedback}</p>}
           {atividade.resposta && <p className="mt-2 whitespace-pre-wrap">Sua resposta: {atividade.resposta}</p>}
           {(atividade.questoes || []).map(questao => (

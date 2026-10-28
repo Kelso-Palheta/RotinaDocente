@@ -9,6 +9,7 @@ import { EntregaDrawer } from './EntregaDrawer';
 import { SimilaridadePainel } from './SimilaridadePainel';
 import { textoComparavel } from '@/dominio/atividades/similaridadeRespostas';
 import { ehAtividadeRecuperacao } from '@/dominio/atividades/recuperacaoSemestral';
+import { rotuloPeriodo } from '@/dominio/atividades/correcaoManual';
 import { UrlCopyPanel } from './UrlCopyPanel';
 import { AtividadeForm } from './AtividadeForm';
 import { db } from '@/lib/firebase';
@@ -320,7 +321,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
         </div>
       )}
       {mostrarSimilaridade && <SimilaridadePainel grupos={gruposSimilaridadeExibicao} onAbrir={abrirEntregaDoGrupo} onFechar={() => setMostrarSimilaridade(false)} />}
-      {previaSync && <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center p-4"><section role="dialog" aria-modal="true" aria-label="Conferir sincronização" className="bg-white rounded-xl p-6 max-w-lg w-full"><h3 className="font-bold">Conferir notas antes de enviar</h3><p className="text-sm my-2">{atividade.titulo} · {atividade.bimestre}º bimestre · {currentTurmaId ? `Turma ${turmas.find(t => t.id === currentTurmaId)?.nome || currentTurmaId}` : 'Turmas vinculadas'}</p><ul className="max-h-52 overflow-auto text-sm">{entregas.filter(e => ['corrigido','revisado'].includes(e.status)).map(e => <li key={e.id}>{alunosInfo[chaveAluno(e.turmaId, e.alunoId)]?.nome || e.alunoId}: {e.notaRevisada ?? e.notaFinal ?? 'Sem nota'}</li>)}</ul><p className="text-xs my-3">Envia somente esta atividade ao Diário. Para disponibilizar notas no Portal, confira e publique pelo Diário.</p><div className="flex gap-3 justify-end"><button disabled={sincronizando} onClick={() => setPreviaSync(false)}>Cancelar</button><button disabled={sincronizando} onClick={confirmarSync} className="btn-brand-primary px-3 py-2">{sincronizando ? 'Sincronizando…' : 'Confirmar sincronização'}</button></div></section></div>}
+      {previaSync && <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center p-4"><section role="dialog" aria-modal="true" aria-label="Conferir sincronização" className="bg-white rounded-xl p-6 max-w-lg w-full"><h3 className="font-bold">Conferir notas antes de enviar</h3><p className="text-sm my-2">{atividade.titulo} · {rotuloPeriodo(atividade)} · {currentTurmaId ? `Turma ${turmas.find(t => t.id === currentTurmaId)?.nome || currentTurmaId}` : 'Turmas vinculadas'}</p><ul className="max-h-52 overflow-auto text-sm">{entregas.filter(e => ['corrigido','revisado'].includes(e.status)).map(e => <li key={e.id}>{alunosInfo[chaveAluno(e.turmaId, e.alunoId)]?.nome || e.alunoId}: {e.notaRevisada ?? e.notaFinal ?? 'Sem nota'}</li>)}</ul><p className="text-xs my-3">Envia somente esta atividade ao Diário. Para disponibilizar notas no Portal, confira e publique pelo Diário.</p><div className="flex gap-3 justify-end"><button disabled={sincronizando} onClick={() => setPreviaSync(false)}>Cancelar</button><button disabled={sincronizando} onClick={confirmarSync} className="btn-brand-primary px-3 py-2">{sincronizando ? 'Sincronizando…' : 'Confirmar sincronização'}</button></div></section></div>}
       {/* Filtros */}
       <div className="flex gap-2 mb-4 flex-wrap">
         {['todos', 'entregue', 'corrigido', 'erro_correcao', 'revisado'].map((s) => (

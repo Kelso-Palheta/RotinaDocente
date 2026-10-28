@@ -299,3 +299,17 @@ Evidência de 27/10/2026 (não substitui revisão independente):
 Total da RN-81: **58 testes novos**; suíte completa de 27/10/2026: **960 testes em 206 arquivos** aprovados; lint do escopo sem erros (2 avisos preexistentes de `<img>` em `AtividadeForm.jsx`); build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`.
 
 Pendências reais: troca de conta/contexto durante promessa e recarga após sucesso (R81-05); Analytics e exportação PDF (R81-06); homologação visual 390/1440 px, teclado, foco e leitor de tela (R81-07); publicação no Portal e devolutiva em relatório exportado (R81-08). Nenhuma pendência acima foi marcada como aprovada.
+
+### Revisão independente de `7e7b3d0` — 27/10/2026
+
+A execução repetiu os **960 testes/206 arquivos aprovados**, porém os sete testes novos `REV-R81-01..07` reproduziram falhas de ano, snapshot de parcelas, idempotência após edição manual, validação de semestre/destinatários, abertura de correção e estado local ao trocar conta. Os aceites R81-03/04 não estão integralmente atendidos apesar das marcações da entrega inicial. Detalhes e limites da reprodução: `docs/analises/2026-10-27-revisao-recuperacao-semestral.md`.
+
+Novos arquivos: `tests/integration/recuperacao_semestral_revisao.test.js` (5 falhas) e `tests/unit/components/atividades/RecuperacaoSemestralRevisao.test.jsx` (2 falhas). Código de produção e testes preexistentes preservados. Lint de produção: 0 erros e 2 avisos. Build da revisão: exit 1 na resolução de fontes Google/Turbopack; causa não atribuída à implementação. Não liberar publicação antes das correções e nova validação.
+
+#### Correções da revisão — 27/10/2026
+
+- Os sete testes da revisão passaram sem alteração: `recuperacao_semestral_revisao.test.js` (5) e `RecuperacaoSemestralRevisao.test.jsx` (2).
+- Novos testes: `tests/integration/recuperacao_semestral_correcoes.test.js` (7, REV-R81-08..14) cobrem ano derivado/legado, ano divergente, composição canônica, destinatários, escala, histórico cumulativo e repetição idempotente; `tests/unit/recuperacao_adaptada_periodo.test.js` (5, REV-R81-15/16) cobre recuperação adaptada no Portal e rótulo de período em devolutivas; `tests/integration/recuperacao_conjuntos_seguros.test.js` (5, REV-R81-17..20) cobre criação/edição transacional, locks de unicidade e versão concorrente.
+- Evidência final desta rodada: **984 testes em 211 arquivos** aprovados; lint dos arquivos alterados sem erros (2 avisos preexistentes de `<img>` em `AtividadeForm.jsx`); build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma fonte Google ou configuração de build foi alterada.
+- Riscos residuais declarados: a unicidade de conjuntos legados sem lock é conferida antes da transação (a transação garante apenas locks novos); a composição em `firebase-atividades` usa re-leitura de versão + bloqueio após entregas, não `runTransaction`, porque o mock de `atividades_ciclo_seguro.test.js` não suporta a assinatura; entregas antigas sem `turmaId`/contexto são tratadas como legado.
+- Continua pendente e não aprovado: R81-05 (homologação de concorrência real e recarga em sessão autenticada), R81-06 (Analytics e PDF real), R81-07 (390/1440 px, teclado, foco e leitor de tela) e R81-08 (publicação funcional no Portal). Nova revisão independente é necessária antes de liberar.

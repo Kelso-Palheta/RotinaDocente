@@ -1,58 +1,174 @@
-import { calcularRecuperacaoAluno } from '@/dominio/atividades/recuperacaoSemestral';
+import {
+  anoLetivoDaTurma,
+  calcularRecuperacaoAluno,
+  validarComposicao,
+  validarConjunto,
+} from '@/dominio/atividades/recuperacaoSemestral';
 
-/** 1º semestre usa rec1; 2º semestre usa rec2. */
+/** 1º semestre usa rec1; 2º semestre usa rec2. Semestre inválido é recusado. */
 export function campoDoSemestre(semestre) {
-  return String(semestre) === '2' ? 'rec2' : 'rec1';
+  const valor = String(semestre ?? '').trim();
+  if (!['1', '2'].includes(valor)) {
+    throw new Error('Semestre da recuperação deve ser 1 ou 2.');
+  }
+  return valor === '2' ? 'rec2' : 'rec1';
 }
 
 export function chaveLancamentoRecuperacao({ conjuntoId, versao, alunoId, semestre, totalCentesimos }) {
   return [conjuntoId, versao, alunoId, String(semestre), totalCentesimos].join(':');
 }
 
+const centesimosDaNota = nota => (
+  typeof nota === 'number' && Number.isFinite(nota) ? Math.round(nota * 100) : null
+);
+
+/**
+ * Impressão digital do que o professor conferiu. Alteração de parcela,
+ * máximo, entrega, status ou nota invalida a prévia mesmo quando o total
+ * final continua igual.
+ */
+function snapshotAluno(resultado) {
+  return JSON.stringify({
+    alunoId: resultado.alunoId,
+    totalCentesimos: resultado.totalCentesimos,
+    completo: resultado.completo,
+    pendencias: resultado.pendencias.map(parcela => `${parcela.atividadeId}:${parcela.motivo}`),
+    parcelas: resultado.parcelas.map(parcela => ({
+      atividadeId: parcela.atividadeId,
+      centesimos: parcela.centesimos,
+      status: parcela.status ?? null,
+      notaRevisada: parcela.notaRevisada ?? null,
+      notaFinal: parcela.notaFinal ?? null,
+    })),
+  });
+}
+
 /**
  * Prévia pura: não grava nada. Mostra o total por aluno, pendências, nota
  * atual e se a gravação substituiria uma recuperação manual diferente.
+ * A prévia carrega um snapshot integral para que o repositório recuse
+ * qualquer mudança relevante desde a conferência.
  */
 export function prepararLancamentoRecuperacao({ turmas = [], conjunto, atividades = [], entregas = [], destinatarios } = {}) {
   if (!conjunto?.id) throw new Error('Conjunto de recuperação inválido.');
-  const semestre = String(conjunto.semestre);
+  const normalizado = validarConjunto(conjunto);
+  const semestre = normalizado.semestre;
   const campo = campoDoSemestre(semestre);
-  const turma = turmas.find(t => t.id === conjunto.turmaId);
+
+  const turma = turmas.find(t => t.id === normalizado.turmaId);
   if (!turma) throw new Error('Turma do conjunto de recuperação não encontrada.');
 
-  const parcelas = atividades.map(atividade => ({ atividadeId: atividade.id, maximo: atividade.notaMaxima }));
+  const anoDaTurma = anoLetivoDaTurma(turma);
+  if (anoDaTurma != null && String(normalizado.anoLetivo) !== String(anoDaTurma)) {
+    throw new Error('O conjunto de recuperação pertence a outro ano letivo da turma.');
+  }
+
   const alunosDaTurma = new Map((turma.alunos || []).map(aluno => [aluno.id, aluno]));
-  const ids = (destinatarios || conjunto.destinatariosIds || []).filter(id => alunosDaTurma.has(id));
+
+  const vistos = new Set();
+  for (const atividade of atividades) {
+    const id = typeof atividade?.id === 'string' ? atividade.id.trim() : '';
+    if (!id) throw new Error('Atividade da recuperação sem identificação.');
+    if (vistos.has(id)) throw new Error(`Atividade repetida no conjunto de recuperação: ${id}.`);
+    vistos.add(id);
+    if (atividade.conjuntoRecuperacaoId != null && atividade.conjuntoRecuperacaoId !== normalizado.id) {
+      throw new Error('Atividade pertence a outro conjunto de recuperação.');
+    }
+    if (atividade.semestre != null && String(atividade.semestre) !== semestre) {
+      throw new Error('Atividade pertence a outro semestre.');
+    }
+    if (Array.isArray(atividade.turmaIds) && !atividade.turmaIds.includes(normalizado.turmaId)) {
+      throw new Error('Atividade pertence a outra turma.');
+    }
+  }
+
+  const idsCanonicos = (normalizado.atividadeIds || []).map(id => String(id));
+  if (idsCanonicos.length) {
+    const canonica = [...new Set(idsCanonicos)].sort().join('|');
+    const informada = [...vistos].sort().join('|');
+    if (canonica !== informada) {
+      throw new Error('A composição do conjunto mudou. Gere a prévia novamente.');
+    }
+  }
+
+  const parcelas = atividades.map(atividade => ({ atividadeId: atividade.id, maximo: atividade.notaMaxima }));
+  const composicao = validarComposicao(parcelas);
+  if (!composicao.completo) {
+    throw new Error('A distribuição da recuperação deve somar exatamente 10 pontos.');
+  }
+
+  const idsSolicitados = destinatarios === undefined ? normalizado.destinatariosIds : destinatarios;
+  if (!Array.isArray(idsSolicitados) || !idsSolicitados.length) {
+    throw new Error('Selecione ao menos um aluno para lançar a recuperação.');
+  }
+  const ids = [];
+  for (const bruto of idsSolicitados) {
+    const alunoId = typeof bruto === 'string' ? bruto.trim() : '';
+    if (!alunoId) throw new Error('Destinatário inválido: informe o aluno por ID.');
+    if (!normalizado.destinatariosIds.includes(alunoId)) {
+      throw new Error('Destinatário fora do conjunto de recuperação.');
+    }
+    if (!alunosDaTurma.has(alunoId)) {
+      throw new Error('Destinatário não pertence à turma do conjunto de recuperação.');
+    }
+    if (!ids.includes(alunoId)) ids.push(alunoId);
+  }
+
+  const contexto = {
+    conjuntoId: normalizado.id,
+    turmaId: normalizado.turmaId,
+    anoLetivo: normalizado.anoLetivo,
+    semestre,
+    versao: normalizado.versao,
+  };
 
   const alunos = ids.map(alunoId => {
-    const resultado = calcularRecuperacaoAluno({ alunoId, parcelas, entregas });
+    const resultado = calcularRecuperacaoAluno({
+      alunoId,
+      parcelas,
+      entregas,
+      contexto,
+    });
     const atual = turma.recuperacao?.[alunoId]?.[campo];
     const notaAtual = typeof atual === 'number' && Number.isFinite(atual) ? atual : null;
     const anterior = turma.recuperacaoLancamentos?.[alunoId]?.[campo] || null;
     const chave = chaveLancamentoRecuperacao({
-      conjuntoId: conjunto.id,
-      versao: conjunto.versao || 1,
+      conjuntoId: normalizado.id,
+      versao: normalizado.versao,
       alunoId,
       semestre,
       totalCentesimos: resultado.totalCentesimos,
     });
+    const notaAtualCentesimos = centesimosDaNota(notaAtual);
     return {
       ...resultado,
       nome: alunosDaTurma.get(alunoId)?.nome || '',
       notaAtual,
       anterior,
       chave,
-      substitui: notaAtual != null && Math.abs(Math.round(notaAtual * 100) - resultado.totalCentesimos) > 0,
-      repetido: anterior?.chave === chave,
+      substitui: notaAtual != null && notaAtualCentesimos !== resultado.totalCentesimos,
+      // Repetição só existe quando o lançamento anterior ainda corresponde ao
+      // valor atual. Ajuste manual divergente volta a exigir decisão docente.
+      repetido: anterior?.chave === chave && notaAtualCentesimos === resultado.totalCentesimos,
+      snapshot: snapshotAluno(resultado),
     };
   });
 
   return {
-    conjuntoId: conjunto.id,
-    turmaId: conjunto.turmaId,
+    conjuntoId: normalizado.id,
+    turmaId: normalizado.turmaId,
+    contexto,
+    snapshot: JSON.stringify({
+      contexto,
+      composicao: composicao.parcelas.map(parcela => ({
+        atividadeId: parcela.atividadeId,
+        centesimos: parcela.centesimos,
+      })),
+      destinatarios: [...ids].sort(),
+    }),
     semestre,
     campo,
-    versao: Number(conjunto.versao || 1),
+    versao: normalizado.versao,
     alunos,
     completos: alunos.filter(aluno => aluno.completo).length,
     pendentes: alunos.filter(aluno => !aluno.completo).length,
@@ -64,6 +180,7 @@ export function prepararLancamentoRecuperacao({ turmas = [], conjunto, atividade
  * Aplica a prévia sobre uma cópia das turmas. Nunca toca bimestres, outros
  * alunos ou outros campos; substituição exige confirmação explícita e o
  * mesmo lançamento já gravado é tratado como repetição idempotente.
+ * O histórico de lançamentos é cumulativo, sem sobrescrever eventos.
  */
 export function aplicarLancamentoRecuperacao({
   turmas = [],
@@ -105,21 +222,30 @@ export function aplicarLancamentoRecuperacao({
         [previa.campo]: aluno.total,
       },
     };
+
+    const anterior = turma.recuperacaoLancamentos?.[aluno.alunoId]?.[previa.campo] || null;
+    const { historico: historicoAnterior, ...registroAnterior } = anterior || {};
+    const historico = [
+      ...(Array.isArray(historicoAnterior) ? historicoAnterior : []),
+      ...(anterior ? [registroAnterior] : []),
+    ];
+    const registro = {
+      conjuntoId: previa.conjuntoId,
+      versao: previa.versao,
+      semestre: previa.semestre,
+      chave: aluno.chave,
+      total: aluno.total,
+      parcelas: aluno.parcelas.map(parcela => ({ atividadeId: parcela.atividadeId, nota: parcela.nota })),
+      anterior: aluno.notaAtual,
+      em,
+      por,
+      ...(historico.length ? { historico } : {}),
+    };
     const lancamentos = {
       ...(turma.recuperacaoLancamentos || {}),
       [aluno.alunoId]: {
         ...(turma.recuperacaoLancamentos?.[aluno.alunoId] || {}),
-        [previa.campo]: {
-          conjuntoId: previa.conjuntoId,
-          versao: previa.versao,
-          semestre: previa.semestre,
-          chave: aluno.chave,
-          total: aluno.total,
-          parcelas: aluno.parcelas.map(parcela => ({ atividadeId: parcela.atividadeId, nota: parcela.nota })),
-          anterior: aluno.notaAtual,
-          em,
-          por,
-        },
+        [previa.campo]: registro,
       },
     };
     resultado[indice] = { ...turma, recuperacao, recuperacaoLancamentos: lancamentos };

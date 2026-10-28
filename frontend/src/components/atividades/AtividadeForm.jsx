@@ -228,6 +228,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
   const conjuntoId = initialData?.conjuntoRecuperacaoId || contextoInicial.conjuntoRecuperacaoId || null;
   const destinatariosIds = initialData?.destinatariosIds || contextoInicial.destinatariosIds || [];
   const anoLetivo = initialData?.anoLetivo || contextoInicial.anoLetivo || null;
+  const conjuntoVersao = initialData?.conjuntoVersao ?? contextoInicial.conjuntoVersao ?? null;
   const pontosRestantes = Number.isFinite(Number(contextoInicial.pontosRestantes))
     ? Number(contextoInicial.pontosRestantes)
     : 10;
@@ -477,6 +478,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
           ? {
               finalidade: 'recuperacao_semestral',
               conjuntoRecuperacaoId: conjuntoId,
+              conjuntoVersao,
               semestre: String(semestre),
               anoLetivo,
               destinatariosIds,

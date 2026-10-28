@@ -53,6 +53,18 @@ export class RecuperacaoRepository {
       }
       if (conjuntoAtual.estado === 'cancelado') throw previaObsoleta('O conjunto de recuperação foi cancelado.');
 
+      const idsCanonicos = Array.isArray(conjuntoAtual.atividadeIds)
+        ? conjuntoAtual.atividadeIds.map(id => String(id))
+        : [];
+      const idsInformados = atividades.map(atividade => String(atividade.id));
+      if (idsCanonicos.length) {
+        const canonica = [...new Set(idsCanonicos)].sort().join('|');
+        const informada = [...new Set(idsInformados)].sort().join('|');
+        if (canonica !== informada) {
+          throw previaObsoleta('A composição da recuperação mudou.');
+        }
+      }
+
       const atividadesAtuais = [];
       for (const atividade of atividades) {
         const snap = await tx.get(doc(db, 'atividades', atividade.id));
@@ -64,6 +76,9 @@ export class RecuperacaoRepository {
           || !atual.turmaIds?.includes(conjuntoAtual.turmaId)
           || atual.professorId !== this.userId) {
           throw previaObsoleta('Uma atividade saiu do conjunto de recuperação.');
+        }
+        if (Number(atual.notaMaxima) !== Number(atividade.notaMaxima)) {
+          throw previaObsoleta('A escala de uma atividade da recuperação mudou.');
         }
         atividadesAtuais.push(atual);
       }
@@ -82,16 +97,33 @@ export class RecuperacaoRepository {
         }
       }
 
-      const recalculada = prepararLancamentoRecuperacao({
-        turmas,
-        conjunto: conjuntoAtual,
-        atividades: atividadesAtuais,
-        entregas: entregasAtuais,
-      });
+      let recalculada;
+      try {
+        recalculada = prepararLancamentoRecuperacao({
+          turmas,
+          conjunto: conjuntoAtual,
+          atividades: atividadesAtuais,
+          entregas: entregasAtuais,
+        });
+      } catch (error) {
+        throw previaObsoleta(error.message);
+      }
+
+      if (recalculada.snapshot !== previa.snapshot) {
+        throw previaObsoleta('A composição ou os destinatários da recuperação mudaram.');
+      }
+      const idsRecalculados = recalculada.alunos.map(item => item.alunoId);
+      const idsConferidos = (previa.alunos || []).map(item => item.alunoId);
+      if (idsRecalculados.length !== idsConferidos.length
+        || idsRecalculados.some((id, indice) => id !== idsConferidos[indice])) {
+        throw previaObsoleta('Os alunos conferidos não são os mesmos do conjunto.');
+      }
 
       for (const aluno of previa.alunos || []) {
         const atual = recalculada.alunos.find(item => item.alunoId === aluno.alunoId);
-        if (!atual || atual.chave !== aluno.chave) throw previaObsoleta();
+        if (!atual || atual.chave !== aluno.chave || atual.snapshot !== aluno.snapshot) {
+          throw previaObsoleta();
+        }
       }
 
       const plano = aplicarLancamentoRecuperacao({

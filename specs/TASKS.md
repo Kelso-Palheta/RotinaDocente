@@ -96,11 +96,14 @@
 - [x] Verificação final: 902 testes/198 arquivos, lint sem alertas e build de produção aprovados. Publicação autorizada após validação.
 
 ## 27/10/2026 — Recuperação semestral (RN-81)
+- [x] Corrigir achados de `docs/analises/2026-10-27-revisao-recuperacao-semestral.md`: ano derivado/legado, snapshot integral da prévia, concorrência por locks e versão, composição congelada após entregas, histórico cumulativo, validação de destinatários/escala, abertura da correção e estado limpo na troca de conta.
+- [x] Integrar atividade adaptada como parcela do conjunto (conjunto/semestre/ano/pontos) e usar rótulo de semestre no Portal, nas devolutivas e no PDF.
+- [x] Novos testes sem alterar os existentes: `recuperacao_semestral_correcoes.test.js` (7), `recuperacao_adaptada_periodo.test.js` (5) e `recuperacao_conjuntos_seguros.test.js` (5). Os 7 testes da revisão passam sem edição.
+- [ ] Revisão independente dos novos diffs antes de liberar a publicação funcional.
 - [x] Confirmar regra: uma ou várias atividades, soma total de 0 a 10; sem média automática.
 - [x] Especificar isolamento, lançamento revisável em rec1/rec2 e preservação da fórmula 25/25/50.
 - [x] Preparar plano e prompt delimitado para DeepSeek/OpenCode em `docs/plans/2026-10-27-recuperacao-semestral.md`.
 - [x] Implementar domínio, criação/entrega/correção, lançamento versionado e backup com testes novos; cobertura parcial de R81-01..08.
-- [ ] Revisar independentemente autorização, versão concorrente, dados legados e notas antes de liberar.
 - [ ] Homologar visualmente 390/1440 px, teclado/foco/leitor de tela e exportação real de PDF individual.
 - [ ] Publicar a implementação aprovada e marcar a funcionalidade como concluída.
-- Evidência de 27/10/2026: **960 testes em 206 arquivos** aprovados, incluindo 58 novos da RN-81; lint do escopo sem erros (permanecem 2 avisos preexistentes de `<img>` em `AtividadeForm.jsx`); build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhum dado real foi gravado e a publicação funcional continua pendente de revisão independente.
+- Evidência de 27/10/2026 (correções): **984 testes em 211 arquivos** aprovados; lint dos arquivos alterados sem erros (permanecem 2 avisos preexistentes de `<img>` em `AtividadeForm.jsx`); build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma fonte Google ou configuração de build foi alterada. Riscos residuais: locks legados sem atomicidade total, composição em `firebase-atividades` por re-leitura de versão (sem `runTransaction` por limitação do mock existente) e entregas antigas sem contexto tratadas como legado.

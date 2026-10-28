@@ -32,7 +32,12 @@ export function paraCentesimos(valor) {
   if (!Number.isFinite(numero) || numero < 0) {
     throw new Error('Valor inválido: informe um número de pontos finito e não negativo.');
   }
-  return Math.round(numero * 100);
+  const centesimos = numero * 100;
+  // Arredondar esconderia 10,001 como 10,00. A escala é de centésimos exatos.
+  if (Math.abs(centesimos - Math.round(centesimos)) > 1e-6) {
+    throw new Error('Valor inválido: use no máximo duas casas decimais de pontos.');
+  }
+  return Math.round(centesimos);
 }
 
 /**
@@ -93,10 +98,21 @@ const notaDaEntrega = entrega => {  // Revisão inválida não pode cair silenci
 };
 
 /**
+ * Ano letivo canônico da turma. `null` significa turma legada: o conjunto
+ * precisa declarar isso explicitamente e nunca herdar o ano do relógio.
+ */
+export function anoLetivoDaTurma(turma = {}) {
+  const ano = Number(turma?.anoLetivo ?? turma?.ano);
+  return Number.isInteger(ano) && ano >= 1900 && ano <= 2200 ? ano : null;
+}
+
+/**
  * Calcula a nota de recuperação de um aluno somando as parcelas corrigidas.
  * Ausência de entrega ou de correção vira pendência — nunca zero inventado.
+ * Quando o contexto é informado, entrega de outra turma/conjunto/semestre
+ * não é aceita como se fosse deste conjunto.
  */
-export function calcularRecuperacaoAluno({ alunoId, parcelas = [], entregas = [] } = {}) {
+export function calcularRecuperacaoAluno({ alunoId, parcelas = [], entregas = [], contexto } = {}) {
   if (!alunoId) throw new Error('Aluno da recuperação não informado.');
   const composicao = validarComposicao(parcelas);
   const pendencias = [];
@@ -104,9 +120,26 @@ export function calcularRecuperacaoAluno({ alunoId, parcelas = [], entregas = []
   let totalCentesimos = 0;
 
   for (const parcela of composicao.parcelas) {
-    const candidatas = (entregas || []).filter(
+    const doAluno = (entregas || []).filter(
       entrega => entrega?.activityId === parcela.atividadeId && entrega?.alunoId === alunoId
     );
+
+    if (contexto) {
+      const foraDoContexto = doAluno.find(entrega => {
+        const turmaDiferente = contexto.turmaId != null && entrega?.turmaId != null && entrega.turmaId !== contexto.turmaId;
+        const conjuntoDiferente = contexto.conjuntoId != null && entrega?.conjuntoRecuperacaoId != null
+          && entrega.conjuntoRecuperacaoId !== contexto.conjuntoId;
+        const semestreDiferente = contexto.semestre != null && entrega?.semestre != null
+          && String(entrega.semestre) !== String(contexto.semestre);
+        return turmaDiferente || conjuntoDiferente || semestreDiferente;
+      });
+      if (foraDoContexto) {
+        pendencias.push({ atividadeId: parcela.atividadeId, motivo: 'entrega_fora_do_contexto' });
+        continue;
+      }
+    }
+
+    const candidatas = doAluno;
 
     if (!candidatas.length) {
       pendencias.push({ atividadeId: parcela.atividadeId, motivo: 'sem_entrega' });
@@ -142,6 +175,9 @@ export function calcularRecuperacaoAluno({ alunoId, parcelas = [], entregas = []
       entregaId: entrega.id ?? null,
       centesimos,
       nota: centesimos / 100,
+      status: entrega.status,
+      notaRevisada: entrega.notaRevisada ?? null,
+      notaFinal: entrega.notaFinal ?? null,
     });
   }
 
@@ -169,6 +205,12 @@ export function validarConjunto(conjunto = {}) {
   const professorId = exigirTexto(conjunto.professorId, 'Professor responsável pelo conjunto é obrigatório.');
   const turmaId = exigirTexto(conjunto.turmaId, 'Turma do conjunto de recuperação é obrigatória.');
   const anoLetivo = exigirTexto(conjunto.anoLetivo, 'Ano letivo explícito é obrigatório no conjunto de recuperação.');
+  if (anoLetivo !== 'legado') {
+    const ano = Number(anoLetivo);
+    if (!Number.isInteger(ano) || ano < 1900 || ano > 2200) {
+      throw new Error('Ano letivo do conjunto deve ser um ano válido ou "legado" para turmas sem ano.');
+    }
+  }
 
   const semestreBruto = conjunto.semestre;
   const semestre = String(semestreBruto ?? '').trim();

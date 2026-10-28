@@ -38,7 +38,7 @@ export function adicionarHistoricoFeedbackPDF(doc, historico = []) {
   const nota = (obtida, maxima) => `${obtida ?? '—'} / ${maxima ?? '—'}`;
   for (const atividade of historico) {
     if (y > height - 45) novaPagina();
-    escrever(`${atividade.bimestre}º bimestre • ${atividade.titulo}`, true);
+    escrever(`${atividade.periodo || (atividade.finalidade === 'recuperacao_semestral' ? `${atividade.semestre}º semestre` : `${atividade.bimestre}º bimestre`)} • ${atividade.titulo}`, true);
     escrever(`Nota: ${nota(atividade.nota, atividade.notaMaxima)} • Correção: ${atividade.tipoCorrecao === 'manual' ? 'manual' : 'IA'}`);
     if (atividade.feedback) escrever(`Feedback da atividade: ${atividade.feedback}`);
     if (atividade.resposta) escrever(`Resposta: ${atividade.resposta}`);

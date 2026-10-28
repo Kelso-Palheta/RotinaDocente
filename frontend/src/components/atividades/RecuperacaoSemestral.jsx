@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   listConjuntosRecuperacao,
   getConjuntoRecuperacao,
@@ -13,16 +13,42 @@ import { RecuperacaoRepository } from '@/infraestrutura/diario/RecuperacaoReposi
 import { DiarioRepository } from '@/infraestrutura/diario/DiarioRepository';
 import { AtividadeForm } from './AtividadeForm';
 import { AtividadePainel } from './AtividadePainel';
+import { anoLetivoDaTurma } from '@/dominio/atividades/recuperacaoSemestral';
+import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
+import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 
 const pontos = valor => Number(valor || 0).toFixed(2).replace('.', ',');
 const somarMaximos = atividades => atividades.reduce((soma, atividade) => soma + Number(atividade.notaMaxima || 0), 0);
 
-const anoAtual = () => String(new Date().getFullYear());
+const MOTIVOS_PENDENCIA = {
+  sem_entrega: 'sem entrega',
+  nao_corrigida: 'aguardando correção',
+  nota_invalida: 'nota inválida',
+  nota_acima_do_maximo: 'nota acima do máximo da atividade',
+  entrega_duplicada: 'entregas duplicadas',
+  entrega_fora_do_contexto: 'entrega de outro contexto',
+};
+
+const rotuloPendencia = pendencia => MOTIVOS_PENDENCIA[pendencia.motivo] || pendencia.motivo;
+
+const conjuntosNoContexto = (lista, turmas, ano) => (lista || []).filter(conjunto => {
+  if (!conjunto?.turmaId) return false;
+  if (turmas?.length && !turmas.some(turma => turma.id === conjunto.turmaId)) return false;
+  if (!ano || String(ano) === 'todos') return true;
+  return String(conjunto.anoLetivo) === String(ano);
+});
+
+const anoInicialDaTurma = (turma, ano) => {
+  const canonico = turma ? anoLetivoDaTurma(turma) : null;
+  if (canonico != null) return String(canonico);
+  // Turma legada continua legada: nunca substituir pelo ano do relógio.
+  return ano && String(ano) !== 'todos' ? String(ano) : 'legado';
+};
 
 function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
   const turmasDisponiveis = turmas || [];
   const [turmaId, setTurmaId] = useState(turmasDisponiveis[0]?.id || '');
-  const [anoLetivo, setAnoLetivo] = useState(ano && ano !== 'legado' ? String(ano) : anoAtual());
+  const [anoLetivo, setAnoLetivo] = useState(() => anoInicialDaTurma(turmasDisponiveis[0], ano));
   const [semestre, setSemestre] = useState('1');
   const [destinatarios, setDestinatarios] = useState([]);
   const [salvando, setSalvando] = useState(false);
@@ -30,6 +56,13 @@ function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
   const turma = turmasDisponiveis.find(t => t.id === turmaId);
 
   const alternar = (alunoId) => setDestinatarios(prev => prev.includes(alunoId) ? prev.filter(id => id !== alunoId) : [...prev, alunoId]);
+
+  const trocarTurma = (novoId) => {
+    const novaTurma = turmasDisponiveis.find(t => t.id === novoId);
+    setTurmaId(novoId);
+    setAnoLetivo(anoInicialDaTurma(novaTurma, ano));
+    setDestinatarios([]);
+  };
 
   const enviar = async (evento) => {
     evento.preventDefault();
@@ -49,12 +82,12 @@ function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
       <h3 className="font-bold text-[#101942]">Novo conjunto de recuperação semestral</h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <label className="text-xs font-semibold text-[#101942]">Turma
-          <select aria-label="Turma da recuperação" value={turmaId} onChange={e => { setTurmaId(e.target.value); setDestinatarios([]); }} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
+          <select aria-label="Turma da recuperação" value={turmaId} onChange={e => trocarTurma(e.target.value)} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
             {turmasDisponiveis.map(t => <option key={t.id} value={t.id}>{t.nome}</option>)}
           </select>
         </label>
         <label className="text-xs font-semibold text-[#101942]">Ano letivo
-          <input aria-label="Ano letivo da recuperação" value={anoLetivo} onChange={e => setAnoLetivo(e.target.value)} inputMode="numeric" className="mt-1 w-full border rounded-lg p-2 text-sm font-normal" />
+          <input aria-label="Ano letivo da recuperação" value={anoLetivo} readOnly title="O ano é o da turma selecionada" className="mt-1 w-full border rounded-lg p-2 text-sm font-normal bg-slate-50 text-[#6070a0]" />
         </label>
         <label className="text-xs font-semibold text-[#101942]">Semestre
           <select aria-label="Semestre da recuperação" value={semestre} onChange={e => setSemestre(e.target.value)} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
@@ -91,6 +124,7 @@ function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
 
 export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook, aguardarSalvamento, recarregar }) {
   const uid = user?.uid;
+  const [contaCarregada, setContaCarregada] = useState(uid);
   const [conjuntos, setConjuntos] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
@@ -105,131 +139,196 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
   const [substituicoes, setSubstituicoes] = useState([]);
   const [ocupado, setOcupado] = useState(false);
 
+  const uidRef = useRef(uid);
+  const selecionadoRef = useRef(selecionadoId);
+
+  // Refs espelham o estado depois do commit; nunca são escritas no render.
+  useEffect(() => {
+    uidRef.current = uid;
+    selecionadoRef.current = selecionadoId;
+  }, [uid, selecionadoId]);
+
+  // Troca de conta limpa o estado já no render: nada da conta anterior
+  // permanece visível nem serve de base para uma operação nova.
+  if (contaCarregada !== uid) {
+    setContaCarregada(uid);
+    setConjuntos([]);
+    setDetalhe(null);
+    setPrevia(null);
+    setSelecionadoId('');
+    setAtividadeAberta(null);
+    setFormAtividade(null);
+    setSelecionados([]);
+    setSubstituicoes([]);
+    setCriando(false);
+    setErro('');
+    setMensagem('');
+    setOcupado(false);
+    setCarregando(Boolean(uid));
+  }
+
   const carregarConjuntos = useCallback(async () => {
     if (!uid) return;
-    setCarregando(true);
-    setErro('');
+    const conta = uid;
     try {
-      const lista = await listConjuntosRecuperacao(uid);
+      const lista = await listConjuntosRecuperacao(conta, {
+        anoLetivo: ano && String(ano) !== 'todos' ? String(ano) : undefined,
+      });
+      if (conta !== uidRef.current) return;
+      const filtrados = conjuntosNoContexto(lista, turmas, ano);
       setConjuntos(lista);
-      setSelecionadoId(prev => prev || lista[0]?.id || '');
+      setSelecionadoId(prev => (filtrados.some(conjunto => conjunto.id === prev) ? prev : (filtrados[0]?.id || '')));
     } catch (error) {
-      setErro(error.message);
+      if (conta === uidRef.current) setErro(error.message);
     } finally {
-      setCarregando(false);
+      if (conta === uidRef.current) setCarregando(false);
     }
-  }, [uid]);
+  }, [uid, turmas, ano]);
 
-  // Busca inicial por promessa: não dispara setState síncrono dentro do efeito.
   useEffect(() => {
     let ativo = true;
-    if (!uid) return undefined;
-    listConjuntosRecuperacao(uid)
-      .then(lista => {
-        if (!ativo) return;
-        setConjuntos(lista);
-        setSelecionadoId(prev => prev || lista[0]?.id || '');
-      })
-      .catch(error => { if (ativo) setErro(error.message); })
-      .finally(() => { if (ativo) setCarregando(false); });
+    // Adia para microtask: o carregamento sempre começa fora do render/efeito.
+    Promise.resolve().then(() => { if (ativo) return carregarConjuntos(); });
     return () => { ativo = false; };
-  }, [uid]);
+  }, [carregarConjuntos]);
 
   const carregarDetalhe = useCallback(async () => {
     if (!uid || !selecionadoId) { setDetalhe(null); return; }
+    const conta = uid;
+    const alvo = selecionadoId;
     try {
-      const conjunto = await getConjuntoRecuperacao(uid, selecionadoId);
-      const atividades = await listarAtividadesDoConjunto(uid, selecionadoId);
-      setDetalhe({ conjunto, atividades });
+      const conjunto = await getConjuntoRecuperacao(conta, alvo);
+      const atividades = await listarAtividadesDoConjunto(conta, alvo);
+      if (conta !== uidRef.current || alvo !== selecionadoRef.current) return;
+      if (conjunto) setDetalhe({ conjunto, atividades });
     } catch (error) {
-      setErro(error.message);
+      if (conta === uidRef.current && alvo === selecionadoRef.current) setErro(error.message);
     }
   }, [uid, selecionadoId]);
 
   useEffect(() => {
-    let ativo = true;
     if (!uid || !selecionadoId) return undefined;
+    let ativo = true;
+    const conta = uid;
+    const alvo = selecionadoId;
     Promise.all([
-      getConjuntoRecuperacao(uid, selecionadoId),
-      listarAtividadesDoConjunto(uid, selecionadoId),
+      getConjuntoRecuperacao(conta, alvo),
+      listarAtividadesDoConjunto(conta, alvo),
     ])
-      .then(([conjunto, atividades]) => { if (ativo) setDetalhe({ conjunto, atividades }); })
-      .catch(error => { if (ativo) setErro(error.message); });
+      .then(([conjunto, atividades]) => {
+        if (!ativo || conta !== uidRef.current || alvo !== selecionadoRef.current || !conjunto) return;
+        setDetalhe({ conjunto, atividades });
+      })
+      .catch(error => {
+        if (ativo && conta === uidRef.current && alvo === selecionadoRef.current) setErro(error.message);
+      });
     return () => { ativo = false; };
   }, [uid, selecionadoId]);
 
-  const turmaDoConjunto = detalhe ? (turmas.find(t => t.id === detalhe.conjunto.turmaId) || null) : null;
-  const totalDistribuido = detalhe ? somarMaximos(detalhe.atividades) : 0;
+  const detalheVisivel = detalhe?.conjunto
+    && detalhe.conjunto.id === selecionadoId
+    && (!ano || String(ano) === 'todos' || String(detalhe.conjunto.anoLetivo) === String(ano))
+    && (!turmas.length || turmas.some(turma => turma.id === detalhe.conjunto.turmaId))
+    ? detalhe
+    : null;
+
+  const previaVisivel = previa
+    && previa.contextoConta === uid
+    && previa.contextoAno === String(ano ?? '')
+    && previa.conjuntoId === selecionadoId
+    && detalheVisivel?.conjunto?.id === previa.conjuntoId
+    ? previa
+    : null;
+
+  const turmaDoConjunto = detalheVisivel?.conjunto
+    ? (turmas.find(t => t.id === detalheVisivel.conjunto.turmaId) || null)
+    : null;
+  const totalDistribuido = detalheVisivel ? somarMaximos(detalheVisivel.atividades) : 0;
   const restante = Math.round((10 - totalDistribuido) * 100) / 100;
 
   const criar = async (dados, alunos) => {
-    const conjunto = await criarConjuntoRecuperacao(user.uid, dados, alunos);
+    const conta = uid;
+    const conjunto = await criarConjuntoRecuperacao(uid, dados, alunos);
+    if (conta !== uidRef.current) return;
     setCriando(false);
     setMensagem('Conjunto criado. Distribua os 10 pontos entre as atividades.');
     await carregarConjuntos();
+    if (conta !== uidRef.current) return;
     setSelecionadoId(conjunto.id);
   };
 
   const contextoFormulario = (atividadeEdicao = null) => ({
     finalidade: 'recuperacao_semestral',
-    conjuntoRecuperacaoId: detalhe.conjunto.id,
-    semestre: detalhe.conjunto.semestre,
-    anoLetivo: detalhe.conjunto.anoLetivo,
-    turmaId: detalhe.conjunto.turmaId,
-    destinatariosIds: detalhe.conjunto.destinatariosIds,
+    conjuntoRecuperacaoId: detalheVisivel.conjunto.id,
+    conjuntoVersao: detalheVisivel.conjunto.versao,
+    semestre: detalheVisivel.conjunto.semestre,
+    anoLetivo: detalheVisivel.conjunto.anoLetivo,
+    turmaId: detalheVisivel.conjunto.turmaId,
+    destinatariosIds: detalheVisivel.conjunto.destinatariosIds,
     pontosRestantes: Math.round((restante + Number(atividadeEdicao?.notaMaxima || 0)) * 100) / 100,
   });
 
   const salvarAtividade = async (dados) => {
+    const conta = uid;
     await useAtividadesHook.createAtividade(dados);
+    if (conta !== uidRef.current) return;
     setFormAtividade(null);
     setMensagem('Atividade de recuperação criada. Envie o acesso aos alunos destinatários.');
     await carregarDetalhe();
   };
 
   const conferir = async () => {
+    if (!detalheVisivel?.conjunto || ocupado) return;
+    const conta = uid;
+    const conjuntoId = detalheVisivel.conjunto.id;
     setErro('');
     setMensagem('');
     setOcupado(true);
     try {
       await aguardarSalvamento?.();
-      const base = await new DiarioRepository(user.uid).carregar();
-      const atividades = await listarAtividadesDoConjunto(user.uid, detalhe.conjunto.id);
+      const base = await new DiarioRepository(conta).carregar();
+      const atividades = await listarAtividadesDoConjunto(conta, conjuntoId);
       const entregas = await listarEntregasDoConjunto(atividades.map(a => a.id));
-      const conjunto = await getConjuntoRecuperacao(user.uid, detalhe.conjunto.id);
+      const conjunto = await getConjuntoRecuperacao(conta, conjuntoId);
       const nova = prepararLancamentoRecuperacao({ turmas: base.turmas, conjunto, atividades, entregas });
+      if (conta !== uidRef.current || conjuntoId !== selecionadoRef.current) return;
       setDetalhe({ conjunto, atividades });
-      setPrevia({ ...nova, base, atividades });
+      setPrevia({ ...nova, base, atividades, contextoConta: conta, contextoAno: String(ano ?? '') });
       setSelecionados(nova.alunos.filter(a => a.completo).map(a => a.alunoId));
       setSubstituicoes([]);
     } catch (error) {
-      setErro(error.message);
+      if (conta === uidRef.current) setErro(error.message);
     } finally {
-      setOcupado(false);
+      if (conta === uidRef.current) setOcupado(false);
     }
   };
 
   const lancar = async () => {
-    if (!previa) return;
+    if (!previaVisivel || !detalheVisivel?.conjunto) return;
+    const conta = uid;
+    const previaAtual = previaVisivel;
     setErro('');
     setMensagem('');
     setOcupado(true);
     try {
-      const resultado = await new RecuperacaoRepository(user.uid).lancar({
-        base: previa.base,
-        conjunto: detalhe.conjunto,
-        atividades: previa.atividades,
-        previa,
+      const resultado = await new RecuperacaoRepository(conta).lancar({
+        base: previaAtual.base,
+        conjunto: detalheVisivel.conjunto,
+        atividades: previaAtual.atividades,
+        previa: previaAtual,
         selecionados,
         confirmarSubstituicao: substituicoes,
-        por: user.uid,
+        por: conta,
       });
+      if (conta !== uidRef.current) return;
       setPrevia(null);
       await recarregar?.();
       await carregarDetalhe();
+      if (conta !== uidRef.current) return;
       const repetidos = resultado.ignorados.filter(i => i.motivo === 'repetido').length;
       setMensagem(`Recuperação lançada para ${resultado.lancados.length} ${resultado.lancados.length === 1 ? 'aluno' : 'alunos'}.${repetidos ? ` ${repetidos} já estava(m) gravado(s) e foi(ram) preservado(s).` : ''} Publicar no Portal continua sendo uma ação separada.`);
     } catch (error) {
+      if (conta !== uidRef.current) return;
       if (error.code === 'RECUPERACAO_PREVIA_OBSOLETA') {
         setPrevia(null);
         setErro('A recuperação ou uma correção mudou depois da prévia. Gere a prévia novamente antes de lançar.');
@@ -237,14 +336,51 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
         setErro(error.message);
       }
     } finally {
-      setOcupado(false);
+      if (conta === uidRef.current) setOcupado(false);
     }
   };
 
   const alternarSelecionado = (alunoId) => setSelecionados(prev => prev.includes(alunoId) ? prev.filter(id => id !== alunoId) : [...prev, alunoId]);
   const alternarSubstituicao = (alunoId) => setSubstituicoes(prev => prev.includes(alunoId) ? prev.filter(id => id !== alunoId) : [...prev, alunoId]);
 
+  const trocarConjunto = (conjuntoId) => {
+    if (ocupado) return;
+    setSelecionadoId(conjuntoId);
+    setDetalhe(null);
+    setPrevia(null);
+    setSelecionados([]);
+    setSubstituicoes([]);
+    setAtividadeAberta(null);
+    setFormAtividade(null);
+  };
+
   const alunosPorId = useMemo(() => new Map((turmaDoConjunto?.alunos || []).map(aluno => [aluno.id, aluno])), [turmaDoConjunto]);
+
+  const efeitoPorAluno = useMemo(() => {
+    const mapa = new Map();
+    if (!previaVisivel || !turmaDoConjunto) return mapa;
+    const chave = previaVisivel.campo === 'rec1' ? 'S1' : 'S2';
+    for (const aluno of previaVisivel.alunos) {
+      try {
+        const antes = calcDesempenhoAnual(turmaDoConjunto, aluno.alunoId)[chave];
+        const depoisTurma = {
+          ...turmaDoConjunto,
+          recuperacao: {
+            ...(turmaDoConjunto.recuperacao || {}),
+            [aluno.alunoId]: {
+              ...(turmaDoConjunto.recuperacao?.[aluno.alunoId] || {}),
+              [previaVisivel.campo]: aluno.total,
+            },
+          },
+        };
+        const depois = calcDesempenhoAnual(depoisTurma, aluno.alunoId)[chave];
+        mapa.set(aluno.alunoId, { antes, depois });
+      } catch {
+        // Diário sem bimestres completos: a prévia ainda pode lançar a nota.
+      }
+    }
+    return mapa;
+  }, [previaVisivel, turmaDoConjunto]);
 
   if (atividadeAberta) {
     return (
@@ -254,7 +390,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
           atividade={atividadeAberta}
           user={user}
           turmas={turmaDoConjunto ? [turmaDoConjunto] : []}
-          currentTurmaId={detalhe?.conjunto.turmaId}
+          currentTurmaId={detalheVisivel?.conjunto.turmaId}
           useAtividadesHook={useAtividadesHook}
           sincronizacaoAutomatica={false}
           onBack={() => { setAtividadeAberta(null); carregarDetalhe(); }}
@@ -264,6 +400,8 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     );
   }
 
+  const conjuntosVisiveis = conjuntosNoContexto(conjuntos, turmas, ano);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -271,13 +409,13 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
           <h1 className="text-2xl font-bold text-[#101942]">Recuperação semestral</h1>
           <p className="text-sm text-[#6070a0]">Uma ou várias atividades somando 10 pontos. Corrigir, conferir, lançar e publicar são ações separadas.</p>
         </div>
-        <button type="button" onClick={() => setCriando(true)} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold">Novo conjunto</button>
+        <button type="button" onClick={() => setCriando(true)} disabled={ocupado} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-300">Novo conjunto</button>
       </div>
 
       {erro && <p role="alert" className="bg-red-50 text-red-800 rounded-xl p-3 text-sm">{erro}</p>}
       {mensagem && <p role="status" className="bg-emerald-50 text-emerald-900 rounded-xl p-3 text-sm">{mensagem}</p>}
       {carregando && <p className="text-sm text-[#6070a0]">Carregando conjuntos...</p>}
-      {!carregando && !conjuntos.length && !criando && <p className="bg-white border border-[#dce0f0] rounded-2xl p-5 text-sm text-[#6070a0]">Nenhum conjunto de recuperação. Crie um para distribuir os 10 pontos.</p>}
+      {!carregando && !conjuntosVisiveis.length && !criando && <p className="bg-white border border-[#dce0f0] rounded-2xl p-5 text-sm text-[#6070a0]">Nenhum conjunto de recuperação neste ano letivo. Crie um para distribuir os 10 pontos.</p>}
 
       {criando && (
         <CriacaoConjunto
@@ -288,14 +426,15 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
         />
       )}
 
-      {!!conjuntos.length && (
+      {!!conjuntosVisiveis.length && (
         <div className="flex flex-wrap gap-2">
-          {conjuntos.map(conjunto => (
+          {conjuntosVisiveis.map(conjunto => (
             <button
               key={conjunto.id}
               type="button"
-              onClick={() => setSelecionadoId(conjunto.id)}
-              className={`px-3 py-2 rounded-xl border text-xs font-semibold ${selecionadoId === conjunto.id ? 'bg-[#101942] text-white border-[#101942]' : 'bg-white text-[#101942] border-[#dce0f0]'}`}
+              onClick={() => trocarConjunto(conjunto.id)}
+              disabled={ocupado}
+              className={`px-3 py-2 rounded-xl border text-xs font-semibold disabled:opacity-60 ${selecionadoId === conjunto.id ? 'bg-[#101942] text-white border-[#101942]' : 'bg-white text-[#101942] border-[#dce0f0]'}`}
             >
               {turmas.find(t => t.id === conjunto.turmaId)?.nome || conjunto.turmaId} · {conjunto.semestre}º sem. · {conjunto.anoLetivo}
             </button>
@@ -303,15 +442,15 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
         </div>
       )}
 
-      {detalhe && (
+      {detalheVisivel && (
         <section className="bg-white border border-[#dce0f0] rounded-2xl p-5 space-y-4">
           <header className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h2 className="font-bold text-[#101942]">
-                {turmaDoConjunto?.nome || detalhe.conjunto.turmaId} · Recuperação do {detalhe.conjunto.semestre}º semestre
+                {turmaDoConjunto?.nome || detalheVisivel.conjunto.turmaId} · Recuperação do {detalheVisivel.conjunto.semestre}º semestre
               </h2>
               <p className="text-xs text-[#6070a0]">
-                {detalhe.conjunto.destinatariosIds.length} {detalhe.conjunto.destinatariosIds.length === 1 ? 'aluno destinatário' : 'alunos destinatários'} · ano {detalhe.conjunto.anoLetivo} · versão {detalhe.conjunto.versao}
+                {detalheVisivel.conjunto.destinatariosIds.length} {detalheVisivel.conjunto.destinatariosIds.length === 1 ? 'aluno destinatário' : 'alunos destinatários'} · ano {detalheVisivel.conjunto.anoLetivo} · versão {detalheVisivel.conjunto.versao}
               </p>
             </div>
             <div className="text-right text-xs">
@@ -323,68 +462,84 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
           </header>
 
           <div className="space-y-2">
-            {detalhe.atividades.map(atividade => (
+            {detalheVisivel.atividades.map(atividade => (
               <div key={atividade.id} className="flex flex-wrap items-center justify-between gap-2 border border-[#dce0f0] rounded-xl p-3">
                 <div>
                   <p className="text-sm font-semibold text-[#101942]">{atividade.titulo}</p>
                   <p className="text-xs text-[#6070a0]">Vale até {pontos(atividade.notaMaxima)} · entrega em {atividade.dataEntrega?.toDate?.().toLocaleString?.('pt-BR') || 'data não informada'} · {atividade.status}</p>
                 </div>
-                <button type="button" onClick={() => setAtividadeAberto(atividade)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#eef0f8] text-[#101942]">Corrigir</button>
+                <button type="button" onClick={() => setAtividadeAberta(atividade)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#eef0f8] text-[#101942]">Corrigir</button>
               </div>
             ))}
-            {!detalhe.atividades.length && <p className="text-sm text-[#6070a0]">Nenhuma atividade ainda. Distribua os 10 pontos criando a primeira.</p>}
+            {!detalheVisivel.atividades.length && <p className="text-sm text-[#6070a0]">Nenhuma atividade ainda. Distribua os 10 pontos criando a primeira.</p>}
           </div>
 
           {restante > 0 && (
             <button type="button" onClick={() => setFormAtividade({})} className="px-4 py-2 rounded-xl bg-[#101942] text-white text-sm font-semibold">
-              {detalhe.atividades.length ? `Adicionar atividade (até ${pontos(restante)} pontos)` : 'Criar primeira atividade'}
+              {detalheVisivel.atividades.length ? `Adicionar atividade (até ${pontos(restante)} pontos)` : 'Criar primeira atividade'}
             </button>
           )}
-          {restante === 0 && detalhe.estado !== 'pronto' && <p className="text-xs text-emerald-700">A distribuição está completa. O conjunto será marcado como pronto ao salvar a última atividade.</p>}
+          {restante === 0 && detalheVisivel.conjunto.estado !== 'pronto' && <p className="text-xs text-emerald-700">A distribuição está completa. O conjunto será marcado como pronto ao salvar a última atividade.</p>}
 
           <div className="border-t border-[#dce0f0] pt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={conferir} disabled={ocupado || restante > 0 || !detalhe.atividades.length} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-200">
+            <button type="button" onClick={conferir} disabled={ocupado || restante > 0 || !detalheVisivel.atividades.length} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-200">
               {ocupado ? 'Conferindo...' : 'Conferir recuperação'}
             </button>
-            <p className="text-xs text-[#6070a0] self-center">A prévia não grava nota. Só a confirmação lança em rec{detalhe.conjunto.semestre === '2' ? '2' : '1'}.</p>
+            <p className="text-xs text-[#6070a0] self-center">A prévia não grava nota. Só a confirmação lança em rec{detalheVisivel.conjunto.semestre === '2' ? '2' : '1'}.</p>
           </div>
 
-          {previa && (
+          {previaVisivel && (
             <div className="border border-amber-200 bg-amber-50 rounded-xl p-3 space-y-2">
-              <h3 className="text-sm font-bold text-amber-900">Prévia do lançamento em rec{detalhe.conjunto.semestre === '2' ? '2' : '1'}</h3>
-              <p className="text-xs text-amber-900">{previa.completos} completo(s), {previa.pendentes} pendente(s), {previa.substituicoes} substituição(ões) de nota manual.</p>
+              <h3 className="text-sm font-bold text-amber-900">Prévia do lançamento em rec{previaVisivel.campo === 'rec2' ? '2' : '1'}</h3>
+              <p className="text-xs text-amber-900">{previaVisivel.completos} completo(s), {previaVisivel.pendentes} pendente(s), {previaVisivel.substituicoes} substituição(ões) de nota manual.</p>
               <div className="overflow-auto">
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="text-left text-amber-900">
                       <th className="p-2">Lançar</th>
                       <th className="p-2">Aluno</th>
+                      <th className="p-2">Parcelas conferidas</th>
                       <th className="p-2">Total</th>
+                      <th className="p-2">Efeito no semestre</th>
                       <th className="p-2">Pendências</th>
                       <th className="p-2">Nota atual</th>
                       <th className="p-2">Substituir manual</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {previa.alunos.map(aluno => (
-                      <tr key={aluno.alunoId} className="border-t border-amber-200">
-                        <td className="p-2">
-                          <input type="checkbox" aria-label={`Lançar recuperação de ${aluno.nome || aluno.alunoId}`} disabled={!aluno.completo || aluno.repetido} checked={selecionados.includes(aluno.alunoId)} onChange={() => alternarSelecionado(aluno.alunoId)} />
-                        </td>
-                        <td className="p-2">{aluno.nome || alunosPorId.get(aluno.alunoId)?.nome || aluno.alunoId}</td>
-                        <td className="p-2 font-mono">{aluno.completo ? pontos(aluno.total) : '—'}</td>
-                        <td className="p-2">{aluno.completo ? (aluno.repetido ? 'já lançado' : '—') : aluno.pendencias.map(p => p.motivo).join(', ')}</td>
-                        <td className="p-2 font-mono">{aluno.notaAtual == null ? '—' : pontos(aluno.notaAtual)}</td>
-                        <td className="p-2">
-                          {aluno.substitui ? (
-                            <label className="flex items-center gap-1">
-                              <input type="checkbox" aria-label={`Substituir nota manual de ${aluno.nome || aluno.alunoId}`} checked={substituicoes.includes(aluno.alunoId)} onChange={() => alternarSubstituicao(aluno.alunoId)} />
-                              confirmar
-                            </label>
-                          ) : '—'}
-                        </td>
-                      </tr>
-                    ))}
+                    {previaVisivel.alunos.map(aluno => {
+                      const efeito = efeitoPorAluno.get(aluno.alunoId);
+                      const titulo = atividadeId => detalheVisivel.atividades.find(a => a.id === atividadeId)?.titulo || atividadeId;
+                      return (
+                        <tr key={aluno.alunoId} className="border-t border-amber-200 align-top">
+                          <td className="p-2">
+                            <input type="checkbox" aria-label={`Lançar recuperação de ${aluno.nome || aluno.alunoId}`} disabled={!aluno.completo || aluno.repetido} checked={selecionados.includes(aluno.alunoId)} onChange={() => alternarSelecionado(aluno.alunoId)} />
+                          </td>
+                          <td className="p-2">{aluno.nome || alunosPorId.get(aluno.alunoId)?.nome || aluno.alunoId}</td>
+                          <td className="p-2">
+                            {aluno.parcelas.length
+                              ? aluno.parcelas.map(parcela => `${titulo(parcela.atividadeId)}: ${pontos(parcela.nota)}`).join(' + ')
+                              : '—'}
+                          </td>
+                          <td className="p-2 font-mono">{aluno.completo ? pontos(aluno.total) : '—'}</td>
+                          <td className="p-2">
+                            {efeito
+                              ? `${fmt(efeito.antes?.total)} → ${fmt(efeito.depois?.total)} (${ROTULOS_APROVACAO[efeito.depois?.status] || 'situação a confirmar'})`
+                              : '—'}
+                          </td>
+                          <td className="p-2">{aluno.completo ? (aluno.repetido ? 'já lançado' : '—') : aluno.pendencias.map(rotuloPendencia).join(', ')}</td>
+                          <td className="p-2 font-mono">{aluno.notaAtual == null ? '—' : pontos(aluno.notaAtual)}</td>
+                          <td className="p-2">
+                            {aluno.substitui ? (
+                              <label className="flex items-center gap-1">
+                                <input type="checkbox" aria-label={`Substituir nota manual de ${aluno.nome || aluno.alunoId}`} checked={substituicoes.includes(aluno.alunoId)} onChange={() => alternarSubstituicao(aluno.alunoId)} />
+                                confirmar
+                              </label>
+                            ) : '—'}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -399,9 +554,9 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
         </section>
       )}
 
-      {formAtividade && detalhe && (
+      {formAtividade && detalheVisivel && (
         <AtividadeForm
-          turmas={turmaDoConjunto ? [turmaDoConjunto] : turmas.filter(t => t.id === detalhe.conjunto.turmaId)}
+          turmas={turmaDoConjunto ? [turmaDoConjunto] : turmas.filter(t => t.id === detalheVisivel.conjunto.turmaId)}
           onCreate={salvarAtividade}
           onClose={() => setFormAtividade(null)}
           contextoInicial={contextoFormulario()}

@@ -1,6 +1,21 @@
 const round2 = value => Math.round(value * 100) / 100;
 const texto = value => typeof value === 'string' ? value.trim() : '';
 
+/**
+ * Rótulo do período pedagógico de uma atividade. Recuperação não tem
+ * bimestre: expor "undefinedº bimestre" no boletim ou no PDF é um erro.
+ */
+export function rotuloPeriodo(atividade = {}) {
+  if (atividade.finalidade === 'recuperacao_semestral') {
+    const semestre = String(atividade.semestre ?? '').trim();
+    return ['1', '2'].includes(semestre) ? `${semestre}º semestre` : 'Recuperação semestral';
+  }
+  const bimestre = Number(atividade.bimestre);
+  return Number.isInteger(bimestre) && bimestre >= 1 && bimestre <= 4
+    ? `${bimestre}º bimestre`
+    : 'Período não informado';
+}
+
 function validarNota(value, max) {
   if (typeof value !== 'number' && (typeof value !== 'string' || !/^\d+(?:[.,]\d+)?$/.test(value.trim()))) throw new Error('Informe uma nota válida.');
   const n = typeof value === 'number' ? value : Number(value.trim().replace(',', '.'));
@@ -70,9 +85,17 @@ export function montarHistoricoFeedback({ atividades = [], entregas = [], alunoI
     }).filter(Boolean);
     return [{
       atividadeId: atividade.id, titulo: texto(atividade.titulo), bimestre: atividade.bimestre,
+      finalidade: atividade.finalidade === 'recuperacao_semestral' ? 'recuperacao_semestral' : 'regular',
+      semestre: atividade.finalidade === 'recuperacao_semestral' ? String(atividade.semestre ?? '') : null,
+      periodo: rotuloPeriodo(atividade),
       nota: entrega.notaRevisada ?? entrega.notaFinal ?? null, notaMaxima: atividade.notaMaxima ?? 10,
       tipoCorrecao: entrega.tipoCorrecao || (entrega.status === 'revisado' ? 'manual' : 'ia'),
       feedback: texto(entrega.feedbackGeral) || texto(entrega.feedback), resposta: texto(entrega.respostaTexto), questoes,
     }];
-  }).sort((a, b) => Number(a.bimestre) - Number(b.bimestre) || a.titulo.localeCompare(b.titulo, 'pt-BR'));
+  }).sort((a, b) => {
+    const chave = item => item.finalidade === 'recuperacao_semestral'
+      ? 10 + Number(item.semestre || 0)
+      : Number(item.bimestre) || 0;
+    return chave(a) - chave(b) || a.titulo.localeCompare(b.titulo, 'pt-BR');
+  });
 }
