@@ -342,3 +342,7 @@ Commit `67c6a1b`: **1.002 testes/215 arquivos aprovados**, build exit 0 e lint d
   - `tests/unit/components/atividades/RecuperacaoMontagem.test.jsx` (5): “Montagem: 4,00 de 10 pontos”, ausência de anúncio de disponibilidade, liberação somente com 10, mensagem após salvar parcela incompleta/completa e cancelamento com confirmação.
 - Evidência final desta rodada: **1018 testes em 219 arquivos** aprovados (`cd frontend && npm test`); lint do escopo de produção sem erros; build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma nota, fórmula, cobrança, imagem ou dado real foi alterado.
 - Riscos residuais: concorrência em Firestore real, homologação visual 390/1440 px, teclado/foco/leitor de tela, PDF real e publicação funcional no Portal continuam pendentes. A publicação permanece retida até nova revisão independente.
+
+### Validação independente final de `75f5dd6` — 28/10/2026
+
+Execução independente: **1.018 testes/219 arquivos aprovados**, lint de produção exit 0 (2 avisos preexistentes de imagem) e build exit 0. Reproduções anteriores passaram sem editar testes. Montagem 4+6, atividade única 10, recuperação adaptada e liberação/congelamento conferidos no código e nos testes. Revisão técnica dos bloqueios aprovada; homologação real/visual/PDF permanece pendente, sem declarar esses aceites concluídos. Relatório: `docs/analises/2026-10-28-revisao-final-recuperacao-semestral.md`. O código `75f5dd6` já estava no remoto ao início da revisão; deploy não foi confirmado.
