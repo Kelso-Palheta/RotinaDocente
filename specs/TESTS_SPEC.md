@@ -352,3 +352,15 @@ Execução independente: **1.018 testes/219 arquivos aprovados**, lint de produ�
 Deploy Vercel e fluxo real com dados sintéticos confirmados: montagem 4+6, entrega, correção manual 3+5=8, lançamento rec1, publicação parcial e feedback no Portal/PDF. S1 20→32, S2=25, anual 45→57; repetição idempotente (revisão 4→4), aluno pendente e turma de controle preservados. Dados temporários removidos. Portal conferido em 390/1440 px e foco por Tab; leitor de tela, IA real, estresse concorrente e Analytics manual não verificados.
 
 Homologação PDF/visual parcial: classificação bimestral divergente no boletim, sobreposição da turma na ficha, 100% de frequência sem registros, prazo ISO não interpretado no cartão e ações cortadas no professor em 390 px. Correções ainda pendentes; não marcar todos os aceites concluídos. Relatório, evidências e prompt DeepSeek: `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md`. Nenhum código/teste alterado nesta rodada; 1.018 testes/lint/build referem-se à revisão técnica anterior.
+
+## RN-82 — Cópia de recuperação (novos testes obrigatórios, ainda não executados)
+
+- [ ] R82-01: projeção pura por campos permitidos, deep clone de questões/apoio/imagens; metadados sentinela aninhados não vazam; gabarito mantém referência às alternativas. Origem integralmente imutável.
+- [ ] R82-02: nova atividade usa novo ID estável, contexto/destinatários do destino e prazo confirmado; edição original e criação normal preservadas. Abrir/cancelar modal não grava atividade.
+- [ ] R82-03: recusar conta alheia, mesma turma, destino cancelado/congelado/obsoleto, aluno fora do conjunto/turma, ano incompatível, conteúdo/figura não suportados. Testar boundary de persistência, não só UI.
+- [ ] R82-04: origem respondida continua intacta; salvar gera apenas atividade e tokens novos no destino. Tokens da origem não acessam a cópia e alunos da origem não recebem acesso por herança. Diário, entregas e boletins sem escrita.
+- [ ] R82-05: saldo insuficiente, duas cópias concorrentes e entrega concorrente no destino respeitam transação RN-81. 4/10 oculta, 4+6 libera, >10 recusado sem gravação parcial.
+- [ ] R82-06: falha/retry e duplo clique não duplicam ID, orçamento ou tokens; troca de conta/conjunto durante promessa ignora resultado atrasado; erro mantém conteúdo revisável.
+- [ ] R82-07: modal mostra origem/destino, novo prazo, saldo e aviso de liberação ao fechar 10; navegação teclado/foco e controles em 390/1440 px. Criar conjunto explicitamente e depois cancelar cópia não apaga conjunto.
+
+Arquivos novos sugeridos: `tests/unit/copiar_recuperacao.test.js`, `tests/integration/copiar_recuperacao.test.js`, `tests/unit/components/atividades/CopiarRecuperacao.test.jsx`. RED obrigatório antes de produção; testes anteriores intocáveis. Não declarar esses aceites concluídos pelo plano.

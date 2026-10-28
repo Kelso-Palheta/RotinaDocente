@@ -119,3 +119,10 @@
 Deploy Vercel e fluxo real com dados sintéticos confirmados: montagem 4+6, entrega, correção manual 3+5=8, lançamento rec1, publicação parcial e feedback no Portal/PDF. S1 20→32, S2=25, anual 45→57; repetição idempotente (revisão 4→4), aluno pendente e turma de controle preservados. Dados temporários removidos. Portal conferido em 390/1440 px e foco por Tab; leitor de tela, IA real, estresse concorrente e Analytics manual não verificados.
 
 Homologação PDF/visual parcial: classificação bimestral divergente no boletim, sobreposição da turma na ficha, 100% de frequência sem registros, prazo ISO não interpretado no cartão e ações cortadas no professor em 390 px. Correções ainda pendentes; não marcar todos os aceites concluídos. Relatório, evidências e prompt DeepSeek: `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md`. Nenhum código/teste alterado nesta rodada; 1.018 testes/lint/build referem-se à revisão técnica anterior.
+
+## 28/10/2026 — Copiar recuperação para outra turma (RN-82)
+- [x] Definir cópia individual revisável, isolamento e aceites R82-01..07; preparar plano/prompt DeepSeek.
+- [ ] DeepSeek: implementar projeção de conteúdo, escolha de destino e criação independente com testes novos RED→GREEN.
+- [ ] Revisão independente de contexto, tokens, persistência/concorrência; suíte/lint/build e homologação visual antes de publicação.
+- [ ] Não misturar com os cinco ajustes de PDF/apresentação da homologação RN-81, que continuam pendentes.
+Plano: `docs/plans/2026-10-28-copiar-recuperacao-outra-turma.md`. Nenhum código/teste alterado nesta especificação.
