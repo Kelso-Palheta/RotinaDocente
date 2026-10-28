@@ -28,6 +28,29 @@ export async function POST(request) {
       const anterior = await buscarEntregaAutorizada(db, atividade.id, alunoInfo, ler);
       if (anterior) throw erroAcesso(409, 'Entrega já registrada. A resposta e a correção anteriores foram preservadas.');
       const id = `${atividade.id}__${chaveVinculoAtividade(alunoInfo.turmaId, alunoInfo.alunoId)}`;
+      const conjuntoRef = recuperacao
+        ? db.doc(`professores/${atividade.professorId}/conjuntos_recuperacao/${atividade.conjuntoRecuperacaoId}`)
+        : null;
+      if (conjuntoRef) {
+        const conjuntoSnap = await ler(conjuntoRef);
+        if (conjuntoSnap.exists) {
+          const conjunto = conjuntoSnap.data();
+          if (conjunto.estado === 'cancelado') throw erroAcesso(409, 'Conjunto de recuperação cancelado. A entrega não foi registrada.');
+          if (Array.isArray(conjunto.destinatariosIds) && !conjunto.destinatariosIds.includes(alunoInfo.alunoId)) {
+            throw erroAcesso(403, 'Este aluno não é mais destinatário da recuperação.');
+          }
+          // O congelamento é gravado na mesma transação da entrega. A criação/
+          // edição de parcelas lê este documento na própria transação, então
+          // Firestore serializa as duas ordens e a edição nunca atravessa uma
+          // entrega já confirmada.
+          tx.set(conjuntoRef, {
+            congelado: true,
+            congeladoEm: FieldValue.serverTimestamp(),
+            congeladoPorAtividadeId: atividade.id,
+            atualizadoEm: FieldValue.serverTimestamp(),
+          }, { merge: true });
+        }
+      }
       const contexto = recuperacao
         ? { finalidade: FINALIDADE_RECUPERACAO, conjuntoRecuperacaoId: atividade.conjuntoRecuperacaoId, semestre: String(atividade.semestre) }
         : { bimestre: atividade.bimestre };

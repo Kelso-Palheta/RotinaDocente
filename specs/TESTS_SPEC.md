@@ -313,3 +313,18 @@ Novos arquivos: `tests/integration/recuperacao_semestral_revisao.test.js` (5 fal
 - Evidência final desta rodada: **984 testes em 211 arquivos** aprovados; lint dos arquivos alterados sem erros (2 avisos preexistentes de `<img>` em `AtividadeForm.jsx`); build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma fonte Google ou configuração de build foi alterada.
 - Riscos residuais declarados: a unicidade de conjuntos legados sem lock é conferida antes da transação (a transação garante apenas locks novos); a composição em `firebase-atividades` usa re-leitura de versão + bloqueio após entregas, não `runTransaction`, porque o mock de `atividades_ciclo_seguro.test.js` não suporta a assinatura; entregas antigas sem `turmaId`/contexto são tratadas como legado.
 - Continua pendente e não aprovado: R81-05 (homologação de concorrência real e recarga em sessão autenticada), R81-06 (Analytics e PDF real), R81-07 (390/1440 px, teclado, foco e leitor de tela) e R81-08 (publicação funcional no Portal). Nova revisão independente é necessária antes de liberar.
+
+### Segunda revisão independente — 28/10/2026
+
+Commit `51abb4f`: **984 testes/211 arquivos aprovados**, build de produção exit 0 e lint do escopo sem erros (2 avisos de imagem). Os sete testes da primeira revisão passaram. Porém, o arquivo novo `tests/integration/recuperacao_concorrencia_revisao.test.js` reproduziu **4 falhas** (`REV2-R81-01..04`): orçamento consumido concorrentemente, parcela nova após entrega, destinatários editados após entrega e cancelamento antigo removendo reserva de conjunto novo. Esses aceites de R81-05 continuam reprovados. Relatório/prompt: `docs/analises/2026-10-28-segunda-revisao-recuperacao-semestral.md`. Nenhum teste anterior ou código de produção foi alterado nesta revisão; não publicar antes de corrigir e validar novamente.
+
+#### Correções da segunda revisão — 28/10/2026
+
+- Os quatro testes de reprodução `REV2-R81-01..04` passaram **sem edição**: orçamento concorrente, parcela após entrega, destinatários após entrega e cancelamento que preserva a reserva do conjunto novo.
+- Novos testes, sem alterar os anteriores:
+  - `tests/integration/recuperacao_congelamento_ordem.test.js` (4): entrega antes da edição, edição antes da entrega, entrega injetada entre leitura e commit (retry otimista) e edição concorrente da mesma escala recusada por `RECUPERACAO_CONJUNTO_OBSOLETO`.
+  - `tests/integration/recuperacao_locks_contexto.test.js` (6): remoção de destinatário sem apagar lock alheio, mudança de contexto movendo reservas, contexto após entrega recusado, contexto com atividades recusado, lock alheio na chave antiga preservado e cancelamento após migração.
+  - `tests/integration/recuperacao_congelamento_entrega.test.js` (4): entrega marca `congelado` no conjunto na mesma transação, entrega regular não toca no conjunto, conjunto cancelado recusa entrega e aluno removido do conjunto não entrega.
+- A rota de entrega grava o marcador; a criação/edição transacional lê o mesmo documento. A consulta de entregas legadas fora da transação cobre apenas dados anteriores ao marcador; não é usada como única barreira.
+- Evidência final desta rodada: **1002 testes em 215 arquivos** aprovados (`cd frontend && npm test`); lint dos arquivos alterados com exit 0; build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma fonte Google, configuração de build, cobrança ou dado real foi alterado.
+- Riscos residuais: entregas gravadas por versões anteriores durante a janela de implantação dependem da consulta legada; concorrência em Firestore real, homologação visual 390/1440 px, teclado/foco/leitor de tela, PDF real e publicação funcional no Portal continuam pendentes. A publicação permanece retida até nova revisão independente.

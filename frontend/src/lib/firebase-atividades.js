@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore';
 import { gerarLoginAluno, gerarLoginKey, resolverLoginUnico } from '@/utils/diario/loginAluno';
 import { criarTokenAtividade, chaveVinculoAtividade, decodeToken } from '@/utils/diario/tokenUtils';
+import { conjuntoPossuiEntregas } from './firebase-recuperacao';
 
 const limparAtividade = data => {
   const { alunosPorTurma: _alunos, conjuntoVersao: _versao, ...rest } = data;
@@ -54,89 +55,161 @@ async function gravarComTokens(id, data, alunosPorTurma, nova = false, extras = 
 /**
  * Recuperação não pode ser criada/editada fora do conjunto, com bimestre
  * falso, outra turma/semestre ou distribuição acima de 10 pontos.
+ *
+ * Composição, escala e versão têm autoridade transacional. A lista persistida
+ * no conjunto é a fonte da composição; as atividades irmãs são lidas dentro
+ * da mesma transação para validar o orçamento. O congelamento é compartilhado
+ * com a entrega: a rota grava `congelado: true` no conjunto na transação de
+ * entrega e esta escrita lê o mesmo documento, então Firestore faz uma das
+ * ordens vencer e a outra repetir já vendo o marcador.
  */
-async function prepararRecuperacao(data, id, atividadeAnterior = null) {
-  if (!ehAtividadeRecuperacao(data)) return [];
-  const professorId = data.professorId;
-  const turmaId = data.turmaIds?.[0];
+const MENSAGEM_CONGELAMENTO = 'A recuperação já possui entregas. A composição e a escala ficam congeladas; crie outro conjunto para mudar a distribuição.';
+
+const erroConjuntoObsoleto = () => Object.assign(
+  new Error('A composição da recuperação mudou. Reabra o conjunto e tente novamente.'),
+  { code: 'RECUPERACAO_CONJUNTO_OBSOLETO' },
+);
+
+function validarCabecalhoRecuperacao(data) {
   if (!data.conjuntoRecuperacaoId) throw new Error('Conjunto de recuperação obrigatório.');
   if (!['1', '2'].includes(String(data.semestre))) throw new Error('Semestre da recuperação inválido.');
   if (data.bimestre != null) throw new Error('Atividade de recuperação não usa bimestre.');
   if ((data.turmaIds || []).length !== 1) throw new Error('Atividade de recuperação pertence a uma única turma.');
+  return {
+    professorId: data.professorId,
+    turmaId: data.turmaIds[0],
+    conjuntoId: data.conjuntoRecuperacaoId,
+  };
+}
 
-  const conjuntoRef = doc(db, 'professores', professorId, 'conjuntos_recuperacao', data.conjuntoRecuperacaoId);
-  const conjuntoSnap = await getDoc(conjuntoRef);
-  if (!conjuntoSnap.exists()) throw new Error('Conjunto de recuperação não encontrado.');
-  const conjunto = conjuntoSnap.data();
-  if (conjunto.professorId !== professorId
-    || conjunto.turmaId !== turmaId
-    || String(conjunto.semestre) !== String(data.semestre)
-    || conjunto.estado === 'cancelado') {
-    throw new Error('Atividade não pertence a este conjunto, turma ou semestre.');
-  }
+function idsDaComposicao(conjunto, conhecidos = []) {
+  const escalas = conjunto.escalas && typeof conjunto.escalas === 'object' ? conjunto.escalas : {};
+  return [...new Set([
+    ...(Array.isArray(conjunto.atividadeIds) ? conjunto.atividadeIds : []),
+    ...Object.keys(escalas),
+    ...conhecidos,
+  ].map(String))];
+}
 
-  // A composição do conjunto é versionada. Uma tela antiga não pode gravar
-  // parcela sobre uma versão que o professor já alterou em outra aba.
-  if (data.conjuntoVersao != null && Number(data.conjuntoVersao) !== Number(conjunto.versao || 1)) {
-    throw Object.assign(
-      new Error('A composição da recuperação mudou. Reabra o conjunto e tente novamente.'),
-      { code: 'RECUPERACAO_CONJUNTO_OBSOLETO' },
-    );
-  }
-
-  const destinatarios = Array.isArray(data.destinatariosIds) ? data.destinatariosIds : conjunto.destinatariosIds;
-  if (!destinatarios?.length || destinatarios.some(alunoId => !conjunto.destinatariosIds.includes(alunoId))) {
-    throw new Error('Destinatário fora do conjunto de recuperação.');
-  }
-
+/**
+ * Pistas de atividades ligadas ao conjunto. A lista do conjunto é a fonte
+ * transacional; esta consulta só recupera parcelas antigas que ainda não
+ * estejam nela. Cada documento é reconferido dentro da transação.
+ */
+async function idsConhecidosDoConjunto(professorId, conjuntoId) {
   const snap = await getDocs(query(collection(db, 'atividades'), where('professorId', '==', professorId)));
-  const irmaos = snap.docs
+  return snap.docs
     .map(d => ({ ...d.data(), id: d.id }))
-    .filter(atv => atv.id !== id && atv.conjuntoRecuperacaoId === data.conjuntoRecuperacaoId && ehAtividadeRecuperacao(atv));
+    .filter(atv => atv.conjuntoRecuperacaoId === conjuntoId && ehAtividadeRecuperacao(atv))
+    .map(atv => atv.id);
+}
 
-  const composicao = validarNovaParcelaRecuperacao({
-    parcelasExistentes: irmaos.map(atv => ({ atividadeId: atv.id, maximo: atv.notaMaxima })),
-    novaParcela: { atividadeId: id, maximo: data.notaMaxima },
-    substituirId: id,
-  });
+async function gravarAtividadeRecuperacao(id, data, anterior = null) {
+  const { professorId, turmaId, conjuntoId } = validarCabecalhoRecuperacao(data);
 
-  // Depois da primeira entrega a distribuição fica congelada: mudar escala ou
-  // retirar parcela invalidaria notas já conferidas e o snapshot da prévia.
-  const idsAtuais = [...new Set([...(conjunto.atividadeIds || []), id].map(String))].sort();
-  const idsNovos = [...new Set([...irmaos.map(atv => String(atv.id)), String(id)])].sort();
-  const escalaMudou = Boolean(atividadeAnterior)
-    && Number(atividadeAnterior.notaMaxima) !== Number(data.notaMaxima);
-  const escalasAnteriores = conjunto.escalas && typeof conjunto.escalas === 'object' ? conjunto.escalas : null;
-  const irmaosMudaram = Boolean(escalasAnteriores)
-    && irmaos.some(atv => Number(atv.notaMaxima) !== Number(escalasAnteriores[atv.id]));
-  const composicaoMudou = idsAtuais.join('|') !== idsNovos.join('|') || escalaMudou || irmaosMudaram;
+  const operacoes = data.alunosPorTurma
+    ? await planejarTokens(id, data.alunosPorTurma, data.turmaIds || [], !anterior)
+    : [];
+  if (operacoes.length > 449) throw new Error('Muitos acessos em uma operação. Publique em grupos menores de turmas. Nenhum dado foi gravado.');
 
-  if (composicaoMudou && id) {
-    const idsConferidos = [...new Set([...irmaos.map(atv => atv.id), id])];
-    for (const atividadeId of idsConferidos) {
-      const entregas = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', atividadeId)));
-      if (entregas.docs.length) {
-        throw new Error('A recuperação já possui entregas. A composição e a escala ficam congeladas; crie outro conjunto para mudar a distribuição.');
+  const conjuntoRef = doc(db, 'professores', professorId, 'conjuntos_recuperacao', conjuntoId);
+  const conjuntoAntes = await getDoc(conjuntoRef);
+  if (!conjuntoAntes.exists()) throw new Error('Conjunto de recuperação não encontrado.');
+  const antes = conjuntoAntes.data();
+  const entregasLegado = await conjuntoPossuiEntregas(professorId, conjuntoId, [
+    ...new Set([
+      ...(Array.isArray(antes.atividadeIds) ? antes.atividadeIds : []),
+      ...Object.keys(antes.escalas || {}),
+    ]),
+  ]);
+  const conhecidos = await idsConhecidosDoConjunto(professorId, conjuntoId);
+  const limpos = limparAtividade({ ...data, id });
+
+  await runTransaction(db, async (tx) => {
+    const conjuntoSnap = await tx.get(conjuntoRef);
+    if (!conjuntoSnap.exists()) throw new Error('Conjunto de recuperação não encontrado.');
+    const conjunto = conjuntoSnap.data();
+    if (conjunto.professorId !== professorId
+      || conjunto.turmaId !== turmaId
+      || String(conjunto.semestre) !== String(data.semestre)
+      || conjunto.estado === 'cancelado') {
+      throw new Error('Atividade não pertence a este conjunto, turma ou semestre.');
+    }
+    if (!Array.isArray(conjunto.destinatariosIds) || !conjunto.destinatariosIds.length) {
+      throw new Error('Conjunto de recuperação sem destinatários.');
+    }
+
+    // A versão persistida é a autoridade: uma tela antiga não grava por cima
+    // de outra edição nem de uma entrega que acabou de congelar o conjunto.
+    if (data.conjuntoVersao != null && Number(data.conjuntoVersao) !== Number(conjunto.versao || 1)) {
+      throw erroConjuntoObsoleto();
+    }
+
+    const destinatarios = Array.isArray(data.destinatariosIds) ? data.destinatariosIds : conjunto.destinatariosIds;
+    if (!destinatarios?.length || destinatarios.some(alunoId => !conjunto.destinatariosIds.includes(alunoId))) {
+      throw new Error('Destinatário fora do conjunto de recuperação.');
+    }
+
+    const escalas = conjunto.escalas && typeof conjunto.escalas === 'object' ? conjunto.escalas : {};
+    if (anterior && escalas[id] != null && Number(escalas[id]) !== Number(anterior.notaMaxima)) {
+      throw erroConjuntoObsoleto();
+    }
+
+    const idsComposicao = idsDaComposicao(conjunto, conhecidos);
+    const parcelas = [];
+    for (const irmaoId of idsComposicao) {
+      if (irmaoId === String(id)) continue;
+      const irmaoSnap = await tx.get(doc(db, 'atividades', irmaoId));
+      if (irmaoSnap.exists()) {
+        const irmao = { ...irmaoSnap.data(), id: irmaoId };
+        if (irmao.professorId === professorId
+          && irmao.conjuntoRecuperacaoId === conjuntoId
+          && ehAtividadeRecuperacao(irmao)) {
+          parcelas.push({ atividadeId: irmaoId, maximo: irmao.notaMaxima });
+        }
+        continue;
+      }
+      const escala = Number(escalas[irmaoId]);
+      if (Number.isFinite(escala) && escala > 0) {
+        parcelas.push({ atividadeId: irmaoId, maximo: escala });
       }
     }
-  }
 
-  const escalas = {
-    ...(escalasAnteriores || {}),
-    ...Object.fromEntries(irmaos.map(atv => [atv.id, Number(atv.notaMaxima)])),
-    [id]: Number(data.notaMaxima),
-  };
+    const composicao = validarNovaParcelaRecuperacao({
+      parcelasExistentes: parcelas,
+      novaParcela: { atividadeId: id, maximo: data.notaMaxima },
+      substituirId: id,
+    });
 
-  return [{
-    ref: conjuntoRef,
-    data: {
-      atividadeIds: [...new Set([...irmaos.map(atv => atv.id), id])],
-      escalas,
-      estado: composicao.completo ? 'pronto' : 'rascunho',
-      versao: Number(conjunto.versao || 1) + 1,
-      atualizadoEm: serverTimestamp(),
-    },
-  }];
+    const idsPersistidos = idsComposicao.filter(irmaoId => irmaoId !== String(id)).sort();
+    const idsNovos = [...new Set([...parcelas.map(p => p.atividadeId), String(id)])].sort();
+    const escalaMudou = Boolean(anterior) && Number(anterior.notaMaxima) !== Number(data.notaMaxima);
+    const composicaoMudou = idsPersistidos.join('|') !== idsNovos.join('|') || escalaMudou;
+
+    if (composicaoMudou && (conjunto.congelado === true || entregasLegado)) {
+      throw new Error(MENSAGEM_CONGELAMENTO);
+    }
+
+    tx.set(doc(db, 'atividades', id), { ...limpos, updatedAt: serverTimestamp() });
+    for (const operacao of operacoes) tx.set(operacao.ref, operacao.data);
+
+    if (composicaoMudou) {
+      const escalasNovas = {
+        ...escalas,
+        ...Object.fromEntries(parcelas.map(p => [p.atividadeId, Number(p.maximo)])),
+        [id]: Number(data.notaMaxima),
+      };
+      tx.set(conjuntoRef, {
+        atividadeIds: [...new Set([...parcelas.map(p => p.atividadeId), String(id)])],
+        escalas: escalasNovas,
+        estado: composicao.completo ? 'pronto' : 'rascunho',
+        versao: Number(conjunto.versao || 1) + 1,
+        atualizadoEm: serverTimestamp(),
+      }, { merge: true });
+    }
+  });
+
+  return id;
 }
 
 export async function createAtividade(data) {
@@ -151,8 +224,11 @@ export async function createAtividade(data) {
     await updateAtividade(id, data);
     return id;
   }
-  const extras = await prepararRecuperacao({ ...data, id }, id);
-  await gravarComTokens(id, { ...data, createdAt: serverTimestamp() }, data.alunosPorTurma, true, extras);
+  if (ehAtividadeRecuperacao(data)) {
+    await gravarAtividadeRecuperacao(id, { ...data, createdAt: serverTimestamp() });
+    return id;
+  }
+  await gravarComTokens(id, { ...data, createdAt: serverTimestamp() }, data.alunosPorTurma, true);
   return id;
 }
 export async function updateAtividade(id, data) {
@@ -162,6 +238,10 @@ export async function updateAtividade(id, data) {
   const anterior = atual.data();
   if (data.finalidade !== undefined && finalidadeDaAtividade(data) !== finalidadeDaAtividade(anterior)) {
     throw new Error('A finalidade da atividade não pode ser alterada. Crie outra atividade.');
+  }
+  if (anterior.conjuntoRecuperacaoId && data.conjuntoRecuperacaoId !== undefined
+    && data.conjuntoRecuperacaoId !== anterior.conjuntoRecuperacaoId) {
+    throw new Error('A atividade de recuperação não pode mudar de conjunto. Crie outra atividade.');
   }
   const entregas = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', id)));
   const campos = ['bimestre', 'turmaIds', 'questoes', 'notaMaxima', 'finalidade', 'conjuntoRecuperacaoId', 'semestre', 'destinatariosIds'];
@@ -173,8 +253,11 @@ export async function updateAtividade(id, data) {
     if (temNotas) throw new Error('A atividade já tem notas no Diário. A estrutura e o bimestre foram preservados.');
   }
   const consolidada = { ...anterior, ...data, professorId: anterior.professorId };
-  const extras = await prepararRecuperacao(consolidada, id, anterior);
-  await gravarComTokens(id, consolidada, data.alunosPorTurma, false, extras);
+  if (ehAtividadeRecuperacao(consolidada)) {
+    await gravarAtividadeRecuperacao(id, consolidada, anterior);
+    return;
+  }
+  await gravarComTokens(id, consolidada, data.alunosPorTurma, false);
 }
 /** Arquivar conserva entregas, devolutivas, acessos e notas históricas. */
 export async function deleteAtividade(id) {

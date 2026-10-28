@@ -109,14 +109,61 @@ export async function criarConjuntoRecuperacao(professorId, dados = {}, alunosDa
 }
 
 /**
+ * Entregas de um conjunto. Consulta pelo ID do conjunto (entregas novas) e
+ * pelas atividades (entregas antigas, gravadas antes do contexto completo).
+ * A consulta externa cobre apenas dados legados; a corrida entre entrega e
+ * edição é fechada pelo marcador `congelado` gravado na transação de entrega.
+ */
+export async function conjuntoPossuiEntregas(professorId, conjuntoId, atividadeIds = []) {
+  if (!conjuntoId) return false;
+  const porConjunto = await getDocs(query(
+    collection(db, 'entregas'),
+    where('professorId', '==', professorId),
+    where('conjuntoRecuperacaoId', '==', conjuntoId),
+  ));
+  if (porConjunto.docs.length) return true;
+  for (const atividadeId of atividadeIds) {
+    if (typeof atividadeId !== 'string' || !atividadeId) continue;
+    const snap = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', atividadeId)));
+    if (snap.docs.length) return true;
+  }
+  return false;
+}
+
+const erroCongelado = () => Object.assign(
+  new Error('A recuperação já possui entregas. Destinatários e contexto ficam congelados; crie outro conjunto para mudar o público.'),
+  { code: 'RECUPERACAO_CONGELADA' },
+);
+
+const mesmaLista = (a = [], b = []) => (
+  JSON.stringify([...a].map(String).sort()) === JSON.stringify([...b].map(String).sort())
+);
+
+/**
  * Atualiza o conjunto e incrementa a versão. A versão da tela é conferida
  * dentro da transação para que uma edição antiga não sobrescreva outra.
- * Mudança de destinatários libera locks antigos e reserva os novos.
+ *
+ * Destinatários e contexto (turma/ano/semestre) ficam congelados depois da
+ * primeira entrega. Antes disso, mudar o contexto move as reservas: as chaves
+ * antigas só são apagadas se ainda pertencerem a este conjunto, e as novas são
+ * reservadas para todos os destinatários na mesma transação.
+ *
+ * Composição e escala não são editadas aqui: elas pertencem ao caminho
+ * transacional de criação/edição das atividades.
  */
 export async function atualizarConjuntoRecuperacao(professorId, conjuntoId, dados = {}) {
   if (!professorId || !conjuntoId) throw new Error('Conjunto de recuperação inválido.');
   const { versaoEsperada, ...alteracoes } = dados;
   const ref = doc(db, 'professores', professorId, 'conjuntos_recuperacao', conjuntoId);
+
+  const antesSnap = await getDoc(ref);
+  if (!antesSnap.exists() || antesSnap.data().professorId !== professorId) {
+    throw new Error('Conjunto de recuperação não encontrado.');
+  }
+  const antes = normalizar(comId(antesSnap));
+  const entregasLegado = await conjuntoPossuiEntregas(professorId, conjuntoId, [
+    ...new Set([...antes.atividadeIds, ...Object.keys(antes.escalas)]),
+  ]);
 
   let atualizado;
   await runTransaction(db, async (tx) => {
@@ -128,16 +175,51 @@ export async function atualizarConjuntoRecuperacao(professorId, conjuntoId, dado
     if (versaoEsperada != null && Number(versaoEsperada) !== atual.versao) {
       throw conflito('O conjunto mudou em outra aba. Recarregue antes de editar.');
     }
+
+    if (alteracoes.atividadeIds !== undefined || alteracoes.escalas !== undefined) {
+      const mesmosIds = alteracoes.atividadeIds === undefined
+        || mesmaLista(alteracoes.atividadeIds, atual.atividadeIds);
+      const mesmasEscalas = alteracoes.escalas === undefined
+        || JSON.stringify(alteracoes.escalas) === JSON.stringify(atual.escalas);
+      if (!mesmosIds || !mesmasEscalas) {
+        throw new Error('A composição da recuperação é definida pelas atividades. Edite ou crie a parcela para mudar a distribuição.');
+      }
+    }
+
     const conjunto = validarConjunto({ ...atual, ...alteracoes, professorId });
+    const destinatariosMudaram = !mesmaLista(conjunto.destinatariosIds, atual.destinatariosIds);
+    const contextoMudou = ['turmaId', 'anoLetivo', 'semestre']
+      .some(campo => String(conjunto[campo]) !== String(atual[campo]));
 
-    const entram = conjunto.destinatariosIds.filter(id => !atual.destinatariosIds.includes(id));
-    const saem = atual.destinatariosIds.filter(id => !conjunto.destinatariosIds.includes(id));
+    if ((destinatariosMudaram || contextoMudou) && (atual.congelado === true || entregasLegado)) {
+      throw erroCongelado();
+    }
+    if (contextoMudou && (atual.atividadeIds.length || Object.keys(atual.escalas).length)) {
+      throw new Error('O conjunto já possui atividades. Crie outro conjunto para mudar turma, ano ou semestre.');
+    }
 
-    for (const alunoId of entram) {
-      const lock = await tx.get(refLock(professorId, chaveLock(conjunto, alunoId)));
+    const chavesNovas = new Map(
+      conjunto.destinatariosIds.map(alunoId => [alunoId, chaveLock(conjunto, alunoId)]),
+    );
+    const chavesAntigas = new Map(
+      atual.destinatariosIds.map(alunoId => [alunoId, chaveLock(atual, alunoId)]),
+    );
+
+    // Todas as leituras de reserva acontecem antes de qualquer escrita.
+    const reservasNovas = new Map();
+    for (const [alunoId, chave] of chavesNovas) {
+      const lock = await tx.get(refLock(professorId, chave));
       if (lock.exists() && lock.data().conjuntoId !== conjuntoId) {
         throw conflito('Aluno já possui conjunto de recuperação vigente neste semestre.');
       }
+      reservasNovas.set(chave, alunoId);
+    }
+
+    const remover = [];
+    for (const [alunoId, chave] of chavesAntigas) {
+      if (chavesNovas.get(alunoId) === chave) continue;
+      const lock = await tx.get(refLock(professorId, chave));
+      if (lock.exists() && lock.data().conjuntoId === conjuntoId) remover.push(chave);
     }
 
     atualizado = normalizar({
@@ -148,9 +230,9 @@ export async function atualizarConjuntoRecuperacao(professorId, conjuntoId, dado
       atualizadoEm: serverTimestamp(),
     });
     tx.set(ref, atualizado, { merge: true });
-    for (const alunoId of saem) tx.delete(refLock(professorId, chaveLock(atual, alunoId)));
-    for (const alunoId of entram) {
-      tx.set(refLock(professorId, chaveLock(conjunto, alunoId)), {
+    for (const chave of remover) tx.delete(refLock(professorId, chave));
+    for (const [chave, alunoId] of reservasNovas) {
+      tx.set(refLock(professorId, chave), {
         conjuntoId,
         turmaId: conjunto.turmaId,
         anoLetivo: conjunto.anoLetivo,
@@ -164,6 +246,11 @@ export async function atualizarConjuntoRecuperacao(professorId, conjuntoId, dado
   return atualizado;
 }
 
+/**
+ * Cancelamento idempotente. Cada reserva é lida antes das escritas e só é
+ * apagada se ainda pertencer a este conjunto; repetir o cancelamento antigo
+ * não pode derrubar a reserva de um conjunto novo para o mesmo aluno.
+ */
 export async function cancelarConjuntoRecuperacao(professorId, conjuntoId) {
   if (!professorId || !conjuntoId) throw new Error('Conjunto de recuperação inválido.');
   const ref = doc(db, 'professores', professorId, 'conjuntos_recuperacao', conjuntoId);
@@ -173,14 +260,21 @@ export async function cancelarConjuntoRecuperacao(professorId, conjuntoId) {
       throw new Error('Conjunto de recuperação não encontrado.');
     }
     const atual = normalizar({ ...snap.data(), id: conjuntoId });
+    if (atual.estado === 'cancelado') return;
+
+    const remover = [];
+    for (const alunoId of atual.destinatariosIds) {
+      const chave = chaveLock(atual, alunoId);
+      const lock = await tx.get(refLock(professorId, chave));
+      if (lock.exists() && lock.data().conjuntoId === conjuntoId) remover.push(chave);
+    }
+
     tx.set(ref, {
       estado: 'cancelado',
       versao: atual.versao + 1,
       atualizadoEm: serverTimestamp(),
     }, { merge: true });
-    for (const alunoId of atual.destinatariosIds) {
-      tx.delete(refLock(professorId, chaveLock(atual, alunoId)));
-    }
+    for (const chave of remover) tx.delete(refLock(professorId, chave));
   });
 }
 
