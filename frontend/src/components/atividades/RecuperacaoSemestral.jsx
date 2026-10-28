@@ -5,6 +5,7 @@ import {
   listConjuntosRecuperacao,
   getConjuntoRecuperacao,
   criarConjuntoRecuperacao,
+  cancelarConjuntoRecuperacao,
   listarAtividadesDoConjunto,
   listarEntregasDoConjunto,
 } from '@/lib/firebase-recuperacao';
@@ -13,12 +14,42 @@ import { RecuperacaoRepository } from '@/infraestrutura/diario/RecuperacaoReposi
 import { DiarioRepository } from '@/infraestrutura/diario/DiarioRepository';
 import { AtividadeForm } from './AtividadeForm';
 import { AtividadePainel } from './AtividadePainel';
-import { anoLetivoDaTurma } from '@/dominio/atividades/recuperacaoSemestral';
+import { anoLetivoDaTurma, conjuntoLiberadoParaResposta } from '@/dominio/atividades/recuperacaoSemestral';
 import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
 import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 
 const pontos = valor => Number(valor || 0).toFixed(2).replace('.', ',');
 const somarMaximos = atividades => atividades.reduce((soma, atividade) => soma + Number(atividade.notaMaxima || 0), 0);
+const centesimos = valor => Math.round(Number(valor || 0) * 100);
+
+const situacaoDaMontagem = (conjunto, totalDistribuido, restante) => {
+  if (conjunto?.estado === 'cancelado') {
+    return {
+      titulo: 'Conjunto cancelado',
+      detalhe: 'Nenhuma nova entrega é aceita. Entregas e notas já registradas permanecem preservadas.',
+      classe: 'bg-slate-50 border-slate-200 text-slate-700',
+    };
+  }
+  if (centesimos(restante) > 0) {
+    return {
+      titulo: `Montagem: ${pontos(totalDistribuido)} de 10 pontos`,
+      detalhe: 'As parcelas ficam ocultas no Portal e não recebem entregas até a distribuição fechar exatamente 10 pontos.',
+      classe: 'bg-amber-50 border-amber-200 text-amber-900',
+    };
+  }
+  if (!conjuntoLiberadoParaResposta(conjunto)) {
+    return {
+      titulo: 'Distribuição completa; liberação pendente',
+      detalhe: 'As parcelas só aparecem para os alunos depois que a liberação do conjunto for confirmada.',
+      classe: 'bg-amber-50 border-amber-200 text-amber-900',
+    };
+  }
+  return {
+    titulo: 'Recuperação liberada para os alunos',
+    detalhe: 'As parcelas já podem ser respondidas pelos destinatários. A primeira entrega congela a composição.',
+    classe: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+  };
+};
 
 const MOTIVOS_PENDENCIA = {
   sem_entrega: 'sem entrega',
@@ -138,6 +169,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
   const [selecionados, setSelecionados] = useState([]);
   const [substituicoes, setSubstituicoes] = useState([]);
   const [ocupado, setOcupado] = useState(false);
+  const [confirmandoCancelamento, setConfirmandoCancelamento] = useState(false);
 
   const uidRef = useRef(uid);
   const selecionadoRef = useRef(selecionadoId);
@@ -164,6 +196,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     setErro('');
     setMensagem('');
     setOcupado(false);
+    setConfirmandoCancelamento(false);
     setCarregando(Boolean(uid));
   }
 
@@ -245,6 +278,9 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     : null;
   const totalDistribuido = detalheVisivel ? somarMaximos(detalheVisivel.atividades) : 0;
   const restante = Math.round((10 - totalDistribuido) * 100) / 100;
+  const situacao = detalheVisivel
+    ? situacaoDaMontagem(detalheVisivel.conjunto, totalDistribuido, restante)
+    : null;
 
   const criar = async (dados, alunos) => {
     const conta = uid;
@@ -270,11 +306,39 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
 
   const salvarAtividade = async (dados) => {
     const conta = uid;
+    const conjuntoId = detalheVisivel?.conjunto?.id;
     await useAtividadesHook.createAtividade(dados);
-    if (conta !== uidRef.current) return;
+    if (conta !== uidRef.current || !conjuntoId) return;
     setFormAtividade(null);
-    setMensagem('Atividade de recuperação criada. Envie o acesso aos alunos destinatários.');
     await carregarDetalhe();
+    if (conta !== uidRef.current) return;
+    const atividades = await listarAtividadesDoConjunto(conta, conjuntoId);
+    if (conta !== uidRef.current) return;
+    const total = Math.round(somarMaximos(atividades) * 100) / 100;
+    setMensagem(centesimos(total) === 1000
+      ? 'Atividade criada. A distribuição fechou exatamente 10 pontos e as parcelas foram liberadas para os alunos destinatários.'
+      : `Atividade criada. O conjunto segue em montagem: ${pontos(total)} de 10 pontos distribuídos. Nenhuma parcela aparece no Portal até o fechamento dos 10.`);
+  };
+
+  const cancelarConjunto = async () => {
+    if (!detalheVisivel?.conjunto || ocupado) return;
+    const conta = uid;
+    const conjuntoId = detalheVisivel.conjunto.id;
+    setErro('');
+    setMensagem('');
+    setOcupado(true);
+    try {
+      await cancelarConjuntoRecuperacao(conta, conjuntoId);
+      if (conta !== uidRef.current || conjuntoId !== selecionadoRef.current) return;
+      setConfirmandoCancelamento(false);
+      setPrevia(null);
+      setMensagem('Conjunto cancelado. Nenhuma nova entrega será aceita; entregas e notas já registradas permanecem preservadas.');
+      await carregarDetalhe();
+    } catch (error) {
+      if (conta === uidRef.current) setErro(error.message);
+    } finally {
+      if (conta === uidRef.current) setOcupado(false);
+    }
   };
 
   const conferir = async () => {
@@ -352,6 +416,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     setSubstituicoes([]);
     setAtividadeAberta(null);
     setFormAtividade(null);
+    setConfirmandoCancelamento(false);
   };
 
   const alunosPorId = useMemo(() => new Map((turmaDoConjunto?.alunos || []).map(aluno => [aluno.id, aluno])), [turmaDoConjunto]);
@@ -461,6 +526,13 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
             </div>
           </header>
 
+          {situacao && (
+            <div className={`border rounded-xl p-3 text-xs ${situacao.classe}`}>
+              <p className="font-semibold">{situacao.titulo}</p>
+              <p>{situacao.detalhe}</p>
+            </div>
+          )}
+
           <div className="space-y-2">
             {detalheVisivel.atividades.map(atividade => (
               <div key={atividade.id} className="flex flex-wrap items-center justify-between gap-2 border border-[#dce0f0] rounded-xl p-3">
@@ -474,15 +546,15 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
             {!detalheVisivel.atividades.length && <p className="text-sm text-[#6070a0]">Nenhuma atividade ainda. Distribua os 10 pontos criando a primeira.</p>}
           </div>
 
-          {restante > 0 && (
+          {restante > 0 && detalheVisivel.conjunto.estado !== 'cancelado' && (
             <button type="button" onClick={() => setFormAtividade({})} className="px-4 py-2 rounded-xl bg-[#101942] text-white text-sm font-semibold">
               {detalheVisivel.atividades.length ? `Adicionar atividade (até ${pontos(restante)} pontos)` : 'Criar primeira atividade'}
             </button>
           )}
-          {restante === 0 && detalheVisivel.conjunto.estado !== 'pronto' && <p className="text-xs text-emerald-700">A distribuição está completa. O conjunto será marcado como pronto ao salvar a última atividade.</p>}
+          {restante === 0 && detalheVisivel.conjunto.estado !== 'pronto' && detalheVisivel.conjunto.estado !== 'cancelado' && <p className="text-xs text-emerald-700">A distribuição está completa. O conjunto será marcado como pronto ao salvar a última atividade.</p>}
 
           <div className="border-t border-[#dce0f0] pt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={conferir} disabled={ocupado || restante > 0 || !detalheVisivel.atividades.length} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-200">
+            <button type="button" onClick={conferir} disabled={ocupado || restante > 0 || !detalheVisivel.atividades.length || detalheVisivel.conjunto.estado === 'cancelado'} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-200">
               {ocupado ? 'Conferindo...' : 'Conferir recuperação'}
             </button>
             <p className="text-xs text-[#6070a0] self-center">A prévia não grava nota. Só a confirmação lança em rec{detalheVisivel.conjunto.semestre === '2' ? '2' : '1'}.</p>
@@ -551,6 +623,26 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
               </div>
             </div>
           )}
+
+          <div className="border-t border-[#dce0f0] pt-3">
+            {detalheVisivel.conjunto.estado === 'cancelado' ? (
+              <p className="text-xs text-slate-600">Conjunto cancelado. Nenhuma nova entrega será aceita; o histórico existente permanece preservado.</p>
+            ) : !confirmandoCancelamento ? (
+              <button type="button" onClick={() => setConfirmandoCancelamento(true)} disabled={ocupado} className="px-3 py-2 rounded-xl border border-red-200 text-red-700 text-xs font-semibold disabled:opacity-60">
+                Cancelar conjunto
+              </button>
+            ) : (
+              <div role="alertdialog" aria-label="Confirmar cancelamento do conjunto" className="border border-red-200 bg-red-50 rounded-xl p-3 space-y-2">
+                <p className="text-xs text-red-800">Cancelar o conjunto impede novas entregas e novas parcelas. Entregas e notas já registradas não são apagadas.</p>
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" onClick={() => setConfirmandoCancelamento(false)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300">Voltar</button>
+                  <button type="button" onClick={cancelarConjunto} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-700 text-white disabled:bg-slate-300">
+                    {ocupado ? 'Cancelando...' : 'Confirmar cancelamento'}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </section>
       )}
 

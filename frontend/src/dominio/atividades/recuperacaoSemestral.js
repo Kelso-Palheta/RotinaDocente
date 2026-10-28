@@ -244,6 +244,46 @@ export function validarConjunto(conjunto = {}) {
   };
 }
 
+/**
+ * Conjuntos antigos, anteriores ao controle de montagem, não possuem o mapa
+ * `escalas`. A ausência do campo é o marcador explícito de legado; conjunto
+ * novo sempre nasce com `escalas`, mesmo vazio.
+ */
+export function conjuntoTemControleDeMontagem(conjunto = {}) {
+  return Boolean(conjunto && typeof conjunto === 'object'
+    && Object.prototype.hasOwnProperty.call(conjunto, 'escalas'));
+}
+
+/** Soma persistida das parcelas do conjunto, em centésimos. */
+export function totalDistribuidoDoConjunto(conjunto = {}) {
+  const escalas = conjunto?.escalas && typeof conjunto.escalas === 'object' ? conjunto.escalas : {};
+  return Object.values(escalas).reduce((total, valor) => total + paraCentesimos(valor), 0);
+}
+
+/**
+ * Contrato de publicação da recuperação, usado pela entrega, pelo Portal e
+ * pela tela do professor:
+ * - conjunto cancelado nunca libera;
+ * - `liberado: true` explícito vence;
+ * - conjunto novo (com `escalas`) só libera com estado `pronto` e 10 pontos;
+ * - conjunto legado sem `escalas` mantém o comportamento anterior.
+ *
+ * A montagem pode ter qualquer soma até 10, mas nada é apresentado ao aluno
+ * antes do fechamento exato da distribuição.
+ */
+export function conjuntoLiberadoParaResposta(conjunto = {}) {
+  if (!conjunto || typeof conjunto !== 'object') return false;
+  if (conjunto.estado === 'cancelado') return false;
+  if (conjunto.liberado === true) return true;
+  if (!conjuntoTemControleDeMontagem(conjunto)) return true;
+  if (conjunto.estado !== 'pronto') return false;
+  try {
+    return totalDistribuidoDoConjunto(conjunto) === CENTESIMOS_TOTAL;
+  } catch {
+    return false;
+  }
+}
+
 /** Atividade sem finalidade declarada continua regular (compatibilidade). */
 export function finalidadeDaAtividade(atividade = {}) {
   return atividade?.finalidade === FINALIDADE_RECUPERACAO ? FINALIDADE_RECUPERACAO : FINALIDADE_REGULAR;

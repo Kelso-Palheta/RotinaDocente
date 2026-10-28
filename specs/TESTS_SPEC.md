@@ -328,3 +328,17 @@ Commit `51abb4f`: **984 testes/211 arquivos aprovados**, build de produção exi
 - A rota de entrega grava o marcador; a criação/edição transacional lê o mesmo documento. A consulta de entregas legadas fora da transação cobre apenas dados anteriores ao marcador; não é usada como única barreira.
 - Evidência final desta rodada: **1002 testes em 215 arquivos** aprovados (`cd frontend && npm test`); lint dos arquivos alterados com exit 0; build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma fonte Google, configuração de build, cobrança ou dado real foi alterado.
 - Riscos residuais: entregas gravadas por versões anteriores durante a janela de implantação dependem da consulta legada; concorrência em Firestore real, homologação visual 390/1440 px, teclado/foco/leitor de tela, PDF real e publicação funcional no Portal continuam pendentes. A publicação permanece retida até nova revisão independente.
+
+### Terceira revisão independente — 28/10/2026
+
+Commit `67c6a1b`: **1.002 testes/215 arquivos aprovados**, build exit 0 e lint do escopo sem erros (2 avisos preexistentes). Os quatro bloqueios anteriores foram resolvidos. Novo teste `tests/integration/recuperacao_rascunho_entrega.test.js` (`REV3-R81-01`) falha: criação de parcela de 4 pontos libera entrega e congela conjunto ainda incompleto, impedindo adicionar os 6 pontos restantes. Exigir montagem/liberação consistente e testar 4+6 completo antes da publicação. Relatório/prompt em `docs/analises/2026-10-28-terceira-revisao-recuperacao-semestral.md`. Produção e testes anteriores preservados na revisão; nenhuma publicação executada.
+
+#### Correções da terceira revisão — 28/10/2026
+
+- O teste de reprodução `recuperacao_rascunho_entrega.test.js` (`REV3-R81-01`) passou sem edição: a primeira parcela de 4 pontos fica em `rascunho`, a entrega é recusada e o conjunto não congela.
+- Novos testes, sem alterar os anteriores:
+  - `tests/unit/recuperacao_montagem_liberacao.test.js` (6): legado sem `escalas`, soma persistida em centésimos, conjunto incompleto, conjunto pronto com 10, `liberado: true` explícito, cancelamento e escala inválida.
+  - `tests/integration/recuperacao_montagem_liberacao.test.js` (4): fluxo real 4+6 com bloqueio na montagem, liberação das duas parcelas ao fechar 10, entrega que congela, edição posterior recusada e prévia/lançamento somando 6; atividade única de 10; parcela adaptada com subconjunto de destinatários; gate do conjunto recusando parcela ativa de montagem mesmo com token válido.
+  - `tests/unit/components/atividades/RecuperacaoMontagem.test.jsx` (5): “Montagem: 4,00 de 10 pontos”, ausência de anúncio de disponibilidade, liberação somente com 10, mensagem após salvar parcela incompleta/completa e cancelamento com confirmação.
+- Evidência final desta rodada: **1018 testes em 219 arquivos** aprovados (`cd frontend && npm test`); lint do escopo de produção sem erros; build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhuma nota, fórmula, cobrança, imagem ou dado real foi alterado.
+- Riscos residuais: concorrência em Firestore real, homologação visual 390/1440 px, teclado/foco/leitor de tela, PDF real e publicação funcional no Portal continuam pendentes. A publicação permanece retida até nova revisão independente.

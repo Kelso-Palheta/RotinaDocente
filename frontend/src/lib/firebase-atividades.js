@@ -58,10 +58,13 @@ async function gravarComTokens(id, data, alunosPorTurma, nova = false, extras = 
  *
  * Composição, escala e versão têm autoridade transacional. A lista persistida
  * no conjunto é a fonte da composição; as atividades irmãs são lidas dentro
- * da mesma transação para validar o orçamento. O congelamento é compartilhado
- * com a entrega: a rota grava `congelado: true` no conjunto na transação de
- * entrega e esta escrita lê o mesmo documento, então Firestore faz uma das
- * ordens vencer e a outra repetir já vendo o marcador.
+ * da mesma transação para validar o orçamento. Enquanto a soma não fecha
+ * exatamente 10, as parcelas ficam em `rascunho` e não são publicadas; a
+ * transação que fecha os 10 libera todas as parcelas do conjunto. O
+ * congelamento é compartilhado com a entrega: a rota grava `congelado: true`
+ * no conjunto na transação de entrega e esta escrita lê o mesmo documento,
+ * então Firestore faz uma das ordens vencer e a outra repetir já vendo o
+ * marcador.
  */
 const MENSAGEM_CONGELAMENTO = 'A recuperação já possui entregas. A composição e a escala ficam congeladas; crie outro conjunto para mudar a distribuição.';
 
@@ -157,6 +160,7 @@ async function gravarAtividadeRecuperacao(id, data, anterior = null) {
 
     const idsComposicao = idsDaComposicao(conjunto, conhecidos);
     const parcelas = [];
+    const irmaos = [];
     for (const irmaoId of idsComposicao) {
       if (irmaoId === String(id)) continue;
       const irmaoSnap = await tx.get(doc(db, 'atividades', irmaoId));
@@ -166,6 +170,7 @@ async function gravarAtividadeRecuperacao(id, data, anterior = null) {
           && irmao.conjuntoRecuperacaoId === conjuntoId
           && ehAtividadeRecuperacao(irmao)) {
           parcelas.push({ atividadeId: irmaoId, maximo: irmao.notaMaxima });
+          irmaos.push({ id: irmaoId, status: irmao.status });
         }
         continue;
       }
@@ -190,7 +195,15 @@ async function gravarAtividadeRecuperacao(id, data, anterior = null) {
       throw new Error(MENSAGEM_CONGELAMENTO);
     }
 
-    tx.set(doc(db, 'atividades', id), { ...limpos, updatedAt: serverTimestamp() });
+    // Montagem e liberação caminham juntas: enquanto a soma não fecha 10, a
+    // parcela fica em rascunho e não aparece no Portal. Ao fechar, a mesma
+    // transação libera todas as parcelas do conjunto; se uma edição voltar a
+    // deixar a soma incompleta (antes de qualquer entrega), todas retornam a
+    // rascunho.
+    const statusComposicao = composicao.completo ? 'ativa' : 'rascunho';
+    const statusParcela = data.status === 'arquivada' ? 'arquivada' : statusComposicao;
+
+    tx.set(doc(db, 'atividades', id), { ...limpos, status: statusParcela, updatedAt: serverTimestamp() });
     for (const operacao of operacoes) tx.set(operacao.ref, operacao.data);
 
     if (composicaoMudou) {
@@ -203,9 +216,19 @@ async function gravarAtividadeRecuperacao(id, data, anterior = null) {
         atividadeIds: [...new Set([...parcelas.map(p => p.atividadeId), String(id)])],
         escalas: escalasNovas,
         estado: composicao.completo ? 'pronto' : 'rascunho',
+        liberado: composicao.completo,
+        liberadoEm: composicao.completo ? serverTimestamp() : null,
         versao: Number(conjunto.versao || 1) + 1,
         atualizadoEm: serverTimestamp(),
       }, { merge: true });
+
+      for (const irmao of irmaos) {
+        if (irmao.status === 'arquivada' || irmao.status === statusComposicao) continue;
+        tx.set(doc(db, 'atividades', irmao.id), {
+          status: statusComposicao,
+          updatedAt: serverTimestamp(),
+        }, { merge: true });
+      }
     }
   });
 

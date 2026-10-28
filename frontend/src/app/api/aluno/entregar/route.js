@@ -3,7 +3,7 @@ import { getAdminDb } from '@/lib/firebase-admin';
 import { FieldValue } from 'firebase-admin/firestore';
 import { autorizarAtividade, buscarEntregaAutorizada, erroAcesso } from '@/infraestrutura/atividades/acessoAluno';
 import { validarRespostasEntrega } from '@/dominio/atividades/acessoAluno';
-import { finalidadeDaAtividade, FINALIDADE_RECUPERACAO } from '@/dominio/atividades/recuperacaoSemestral';
+import { finalidadeDaAtividade, FINALIDADE_RECUPERACAO, conjuntoLiberadoParaResposta, conjuntoTemControleDeMontagem } from '@/dominio/atividades/recuperacaoSemestral';
 import { chaveVinculoAtividade } from '@/utils/diario/tokenUtils';
 export async function POST(request) {
   try {
@@ -36,8 +36,24 @@ export async function POST(request) {
         if (conjuntoSnap.exists) {
           const conjunto = conjuntoSnap.data();
           if (conjunto.estado === 'cancelado') throw erroAcesso(409, 'Conjunto de recuperação cancelado. A entrega não foi registrada.');
+          // Montagem e entrega são separadas: enquanto a distribuição não
+          // fecha exatamente 10 pontos, nenhuma parcela aceita resposta. O
+          // conjunto legado sem `escalas` é reconhecido explicitamente e
+          // mantém o comportamento anterior.
+          if (!conjuntoLiberadoParaResposta(conjunto)) {
+            throw erroAcesso(409, 'Recuperação em montagem: a distribuição dos 10 pontos ainda não foi concluída. A entrega não foi registrada.');
+          }
           if (Array.isArray(conjunto.destinatariosIds) && !conjunto.destinatariosIds.includes(alunoInfo.alunoId)) {
             throw erroAcesso(403, 'Este aluno não é mais destinatário da recuperação.');
+          }
+          if (conjuntoTemControleDeMontagem(conjunto)) {
+            const composicao = new Set([
+              ...(Array.isArray(conjunto.atividadeIds) ? conjunto.atividadeIds : []),
+              ...Object.keys(conjunto.escalas || {}),
+            ].map(String));
+            if (composicao.size && !composicao.has(String(atividade.id))) {
+              throw erroAcesso(403, 'Atividade fora da composição liberada da recuperação.');
+            }
           }
           // O congelamento é gravado na mesma transação da entrega. A criação/
           // edição de parcelas lê este documento na própria transação, então

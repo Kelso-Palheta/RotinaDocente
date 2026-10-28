@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getAdminDb } from '@/lib/firebase-admin';
 import { getSessionFromRequest } from '@/lib/aluno/session';
 import { atividadePublica, entregaPublica } from '@/dominio/atividades/acessoAluno';
+import { conjuntoLiberadoParaResposta } from '@/dominio/atividades/recuperacaoSemestral';
 import { podeLerRedacao, redacaoPublica } from '@/dominio/redacao/acessoAluno';
 import { chaveVinculoAtividade } from '@/utils/diario/tokenUtils';
 
@@ -37,7 +38,22 @@ export async function GET(request) {
       console.warn('Erro ao buscar notas:', e.message);
     }
 
+    let entregasBrutas = [];
+    try {
+      const snap = await db.collection('entregas')
+        .where('alunoId', '==', alunoId)
+        .get();
+      entregasBrutas = snap.docs.map((d) => ({ id: d.id, ...d.data() })).filter(entrega =>
+        entrega.alunoId === alunoId && entrega.turmaId === turmaId &&
+        (!entrega.professorId || entrega.professorId === professorUid)
+      );
+    } catch (e) {
+      falhas.entregas = true;
+      console.warn('Erro ao buscar entregas:', e.message);
+    }
+
     let atividades = [];
+    let entregas = [];
     try {
       const snap = await db.collection('atividades')
         .where('professorId', '==', professorUid)
@@ -45,27 +61,38 @@ export async function GET(request) {
         .get();
       const todasAtividades = snap.docs.map(d => ({ ...d.data(), id: d.id })).filter(a => !['rascunho', 'publicando'].includes(a.status));
 
+      // A recuperação só aparece depois do fechamento exato dos 10 pontos.
+      // Entrega antiga de conjunto incompleto continua acessível como legado,
+      // mas nenhuma resposta nova é aceita por esse conjunto.
+      const idsConjuntos = [...new Set(todasAtividades
+        .filter(a => a.finalidade === 'recuperacao_semestral' && a.conjuntoRecuperacaoId)
+        .map(a => a.conjuntoRecuperacaoId))];
+      const liberacoes = new Map();
+      await Promise.all(idsConjuntos.map(async conjuntoId => {
+        try {
+          const conjuntoSnap = await db.doc(`professores/${professorUid}/conjuntos_recuperacao/${conjuntoId}`).get();
+          if (conjuntoSnap.exists) liberacoes.set(conjuntoId, conjuntoLiberadoParaResposta(conjuntoSnap.data()));
+        } catch (e) {
+          // Falha de leitura não pode esconder tarefas do aluno.
+          console.warn('Erro ao verificar conjunto de recuperação:', e.message);
+          liberacoes.set(conjuntoId, true);
+        }
+      }));
+      const entregues = new Set(entregasBrutas.map(entrega => entrega.activityId));
+      const publicaveis = todasAtividades.filter(atividade => {
+        if (atividade.finalidade !== 'recuperacao_semestral' || !atividade.conjuntoRecuperacaoId) return true;
+        if (!liberacoes.has(atividade.conjuntoRecuperacaoId)) return true;
+        if (liberacoes.get(atividade.conjuntoRecuperacaoId)) return true;
+        return falhas.entregas ? true : entregues.has(atividade.id);
+      });
+
       const { filtrarAtividadesParaAluno } = await import('@/dominio/adaptacoes/publicadorAtividadeOnline');
-      atividades = filtrarAtividadesParaAluno(todasAtividades, alunoId).map(atividadePublica);
+      atividades = filtrarAtividadesParaAluno(publicaveis, alunoId).map(atividadePublica);
+      const permitidas = new Set(atividades.map(atividade => atividade.id));
+      entregas = entregasBrutas.filter(entrega => permitidas.has(entrega.activityId)).map(entregaPublica);
     } catch (e) {
       falhas.atividades = true;
       console.warn('Erro ao buscar atividades:', e.message);
-    }
-
-    let entregas = [];
-    try {
-      const snap = await db.collection('entregas')
-        .where('alunoId', '==', alunoId)
-        .get();
-      const atividadesPermitidas = new Set(atividades.map(atividade => atividade.id));
-      entregas = snap.docs.map((d) => ({ id: d.id, ...d.data() })).filter(entrega =>
-        entrega.alunoId === alunoId && entrega.turmaId === turmaId &&
-        atividadesPermitidas.has(entrega.activityId) &&
-        (!entrega.professorId || entrega.professorId === professorUid)
-      ).map(entregaPublica);
-    } catch (e) {
-      falhas.entregas = true;
-      console.warn('Erro ao buscar entregas:', e.message);
     }
 
     let redacao = null;
