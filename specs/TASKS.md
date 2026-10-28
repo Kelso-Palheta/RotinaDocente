@@ -126,3 +126,9 @@ Homologação PDF/visual parcial: classificação bimestral divergente no boleti
 - [ ] Revisão independente de contexto, tokens, persistência/concorrência; suíte/lint/build e homologação visual antes de publicação.
 - [ ] Não misturar com os cinco ajustes de PDF/apresentação da homologação RN-81, que continuam pendentes.
 Plano: `docs/plans/2026-10-28-copiar-recuperacao-outra-turma.md`. Nenhum código/teste alterado nesta especificação.
+
+### Revisão independente RN-82 — 28/10/2026
+- [x] Conferir entrega local do DeepSeek: 1.045 testes/223 arquivos recebidos, lint e build aprovados.
+- [ ] Corrigir REV-R82-01..03 reproduzidos no novo `CopiarRecuperacaoRevisao.test.jsx` (3 falhas): versão/contexto conferidos ignorados, retry bloqueado após consumo do saldo e revisão impedida quando origem excede saldo ajustável.
+- [ ] Atualizar guia e executar homologação visual sintética 390/1440 após correções.
+Relatório e prompt: `docs/analises/2026-10-28-revisao-copia-recuperacao.md`. Código não aprovado para publicação; nenhum código/teste recebido alterado nesta revisão.

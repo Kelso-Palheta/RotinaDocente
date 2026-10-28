@@ -364,3 +364,7 @@ Homologação PDF/visual parcial: classificação bimestral divergente no boleti
 - [ ] R82-07: modal mostra origem/destino, novo prazo, saldo e aviso de liberação ao fechar 10; navegação teclado/foco e controles em 390/1440 px. Criar conjunto explicitamente e depois cancelar cópia não apaga conjunto.
 
 Arquivos novos sugeridos: `tests/unit/copiar_recuperacao.test.js`, `tests/integration/copiar_recuperacao.test.js`, `tests/unit/components/atividades/CopiarRecuperacao.test.jsx`. RED obrigatório antes de produção; testes anteriores intocáveis. Não declarar esses aceites concluídos pelo plano.
+
+### Revisão independente RN-82 — reproduções adicionais
+
+Novo arquivo local `tests/unit/components/atividades/CopiarRecuperacaoRevisao.test.jsx`: três falhas confirmadas, sem editar testes recebidos. REV-R82-01 exige nova conferência após mudança do semestre/versão; REV-R82-02 exige que retry após commit de 6+4 alcance idempotência apesar de saldo zero; REV-R82-03 exige abertura da revisão para ajustar origem de 4 ao saldo 3. Suíte recebida antes dessas reproduções: 1.045/223 aprovados; não declarar suíte atual totalmente aprovada. Relatório: `docs/analises/2026-10-28-revisao-copia-recuperacao.md`.
