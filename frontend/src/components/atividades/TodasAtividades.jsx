@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { AtividadePainel } from './AtividadePainel';
 import { AtividadeForm } from './AtividadeForm';
 import { atividadeNoEscopo } from '@/dominio/diario/sincronizacaoAtividades';
+import { ehAtividadeRecuperacao } from '@/dominio/atividades/recuperacaoSemestral';
 
 const StatusBadge = ({ status }) => {
   const map = {
@@ -41,7 +42,7 @@ export const TodasAtividades = ({
 
   useEffect(() => {
     if (todasAtividades.length > 0) {
-      loadEntregasCounts(todasAtividades.map(a => a.id));
+      loadEntregasCounts(todasAtividades.filter(a => !ehAtividadeRecuperacao(a)).map(a => a.id));
     }
   }, [todasAtividades, loadEntregasCounts]);
 
@@ -50,7 +51,7 @@ export const TodasAtividades = ({
     ...(filtroBimestre !== 'todos' ? { bimestre: filtroBimestre } : {}),
   };
   const temFiltro = Object.keys(escopo).length > 0;
-  const filtradas = todasAtividades.filter(atv => atv.status !== 'arquivada' && turmas.some(t => atv.turmaIds?.includes(t.id)) && atividadeNoEscopo(atv, escopo));
+  const filtradas = todasAtividades.filter(atv => !ehAtividadeRecuperacao(atv) && atv.status !== 'arquivada' && turmas.some(t => atv.turmaIds?.includes(t.id)) && atividadeNoEscopo(atv, escopo));
 
   const handleCreate = async (data) => {
     const id = await createAtividade(data);

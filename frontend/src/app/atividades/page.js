@@ -13,6 +13,7 @@ import { useAtividades } from '@/hooks/atividades/useAtividades';
 import { useNotas } from '@/hooks/diario/useNotas';
 import { AtividadesList } from '@/components/atividades/AtividadesList';
 import { TodasAtividades } from '@/components/atividades/TodasAtividades';
+import { RecuperacaoSemestral } from '@/components/atividades/RecuperacaoSemestral';
 import { Sidebar } from '@/components/diario/Sidebar';
 import { ProfileModal } from '@/components/diario/ProfileModal';
 import { ArrowLeft, GraduationCap, Layers, ExternalLink, Copy, Check, Menu, X, HeartHandshake } from 'lucide-react';
@@ -217,6 +218,17 @@ export default function AtividadesPage() {
             </div>
 
             <button
+              onClick={() => confirmarTrocaContexto() && setViewMode('recuperacao')}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
+                ${viewMode === 'recuperacao'
+                  ? 'bg-[#101942] text-white shadow-xs'
+                  : 'bg-slate-50 text-slate-500 hover:bg-slate-100 border border-slate-200'}`}
+            >
+              <GraduationCap size={13} />
+              Recuperação semestral
+            </button>
+
+            <button
               onClick={() => confirmarTrocaContexto() && setViewMode('todas')}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
                 ${viewMode === 'todas'
@@ -238,7 +250,16 @@ export default function AtividadesPage() {
         {persistencia.erro && <div role="alert" className="p-3 bg-amber-50 text-sm">{persistencia.erro} <button onClick={() => executar(persistencia.tentarNovamente)} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
         {/* Content */}
         <div className="flex-1 overflow-auto p-6 bg-[#f7f8fc]">
-          {!persistencia.podeEditar ? <p>Edição bloqueada até concluir carregamento ou revisar conflito. Seu rascunho foi preservado.</p> : <fieldset disabled={arquivadas} className="min-w-0">
+          {!persistencia.podeEditar ? <p>Edição bloqueada até concluir carregamento ou revisar conflito. Seu rascunho foi preservado.</p> : viewMode === 'recuperacao' ? (
+            <RecuperacaoSemestral
+              user={user}
+              turmas={listaContexto}
+              ano={ano}
+              useAtividadesHook={atividadesHook}
+              aguardarSalvamento={aguardarSalvamento}
+              recarregar={recarregar}
+            />
+          ) : <fieldset disabled={arquivadas} className="min-w-0">
           {arquivadas && <p className="mb-3 text-amber-800 text-sm">Turmas arquivadas: consulte notas e histórico no Diário.</p>}
           {viewMode === 'todas' ? (
             <TodasAtividades

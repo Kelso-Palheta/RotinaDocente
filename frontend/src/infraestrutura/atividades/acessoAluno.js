@@ -1,5 +1,6 @@
 import { decodeToken, chaveVinculoAtividade } from '@/utils/diario/tokenUtils';
 import { getSessionFromRequest } from '@/lib/aluno/session';
+import { ehAtividadeRecuperacao } from '@/dominio/atividades/recuperacaoSemestral';
 export const erroAcesso = (status, mensagem) => Object.assign(new Error(mensagem), { status });
 const idValido = id => typeof id === 'string' && id.length > 0 && id.length <= 512 && !id.includes('/');
 
@@ -17,6 +18,7 @@ export async function autorizarAtividade({ db, request, activityId, token, somen
   if (!tokenSnap.exists) throw erroAcesso(403, 'Acesso não emitido ou revogado.');
   const info = tokenSnap.data();
   if (info.token !== token || info.revogado || info.alunoId !== decoded.alunoId || !idValido(info.turmaId) || (decoded.turmaId && decoded.turmaId !== info.turmaId) || !atividade.turmaIds?.includes(info.turmaId) || (atividade.alunoExclusivoId && atividade.alunoExclusivoId !== info.alunoId)) throw erroAcesso(403, 'Acesso não autorizado para esta turma/aluno.');
+  if (ehAtividadeRecuperacao(atividade) && (!Array.isArray(atividade.destinatariosIds) || !atividade.destinatariosIds.includes(info.alunoId))) throw erroAcesso(403, 'Este aluno não é destinatário da recuperação.');
   if (!decoded.segredo) {
     const session = getSessionFromRequest(request);
     if (!session?.loginKey || !idValido(session.loginKey)) throw erroAcesso(401, 'Entre no Portal do Aluno para utilizar este link antigo.');

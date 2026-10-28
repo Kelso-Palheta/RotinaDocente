@@ -1,3 +1,5 @@
+import { ehAtividadeRecuperacao } from '@/dominio/atividades/recuperacaoSemestral';
+
 /** Escopo explícito; chamadas legadas por turma continuam suportadas. */
 export function normalizarEscopoSincronizacao(valor = null) {
   if (valor === null || valor === undefined) return {};
@@ -23,6 +25,14 @@ export function atividadeNoEscopo(atividade, escopo = {}) {
     && (!escopo.atividadeId || atividade.id === escopo.atividadeId);
 }
 
+/**
+ * Recuperação semestral nunca entra na sincronização regular, inclusive na
+ * global. A exclusão é explícita para não depender de bimestre ausente.
+ */
+export function atividadesSincronizaveis(atividades = []) {
+  return (atividades || []).filter(atividade => !ehAtividadeRecuperacao(atividade));
+}
+
 export function entregaNoEscopo(entrega, escopo = {}) {
   return (!escopo.turmaId || entrega.turmaId === escopo.turmaId)
     && (!escopo.bimestre || entrega.bimestre == null || String(entrega.bimestre) === String(escopo.bimestre))
@@ -35,7 +45,7 @@ export function aplicarSincronizacaoAtividades({ turmas, atividades, entregas, e
   let atualizadas = turmas;
   let sincronizadas = 0;
   const alteracoes = [];
-  for (const atividade of atividades.filter(atv => atividadeNoEscopo(atv, escopo))) {
+  for (const atividade of atividadesSincronizaveis(atividades.filter(atv => atividadeNoEscopo(atv, escopo)))) {
     const bimestre = String(atividade.bimestre);
     if (!['1', '2', '3', '4'].includes(bimestre)) continue;
     for (const entrega of entregas) {

@@ -1,5 +1,11 @@
 import { db } from './firebase';
-import { aplicarSincronizacaoAtividades, atividadeNoEscopo, normalizarEscopoSincronizacao } from '@/dominio/diario/sincronizacaoAtividades';
+import { aplicarSincronizacaoAtividades, atividadeNoEscopo, atividadesSincronizaveis, normalizarEscopoSincronizacao } from '@/dominio/diario/sincronizacaoAtividades';
+import {
+  ehAtividadeRecuperacao,
+  finalidadeDaAtividade,
+  validarNovaParcelaRecuperacao,
+  FINALIDADE_RECUPERACAO,
+} from '@/dominio/atividades/recuperacaoSemestral';
 import {
   doc, collection, setDoc, getDoc, getDocs, deleteDoc,
   query, where, serverTimestamp, writeBatch, runTransaction
@@ -33,7 +39,7 @@ async function planejarTokens(activityId, alunosPorTurma, turmaIds, nova = false
   }
   return operacoes;
 }
-async function gravarComTokens(id, data, alunosPorTurma, nova = false) {
+async function gravarComTokens(id, data, alunosPorTurma, nova = false, extras = []) {
   const operacoes = alunosPorTurma ? await planejarTokens(id, alunosPorTurma, data.turmaIds || [], nova) : [];
   if (operacoes.length > 449) throw new Error('Muitos acessos em uma operação. Publique em grupos menores de turmas. Nenhum dado foi gravado.');
   const batch = writeBatch(db);
@@ -41,8 +47,61 @@ async function gravarComTokens(id, data, alunosPorTurma, nova = false) {
   if (data.createdAt) limpos.createdAt = data.createdAt;
   batch.set(doc(db, 'atividades', id), { ...limpos, updatedAt: serverTimestamp() });
   for (const op of operacoes) batch.set(op.ref, op.data);
+  for (const extra of extras) batch.set(extra.ref, extra.data, { merge: true });
   await batch.commit();
 }
+
+/**
+ * Recuperação não pode ser criada/editada fora do conjunto, com bimestre
+ * falso, outra turma/semestre ou distribuição acima de 10 pontos.
+ */
+async function prepararRecuperacao(data, id) {
+  if (!ehAtividadeRecuperacao(data)) return [];
+  const professorId = data.professorId;
+  const turmaId = data.turmaIds?.[0];
+  if (!data.conjuntoRecuperacaoId) throw new Error('Conjunto de recuperação obrigatório.');
+  if (!['1', '2'].includes(String(data.semestre))) throw new Error('Semestre da recuperação inválido.');
+  if (data.bimestre != null) throw new Error('Atividade de recuperação não usa bimestre.');
+  if ((data.turmaIds || []).length !== 1) throw new Error('Atividade de recuperação pertence a uma única turma.');
+
+  const conjuntoRef = doc(db, 'professores', professorId, 'conjuntos_recuperacao', data.conjuntoRecuperacaoId);
+  const conjuntoSnap = await getDoc(conjuntoRef);
+  if (!conjuntoSnap.exists()) throw new Error('Conjunto de recuperação não encontrado.');
+  const conjunto = conjuntoSnap.data();
+  if (conjunto.professorId !== professorId
+    || conjunto.turmaId !== turmaId
+    || String(conjunto.semestre) !== String(data.semestre)
+    || conjunto.estado === 'cancelado') {
+    throw new Error('Atividade não pertence a este conjunto, turma ou semestre.');
+  }
+
+  const destinatarios = Array.isArray(data.destinatariosIds) ? data.destinatariosIds : conjunto.destinatariosIds;
+  if (!destinatarios?.length || destinatarios.some(alunoId => !conjunto.destinatariosIds.includes(alunoId))) {
+    throw new Error('Destinatário fora do conjunto de recuperação.');
+  }
+
+  const snap = await getDocs(query(collection(db, 'atividades'), where('professorId', '==', professorId)));
+  const irmaos = snap.docs
+    .map(d => ({ ...d.data(), id: d.id }))
+    .filter(atv => atv.id !== id && atv.conjuntoRecuperacaoId === data.conjuntoRecuperacaoId && ehAtividadeRecuperacao(atv));
+
+  const composicao = validarNovaParcelaRecuperacao({
+    parcelasExistentes: irmaos.map(atv => ({ atividadeId: atv.id, maximo: atv.notaMaxima })),
+    novaParcela: { atividadeId: id, maximo: data.notaMaxima },
+    substituirId: id,
+  });
+
+  return [{
+    ref: conjuntoRef,
+    data: {
+      atividadeIds: [...new Set([...irmaos.map(atv => atv.id), id])],
+      estado: composicao.completo ? 'pronto' : 'rascunho',
+      versao: Number(conjunto.versao || 1) + 1,
+      atualizadoEm: serverTimestamp(),
+    },
+  }];
+}
+
 export async function createAtividade(data) {
   const id = data.id || `atv_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
   const ref = doc(db, 'atividades', id);
@@ -55,7 +114,8 @@ export async function createAtividade(data) {
     await updateAtividade(id, data);
     return id;
   }
-  await gravarComTokens(id, { ...data, createdAt: serverTimestamp() }, data.alunosPorTurma, true);
+  const extras = await prepararRecuperacao({ ...data, id }, id);
+  await gravarComTokens(id, { ...data, createdAt: serverTimestamp() }, data.alunosPorTurma, true, extras);
   return id;
 }
 export async function updateAtividade(id, data) {
@@ -63,8 +123,11 @@ export async function updateAtividade(id, data) {
   const atual = await getDoc(ref);
   if (!atual.exists()) throw new Error('Atividade não encontrada.');
   const anterior = atual.data();
+  if (data.finalidade !== undefined && finalidadeDaAtividade(data) !== finalidadeDaAtividade(anterior)) {
+    throw new Error('A finalidade da atividade não pode ser alterada. Crie outra atividade.');
+  }
   const entregas = await getDocs(query(collection(db, 'entregas'), where('activityId', '==', id)));
-  const campos = ['bimestre', 'turmaIds', 'questoes', 'notaMaxima'];
+  const campos = ['bimestre', 'turmaIds', 'questoes', 'notaMaxima', 'finalidade', 'conjuntoRecuperacaoId', 'semestre', 'destinatariosIds'];
   const estrutural = campos.some(k => data[k] !== undefined && JSON.stringify(data[k]) !== JSON.stringify(anterior[k]));
   if (estrutural && entregas.docs.length) throw new Error('Esta atividade já possui entregas. Preserve bimestre, turmas, questões e escala; crie outra atividade para mudar a estrutura.');
   if (estrutural && anterior.professorId) {
@@ -72,7 +135,9 @@ export async function updateAtividade(id, data) {
     const temNotas = diario.exists() && diario.data().turmas?.some(t => Object.values(t.bimestres || {}).some(b => Object.values(b.notas || {}).some(n => n[id] != null || (anterior.atvIdNoMapa && n[anterior.atvIdNoMapa] != null))));
     if (temNotas) throw new Error('A atividade já tem notas no Diário. A estrutura e o bimestre foram preservados.');
   }
-  await gravarComTokens(id, { ...anterior, ...data, professorId: anterior.professorId }, data.alunosPorTurma);
+  const consolidada = { ...anterior, ...data, professorId: anterior.professorId };
+  const extras = await prepararRecuperacao(consolidada, id);
+  await gravarComTokens(id, consolidada, data.alunosPorTurma, false, extras);
 }
 /** Arquivar conserva entregas, devolutivas, acessos e notas históricas. */
 export async function deleteAtividade(id) {
@@ -238,8 +303,9 @@ export async function sincronizarTodasAsNotas(professorId, filtro = null) {
   if (escopo.turmaId) constraints.push(where('turmaIds', 'array-contains', escopo.turmaId));
   const atvSnap = await getDocs(query(collection(db, 'atividades'), ...constraints));
   // Bimestre é filtrado localmente para não exigir novos índices compostos do Firestore.
-  const atividades = atvSnap.docs.map(d => ({ ...d.data(), id: d.id }))
-    .filter(atv => atv.professorId === professorId && atividadeNoEscopo(atv, escopo));
+  // Recuperação semestral fica fora da sincronização regular, inclusive global.
+  const atividades = atividadesSincronizaveis(atvSnap.docs.map(d => ({ ...d.data(), id: d.id }))
+    .filter(atv => atv.professorId === professorId && atividadeNoEscopo(atv, escopo)));
   const vazio = { sincronizadas: 0, erros: 0, detalhes: [], publicacoes: [] };
   if (!atividades.length) return vazio;
 

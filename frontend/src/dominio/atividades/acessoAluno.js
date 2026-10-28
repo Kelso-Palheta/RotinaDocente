@@ -1,13 +1,13 @@
 /** Projeções explícitas: campos futuros não se tornam públicos por acidente. */
 const selecionar = (dados, campos) => Object.fromEntries(campos.filter(k => dados[k] !== undefined).map(k => [k, dados[k]]));
 export function atividadePublica(dados) {
-  const publica = selecionar(dados, ['id', 'professorId', 'turmaIds', 'status', 'titulo', 'descricao', 'disciplina', 'anoEscolar', 'bimestre', 'notaMaxima', 'dataEntrega', 'textoBase', 'textosBase', 'tipoAtividade']);
+  const publica = selecionar(dados, ['id', 'professorId', 'turmaIds', 'status', 'titulo', 'descricao', 'disciplina', 'anoEscolar', 'bimestre', 'notaMaxima', 'dataEntrega', 'textoBase', 'textosBase', 'tipoAtividade', 'finalidade', 'semestre', 'conjuntoRecuperacaoId']);
   publica.questoes = (dados.questoes || []).map(q => selecionar(q, ['id', 'numero', 'tipo', 'enunciado', 'notaMaxima', 'alternativas', 'imagens', 'textoApoio', 'scaffolding', 'apoioVisualDescricao']));
   if (!publica.questoes.length && dados.enunciado) publica.enunciado = dados.enunciado;
   return publica;
 }
 export function entregaPublica(dados) {
-  return dados ? selecionar(dados, ['id', 'activityId', 'alunoId', 'turmaId', 'bimestre', 'respostas', 'respostaTexto', 'status', 'submittedAt', 'notaRevisada', 'notaFinal', 'notaOriginal', 'feedback', 'feedbackGeral', 'resultados', 'criterios', 'tipoCorrecao']) : null;
+  return dados ? selecionar(dados, ['id', 'activityId', 'alunoId', 'turmaId', 'bimestre', 'respostas', 'respostaTexto', 'status', 'submittedAt', 'notaRevisada', 'notaFinal', 'notaOriginal', 'feedback', 'feedbackGeral', 'resultados', 'criterios', 'tipoCorrecao', 'finalidade', 'semestre', 'conjuntoRecuperacaoId']) : null;
 }
 export function validarRespostasEntrega(atividade, entrada) {
   const questoes = atividade.questoes || [];

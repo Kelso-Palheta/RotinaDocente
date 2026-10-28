@@ -224,9 +224,17 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
 
 export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData, contextoInicial = {} }) => {
   const isEdit = !!initialData;
+  const recuperacao = (initialData?.finalidade || contextoInicial.finalidade) === 'recuperacao_semestral';
+  const conjuntoId = initialData?.conjuntoRecuperacaoId || contextoInicial.conjuntoRecuperacaoId || null;
+  const destinatariosIds = initialData?.destinatariosIds || contextoInicial.destinatariosIds || [];
+  const anoLetivo = initialData?.anoLetivo || contextoInicial.anoLetivo || null;
+  const pontosRestantes = Number.isFinite(Number(contextoInicial.pontosRestantes))
+    ? Number(contextoInicial.pontosRestantes)
+    : 10;
   const idEstavel = useRef(initialData?.id || genAtvId());
   const [titulo, setTitulo] = useState(initialData?.titulo || '');
   const [bimestre, setBimestre] = useState(initialData?.bimestre || contextoInicial.bimestre || 1);
+  const [semestre, setSemestre] = useState(Number(initialData?.semestre || contextoInicial.semestre || 1));
   const [turmaIds, setTurmaIds] = useState(initialData?.turmaIds || initialData?.turmas || (contextoInicial.turmaId ? [contextoInicial.turmaId] : []));
   const [dataEntrega, setDataEntrega] = useState(() => {
     let d = initialData?.dataEntrega?.toDate?.() || (initialData?.dataEntrega ? new Date(initialData.dataEntrega) : null);
@@ -258,7 +266,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
   );
   const [saving, setSaving] = useState(false);
   const [erro, setErro] = useState('');
-  const assinatura = JSON.stringify([titulo, bimestre, turmaIds, dataEntrega, questoes, textosBase, materiais]);
+  const assinatura = JSON.stringify([titulo, bimestre, semestre, conjuntoId, turmaIds, dataEntrega, questoes, textosBase, materiais]);
   const inicial = useRef(assinatura);
   useEffect(() => {
     const proteger = e => { if (assinatura !== inicial.current || saving) { e.preventDefault(); e.returnValue = ''; } };
@@ -389,7 +397,15 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     setErro('');
 
     if (!titulo.trim()) { setErro('Título obrigatório.'); return; }
-    if (![1,2,3,4].includes(Number(bimestre))) { setErro('Selecione um bimestre válido.'); return; }
+    if (recuperacao) {
+      if (!['1', '2'].includes(String(semestre))) { setErro('Selecione o semestre da recuperação.'); return; }
+      if (turmaIds.length !== 1) { setErro('A recuperação pertence a uma única turma.'); return; }
+      if (notaTotalMaxima <= 0) { setErro('A atividade precisa valer mais que zero pontos.'); return; }
+      if (notaTotalMaxima > pontosRestantes + 0.0001) {
+        setErro(`A recuperação vale 10 pontos no total. Restam ${pontosRestantes.toFixed(2).replace('.', ',')} para distribuir.`);
+        return;
+      }
+    } else if (![1,2,3,4].includes(Number(bimestre))) { setErro('Selecione um bimestre válido.'); return; }
     if (turmaIds.length === 0) { setErro('Selecione ao menos uma turma.'); return; }
     if (!dataValida(dataEntrega)) { setErro('Data de entrega inválida.'); return; }
     if (materiais.some(m => m._extracting || m._erro)) { setErro('Conclua a leitura ou remova os arquivos com falha antes de salvar.'); return; }
@@ -442,13 +458,12 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
       const alunosPorTurma = {};
       for (const tid of turmaIds) {
         const turma = turmas.find(t => t.id === tid);
-        if (turma) alunosPorTurma[tid] = turma.alunos || [];
+        if (turma) alunosPorTurma[tid] = (turma.alunos || []).filter(aluno => !recuperacao || destinatariosIds.includes(aluno.id));
       }
 
       const payload = {
         id: atvId,
         titulo: titulo.trim(),
-        bimestre,
         turmas: turmaIds,
         turmaIds,
         notaMaxima: Math.round(notaTotalMaxima * 100) / 100,
@@ -457,7 +472,16 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
         questoes: questoesFinais,
         materiais: materiaisFinais,
         materialApoio,
-        alunosPorTurma
+        alunosPorTurma,
+        ...(recuperacao
+          ? {
+              finalidade: 'recuperacao_semestral',
+              conjuntoRecuperacaoId: conjuntoId,
+              semestre: String(semestre),
+              anoLetivo,
+              destinatariosIds,
+            }
+          : { bimestre }),
       };
 
       if (isEdit && onUpdate) {
@@ -519,12 +543,18 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200 max-h-[92vh] overflow-y-auto animate-card-in">
         <div className="sticky top-0 z-10 bg-white p-5 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900">{isEdit ? 'Editar Atividade' : 'Nova Atividade'}</h2>
+          <h2 className="text-lg font-bold text-slate-900">{isEdit ? 'Editar Atividade' : recuperacao ? 'Nova Atividade de Recuperação' : 'Nova Atividade'}</h2>
           <button onClick={() => { if (!saving && (assinatura === inicial.current || window.confirm('Descartar alterações não salvas desta atividade?'))) onClose?.(); }} disabled={saving} className="text-slate-400 hover:text-slate-900 text-2xl leading-none">&times;</button>
         </div>
 
         <form onSubmit={handleSubmit} data-diario-rascunho={assinatura !== inicial.current} data-diario-salvando={saving} className="p-5">
           <fieldset disabled={saving} className="space-y-5">
+          {recuperacao && (
+            <div role="status" className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
+              <p className="font-semibold">Recuperação do {semestre}º semestre · {turmas.find(t => t.id === turmaIds[0])?.nome || 'turma'}</p>
+              <p className="mt-1">Vale 10 pontos no total. Esta atividade pode valer até <strong>{pontosRestantes.toFixed(2).replace('.', ',')}</strong> pontos. As notas são somadas, sem média.</p>
+            </div>
+          )}
           <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-900 mb-1">Título *</label>
@@ -534,13 +564,23 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="atividade-bimestre" className="block text-xs font-semibold text-slate-900 mb-1">Bimestre *</label>
-                <select id="atividade-bimestre" value={bimestre} onChange={e => setBimestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm">
-                  {BIMESTRES.map(b => <option key={b} value={b}>{b}º bimestre</option>)}
-                </select>
-
-              </div>
+              {!recuperacao && (
+                <div>
+                  <label htmlFor="atividade-bimestre" className="block text-xs font-semibold text-slate-900 mb-1">Bimestre *</label>
+                  <select id="atividade-bimestre" value={bimestre} onChange={e => setBimestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm">
+                    {BIMESTRES.map(b => <option key={b} value={b}>{b}º bimestre</option>)}
+                  </select>
+                </div>
+              )}
+              {recuperacao && (
+                <div>
+                  <label htmlFor="atividade-semestre" className="block text-xs font-semibold text-slate-900 mb-1">Semestre *</label>
+                  <select id="atividade-semestre" value={semestre} onChange={e => setSemestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm">
+                    <option value={1}>1º semestre</option>
+                    <option value={2}>2º semestre</option>
+                  </select>
+                </div>
+              )}
               <div>
                 <label htmlFor="dataEntrega" className="block text-xs font-semibold text-slate-900 mb-1">Data de entrega *</label>
                 <input id="dataEntrega" type="text" placeholder="AAAA-MM-DDTHH:mm" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
@@ -548,20 +588,29 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-900 mb-1">Turmas *</label>
-              <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 max-h-28 overflow-y-auto space-y-0.5">
-                {turmas.length === 0 && <p className="text-xs text-slate-400 p-2">Nenhuma turma.</p>}
-                {turmas.map(t => (
-                  <label key={t.id} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white cursor-pointer transition-colors">
-                    <input type="checkbox" checked={turmaIds.includes(t.id)} onChange={() => toggleTurma(t.id)}
-                      className="w-4 h-4 rounded accent-violet-500" />
-                    <span className="text-sm text-slate-900">{t.nome}</span>
-                    <span className="text-xs text-slate-400">({t.alunos?.length || 0} alunos)</span>
-                  </label>
-                ))}
+            {recuperacao ? (
+              <div>
+                <p className="block text-xs font-semibold text-slate-900 mb-1">Turma e destinatários</p>
+                <p className="text-sm text-slate-900 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5">
+                  {turmas.find(t => t.id === turmaIds[0])?.nome || 'Turma não encontrada'} · {destinatariosIds.length} {destinatariosIds.length === 1 ? 'aluno' : 'alunos'} em recuperação
+                </p>
               </div>
-            </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-semibold text-slate-900 mb-1">Turmas *</label>
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 max-h-28 overflow-y-auto space-y-0.5">
+                  {turmas.length === 0 && <p className="text-xs text-slate-400 p-2">Nenhuma turma.</p>}
+                  {turmas.map(t => (
+                    <label key={t.id} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white cursor-pointer transition-colors">
+                      <input type="checkbox" checked={turmaIds.includes(t.id)} onChange={() => toggleTurma(t.id)}
+                        className="w-4 h-4 rounded accent-violet-500" />
+                      <span className="text-sm text-slate-900">{t.nome}</span>
+                      <span className="text-xs text-slate-400">({t.alunos?.length || 0} alunos)</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="border border-dashed border-slate-200 rounded-xl p-4">

@@ -163,6 +163,12 @@ export function filtrarAtividadesParaAluno(atividades = [], alunoId) {
   if (!Array.isArray(atividades)) return [];
 
   return atividades.filter((atv) => {
+    // Recuperação é dirigida apenas aos destinatários escolhidos pelo professor.
+    if (atv.finalidade === 'recuperacao_semestral') {
+      const destinatarios = Array.isArray(atv.destinatariosIds) ? atv.destinatariosIds : [];
+      return destinatarios.includes(alunoId) && (!atv.alunoExclusivoId || atv.alunoExclusivoId === alunoId);
+    }
+
     // Atividade regular da turma
     if (!atv.alunoExclusivoId) {
       return true;

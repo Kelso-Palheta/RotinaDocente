@@ -99,6 +99,8 @@
 - [x] Confirmar regra: uma ou várias atividades, soma total de 0 a 10; sem média automática.
 - [x] Especificar isolamento, lançamento revisável em rec1/rec2 e preservação da fórmula 25/25/50.
 - [x] Preparar plano e prompt delimitado para DeepSeek/OpenCode em `docs/plans/2026-10-27-recuperacao-semestral.md`.
-- [ ] Implementar domínio, criação/entrega/correção, lançamento e feedback conforme R81-01..08, com TDD.
+- [x] Implementar domínio, criação/entrega/correção, lançamento versionado e backup com testes novos; cobertura parcial de R81-01..08.
 - [ ] Revisar independentemente autorização, versão concorrente, dados legados e notas antes de liberar.
-- [ ] Executar suíte completa, lint/build e homologação visual; publicar implementação aprovada.
+- [ ] Homologar visualmente 390/1440 px, teclado/foco/leitor de tela e exportação real de PDF individual.
+- [ ] Publicar a implementação aprovada e marcar a funcionalidade como concluída.
+- Evidência de 27/10/2026: **960 testes em 206 arquivos** aprovados, incluindo 58 novos da RN-81; lint do escopo sem erros (permanecem 2 avisos preexistentes de `<img>` em `AtividadeForm.jsx`); build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Nenhum dado real foi gravado e a publicação funcional continua pendente de revisão independente.

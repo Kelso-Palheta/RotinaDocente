@@ -145,6 +145,14 @@ Cache `diario:{uid}:v2` contém rascunho, base, pendência e até 20 registros d
 - Entrega nova: `entregas/{activityId}__{vinculo}`; leitura do antigo `{activityId}_{alunoId}` exige turma/aluno correspondentes. Criação transacional; repetição retorna conflito sem mutação.
 - Regras Firestore restringem atividades/tokens ao professor proprietário, preservam autoria e autorizam entrega legada pelo vínculo com sua atividade. Alunos usam o BFF com Admin SDK, onde a autorização é revalidada.
 
+## Recuperação semestral por atividades (RN-81)
+- `professores/{uid}/conjuntos_recuperacao/{conjuntoId}`: documento privado do professor. Campos `professorId`, `turmaId`, `anoLetivo`, `semestre` (`'1' | '2'`), `destinatariosIds` (IDs canônicos, sem duplicatas), `atividadeIds`, `estado` (`rascunho | pronto | cancelado`), `versao` inteiro positivo, `criadoEm`/`atualizadoEm`. Um conjunto pertence a uma única turma/ano/semestre; conjuntos adaptados para alunos diferentes podem coexistir. A subcoleção já é coberta por `professores/{userId}/{document=**}` nas regras atuais.
+- `atividades/{id}` de recuperação: `finalidade: 'recuperacao_semestral'`, `conjuntoRecuperacaoId`, `semestre`, `anoLetivo`, `destinatariosIds`, `turmaIds` com exatamente uma turma e **sem** `bimestre`. `notaMaxima` é a parcela do orçamento de 10 pontos. Atividade sem `finalidade` continua regular.
+- A soma das parcelas nunca passa de 10 pontos, em centésimos. Máximo menor que 10 deixa o conjunto incompleto; não há reescalonamento automático.
+- `entregas/{activityId}__{vinculo}` de recuperação acrescenta `finalidade`, `conjuntoRecuperacaoId` e `semestre`, derivados no servidor, e não grava `bimestre`.
+- Diário: `turmas[].recuperacao[alunoId].rec1|rec2` continua numérico e é o único valor lido pela fórmula existente. A proveniência fica fora desses números em `turmas[].recuperacaoLancamentos[alunoId].rec1|rec2 = { conjuntoId, versao, semestre, chave, total, parcelas:[{atividadeId,nota}], anterior, em, por }`. `chave` é idempotente por conjunto/versão/aluno/semestre/total.
+- Backup novo e antigo preservam `recuperacao` e `recuperacaoLancamentos`; restaurar backup sem proveniência mantém a nota numérica e não inventa histórico. Nenhum lançamento grava `bimestres`, atividades regulares, outros alunos ou notas manuais diferentes sem confirmação.
+
 ## RN-73 — Correções
 professores/{uid}/correcoes/{idUnico}: schemaVersion 2; alunoId, turmaId, turmaNome/studentClass, anoLetivo, bimestre, loginAluno/loginKey; originalText; result; scoreData; totalScore (null parcial); assessmentMode, competencias; anulada/motivo; status rascunho|revisado|publicado|arquivado; createdAt/updatedAt/publishedAt; revisoes com versão anterior, autor e data. Legados não são reescritos ao carregar. Vínculo existente do Diário preservado; módulo redação não remove nem altera contexto existente incompatível.
 

@@ -8,6 +8,7 @@ import { getAtividade } from '@/lib/firebase-atividades';
 import { EntregaDrawer } from './EntregaDrawer';
 import { SimilaridadePainel } from './SimilaridadePainel';
 import { textoComparavel } from '@/dominio/atividades/similaridadeRespostas';
+import { ehAtividadeRecuperacao } from '@/dominio/atividades/recuperacaoSemestral';
 import { UrlCopyPanel } from './UrlCopyPanel';
 import { AtividadeForm } from './AtividadeForm';
 import { db } from '@/lib/firebase';
@@ -37,9 +38,10 @@ const chaveAluno = (turmaId, alunoId) => JSON.stringify([turmaId, alunoId]);
 
 export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, onBack, onDelete, onAtividadeUpdated, useAtividadesHook, turmas = [], onSyncAtvMapa, onSetNota, user, sincronizacaoAutomatica = true }) => {
   const [atividade, setAtividade] = useState(atividadeInicial);
+  const recuperacao = ehAtividadeRecuperacao(atividade);
 
   const handleNotaChanged = useCallback((info) => {
-    if (!onSetNota || !sincronizacaoAutomatica) return;
+    if (!onSetNota || !sincronizacaoAutomatica || recuperacao) return;
     const result = aplicarSincronizacaoAtividades({
       turmas,
       atividades: [atividade],
@@ -49,7 +51,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     for (const alteracao of result.alteracoes) {
       onSetNota(alteracao.turmaId, alteracao.bimestre, alteracao.alunoId, alteracao.atvId, info.notaFinal);
     }
-  }, [atividade, turmas, currentTurmaId, onSetNota, sincronizacaoAutomatica]);
+  }, [atividade, turmas, currentTurmaId, onSetNota, sincronizacaoAutomatica, recuperacao]);
 
   const { entregas: recebidas, corrigindo, corrigirManualmente, corrigirEntrega, similaridades = [], gruposSimilaridade = [], erro: erroEntregas } = useEntregas(atividade.id, handleNotaChanged, { turmaId: currentTurmaId, bimestre: atividade.bimestre });
   const entregas = useMemo(() => recebidas.filter(entrega => entregaNoEscopo(entrega, { turmaId: currentTurmaId, bimestre: atividade.bimestre })), [recebidas, currentTurmaId, atividade.bimestre]);
@@ -143,6 +145,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
   }, [entregas, atividade.bimestre, handleNotaChanged, onSetNota, sincronizacaoAutomatica]);
 
   const sincronizarCorrecao = useCallback(async (entrega, bim) => {
+    if (recuperacao) { setMensagem('Correção salva. Confira a recuperação e lance a nota quando concluir.'); return; }
     if (!sincronizacaoAutomatica) { setMensagem('Correção salva. Confira e sincronize as notas quando concluir a revisão.'); return; }
     try {
       const sync = await useAtividadesHook.sincronizarTodasAsNotas({ turmaId: entrega.turmaId, bimestre: bim, atividadeId: atividade.id, alunoId: entrega.alunoId });
@@ -151,7 +154,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     } catch (error) {
       setErroAcao('Correção salva, mas o envio da nota falhou: ' + error.message);
     }
-  }, [atividade.id, useAtividadesHook, sincronizacaoAutomatica]);
+  }, [atividade.id, useAtividadesHook, sincronizacaoAutomatica, recuperacao]);
 
   const handleCorrigirManual = useCallback(async (entregaId, dados) => {
     const entrega = entregas.find(item => item.id === entregaId);
@@ -262,7 +265,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
           </p>
         </div>
         <div className="flex gap-2 items-center flex-wrap">
-          {!sincronizacaoAutomatica && <button type="button" onClick={() => setPreviaSync(true)} className="btn-brand-navy px-3 py-1.5 text-xs">Conferir e sincronizar notas</button>}
+          {!sincronizacaoAutomatica && !recuperacao && <button type="button" onClick={() => setPreviaSync(true)} className="btn-brand-navy px-3 py-1.5 text-xs">Conferir e sincronizar notas</button>}
           {pendentes > 0 && (
             <select
               value={nivelCorrecao}

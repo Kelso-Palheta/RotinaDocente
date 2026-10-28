@@ -184,5 +184,11 @@ Em publicação bimestral, máscaras atômicas de campos atualizam somente `bime
 - `GET /api/aluno/boletim`: valida `loginKey` da sessão contra vínculo vigente exato professor/turma/aluno. Aplica a mesma projeção pública, encontra tokens novos/legados e conserva feedback de atividade arquivada com entrega.
 - `GET /api/aluno/boletim` (RN-75): cada seção lida isoladamente. Falha em notas, atividades, entregas, tokens ou redações retorna `falhas.<seção> = true` com HTTP 200 e as demais seções preservadas; a seção afetada vem vazia, nunca como conteúdo confirmado. `success` continua indicando resposta autenticada, não sucesso integral.
 
+### Recuperação semestral por atividades (RN-81)
+- `POST /api/aluno/entregar` (recuperação): `finalidade`, `conjuntoRecuperacaoId` e `semestre` são derivados da atividade autorizada. Valores enviados pelo cliente só são aceitos se coincidirem; divergência retorna 403. Recuperação não tem bimestre: o campo não é gravado nem aceito como substituto do semestre.
+- `GET /api/aluno/atividade/:id` e `GET /api/aluno/boletim` projetam `finalidade`, `conjuntoRecuperacaoId` e `semestre` da atividade de recuperação, além do prazo e do valor de cada parcela. A resposta individual nunca inclui destinatários colegas, gabarito, rubrica ou material privado.
+- Atividade de recuperação só é acessível ao aluno presente em `destinatariosIds`, mesmo que exista token emitido para outro aluno ou link direto por ID. A atividade regular continua acessível à turma inteira.
+- Lançamento em `rec1`/`rec2` não tem rota pública: passa pela persistência versionada do Diário, com prévia, revalidação de entregas e confirmação explícita de substituição. Corrigir não lança; lançar não publica no Portal.
+
 ## RN-73 — Redação
 POST /api/corrigir: BYOK obrigatório, texto/imagem, competências e profundidade validados; retorna result + scores válidos (completa/parcial/anulada), não persiste. Erro de avaliação inválida não retorna nota zero artificial. GET /api/aluno/redacao/:id: exige vínculo atual, identidade e estado publicado; projection pública. Boletim retorna redação atual publicada e lista autorizada redacoes para histórico.
