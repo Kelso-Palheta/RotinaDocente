@@ -59,3 +59,5 @@ Não alterar notas/fórmula/pesos/critério, autenticação, persistência ou si
 Sem Firestore real, IA real, leitor de tela ou nova homologação de produção. A revisão usou código, suíte, testes independentes e imagens fornecidas pela entrega, não gerou novos PDFs. Nenhum PDF auditado foi aprovado como artefato final para distribuição.
 
 Somente esta documentação e o registro de acompanhamento são publicados nesta rodada. Implementação do DeepSeek, evidências recebidas e teste novo de reprodução permanecem locais para correção. Os demais três pontos não tiveram bloqueio adicional identificado no escopo examinado; isso não equivale a homologação integral em produção.
+
+Atualização posterior: os dois bloqueios foram corrigidos e passaram sem editar as reproduções. Revisão final, regeneração de PDFs e limites em [validação independente final](2026-10-29-validacao-final-correcoes-recuperacao.md). O resultado acima descreve a primeira entrega.

@@ -42,12 +42,22 @@ export async function generateFichaAluno360PDF({
   const contentWidth = pageWidth - margin * 2;
 
   // ── CABEÇALHO OFICIAL NAVY + BRAND ACCENT ──
+  // Medir o professor com a fonte efetiva da impressão (normal 8,5).
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  const professorLinhas = doc.splitTextToSize(`PROFESSOR(A): ${professorNome.toUpperCase()}`, contentWidth);
+  const emissaoTexto = `EMISSÃO: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
+  const emissaoY = 27 + professorLinhas.length * 3.8;
+  // Reserva 4 mm entre a linha de base da emissão e a faixa rosa.
+  const faixaY = emissaoY + 4;
+  const alturaCabecalho = Math.max(36, faixaY + 1.5);
+
   doc.setFillColor(16, 25, 66); // #101942
-  doc.rect(0, 0, pageWidth, 36, 'F');
+  doc.rect(0, 0, pageWidth, alturaCabecalho, 'F');
 
   // Linha rosa de destaque
   doc.setFillColor(246, 12, 73); // #f60c49
-  doc.rect(0, 34.5, pageWidth, 1.5, 'F');
+  doc.rect(0, faixaY, pageWidth, 1.5, 'F');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
@@ -58,14 +68,14 @@ export async function generateFichaAluno360PDF({
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(220, 224, 240);
   doc.text(`DOCUMENTO INDIVIDUAL PARA CONSELHO DE CLASSE E REUNIÃO DE PAIS`, margin, 21);
-  doc.text(`PROFESSOR(A): ${professorNome.toUpperCase()}`, margin, 27);
-  doc.text(
-    `EMISSÃO: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`,
-    pageWidth - margin - 50,
-    27
-  );
+  let cabecalhoY = 27;
+  for (const linha of professorLinhas) {
+    doc.text(linha, margin, cabecalhoY);
+    cabecalhoY += 3.8;
+  }
+  doc.text(emissaoTexto, margin, emissaoY);
 
-  let cursorY = 43;
+  let cursorY = alturaCabecalho + 7;
   const garantirEspaco = (altura) => {
     if (cursorY + altura <= pageHeight - 18) return;
     const fonte = doc.getFont?.();
@@ -89,24 +99,61 @@ export async function generateFichaAluno360PDF({
   };
 
   // ── 1. IDENTIFICAÇÃO DO ESTUDANTE ──
+  const identificacaoBlocos = [
+    {
+      texto: `ESTUDANTE: ${ficha.aluno.nome.toUpperCase()}`,
+      fonte: 'bold',
+      tamanho: 9.5,
+      cor: [16, 25, 66],
+    },
+    {
+      texto: `TURMA: ${ficha.turma.nome}`,
+      fonte: 'normal',
+      tamanho: 8.5,
+      cor: [70, 80, 100],
+    },
+    {
+      texto: `DISCIPLINA: ${ficha.turma.disciplina}`,
+      fonte: 'normal',
+      tamanho: 8.5,
+      cor: [70, 80, 100],
+    },
+    {
+      texto: `MATRÍCULA: ${ficha.aluno.matricula}`,
+      fonte: 'normal',
+      tamanho: 8.5,
+      cor: [70, 80, 100],
+    },
+  ].map((bloco) => {
+    // Medir cada bloco com a mesma fonte/estilo/tamanho usados para desenhá-lo.
+    doc.setFont('helvetica', bloco.fonte);
+    doc.setFontSize(bloco.tamanho);
+    return {
+      ...bloco,
+      linhas: doc.splitTextToSize(bloco.texto, contentWidth - 8),
+    };
+  });
+  const alturaIdentificacao = 8
+    + identificacaoBlocos.reduce((total, bloco) => total + bloco.linhas.length, 0) * 4.2
+    + 3;
+
   doc.setFillColor(245, 247, 252);
-  doc.roundedRect(margin, cursorY, contentWidth, 18, 2, 2, 'F');
+  doc.roundedRect(margin, cursorY, contentWidth, alturaIdentificacao, 2, 2, 'F');
   doc.setDrawColor(220, 226, 240);
-  doc.roundedRect(margin, cursorY, contentWidth, 18, 2, 2, 'S');
+  doc.roundedRect(margin, cursorY, contentWidth, alturaIdentificacao, 2, 2, 'S');
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
-  doc.setTextColor(16, 25, 66);
-  doc.text(`ESTUDANTE: ${ficha.aluno.nome.toUpperCase()}`, margin + 4, cursorY + 6);
+  let identificacaoY = cursorY + 6;
+  for (const bloco of identificacaoBlocos) {
+    doc.setFont('helvetica', bloco.fonte);
+    doc.setFontSize(bloco.tamanho);
+    doc.setTextColor(...bloco.cor);
+    for (const linha of bloco.linhas) {
+      doc.text(linha, margin + 4, identificacaoY);
+      identificacaoY += 4.2;
+    }
+  }
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
-  doc.setTextColor(70, 80, 100);
-  doc.text(`TURMA: ${ficha.turma.nome}`, margin + 4, cursorY + 13);
-  doc.text(`DISCIPLINA: ${ficha.turma.disciplina}`, margin + 70, cursorY + 13);
-  doc.text(`MATRÍCULA: ${ficha.aluno.matricula}`, margin + 135, cursorY + 13);
-
-  cursorY += 23;
+  cursorY += alturaIdentificacao + 5;
 
   // ── 2. RENDIMENTO ACADÊMICO BIMESTRAL ──
   doc.setFont('helvetica', 'bold');
@@ -182,8 +229,9 @@ export async function generateFichaAluno360PDF({
   cursorY += 3;
 
   // Card de Frequência
-  const isCritico = ficha.frequencia.statusLdb === 'critico';
-  const isAlerta = ficha.frequencia.statusLdb === 'alerta';
+  const semFrequencia = ficha.frequencia.disponivel === false || ficha.frequencia.semRegistros === true;
+  const isCritico = !semFrequencia && ficha.frequencia.statusLdb === 'critico';
+  const isAlerta = !semFrequencia && ficha.frequencia.statusLdb === 'alerta';
 
   doc.setFillColor(isCritico ? 254 : isAlerta ? 255 : 246, isCritico ? 242 : isAlerta ? 251 : 252, isCritico ? 242 : isAlerta ? 235 : 248);
   doc.roundedRect(margin, cursorY, contentWidth, 20, 2, 2, 'F');
@@ -193,20 +241,28 @@ export async function generateFichaAluno360PDF({
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(16, 25, 66);
-  doc.text(`Total de Aulas Registradas: ${ficha.frequencia.totalAulas}`, margin + 5, cursorY + 6);
-  doc.text(`Presenças: ${ficha.frequencia.presencas}`, margin + 65, cursorY + 6);
-  doc.text(`Faltas: ${ficha.frequencia.faltas} (${ficha.frequencia.faltasJustificadas} Justif.)`, margin + 115, cursorY + 6);
-  
-  // Percentual
-  doc.setFontSize(9.5);
-  doc.setTextColor(isCritico ? 200 : isAlerta ? 190 : 16, isCritico ? 20 : isAlerta ? 110 : 130, isCritico ? 40 : 10);
-  doc.text(`${ficha.frequencia.percentual}% Presença`, margin + contentWidth - 35, cursorY + 6);
+  if (semFrequencia) {
+    doc.text('Frequência indisponível: sem registros de aulas no período.', margin + 5, cursorY + 7);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(90, 100, 120);
+    doc.text('A apuração será apresentada quando houver chamadas registradas.', margin + 5, cursorY + 14);
+  } else {
+    doc.text(`Total de Aulas Registradas: ${ficha.frequencia.totalAulas}`, margin + 5, cursorY + 6);
+    doc.text(`Presenças: ${ficha.frequencia.presencas}`, margin + 65, cursorY + 6);
+    doc.text(`Faltas: ${ficha.frequencia.faltas} (${ficha.frequencia.faltasJustificadas} Justif.)`, margin + 115, cursorY + 6);
 
-  // Alerta Legal LDB
-  doc.setFontSize(8);
-  doc.setFont('helvetica', isCritico ? 'bold' : 'normal');
-  doc.setTextColor(isCritico ? 180 : isAlerta ? 160 : 70, isCritico ? 20 : isAlerta ? 90 : 80, isCritico ? 30 : 90);
-  doc.text(ficha.frequencia.alertaLegal, margin + 5, cursorY + 14);
+    // Percentual
+    doc.setFontSize(9.5);
+    doc.setTextColor(isCritico ? 200 : isAlerta ? 190 : 16, isCritico ? 20 : isAlerta ? 110 : 130, isCritico ? 40 : isAlerta ? 10 : 40);
+    doc.text(`${ficha.frequencia.percentual}% Presença`, margin + contentWidth - 35, cursorY + 6);
+
+    // Alerta Legal LDB
+    doc.setFontSize(8);
+    doc.setFont('helvetica', isCritico ? 'bold' : 'normal');
+    doc.setTextColor(isCritico ? 180 : isAlerta ? 160 : 70, isCritico ? 20 : isAlerta ? 90 : 80, isCritico ? 30 : isAlerta ? 90 : 80);
+    doc.text(ficha.frequencia.alertaLegal, margin + 5, cursorY + 14);
+  }
 
   cursorY += 26;
 
@@ -325,7 +381,7 @@ export async function generateFichaAluno360PDF({
   doc.text(
     'Rotina Docente • Sistema de Apoio e Gestão Pedagógica • Documento emitido conforme LDB 9.394/96',
     pageWidth / 2,
-    pageHeight - 8,
+    pageHeight - 9,
     { align: 'center' }
   );
 

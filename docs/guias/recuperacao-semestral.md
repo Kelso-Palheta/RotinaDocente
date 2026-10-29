@@ -10,6 +10,8 @@ No **Gerador de Atividades**, abra **Recuperação semestral**.
 6. Selecione os alunos completos e clique em **Lançar recuperação**. Uma nota anterior diferente exige confirmação de substituição. Se o conjunto ou a correção mudar, gere nova prévia.
 7. Publique as notas pelo fluxo do Diário para atualizar o boletim. Corrigir, lançar e publicar são ações distintas.
 
+O boletim exportado usa os critérios do bimestre e os mesmos rótulos do Portal: abaixo da média em vermelho, na média em azul, excelente a partir de 8 em verde e ausência como em aberto. A ficha do aluno sem chamadas registradas mostra a frequência como indisponível, sem presumir 100% ou regularidade.
+
 Exemplo: atividades valendo 4 e 6; aluno obtém 3 e 5 → recuperação **8,00**.
 
 O lançamento preenche **Rec. 1** ou **Rec. 2**, conforme o semestre. A fórmula existente usa a recuperação para substituir a menor nota bimestral quando houver melhora, mantendo pesos e critérios de aprovação. Não adiciona oito pontos diretamente ao semestre nem altera as notas originais dos bimestres.
@@ -20,7 +22,7 @@ Atividades adaptadas podem ser vinculadas ao conjunto pelo fluxo de publicação
 
 O aluno consulta atividades liberadas e devolutivas no Portal. O boletim usa as notas publicadas; uma correção recém-salva não atualiza automaticamente o resultado publicado.
 
-Validação técnica: 1.018 testes aprovados em 28/10/2026. Homologação real do fluxo manual e publicação no Portal concluída com dados sintéticos; deploy confirmado. PDF e apresentação exigem ajustes antes da aprovação integral. IA real e leitor de tela não verificados. Ver `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md`.
+Validação técnica: 1.087 testes aprovados em 29/10/2026. Homologação real do fluxo manual e publicação no Portal concluída com dados sintéticos; deploy confirmado. As cinco correções de PDF/visual foram verificadas localmente com dados sintéticos em 28/10/2026, incluindo capturas em 390/1440 px; os dois bloqueios da revisão independente (folga da emissão e medição com a fonte impressa) foram corrigidos em 29/10/2026 e verificados em três PDFs renderizados. Nova homologação em produção, leitor de tela e apresentação não foram executados nesta rodada. Ver `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md` e `docs/evidencias/2026-10-28-rn81-correcoes/README.md`.
 
 ## Reaproveitar em outra turma
 

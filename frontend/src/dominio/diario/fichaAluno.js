@@ -129,15 +129,20 @@ export function consolidarFichaAluno360({
     faltasJustificadas: 0,
     percentual: 100,
     statusLdb: 'regular',
-    alertaLegal: 'Frequência regular em conformidade com o Art. 24 da LDB.',
+    disponivel: false,
+    semRegistros: true,
+    alertaLegal: 'Frequência indisponível: sem registros de aulas no período.',
   };
 
   if (frequenciasTurma && typeof frequenciasTurma === 'object') {
     const consolidadoAlunos = consolidarFrequenciaTurma([aluno], frequenciasTurma);
     if (consolidadoAlunos.length > 0) {
       const freq = consolidadoAlunos[0];
+      const disponivel = freq.totalAulas > 0;
       let alertaLegal = 'Frequência regular em conformidade com o Art. 24 da LDB.';
-      if (freq.statusLdb === 'critico') {
+      if (!disponivel) {
+        alertaLegal = 'Frequência indisponível: sem registros de aulas no período.';
+      } else if (freq.statusLdb === 'critico') {
         alertaLegal = 'Atenção: Estudante ultrapassou o limite de 25% de faltas permitido pelo Art. 24 da LDB (Risco iminente de reprovação).';
       } else if (freq.statusLdb === 'alerta') {
         alertaLegal = 'Alerta: Estudante aproxima-se do limite de 25% de faltas previsto pelo Art. 24 da LDB.';
@@ -150,6 +155,8 @@ export function consolidarFichaAluno360({
         faltasJustificadas: freq.faltasJustificadas,
         percentual: freq.percentual,
         statusLdb: freq.statusLdb,
+        disponivel,
+        semRegistros: !disponivel,
         alertaLegal,
       };
     }

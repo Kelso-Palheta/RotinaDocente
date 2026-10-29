@@ -9,6 +9,7 @@ import { BimestreCard } from '@/components/aluno/BimestreCard';
 import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
 import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 import { generateBoletimPDF } from '@/lib/aluno/boletim-pdf';
+import { formatarDataEntrega, interpretarDataEntrega } from '@/dominio/atividades/dataEntrega';
 import { ArrowLeft, PenTool, Sparkles, Download, CheckCircle2, AlertCircle, Clock, BookOpen, User, LogOut } from 'lucide-react';
 
 
@@ -26,8 +27,8 @@ const statusAtividade = (entrega, encerrada) => {
 };
 
 const AtividadeCard = ({ atividade, entrega, token }) => {
-  const prazo = atividade.dataEntrega?.toDate?.() || new Date(atividade.dataEntrega);
-  const encerrada = prazo < new Date();
+  const prazo = interpretarDataEntrega(atividade.dataEntrega);
+  const encerrada = prazo ? prazo < new Date() : false;
   const { label, cls } = statusAtividade(entrega, encerrada);
   const nota = entrega?.notaRevisada ?? entrega?.notaFinal;
   const podeClicar = token && (!entrega ? !encerrada : entrega.status === 'corrigido' || entrega.status === 'revisado');
@@ -47,7 +48,7 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
         <p className="text-sm font-extrabold text-[#101942] truncate font-head">{atividade.titulo}</p>
         <p className="text-xs text-[#6070a0] mt-0.5 flex items-center gap-1">
           <Clock size={12} className="text-[#9098c0]" />
-          Prazo: {prazo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+          Prazo: {formatarDataEntrega(atividade.dataEntrega)}
         </p>
         {nota != null && (
           <p className="text-xs font-mono font-bold text-[#f60c49] mt-1.5">
@@ -143,8 +144,8 @@ export default function AlunoNotasPage() {
         const atvsData = data.atividades || [];
         if (!data.falhas?.atividades) setAtividades(
           atvsData.sort((a, b) => {
-            const pa = a.dataEntrega?.toDate?.() || new Date(a.dataEntrega);
-            const pb = b.dataEntrega?.toDate?.() || new Date(b.dataEntrega);
+            const pa = interpretarDataEntrega(a.dataEntrega)?.getTime() ?? Number.POSITIVE_INFINITY;
+            const pb = interpretarDataEntrega(b.dataEntrega)?.getTime() ?? Number.POSITIVE_INFINITY;
             return pa - pb;
           })
         );
@@ -217,18 +218,18 @@ export default function AlunoNotasPage() {
 
   const agora = new Date();
   const pendentes = atividades.filter(atv => {
-    const prazo = atv.dataEntrega?.toDate?.() || new Date(atv.dataEntrega);
+    const prazo = interpretarDataEntrega(atv.dataEntrega);
     const entrega = entregas.find(e => e.activityId === atv.id);
-    return !entrega && prazo >= agora;
+    return !entrega && prazo && prazo >= agora;
   });
   const realizadas = atividades.filter(atv => {
     const entrega = entregas.find(e => e.activityId === atv.id);
     return !!entrega;
   });
   const encerradas = atividades.filter(atv => {
-    const prazo = atv.dataEntrega?.toDate?.() || new Date(atv.dataEntrega);
+    const prazo = interpretarDataEntrega(atv.dataEntrega);
     const entrega = entregas.find(e => e.activityId === atv.id);
-    return !entrega && prazo < agora;
+    return !entrega && prazo && prazo < agora;
   });
 
   const abaMap = { pendentes, realizadas, encerradas };
@@ -252,6 +253,7 @@ export default function AlunoNotasPage() {
                 nomeAluno: nome,
                 turmaNome: turmaId || 'Turma Regular',
                 bimTotais,
+                bimestres: notas.bimestres || {},
                 S1,
                 S2,
                 totalAnual,

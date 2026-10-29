@@ -33,3 +33,19 @@ export function interpretarDataEntrega(valor) {
 
   return null;
 }
+
+/**
+ * Formata o prazo no mesmo contrato do Portal e do cartão do professor.
+ * Ausência/invalidade devolve o texto informado, nunca a data atual.
+ */
+export function formatarDataEntrega(valor, { vazio = 'Data não informada' } = {}) {
+  const data = interpretarDataEntrega(valor);
+  if (!data) return vazio;
+  return data.toLocaleString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}

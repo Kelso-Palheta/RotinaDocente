@@ -143,6 +143,15 @@ Relatório: `docs/analises/2026-10-28-correcao-copia-recuperacao.md`. Os cinco a
 
 ## 29/10/2026 — Revisão das cinco correções PDF/apresentação RN-81
 - [x] Revisar entrega DeepSeek: 1.081 testes/234 arquivos recebidos, lint e build aprovados.
-- [ ] Corrigir REV-H81-01/02: emissão colide com faixa rosa e identificação longa ultrapassa margem por diferença entre fonte de medição e escrita.
-- [ ] Revalidar PDFs renderizados com payload de recuperação semestral; amostra recebida usa atividades regulares por bimestre.
-Relatório/prompt: `docs/analises/2026-10-29-revisao-correcoes-pdf-recuperacao.md`. Duas reproduções novas falham em `tests/integration/relatorios_pdf_revisao.test.js`, mantido local e intocável para correção. Código não publicado nesta rodada.
+- [x] Corrigir REV-H81-01/02: emissão agora mantém 4 mm acima da faixa rosa; identificação medida com a fonte efetiva da impressão (estudante bold 9,5; demais normal 8,5), sem ultrapassar 196,6 mm.
+- [x] Revalidar PDFs renderizados com payload de recuperação semestral (`finalidade: recuperacao_semestral`, `semestre: 1`), incluindo nomes longos, ausência de frequência e zero real de presença; S1 32/S2 25/anual 57 e metas preservados.
+- [x] Validação: **1.087 testes/236 arquivos**, lint dos alterados exit 0 e build exit 0; reproduções da revisão passaram sem edição.
+- [ ] Nova revisão independente e homologação em produção/leitor de tela permanecem pendentes; nada publicado nesta rodada.
+Relatório/prompt: `docs/analises/2026-10-29-revisao-correcoes-pdf-recuperacao.md`. Reproduções preservadas em `tests/integration/relatorios_pdf_revisao.test.js`; evidências atualizadas em `docs/evidencias/2026-10-28-rn81-correcoes/README.md`. Código não publicado nesta rodada.
+
+### Aprovação independente final — 29/10/2026
+- [x] REV-H81-01/02 aprovados sem edição das reproduções; nova suíte: **1.087 testes/236 arquivos**, lint sem erros/avisos e build exit 0.
+- [x] Três PDFs sintéticos regenerados pelos exportadores reais, renderizados com Poppler e inspecionados: cabeçalhos/margens, sem registros, presença zero e devolutiva de recuperação do 1º semestre.
+- [x] Aprovar publicação do escopo das cinco correções RN-81 após revisão independente.
+- [ ] Sessão de produção/leitor de tela continuam fora da validação local; logout de Atividades e armazenamento de imagens adaptadas seguem separados.
+Relatório: `docs/analises/2026-10-29-validacao-final-correcoes-recuperacao.md`. Nenhum código/teste recebido alterado nesta revisão.

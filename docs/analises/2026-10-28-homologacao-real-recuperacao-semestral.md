@@ -44,6 +44,29 @@ A fórmula existente substituiu a menor nota bimestral no cálculo semestral; n�
 
 Achado adicional, independente da recuperação: **“Sair” da barra lateral de Atividades apenas navega ao Hub**, mantendo sessão. `frontend/src/app/atividades/page.js:143` usa `router.push('/')` no `onLogout`. Logout real foi efetuado depois no Hub. Corrigir em etapa delimitada, com teste da chamada de logout e preservação dos dados; não tratar como regressão nova comprovada.
 
+## Correções locais pós-homologação
+
+Em 28/10/2026, os cinco achados numerados foram corrigidos e verificados localmente com dados sintéticos, sem alterar notas, fórmulas, pesos, critérios salvos, autorização, persistência, destinatários ou sincronização:
+
+1. O boletim passou a usar `faixaNotaBimestral` com a configuração de cada bimestre e os rótulos do Portal; ausência continua distinta de zero.
+2. Aluno, turma, disciplina e professor longos quebram em linhas na ficha, com altura dinâmica e paginação posterior preservada.
+3. A ficha sem aulas/chamadas exibe frequência indisponível e não afirma 100% ou regularidade; zero real de presença continua crítico.
+4. O prazo usa `formatarDataEntrega` no cartão do professor e no Portal, aceitando ISO, Timestamp e Date; ausente/inválido não inventa data.
+5. A barra do topo quebra linhas em 390 e 1440 px, mantém todas as ações dentro da folha e preserva nomes acessíveis e foco por teclado.
+
+Foram executados 1.081 testes em 234 arquivos, lint dos arquivos alterados e build de produção. As evidências sintéticas, incluindo PDFs renderizados e capturas em 390/1440 com foco por `Tab`, estão em [docs/evidencias/2026-10-28-rn81-correcoes/README.md](../evidencias/2026-10-28-rn81-correcoes/README.md). Esta verificação local não substitui nova homologação em produção nem teste com leitor de tela. O logout da barra lateral permanece pendente como tarefa independente.
+
+## Revisão independente e correção dos dois bloqueios (29/10/2026)
+
+A revisão independente aprovou o escopo geral, mas reteve a publicação por dois bloqueios reproduzidos em `tests/integration/relatorios_pdf_revisao.test.js`:
+
+1. **REV-H81-01:** a emissão do boletim era desenhada exatamente no início da faixa rosa. O cabeçalho agora calcula a altura a partir da última linha de aluno/turma e da emissão, reservando 4 mm até a faixa; a tabela de notas desloca conforme a altura. Cabeçalhos curto e longo têm teste.
+2. **REV-H81-02:** a identificação da ficha era medida com a fonte herdada (normal 8,5), mas o estudante era impresso em bold 9,5, estourando a margem. Cada bloco passou a ser medido com a mesma fonte, estilo e tamanho usados no desenho; professor e cabeçalho do boletim também usam o estilo efetivo.
+
+As duas reproduções passaram sem edição. Foram acrescentados 4 testes de cabeçalho curto/longo e fonte efetiva (`tests/integration/relatorios_pdf_cabecalho.test.js`). Suíte completa: **1.087 testes em 236 arquivos**; lint dos arquivos alterados exit 0 e build de produção exit 0 em 29/10/2026.
+
+As evidências foram refeitas com três PDFs sintéticos, todas as páginas renderizadas: boletim, ficha sem registros e ficha com zero real de presença. O payload usa uma atividade regular no 1º bimestre e uma recuperação semestral (`finalidade: recuperacao_semestral`, `semestre: 1`); S1 32, S2 25, anual 57 e metas 25/25/50 foram preservados. Ver [legenda atualizada](../evidencias/2026-10-28-rn81-correcoes/README.md).
+
 Evidências visuais: [pasta e legenda](../evidencias/2026-10-28-recuperacao/README.md). Os PDFs originais auditados ficam em `tmp/homologacao-rn81/boletim-teste.pdf` e `ficha-teste.pdf`, ignorados pelo Git; as imagens renderizadas demonstram os problemas, não são modelos aprovados de exportação.
 
 ## Limites

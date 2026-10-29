@@ -1,0 +1,286 @@
+[
+  {
+    "nome": "atividades-topo-390.png",
+    "viewport": {
+      "largura": 390,
+      "altura": 844
+    },
+    "scrollWidth": 390,
+    "barra": {
+      "largura": 390,
+      "altura": 145
+    },
+    "grupo": {
+      "esquerda": 16,
+      "direita": 374,
+      "largura": 358,
+      "altura": 80
+    },
+    "botoes": [
+      {
+        "texto": "",
+        "aria": "Abrir menu",
+        "esquerda": 8,
+        "direita": 44,
+        "topo": 10,
+        "base": 46
+      },
+      {
+        "texto": "",
+        "aria": "Hub",
+        "esquerda": 52,
+        "direita": 94,
+        "topo": 11,
+        "base": 45
+      },
+      {
+        "texto": "DUA",
+        "aria": "Versão Adaptada (DUA)",
+        "esquerda": 99.33,
+        "direita": 184.58,
+        "topo": 54.86,
+        "base": 91.14
+      },
+      {
+        "texto": "Portal do Aluno",
+        "aria": null,
+        "esquerda": 192.58,
+        "direita": 374,
+        "topo": 54,
+        "base": 92
+      },
+      {
+        "texto": "Recuperação semestral",
+        "aria": null,
+        "esquerda": 23.19,
+        "direita": 206.78,
+        "topo": 100,
+        "base": 134
+      },
+      {
+        "texto": "Todas as atividades",
+        "aria": null,
+        "esquerda": 214.78,
+        "direita": 374,
+        "topo": 101,
+        "base": 133
+      }
+    ],
+    "focoAtivo": "Turmas\n\n301 — Turma sintética\n\nDUA\nPortal do Aluno\nRecuperação semestral\nTodas as atividades\nSalvo na nuvem\nAno letivo \nLegado — ano não informado\n2026\n Ver turmas arquivadas (consulta)\nConferir e publicar notas no Diário\n\nTodas as atividades — conteúdo sintético.",
+    "focoContorno": "none 3px",
+    "passosTeclado": 0
+  },
+  {
+    "nome": "atividades-topo-1440.png",
+    "viewport": {
+      "largura": 1440,
+      "altura": 1000
+    },
+    "scrollWidth": 1440,
+    "barra": {
+      "largura": 1189,
+      "altura": 59
+    },
+    "grupo": {
+      "esquerda": 651.5,
+      "direita": 1416,
+      "largura": 764.5,
+      "altura": 38
+    },
+    "botoes": [
+      {
+        "texto": "",
+        "aria": "Abrir menu",
+        "esquerda": 0,
+        "direita": 0,
+        "topo": 0,
+        "base": 0
+      },
+      {
+        "texto": "Hub",
+        "aria": "Hub",
+        "esquerda": 275,
+        "direita": 360.86,
+        "topo": 10,
+        "base": 48
+      },
+      {
+        "texto": "Versão Adaptada\nDUA",
+        "aria": "Versão Adaptada (DUA)",
+        "esquerda": 651.5,
+        "direita": 867.77,
+        "topo": 10,
+        "base": 48
+      },
+      {
+        "texto": "Portal do Aluno",
+        "aria": null,
+        "esquerda": 875.77,
+        "direita": 1057.19,
+        "topo": 10,
+        "base": 48
+      },
+      {
+        "texto": "Recuperação semestral",
+        "aria": null,
+        "esquerda": 1065.19,
+        "direita": 1248.78,
+        "topo": 12,
+        "base": 46
+      },
+      {
+        "texto": "Todas as atividades",
+        "aria": null,
+        "esquerda": 1256.78,
+        "direita": 1416,
+        "topo": 13,
+        "base": 45
+      }
+    ],
+    "focoAtivo": "Turmas\n\n301 — Turma sintética\n\nHub\nVersão Adaptada\nDUA\nPortal do Aluno\nRecuperação semestral\nTodas as atividades\nSalvo na nuvem\nAno letivo \nLegado — ano não informado\n2026\n Ver turmas arquivadas (consulta)\nConferir e publicar notas no Diário\n\nTodas as atividades — conteúdo sintético.",
+    "focoContorno": "none 3px",
+    "passosTeclado": 0
+  },
+  {
+    "nome": "atividades-topo-390-foco.png",
+    "viewport": {
+      "largura": 390,
+      "altura": 844
+    },
+    "scrollWidth": 390,
+    "barra": {
+      "largura": 390,
+      "altura": 145
+    },
+    "grupo": {
+      "esquerda": 16,
+      "direita": 374,
+      "largura": 358,
+      "altura": 80
+    },
+    "botoes": [
+      {
+        "texto": "",
+        "aria": "Abrir menu",
+        "esquerda": 8,
+        "direita": 44,
+        "topo": 10,
+        "base": 46
+      },
+      {
+        "texto": "",
+        "aria": "Hub",
+        "esquerda": 52,
+        "direita": 94,
+        "topo": 11,
+        "base": 45
+      },
+      {
+        "texto": "DUA",
+        "aria": "Versão Adaptada (DUA)",
+        "esquerda": 99.33,
+        "direita": 184.58,
+        "topo": 54.86,
+        "base": 91.14
+      },
+      {
+        "texto": "Portal do Aluno",
+        "aria": null,
+        "esquerda": 192.58,
+        "direita": 374,
+        "topo": 54,
+        "base": 92
+      },
+      {
+        "texto": "Recuperação semestral",
+        "aria": null,
+        "esquerda": 23.19,
+        "direita": 206.78,
+        "topo": 100,
+        "base": 134
+      },
+      {
+        "texto": "Todas as atividades",
+        "aria": null,
+        "esquerda": 214.78,
+        "direita": 374,
+        "topo": 101,
+        "base": 133
+      }
+    ],
+    "focoAtivo": "Recuperação semestral",
+    "focoContorno": "auto 1px",
+    "passosTeclado": 5
+  },
+  {
+    "nome": "atividades-topo-1440-foco.png",
+    "viewport": {
+      "largura": 1440,
+      "altura": 1000
+    },
+    "scrollWidth": 1440,
+    "barra": {
+      "largura": 1189,
+      "altura": 59
+    },
+    "grupo": {
+      "esquerda": 651.5,
+      "direita": 1416,
+      "largura": 764.5,
+      "altura": 38
+    },
+    "botoes": [
+      {
+        "texto": "",
+        "aria": "Abrir menu",
+        "esquerda": 0,
+        "direita": 0,
+        "topo": 0,
+        "base": 0
+      },
+      {
+        "texto": "Hub",
+        "aria": "Hub",
+        "esquerda": 275,
+        "direita": 360.86,
+        "topo": 10,
+        "base": 48
+      },
+      {
+        "texto": "Versão Adaptada\nDUA",
+        "aria": "Versão Adaptada (DUA)",
+        "esquerda": 651.5,
+        "direita": 867.77,
+        "topo": 10,
+        "base": 48
+      },
+      {
+        "texto": "Portal do Aluno",
+        "aria": null,
+        "esquerda": 875.77,
+        "direita": 1057.19,
+        "topo": 10,
+        "base": 48
+      },
+      {
+        "texto": "Recuperação semestral",
+        "aria": null,
+        "esquerda": 1065.19,
+        "direita": 1248.78,
+        "topo": 12,
+        "base": 46
+      },
+      {
+        "texto": "Todas as atividades",
+        "aria": null,
+        "esquerda": 1256.78,
+        "direita": 1416,
+        "topo": 13,
+        "base": 45
+      }
+    ],
+    "focoAtivo": "Recuperação semestral",
+    "focoContorno": "auto 1px",
+    "passosTeclado": 4
+  }
+]

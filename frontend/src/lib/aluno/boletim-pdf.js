@@ -3,6 +3,14 @@ import { jsPDF } from "jspdf";
 import { adicionarHistoricoFeedbackPDF } from "@/lib/aluno/feedback-pdf";
 import { normalizarNotasHistorico } from '@/dominio/redacao/historico';
 import { fmt } from "@/utils/diario/calculos";
+import { faixaNotaBimestral } from '@/utils/diario/coresNota';
+
+const ESTILO_FAIXA = {
+  abaixo: { cor: [220, 38, 38], rotulo: 'Abaixo da média' },
+  aprovado: { cor: [37, 99, 235], rotulo: 'Na média' },
+  excelente: { cor: [22, 101, 52], rotulo: 'Excelente' },
+  sem_nota: { cor: [150, 160, 180], rotulo: 'Em aberto' },
+};
 
 /**
  * Gera o Boletim Escolar Individual do Aluno em PDF formatado.
@@ -12,6 +20,7 @@ export const generateBoletimPDF = ({
   turmaNome = "Turma",
   professorNome = "Professor(a)",
   bimTotais = [],
+  bimestres = {},
   S1 = {},
   S2 = {},
   totalAnual = null,
@@ -26,12 +35,23 @@ export const generateBoletimPDF = ({
   const maxLineWidth = pageWidth - margin * 2;
 
   // ── HEADER NAVY OFICIAL ──
+  // Medir com a mesma fonte usada na impressão (normal 10), não com a padrão do jsPDF.
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  const alunoLinhas = doc.splitTextToSize(`ALUNO(A): ${nomeAluno.toUpperCase()}`, maxLineWidth);
+  const turmaLinhas = doc.splitTextToSize(`TURMA: ${turmaNome.toUpperCase()}`, maxLineWidth);
+  const emissaoLinha = `EMISSÃO: ${new Date().toLocaleDateString("pt-BR")} às ${new Date().toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })}`;
+  const emissaoY = 26 + (alunoLinhas.length + turmaLinhas.length) * 5;
+  // Reserva 4 mm entre a linha de base da emissão (com descendentes) e a faixa rosa.
+  const faixaY = emissaoY + 4;
+  const alturaCabecalho = faixaY + 2;
+
   doc.setFillColor(16, 25, 66); // #101942
-  doc.rect(0, 0, pageWidth, 45, "F");
+  doc.rect(0, 0, pageWidth, alturaCabecalho, "F");
 
   // Faixa rosa SimuladoApp
   doc.setFillColor(246, 12, 73); // #f60c49
-  doc.rect(0, 43, pageWidth, 2, "F");
+  doc.rect(0, faixaY, pageWidth, 2, "F");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
@@ -41,11 +61,14 @@ export const generateBoletimPDF = ({
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(220, 224, 240);
-  doc.text(`ALUNO(A): ${nomeAluno.toUpperCase()}`, margin, 27);
-  doc.text(`TURMA: ${turmaNome.toUpperCase()}`, margin, 33);
-  doc.text(`EMISSÃO: ${new Date().toLocaleDateString("pt-BR")} às ${new Date().toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })}`, margin, 39);
+  let cabecalhoY = 26;
+  for (const linha of [...alunoLinhas, ...turmaLinhas]) {
+    doc.text(linha, margin, cabecalhoY);
+    cabecalhoY += 5;
+  }
+  doc.text(emissaoLinha, margin, cabecalhoY);
 
-  let cursorY = 55;
+  let cursorY = alturaCabecalho + 10;
 
   // ── TABELA DE NOTAS BIMESTRAIS ──
   doc.setFillColor(238, 240, 248);
@@ -82,20 +105,17 @@ export const generateBoletimPDF = ({
     doc.setTextColor(16, 25, 66);
     doc.text(b.label, margin + 4, cursorY + 6);
 
-    // Nota
-    const notaFormatada = b.nota !== null ? fmt(b.nota) : "—";
+    // Nota — ausência é distinta de zero real.
+    const notaFormatada = b.nota !== null && b.nota !== undefined && b.nota !== '' ? fmt(b.nota) : "—";
     doc.setFont("helvetica", "bold");
     doc.text(notaFormatada, margin + 80, cursorY + 6);
 
-    // Status
-    if (b.nota !== null) {
-      const aprovado = b.nota >= 6.0;
-      doc.setTextColor(aprovado ? 22 : 220, aprovado ? 101 : 38, aprovado ? 52 : 38);
-      doc.text(aprovado ? "Satisfatório" : "Atenção", margin + maxLineWidth - 25, cursorY + 6);
-    } else {
-      doc.setTextColor(150, 160, 180);
-      doc.text("Em aberto", margin + maxLineWidth - 25, cursorY + 6);
-    }
+    // Status pela faixa configurada no bimestre (mesma regra do Portal).
+    const config = bimestres?.[String(idx + 1)]?.config;
+    const faixa = faixaNotaBimestral(b.nota, config);
+    const estilo = ESTILO_FAIXA[faixa];
+    doc.setTextColor(...estilo.cor);
+    doc.text(estilo.rotulo, margin + maxLineWidth - 25, cursorY + 6);
 
     cursorY += 9;
   });

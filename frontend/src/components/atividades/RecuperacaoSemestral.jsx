@@ -20,6 +20,7 @@ import { copiarRecuperacaoParaOutraTurma } from '@/aplicacao/atividades/copiarRe
 import { getAtividade } from '@/lib/firebase-atividades';
 import { conjuntoLiberadoParaResposta } from '@/dominio/atividades/recuperacaoSemestral';
 import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
+import { formatarDataEntrega } from '@/dominio/atividades/dataEntrega';
 import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 
 const pontos = valor => Number(valor || 0).toFixed(2).replace('.', ',');
@@ -486,7 +487,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
               <div key={atividade.id} className="flex flex-wrap items-center justify-between gap-2 border border-[#dce0f0] rounded-xl p-3">
                 <div>
                   <p className="text-sm font-semibold text-[#101942]">{atividade.titulo}</p>
-                  <p className="text-xs text-[#6070a0]">Vale até {pontos(atividade.notaMaxima)} · entrega em {atividade.dataEntrega?.toDate?.().toLocaleString?.('pt-BR') || 'data não informada'} · {atividade.status}</p>
+                  <p className="text-xs text-[#6070a0]">Vale até {pontos(atividade.notaMaxima)} · entrega em {formatarDataEntrega(atividade.dataEntrega, { vazio: 'data não informada' })} · {atividade.status}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <button type="button" onClick={() => setCopiando(atividade)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#dce0f0] text-[#101942] disabled:opacity-60">Copiar para outra turma</button>

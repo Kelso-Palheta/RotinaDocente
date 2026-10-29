@@ -360,6 +360,8 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
       - **Assiduidade e Cumprimento LDB (Art. 24)**:
         - Dados apurados pelo módulo de frequência: total de aulas, presenças, faltas injustificadas, faltas justificadas e taxa percentual de frequência.
         - Parecer Legal: `regular` (≥ 80%), `alerta` (75% a 79.99%) ou `critico` (< 75% risco de reprovação).
+        - Sem aulas/base válida, a ficha expõe `disponivel: false` e `semRegistros: true`; a exportação apresenta “sem registros/indisponível” e não afirma 100% nem regularidade. A consolidação bruta `consolidarFrequenciaTurma` preserva o contrato numérico legado para chamadores existentes; o estado de indisponibilidade é a autoridade para exibição e PDF.
+        - Presença real zero (`totalAulas > 0` e nenhuma presença) continua sendo frequência apurada: `0%`, `critico` e alerta legal, distinta de ausência de base.
       - **Perfil Inclusivo & Acessibilidade DUA**:
         - Se o aluno possuir o campo `necessidades`, mapeia as diretrizes oficiais DUA e lista adaptações sugeridas. Caso contrário, registra `Perfil de Desenvolvimento Regular`.
       - **Evolução de Redação e Escrita (se houver)**:
@@ -620,6 +622,15 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Legado sem `escalas` mantém o comportamento anterior no servidor e nos testes existentes; conjunto legado nunca é migrado silenciosamente. `liberado: true` explícito vence o cálculo de soma, exceto para conjunto cancelado.
 - A tela mostra “Montagem: 4,00 de 10 pontos” e o saldo restante, sem anunciar disponibilidade antes da liberação. Ao salvar a última parcela, informa o fechamento dos 10 e a liberação; enquanto incompleto, informa que nenhuma parcela aparece no Portal. O conjunto pode ser cancelado com confirmação explícita, preservando entregas e notas existentes.
 - Evidência de 28/10/2026 (terceira revisão): **1018 testes em 219 arquivos** aprovados; lint do escopo de produção sem erros; build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Publicação funcional continua retida até nova revisão independente e homologações pendentes.
+
+### Correções de homologação visual/PDF da RN-81 (28/10/2026)
+
+1. **H81-01 — Boletim coerente com o Portal:** cada bimestre usa `faixaNotaBimestral(nota, config)` com a configuração do respectivo bimestre. Abaixo de `mediaAprovacao` é vermelho; de `mediaAprovacao` até `< 8` é azul; `>= 8` é verde. Rótulos iguais aos do Portal (`Abaixo da média`, `Na média`, `Excelente`). Ausência (`null`/`undefined`/vazio) é “Em aberto” e não vira zero nem “Abaixo da média”. Zero real é classificado normalmente. O corte fixo 6 é removido. Metas 25/25/50, fórmulas e recuperação não mudam.
+2. **H81-02 — Ficha sem sobreposição:** nomes longos de aluno, turma, disciplina e professor usam `splitTextToSize` e altura dinâmica. Cada bloco é medido com a mesma fonte, estilo e tamanho usados na impressão (estudante em bold 9,5; demais em normal 8,5), e não com a fonte padrão do jsPDF. O conteúdo seguinte começa depois do bloco de identificação, sem truncamento nem sobreposição, e a paginação subsequente permanece válida em todas as páginas.
+3. **H81-03 — Frequência sem base:** sem aulas registradas, a ficha e o PDF mostram “sem registros/indisponível” e não exibem 100% nem “Frequência regular”. Com registros reais, os cálculos e status existentes são preservados, inclusive zero real de presença (0%, crítico) e 100% regular.
+4. **H81-04 — Prazo serializado:** o cartão do professor e o Portal usam o mesmo interpretador (`interpretarDataEntrega`) e o mesmo formatador. Aceitam ISO, Timestamp do Firestore (`toDate`, `seconds`, `_seconds`), epoch e `Date`. Ausente ou inválido mostra “data não informada” e nunca inventa a data atual. O prazo exibido não altera persistência nem sincronização.
+5. **H81-05 — Ações do topo em 390/1440 px:** a barra reorganiza as ações com quebra de linha e sem rolagem horizontal que esconda controles. Todas as ações permanecem visíveis, legíveis e operacionais, com rótulo acessível e ordem de foco preservada. O logout da barra lateral não integra esta correção.
+6. **REV-H81-01/02 — Revisão independente (29/10/2026):** a emissão do boletim e da ficha mantém 4 mm de folga acima da faixa rosa, calculada a partir da última linha de texto; a tabela de notas e as seções seguintes deslocam conforme a altura do cabeçalho. O cabeçalho do boletim (aluno/turma) e o professor da ficha também são medidos com a fonte/estilo/tamanho efetivamente usados na impressão. Nenhuma linha ultrapassa a margem; a emissão não é ocultada nem truncada.
 
 ## RN-82 — Reaproveitar atividade de recuperação em outra turma
 

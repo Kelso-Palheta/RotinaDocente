@@ -134,5 +134,17 @@ Fluxo: selecionar turma/ano/semestre e alunos → distribuir 10 pontos → criar
 
 Aceite: isolamento entre conta/turma/ano/semestre/aluno, recuperação fora da sincronização bimestral, repetição idempotente, preservação de notas anteriores e conflitos revisáveis. Reutilizar fórmula atual de substituição da menor nota e aprovação 25/25/50. Não alterar armazenamento das imagens nem plano Firebase nesta entrega. Plano e prompt para OpenCode: `docs/plans/2026-10-27-recuperacao-semestral.md`.
 
+### Correções de homologação visual/PDF da RN-81 (28/10/2026)
+
+Corrigir somente os cinco achados da homologação real, sem alterar notas, fórmulas, pesos, critérios salvos, autorização, persistência, destinatários ou sincronização. O logout da barra lateral fica fora desta entrega.
+
+- Boletim PDF: classificação por bimestre com `faixaNotaBimestral`, mínimo configurado, azul até `< 8`, verde a partir de 8, ausência distinta de zero e rótulos iguais ao Portal. Metas 25/25/50 preservadas. A emissão mantém 4 mm de folga acima da faixa rosa e a tabela desloca conforme a altura do cabeçalho.
+- Ficha PDF: nomes longos de aluno/turma/disciplina/professor quebram em linhas, sem sobreposição ou truncamento; cada bloco é medido com a fonte/estilo/tamanho efetivamente usados na impressão. O conteúdo seguinte e a paginação acompanham a altura real.
+- Frequência da ficha: sem base registrada, exibir “sem registros/indisponível”, sem 100% nem regularidade; com registros, preservar cálculo e status, inclusive zero real.
+- Prazo de recuperação: professor e Portal usam o mesmo interpretador e formatador para ISO, Timestamp e Date; ausente/inválido não inventa data.
+- Barra de ações do professor: em 390 e 1440 px, todas as ações ficam acessíveis e legíveis, com quebra/rolagem acessível, sem corte ou sobreposição e com teclado/foco preservados. Evidência visual obrigatória.
+
+Revisão independente de 29/10/2026: os dois bloqueios restantes (emissão colidindo com a faixa rosa e medição da identificação com fonte divergente) foram corrigidos com testes de reprodução preservados. Evidências e limites em `docs/evidencias/2026-10-28-rn81-correcoes/README.md`.
+
 ## RN-82 — Copiar recuperação para outra turma
 No Gerador de Atividades → Recuperação semestral, permitir reaproveitar o conteúdo de uma atividade regular pelo botão “Copiar para outra turma”. Escolher conjunto/turma de destino, semestre/alunos do destino e novo prazo; revisar questões, imagens e pontuação antes de criar. Novo conjunto pode ser criado pelo fluxo existente. Não copiar respostas, notas ou vínculos da origem. Manter isolamento e liberação apenas quando a distribuição do destino fechar 10 pontos. Plano: `docs/plans/2026-10-28-copiar-recuperacao-outra-turma.md`. Entrega inicial do DeepSeek corrigida neste chat após revisão. Evidências e limites: `docs/analises/2026-10-28-correcao-copia-recuperacao.md`.

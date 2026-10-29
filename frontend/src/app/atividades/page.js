@@ -151,16 +151,18 @@ export default function AtividadesPage() {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <div className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#dce0f0] bg-white flex items-center justify-between gap-3 overflow-x-auto no-scrollbar">
+        <div data-testid="acoes-topo" className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#dce0f0] bg-white flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
+              aria-label="Abrir menu"
               className="md:hidden p-2 -ml-2 rounded-xl text-slate-500 hover:bg-slate-100 transition-colors"
             >
               <Menu size={20} />
             </button>
             <button
               onClick={() => confirmarTrocaContexto() && router.push('/')}
+              aria-label="Hub"
               className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#eef0f8] hover:bg-[#dce0f0] text-[#101942] border border-[#dce0f0] transition-all shadow-2xs whitespace-nowrap"
             >
               <ArrowLeft size={16} />
@@ -168,9 +170,10 @@ export default function AtividadesPage() {
             </button>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div data-testid="acoes-topo-grupo" className="flex flex-wrap items-center gap-2 justify-end">
             <button
               onClick={() => confirmarTrocaContexto() && router.push('/adaptacoes')}
+              aria-label="Versão Adaptada (DUA)"
               className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-white hover:bg-[#fff2f6] text-[#d40840] border border-[#fde4ec] transition-all shadow-2xs whitespace-nowrap"
               title="Criar ou Adaptar Atividades Inclusivas (DUA/PEI)"
             >
