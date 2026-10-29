@@ -66,3 +66,7 @@ Não converter atividade adaptada personalizada silenciosamente; informar limita
 
 Execute testes novos, suíte completa, lint e build; navegador sintético em 390/1440 e teclado/foco. Registre comandos/resultados, capturas, limites e arquivos alterados. Atualize guia/especificações com estado real. Entregue diff para revisão independente neste chat antes de publicação.
 ```
+
+## Atualização de execução — 28/10/2026
+
+Após entrega e revisão, usuário autorizou correções neste chat por ter atingido limite gratuito do OpenCode. Resultado e limites em `docs/analises/2026-10-28-correcao-copia-recuperacao.md`. As instruções de encaminhamento acima registram o fluxo original; a autorização posterior permite concluir e publicar após validação.

@@ -621,7 +621,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - A tela mostra “Montagem: 4,00 de 10 pontos” e o saldo restante, sem anunciar disponibilidade antes da liberação. Ao salvar a última parcela, informa o fechamento dos 10 e a liberação; enquanto incompleto, informa que nenhuma parcela aparece no Portal. O conjunto pode ser cancelado com confirmação explícita, preservando entregas e notas existentes.
 - Evidência de 28/10/2026 (terceira revisão): **1018 testes em 219 arquivos** aprovados; lint do escopo de produção sem erros; build de produção exit 0 com `NODE_USE_SYSTEM_CA=1`. Publicação funcional continua retida até nova revisão independente e homologações pendentes.
 
-## RN-82 — Reaproveitar atividade de recuperação em outra turma (especificado, não implementado)
+## RN-82 — Reaproveitar atividade de recuperação em outra turma
 
 - Ação “Copiar para outra turma” por atividade de recuperação regular, inclusive com imagens. Cópia individual, não compartilhamento do documento nem duplicação automática do conjunto inteiro. Não inclui conversão de atividade adaptada personalizada nesta primeira entrega; informar a limitação se esse formato não puder ser editado com segurança no formulário regular.
 - Origem pertence ao professor autenticado. Destino é conjunto próprio, não cancelado/congelado, em outra turma vigente do professor, com semestre e ano derivados do destino. Seleção explícita do conjunto e destinatários; nunca associar alunos por nome/posição ou herdar destinatários da origem. Pode abrir o fluxo existente de Novo conjunto, cuja criação é explícita e independente; cancelar cópia não exclui esse conjunto.

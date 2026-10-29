@@ -84,10 +84,10 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
 
   return (
     <div className="border border-slate-200 rounded-xl p-4 mb-4 bg-white">
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="w-6 h-6 rounded-full bg-violet-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{index + 1}</span>
 
-        <div className="flex rounded-lg overflow-hidden border border-slate-200 text-xs font-semibold">
+        <div className="flex shrink-0 rounded-lg overflow-hidden border border-slate-200 text-xs font-semibold">
           {['discursiva', 'objetiva'].map(tipo => (
             <button
               key={tipo}
@@ -130,7 +130,7 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
           <div className="flex flex-wrap gap-2 mb-2">
             {(questao.imagens || []).map((img, i) => (
               <div key={`s-${i}`} className="relative group">
-                <img src={img.base64} alt="" className="h-20 w-auto rounded-lg border border-slate-200 object-cover" />
+                <img src={img.base64 || img.url} alt="" className="h-20 w-auto rounded-lg border border-slate-200 object-cover" />
                 <button
                   type="button"
                   onClick={() => removeImagemSalva(i)}
@@ -222,8 +222,10 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
   );
 }
 
-export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData, contextoInicial = {} }) => {
+export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData, conteudoInicial = null, contextoInicial = {} }) => {
   const isEdit = !!initialData;
+  const modoCopia = !isEdit && !!conteudoInicial;
+  const baseConteudo = initialData || conteudoInicial || null;
   const recuperacao = (initialData?.finalidade || contextoInicial.finalidade) === 'recuperacao_semestral';
   const conjuntoId = initialData?.conjuntoRecuperacaoId || contextoInicial.conjuntoRecuperacaoId || null;
   const destinatariosIds = initialData?.destinatariosIds || contextoInicial.destinatariosIds || [];
@@ -233,38 +235,40 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     ? Number(contextoInicial.pontosRestantes)
     : 10;
   const idEstavel = useRef(initialData?.id || genAtvId());
-  const [titulo, setTitulo] = useState(initialData?.titulo || '');
-  const [bimestre, setBimestre] = useState(initialData?.bimestre || contextoInicial.bimestre || 1);
-  const [semestre, setSemestre] = useState(Number(initialData?.semestre || contextoInicial.semestre || 1));
-  const [turmaIds, setTurmaIds] = useState(initialData?.turmaIds || initialData?.turmas || (contextoInicial.turmaId ? [contextoInicial.turmaId] : []));
+  const [titulo, setTitulo] = useState(baseConteudo?.titulo || '');
+  const [bimestre, setBimestre] = useState(baseConteudo?.bimestre || contextoInicial.bimestre || 1);
+  const [semestre, setSemestre] = useState(Number(baseConteudo?.semestre || contextoInicial.semestre || 1));
+  const [turmaIds, setTurmaIds] = useState(baseConteudo?.turmaIds || baseConteudo?.turmas || (contextoInicial.turmaId ? [contextoInicial.turmaId] : []));
   const [dataEntrega, setDataEntrega] = useState(() => {
-    let d = initialData?.dataEntrega?.toDate?.() || (initialData?.dataEntrega ? new Date(initialData.dataEntrega) : null);
-    if (!d) { d = new Date(); d.setDate(d.getDate() + 7); d.setHours(23, 59, 0, 0); }
-    if (!Number.isFinite(d.getTime())) return '';
+    let d = baseConteudo?.dataEntrega?.toDate?.() || (baseConteudo?.dataEntrega ? new Date(baseConteudo.dataEntrega) : null);
+    if (modoCopia) d = contextoInicial.prazoInicial ? new Date(contextoInicial.prazoInicial) : null;
+    if (!d && !modoCopia) { d = new Date(); d.setDate(d.getDate() + 7); d.setHours(23, 59, 0, 0); }
+    if (!d || !Number.isFinite(d.getTime())) return '';
     const pad = n => String(n).padStart(2, '0');
     return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   });
   const prazoInicial = useRef(dataEntrega);
   const [questoes, setQuestoes] = useState(() =>
-    initialData?.questoes?.length > 0
-      ? initialData.questoes.map(q => ({ ...q, imagensLocais: [] }))
+    baseConteudo?.questoes?.length > 0
+      ? baseConteudo.questoes.map(q => ({ ...q, imagensLocais: [] }))
       : []
   );
   const [textosBase, setTextosBase] = useState(() => {
-    if (initialData?.textosBase?.length > 0) return initialData.textosBase;
-    if (initialData?.textoBase?.trim()) return [{ id: genId(), html: initialData.textoBase }];
+    if (baseConteudo?.textosBase?.length > 0) return baseConteudo.textosBase;
+    if (baseConteudo?.textoBase?.trim()) return [{ id: genId(), html: baseConteudo.textoBase }];
     return [];
   });
   const addTextoBase    = () => setTextosBase(prev => [...prev, { id: genId(), html: '', aposQuestao: null }]);
   const removeTextoBase = (id) => setTextosBase(prev => prev.filter(t => t.id !== id));
   const updateTextoBase = (id, field, val) => setTextosBase(prev => prev.map(t => t.id === id ? { ...t, [field]: val } : t));
   const [materiais, setMateriais] = useState(() =>
-    initialData?.materiais?.length > 0
-      ? initialData.materiais
-      : (initialData?.materialApoio?.textoExtraido
-        ? [{ id: genId(), tipo: 'pdf', nome: initialData.materialApoio.nome || 'Material', textoExtraido: initialData.materialApoio.textoExtraido }]
+    baseConteudo?.materiais?.length > 0
+      ? baseConteudo.materiais
+      : (baseConteudo?.materialApoio?.textoExtraido
+        ? [{ id: genId(), tipo: 'pdf', nome: baseConteudo.materialApoio.nome || 'Material', textoExtraido: baseConteudo.materialApoio.textoExtraido }]
         : [])
   );
+  const avisosCopia = modoCopia && Array.isArray(contextoInicial.avisosCopia) ? contextoInicial.avisosCopia : [];
   const [saving, setSaving] = useState(false);
   const [erro, setErro] = useState('');
   const assinatura = JSON.stringify([titulo, bimestre, semestre, conjuntoId, turmaIds, dataEntrega, questoes, textosBase, materiais]);
@@ -398,6 +402,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     setErro('');
 
     if (!titulo.trim()) { setErro('Título obrigatório.'); return; }
+    if (!dataValida(dataEntrega)) { setErro('Data de entrega inválida.'); return; }
     if (recuperacao) {
       if (!['1', '2'].includes(String(semestre))) { setErro('Selecione o semestre da recuperação.'); return; }
       if (turmaIds.length !== 1) { setErro('A recuperação pertence a uma única turma.'); return; }
@@ -408,7 +413,6 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
       }
     } else if (![1,2,3,4].includes(Number(bimestre))) { setErro('Selecione um bimestre válido.'); return; }
     if (turmaIds.length === 0) { setErro('Selecione ao menos uma turma.'); return; }
-    if (!dataValida(dataEntrega)) { setErro('Data de entrega inválida.'); return; }
     if (materiais.some(m => m._extracting || m._erro)) { setErro('Conclua a leitura ou remova os arquivos com falha antes de salvar.'); return; }
     if (!isEdit && questoes.length === 0) { setErro('Adicione ao menos uma questão.'); return; }
 
@@ -541,20 +545,53 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     );
   };
 
+  const pedirFechamento = () => {
+    if (!saving && (assinatura === inicial.current || window.confirm('Descartar alterações não salvas desta atividade?'))) onClose?.();
+  };
+  const tecladoCopia = evento => {
+    if (evento.key === 'Escape') {
+      evento.preventDefault();
+      pedirFechamento();
+    } else if (evento.key === 'Tab') {
+      const controles = [...evento.currentTarget.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable="true"], [tabindex="0"]')];
+      const primeiro = controles[0];
+      const ultimo = controles.at(-1);
+      if (primeiro && evento.shiftKey && document.activeElement === primeiro) {
+        evento.preventDefault(); ultimo.focus();
+      } else if (ultimo && !evento.shiftKey && document.activeElement === ultimo) {
+        evento.preventDefault(); primeiro.focus();
+      }
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
-      <div className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200 max-h-[92vh] overflow-y-auto animate-card-in">
+      <div role={modoCopia ? 'dialog' : undefined} aria-modal={modoCopia ? true : undefined} aria-label={modoCopia ? 'Copiar atividade de recuperação' : undefined} onKeyDown={modoCopia ? tecladoCopia : undefined} className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200 max-h-[92vh] overflow-y-auto animate-card-in">
         <div className="sticky top-0 z-10 bg-white p-5 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900">{isEdit ? 'Editar Atividade' : recuperacao ? 'Nova Atividade de Recuperação' : 'Nova Atividade'}</h2>
-          <button onClick={() => { if (!saving && (assinatura === inicial.current || window.confirm('Descartar alterações não salvas desta atividade?'))) onClose?.(); }} disabled={saving} className="text-slate-400 hover:text-slate-900 text-2xl leading-none">&times;</button>
+          <h2 className="text-lg font-bold text-slate-900">{isEdit ? 'Editar Atividade' : modoCopia ? 'Copiar Atividade de Recuperação' : recuperacao ? 'Nova Atividade de Recuperação' : 'Nova Atividade'}</h2>
+          <button onClick={pedirFechamento} disabled={saving} className="text-slate-400 hover:text-slate-900 text-2xl leading-none">&times;</button>
         </div>
 
         <form onSubmit={handleSubmit} data-diario-rascunho={assinatura !== inicial.current} data-diario-salvando={saving} className="p-5">
-          <fieldset disabled={saving} className="space-y-5">
+          <fieldset disabled={saving} className="space-y-5 min-w-0">
           {recuperacao && (
             <div role="status" className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
               <p className="font-semibold">Recuperação do {semestre}º semestre · {turmas.find(t => t.id === turmaIds[0])?.nome || 'turma'}</p>
               <p className="mt-1">Vale 10 pontos no total. Esta atividade pode valer até <strong>{pontosRestantes.toFixed(2).replace('.', ',')}</strong> pontos. As notas são somadas, sem média.</p>
+            </div>
+          )}
+          {modoCopia && Math.round(notaTotalMaxima * 100) === Math.round(pontosRestantes * 100) && (
+            <p className="text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl p-3">Esta cópia fechará os 10 pontos e liberará o conjunto para os alunos destinatários.</p>
+          )}
+          {avisosCopia.length > 0 && (
+            <div role="status" className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
+              <p className="font-semibold">Revise o conteúdo copiado antes de salvar</p>
+              <ul className="list-disc pl-4 mt-1 space-y-0.5">
+                {avisosCopia.map((aviso, indice) => (
+                  <li key={`${aviso.codigo || 'aviso'}-${indice}`}>{aviso.mensagem}</li>
+                ))}
+              </ul>
+              <p className="mt-1">Confira textos e imagens para o novo público. A cópia não anonimiza automaticamente nomes ou informações visíveis.</p>
             </div>
           )}
           <div className="grid grid-cols-1 gap-4">
@@ -565,7 +602,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                 className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className={modoCopia ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : 'grid grid-cols-2 gap-3'}>
               {!recuperacao && (
                 <div>
                   <label htmlFor="atividade-bimestre" className="block text-xs font-semibold text-slate-900 mb-1">Bimestre *</label>
@@ -577,7 +614,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
               {recuperacao && (
                 <div>
                   <label htmlFor="atividade-semestre" className="block text-xs font-semibold text-slate-900 mb-1">Semestre *</label>
-                  <select id="atividade-semestre" value={semestre} onChange={e => setSemestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm">
+                  <select id="atividade-semestre" value={semestre} disabled={modoCopia} onChange={e => setSemestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm disabled:bg-slate-50 disabled:text-slate-600">
                     <option value={1}>1º semestre</option>
                     <option value={2}>2º semestre</option>
                   </select>
@@ -585,7 +622,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
               )}
               <div>
                 <label htmlFor="dataEntrega" className="block text-xs font-semibold text-slate-900 mb-1">Data de entrega *</label>
-                <input id="dataEntrega" type="text" placeholder="AAAA-MM-DDTHH:mm" value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
+                <input id="dataEntrega" type={modoCopia ? 'datetime-local' : 'text'} placeholder={modoCopia ? undefined : 'AAAA-MM-DDTHH:mm'} value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
               </div>
             </div>
@@ -860,7 +897,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             </button>
             <button type="submit" disabled={saving}
               className="flex-1 py-2.5 bg-violet-500 hover:bg-violet-400 disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary">
-              {saving ? 'Salvando...' : isEdit ? 'Salvar Alterações' : 'Criar Atividade'}
+              {saving ? 'Salvando...' : isEdit ? 'Salvar Alterações' : modoCopia ? 'Criar cópia' : 'Criar Atividade'}
             </button>
           </div>
           </fieldset>

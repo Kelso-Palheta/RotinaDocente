@@ -132,3 +132,11 @@ Plano: `docs/plans/2026-10-28-copiar-recuperacao-outra-turma.md`. Nenhum código
 - [ ] Corrigir REV-R82-01..03 reproduzidos no novo `CopiarRecuperacaoRevisao.test.jsx` (3 falhas): versão/contexto conferidos ignorados, retry bloqueado após consumo do saldo e revisão impedida quando origem excede saldo ajustável.
 - [ ] Atualizar guia e executar homologação visual sintética 390/1440 após correções.
 Relatório e prompt: `docs/analises/2026-10-28-revisao-copia-recuperacao.md`. Código não aprovado para publicação; nenhum código/teste recebido alterado nesta revisão.
+
+### RN-82 concluída com correções neste chat — 28/10/2026
+- [x] Implementação recebida do DeepSeek revisada e corrigida aqui, conforme autorização posterior do usuário.
+- [x] REV-R82-01..03 passam sem editar reproduções; prazo estrito, semestre fixo, aviso de liberação, foco/teclado e projeção escalar segura cobertos por novos testes.
+- [x] Validação final: **1.060 testes/228 arquivos**, lint sem erros (2 avisos preexistentes), build exit 0; nenhum teste anterior alterado/removido.
+- [x] Guia atualizado e ensaio visual local com dados fictícios em 390/1440 px, incluindo imagem e criação 4+6. Servidor temporário encerrado.
+- [ ] Homologação da RN-82 com sessão/Firestore reais após deploy, leitor de tela e estresse concorrente real não executados; não confundir com o ensaio local.
+Relatório: `docs/analises/2026-10-28-correcao-copia-recuperacao.md`. Os cinco ajustes PDF/apresentação RN-81 e o armazenamento de imagens adaptadas permanecem separados e pendentes.

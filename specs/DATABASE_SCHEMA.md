@@ -159,3 +159,7 @@ Cache `diario:{uid}:v2` contém rascunho, base, pendência e até 20 registros d
 professores/{uid}/correcoes/{idUnico}: schemaVersion 2; alunoId, turmaId, turmaNome/studentClass, anoLetivo, bimestre, loginAluno/loginKey; originalText; result; scoreData; totalScore (null parcial); assessmentMode, competencias; anulada/motivo; status rascunho|revisado|publicado|arquivado; createdAt/updatedAt/publishedAt; revisoes com versão anterior, autor e data. Legados não são reescritos ao carregar. Vínculo existente do Diário preservado; módulo redação não remove nem altera contexto existente incompatível.
 
 Novas redações RN-73 também registram `rubricaVersao`, `rubricaFonte` e `rubricaHomologada:false`. A referência é para conferência docente; schemaVersion não equivale a homologação da edição oficial. `historico` armazena versões anteriores com autor/data, e `revision` protege atualização concorrente.
+
+## RN-82 — Atividade copiada entre turmas
+
+Não cria coleção nem migração. Cada cópia é outro documento `atividades/{novoId}` com contexto de recuperação e tokens novos sob esse ID. IDs locais de questões/alternativas podem ser preservados para manter gabarito; não são IDs globais de atividade/entrega. O conjunto de destino atualiza composição/versão pelos contratos RN-81. Respostas, feedback, histórico de correções, notas e tokens da origem não são transportados. Nenhum campo numérico de recuperação/Diário é escrito nesta operação.

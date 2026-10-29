@@ -14,7 +14,11 @@ import { RecuperacaoRepository } from '@/infraestrutura/diario/RecuperacaoReposi
 import { DiarioRepository } from '@/infraestrutura/diario/DiarioRepository';
 import { AtividadeForm } from './AtividadeForm';
 import { AtividadePainel } from './AtividadePainel';
-import { anoLetivoDaTurma, conjuntoLiberadoParaResposta } from '@/dominio/atividades/recuperacaoSemestral';
+import { CopiarRecuperacaoModal } from './CopiarRecuperacaoModal';
+import { CriacaoConjunto } from './CriacaoConjunto';
+import { copiarRecuperacaoParaOutraTurma } from '@/aplicacao/atividades/copiarRecuperacao';
+import { getAtividade } from '@/lib/firebase-atividades';
+import { conjuntoLiberadoParaResposta } from '@/dominio/atividades/recuperacaoSemestral';
 import { calcDesempenhoAnual, fmt } from '@/utils/diario/calculos';
 import { ROTULOS_APROVACAO } from '@/dominio/diario/aprovacao';
 
@@ -69,90 +73,6 @@ const conjuntosNoContexto = (lista, turmas, ano) => (lista || []).filter(conjunt
   return String(conjunto.anoLetivo) === String(ano);
 });
 
-const anoInicialDaTurma = (turma, ano) => {
-  const canonico = turma ? anoLetivoDaTurma(turma) : null;
-  if (canonico != null) return String(canonico);
-  // Turma legada continua legada: nunca substituir pelo ano do relógio.
-  return ano && String(ano) !== 'todos' ? String(ano) : 'legado';
-};
-
-function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
-  const turmasDisponiveis = turmas || [];
-  const [turmaId, setTurmaId] = useState(turmasDisponiveis[0]?.id || '');
-  const [anoLetivo, setAnoLetivo] = useState(() => anoInicialDaTurma(turmasDisponiveis[0], ano));
-  const [semestre, setSemestre] = useState('1');
-  const [destinatarios, setDestinatarios] = useState([]);
-  const [salvando, setSalvando] = useState(false);
-  const [erro, setErro] = useState('');
-  const turma = turmasDisponiveis.find(t => t.id === turmaId);
-
-  const alternar = (alunoId) => setDestinatarios(prev => prev.includes(alunoId) ? prev.filter(id => id !== alunoId) : [...prev, alunoId]);
-
-  const trocarTurma = (novoId) => {
-    const novaTurma = turmasDisponiveis.find(t => t.id === novoId);
-    setTurmaId(novoId);
-    setAnoLetivo(anoInicialDaTurma(novaTurma, ano));
-    setDestinatarios([]);
-  };
-
-  const enviar = async (evento) => {
-    evento.preventDefault();
-    setErro('');
-    setSalvando(true);
-    try {
-      await onCriar({ turmaId, anoLetivo: String(anoLetivo), semestre, destinatariosIds: destinatarios }, turma?.alunos || []);
-    } catch (error) {
-      setErro(error.message);
-    } finally {
-      setSalvando(false);
-    }
-  };
-
-  return (
-    <form onSubmit={enviar} className="bg-white border border-[#dce0f0] rounded-2xl p-5 space-y-4">
-      <h3 className="font-bold text-[#101942]">Novo conjunto de recuperação semestral</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <label className="text-xs font-semibold text-[#101942]">Turma
-          <select aria-label="Turma da recuperação" value={turmaId} onChange={e => trocarTurma(e.target.value)} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
-            {turmasDisponiveis.map(t => <option key={t.id} value={t.id}>{t.nome}</option>)}
-          </select>
-        </label>
-        <label className="text-xs font-semibold text-[#101942]">Ano letivo
-          <input aria-label="Ano letivo da recuperação" value={anoLetivo} readOnly title="O ano é o da turma selecionada" className="mt-1 w-full border rounded-lg p-2 text-sm font-normal bg-slate-50 text-[#6070a0]" />
-        </label>
-        <label className="text-xs font-semibold text-[#101942]">Semestre
-          <select aria-label="Semestre da recuperação" value={semestre} onChange={e => setSemestre(e.target.value)} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
-            <option value="1">1º semestre</option>
-            <option value="2">2º semestre</option>
-          </select>
-        </label>
-      </div>
-
-      <fieldset>
-        <legend className="text-xs font-semibold text-[#101942] mb-2">Alunos em recuperação ({destinatarios.length})</legend>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 max-h-48 overflow-auto border border-[#dce0f0] rounded-xl p-2">
-          {(turma?.alunos || []).map(aluno => (
-            <label key={aluno.id} className="flex items-center gap-2 text-sm px-2 py-1 rounded hover:bg-slate-50">
-              <input type="checkbox" checked={destinatarios.includes(aluno.id)} onChange={() => alternar(aluno.id)} />
-              {aluno.nome}
-            </label>
-          ))}
-          {!turma?.alunos?.length && <p className="text-xs text-slate-500 p-2">Turma sem alunos.</p>}
-        </div>
-      </fieldset>
-
-      <p className="text-xs text-[#6070a0]">O conjunto nasce vazio. Você distribui os 10 pontos entre uma ou várias atividades depois. Nenhum aluno é matriculado automaticamente na recuperação.</p>
-      {erro && <p role="alert" className="text-sm text-red-700 bg-red-50 rounded p-2">{erro}</p>}
-      <div className="flex gap-2">
-        <button type="button" onClick={onCancelar} className="flex-1 py-2 bg-slate-50 border rounded-xl text-sm">Cancelar</button>
-        <button type="submit" disabled={salvando || !turmaId || !destinatarios.length} className="flex-1 py-2 bg-[#f60c49] text-white rounded-xl text-sm font-semibold disabled:bg-slate-200">
-          {salvando ? 'Criando...' : 'Criar conjunto'}
-        </button>
-      </div>
-    </form>
-  );
-}
-
 export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook, aguardarSalvamento, recarregar }) {
   const uid = user?.uid;
   const [contaCarregada, setContaCarregada] = useState(uid);
@@ -170,6 +90,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
   const [substituicoes, setSubstituicoes] = useState([]);
   const [ocupado, setOcupado] = useState(false);
   const [confirmandoCancelamento, setConfirmandoCancelamento] = useState(false);
+  const [copiando, setCopiando] = useState(null);
 
   const uidRef = useRef(uid);
   const selecionadoRef = useRef(selecionadoId);
@@ -197,6 +118,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     setMensagem('');
     setOcupado(false);
     setConfirmandoCancelamento(false);
+    setCopiando(null);
     setCarregando(Boolean(uid));
   }
 
@@ -320,6 +242,31 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
       : `Atividade criada. O conjunto segue em montagem: ${pontos(total)} de 10 pontos distribuídos. Nenhuma parcela aparece no Portal até o fechamento dos 10.`);
   };
 
+  const salvarCopiaAtividade = async (dados, { destino, turmaDestino, versaoEsperada }) => {
+    const conta = uid;
+    const origemId = copiando?.id;
+    const conjuntoOrigemId = selecionadoRef.current;
+    if (!origemId) throw new Error('Reabra a atividade de origem para copiar.');
+
+    const copiaId = await copiarRecuperacaoParaOutraTurma({
+      professorId: conta,
+      origemId,
+      destinoId: destino.id,
+      dados,
+      turmaDestino,
+      versaoEsperada,
+      carregarOrigem: getAtividade,
+      carregarDestino: getConjuntoRecuperacao,
+      criarAtividade: useAtividadesHook.createAtividade,
+    });
+
+    if (conta !== uidRef.current || conjuntoOrigemId !== selecionadoRef.current) return copiaId;
+    await carregarConjuntos();
+    if (conta !== uidRef.current || conjuntoOrigemId !== selecionadoRef.current) return copiaId;
+    setMensagem('Cópia criada no conjunto de destino. Ao fechar 10 pontos, as atividades ficam disponíveis aos alunos. O boletim continua dependendo de lançamento e publicação no Diário.');
+    return copiaId;
+  };
+
   const cancelarConjunto = async () => {
     if (!detalheVisivel?.conjunto || ocupado) return;
     const conta = uid;
@@ -416,6 +363,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     setSubstituicoes([]);
     setAtividadeAberta(null);
     setFormAtividade(null);
+    setCopiando(null);
     setConfirmandoCancelamento(false);
   };
 
@@ -540,7 +488,10 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
                   <p className="text-sm font-semibold text-[#101942]">{atividade.titulo}</p>
                   <p className="text-xs text-[#6070a0]">Vale até {pontos(atividade.notaMaxima)} · entrega em {atividade.dataEntrega?.toDate?.().toLocaleString?.('pt-BR') || 'data não informada'} · {atividade.status}</p>
                 </div>
-                <button type="button" onClick={() => setAtividadeAberta(atividade)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#eef0f8] text-[#101942]">Corrigir</button>
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" onClick={() => setCopiando(atividade)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#dce0f0] text-[#101942] disabled:opacity-60">Copiar para outra turma</button>
+                  <button type="button" onClick={() => setAtividadeAberta(atividade)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#eef0f8] text-[#101942]">Corrigir</button>
+                </div>
               </div>
             ))}
             {!detalheVisivel.atividades.length && <p className="text-sm text-[#6070a0]">Nenhuma atividade ainda. Distribua os 10 pontos criando a primeira.</p>}
@@ -652,6 +603,18 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
           onCreate={salvarAtividade}
           onClose={() => setFormAtividade(null)}
           contextoInicial={contextoFormulario()}
+        />
+      )}
+
+      {copiando && detalheVisivel?.atividades.some(atividade => atividade.id === copiando.id) && (
+        <CopiarRecuperacaoModal
+          key={`${uid}:${ano}:${copiando.id}`}
+          user={user}
+          origem={copiando}
+          turmas={turmas}
+          ano={ano}
+          onClose={() => setCopiando(null)}
+          onSalvar={salvarCopiaAtividade}
         />
       )}
     </div>

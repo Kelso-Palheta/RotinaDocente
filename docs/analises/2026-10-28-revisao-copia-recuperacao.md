@@ -66,3 +66,5 @@ Usar campo de data/hora amigável, recusando prazo inválido em vez de trocar si
 ## Publicação desta revisão
 
 Somente documentação desta avaliação pode ser commitada nesta rodada. Implementação recebida e teste independente permanecem locais para correção pelo DeepSeek. Nenhum teste anterior foi alterado para obter aprovação; o código ainda tem falhas conhecidas.
+
+Atualização posterior: usuário autorizou correção neste chat; ver [implementação corrigida e evidências](2026-10-28-correcao-copia-recuperacao.md). Os bloqueios e resultados acima descrevem a entrega recebida antes da correção.

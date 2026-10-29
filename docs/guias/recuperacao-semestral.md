@@ -21,3 +21,19 @@ Atividades adaptadas podem ser vinculadas ao conjunto pelo fluxo de publicação
 O aluno consulta atividades liberadas e devolutivas no Portal. O boletim usa as notas publicadas; uma correção recém-salva não atualiza automaticamente o resultado publicado.
 
 Validação técnica: 1.018 testes aprovados em 28/10/2026. Homologação real do fluxo manual e publicação no Portal concluída com dados sintéticos; deploy confirmado. PDF e apresentação exigem ajustes antes da aprovação integral. IA real e leitor de tela não verificados. Ver `docs/analises/2026-10-28-homologacao-real-recuperacao-semestral.md`.
+
+## Reaproveitar em outra turma
+
+1. Abra o conjunto de origem e, na atividade desejada, clique em **Copiar para outra turma**.
+2. Escolha um conjunto de outra turma. Se precisar, use **Criar novo conjunto** e selecione semestre e alunos. O ano acompanha a turma.
+3. Confirme o novo prazo e clique em **Revisar conteúdo e prazo**.
+4. Confira questões, imagens, rubricas e pontos. Se o saldo do destino for menor, reduza a pontuação das questões antes de salvar. O semestre permanece o do conjunto escolhido.
+5. Clique em **Criar cópia**. Repita para as outras parcelas que quiser reaproveitar.
+
+São atividades independentes: respostas, correções, notas e acessos da origem não são copiados. O conjunto de destino continua em montagem até completar 10 pontos; ao fechar 10, libera suas atividades para os alunos destinatários. A cópia não lança nem publica notas no boletim.
+
+Conjuntos cancelados, congelados por entregas ou sem saldo não aceitam novas parcelas. Se o destino mudar durante a revisão, é necessário conferir novamente; repetir uma tentativa já gravada idêntica não duplica a atividade. Cancelar a cópia não apaga um conjunto que você criou explicitamente.
+
+Esta ação atende atividades regulares de recuperação, incluindo imagens compatíveis com o formulário. Atividades adaptadas individualizadas exigem outro fluxo. Revise nomes ou outras informações visíveis no conteúdo antes de usá-lo com novo público; não há anonimização automática. Imagens locais indisponíveis precisam ser anexadas novamente.
+
+Cópia RN-82: 1.060 testes, lint e build aprovados em 28/10/2026; interface conferida em ensaio local isolado. Homologação da cópia com Firestore real e leitor de tela não executada nesta rodada.

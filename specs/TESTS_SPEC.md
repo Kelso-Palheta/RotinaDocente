@@ -368,3 +368,13 @@ Arquivos novos sugeridos: `tests/unit/copiar_recuperacao.test.js`, `tests/integr
 ### Revisão independente RN-82 — reproduções adicionais
 
 Novo arquivo local `tests/unit/components/atividades/CopiarRecuperacaoRevisao.test.jsx`: três falhas confirmadas, sem editar testes recebidos. REV-R82-01 exige nova conferência após mudança do semestre/versão; REV-R82-02 exige que retry após commit de 6+4 alcance idempotência apesar de saldo zero; REV-R82-03 exige abertura da revisão para ajustar origem de 4 ao saldo 3. Suíte recebida antes dessas reproduções: 1.045/223 aprovados; não declarar suíte atual totalmente aprovada. Relatório: `docs/analises/2026-10-28-revisao-copia-recuperacao.md`.
+
+### RN-82 — Complementos da correção autorizada neste chat
+- [ ] Conferir prazo digitado antes de abrir revisão; aceitar data/hora local legível e rejeitar datas impossíveis, sem substituir prazo inválido por padrão.
+- [ ] Com saldo 3, abrir revisão de origem 4; recusar 4 ao salvar e aceitar somente após reduzir questões para 3.
+- [ ] Ao repetir cópia já gravada, reconhecer apenas ID/contexto/conteúdo iguais, sem aceitar outra nota ou outro prazo; preservar versão conferida para nova criação.
+- [ ] No formulário de cópia, semestre permanece vinculado ao destino e o prazo usa seletor local de data/hora. Aviso de liberação acompanha a pontuação revisada, inclusive quando reduzida para fechar o saldo.
+
+### RN-82 — Resultado final da correção neste chat
+
+REV-R82-01..03 passaram sem edição. Novos `CopiarRecuperacaoAjustes.test.jsx` (5), `CopiarRecuperacaoContexto.test.jsx` (3), `CopiarRecuperacaoTeclado.test.jsx` (2) e `copiar_recuperacao_projecao_segura.test.js` (2) aprovados; ciclos RED→GREEN registrados em logs locais. Quatro arquivos da entrega inicial preservados. **1.060 testes em 228 arquivos**, lint sem erros e build exit 0 após a última alteração de produção. R82-01..05 cobertos nos testes sintéticos; R82-06/07 cobertos nos cenários descritos, sem alegação de homologação de conta/rede/concorrência real ou leitor de tela. Interface 390/1440 e foco conferidos em navegador local com repositório em memória; guia e evidências em `docs/analises/2026-10-28-correcao-copia-recuperacao.md`. Checklist original registra requisitos, não autorização para inventar evidência de produção.
