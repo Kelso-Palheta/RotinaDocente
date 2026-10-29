@@ -140,3 +140,9 @@ Relatório e prompt: `docs/analises/2026-10-28-revisao-copia-recuperacao.md`. C�
 - [x] Guia atualizado e ensaio visual local com dados fictícios em 390/1440 px, incluindo imagem e criação 4+6. Servidor temporário encerrado.
 - [ ] Homologação da RN-82 com sessão/Firestore reais após deploy, leitor de tela e estresse concorrente real não executados; não confundir com o ensaio local.
 Relatório: `docs/analises/2026-10-28-correcao-copia-recuperacao.md`. Os cinco ajustes PDF/apresentação RN-81 e o armazenamento de imagens adaptadas permanecem separados e pendentes.
+
+## 29/10/2026 — Revisão das cinco correções PDF/apresentação RN-81
+- [x] Revisar entrega DeepSeek: 1.081 testes/234 arquivos recebidos, lint e build aprovados.
+- [ ] Corrigir REV-H81-01/02: emissão colide com faixa rosa e identificação longa ultrapassa margem por diferença entre fonte de medição e escrita.
+- [ ] Revalidar PDFs renderizados com payload de recuperação semestral; amostra recebida usa atividades regulares por bimestre.
+Relatório/prompt: `docs/analises/2026-10-29-revisao-correcoes-pdf-recuperacao.md`. Duas reproduções novas falham em `tests/integration/relatorios_pdf_revisao.test.js`, mantido local e intocável para correção. Código não publicado nesta rodada.
