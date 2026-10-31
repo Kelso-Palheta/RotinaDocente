@@ -153,5 +153,18 @@ Relatório/prompt: `docs/analises/2026-10-29-revisao-correcoes-pdf-recuperacao.m
 - [x] REV-H81-01/02 aprovados sem edição das reproduções; nova suíte: **1.087 testes/236 arquivos**, lint sem erros/avisos e build exit 0.
 - [x] Três PDFs sintéticos regenerados pelos exportadores reais, renderizados com Poppler e inspecionados: cabeçalhos/margens, sem registros, presença zero e devolutiva de recuperação do 1º semestre.
 - [x] Aprovar publicação do escopo das cinco correções RN-81 após revisão independente.
-- [ ] Sessão de produção/leitor de tela continuam fora da validação local; logout de Atividades e armazenamento de imagens adaptadas seguem separados.
+- [ ] Sessão de produção/leitor de tela continuam fora da validação local; armazenamento de imagens adaptadas segue separado. O logout de Atividades foi corrigido localmente na RN-83 e aguarda revisão independente.
 Relatório: `docs/analises/2026-10-29-validacao-final-correcoes-recuperacao.md`. Nenhum código/teste recebido alterado nesta revisão.
+
+## 29/10/2026 — RN-83: logout real na página de Atividades
+- [x] Atualizar specs (`RULES.md`, `PRD.md`, `TESTS_SPEC.md`) antes da implementação e criar `tests/unit/components/atividades/LogoutAtividades.test.jsx` (RED), sem alterar testes existentes.
+- [x] Implementar `handleLogout` em `frontend/src/app/atividades/page.js`: `confirmarTrocaContexto` → `await logout()` → `router.replace('/')`; manter a página montada durante a promessa e exibir erro acessível com retry se rejeitar.
+- [x] Validar: RED **6 falhas/6**; GREEN **6/6** no arquivo novo; suíte **1.093 testes/237 arquivos**; lint do arquivo alterado exit 0; build de produção exit 0 (37 rotas).
+- [ ] Revisão independente e homologação em produção com sessão/Firebase real permanecem pendentes; nada commitado/publicado nesta rodada.
+Testes: `tests/unit/components/atividades/LogoutAtividades.test.jsx` (novo, 6 cenários). Nenhum teste existente alterado. O `logout` do contexto permaneceu inalterado; a página apenas orquestra confirmação, encerramento, navegação e erro.
+
+### Revisão independente RN-83 — 31/10/2026
+- [x] Entrega recebida: 1.093 testes/237 arquivos, lint e build aprovados; seis testes anteriores de logout preservados.
+- [ ] Corrigir REV-R83-01: o guard DOM ignora `persistencia.estado` sem formulário aberto. Quatro reproduções falham para salvando/pendente/falha/conflito em `LogoutAtividadesPersistenciaRevisao.test.jsx` (novo arquivo local).
+- [ ] Nova revisão antes de publicar código. Relatório/prompt: `docs/analises/2026-10-31-revisao-logout-atividades.md`.
+Execução pode usar OpenCode/DeepSeek ou assinatura Antigravity informada pelo usuário; modelos do Antigravity ainda não identificados. Um executor por vez neste checkout. Próximo módulo após logout: Agentes Pedagógicos IA; armazenamento de imagens adaptadas permanece lembrado para o final.
