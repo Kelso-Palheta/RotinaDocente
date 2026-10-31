@@ -9,11 +9,14 @@ export default function PromptChips({ agente, onSelect }) {
 
   return (
     <div
+      data-testid="agentes-chips"
       style={{
         display: 'flex',
         flexWrap: 'wrap',
         gap: '0.5rem',
         padding: '0 1rem 1rem',
+        minWidth: 0,
+        maxWidth: '100%',
       }}
     >
       <div
@@ -32,10 +35,11 @@ export default function PromptChips({ agente, onSelect }) {
       {agente.promptChips.map((chip, i) => (
         <button
           key={i}
+          type="button"
           onClick={() => onSelect(chip)}
           style={{
             padding: '0.45rem 0.875rem',
-            borderRadius: '100px',
+            borderRadius: '1rem',
             border: `1.5px solid ${agente.cor}40`,
             background: `${agente.cor}0d`,
             color: agente.cor,
@@ -46,6 +50,11 @@ export default function PromptChips({ agente, onSelect }) {
             fontFamily: 'var(--font-body)',
             lineHeight: 1.4,
             textAlign: 'left',
+            maxWidth: '100%',
+            minWidth: 0,
+            whiteSpace: 'normal',
+            overflowWrap: 'anywhere',
+            wordBreak: 'break-word',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = `${agente.cor}20`;

@@ -1,0 +1,869 @@
+{
+  "ensaio": "components reais + hooks de autenticação/chat sintéticos",
+  "url": "http://127.0.0.1:4173/",
+  "data": "2026-10-31",
+  "rascunhoPreservadoAposResize": true,
+  "rascunhoPreservadoAoVoltarPara390": true,
+  "mensagemPreservadaAposResize": true,
+  "focoPorTeclado": "Voltar para os agentes",
+  "capturas": [
+    {
+      "arquivo": "agentes-390-selecao.png",
+      "observacao": "Seleção de agentes em 390×844",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": null,
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": null,
+        "visivel": false,
+        "scrollWidth": null,
+        "clientWidth": null,
+        "overflowX": null,
+        "dentroDaViewport": null
+      },
+      "cabecalhoChat": null,
+      "sugestoes": {
+        "caixa": null,
+        "botoes": []
+      },
+      "textarea": {
+        "caixa": null,
+        "valor": null
+      },
+      "enviar": {
+        "caixa": null,
+        "desabilitado": null
+      },
+      "voltar": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "limparHistorico": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "mensagens": [],
+      "ladosALado": false,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "BODY",
+        "nome": null
+      }
+    },
+    {
+      "arquivo": "agentes-390-conversa.png",
+      "observacao": "Conversa recém-aberta, com sugestões, em 390×844",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": "Conversa com Agente EM",
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 0,
+          "topo": 0,
+          "base": 0,
+          "largura": 0,
+          "altura": 0
+        },
+        "visivel": false,
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflowX": "visible",
+        "dentroDaViewport": true
+      },
+      "cabecalhoChat": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 136,
+        "largura": 372,
+        "altura": 65
+      },
+      "sugestoes": {
+        "caixa": {
+          "esquerda": 25,
+          "direita": 365,
+          "topo": 429.16,
+          "base": 752,
+          "largura": 340,
+          "altura": 322.84
+        },
+        "botoes": [
+          "Como estruturar uma proposta de intervenção (C5) nota 200?",
+          "Quais habilidades EM13LP são mais cobradas no ENEM?",
+          "Monte um plano de revisão de Matemática para o ENEM.",
+          "Como explicar funções de 2º grau de forma visual?",
+          "Sugira uma atividade de redação argumentativa para o 3º EM."
+        ]
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": ""
+      },
+      "enviar": {
+        "caixa": {
+          "esquerda": 327,
+          "direita": 369,
+          "topo": 781,
+          "base": 823,
+          "largura": 42,
+          "altura": 42
+        },
+        "desabilitado": true
+      },
+      "voltar": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 57,
+          "topo": 85,
+          "base": 121,
+          "largura": 36,
+          "altura": 36
+        },
+        "nomeAcessivel": "Voltar para os agentes"
+      },
+      "limparHistorico": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "mensagens": [],
+      "ladosALado": false,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "TEXTAREA",
+        "nome": "Mensagem para Agente EM"
+      }
+    },
+    {
+      "arquivo": "agentes-390-rascunho.png",
+      "observacao": "Rascunho digitado em 390×844",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": "Conversa com Agente EM",
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 0,
+          "topo": 0,
+          "base": 0,
+          "largura": 0,
+          "altura": 0
+        },
+        "visivel": false,
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflowX": "visible",
+        "dentroDaViewport": true
+      },
+      "cabecalhoChat": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 136,
+        "largura": 372,
+        "altura": 65
+      },
+      "sugestoes": {
+        "caixa": {
+          "esquerda": 25,
+          "direita": 365,
+          "topo": 409.16,
+          "base": 732,
+          "largura": 340,
+          "altura": 322.84
+        },
+        "botoes": [
+          "Como estruturar uma proposta de intervenção (C5) nota 200?",
+          "Quais habilidades EM13LP são mais cobradas no ENEM?",
+          "Monte um plano de revisão de Matemática para o ENEM.",
+          "Como explicar funções de 2º grau de forma visual?",
+          "Sugira uma atividade de redação argumentativa para o 3º EM."
+        ]
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 761,
+          "base": 823,
+          "largura": 296,
+          "altura": 62
+        },
+        "valor": "Quais habilidades da BNCC posso usar em uma sequência sobre argumentação?"
+      },
+      "enviar": {
+        "caixa": {
+          "esquerda": 327,
+          "direita": 369,
+          "topo": 781,
+          "base": 823,
+          "largura": 42,
+          "altura": 42
+        },
+        "desabilitado": false
+      },
+      "voltar": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 57,
+          "topo": 85,
+          "base": 121,
+          "largura": 36,
+          "altura": 36
+        },
+        "nomeAcessivel": "Voltar para os agentes"
+      },
+      "limparHistorico": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "mensagens": [],
+      "ladosALado": false,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "TEXTAREA",
+        "nome": "Mensagem para Agente EM"
+      }
+    },
+    {
+      "arquivo": "agentes-1440-rascunho-apos-resize.png",
+      "observacao": "Após resize 390 → 1440, rascunho preservado e painéis lado a lado",
+      "viewport": {
+        "largura": 1440,
+        "altura": 900,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": "Conversa com Agente EM",
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 300,
+          "topo": 66,
+          "base": 900,
+          "largura": 300,
+          "altura": 834
+        },
+        "visivel": true,
+        "scrollWidth": 300,
+        "clientWidth": 300,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 300,
+          "direita": 1440,
+          "topo": 66,
+          "base": 900,
+          "largura": 1140,
+          "altura": 834
+        },
+        "visivel": true,
+        "scrollWidth": 1140,
+        "clientWidth": 1140,
+        "overflowX": "visible",
+        "dentroDaViewport": true
+      },
+      "cabecalhoChat": {
+        "esquerda": 301,
+        "direita": 1415,
+        "topo": 87,
+        "base": 160,
+        "largura": 1114,
+        "altura": 73
+      },
+      "sugestoes": {
+        "caixa": {
+          "esquerda": 317,
+          "direita": 1399,
+          "topo": 615.48,
+          "base": 772,
+          "largura": 1082,
+          "altura": 156.52
+        },
+        "botoes": [
+          "Como estruturar uma proposta de intervenção (C5) nota 200?",
+          "Quais habilidades EM13LP são mais cobradas no ENEM?",
+          "Monte um plano de revisão de Matemática para o ENEM.",
+          "Como explicar funções de 2º grau de forma visual?",
+          "Sugira uma atividade de redação argumentativa para o 3º EM."
+        ]
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 317,
+          "direita": 1347,
+          "topo": 803,
+          "base": 865,
+          "largura": 1030,
+          "altura": 62
+        },
+        "valor": "Quais habilidades da BNCC posso usar em uma sequência sobre argumentação?"
+      },
+      "enviar": {
+        "caixa": {
+          "esquerda": 1357,
+          "direita": 1399,
+          "topo": 823,
+          "base": 865,
+          "largura": 42,
+          "altura": 42
+        },
+        "desabilitado": false
+      },
+      "voltar": {
+        "caixa": {
+          "esquerda": 321,
+          "direita": 357,
+          "topo": 105,
+          "base": 141,
+          "largura": 36,
+          "altura": 36
+        },
+        "nomeAcessivel": "Voltar para os agentes"
+      },
+      "limparHistorico": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "mensagens": [],
+      "ladosALado": true,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "TEXTAREA",
+        "nome": "Mensagem para Agente EM"
+      }
+    },
+    {
+      "arquivo": "agentes-390-conversa-enviada.png",
+      "observacao": "Mensagem enviada e resposta sintética em 390×844",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": "Conversa com Agente EM",
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 0,
+          "topo": 0,
+          "base": 0,
+          "largura": 0,
+          "altura": 0
+        },
+        "visivel": false,
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflowX": "visible",
+        "dentroDaViewport": true
+      },
+      "cabecalhoChat": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 136,
+        "largura": 372,
+        "altura": 65
+      },
+      "sugestoes": {
+        "caixa": null,
+        "botoes": []
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": ""
+      },
+      "enviar": {
+        "caixa": {
+          "esquerda": 327,
+          "direita": 369,
+          "topo": 781,
+          "base": 823,
+          "largura": 42,
+          "altura": 42
+        },
+        "desabilitado": true
+      },
+      "voltar": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 57,
+          "topo": 85,
+          "base": 121,
+          "largura": 36,
+          "altura": 36
+        },
+        "nomeAcessivel": "Voltar para os agentes"
+      },
+      "limparHistorico": {
+        "caixa": {
+          "esquerda": 330,
+          "direita": 369,
+          "topo": 89.5,
+          "base": 116.5,
+          "largura": 39,
+          "altura": 27
+        },
+        "nomeAcessivel": "Limpar histórico"
+      },
+      "mensagens": [
+        {
+          "caixa": {
+            "esquerda": 86.2,
+            "direita": 365,
+            "topo": 152,
+            "base": 245.28,
+            "largura": 278.8,
+            "altura": 93.28
+          },
+          "texto": "Quais habilidades da BNCC posso usar em uma sequência sobre argumentação?"
+        },
+        {
+          "caixa": {
+            "esquerda": 65,
+            "direita": 343.8,
+            "topo": 257.28,
+            "base": 491.13,
+            "largura": 278.8,
+            "altura": 233.84
+          },
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow."
+        }
+      ],
+      "ladosALado": false,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "BODY",
+        "nome": null
+      }
+    },
+    {
+      "arquivo": "agentes-1440-conversa.png",
+      "observacao": "Conversa e seleção lado a lado em 1440×900",
+      "viewport": {
+        "largura": 1440,
+        "altura": 900,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": "Conversa com Agente EM",
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 300,
+          "topo": 66,
+          "base": 900,
+          "largura": 300,
+          "altura": 834
+        },
+        "visivel": true,
+        "scrollWidth": 300,
+        "clientWidth": 300,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 300,
+          "direita": 1440,
+          "topo": 66,
+          "base": 900,
+          "largura": 1140,
+          "altura": 834
+        },
+        "visivel": true,
+        "scrollWidth": 1140,
+        "clientWidth": 1140,
+        "overflowX": "visible",
+        "dentroDaViewport": true
+      },
+      "cabecalhoChat": {
+        "esquerda": 301,
+        "direita": 1415,
+        "topo": 87,
+        "base": 160,
+        "largura": 1114,
+        "altura": 73
+      },
+      "sugestoes": {
+        "caixa": null,
+        "botoes": []
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 317,
+          "direita": 1347,
+          "topo": 824,
+          "base": 865,
+          "largura": 1030,
+          "altura": 41
+        },
+        "valor": ""
+      },
+      "enviar": {
+        "caixa": {
+          "esquerda": 1357,
+          "direita": 1399,
+          "topo": 823,
+          "base": 865,
+          "largura": 42,
+          "altura": 42
+        },
+        "desabilitado": true
+      },
+      "voltar": {
+        "caixa": {
+          "esquerda": 321,
+          "direita": 357,
+          "topo": 105,
+          "base": 141,
+          "largura": 36,
+          "altura": 36
+        },
+        "nomeAcessivel": "Voltar para os agentes"
+      },
+      "limparHistorico": {
+        "caixa": {
+          "esquerda": 1309.98,
+          "direita": 1395,
+          "topo": 109,
+          "base": 137,
+          "largura": 85.02,
+          "altura": 28
+        },
+        "nomeAcessivel": "Limpar histórico"
+      },
+      "mensagens": [
+        {
+          "caixa": {
+            "esquerda": 855,
+            "direita": 1399,
+            "topo": 176,
+            "base": 246.19,
+            "largura": 544,
+            "altura": 70.19
+          },
+          "texto": "Quais habilidades da BNCC posso usar em uma sequência sobre argumentação?"
+        },
+        {
+          "caixa": {
+            "esquerda": 357,
+            "direita": 901,
+            "topo": 258.19,
+            "base": 376.56,
+            "largura": 544,
+            "altura": 118.38
+          },
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow."
+        }
+      ],
+      "ladosALado": true,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "BODY",
+        "nome": null
+      }
+    },
+    {
+      "arquivo": "agentes-1440-selecao.png",
+      "observacao": "Seleção de agentes em 1440×900",
+      "viewport": {
+        "largura": 1440,
+        "altura": 900,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": null,
+      "selecao": {
+        "caixa": {
+          "esquerda": 400,
+          "direita": 1040,
+          "topo": 66,
+          "base": 900,
+          "largura": 640,
+          "altura": 834
+        },
+        "visivel": true,
+        "scrollWidth": 640,
+        "clientWidth": 640,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": null,
+        "visivel": false,
+        "scrollWidth": null,
+        "clientWidth": null,
+        "overflowX": null,
+        "dentroDaViewport": null
+      },
+      "cabecalhoChat": null,
+      "sugestoes": {
+        "caixa": null,
+        "botoes": []
+      },
+      "textarea": {
+        "caixa": null,
+        "valor": null
+      },
+      "enviar": {
+        "caixa": null,
+        "desabilitado": null
+      },
+      "voltar": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "limparHistorico": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "mensagens": [],
+      "ladosALado": false,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "BODY",
+        "nome": null
+      }
+    },
+    {
+      "arquivo": "agentes-390-foco-voltar.png",
+      "observacao": "Foco de teclado no botão Voltar para os agentes",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "regiaoChat": "Conversa com Agente EM",
+      "selecao": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 0,
+          "topo": 0,
+          "base": 0,
+          "largura": 0,
+          "altura": 0
+        },
+        "visivel": false,
+        "scrollWidth": 0,
+        "clientWidth": 0,
+        "overflowX": "hidden",
+        "dentroDaViewport": true
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflowX": "visible",
+        "dentroDaViewport": true
+      },
+      "cabecalhoChat": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 136,
+        "largura": 372,
+        "altura": 65
+      },
+      "sugestoes": {
+        "caixa": {
+          "esquerda": 25,
+          "direita": 365,
+          "topo": 429.16,
+          "base": 752,
+          "largura": 340,
+          "altura": 322.84
+        },
+        "botoes": [
+          "Como estruturar uma proposta de intervenção (C5) nota 200?",
+          "Quais habilidades EM13LP são mais cobradas no ENEM?",
+          "Monte um plano de revisão de Matemática para o ENEM.",
+          "Como explicar funções de 2º grau de forma visual?",
+          "Sugira uma atividade de redação argumentativa para o 3º EM."
+        ]
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": ""
+      },
+      "enviar": {
+        "caixa": {
+          "esquerda": 327,
+          "direita": 369,
+          "topo": 781,
+          "base": 823,
+          "largura": 42,
+          "altura": 42
+        },
+        "desabilitado": true
+      },
+      "voltar": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 57,
+          "topo": 85,
+          "base": 121,
+          "largura": 36,
+          "altura": 36
+        },
+        "nomeAcessivel": "Voltar para os agentes"
+      },
+      "limparHistorico": {
+        "caixa": null,
+        "nomeAcessivel": null
+      },
+      "mensagens": [],
+      "ladosALado": false,
+      "todosPaineisDentroDaViewport": true,
+      "foco": {
+        "tag": "BUTTON",
+        "nome": "Voltar para os agentes"
+      }
+    }
+  ]
+}

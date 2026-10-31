@@ -16,16 +16,21 @@ export default function AgentCard({ agente, selected, onClick }) {
 
   return (
     <button
+      type="button"
       onClick={() => onClick(agente.id)}
       style={{
         background: isSelected ? agente.cor : 'rgba(255,255,255,0.92)',
         border: `2px solid ${isSelected ? agente.cor : 'rgba(220,224,240,0.7)'}`,
         borderRadius: '1.25rem',
-        padding: '1.5rem',
+        padding: '1.25rem',
         cursor: 'pointer',
         transition: 'all 0.25s cubic-bezier(0.22,1,0.36,1)',
         textAlign: 'left',
         width: '100%',
+        maxWidth: '100%',
+        minWidth: 0,
+        boxSizing: 'border-box',
+        display: 'block',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         boxShadow: isSelected
@@ -47,6 +52,7 @@ export default function AgentCard({ agente, selected, onClick }) {
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '0.875rem',
+          flexShrink: 0,
         }}
       >
         <Icon size={24} color={isSelected ? '#ffffff' : agente.cor} />
@@ -61,6 +67,7 @@ export default function AgentCard({ agente, selected, onClick }) {
           color: isSelected ? '#ffffff' : 'var(--navy)',
           letterSpacing: '-0.02em',
           marginBottom: '0.25rem',
+          overflowWrap: 'anywhere',
         }}
       >
         {agente.name}
@@ -73,6 +80,7 @@ export default function AgentCard({ agente, selected, onClick }) {
           fontWeight: 600,
           color: isSelected ? 'rgba(255,255,255,0.85)' : 'var(--gray)',
           marginBottom: '0.625rem',
+          overflowWrap: 'anywhere',
         }}
       >
         {agente.segmento}
@@ -84,6 +92,7 @@ export default function AgentCard({ agente, selected, onClick }) {
           fontSize: '0.75rem',
           color: isSelected ? 'rgba(255,255,255,0.7)' : 'var(--gray-light)',
           lineHeight: 1.5,
+          overflowWrap: 'anywhere',
         }}
       >
         {agente.descricao}

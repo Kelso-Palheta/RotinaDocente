@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Send, Trash2, GraduationCap, BookOpen } from 'lucide-react';
+import { ArrowLeft, Send, Trash2, GraduationCap, BookOpen } from 'lucide-react';
 import { useAgentChat } from '@/hooks/agentes/useAgentChat';
 import PromptChips from './PromptChips';
 
@@ -38,6 +38,7 @@ function MessageBubble({ msg, agente }) {
         display: 'flex',
         justifyContent: isUser ? 'flex-end' : 'flex-start',
         marginBottom: '0.75rem',
+        minWidth: 0,
         animation: 'agtSlideIn 0.3s cubic-bezier(0.19,1,0.22,1) both',
       }}
     >
@@ -60,8 +61,8 @@ function MessageBubble({ msg, agente }) {
         </div>
       )}
       <div
+        className="agentes-chat-bolha"
         style={{
-          maxWidth: '75%',
           padding: '0.75rem 1rem',
           borderRadius: isUser ? '1.25rem 1.25rem 0.25rem 1.25rem' : '1.25rem 1.25rem 1.25rem 0.25rem',
           background: isUser
@@ -76,6 +77,7 @@ function MessageBubble({ msg, agente }) {
           border: isUser ? 'none' : '1px solid var(--border)',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
+          overflowWrap: 'anywhere',
           fontFamily: 'var(--font-body)',
         }}
       >
@@ -88,7 +90,7 @@ function MessageBubble({ msg, agente }) {
 /**
  * Janela de chat conversacional com o Agente Pedagógico.
  */
-export default function ChatWindow({ agente }) {
+export default function ChatWindow({ agente, onBack }) {
   const { messages, isLoading, error, sendMessage, clearHistory } = useAgentChat(agente?.id);
   const [inputText, setInputText] = useState('');
   const bottomRef = useRef(null);
@@ -103,6 +105,16 @@ export default function ChatWindow({ agente }) {
   useEffect(() => {
     inputRef.current?.focus();
   }, [agente?.id]);
+
+  // Acompanha o crescimento do texto digitado, até o limite de 120px
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    if (el.scrollHeight > 0) {
+      el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+    }
+  }, [inputText]);
 
   const handleSend = async () => {
     const text = inputText.trim();
@@ -121,11 +133,15 @@ export default function ChatWindow({ agente }) {
   if (!agente) return null;
 
   return (
-    <div
+    <section
+      role="region"
+      aria-label={`Conversa com ${agente.name}`}
+      className="agentes-chat"
       style={{
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        minWidth: 0,
         background: 'rgba(255,255,255,0.88)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -137,15 +153,43 @@ export default function ChatWindow({ agente }) {
     >
       {/* Cabeçalho */}
       <div
+        className="agentes-chat-cabecalho"
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.75rem',
-          padding: '1rem 1.25rem',
+          gap: '0.625rem',
           borderBottom: '1px solid var(--border)',
           background: 'rgba(255,255,255,0.7)',
+          flexShrink: 0,
+          minWidth: 0,
         }}
       >
+        <button
+          type="button"
+          onClick={onBack}
+          aria-label="Voltar para os agentes"
+          title="Voltar para os agentes"
+          className="agentes-chat-voltar"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 36,
+            height: 36,
+            flexShrink: 0,
+            borderRadius: '0.75rem',
+            border: '1.5px solid var(--border)',
+            background: 'white',
+            color: 'var(--navy)',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = agente.cor; e.currentTarget.style.color = agente.cor; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--navy)'; }}
+        >
+          <ArrowLeft size={17} />
+        </button>
+
         <div
           style={{
             width: 40,
@@ -160,22 +204,28 @@ export default function ChatWindow({ agente }) {
         >
           {(() => { const Icon = ICONS[agente.id] || GraduationCap; return <Icon size={20} color="#fff" />; })()}
         </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: 'var(--font-head)', fontWeight: 800, fontSize: '0.95rem', color: 'var(--navy)', letterSpacing: '-0.01em' }}>
+
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontFamily: 'var(--font-head)', fontWeight: 800, fontSize: '0.95rem', color: 'var(--navy)', letterSpacing: '-0.01em', overflowWrap: 'anywhere' }}>
             {agente.name}
           </div>
-          <div style={{ fontSize: '0.72rem', color: 'var(--gray)', fontWeight: 500 }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--gray)', fontWeight: 500, overflowWrap: 'anywhere' }}>
             {agente.segmento}
           </div>
         </div>
+
         {messages.length > 0 && (
           <button
+            type="button"
             onClick={clearHistory}
+            aria-label="Limpar histórico"
             title="Limpar histórico"
+            className="agentes-chat-limpar"
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '0.375rem',
+              flexShrink: 0,
               padding: '0.375rem 0.75rem',
               borderRadius: '100px',
               border: '1.5px solid var(--border)',
@@ -190,16 +240,20 @@ export default function ChatWindow({ agente }) {
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--gray)'; }}
           >
             <Trash2 size={13} />
-            Limpar
+            <span className="agentes-chat-limpar-texto">Limpar</span>
           </button>
         )}
       </div>
 
       {/* Área de mensagens */}
       <div
+        className="agentes-chat-mensagens"
         style={{
           flex: 1,
+          minHeight: 0,
+          minWidth: 0,
           overflowY: 'auto',
+          overflowX: 'hidden',
           padding: '1rem',
           display: 'flex',
           flexDirection: 'column',
@@ -207,7 +261,7 @@ export default function ChatWindow({ agente }) {
       >
         {/* Estado vazio — exibe prompt chips */}
         {messages.length === 0 && !isLoading && (
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', minWidth: 0 }}>
             <div style={{ textAlign: 'center', padding: '2rem 1rem 1.5rem' }}>
               <div style={{
                 width: 56, height: 56, borderRadius: '1rem',
@@ -217,10 +271,10 @@ export default function ChatWindow({ agente }) {
               }}>
                 {(() => { const Icon = ICONS[agente.id] || GraduationCap; return <Icon size={28} color={agente.cor} />; })()}
               </div>
-              <div style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1rem', color: 'var(--navy)', marginBottom: '0.375rem' }}>
+              <div style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: '1rem', color: 'var(--navy)', marginBottom: '0.375rem', overflowWrap: 'anywhere' }}>
                 Olá! Sou o {agente.name}.
               </div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--gray)', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--gray)', lineHeight: 1.5, overflowWrap: 'anywhere' }}>
                 {agente.descricao}
               </div>
             </div>
@@ -265,6 +319,7 @@ export default function ChatWindow({ agente }) {
             border: '1px solid #fecaca',
             color: '#b91c1c',
             fontSize: '0.78rem',
+            overflowWrap: 'anywhere',
           }}>
             ⚠️ {error}
           </div>
@@ -274,23 +329,29 @@ export default function ChatWindow({ agente }) {
       </div>
 
       {/* Input */}
-      <div style={{
-        padding: '0.875rem 1rem',
-        borderTop: '1px solid var(--border)',
-        background: 'rgba(255,255,255,0.7)',
-        display: 'flex',
-        gap: '0.625rem',
-        alignItems: 'flex-end',
-      }}>
+      <div
+        className="agentes-chat-entrada"
+        style={{
+          borderTop: '1px solid var(--border)',
+          background: 'rgba(255,255,255,0.7)',
+          display: 'flex',
+          gap: '0.625rem',
+          alignItems: 'flex-end',
+          flexShrink: 0,
+          minWidth: 0,
+        }}
+      >
         <textarea
           ref={inputRef}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={handleKeyDown}
+          aria-label={`Mensagem para ${agente.name}`}
           placeholder={`Pergunte ao ${agente.name}…`}
           rows={1}
           style={{
             flex: 1,
+            minWidth: 0,
             resize: 'none',
             border: '1.5px solid var(--border)',
             borderRadius: '0.875rem',
@@ -310,8 +371,10 @@ export default function ChatWindow({ agente }) {
           disabled={isLoading}
         />
         <button
+          type="button"
           onClick={handleSend}
           disabled={isLoading || !inputText.trim()}
+          aria-label="Enviar mensagem"
           style={{
             width: 42,
             height: 42,
@@ -326,14 +389,16 @@ export default function ChatWindow({ agente }) {
             transition: 'all 0.2s ease',
             boxShadow: inputText.trim() && !isLoading ? `0 4px 12px ${agente.cor}40` : 'none',
           }}
-          aria-label="Enviar mensagem"
         >
           <Send size={17} color="white" />
         </button>
       </div>
 
-      {/* Keyframes injetados */}
+      {/* Keyframes e ajustes responsivos */}
       <style>{`
+        .agentes-chat-cabecalho { padding: 1rem 1.25rem; }
+        .agentes-chat-entrada { padding: 0.875rem 1rem; }
+        .agentes-chat-bolha { max-width: min(82%, 34rem); }
         @keyframes agtPulse {
           0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
           40% { transform: scale(1); opacity: 1; }
@@ -342,7 +407,15 @@ export default function ChatWindow({ agente }) {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }
+        @media (max-width: 480px) {
+          .agentes-chat { border-radius: 1rem; }
+          .agentes-chat-cabecalho { padding: 0.75rem 0.75rem; gap: 0.5rem; }
+          .agentes-chat-mensagens { padding: 0.75rem; }
+          .agentes-chat-entrada { padding: 0.75rem; gap: 0.5rem; }
+          .agentes-chat-limpar-texto { display: none; }
+          .agentes-chat-limpar { padding: 0.4rem 0.5rem; }
+        }
       `}</style>
-    </div>
+    </section>
   );
 }

@@ -168,3 +168,11 @@ Testes: `tests/unit/components/atividades/LogoutAtividades.test.jsx` (novo, 6 ce
 - [ ] Corrigir REV-R83-01: o guard DOM ignora `persistencia.estado` sem formulário aberto. Quatro reproduções falham para salvando/pendente/falha/conflito em `LogoutAtividadesPersistenciaRevisao.test.jsx` (novo arquivo local).
 - [ ] Nova revisão antes de publicar código. Relatório/prompt: `docs/analises/2026-10-31-revisao-logout-atividades.md`.
 Execução pode usar OpenCode/DeepSeek ou assinatura Antigravity informada pelo usuário; modelos do Antigravity ainda não identificados. Um executor por vez neste checkout. Próximo módulo após logout: Agentes Pedagógicos IA; armazenamento de imagens adaptadas permanece lembrado para o final.
+
+
+## 31/10/2026 — Revisão das entregas paralelas
+- [x] Aprovar responsividade dos Agentes após revisão de diff/capturas e validação da árvore isolada publicável: **1.095 testes/237 arquivos**, lint e build exit 0. Oito testes novos; nenhum teste anterior alterado.
+- [x] Confirmar correção dos quatro cenários canônicos da primeira revisão do logout; entrega combinada recebida: **1.110 testes/240 arquivos**, lint e build aprovados antes da nova reprodução.
+- [ ] Corrigir REV2-R83-01: nova edição durante a espera do salvamento fica sem proteção antes do logout. Reprodução nova local falha; código de Atividades, specs compartilhadas e testes de logout ficam fora da publicação dos Agentes.
+- [ ] Retomar análise completa dos Agentes depois da correção de logout; ao final das tarefas, concluir armazenamento de imagens adaptadas sem ativar Blaze.
+Relatórios: `docs/analises/2026-10-31-revisao-agentes-responsividade.md` e `docs/analises/2026-10-31-segunda-revisao-logout-atividades.md` (prompt de correção pronto para Antigravity/OpenCode).
