@@ -176,3 +176,10 @@ Execução pode usar OpenCode/DeepSeek ou assinatura Antigravity informada pelo 
 - [ ] Corrigir REV2-R83-01: nova edição durante a espera do salvamento fica sem proteção antes do logout. Reprodução nova local falha; código de Atividades, specs compartilhadas e testes de logout ficam fora da publicação dos Agentes.
 - [ ] Retomar análise completa dos Agentes depois da correção de logout; ao final das tarefas, concluir armazenamento de imagens adaptadas sem ativar Blaze.
 Relatórios: `docs/analises/2026-10-31-revisao-agentes-responsividade.md` e `docs/analises/2026-10-31-segunda-revisao-logout-atividades.md` (prompt de correção pronto para Antigravity/OpenCode).
+
+
+## 01/11/2026 — Terceira revisão RN-83
+- [x] Confirmar correção REV2-R83-01 e duplicidade: **18 testes em cinco arquivos aprovados**, sem editar testes recebidos.
+- [ ] Corrigir REV3-R83-01: assinatura lê valor do form marcado e ignora controles descendentes; nova edição durante a espera não invalida confirmação anterior. Reprodução local nova falha; código permanece retido.
+- [x] Confirmar Vercel success do commit dos Agentes `2013388`.
+Relatório/prompt: `docs/analises/2026-11-01-terceira-revisao-logout-atividades.md`. Nesta revisão, sem mudanças de produção e sem repetir suíte/build diante do bloqueio reproduzido.
