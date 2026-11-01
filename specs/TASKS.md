@@ -183,3 +183,10 @@ Relatórios: `docs/analises/2026-10-31-revisao-agentes-responsividade.md` e `doc
 - [ ] Corrigir REV3-R83-01: assinatura lê valor do form marcado e ignora controles descendentes; nova edição durante a espera não invalida confirmação anterior. Reprodução local nova falha; código permanece retido.
 - [x] Confirmar Vercel success do commit dos Agentes `2013388`.
 Relatório/prompt: `docs/analises/2026-11-01-terceira-revisao-logout-atividades.md`. Nesta revisão, sem mudanças de produção e sem repetir suíte/build diante do bloqueio reproduzido.
+
+
+## 01/11/2026 — Análise funcional dos Agentes Pedagógicos IA
+- [x] Examinar hook, rota, interface, regras BYOK e armazenamento; executar 19 testes direcionados: 15 aprovados, quatro falhas novas AG-01..04.
+- [ ] Aprovar/implementar correções de histórico/contexto, formato de dados e contrato da API; alinhar depois RN-13/RN-27 e selo do provedor.
+- [ ] Avaliar melhorias copiar/exportar/ajuda para DeepSeek em escopo separado; sem implementação de produto nesta análise.
+Relatório e prompts: `docs/analises/2026-11-01-agentes-pedagogicos.md`. Testes de reprodução novos permanecem locais; nenhum teste anterior ou código de produção alterado. Logout REV3-R83-01 continua separado.
