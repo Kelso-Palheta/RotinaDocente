@@ -206,3 +206,10 @@ Relatório: `docs/analises/2026-11-03-validacao-final-agentes.md`. Não confundi
 - [x] Árvore publicável isolada: **1.131 testes/246 arquivos**, lint sem erros/avisos e build exit 0 após repetir limpo o erro interno de fontes; capturas sintéticas mobile/desktop inspecionadas.
 - [ ] Logout REV3-R83-01 continua reprovado em execução própria e fora da publicação. Provedor/selo, propriedade do histórico por conta e imagens adaptadas continuam separados.
 Relatório: `docs/analises/2026-11-03-validacao-reutilizacao-agentes.md`. Nenhuma mudança de produção nesta revisão; sem conta real, leitor de tela ou chamada paga.
+
+
+## 04/11/2026 — Identidade petróleo e sálvia aprovada
+- [x] Registrar escolha e correção expressa: toda cor da interface/layout migra; estrutura/fontes/dimensões ficam, com exceção das cores de notas.
+- [x] Mapear 97 arquivos com ocorrências iniciais da marca, definir tons e pares de contraste, spec/aceites e prompt DeepSeek.
+- [ ] DeepSeek implementar somente cores em checkout isolado publicado; revisar cobertura de todos os módulos, estrutura e exceção de notas antes de publicar.
+Design/plano/inventário/prompt: `docs/plans/2026-11-04-paleta-petroleo-salvia-design.md`, `docs/plans/2026-11-04-paleta-petroleo-salvia.md`, `docs/plans/2026-11-04-paleta-petroleo-salvia-inventario.md`, `docs/plans/2026-11-04-prompt-deepseek-paleta.md`. Contrato: `specs/PALETA_PETROLEO_SALVIA_SPEC.md`. Nenhum código do site alterado nesta preparação; logout permanece pendente e separado.
