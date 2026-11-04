@@ -232,3 +232,9 @@ Relatório: `docs/analises/2026-11-04-paleta-petroleo-salvia.md`.
 - [x] Acrescentar quatro cenários independentes: três RED antes da correção e um controle de ausência de pergunta duplicada. **23 testes direcionados**, **1.170 testes/258 arquivos**, lint da página e build aprovados.
 - [ ] Próxima pendência: cabeçalho da caderneta com nomes longos; manter correção de layout separada.
 Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
+
+## 04/11/2026 — Pacote Antigravity: cabeçalho da caderneta
+- [x] Confirmar causa das colisões: metadados em posições/altura fixas, sem medição.
+- [x] Preparar contrato CAB-01..06, plano TDD e prompt pronto em `docs/plans/2026-11-04-prompt-antigravity-caderneta.md`.
+- [ ] Antigravity implementar somente cabeçalho/posicionamento vertical, testes novos e evidências, conforme plano.
+- [ ] Revisar diff, executar verificações próprias e publicar após aprovação. Nenhuma alteração de produção nesta preparação.

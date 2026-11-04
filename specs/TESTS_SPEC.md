@@ -456,3 +456,7 @@ Com autorização expressa do usuário, apenas valores/nomes ligados às cores d
 ## RN-83 — Revisão final da proteção de rascunhos (04/11/2026)
 
 REV3-R83-01 reproduzido: uma confirmação anterior deixa de ser válida se um campo filho do formulário mudar durante `aguardarSalvamento()`. Preservar os seis arquivos recebidos de logout. Novo `LogoutAtividadesControles.test.jsx`: mudança em checkbox, seleção múltipla ou editor rico exige nova confirmação; recusa preserva sessão/conteúdo; formulário inalterado não gera pergunta duplicada. A comparação considera valores atuais dos descendentes, seleção/checked e conteúdo editável, sem armazenar nem registrar conteúdo dos rascunhos.
+
+## Caderneta PDF — CAB-01..06 (planejado em 04/11/2026)
+
+Contrato: `CABECALHO_CADERNETA_SPEC.md`. Novo teste previsto: `tests/integration/caderneta_cabecalho.test.js`. Medir com jsPDF real e fonte impressa: metadados completos sem colisão, margens de 12 mm, faixa/tabela com folga, cabeçalho dinâmico, paginação/assinaturas com 45 alunos, notas/ausência/zero preservados e turma vazia sem mutação. Testes anteriores intocáveis; RED antes de produção, GREEN e PDFs reais renderizados depois. Implementação delegada ao Antigravity e revisão pendente neste chat.
