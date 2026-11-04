@@ -198,3 +198,11 @@ Relatório e prompts: `docs/analises/2026-11-01-agentes-pedagogicos.md`. Testes 
 - [ ] Logout REV3-R83-01 continua reprovado e fora do commit; arquivos de Atividades e suas specs/testes locais preservados.
 - [ ] Próximo DeepSeek: pacote visual copiar/exportar/ajuda do prompt original, sem ampliar para hook ou rascunhos persistentes enquanto propriedade por conta estiver pendente.
 Relatório: `docs/analises/2026-11-03-validacao-final-agentes.md`. Não confundir aprovação do pacote isolado com aprovação integral da árvore local; sem nova conta real, chamada paga, leitor de tela ou homologação visual dos avisos. Imagens adaptadas/Blaze continuam pendentes para o final das tarefas.
+
+
+## 03/11/2026 — Aprovação da reutilização dos Agentes
+- [x] Revisar entrega DeepSeek de copiar resposta, exportar TXT confirmado e ajuda local, sem alteração de hook/API/persistência ou testes recebidos.
+- [x] Acrescentar três testes independentes de cancelamento, falha/retry/liberação de recurso e ciclo de foco; todos passaram.
+- [x] Árvore publicável isolada: **1.131 testes/246 arquivos**, lint sem erros/avisos e build exit 0 após repetir limpo o erro interno de fontes; capturas sintéticas mobile/desktop inspecionadas.
+- [ ] Logout REV3-R83-01 continua reprovado em execução própria e fora da publicação. Provedor/selo, propriedade do histórico por conta e imagens adaptadas continuam separados.
+Relatório: `docs/analises/2026-11-03-validacao-reutilizacao-agentes.md`. Nenhuma mudança de produção nesta revisão; sem conta real, leitor de tela ou chamada paga.

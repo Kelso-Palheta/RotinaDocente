@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, Send, Trash2, GraduationCap, BookOpen, X } from 'lucide-react';
 import { useAgentChat } from '@/hooks/agentes/useAgentChat';
+import AcoesConversa from './AcoesConversa';
+import CopiarRespostaBotao from './CopiarRespostaBotao';
 import PromptChips from './PromptChips';
 
 const ICONS = {
@@ -30,10 +32,14 @@ function TypingDots({ cor }) {
   );
 }
 
-function MessageBubble({ msg, agente }) {
+function MessageBubble({ msg, agente, indice }) {
   const isUser = msg.role === 'user';
   return (
     <div
+      role="group"
+      aria-label={isUser ? 'Sua mensagem' : `Resposta de ${agente.name}`}
+      data-testid={`agentes-mensagem-${indice}`}
+      data-role={msg.role}
       style={{
         display: 'flex',
         justifyContent: isUser ? 'flex-end' : 'flex-start',
@@ -61,27 +67,40 @@ function MessageBubble({ msg, agente }) {
         </div>
       )}
       <div
-        className="agentes-chat-bolha"
         style={{
-          padding: '0.75rem 1rem',
-          borderRadius: isUser ? '1.25rem 1.25rem 0.25rem 1.25rem' : '1.25rem 1.25rem 1.25rem 0.25rem',
-          background: isUser
-            ? 'var(--navy)'
-            : 'rgba(255,255,255,0.95)',
-          color: isUser ? '#ffffff' : 'var(--navy)',
-          fontSize: '0.875rem',
-          lineHeight: 1.65,
-          boxShadow: isUser
-            ? '0 4px 12px rgba(16,25,66,0.18)'
-            : '0 2px 8px rgba(16,25,66,0.08)',
-          border: isUser ? 'none' : '1px solid var(--border)',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-word',
-          overflowWrap: 'anywhere',
-          fontFamily: 'var(--font-body)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: isUser ? 'flex-end' : 'flex-start',
+          minWidth: 0,
+          maxWidth: 'min(82%, 34rem)',
         }}
       >
-        {msg.content}
+        <div
+          className="agentes-chat-bolha"
+          style={{
+            padding: '0.75rem 1rem',
+            borderRadius: isUser ? '1.25rem 1.25rem 0.25rem 1.25rem' : '1.25rem 1.25rem 1.25rem 0.25rem',
+            background: isUser
+              ? 'var(--navy)'
+              : 'rgba(255,255,255,0.95)',
+            color: isUser ? '#ffffff' : 'var(--navy)',
+            fontSize: '0.875rem',
+            lineHeight: 1.65,
+            boxShadow: isUser
+              ? '0 4px 12px rgba(16,25,66,0.18)'
+              : '0 2px 8px rgba(16,25,66,0.08)',
+            border: isUser ? 'none' : '1px solid var(--border)',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            overflowWrap: 'anywhere',
+            fontFamily: 'var(--font-body)',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          {msg.content}
+        </div>
+        {!isUser && <CopiarRespostaBotao key={msg.content} conteudo={msg.content} />}
       </div>
     </div>
   );
@@ -252,6 +271,8 @@ export default function ChatWindow({ agente, onBack }) {
             <span className="agentes-chat-limpar-texto">Limpar</span>
           </button>
         )}
+
+        <AcoesConversa agente={agente} messages={messages} />
       </div>
 
       {/* Área de mensagens */}
@@ -337,7 +358,7 @@ export default function ChatWindow({ agente, onBack }) {
 
         {/* Mensagens */}
         {messages.map((msg, i) => (
-          <MessageBubble key={i} msg={msg} agente={agente} />
+          <MessageBubble key={i} msg={msg} agente={agente} indice={i} />
         ))}
 
         {/* Indicador "digitando..." */}
@@ -478,7 +499,8 @@ export default function ChatWindow({ agente, onBack }) {
       <style>{`
         .agentes-chat-cabecalho { padding: 1rem 1.25rem; }
         .agentes-chat-entrada { padding: 0.875rem 1rem; }
-        .agentes-chat-bolha { max-width: min(82%, 34rem); }
+        .agentes-chat-bolha { max-width: 100%; }
+        .agentes-chat-acao { padding: 0.375rem 0.625rem; box-sizing: border-box; }
         @keyframes agtPulse {
           0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
           40% { transform: scale(1); opacity: 1; }
@@ -486,6 +508,10 @@ export default function ChatWindow({ agente, onBack }) {
         @keyframes agtSlideIn {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 640px) {
+          .agentes-chat-acao-texto { display: none; }
+          .agentes-chat-acao { padding: 0.4rem 0.5rem; }
         }
         @media (max-width: 480px) {
           .agentes-chat { border-radius: 1rem; }

@@ -1,0 +1,907 @@
+{
+  "ensaio": "componentes reais + auth/useAgentChat sintéticos; sem conta, Firebase ou API",
+  "url": "http://127.0.0.1:4173/",
+  "data": "2026-11-03",
+  "copiaConfirmada": true,
+  "erroCopiaVisivel": null,
+  "dialogoExportacaoAntesDoDownload": true,
+  "dialogoExportacaoNomeAgente": true,
+  "ajudaCobreNavegador": true,
+  "ajudaCobreSeparacaoPorAgente": true,
+  "ajudaCobreSemSincronizacao": true,
+  "ajudaCobreLogout": true,
+  "focoAposEscape": "Ajuda sobre o histórico local",
+  "rascunhoPreservadoAposResize": true,
+  "rascunhoFinal": "Rascunho preservado no resize",
+  "controles390DentroDaViewport": true,
+  "semRolagemHorizontal390": true,
+  "semRolagemHorizontal1440": true,
+  "textoLongoQuebra390": true,
+  "textoLongoQuebra1440": true,
+  "dialogoDentroDaViewport390": true,
+  "dialogoDentroDaViewport1440": true,
+  "capturas": [
+    {
+      "arquivo": "agentes-390-reutilizacao.png",
+      "observacao": "Conversa em 390×844 com Copiar resposta, Exportar e Ajuda",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "dentroDaViewport": true
+      },
+      "cabecalho": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 140,
+        "largura": 372,
+        "altura": 69
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": "Rascunho preservado no resize",
+        "dentroDaViewport": true
+      },
+      "controles": {
+        "exportar": {
+          "caixa": {
+            "esquerda": 301,
+            "direita": 332,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Exportar conversa em TXT",
+          "desabilitado": false,
+          "dentroDaViewport": true
+        },
+        "ajuda": {
+          "caixa": {
+            "esquerda": 338,
+            "direita": 369,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Ajuda sobre o histórico local",
+          "dentroDaViewport": true
+        },
+        "limpar": {
+          "caixa": {
+            "esquerda": 252,
+            "direita": 291,
+            "topo": 91.5,
+            "base": 118.5,
+            "largura": 39,
+            "altura": 27
+          },
+          "nome": "Limpar histórico",
+          "dentroDaViewport": true
+        }
+      },
+      "copiar": {
+        "quantidade": 1,
+        "caixas": [
+          {
+            "esquerda": 65,
+            "direita": 129.67,
+            "topo": 499.13,
+            "base": 516.13,
+            "largura": 64.67,
+            "altura": 17
+          }
+        ],
+        "todosDentroDaViewport": true
+      },
+      "mensagens": [
+        {
+          "texto": "Como trabalhar a habilidade EM13LP01 em uma sequência didática?",
+          "caixa": {
+            "esquerda": 86.2,
+            "direita": 365,
+            "topo": 156,
+            "base": 249.28,
+            "largura": 278.8,
+            "altura": 93.28
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 279,
+          "clientWidth": 279,
+          "dentroDaViewport": true
+        },
+        {
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow.",
+          "caixa": {
+            "esquerda": 65,
+            "direita": 343.8,
+            "topo": 261.28,
+            "base": 495.13,
+            "largura": 278.8,
+            "altura": 233.84
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 277,
+          "clientWidth": 277,
+          "dentroDaViewport": true
+        }
+      ],
+      "dialogo": null,
+      "status": null,
+      "alerta": null,
+      "foco": {
+        "tag": "TEXTAREA",
+        "nome": "Mensagem para Agente EM",
+        "texto": "Rascunho preservado no resize"
+      }
+    },
+    {
+      "arquivo": "agentes-390-exportar-confirmacao.png",
+      "observacao": "Diálogo que avisa que o TXT contém a conversa antes do download",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "dentroDaViewport": true
+      },
+      "cabecalho": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 140,
+        "largura": 372,
+        "altura": 69
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": "Rascunho preservado no resize",
+        "dentroDaViewport": true
+      },
+      "controles": {
+        "exportar": {
+          "caixa": {
+            "esquerda": 301,
+            "direita": 332,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Exportar conversa em TXT",
+          "desabilitado": false,
+          "dentroDaViewport": true
+        },
+        "ajuda": {
+          "caixa": {
+            "esquerda": 338,
+            "direita": 369,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Ajuda sobre o histórico local",
+          "dentroDaViewport": true
+        },
+        "limpar": {
+          "caixa": {
+            "esquerda": 252,
+            "direita": 291,
+            "topo": 91.5,
+            "base": 118.5,
+            "largura": 39,
+            "altura": 27
+          },
+          "nome": "Limpar histórico",
+          "dentroDaViewport": true
+        }
+      },
+      "copiar": {
+        "quantidade": 1,
+        "caixas": [
+          {
+            "esquerda": 65,
+            "direita": 129.67,
+            "topo": 499.13,
+            "base": 516.13,
+            "largura": 64.67,
+            "altura": 17
+          }
+        ],
+        "todosDentroDaViewport": true
+      },
+      "mensagens": [
+        {
+          "texto": "Como trabalhar a habilidade EM13LP01 em uma sequência didática?",
+          "caixa": {
+            "esquerda": 86.2,
+            "direita": 365,
+            "topo": 156,
+            "base": 249.28,
+            "largura": 278.8,
+            "altura": 93.28
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 279,
+          "clientWidth": 279,
+          "dentroDaViewport": true
+        },
+        {
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow.",
+          "caixa": {
+            "esquerda": 65,
+            "direita": 343.8,
+            "topo": 261.28,
+            "base": 495.13,
+            "largura": 278.8,
+            "altura": 233.84
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 277,
+          "clientWidth": 277,
+          "dentroDaViewport": true
+        }
+      ],
+      "dialogo": {
+        "caixa": {
+          "esquerda": 16,
+          "direita": 374,
+          "topo": 304.91,
+          "base": 539.09,
+          "largura": 358,
+          "altura": 234.19
+        },
+        "nome": "Exportar conversa",
+        "texto": "Exportar conversaO arquivo TXT conterá toda a conversa com Agente EM neste navegador, incluindo suas perguntas e as respostas do agente. Nenhum outro dado da conta é incluído.Arquivo: conversa-agente-em.txtCancelarBaixar arquivo TXT",
+        "dentroDaViewport": true
+      },
+      "status": null,
+      "alerta": null,
+      "foco": {
+        "tag": "BUTTON",
+        "nome": null,
+        "texto": "Cancelar"
+      }
+    },
+    {
+      "arquivo": "agentes-390-ajuda-historico.png",
+      "observacao": "Ajuda curta sobre histórico local, sem sincronização e risco no logout",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "dentroDaViewport": true
+      },
+      "cabecalho": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 140,
+        "largura": 372,
+        "altura": 69
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": "Rascunho preservado no resize",
+        "dentroDaViewport": true
+      },
+      "controles": {
+        "exportar": {
+          "caixa": {
+            "esquerda": 301,
+            "direita": 332,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Exportar conversa em TXT",
+          "desabilitado": false,
+          "dentroDaViewport": true
+        },
+        "ajuda": {
+          "caixa": {
+            "esquerda": 338,
+            "direita": 369,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Ajuda sobre o histórico local",
+          "dentroDaViewport": true
+        },
+        "limpar": {
+          "caixa": {
+            "esquerda": 252,
+            "direita": 291,
+            "topo": 91.5,
+            "base": 118.5,
+            "largura": 39,
+            "altura": 27
+          },
+          "nome": "Limpar histórico",
+          "dentroDaViewport": true
+        }
+      },
+      "copiar": {
+        "quantidade": 1,
+        "caixas": [
+          {
+            "esquerda": 65,
+            "direita": 129.67,
+            "topo": 499.13,
+            "base": 516.13,
+            "largura": 64.67,
+            "altura": 17
+          }
+        ],
+        "todosDentroDaViewport": true
+      },
+      "mensagens": [
+        {
+          "texto": "Como trabalhar a habilidade EM13LP01 em uma sequência didática?",
+          "caixa": {
+            "esquerda": 86.2,
+            "direita": 365,
+            "topo": 156,
+            "base": 249.28,
+            "largura": 278.8,
+            "altura": 93.28
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 279,
+          "clientWidth": 279,
+          "dentroDaViewport": true
+        },
+        {
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow.",
+          "caixa": {
+            "esquerda": 65,
+            "direita": 343.8,
+            "topo": 261.28,
+            "base": 495.13,
+            "largura": 278.8,
+            "altura": 233.84
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 277,
+          "clientWidth": 277,
+          "dentroDaViewport": true
+        }
+      ],
+      "dialogo": {
+        "caixa": {
+          "esquerda": 16,
+          "direita": 374,
+          "topo": 277,
+          "base": 567,
+          "largura": 358,
+          "altura": 290
+        },
+        "nome": "Histórico local",
+        "texto": "Histórico localEsta conversa fica salva apenas neste navegador e neste dispositivo, separada por agente.Ela não é sincronizada entre dispositivos ou contas.O histórico pode ser apagado ao sair da conta, ao limpar os dados do navegador ou ao usar Limpar histórico. Para guardar uma cópia fora do navegador, use Exportar conversa em TXT.Entendi",
+        "dentroDaViewport": true
+      },
+      "status": null,
+      "alerta": null,
+      "foco": {
+        "tag": "BUTTON",
+        "nome": null,
+        "texto": "Entendi"
+      }
+    },
+    {
+      "arquivo": "agentes-1440-reutilizacao.png",
+      "observacao": "Conversa e controles em 1440×900, com rótulos visíveis e rascunho preservado",
+      "viewport": {
+        "largura": 1440,
+        "altura": 900,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "rolagemHorizontal": false
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 300,
+          "direita": 1440,
+          "topo": 66,
+          "base": 900,
+          "largura": 1140,
+          "altura": 834
+        },
+        "visivel": true,
+        "dentroDaViewport": true
+      },
+      "cabecalho": {
+        "esquerda": 301,
+        "direita": 1415,
+        "topo": 87,
+        "base": 160,
+        "largura": 1114,
+        "altura": 73
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 317,
+          "direita": 1347,
+          "topo": 824,
+          "base": 865,
+          "largura": 1030,
+          "altura": 41
+        },
+        "valor": "Rascunho preservado no resize",
+        "dentroDaViewport": true
+      },
+      "controles": {
+        "exportar": {
+          "caixa": {
+            "esquerda": 1225.3,
+            "direita": 1315.39,
+            "topo": 109.5,
+            "base": 136.5,
+            "largura": 90.09,
+            "altura": 27
+          },
+          "nome": "Exportar conversa em TXT",
+          "desabilitado": false,
+          "dentroDaViewport": true
+        },
+        "ajuda": {
+          "caixa": {
+            "esquerda": 1321.39,
+            "direita": 1395,
+            "topo": 109.5,
+            "base": 136.5,
+            "largura": 73.61,
+            "altura": 27
+          },
+          "nome": "Ajuda sobre o histórico local",
+          "dentroDaViewport": true
+        },
+        "limpar": {
+          "caixa": {
+            "esquerda": 1130.28,
+            "direita": 1215.3,
+            "topo": 109,
+            "base": 137,
+            "largura": 85.02,
+            "altura": 28
+          },
+          "nome": "Limpar histórico",
+          "dentroDaViewport": true
+        }
+      },
+      "copiar": {
+        "quantidade": 1,
+        "caixas": [
+          {
+            "esquerda": 357,
+            "direita": 421.67,
+            "topo": 357.47,
+            "base": 374.47,
+            "largura": 64.67,
+            "altura": 17
+          }
+        ],
+        "todosDentroDaViewport": true
+      },
+      "mensagens": [
+        {
+          "texto": "Como trabalhar a habilidade EM13LP01 em uma sequência didática?",
+          "caixa": {
+            "esquerda": 928.13,
+            "direita": 1399,
+            "topo": 176,
+            "base": 223.09,
+            "largura": 470.88,
+            "altura": 47.09
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 471,
+          "clientWidth": 471,
+          "dentroDaViewport": true
+        },
+        {
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow.",
+          "caixa": {
+            "esquerda": 357,
+            "direita": 901,
+            "topo": 235.09,
+            "base": 353.47,
+            "largura": 544,
+            "altura": 118.38
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 542,
+          "clientWidth": 542,
+          "dentroDaViewport": true
+        }
+      ],
+      "dialogo": null,
+      "status": null,
+      "alerta": null,
+      "foco": {
+        "tag": "BUTTON",
+        "nome": "Ajuda sobre o histórico local",
+        "texto": "Ajuda"
+      }
+    },
+    {
+      "arquivo": "agentes-1440-exportar-confirmacao.png",
+      "observacao": "Confirmação de exportação em 1440×900",
+      "viewport": {
+        "largura": 1440,
+        "altura": 900,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "rolagemHorizontal": false
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 300,
+          "direita": 1440,
+          "topo": 66,
+          "base": 900,
+          "largura": 1140,
+          "altura": 834
+        },
+        "visivel": true,
+        "dentroDaViewport": true
+      },
+      "cabecalho": {
+        "esquerda": 301,
+        "direita": 1415,
+        "topo": 87,
+        "base": 160,
+        "largura": 1114,
+        "altura": 73
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 317,
+          "direita": 1347,
+          "topo": 824,
+          "base": 865,
+          "largura": 1030,
+          "altura": 41
+        },
+        "valor": "Rascunho preservado no resize",
+        "dentroDaViewport": true
+      },
+      "controles": {
+        "exportar": {
+          "caixa": {
+            "esquerda": 1225.3,
+            "direita": 1315.39,
+            "topo": 109.5,
+            "base": 136.5,
+            "largura": 90.09,
+            "altura": 27
+          },
+          "nome": "Exportar conversa em TXT",
+          "desabilitado": false,
+          "dentroDaViewport": true
+        },
+        "ajuda": {
+          "caixa": {
+            "esquerda": 1321.39,
+            "direita": 1395,
+            "topo": 109.5,
+            "base": 136.5,
+            "largura": 73.61,
+            "altura": 27
+          },
+          "nome": "Ajuda sobre o histórico local",
+          "dentroDaViewport": true
+        },
+        "limpar": {
+          "caixa": {
+            "esquerda": 1130.28,
+            "direita": 1215.3,
+            "topo": 109,
+            "base": 137,
+            "largura": 85.02,
+            "altura": 28
+          },
+          "nome": "Limpar histórico",
+          "dentroDaViewport": true
+        }
+      },
+      "copiar": {
+        "quantidade": 1,
+        "caixas": [
+          {
+            "esquerda": 357,
+            "direita": 421.67,
+            "topo": 357.47,
+            "base": 374.47,
+            "largura": 64.67,
+            "altura": 17
+          }
+        ],
+        "todosDentroDaViewport": true
+      },
+      "mensagens": [
+        {
+          "texto": "Como trabalhar a habilidade EM13LP01 em uma sequência didática?",
+          "caixa": {
+            "esquerda": 928.13,
+            "direita": 1399,
+            "topo": 176,
+            "base": 223.09,
+            "largura": 470.88,
+            "altura": 47.09
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 471,
+          "clientWidth": 471,
+          "dentroDaViewport": true
+        },
+        {
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow.",
+          "caixa": {
+            "esquerda": 357,
+            "direita": 901,
+            "topo": 235.09,
+            "base": 353.47,
+            "largura": 544,
+            "altura": 118.38
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 542,
+          "clientWidth": 542,
+          "dentroDaViewport": true
+        }
+      ],
+      "dialogo": {
+        "caixa": {
+          "esquerda": 512,
+          "direita": 928,
+          "topo": 343.41,
+          "base": 556.59,
+          "largura": 416,
+          "altura": 213.19
+        },
+        "nome": "Exportar conversa",
+        "texto": "Exportar conversaO arquivo TXT conterá toda a conversa com Agente EM neste navegador, incluindo suas perguntas e as respostas do agente. Nenhum outro dado da conta é incluído.Arquivo: conversa-agente-em.txtCancelarBaixar arquivo TXT",
+        "dentroDaViewport": true
+      },
+      "status": null,
+      "alerta": null,
+      "foco": {
+        "tag": "BUTTON",
+        "nome": null,
+        "texto": "Cancelar"
+      }
+    },
+    {
+      "arquivo": "agentes-390-copia-confirmada.png",
+      "observacao": "Confirmação ou erro visível após acionar Copiar resposta",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "rolagemHorizontal": false
+      },
+      "chat": {
+        "caixa": {
+          "esquerda": 0,
+          "direita": 390,
+          "topo": 62,
+          "base": 844,
+          "largura": 390,
+          "altura": 782
+        },
+        "visivel": true,
+        "dentroDaViewport": true
+      },
+      "cabecalho": {
+        "esquerda": 9,
+        "direita": 381,
+        "topo": 71,
+        "base": 140,
+        "largura": 372,
+        "altura": 69
+      },
+      "textarea": {
+        "caixa": {
+          "esquerda": 21,
+          "direita": 317,
+          "topo": 782,
+          "base": 823,
+          "largura": 296,
+          "altura": 41
+        },
+        "valor": "Rascunho preservado no resize",
+        "dentroDaViewport": true
+      },
+      "controles": {
+        "exportar": {
+          "caixa": {
+            "esquerda": 301,
+            "direita": 332,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Exportar conversa em TXT",
+          "desabilitado": false,
+          "dentroDaViewport": true
+        },
+        "ajuda": {
+          "caixa": {
+            "esquerda": 338,
+            "direita": 369,
+            "topo": 91.11,
+            "base": 118.89,
+            "largura": 31,
+            "altura": 27.78
+          },
+          "nome": "Ajuda sobre o histórico local",
+          "dentroDaViewport": true
+        },
+        "limpar": {
+          "caixa": {
+            "esquerda": 252,
+            "direita": 291,
+            "topo": 91.5,
+            "base": 118.5,
+            "largura": 39,
+            "altura": 27
+          },
+          "nome": "Limpar histórico",
+          "dentroDaViewport": true
+        }
+      },
+      "copiar": {
+        "quantidade": 1,
+        "caixas": [
+          {
+            "esquerda": 65,
+            "direita": 129.67,
+            "topo": 499.13,
+            "base": 516.13,
+            "largura": 64.67,
+            "altura": 17
+          }
+        ],
+        "todosDentroDaViewport": true
+      },
+      "mensagens": [
+        {
+          "texto": "Como trabalhar a habilidade EM13LP01 em uma sequência didática?",
+          "caixa": {
+            "esquerda": 86.2,
+            "direita": 365,
+            "topo": 156,
+            "base": 249.28,
+            "largura": 278.8,
+            "altura": 93.28
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 279,
+          "clientWidth": 279,
+          "dentroDaViewport": true
+        },
+        {
+          "texto": "Para o Ensino Médio, sugiro começar pela habilidade EM13LP01 e relacioná-la à competência C3 da redação. Uma sequência possível é: diagnóstico, análise de repertório e produção com devolutiva. Palavra-longa-sem-quebra-EM13LP01_EM13LP02_EM13LP03_para_testar_overflow.",
+          "caixa": {
+            "esquerda": 65,
+            "direita": 343.8,
+            "topo": 261.28,
+            "base": 495.13,
+            "largura": 278.8,
+            "altura": 233.84
+          },
+          "overflowWrap": "anywhere",
+          "wordBreak": "break-word",
+          "scrollWidth": 277,
+          "clientWidth": 277,
+          "dentroDaViewport": true
+        }
+      ],
+      "dialogo": null,
+      "status": "Resposta copiada",
+      "alerta": null,
+      "foco": {
+        "tag": "BUTTON",
+        "nome": "Exportar conversa em TXT",
+        "texto": "Exportar"
+      }
+    }
+  ]
+}
