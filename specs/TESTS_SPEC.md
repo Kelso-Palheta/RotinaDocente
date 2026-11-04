@@ -396,3 +396,24 @@ REV-R82-01..03 passaram sem edição. Novos `CopiarRecuperacaoAjustes.test.jsx` 
 ### Aprovação independente das correções H81 — 29/10/2026
 
 Execução própria após a segunda entrega: **1.087 testes/236 arquivos**, lint sem erros/avisos e build exit 0. `relatorios_pdf_revisao.test.js` passa sem edição; demais testes recebidos preservados. Três PDFs reais regenerados com dados sintéticos e renderizados independentemente com Poppler; margens, emissão, ausência de frequência, presença zero e feedback do 1º semestre conferidos. Limites: sem nova sessão de produção/navegador ou leitor de tela. Detalhes em `docs/analises/2026-10-29-validacao-final-correcoes-recuperacao.md`.
+
+## Agentes Pedagógicos — histórico e API (AG-01..04, 01/11/2026)
+
+Spec: `specs/AGENTES_HISTORICO_API_SPEC.md`. Testes de revisão preservados sem edição: `AgentesHistoricoRevisao.test.jsx` e `agentes_api_revisao.test.js`. Arquivos novos: `AgentesHistoricoRobustez.test.jsx`, `AgentesHistoricoAviso.test.jsx` e `agentes_api_validacao.test.js`.
+
+- [x] **AG-01b — Troca de agente com resposta pendente:** `AgentesHistoricoRobustez.test.jsx`. O destino mantém seu histórico; a resposta do agente anterior não é anexada nem gravada no destino; a origem preserva a mensagem já enviada; o carregamento da nova conversa é liberado.
+- [x] **AG-02b — Resposta antiga após limpar e novo envio:** `AgentesHistoricoRobustez.test.jsx`. Limpar zera lista e carregamento, permite novo envio e descarta a resposta do token anterior, mesmo resolvida depois da nova.
+- [x] **AG-03b..f — Histórico inválido, backup, quota e isolamento:** `AgentesHistoricoRobustez.test.jsx`. JSON malformado e papéis inválidos geram backup bruto e aviso; falha de backup preserva a chave principal; quota mantém mensagens em memória e aviso; envio em um agente não altera a chave do outro.
+- [x] **AG-03g — Aviso no ChatWindow:** `AgentesHistoricoAviso.test.jsx`. Aviso neutro com `role="status"` e botão acessível para fechar.
+- [x] **AG-04b..h — Contrato da API:** `agentes_api_validacao.test.js`. `system`/`developer`, conteúdo vazio/não string, campos extras, 51 mensagens, mensagem acima de 32.000 caracteres, corpo acima de 256 KiB, JSON inválido e corpo não objeto são recusados antes do provedor; conversa válida continua encaminhada.
+- [x] **Evidência:** execução direcionada **20/20** nos cinco arquivos de agentes (novos + revisão) e **33/33** no conjunto de agentes/configuração; suíte completa **1.133 aprovados / 1.134**. A única falha é `LogoutAtividadesRascunhoAlteradoRevisao.test.jsx` (REV3-R83-01), isolada em arquivo do trabalho de logout/Atividades não tocado nesta correção. Lint dos arquivos alterados sem erros. Sem build, chamada paga, commit, push ou deploy. O selo de provedor continua pendente de decisão RN-13 × RN-27.
+
+### Revisão independente da entrega — 03/11/2026
+
+Arquivo novo de revisão: `tests/unit/components/agentes/AgentesHistoricoRevisaoIndependente.test.jsx`. Relatório: `docs/analises/2026-11-03-revisao-entrega-agentes.md`.
+Arquivo complementar da correção: `tests/unit/components/agentes/AgentesHistoricoDesmontagemRetry.test.jsx`.
+
+- [x] **AG-01..AG-04 — quatro cenários nomeados:** continuam aprovados nos testes direcionados (20/20 sem a revisão independente).
+- [x] **REV-AG-01 — resposta atrasada após desmontagem/saída:** corrigido em `useAgentChat.js` (controle de montagem compatível com `StrictMode`, incremento de versão e abort local no cleanup de unmount, bloqueio de `persistirHistorico` fora da sessão/versão ativa). Depois de desmontar o hook e remover `agente_history_ensino-medio`, a resposta pendente é descartada e a chave permanece `null`.
+- [x] **AG-02c..e — abort na desmontagem (`StrictMode`) e repetição após falha sem duplicar pergunta:** `AgentesHistoricoDesmontagemRetry.test.jsx`. Desmontar aborta `AbortSignal` local sem recriar chave apagada; `retryLastMessage` e botão **Tentar novamente** no `ChatWindow` reenviam a pergunta pendente preservando o histórico anterior sem duplicar a mensagem do professor.
+- [x] **Evidência pós-correção (03/11/2026):** RED inicial **4 falhas / 4 testes** (`REV-AG-01` + `AG-02c..e`); GREEN **24/24** nos sete arquivos direcionados de revisão/validação e **38/38** nos nove arquivos de agentes/configuração; suíte completa **1.137 aprovados / 1 falha alheia / 1.138** (`LogoutAtividadesRascunhoAlteradoRevisao.test.jsx` — REV3-R83-01, fora do escopo); lint exit 0. Sem chamada paga, commit, push ou deploy.

@@ -190,3 +190,11 @@ Relatório/prompt: `docs/analises/2026-11-01-terceira-revisao-logout-atividades.
 - [ ] Aprovar/implementar correções de histórico/contexto, formato de dados e contrato da API; alinhar depois RN-13/RN-27 e selo do provedor.
 - [ ] Avaliar melhorias copiar/exportar/ajuda para DeepSeek em escopo separado; sem implementação de produto nesta análise.
 Relatório e prompts: `docs/analises/2026-11-01-agentes-pedagogicos.md`. Testes de reprodução novos permanecem locais; nenhum teste anterior ou código de produção alterado. Logout REV3-R83-01 continua separado.
+
+
+## 03/11/2026 — Aprovação independente do histórico/API dos Agentes
+- [x] AG-01..04 e REV-AG-01 aprovados sem editar testes recebidos; controle de montagem/versão impede escrita atrasada após saída, incluindo StrictMode; retry não duplica pergunta.
+- [x] Árvore publicável isolada: **1.119 testes/244 arquivos**, lint sem erros/avisos e build exit 0; fontes/testes comparados por SHA-256. Nenhuma alteração de produção nesta revisão.
+- [ ] Logout REV3-R83-01 continua reprovado e fora do commit; arquivos de Atividades e suas specs/testes locais preservados.
+- [ ] Próximo DeepSeek: pacote visual copiar/exportar/ajuda do prompt original, sem ampliar para hook ou rascunhos persistentes enquanto propriedade por conta estiver pendente.
+Relatório: `docs/analises/2026-11-03-validacao-final-agentes.md`. Não confundir aprovação do pacote isolado com aprovação integral da árvore local; sem nova conta real, chamada paga, leitor de tela ou homologação visual dos avisos. Imagens adaptadas/Blaze continuam pendentes para o final das tarefas.

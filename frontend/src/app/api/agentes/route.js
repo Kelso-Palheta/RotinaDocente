@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 import { callAI, extractUserAIConfigFromHeaders } from '@/lib/ai-provider-central';
+import {
+  LIMITE_BYTES_CORPO_API,
+  LIMITE_MENSAGENS_API,
+  validarMensagemApi,
+} from '@/dominio/agentes/ConversaAgente';
 
 // ─── systemPrompts pedagógicos imutáveis (RN-14: apenas no servidor) ────────
 const SYSTEM_PROMPTS = {
@@ -40,39 +45,81 @@ Diretrizes de comportamento:
 
 const AGENTES_VALIDOS = Object.keys(SYSTEM_PROMPTS);
 
+function erro(status, code, message) {
+  return NextResponse.json({ error: code, message }, { status });
+}
+
 export async function POST(request) {
   try {
     const userConfig = extractUserAIConfigFromHeaders(request.headers);
 
     if (!userConfig || !userConfig.apiKey) {
-      return NextResponse.json(
-        {
-          error: 'AI_KEY_REQUIRED',
-          message: 'Você precisa conectar sua chave de IA para utilizar este recurso.',
-        },
-        { status: 400 }
+      return erro(
+        400,
+        'AI_KEY_REQUIRED',
+        'Você precisa conectar sua chave de IA para utilizar este recurso.'
       );
     }
 
-    const { agentId, messages } = await request.json();
+    let bruto;
+    try {
+      bruto = await request.text();
+    } catch {
+      return erro(400, 'INVALID_BODY', 'Não foi possível ler o corpo da requisição.');
+    }
+
+    const tamanho = new TextEncoder().encode(bruto).length;
+    if (tamanho > LIMITE_BYTES_CORPO_API) {
+      return erro(
+        413,
+        'PAYLOAD_TOO_LARGE',
+        'O corpo da requisição excede o limite de 256 KiB.'
+      );
+    }
+
+    let corpo;
+    try {
+      corpo = JSON.parse(bruto);
+    } catch {
+      return erro(400, 'INVALID_JSON', 'O corpo da requisição deve ser um JSON válido.');
+    }
+
+    if (!corpo || typeof corpo !== 'object' || Array.isArray(corpo)) {
+      return erro(400, 'INVALID_BODY', 'O corpo da requisição deve ser um objeto JSON.');
+    }
+
+    const { agentId, messages } = corpo;
 
     // RN-16: valida segmento
     if (!agentId || !AGENTES_VALIDOS.includes(agentId)) {
-      return NextResponse.json(
-        { error: `agentId inválido. Segmentos suportados: ${AGENTES_VALIDOS.join(', ')}` },
-        { status: 400 }
+      return erro(
+        400,
+        'INVALID_AGENT',
+        `agentId inválido. Segmentos suportados: ${AGENTES_VALIDOS.join(', ')}`
       );
     }
 
-    if (!Array.isArray(messages) || messages.length === 0) {
-      return NextResponse.json({ error: 'messages deve ser um array não-vazio.' }, { status: 400 });
+    if (
+      !Array.isArray(messages) ||
+      messages.length === 0 ||
+      messages.length > LIMITE_MENSAGENS_API ||
+      !messages.every(validarMensagemApi)
+    ) {
+      return erro(
+        400,
+        'INVALID_MESSAGES',
+        `messages deve conter de 1 a ${LIMITE_MENSAGENS_API} mensagens; cada item aceita apenas role ("user" ou "assistant") e content (texto não vazio de até 32.000 caracteres).`
+      );
     }
+
+    // Defesa adicional: encaminha somente os campos do contrato (RN-14).
+    const mensagensValidadas = messages.map(({ role, content }) => ({ role, content }));
 
     console.log(`[/api/agentes] agentId=${agentId} via provider=${userConfig.provider}`);
 
     const content = await callAI({
       systemPrompt: SYSTEM_PROMPTS[agentId],
-      messages,
+      messages: mensagensValidadas,
       temperature: 0.7,
       maxTokens: 4000,
       userConfig,
@@ -84,10 +131,7 @@ export async function POST(request) {
     });
   } catch (error) {
     if (error.code === 'AI_KEY_REQUIRED') {
-      return NextResponse.json(
-        { error: 'AI_KEY_REQUIRED', message: error.message },
-        { status: 400 }
-      );
+      return erro(400, 'AI_KEY_REQUIRED', error.message);
     }
     console.error('[/api/agentes] Erro:', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, Send, Trash2, GraduationCap, BookOpen } from 'lucide-react';
+import { ArrowLeft, Send, Trash2, GraduationCap, BookOpen, X } from 'lucide-react';
 import { useAgentChat } from '@/hooks/agentes/useAgentChat';
 import PromptChips from './PromptChips';
 
@@ -91,7 +91,16 @@ function MessageBubble({ msg, agente }) {
  * Janela de chat conversacional com o Agente Pedagógico.
  */
 export default function ChatWindow({ agente, onBack }) {
-  const { messages, isLoading, error, sendMessage, clearHistory } = useAgentChat(agente?.id);
+  const {
+    messages,
+    isLoading,
+    error,
+    sendMessage,
+    retryLastMessage,
+    clearHistory,
+    storageNotice,
+    dismissStorageNotice,
+  } = useAgentChat(agente?.id);
   const [inputText, setInputText] = useState('');
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
@@ -259,6 +268,50 @@ export default function ChatWindow({ agente, onBack }) {
           flexDirection: 'column',
         }}
       >
+        {/* Aviso neutro de recuperação ou de armazenamento local */}
+        {storageNotice && (
+          <div
+            role="status"
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.5rem',
+              marginBottom: '0.75rem',
+              padding: '0.625rem 0.75rem',
+              borderRadius: '0.75rem',
+              background: '#f8fafc',
+              border: '1px solid #cbd5e1',
+              color: '#475569',
+              fontSize: '0.75rem',
+              lineHeight: 1.5,
+              overflowWrap: 'anywhere',
+            }}
+          >
+            <span style={{ flex: 1, minWidth: 0 }}>{storageNotice.message}</span>
+            <button
+              type="button"
+              onClick={dismissStorageNotice}
+              aria-label="Fechar aviso de armazenamento"
+              title="Fechar aviso"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 22,
+                height: 22,
+                flexShrink: 0,
+                border: 'none',
+                borderRadius: '0.375rem',
+                background: 'transparent',
+                color: '#64748b',
+                cursor: 'pointer',
+              }}
+            >
+              <X size={14} />
+            </button>
+          </div>
+        )}
+
         {/* Estado vazio — exibe prompt chips */}
         {messages.length === 0 && !isLoading && (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', minWidth: 0 }}>
@@ -311,17 +364,44 @@ export default function ChatWindow({ agente, onBack }) {
 
         {/* Erro */}
         {error && (
-          <div style={{
-            margin: '0.5rem 0',
-            padding: '0.625rem 0.875rem',
-            borderRadius: '0.75rem',
-            background: '#fef2f2',
-            border: '1px solid #fecaca',
-            color: '#b91c1c',
-            fontSize: '0.78rem',
-            overflowWrap: 'anywhere',
-          }}>
-            ⚠️ {error}
+          <div
+            role="alert"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+              margin: '0.5rem 0',
+              padding: '0.625rem 0.875rem',
+              borderRadius: '0.75rem',
+              background: '#fef2f2',
+              border: '1px solid #fecaca',
+              color: '#b91c1c',
+              fontSize: '0.78rem',
+              overflowWrap: 'anywhere',
+            }}
+          >
+            <span style={{ flex: 1, minWidth: 0 }}>⚠️ {error}</span>
+            {typeof retryLastMessage === 'function' && !isLoading && (
+              <button
+                type="button"
+                onClick={retryLastMessage}
+                style={{
+                  flexShrink: 0,
+                  padding: '0.25rem 0.625rem',
+                  borderRadius: '0.5rem',
+                  border: '1px solid #fca5a5',
+                  background: '#ffffff',
+                  color: '#b91c1c',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                Tentar novamente
+              </button>
+            )}
           </div>
         )}
 
