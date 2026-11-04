@@ -47,6 +47,90 @@ export default function AtividadesPage() {
   const anos = useMemo(() => [...new Set([new Date().getFullYear(), ...turmas.map(anoLetivoTurma).filter(Boolean)])].sort(), [turmas]);
   const rotulosEstado = { salvo: 'Salvo na nuvem', salvando: 'Salvando…', pendente: 'Alterações pendentes', falha: 'Falha ao salvar', conflito: 'Conflito: revisar alterações', carregando: 'Carregando…' };
   const executar = async acao => { try { await acao(); } catch (erro) { window.alert(erro.message); } };
+  const [erroLogout, setErroLogout] = useState('');
+  const [erroSalvamentoSaida, setErroSalvamentoSaida] = useState('');
+  const [encerrandoSessao, setEncerrandoSessao] = useState(false);
+  const saidaEmCursoRef = useRef(false);
+
+  const assinaturaPendenciasDom = () => {
+    if (typeof document === 'undefined') return '';
+    const elementos = [...document.querySelectorAll('[data-diario-salvando="true"], [data-diario-rascunho="true"], input[aria-invalid="true"]')];
+    return JSON.stringify(elementos.map(el => ({
+      tipo: el.tagName,
+      salvando: el.getAttribute('data-diario-salvando'),
+      rascunho: el.getAttribute('data-diario-rascunho'),
+      invalido: el.getAttribute('aria-invalid'),
+      controles: [el, ...el.querySelectorAll('input, textarea, select, [contenteditable="true"]')].map(controle => ({
+        tipo: controle.tagName,
+        entrada: controle.type,
+        valor: controle.value,
+        marcado: controle.checked,
+        selecionados: controle.selectedOptions ? [...controle.selectedOptions].map(opcao => opcao.value) : undefined,
+        conteudo: controle.matches('[contenteditable="true"]') ? controle.innerHTML : undefined,
+        arquivos: controle.files ? [...controle.files].map(arquivo => [arquivo.name, arquivo.size, arquivo.lastModified]) : undefined,
+      })),
+    })));
+  };
+
+  const irParaHub = () => {
+    saidaEmCursoRef.current = false;
+    setErroLogout('');
+    setErroSalvamentoSaida('');
+    setEncerrandoSessao(false);
+    router.replace('/');
+  };
+
+  const encerrarSessaoConfirmada = async () => {
+    setErroLogout('');
+    setErroSalvamentoSaida('');
+    setEncerrandoSessao(true);
+    try {
+      await logout();
+      router.replace('/');
+    } catch (erro) {
+      saidaEmCursoRef.current = false;
+      const detalhe = erro?.message ? ` Detalhe: ${erro.message}` : '';
+      setEncerrandoSessao(false);
+      setErroLogout(`Não foi possível encerrar a sessão.${detalhe} Verifique sua conexão e tente novamente.`);
+    }
+  };
+
+  const tentarSalvarESair = async (assinaturaConfirmada = '') => {
+    if (saidaEmCursoRef.current) return;
+    saidaEmCursoRef.current = true;
+    setErroLogout('');
+    setErroSalvamentoSaida('');
+    try {
+      if (persistencia.estado !== 'salvando' && persistencia.estado !== 'salvo') {
+        await persistencia.tentarNovamente();
+      }
+      await aguardarSalvamento();
+    } catch (erro) {
+      saidaEmCursoRef.current = false;
+      const detalhe = erro?.message ? ` Detalhe: ${erro.message}` : '';
+      setErroSalvamentoSaida(`Não foi possível concluir o salvamento antes de sair.${detalhe} Sua sessão permanece ativa.`);
+      return;
+    }
+    if (!assinaturaConfirmada || assinaturaPendenciasDom() !== assinaturaConfirmada) {
+      if (!confirmarTrocaContexto()) {
+        saidaEmCursoRef.current = false;
+        return;
+      }
+    }
+    await encerrarSessaoConfirmada();
+  };
+
+  const handleLogout = async () => {
+    if (saidaEmCursoRef.current) return;
+    if (!confirmarTrocaContexto()) return;
+    const assinaturaConfirmada = assinaturaPendenciasDom();
+    if (persistencia.estado === 'salvando') {
+      await tentarSalvarESair(assinaturaConfirmada);
+      return;
+    }
+    saidaEmCursoRef.current = true;
+    await encerrarSessaoConfirmada();
+  };
   const [turmaSelecionada, setTurmaSelecionada] = useState(null);
   const [showAlunoDropdown, setShowAlunoDropdown] = useState(false);
   const [alunoLinkCopied, setAlunoLinkCopied] = useState(false);
@@ -91,6 +175,34 @@ export default function AtividadesPage() {
   }, [showAlunoDropdown]);
 
   // Auth guard
+  if (erroLogout) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+        <div className="w-full max-w-md space-y-4">
+          <div role="alert" className="rounded-xl border border-[#D5E3DC] bg-[#F3F8F5] p-4 text-sm text-[#0B5F59]">
+            {erroLogout}
+          </div>
+          <div className="flex flex-wrap justify-end gap-2">
+            <button
+              type="button"
+              onClick={irParaHub}
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3f7f5] hover:bg-[#d5e3dc] text-[#123c3a] border border-[#d5e3dc] transition-all"
+            >
+              Ir para o Hub
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0f766e] hover:bg-[#0b5f59] text-white transition-all"
+            >
+              Tentar novamente
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading || persistencia.carregando || (!perfil && user)) {
     return (
       <div className="flex h-screen items-center justify-center bg-white">
@@ -103,6 +215,16 @@ export default function AtividadesPage() {
   }
 
   if (!user) {
+    if (encerrandoSessao) {
+      return (
+        <div className="flex h-screen items-center justify-center bg-white" role="status">
+          <div className="text-center">
+            <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#0f766e] border-t-transparent animate-spin" />
+            <p className="text-sm text-[#4f6b63]">Encerrando sessão…</p>
+          </div>
+        </div>
+      );
+    }
     router.replace('/');
     return null;
   }
@@ -140,7 +262,7 @@ export default function AtividadesPage() {
           onRemoveTurma={handleRemoveTurma}
           onReorderTurmas={ordenadas => persistencia.podeEditar && !arquivadas && setTurmas([...turmas.filter(t => !listaContexto.some(c => c.id === t.id)), ...ordenadas])}
           onImportTurmas={(dados, meta) => persistencia.restaurar(dados, meta)}
-          onLogout={() => router.push('/')}
+          onLogout={handleLogout}
           onOpenProfile={() => setShowProfile(true)}
         />
       </div>
@@ -244,13 +366,17 @@ export default function AtividadesPage() {
           </div>
         </div>
 
-        <section aria-label="Contexto das atividades" className="px-6 py-3 border-b flex gap-4 items-center flex-wrap text-xs">
+        <section
+          aria-label="Contexto das atividades"
+          data-diario-rascunho={['pendente', 'falha', 'conflito'].includes(persistencia.estado) ? 'true' : 'false'}
+          className="px-6 py-3 border-b flex gap-4 items-center flex-wrap text-xs"
+        >
           <span role="status">{rotulosEstado[persistencia.estado] || persistencia.estado}</span>
           <label>Ano letivo <select aria-label="Ano letivo" value={ano} onChange={e => { if (!confirmarTrocaContexto()) return; setAno(e.target.value); setTurmaSelecionada(null); }} className="border rounded p-2"><option value="legado">Legado — ano não informado</option>{anos.map(a => <option key={a} value={a}>{a}</option>)}</select></label>
           <label><input type="checkbox" checked={arquivadas} onChange={e => { if (!confirmarTrocaContexto()) return; setArquivadas(e.target.checked); setTurmaSelecionada(null); }} /> Ver turmas arquivadas (consulta)</label>
           <a href="/diario" className="underline font-bold">Conferir e publicar notas no Diário</a>
         </section>
-        {persistencia.erro && <div role="alert" className="p-3 bg-[#F3F8F5] text-sm">{persistencia.erro} <button onClick={() => executar(persistencia.tentarNovamente)} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
+        {(erroSalvamentoSaida || persistencia.erro) && <div role="alert" className="p-3 bg-[#F3F8F5] text-sm">{erroSalvamentoSaida || persistencia.erro} <button onClick={() => (erroSalvamentoSaida ? tentarSalvarESair() : executar(persistencia.tentarNovamente))} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
         {/* Content */}
         <div className="flex-1 overflow-auto p-6 bg-[#f3f7f5]">
           {!persistencia.podeEditar ? <p>Edição bloqueada até concluir carregamento ou revisar conflito. Seu rascunho foi preservado.</p> : viewMode === 'recuperacao' ? (

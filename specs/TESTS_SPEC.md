@@ -397,6 +397,30 @@ REV-R82-01..03 passaram sem edição. Novos `CopiarRecuperacaoAjustes.test.jsx` 
 
 Execução própria após a segunda entrega: **1.087 testes/236 arquivos**, lint sem erros/avisos e build exit 0. `relatorios_pdf_revisao.test.js` passa sem edição; demais testes recebidos preservados. Três PDFs reais regenerados com dados sintéticos e renderizados independentemente com Poppler; margens, emissão, ausência de frequência, presença zero e feedback do 1º semestre conferidos. Limites: sem nova sessão de produção/navegador ou leitor de tela. Detalhes em `docs/analises/2026-10-29-validacao-final-correcoes-recuperacao.md`.
 
+## RN-83 — Logout da página de Atividades (RED obrigatório antes da produção)
+
+Arquivo novo: `tests/unit/components/atividades/LogoutAtividades.test.jsx`. Teste existente `AcoesTopoAtividades.test.jsx` não deve ser alterado.
+
+- [x] **R83-01 — Sair encerra a sessão:** clicar em Sair chama o `logout` do contexto uma vez e, somente após a promessa resolver, navega para `/`. Não basta `router.push('/')`.
+- [x] **R83-02 — Proteção de alterações não salvas:** com `confirmarTrocaContexto()` retornando `false` (salvando, rascunho pendente ou cancelamento), o `logout` não é chamado, não há navegação e o rascunho permanece na tela; a confirmação ocorre antes do encerramento.
+- [x] **R83-03 — Falha visível:** quando o `logout` rejeita, a página exibe `role="alert"` com mensagem de erro, não navega para `/` e não mostra estado de sucesso. A mensagem não pode ser apenas um `console.error`.
+- [x] **R83-04 — Retry e saída explícita:** após a falha, **Tentar novamente** chama o `logout` de novo; se resolver, navega para `/`. **Ir para o Hub** oferece saída sem afirmar que a sessão foi encerrada.
+- [x] **R83-05 — Sem limpeza duplicada:** a página usa exclusivamente o `logout` do contexto; não chama `api.clearTokens`, `localStorage.clear` ou `sessionStorage.clear` diretamente.
+- [x] **Evidência de execução:** RED inicial com **6 falhas/6 testes** no arquivo novo; GREEN com **6/6**. Suíte completa em 29/10/2026: **1.093 testes/237 arquivos aprovados**; lint de `frontend/src/app/atividades/page.js` exit 0; build de produção exit 0 (37 rotas). Nenhum teste existente alterado. Sem commit/push nesta rodada; entrega para revisão.
+
+Teste simula o contexto real: `logout` limpa o usuário antes de resolver/rejeitar, para garantir que a tela de erro não seja perdida pelo redirecionamento do guard de autenticação.
+
+### REV-R83-01 — Proteção do estado canônico da fila no logout de Atividades
+
+Arquivos preservados sem alteração: `tests/unit/components/atividades/LogoutAtividades.test.jsx` e `tests/unit/components/atividades/LogoutAtividadesPersistenciaRevisao.test.jsx`.
+Arquivo novo complementar: `tests/unit/components/atividades/LogoutAtividadesFilaPersistencia.test.jsx`.
+
+- [x] **REV-R83-01 (4 cenários da revisão):** com `confirmarTrocaContexto` real e sem formulário aberto, estados `salvando`, `pendente`, `falha` e `conflito` não chamam `logout` nem `router.replace` quando o salvamento falha ou o usuário recusa o descarte.
+- [x] **R83-06 — Salvamento em curso que conclui:** em `salvando`, clicar em Sair aguarda `aguardarSalvamento()` antes de chamar `logout` e só navega para `/` após ambos resolverem.
+- [x] **R83-07 — Salvamento em curso que falha e retry:** quando `aguardarSalvamento()` rejeita antes do `logout`, a sessão permanece ativa com o conteúdo na tela, `logout` não é chamado, `role="alert"` distingue a falha de salvamento da falha de encerramento de sessão e **Tentar novamente** conclui a saída quando o salvamento passa.
+- [x] **R83-08 — Decisão explícita de recusa ou descarte em `pendente`/`falha`/`conflito`:** recusar mantém sessão e conteúdo sem chamar `logout`; confirmar explicitamente o descarte chama `logout` e navega para `/` após concluir.
+- [x] **REV2-R83-01 / R83-09..10 — Proteção de edição surgida durante `aguardarSalvamento()` e prevenção de cliques duplicados:** arquivos preservados sem edição (`LogoutAtividades.test.jsx`, `LogoutAtividadesPersistenciaRevisao.test.jsx`, `LogoutAtividadesFilaPersistencia.test.jsx`, `LogoutAtividadesEdicaoDuranteEspera.test.jsx`) e arquivo complementar `LogoutAtividadesTransicaoSegura.test.jsx`. Rascunho aberto durante a espera passa pelo guard antes de encerrar; recusa mantém sessão e rascunho; cliques repetidos não duplicam espera nem `logout`.
+
 ## Agentes Pedagógicos — histórico e API (AG-01..04, 01/11/2026)
 
 Spec: `specs/AGENTES_HISTORICO_API_SPEC.md`. Testes de revisão preservados sem edição: `AgentesHistoricoRevisao.test.jsx` e `agentes_api_revisao.test.js`. Arquivos novos: `AgentesHistoricoRobustez.test.jsx`, `AgentesHistoricoAviso.test.jsx` e `agentes_api_validacao.test.js`.
@@ -428,3 +452,7 @@ Com autorização expressa do usuário, apenas valores/nomes ligados às cores d
 ## Hub — sequência dos módulos (04/11/2026)
 
 `HUB-ORDEM-01`, contrato em `HUB_ORDEM_SPEC.md`: `tests/unit/hub_ordem_modulos.test.js` garante a sequência pedida de todos os nove módulos no catálogo que o Dashboard renderiza, incluindo os bloqueados. IDs, nomes oficiais, ícones, descrições, caminhos, acesso, estrutura e cores permanecem.
+
+## RN-83 — Revisão final da proteção de rascunhos (04/11/2026)
+
+REV3-R83-01 reproduzido: uma confirmação anterior deixa de ser válida se um campo filho do formulário mudar durante `aguardarSalvamento()`. Preservar os seis arquivos recebidos de logout. Novo `LogoutAtividadesControles.test.jsx`: mudança em checkbox, seleção múltipla ou editor rico exige nova confirmação; recusa preserva sessão/conteúdo; formulário inalterado não gera pergunta duplicada. A comparação considera valores atuais dos descendentes, seleção/checked e conteúdo editável, sem armazenar nem registrar conteúdo dos rascunhos.

@@ -220,5 +220,15 @@ Design/plano/inventário/prompt: `docs/plans/2026-11-04-paleta-petroleo-salvia-d
 - [x] Comparar telas reais com dados sintéticos em 390/1440; exportadores com mesmo texto/paginação; cores de notas conferidas.
 - [x] Autorizar somente expectativas de cor em três testes antigos; novos testes complementares passam sem enfraquecer verificações anteriores.
 - [ ] Tratar separadamente os problemas preexistentes de lint, cabeçalho da caderneta com nomes longos e extravasamentos mobile já presentes no ensaio-base.
-- [ ] Retomar logout REV3-R83-01 e configuração de armazenamento das imagens adaptadas ao final, mantendo plano Firebase atual.
+- [x] Concluir logout REV3-R83-01 na revisão de 04/11/2026 (seção abaixo).
+- [ ] Retomar configuração de armazenamento das imagens adaptadas ao final, mantendo plano Firebase atual.
 Relatório: `docs/analises/2026-11-04-paleta-petroleo-salvia.md`.
+
+
+## 04/11/2026 — Conclusão do logout seguro de Atividades
+- [x] Reproduzir REV3-R83-01 sem alterar os seis testes recebidos.
+- [x] Comparar controles filhos, checked, opções selecionadas e editor rico após a espera; recusa preserva edição e sessão; conteúdo inalterado não duplica confirmação.
+- [x] Revisar uso exclusivo do logout centralizado, erros/retry e ordem de redirecionamento; manter fórmulas, persistência e sincronização.
+- [x] Acrescentar quatro cenários independentes: três RED antes da correção e um controle de ausência de pergunta duplicada. **23 testes direcionados**, **1.170 testes/258 arquivos**, lint da página e build aprovados.
+- [ ] Próxima pendência: cabeçalho da caderneta com nomes longos; manter correção de layout separada.
+Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
