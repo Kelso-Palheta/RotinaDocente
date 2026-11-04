@@ -230,11 +230,16 @@ Relatório: `docs/analises/2026-11-04-paleta-petroleo-salvia.md`.
 - [x] Comparar controles filhos, checked, opções selecionadas e editor rico após a espera; recusa preserva edição e sessão; conteúdo inalterado não duplica confirmação.
 - [x] Revisar uso exclusivo do logout centralizado, erros/retry e ordem de redirecionamento; manter fórmulas, persistência e sincronização.
 - [x] Acrescentar quatro cenários independentes: três RED antes da correção e um controle de ausência de pergunta duplicada. **23 testes direcionados**, **1.170 testes/258 arquivos**, lint da página e build aprovados.
-- [ ] Próxima pendência: cabeçalho da caderneta com nomes longos; manter correção de layout separada.
+- [x] Cabeçalho da caderneta com nomes longos corrigido e revisado na tarefa CAB-01..06 abaixo.
 Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 
 ## 04/11/2026 — Pacote Antigravity: cabeçalho da caderneta
 - [x] Confirmar causa das colisões: metadados em posições/altura fixas, sem medição.
 - [x] Preparar contrato CAB-01..06, plano TDD e prompt pronto em `docs/plans/2026-11-04-prompt-antigravity-caderneta.md`.
-- [ ] Antigravity implementar somente cabeçalho/posicionamento vertical, testes novos e evidências, conforme plano.
-- [ ] Revisar diff, executar verificações próprias e publicar após aprovação. Nenhuma alteração de produção nesta preparação.
+- [x] Antigravity implementar somente cabeçalho/posicionamento vertical (`frontend/src/lib/diario/caderneta-export.js`), testes novos (`tests/integration/caderneta_cabecalho.test.js`, RED 3 falhas → GREEN 6/6; suíte 1.176/259; lint e build exit 0) e evidências (`docs/evidencias/2026-11-04-caderneta-cabecalho/` e `docs/analises/2026-11-04-caderneta-cabecalho.md`), conforme plano.
+- [x] Revisar diff e verificações próprias; aprovado após a correção autorizada do relógio. Execução delegada permaneceu sem commit/push/deploy; publicação pelo revisor.
+
+### Revisão independente da caderneta — 04/11/2026
+- [x] Conferir diff e seis páginas renderizadas; executar suíte própria (1.176/259), lint do exportador e build, todos aprovados no fuso local.
+- [x] CAB-REV-01: proprietário autorizou somente o relógio simulado. Corrigida a fixture para horário civil local; 6/6 em UTC e suíte completa 1.176/259 em Belém. Exportador e asserções preservados.
+- [x] Entrega aprovada para publicação automática após resolver CAB-REV-01. Relatório: `docs/analises/2026-11-04-revisao-antigravity-caderneta.md`. Única mudança no teste recebido: criação do relógio, expressamente autorizada.

@@ -1,0 +1,32 @@
+[
+  {
+    "arquivo": "caderneta-curto.pdf",
+    "paginas": 1,
+    "pdfTemporario": "tmp/2026-11-04-caderneta-cabecalho/caderneta-curto.pdf",
+    "imagens": [
+      "caderneta-curto-pagina-1.png"
+    ],
+    "texto": "caderneta-curto-texto.txt"
+  },
+  {
+    "arquivo": "caderneta-longo.pdf",
+    "paginas": 1,
+    "pdfTemporario": "tmp/2026-11-04-caderneta-cabecalho/caderneta-longo.pdf",
+    "imagens": [
+      "caderneta-longo-pagina-1.png"
+    ],
+    "texto": "caderneta-longo-texto.txt"
+  },
+  {
+    "arquivo": "caderneta-45-alunos.pdf",
+    "paginas": 4,
+    "pdfTemporario": "tmp/2026-11-04-caderneta-cabecalho/caderneta-45-alunos.pdf",
+    "imagens": [
+      "caderneta-45-alunos-pagina-1.png",
+      "caderneta-45-alunos-pagina-2.png",
+      "caderneta-45-alunos-pagina-3.png",
+      "caderneta-45-alunos-pagina-4.png"
+    ],
+    "texto": "caderneta-45-alunos-texto.txt"
+  }
+]

@@ -15,12 +15,37 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   const maxLineWidth = pageWidth - margin * 2;
 
   // ── CABEÇALHO OFICIAL NAVY ──
-  doc.setFillColor(18, 60, 58); // #123c3a
-  doc.rect(0, 0, pageWidth, 32, "F");
+  // Medir e quebrar metadados com a mesma fonte/tamanho usados na impressão (helvetica normal 9).
+  const agora = new Date();
+  const nomeTurma = String(turma?.nome ?? "").toUpperCase();
+  const listaAlunos = Array.isArray(turma?.alunos) ? turma.alunos : [];
+  const camposMetadados = [
+    `TURMA: ${nomeTurma}`,
+    `TOTAL DE ALUNOS: ${listaAlunos.length}`,
+    `PROFESSOR(A): ${professorNome}`,
+    `EMISSÃO: ${agora.toLocaleDateString("pt-BR")} às ${agora.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })}`,
+  ];
 
-  // Faixa rosa decorativa
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  const linhasMetadados = camposMetadados.flatMap((campo) =>
+    doc.splitTextToSize(campo, maxLineWidth)
+  );
+
+  const inicioMetadadosY = 20;
+  const passoMetadadosY = 4.2;
+  const ultimoBaselineMetadadosY =
+    inicioMetadadosY + Math.max(0, linhasMetadados.length - 1) * passoMetadadosY;
+  const faixaY = ultimoBaselineMetadadosY + 4;
+  const alturaFaixa = 1.5;
+  const alturaCabecalho = faixaY + alturaFaixa;
+
+  doc.setFillColor(18, 60, 58); // #123c3a
+  doc.rect(0, 0, pageWidth, alturaCabecalho, "F");
+
+  // Faixa decorativa
   doc.setFillColor(15, 118, 110); // #0f766e
-  doc.rect(0, 30.5, pageWidth, 1.5, "F");
+  doc.rect(0, faixaY, pageWidth, alturaFaixa, "F");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
@@ -30,12 +55,11 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(213, 227, 220);
-  doc.text(`TURMA: ${turma.nome.toUpperCase()}`, margin, 21);
-  doc.text(`TOTAL DE ALUNOS: ${turma.alunos.length}`, margin + 65, 21);
-  doc.text(`PROFESSOR(A): ${professorNome}`, margin + 125, 21);
-  doc.text(`EMISSÃO: ${new Date().toLocaleDateString("pt-BR")} às ${new Date().toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })}`, margin + 200, 21);
+  linhasMetadados.forEach((linha, idx) => {
+    doc.text(linha, margin, inicioMetadadosY + idx * passoMetadadosY);
+  });
 
-  let cursorY = 38;
+  let cursorY = alturaCabecalho + 6;
 
   // ── TABELA DE RENDIMENTO ──
   const cols = [
