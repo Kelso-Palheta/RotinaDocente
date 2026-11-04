@@ -127,34 +127,34 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
   const criticos = dadosConsolidados.filter((a) => a.statusLdb === 'critico').length;
 
   return (
-    <div data-diario-rascunho={rascunhoEditado ? 'true' : 'false'} data-diario-salvando={salvando ? 'true' : 'false'} className="flex-1 flex flex-col overflow-hidden bg-slate-50">
+    <div data-diario-rascunho={rascunhoEditado ? 'true' : 'false'} data-diario-salvando={salvando ? 'true' : 'false'} className="flex-1 flex flex-col overflow-hidden bg-[#F3F8F5]">
       {/* Toast flutuante */}
       {toastMsg && (
-        <div className="fixed top-5 right-5 z-50 bg-[#101942] text-white px-4 py-2 rounded-xl shadow-lg text-xs font-bold animate-in fade-in slide-in-from-top-3">
+        <div className="fixed top-5 right-5 z-50 bg-[#123c3a] text-white px-4 py-2 rounded-xl shadow-lg text-xs font-bold animate-in fade-in slide-in-from-top-3">
           {toastMsg}
         </div>
       )}
 
-      {dataSelecionada !== hojeIso && frequenciasTurma[dataSelecionada] && <p className="p-3 text-xs bg-blue-50 text-blue-900">Chamada existente de {dataSelecionada.split('-').reverse().join('/')}. Confira a data; “Hoje” abre o dia local. Os registros anteriores não foram movidos.</p>}
+      {dataSelecionada !== hojeIso && frequenciasTurma[dataSelecionada] && <p className="p-3 text-xs bg-[#F3F8F5] text-[#123C3A]">Chamada existente de {dataSelecionada.split('-').reverse().join('/')}. Confira a data; “Hoje” abre o dia local. Os registros anteriores não foram movidos.</p>}
       {/* Barra de Ações da Chamada */}
-      <div className="bg-white border-b border-[#dce0f0] p-4 sm:p-5 flex-shrink-0">
+      <div className="bg-white border-b border-[#d5e3dc] p-4 sm:p-5 flex-shrink-0">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex items-center gap-3 flex-wrap">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#6070a0] mb-1">Data da Aula</label>
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#4f6b63] mb-1">Data da Aula</label>
               <div className="flex items-center gap-1.5">
                 <input
                   type="date"
                   disabled={salvando}
                   value={dataSelecionada}
                   onChange={(e) => handleMudarData(e.target.value)}
-                  className="bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] font-bold outline-none focus:ring-1 focus:ring-[#f60c49]"
+                  className="bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-1.5 text-xs text-[#123c3a] font-bold outline-none focus:ring-1 focus:ring-[#0f766e]"
                 />
                 <button
                   type="button"
                   disabled={salvando}
                   onClick={() => handleMudarData(hojeIso)}
-                  className="px-2.5 py-1.5 bg-[#f7f8fc] hover:bg-slate-200 border border-[#dce0f0] rounded-xl text-[11px] font-semibold text-[#6070a0] transition-colors"
+                  className="px-2.5 py-1.5 bg-[#f3f7f5] hover:bg-[#D5E3DC] border border-[#d5e3dc] rounded-xl text-[11px] font-semibold text-[#4f6b63] transition-colors"
                 >
                   Hoje
                 </button>
@@ -162,12 +162,12 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#6070a0] mb-1">Aulas no Dia</label>
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#4f6b63] mb-1">Aulas no Dia</label>
               <select
                 disabled={salvando}
                 value={quantidadeAulasDia}
                 onChange={(e) => { setQuantidadeAulasDia(Number(e.target.value)); setRascunhoEditado(true); }}
-                className="bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] font-bold outline-none focus:ring-1 focus:ring-[#f60c49]"
+                className="bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-1.5 text-xs text-[#123c3a] font-bold outline-none focus:ring-1 focus:ring-[#0f766e]"
               >
                 <option value={1}>1 aula</option>
                 <option value={2}>2 aulas (geminadas)</option>
@@ -183,7 +183,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
               type="button"
               disabled={salvando}
               onClick={() => handleMarcarTodos('P')}
-              className="px-3 py-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
+              className="px-3 py-2 bg-[#F3F8F5] hover:bg-[#DAEBE5] border border-[#D5E3DC] text-[#0B5F59] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
             >
               <Sparkles className="w-3.5 h-3.5" />
               Confirmar todos presentes
@@ -201,51 +201,51 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
           </div>
         </div>
 
-        <div className="mt-3 text-xs text-slate-600 space-y-2">
+        <div className="mt-3 text-xs text-[#4F6B63] space-y-2">
           <p>{frequenciasTurma[dataSelecionada] ? 'Chamada já registrada. Revise antes de substituir.' : 'Nova chamada: marque cada aluno ou confirme todos presentes.'}</p>
           {contexto.aviso && <p role="status">{contexto.aviso}</p>}
           {sugestao.origem !== 'manual' && sugestao.origem !== 'registro' && <p>Sugestão do {sugestao.origem === 'horario' ? 'Meu Horário' : 'Calendário'}: {sugestao.quantidadeAulas} aula(s). <button type="button" disabled={salvando} className="underline font-bold" onClick={() => {setQuantidadeAulasDia(sugestao.quantidadeAulas);setRascunhoEditado(true);}}>Usar quantidade sugerida</button></p>}
-          {sugestao.exigeJustificativa && <label className="block text-amber-800">{sugestao.aviso} Justificativa da exceção<input disabled={salvando} aria-label="Justificativa da exceção" className="block border rounded p-2 w-full" value={justificativa} onChange={e=>{setJustificativa(e.target.value);setRascunhoEditado(true);}} /></label>}
+          {sugestao.exigeJustificativa && <label className="block text-[#123C3A]">{sugestao.aviso} Justificativa da exceção<input disabled={salvando} aria-label="Justificativa da exceção" className="block border rounded p-2 w-full" value={justificativa} onChange={e=>{setJustificativa(e.target.value);setRascunhoEditado(true);}} /></label>}
         </div>
         {/* Cards de Resumo LDB */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mt-4">
-          <div className="bg-[#f7f8fc] border border-[#dce0f0] rounded-xl p-2.5 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#101942]/10 text-[#101942] flex items-center justify-center font-bold">
+          <div className="bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl p-2.5 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#123c3a]/10 text-[#123c3a] flex items-center justify-center font-bold">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#6070a0]">Aulas Dadas</p>
-              <p className="text-base font-extrabold text-[#101942] font-mono">{totalAulasGerais}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#4f6b63]">Aulas Dadas</p>
+              <p className="text-base font-extrabold text-[#123c3a] font-mono">{totalAulasGerais}</p>
             </div>
           </div>
 
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">
+          <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-2.5 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#0F766E] text-white flex items-center justify-center font-bold">
               <Check className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Regulares (&ge;80%)</p>
-              <p className="text-base font-extrabold text-emerald-700 font-mono">{regulares} / {totalAlunos}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#123C3A]">Regulares (&ge;80%)</p>
+              <p className="text-base font-extrabold text-[#0B5F59] font-mono">{regulares} / {totalAlunos}</p>
             </div>
           </div>
 
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-2.5 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold">
+          <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-2.5 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#0F766E] text-white flex items-center justify-center font-bold">
               <AlertTriangle className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-amber-800">Alerta LDB (20-25%)</p>
-              <p className="text-base font-extrabold text-amber-700 font-mono">{alertas}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#123C3A]">Alerta LDB (20-25%)</p>
+              <p className="text-base font-extrabold text-[#0B5F59] font-mono">{alertas}</p>
             </div>
           </div>
 
-          <div className="bg-rose-50 border border-rose-200 rounded-xl p-2.5 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold">
+          <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-2.5 flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#0F766E] text-white flex items-center justify-center font-bold">
               <ShieldAlert className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wider text-rose-800">Crítico (&ge;25% falta)</p>
-              <p className="text-base font-extrabold text-rose-700 font-mono">{criticos}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#123C3A]">Crítico (&ge;25% falta)</p>
+              <p className="text-base font-extrabold text-[#0B5F59] font-mono">{criticos}</p>
             </div>
           </div>
         </div>
@@ -253,10 +253,10 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
 
       {/* Tabela de Chamada e Acumulado */}
       <div className="flex-1 overflow-auto p-4 sm:p-6">
-        <div className="bg-white rounded-2xl border border-[#dce0f0] shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[#d5e3dc] shadow-sm overflow-hidden">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-[#f7f8fc] border-b border-[#dce0f0] text-[#6070a0] font-bold uppercase tracking-wider text-[10px]">
+              <tr className="bg-[#f3f7f5] border-b border-[#d5e3dc] text-[#4f6b63] font-bold uppercase tracking-wider text-[10px]">
                 <th className="py-3 px-4 w-12 text-center">Nº</th>
                 <th className="py-3 px-4">Estudante</th>
                 <th className="py-3 px-4 text-center">Chamada ({dataSelecionada})</th>
@@ -267,7 +267,7 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                 <th className="py-3 px-4 text-center">Status LDB (Art. 24)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#dce0f0]">
+            <tbody className="divide-y divide-[#d5e3dc]">
               {(turma.alunos || []).map((aluno, idx) => {
                 const statusHoje = presencasDoDia[aluno.id];
                 const consolidado = dadosConsolidados.find((c) => c.alunoId === aluno.id) || {
@@ -280,26 +280,26 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                 };
 
                 return (
-                  <tr key={aluno.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-2.5 px-4 text-center font-mono text-[#6070a0] font-medium">
+                  <tr key={aluno.id} className="hover:bg-[#F3F8F5]/80 transition-colors">
+                    <td className="py-2.5 px-4 text-center font-mono text-[#4f6b63] font-medium">
                       {idx + 1}
                     </td>
 
-                    <td className="py-2.5 px-4 font-bold text-[#101942]">
+                    <td className="py-2.5 px-4 font-bold text-[#123c3a]">
                       {aluno.nome}
                     </td>
 
                     {/* Botões Rápidos de Chamada do Dia */}
                     <td className="py-2.5 px-4 text-center">
-                      <div className="inline-flex rounded-lg border border-[#dce0f0] p-0.5 bg-[#f7f8fc]">
+                      <div className="inline-flex rounded-lg border border-[#d5e3dc] p-0.5 bg-[#f3f7f5]">
                         <button
                           type="button"
                           disabled={salvando}
                           onClick={() => handleSetStatus(aluno.id, 'P')}
                           className={`px-2 py-1 rounded text-[11px] font-bold transition-all ${
                             statusHoje === 'P'
-                              ? 'bg-emerald-600 text-white shadow-xs'
-                              : 'text-slate-600 hover:text-emerald-700'
+                              ? 'bg-[#0F766E] text-white shadow-xs'
+                              : 'text-[#4F6B63] hover:text-[#0B5F59]'
                           }`}
                           title="Presente"
                         >
@@ -311,8 +311,8 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                           onClick={() => handleSetStatus(aluno.id, 'F')}
                           className={`px-2 py-1 rounded text-[11px] font-bold transition-all ${
                             statusHoje === 'F'
-                              ? 'bg-rose-600 text-white shadow-xs'
-                              : 'text-slate-600 hover:text-rose-700'
+                              ? 'bg-[#0F766E] text-white shadow-xs'
+                              : 'text-[#4F6B63] hover:text-[#0B5F59]'
                           }`}
                           title="Falta"
                         >
@@ -324,8 +324,8 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                           onClick={() => handleSetStatus(aluno.id, 'FJ')}
                           className={`px-2 py-1 rounded text-[11px] font-bold transition-all ${
                             statusHoje === 'FJ'
-                              ? 'bg-amber-500 text-white shadow-xs'
-                              : 'text-slate-600 hover:text-amber-700'
+                              ? 'bg-[#0F766E] text-white shadow-xs'
+                              : 'text-[#4F6B63] hover:text-[#0B5F59]'
                           }`}
                           title="Falta Justificada (Atestado)"
                         >
@@ -335,36 +335,36 @@ export function TabelaFrequencia({ turma, onSalvarFrequencia, user }) {
                     </td>
 
                     {/* Acumulado */}
-                    <td className="py-2.5 px-4 text-center font-mono font-bold text-emerald-700">
+                    <td className="py-2.5 px-4 text-center font-mono font-bold text-[#0B5F59]">
                       {consolidado.presencas}
                     </td>
 
-                    <td className="py-2.5 px-4 text-center font-mono font-bold text-rose-700">
+                    <td className="py-2.5 px-4 text-center font-mono font-bold text-[#0B5F59]">
                       {consolidado.faltas}
                     </td>
 
-                    <td className="py-2.5 px-4 text-center font-mono text-amber-700 font-medium">
+                    <td className="py-2.5 px-4 text-center font-mono text-[#0B5F59] font-medium">
                       {consolidado.faltasJustificadas}
                     </td>
 
-                    <td className="py-2.5 px-4 text-center font-mono font-extrabold text-[#101942]">
+                    <td className="py-2.5 px-4 text-center font-mono font-extrabold text-[#123c3a]">
                       {consolidado.percentual}%
                     </td>
 
                     {/* Badge LDB */}
                     <td className="py-2.5 px-4 text-center">
                       {consolidado.statusLdb === 'regular' && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#DAEBE5] text-[#123C3A] border border-[#D5E3DC]">
                           <Check className="w-3 h-3" /> Regular
                         </span>
                       )}
                       {consolidado.statusLdb === 'alerta' && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 animate-pulse">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#DAEBE5] text-[#123C3A] border border-[#B7D3C8] animate-pulse">
                           <AlertTriangle className="w-3 h-3" /> Alerta LDB
                         </span>
                       )}
                       {consolidado.statusLdb === 'critico' && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-900 border border-rose-300">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#DAEBE5] text-[#123C3A] border border-[#B7D3C8]">
                           <ShieldAlert className="w-3 h-3" /> Risco Reprovação
                         </span>
                       )}

@@ -147,26 +147,26 @@ export const Sidebar = ({
   };
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-white border-r border-[#dce0f0] flex flex-col h-full overflow-hidden font-sans">
+    <aside className="w-64 flex-shrink-0 bg-white border-r border-[#d5e3dc] flex flex-col h-full overflow-hidden font-sans">
       {/* Logo */}
-      <div className="px-5 pt-6 pb-4 border-b border-[#dce0f0]">
+      <div className="px-5 pt-6 pb-4 border-b border-[#d5e3dc]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#f60c49] flex items-center justify-center text-white text-xs font-extrabold shadow-sm">
+            <div className="w-8 h-8 rounded-xl bg-[#0f766e] flex items-center justify-center text-white text-xs font-extrabold shadow-sm">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                 <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
               </svg>
             </div>
             <div>
-              <span className="font-head font-extrabold text-[#101942] tracking-tight text-sm block leading-none">
+              <span className="font-head font-extrabold text-[#123c3a] tracking-tight text-sm block leading-none">
                 Diário Pedagógico
               </span>
-              <span className="text-[10px] text-[#6070a0] font-medium">Gestão de Turmas</span>
+              <span className="text-[10px] text-[#4f6b63] font-medium">Gestão de Turmas</span>
             </div>
           </div>
           {onClose && (
-            <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg text-[#6070a0] hover:text-[#101942] hover:bg-[#eef0f8] transition-all" aria-label="Fechar menu">
+            <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f7f5] transition-all" aria-label="Fechar menu">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           )}
@@ -174,8 +174,8 @@ export const Sidebar = ({
       </div>
 
       {/* Bimestre selector */}
-      <div className="px-4 py-4 border-b border-[#dce0f0] bg-[#f7f8fc]/60">
-        <p className="text-[10px] text-[#6070a0] uppercase tracking-wider mb-2 font-bold font-head">Bimestre Letivo</p>
+      <div className="px-4 py-4 border-b border-[#d5e3dc] bg-[#f3f7f5]/60">
+        <p className="text-[10px] text-[#4f6b63] uppercase tracking-wider mb-2 font-bold font-head">Bimestre Letivo</p>
         <div className="grid grid-cols-4 gap-1.5">
           {BIMESTRES.map((b) => (
             <button
@@ -183,8 +183,8 @@ export const Sidebar = ({
               onClick={() => onSelectBimestre(b)}
               className={`py-1.5 rounded-xl text-xs font-bold transition-all duration-200 border
                 ${bimestreSelecionado === b
-                  ? 'bg-[#101942] text-white border-[#101942] shadow-xs'
-                  : 'bg-white text-[#6070a0] hover:bg-[#eef0f8] hover:text-[#101942] border-[#dce0f0]'}`}
+                  ? 'bg-[#123c3a] text-white border-[#123c3a] shadow-xs'
+                  : 'bg-white text-[#4f6b63] hover:bg-[#f3f7f5] hover:text-[#123c3a] border-[#d5e3dc]'}`}
             >
               {b}º
             </button>
@@ -194,7 +194,7 @@ export const Sidebar = ({
 
       {/* Turmas list */}
       <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-        <p className="text-[10px] text-[#6070a0] uppercase tracking-wider mb-2.5 px-1 font-bold font-head">Turmas Cadastradas</p>
+        <p className="text-[10px] text-[#4f6b63] uppercase tracking-wider mb-2.5 px-1 font-bold font-head">Turmas Cadastradas</p>
         {turmas.map((turma, index) => {
           const media = mediaTurma(turma, bimestreSelecionado);
           const ativa = turmaSelecionada?.id === turma.id;
@@ -213,21 +213,21 @@ export const Sidebar = ({
               onDrop={() => handleDrop(index)}
             >
               {isDragOver && !isDragging && (
-                <div className={`absolute left-0 right-0 h-0.5 bg-[#f60c49] z-10 ${draggedIndex > index ? 'top-0' : 'bottom-0'}`} />
+                <div className={`absolute left-0 right-0 h-0.5 bg-[#0f766e] z-10 ${draggedIndex > index ? 'top-0' : 'bottom-0'}`} />
               )}
               <button
                 onClick={() => onSelectTurma(turma)}
                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all duration-200 border
                   ${ativa
-                    ? 'bg-[#fff2f6] border-l-4 border-l-[#f60c49] border-[#fde4ec] shadow-2xs'
-                    : 'hover:bg-[#f7f8fc] text-[#101942] border-transparent'}`}
+                    ? 'bg-[#f3f8f5] border-l-4 border-l-[#0f766e] border-[#daebe5] shadow-2xs'
+                    : 'hover:bg-[#f3f7f5] text-[#123c3a] border-transparent'}`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-[#9098c0] cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity select-none font-mono text-xs w-3 text-center" title="Arrastar para reordenar">⠿</span>
-                  <span className={`font-semibold text-sm ${ativa ? 'text-[#d40840] font-bold' : 'text-[#101942]'}`}>
+                  <span className="text-[#566f65] cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity select-none font-mono text-xs w-3 text-center" title="Arrastar para reordenar">⠿</span>
+                  <span className={`font-semibold text-sm ${ativa ? 'text-[#0b5f59] font-bold' : 'text-[#123c3a]'}`}>
                     {turma.nome}
                   </span>
-                  <span className="text-xs text-[#9098c0] font-mono">({turma.alunos.length})</span>
+                  <span className="text-xs text-[#566f65] font-mono">({turma.alunos.length})</span>
                 </div>
                 <MediaBadge value={media} config={turma.bimestres[String(bimestreSelecionado)]?.config} />
               </button>
@@ -237,32 +237,32 @@ export const Sidebar = ({
       </div>
 
       {/* Backup */}
-      <div className="px-3 py-3 border-t border-[#dce0f0] bg-[#f7f8fc]/40">
-        <p className="text-[10px] text-[#6070a0] uppercase tracking-wider mb-2 font-bold">Backup e restauração</p>
+      <div className="px-3 py-3 border-t border-[#d5e3dc] bg-[#f3f7f5]/40">
+        <p className="text-[10px] text-[#4f6b63] uppercase tracking-wider mb-2 font-bold">Backup e restauração</p>
         <div className="flex gap-2">
-        <button onClick={handleExport} className="flex-1 py-2 bg-white hover:bg-[#fff2f6] border border-[#dce0f0] hover:border-[#fde4ec] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#6070a0] hover:text-[#d40840] transition-all text-center">
+        <button onClick={handleExport} className="flex-1 py-2 bg-white hover:bg-[#f3f8f5] border border-[#d5e3dc] hover:border-[#daebe5] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#4f6b63] hover:text-[#0b5f59] transition-all text-center">
           Baixar backup
         </button>
-        <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-2 bg-white hover:bg-[#fff2f6] border border-[#dce0f0] hover:border-[#fde4ec] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#6070a0] hover:text-[#d40840] transition-all text-center">
+        <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-2 bg-white hover:bg-[#f3f8f5] border border-[#d5e3dc] hover:border-[#daebe5] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#4f6b63] hover:text-[#0b5f59] transition-all text-center">
           Restaurar backup
         </button>
         </div>
         <input ref={fileInputRef} type="file" accept=".json,application/json" aria-label="Arquivo de backup do Diário" className="hidden" onChange={handleImport} />
-        {copiaDisponivel && <button onClick={baixarCopiaAnterior} className="text-xs underline mt-2 text-[#6070a0]">Baixar cópia anterior</button>}
-        {mensagemBackup && <p role="status" className="text-xs text-emerald-700 mt-2">{mensagemBackup}</p>}
-        {erroBackup && <p role="alert" className="text-xs text-red-700 mt-2">{erroBackup}</p>}
+        {copiaDisponivel && <button onClick={baixarCopiaAnterior} className="text-xs underline mt-2 text-[#4f6b63]">Baixar cópia anterior</button>}
+        {mensagemBackup && <p role="status" className="text-xs text-[#0B5F59] mt-2">{mensagemBackup}</p>}
+        {erroBackup && <p role="alert" className="text-xs text-[#0B5F59] mt-2">{erroBackup}</p>}
       </div>
       {backup && <RestaurarBackupModal turmasAtuais={todasTurmas} backup={backup} contaId={user?.uid} onAplicar={aplicarBackup} onClose={() => setBackup(null)} />}
 
       {/* Add turma */}
-      <div className="px-3 py-4 border-t border-[#dce0f0]">
+      <div className="px-3 py-4 border-t border-[#d5e3dc]">
         <div className="flex gap-2">
           <input
             value={novaTurma}
             onChange={(e) => setNovaTurma(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && submit()}
             placeholder="Nome da nova turma…"
-            className="flex-1 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all"
+            className="flex-1 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-sm text-[#123c3a] placeholder-[#566f65] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
           />
           <button
             onClick={submit}
@@ -275,22 +275,22 @@ export const Sidebar = ({
 
       {/* User */}
       {user && (
-        <div className="px-3 py-3 border-t border-[#dce0f0] bg-[#f7f8fc]">
+        <div className="px-3 py-3 border-t border-[#d5e3dc] bg-[#f3f7f5]">
           <div className="flex items-center gap-2.5">
             <button onClick={onOpenProfile} className="flex flex-1 items-center gap-2.5 min-w-0 text-left hover:opacity-80 transition-opacity outline-none" title="Meu Perfil">
               {user.photoURL ? (
-                <img src={user.photoURL} alt="" className="w-7 h-7 rounded-full border border-[#dce0f0]" referrerPolicy="no-referrer" />
+                <img src={user.photoURL} alt="" className="w-7 h-7 rounded-full border border-[#d5e3dc]" referrerPolicy="no-referrer" />
               ) : (
-                <div className="w-7 h-7 rounded-full bg-[#fde4ec] flex items-center justify-center text-[#d40840] text-xs font-bold flex-shrink-0">
+                <div className="w-7 h-7 rounded-full bg-[#daebe5] flex items-center justify-center text-[#0b5f59] text-xs font-bold flex-shrink-0">
                   {user.displayName?.[0] || '?'}
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-bold text-[#101942] truncate">{user.displayName || 'Usuário'}</p>
-                <p className="text-[10px] text-[#6070a0] truncate">{user.email}</p>
+                <p className="text-xs font-bold text-[#123c3a] truncate">{user.displayName || 'Usuário'}</p>
+                <p className="text-[10px] text-[#4f6b63] truncate">{user.email}</p>
               </div>
             </button>
-            <button onClick={onLogout} className="text-[#6070a0] hover:text-[#f60c49] text-xs transition-colors p-1 flex-shrink-0" title="Sair">
+            <button onClick={onLogout} className="text-[#4f6b63] hover:text-[#0f766e] text-xs transition-colors p-1 flex-shrink-0" title="Sair">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                 <polyline points="16 17 21 12 16 7" />

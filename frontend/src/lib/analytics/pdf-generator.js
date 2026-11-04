@@ -24,7 +24,7 @@ export async function generateAnalyticsPDF({
     doc.text(`Analytics | ${dados.rotulo} | ${ano}`, 14, y);
     y += 9;
   };
-  const escrever = (texto, { cor = [16, 25, 66], negrito = false } = {}) => {
+  const escrever = (texto, { cor = [18, 60, 58], negrito = false } = {}) => {
     doc.setFont('helvetica', negrito ? 'bold' : 'normal');
     doc.setFontSize(10);
     doc.setTextColor(...cor);
@@ -71,7 +71,7 @@ export async function generateAnalyticsPDF({
           ? [21, 128, 61]
           : l.faixa === 'aprovado'
             ? [29, 78, 216]
-            : [100, 116, 139];
+            : [86, 111, 101];
     escrever(
       `Nota: ${l.nota === null ? 'Sem nota' : fmt(l.nota)} | ${l.situacao}${l.parcial ? ' | Resultado parcial' : ''} | Mínimo: ${l.minimo}`,
       { cor },
@@ -81,7 +81,7 @@ export async function generateAnalyticsPDF({
   for (let i = 1; i <= paginas; i++) {
     doc.setPage(i);
     doc.setFontSize(8);
-    doc.setTextColor(100, 116, 139);
+    doc.setTextColor(86, 111, 101);
     doc.text(`Rotina Docente | ${i}/${paginas}`, 14, 290);
   }
   doc.save(`analytics-${dados.periodo}-${String(ano).replace(/[^a-z0-9]/gi, '-')}.pdf`);

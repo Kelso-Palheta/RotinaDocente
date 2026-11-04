@@ -10,7 +10,7 @@ Data: 04/11/2026. Escolha e escopo aprovados pelo usuário. Fonte de design: `do
 - PV-04: pares de texto/fundo de uso comum atingem contraste mínimo de 4,5:1. Verificar também hover, foco, disabled, superfícies claras e fundo escuro; não declarar acessibilidade integral apenas por testar pares sólidos.
 - PV-05: as cores antigas de marca não permanecem em estados alternativos. Exceções encontradas devem ser listadas e classificadas como nota, conteúdo do usuário ou imagem; cores de dados não devem ser alteradas por busca/substituição global.
 - PV-06: imagens didáticas, fotos, conteúdos/cores personalizados salvos e dados não são modificados. Nenhuma migração.
-- PV-07: testes anteriores intocáveis. Acrescentar teste novo de contrato/contraste dos tokens e exercitar os testes já existentes das notas. Executar suíte e build do pacote publicável e lint dos arquivos alterados.
+- PV-07: testes anteriores preservados, exceto as expectativas literais de cor expressamente autorizadas pelo usuário nesta continuação. Acrescentar teste novo de contrato/contraste dos tokens e exercitar os testes já existentes das notas. Executar suíte e build do pacote publicável e lint dos arquivos alterados.
 - PV-08: evidência visual com componentes reais/dados sintéticos, mesma estrutura antes/depois, em 390/1440. Cobrir landing/Hub, Diário/Portal com notas vermelha/azul/verde/sem nota, Agentes com diálogo, Calendário/Horário, Redação e Adaptadas. Para exportadores alterados, renderizar amostra e conferir cores das notas/paginação.
 - PV-09: não publicar nem editar para acomodar a paleta o logout ainda reprovado. A execução deve partir de checkout isolado publicado e entregar diff exclusivo de cores para revisão.
 
@@ -23,3 +23,13 @@ Data: 04/11/2026. Escolha e escopo aprovados pelo usuário. Fonte de design: `do
 - Existente: `tests/contract/sabiazinho_payload.test.js` e demais testes de domínio/integração continuam intactos, pois não há mudança de provedor/negócio.
 
 RN-50: a autorização posterior do usuário substitui somente os valores/identidade antigos do trecho visual de Redação. Atualizar o texto da regra na implementação sem alterar sua tipografia ou regras de negócio. RN-18 continua vigente.
+
+
+## Continuação após limite do executor — 04/11/2026
+
+Aceite complementar em `tests/unit/paleta_complemento.test.js`: nenhum gradiente rosa/azul nos planos da landing; conexão de IA usa somente a nova identidade em seus estados; exportadores não deixam cores RGB rosas antigas em faixas/pareceres. A auditoria estrutural compara código-base e entrega ignorando somente cor, sem ignorar geometria/comportamento. Três testes existentes tiveram expectativas literais de marca ajustadas pelo executor; o usuário autorizou expressamente esses ajustes, sem alterar outras verificações.
+
+
+Autorização expressa recebida nesta continuação: ajustar somente expectativas de cor dos testes para a nova marca, preservando verificações de notas, dados, margens e paginação. O inventário de cores não deve proibir as exceções de notas: `critico` em DistribuicaoChart e legenda “Abaixo do mínimo” em ComparativoTurmasChart mantêm o rosa/vermelho original por representarem faixa de desempenho, não marca. Testes PV-13/PV-14 cobrem sua preservação.
+
+PV-15: logotipo e destaques sobre superfícies petróleo usam sálvia clara (#B7D3C8), mantendo contraste; teste novo `paleta_superficies_escuras.test.js`. Na inspeção de telas escuras, não basta substituir o rosa pelo petróleo usado nos fundos claros.

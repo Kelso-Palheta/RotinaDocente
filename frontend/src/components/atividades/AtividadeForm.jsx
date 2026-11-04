@@ -83,17 +83,17 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
   };
 
   return (
-    <div className="border border-slate-200 rounded-xl p-4 mb-4 bg-white">
+    <div className="border border-[#D5E3DC] rounded-xl p-4 mb-4 bg-white">
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="w-6 h-6 rounded-full bg-violet-500 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{index + 1}</span>
+        <span className="w-6 h-6 rounded-full bg-[#0F766E] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{index + 1}</span>
 
-        <div className="flex shrink-0 rounded-lg overflow-hidden border border-slate-200 text-xs font-semibold">
+        <div className="flex shrink-0 rounded-lg overflow-hidden border border-[#D5E3DC] text-xs font-semibold">
           {['discursiva', 'objetiva'].map(tipo => (
             <button
               key={tipo}
               type="button"
               onClick={() => update('tipo', tipo)}
-              className={`px-3 py-1.5 capitalize transition-colors ${questao.tipo === tipo ? 'bg-violet-500 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'}`}
+              className={`px-3 py-1.5 capitalize transition-colors ${questao.tipo === tipo ? 'bg-[#0F766E] text-white' : 'bg-white text-[#566F65] hover:bg-[#F3F8F5]'}`}
             >
               {tipo}
             </button>
@@ -106,13 +106,13 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
           onChange={(e) => update('notaMaxima', e.target.value === '' ? '' : Number(e.target.value))}
           min="0.25" max="10" step="0.25"
           title="Nota máxima desta questão"
-          className="w-20 ml-auto bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 text-xs text-slate-900 text-center outline-none focus:ring-1 focus:ring-violet-400/50"
+          className="w-20 ml-auto bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-2 py-1.5 text-xs text-[#123C3A] text-center outline-none focus:ring-1 focus:ring-[#0F766E]/50"
           placeholder="pts"
         />
         <span className="text-xs text-slate-400">pts</span>
 
         {total > 1 && (
-          <button type="button" onClick={onRemove} className="text-slate-400 hover:text-red-500 transition-colors ml-1 text-lg leading-none">&times;</button>
+          <button type="button" onClick={onRemove} className="text-slate-400 hover:text-[#0F766E] transition-colors ml-1 text-lg leading-none">&times;</button>
         )}
       </div>
 
@@ -122,7 +122,7 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
         onPaste={handleEnunciadoPaste}
         placeholder="Enunciado da questão..."
         rows={3}
-        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all resize-y mb-3"
+        className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3 py-2.5 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all resize-y mb-3"
       />
 
       <div className="mb-3">
@@ -130,27 +130,27 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
           <div className="flex flex-wrap gap-2 mb-2">
             {(questao.imagens || []).map((img, i) => (
               <div key={`s-${i}`} className="relative group">
-                <img src={img.base64 || img.url} alt="" className="h-20 w-auto rounded-lg border border-slate-200 object-cover" />
+                <img src={img.base64 || img.url} alt="" className="h-20 w-auto rounded-lg border border-[#D5E3DC] object-cover" />
                 <button
                   type="button"
                   onClick={() => removeImagemSalva(i)}
-                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full text-xs hidden group-hover:flex items-center justify-center leading-none"
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#0F766E] text-white rounded-full text-xs hidden group-hover:flex items-center justify-center leading-none"
                 >&times;</button>
               </div>
             ))}
             {questao.imagensLocais.map((img, i) => (
               <div key={`n-${i}`} className="relative group">
-                <img src={img.preview} alt="" className="h-20 w-auto rounded-lg border border-slate-200 object-cover opacity-75" />
+                <img src={img.preview} alt="" className="h-20 w-auto rounded-lg border border-[#D5E3DC] object-cover opacity-75" />
                 <button
                   type="button"
                   onClick={() => removeImagem(i)}
-                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full text-xs hidden group-hover:flex items-center justify-center leading-none"
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#0F766E] text-white rounded-full text-xs hidden group-hover:flex items-center justify-center leading-none"
                 >&times;</button>
               </div>
             ))}
           </div>
         )}
-        <label className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-violet-500 cursor-pointer transition-colors">
+        <label className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#0F766E] cursor-pointer transition-colors">
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           <span>Adicionar imagem</span>
           <input type="file" accept="image/*" multiple onChange={handleImageAdd} className="hidden" />
@@ -160,14 +160,14 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
       {questao.tipo === 'discursiva' && (
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs font-semibold text-amber-600">
+            <label className="text-xs font-semibold text-[#0F766E]">
               Rubrica de correção <span className="text-slate-400 font-normal">(confidencial — só você e a IA verão)</span>
             </label>
             <button
               type="button"
               onClick={handleSugerirRubrica}
               disabled={sugerindo}
-              className="flex items-center gap-1 px-2.5 py-1 bg-violet-50 hover:bg-violet-100 disabled:bg-slate-100 border border-violet-200 disabled:border-slate-200 rounded-lg text-[11px] font-semibold text-violet-600 disabled:text-slate-400 transition-all"
+              className="flex items-center gap-1 px-2.5 py-1 bg-[#F3F8F5] hover:bg-[#DAEBE5] hover:text-[#0B5F59] disabled:bg-[#F3F7F5] border border-[#D5E3DC] disabled:border-[#D5E3DC] rounded-lg text-[11px] font-semibold text-[#0F766E] disabled:text-slate-400 transition-all"
             >
               {sugerindo ? (
                 <>
@@ -184,14 +184,14 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
             onChange={(e) => update('rubrica', e.target.value)}
             placeholder="Critérios de correção, pontos por seção, o que esperar na resposta ideal... ou clique em &quot;Sugerir com IA&quot; acima."
             rows={3}
-            className="w-full bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-amber-400/50 transition-all resize-y"
+            className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3 py-2.5 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all resize-y"
           />
         </div>
       )}
 
       {questao.tipo === 'objetiva' && (
         <div>
-          <label className="block text-xs font-semibold text-slate-900 mb-2">Alternativas</label>
+          <label className="block text-xs font-semibold text-[#123C3A] mb-2">Alternativas</label>
           <div className="space-y-2">
             {questao.alternativas.map((alt) => (
               <div key={alt.id} className="flex items-center gap-2">
@@ -201,16 +201,16 @@ function QuestaoEditor({ questao, index, total, onChange, onRemove, materialText
                     name={`gabarito-${questao.id}`}
                     checked={questao.gabarito === alt.id}
                     onChange={() => update('gabarito', alt.id)}
-                    className="w-4 h-4 accent-violet-500"
+                    className="w-4 h-4 accent-[#0F766E]"
                   />
-                  <span className="text-xs font-bold text-violet-500 w-4">{alt.id}</span>
+                  <span className="text-xs font-bold text-[#0F766E] w-4">{alt.id}</span>
                 </label>
                 <input
                   type="text"
                   value={alt.texto}
                   onChange={(e) => updateAlternativa(alt.id, e.target.value)}
                   placeholder={`Alternativa ${alt.id}`}
-                  className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all"
+                  className="flex-1 bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all"
                 />
               </div>
             ))}
@@ -511,16 +511,16 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
     return (
       <div className="space-y-3 mb-4 mt-2">
         {texts.map((t, idx) => (
-          <div key={t.id} className="border border-slate-200 rounded-xl p-3 bg-white shadow-sm">
+          <div key={t.id} className="border border-[#D5E3DC] rounded-xl p-3 bg-white shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+              <span className="text-[11px] font-semibold text-[#566F65] uppercase tracking-wider">
                 {texts.length > 1 ? `Texto ${idx + 1}` : 'Texto de apoio'}
               </span>
               <div className="flex items-center gap-2">
                 <select
                   value={t.aposQuestao ?? ''}
                   onChange={(e) => updateTextoBase(t.id, 'aposQuestao', e.target.value === '' ? null : Number(e.target.value))}
-                  className="text-[11px] bg-white border border-slate-200 rounded-lg px-2 py-1 text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50"
+                  className="text-[11px] bg-white border border-[#D5E3DC] rounded-lg px-2 py-1 text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50"
                 >
                   <option value="">Antes de todas</option>
                   {questoes.map((_, qi) => (
@@ -528,7 +528,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                   ))}
                 </select>
                 <button type="button" onClick={() => removeTextoBase(t.id)}
-                  className="text-xs text-slate-400 hover:text-red-500 transition-colors">
+                  className="text-xs text-slate-400 hover:text-[#0F766E] transition-colors">
                   Excluir
                 </button>
               </div>
@@ -566,25 +566,25 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
-      <div role={modoCopia ? 'dialog' : undefined} aria-modal={modoCopia ? true : undefined} aria-label={modoCopia ? 'Copiar atividade de recuperação' : undefined} onKeyDown={modoCopia ? tecladoCopia : undefined} className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200 max-h-[92vh] overflow-y-auto animate-card-in">
-        <div className="sticky top-0 z-10 bg-white p-5 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-slate-900">{isEdit ? 'Editar Atividade' : modoCopia ? 'Copiar Atividade de Recuperação' : recuperacao ? 'Nova Atividade de Recuperação' : 'Nova Atividade'}</h2>
-          <button onClick={pedirFechamento} disabled={saving} className="text-slate-400 hover:text-slate-900 text-2xl leading-none">&times;</button>
+      <div role={modoCopia ? 'dialog' : undefined} aria-modal={modoCopia ? true : undefined} aria-label={modoCopia ? 'Copiar atividade de recuperação' : undefined} onKeyDown={modoCopia ? tecladoCopia : undefined} className="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-[#D5E3DC] max-h-[92vh] overflow-y-auto animate-card-in">
+        <div className="sticky top-0 z-10 bg-white p-5 border-b border-[#D5E3DC] flex items-center justify-between">
+          <h2 className="text-lg font-bold text-[#123C3A]">{isEdit ? 'Editar Atividade' : modoCopia ? 'Copiar Atividade de Recuperação' : recuperacao ? 'Nova Atividade de Recuperação' : 'Nova Atividade'}</h2>
+          <button onClick={pedirFechamento} disabled={saving} className="text-slate-400 hover:text-[#123C3A] text-2xl leading-none">&times;</button>
         </div>
 
         <form onSubmit={handleSubmit} data-diario-rascunho={assinatura !== inicial.current} data-diario-salvando={saving} className="p-5">
           <fieldset disabled={saving} className="space-y-5 min-w-0">
           {recuperacao && (
-            <div role="status" className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
+            <div role="status" className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-3 text-xs text-[#123C3A]">
               <p className="font-semibold">Recuperação do {semestre}º semestre · {turmas.find(t => t.id === turmaIds[0])?.nome || 'turma'}</p>
               <p className="mt-1">Vale 10 pontos no total. Esta atividade pode valer até <strong>{pontosRestantes.toFixed(2).replace('.', ',')}</strong> pontos. As notas são somadas, sem média.</p>
             </div>
           )}
           {modoCopia && Math.round(notaTotalMaxima * 100) === Math.round(pontosRestantes * 100) && (
-            <p className="text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl p-3">Esta cópia fechará os 10 pontos e liberará o conjunto para os alunos destinatários.</p>
+            <p className="text-xs font-semibold text-[#123C3A] bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-3">Esta cópia fechará os 10 pontos e liberará o conjunto para os alunos destinatários.</p>
           )}
           {avisosCopia.length > 0 && (
-            <div role="status" className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900">
+            <div role="status" className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-3 text-xs text-[#123C3A]">
               <p className="font-semibold">Revise o conteúdo copiado antes de salvar</p>
               <ul className="list-disc pl-4 mt-1 space-y-0.5">
                 {avisosCopia.map((aviso, indice) => (
@@ -596,16 +596,16 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
           )}
           <div className="grid grid-cols-1 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-900 mb-1">Título *</label>
+              <label className="block text-xs font-semibold text-[#123C3A] mb-1">Título *</label>
               <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={120}
                 placeholder="Ex: Redação — A Amazônia no Século XXI"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
+                className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3 py-2.5 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all" />
             </div>
 
             <div className={modoCopia ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : 'grid grid-cols-2 gap-3'}>
               {!recuperacao && (
                 <div>
-                  <label htmlFor="atividade-bimestre" className="block text-xs font-semibold text-slate-900 mb-1">Bimestre *</label>
+                  <label htmlFor="atividade-bimestre" className="block text-xs font-semibold text-[#123C3A] mb-1">Bimestre *</label>
                   <select id="atividade-bimestre" value={bimestre} onChange={e => setBimestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm">
                     {BIMESTRES.map(b => <option key={b} value={b}>{b}º bimestre</option>)}
                   </select>
@@ -613,37 +613,37 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
               )}
               {recuperacao && (
                 <div>
-                  <label htmlFor="atividade-semestre" className="block text-xs font-semibold text-slate-900 mb-1">Semestre *</label>
-                  <select id="atividade-semestre" value={semestre} disabled={modoCopia} onChange={e => setSemestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm disabled:bg-slate-50 disabled:text-slate-600">
+                  <label htmlFor="atividade-semestre" className="block text-xs font-semibold text-[#123C3A] mb-1">Semestre *</label>
+                  <select id="atividade-semestre" value={semestre} disabled={modoCopia} onChange={e => setSemestre(Number(e.target.value))} className="w-full border rounded-lg p-2 text-sm disabled:bg-[#F3F8F5] disabled:text-[#4F6B63]">
                     <option value={1}>1º semestre</option>
                     <option value={2}>2º semestre</option>
                   </select>
                 </div>
               )}
               <div>
-                <label htmlFor="dataEntrega" className="block text-xs font-semibold text-slate-900 mb-1">Data de entrega *</label>
+                <label htmlFor="dataEntrega" className="block text-xs font-semibold text-[#123C3A] mb-1">Data de entrega *</label>
                 <input id="dataEntrega" type={modoCopia ? 'datetime-local' : 'text'} placeholder={modoCopia ? undefined : 'AAAA-MM-DDTHH:mm'} value={dataEntrega} onChange={(e) => setDataEntrega(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
+                  className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3 py-2.5 text-sm text-[#123C3A] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all" />
               </div>
             </div>
 
             {recuperacao ? (
               <div>
-                <p className="block text-xs font-semibold text-slate-900 mb-1">Turma e destinatários</p>
-                <p className="text-sm text-slate-900 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5">
+                <p className="block text-xs font-semibold text-[#123C3A] mb-1">Turma e destinatários</p>
+                <p className="text-sm text-[#123C3A] bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3 py-2.5">
                   {turmas.find(t => t.id === turmaIds[0])?.nome || 'Turma não encontrada'} · {destinatariosIds.length} {destinatariosIds.length === 1 ? 'aluno' : 'alunos'} em recuperação
                 </p>
               </div>
             ) : (
               <div>
-                <label className="block text-xs font-semibold text-slate-900 mb-1">Turmas *</label>
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 max-h-28 overflow-y-auto space-y-0.5">
+                <label className="block text-xs font-semibold text-[#123C3A] mb-1">Turmas *</label>
+                <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-2 max-h-28 overflow-y-auto space-y-0.5">
                   {turmas.length === 0 && <p className="text-xs text-slate-400 p-2">Nenhuma turma.</p>}
                   {turmas.map(t => (
                     <label key={t.id} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white cursor-pointer transition-colors">
                       <input type="checkbox" checked={turmaIds.includes(t.id)} onChange={() => toggleTurma(t.id)}
-                        className="w-4 h-4 rounded accent-violet-500" />
-                      <span className="text-sm text-slate-900">{t.nome}</span>
+                        className="w-4 h-4 rounded accent-[#0F766E]" />
+                      <span className="text-sm text-[#123C3A]">{t.nome}</span>
                       <span className="text-xs text-slate-400">({t.alunos?.length || 0} alunos)</span>
                     </label>
                   ))}
@@ -652,10 +652,10 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             )}
           </div>
 
-          <div className="border border-dashed border-slate-200 rounded-xl p-4">
+          <div className="border border-dashed border-[#D5E3DC] rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-xs font-semibold text-slate-900">Material de apoio para a IA</p>
+                <p className="text-xs font-semibold text-[#123C3A]">Material de apoio para a IA</p>
                 <p className="text-[10px] text-slate-400 mt-0.5">
                   {materialTotal
                     ? `~${Math.round(materialTotal.length / 1000)}k caracteres disponíveis`
@@ -664,12 +664,12 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
               </div>
               <div className="flex gap-1.5">
                 <button type="button" onClick={addMaterialTexto}
-                  className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-50 hover:bg-slate-200 border border-slate-200 rounded-lg text-xs text-slate-400 hover:text-slate-900 transition-all">
+                  className="flex items-center gap-1 px-2.5 py-1.5 bg-[#F3F8F5] hover:bg-[#D5E3DC] border border-[#D5E3DC] rounded-lg text-xs text-slate-400 hover:text-[#123C3A] transition-all">
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
                   Colar texto
                 </button>
                 <button type="button" onClick={addMaterialPDF}
-                  className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-50 hover:bg-slate-200 border border-slate-200 rounded-lg text-xs text-slate-400 hover:text-slate-900 transition-all">
+                  className="flex items-center gap-1 px-2.5 py-1.5 bg-[#F3F8F5] hover:bg-[#D5E3DC] border border-[#D5E3DC] rounded-lg text-xs text-slate-400 hover:text-[#123C3A] transition-all">
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                   PDF / imagem
                 </button>
@@ -679,35 +679,35 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             {materiais.length > 0 && (
               <div className="space-y-2">
                 {materiais.map((mat, i) => (
-                  <div key={mat.id} className="border border-slate-200 rounded-lg p-3 bg-white">
+                  <div key={mat.id} className="border border-[#D5E3DC] rounded-lg p-3 bg-white">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         {mat._extracting ? (
-                          <svg className="animate-spin w-4 h-4 text-violet-500" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                          <svg className="animate-spin w-4 h-4 text-[#0F766E]" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
                         ) : (
-                          <svg className="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+                          <svg className="w-4 h-4 text-[#0F766E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
                         )}
-                        <span className="text-xs font-medium text-slate-900">{mat.nome}</span>
+                        <span className="text-xs font-medium text-[#123C3A]">{mat.nome}</span>
                         {(mat.textoExtraido || mat.texto) && !mat._extracting && (
                           <span className="text-[10px] text-slate-400">({Math.round((mat.textoExtraido || mat.texto || '').length / 1000)}k chars)</span>
                         )}
                       </div>
                       <button type="button" onClick={() => removeMaterial(mat.id)}
-                        className="text-slate-400 hover:text-red-500 text-xs transition-colors">&times;</button>
+                        className="text-slate-400 hover:text-[#0F766E] text-xs transition-colors">&times;</button>
                     </div>
-                    {mat._extracting && <p role="status" className="text-xs text-blue-700">Lendo arquivo. Aguarde a extração antes de gerar ou salvar.</p>}
-                    {mat._erro && <div role="alert" className="text-xs text-red-700">{mat._erro} <button type="button" onClick={() => lerMaterial(mat.id, mat.arquivoLocal)} className="underline" aria-label={`Tentar ler ${mat.nome} novamente`}>Tentar novamente</button></div>}
+                    {mat._extracting && <p role="status" className="text-xs text-[#0B5F59]">Lendo arquivo. Aguarde a extração antes de gerar ou salvar.</p>}
+                    {mat._erro && <div role="alert" className="text-xs text-[#0B5F59]">{mat._erro} <button type="button" onClick={() => lerMaterial(mat.id, mat.arquivoLocal)} className="underline" aria-label={`Tentar ler ${mat.nome} novamente`}>Tentar novamente</button></div>}
                     {mat.tipo === 'texto' && !mat._extracting && (
                       <textarea
                         value={mat.texto || ''}
                         onChange={(e) => updateMaterial(mat.id, 'texto', e.target.value)}
                         placeholder="Cole aqui o conteúdo do livro, artigo, ou qualquer texto de apoio..."
                         rows={4}
-                        className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 outline-none focus:ring-1 focus:ring-violet-400/50 resize-y"
+                        className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-2 text-xs text-[#123C3A] placeholder-[#566F65] outline-none focus:ring-1 focus:ring-[#0F766E]/50 resize-y"
                       />
                     )}
                     {['pdf', 'arquivo'].includes(mat.tipo) && mat.textoExtraido && !mat._extracting && (
-                      <textarea aria-label={`Texto extraído de ${mat.nome}`} value={mat.textoExtraido} onChange={(e) => updateMaterial(mat.id, 'textoExtraido', e.target.value)} rows={5} className="w-full text-xs text-slate-700 leading-relaxed bg-slate-50 rounded-lg p-2" />
+                      <textarea aria-label={`Texto extraído de ${mat.nome}`} value={mat.textoExtraido} onChange={(e) => updateMaterial(mat.id, 'textoExtraido', e.target.value)} rows={5} className="w-full text-xs text-[#35594D] leading-relaxed bg-[#F3F8F5] rounded-lg p-2" />
                     )}
                   </div>
                 ))}
@@ -717,11 +717,11 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             {materiais.length === 0 && (
               <div className="flex gap-2">
                 <button type="button" onClick={addMaterialTexto}
-                  className="flex-1 py-3 border border-dashed border-slate-200 rounded-xl text-xs text-slate-400 hover:text-violet-500 hover:border-violet-300 transition-colors text-center">
+                  className="flex-1 py-3 border border-dashed border-[#D5E3DC] rounded-xl text-xs text-slate-400 hover:text-[#0F766E] hover:border-[#B7D3C8] transition-colors text-center">
                   Colar texto de apoio
                 </button>
                 <button type="button" onClick={addMaterialPDF}
-                  className="flex-1 py-3 border border-dashed border-slate-200 rounded-xl text-xs text-slate-400 hover:text-violet-500 hover:border-violet-300 transition-colors text-center">
+                  className="flex-1 py-3 border border-dashed border-[#D5E3DC] rounded-xl text-xs text-slate-400 hover:text-[#0F766E] hover:border-[#B7D3C8] transition-colors text-center">
                   Carregar PDF / imagem
                 </button>
               </div>
@@ -731,12 +731,12 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
           <div>
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-xs font-semibold text-slate-900">Questões *</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">Nota total: <span className="font-bold text-violet-500">{notaTotalMaxima.toFixed(1).replace('.', ',')} pts</span></p>
+                <p className="text-xs font-semibold text-[#123C3A]">Questões *</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">Nota total: <span className="font-bold text-[#0F766E]">{notaTotalMaxima.toFixed(1).replace('.', ',')} pts</span></p>
               </div>
               <div className="flex gap-1.5 flex-wrap">
                 <button type="button" onClick={() => abrirGerarPopup('discursiva')} disabled={gerandoQuestoes}
-                  className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 disabled:bg-slate-100 border border-amber-200 disabled:border-slate-200 text-amber-600 disabled:text-slate-400 rounded-lg text-xs font-semibold transition-all flex items-center gap-1">
+                  className="px-2.5 py-1.5 bg-[#F3F8F5] hover:bg-[#DAEBE5] disabled:bg-[#F3F7F5] border border-[#D5E3DC] disabled:border-[#D5E3DC] text-[#0F766E] disabled:text-slate-400 rounded-lg text-xs font-semibold transition-all flex items-center gap-1">
                   {gerandoQuestoes ? (
                     <><svg className="animate-spin w-3.5 h-3.5" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg> Gerando...</>
                   ) : (
@@ -744,41 +744,41 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                   )}
                 </button>
                 <button type="button" onClick={() => abrirGerarPopup('objetiva')} disabled={gerandoQuestoes}
-                  className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 disabled:bg-slate-100 border border-amber-200 disabled:border-slate-200 text-amber-600 disabled:text-slate-400 rounded-lg text-xs font-semibold transition-all flex items-center gap-1">
+                  className="px-2.5 py-1.5 bg-[#F3F8F5] hover:bg-[#DAEBE5] disabled:bg-[#F3F7F5] border border-[#D5E3DC] disabled:border-[#D5E3DC] text-[#0F766E] disabled:text-slate-400 rounded-lg text-xs font-semibold transition-all flex items-center gap-1">
                   {gerandoQuestoes ? null : (
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                   )}
                   IA Objetiva
                 </button>
-                <span className="text-slate-300 mx-0.5 self-center">|</span>
+                <span className="text-[#B7D3C8] mx-0.5 self-center">|</span>
                 <button type="button" onClick={() => addQuestao('discursiva')}
-                  className="px-2.5 py-1.5 bg-violet-50 hover:bg-violet-100 border border-violet-200 text-violet-600 rounded-lg text-xs font-semibold transition-all">
+                  className="px-2.5 py-1.5 bg-[#F3F8F5] hover:bg-[#DAEBE5] hover:text-[#0B5F59] border border-[#D5E3DC] text-[#0F766E] rounded-lg text-xs font-semibold transition-all">
                   + Discursiva
                 </button>
                 <button type="button" onClick={() => addQuestao('objetiva')}
-                  className="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-600 rounded-lg text-xs font-semibold transition-all">
+                  className="px-2.5 py-1.5 bg-[#F3F8F5] hover:bg-[#DAEBE5] border border-[#D5E3DC] text-[#0F766E] rounded-lg text-xs font-semibold transition-all">
                   + Objetiva
                 </button>
               </div>
 
               {gerarPopup && (
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mt-2 animate-card-in">
-                  <p className="text-xs font-semibold text-amber-700 mb-3">
+                <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4 mt-2 animate-card-in">
+                  <p className="text-xs font-semibold text-[#0B5F59] mb-3">
                     Configurar geração — {gerarPopup.tipo === 'discursiva' ? 'Discursiva' : 'Objetiva'}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                     <div>
-                      <label className="block text-[10px] font-semibold text-slate-900 mb-1">Tema da questão</label>
+                      <label className="block text-[10px] font-semibold text-[#123C3A] mb-1">Tema da questão</label>
                       <input
                         type="text"
                         value={gerarPopup.tema || ''}
                         onChange={(e) => setGerarPopup(p => ({ ...p, tema: e.target.value }))}
                         placeholder="Ex: Revolução Industrial..."
-                        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 outline-none focus:ring-1 focus:ring-amber-400/50"
+                        className="w-full bg-white border border-[#D5E3DC] rounded-lg px-3 py-2 text-xs text-[#123C3A] placeholder-[#566F65] outline-none focus:ring-1 focus:ring-[#0F766E]/50"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-semibold text-slate-900 mb-1">Pontuação da questão *</label>
+                      <label className="block text-[10px] font-semibold text-[#123C3A] mb-1">Pontuação da questão *</label>
                       <input
                         type="number"
                         min="0.1"
@@ -786,13 +786,13 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                         value={gerarPopup.pontuacao || ''}
                         onChange={(e) => setGerarPopup(p => ({ ...p, pontuacao: e.target.value }))}
                         placeholder="Ex: 2.5"
-                        className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 placeholder-slate-400 outline-none focus:ring-1 focus:ring-amber-400/50"
+                        className="w-full bg-white border border-[#D5E3DC] rounded-lg px-3 py-2 text-xs text-[#123C3A] placeholder-[#566F65] outline-none focus:ring-1 focus:ring-[#0F766E]/50"
                       />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                     <div>
-                      <label className="block text-[10px] font-semibold text-slate-900 mb-1">Dificuldade</label>
+                      <label className="block text-[10px] font-semibold text-[#123C3A] mb-1">Dificuldade</label>
                       <div className="flex gap-1">
                         {[
                           { v: 'facil', l: 'Fácil' },
@@ -805,8 +805,8 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                             onClick={() => setGerarPopup(p => ({ ...p, dificuldade: v }))}
                             className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
                               gerarPopup.dificuldade === v
-                                ? 'bg-amber-500 text-white border-amber-400'
-                                : 'bg-white text-slate-500 border-slate-200 hover:border-amber-300'
+                                ? 'bg-[#0F766E] text-white border-[#0F766E]'
+                                : 'bg-white text-[#566F65] border-[#D5E3DC] hover:border-[#B7D3C8]'
                             }`}
                           >
                             {l}
@@ -821,9 +821,9 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                             type="checkbox"
                             checked={gerarPopup.incluirTextoApoio}
                             onChange={(e) => setGerarPopup(p => ({ ...p, incluirTextoApoio: e.target.checked }))}
-                            className="w-4 h-4 rounded accent-amber-500"
+                            className="w-4 h-4 rounded accent-[#0F766E]"
                           />
-                          <span className="text-xs text-slate-900 font-medium">Incluir texto de apoio</span>
+                          <span className="text-xs text-[#123C3A] font-medium">Incluir texto de apoio</span>
                         </label>
                       </div>
                     )}
@@ -837,7 +837,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                     <button
                       type="button"
                       onClick={() => setGerarPopup(null)}
-                      className="flex-1 py-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-500 font-medium transition-all hover:bg-slate-50"
+                      className="flex-1 py-2 bg-white border border-[#D5E3DC] rounded-lg text-xs text-[#566F65] font-medium transition-all hover:bg-[#F3F8F5]"
                     >
                       Cancelar
                     </button>
@@ -845,7 +845,7 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
                       type="button"
                       onClick={handleGerarQuestao}
                       disabled={gerandoQuestoes}
-                      className="flex-1 py-2 bg-amber-500 hover:bg-amber-400 disabled:bg-slate-200 text-white rounded-lg text-xs font-semibold transition-all"
+                      className="flex-1 py-2 bg-[#0F766E] hover:bg-[#0F766E] disabled:bg-[#D5E3DC] text-white rounded-lg text-xs font-semibold transition-all"
                     >
                       Gerar Questão
                     </button>
@@ -855,9 +855,9 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
             </div>
 
             {questoes.length === 0 && (
-              <div className="py-10 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-1">
+              <div className="py-10 border-2 border-dashed border-[#D5E3DC] rounded-xl flex flex-col items-center justify-center gap-1">
                 <p className="text-sm text-slate-400 font-medium">Nenhuma questão adicionada</p>
-                <p className="text-xs text-slate-300">Use os botões acima para criar questões</p>
+                <p className="text-xs text-[#B7D3C8]">Use os botões acima para criar questões</p>
               </div>
             )}
             {questoes.map((q, i) => (
@@ -877,26 +877,26 @@ export const AtividadeForm = ({ turmas, onCreate, onUpdate, onClose, initialData
 
             <div className="mt-3 flex gap-2">
               <button type="button" onClick={() => { addTextoBase(); }}
-                className="flex-1 py-3 border border-dashed border-slate-200 rounded-xl text-xs text-slate-400 hover:text-violet-500 hover:border-violet-300 transition-colors text-center">
+                className="flex-1 py-3 border border-dashed border-[#D5E3DC] rounded-xl text-xs text-slate-400 hover:text-[#0F766E] hover:border-[#B7D3C8] transition-colors text-center">
                 + Adicionar texto de apoio
               </button>
             </div>
           </div>
 
-          {materialTotal.length > 4000 && <p role="status" className="text-xs text-amber-800 bg-amber-50 p-3 rounded-xl">Material: {materialTotal.length} caracteres. A IA usa até 8.000 para gerar, 6.000 para corrigir e 4.000 para sugerir critérios. Revise os trechos iniciais usados.</p>}
+          {materialTotal.length > 4000 && <p role="status" className="text-xs text-[#123C3A] bg-[#F3F8F5] p-3 rounded-xl">Material: {materialTotal.length} caracteres. A IA usa até 8.000 para gerar, 6.000 para corrigir e 4.000 para sugerir critérios. Revise os trechos iniciais usados.</p>}
           {erro && (
-            <div className="p-3 bg-red-50 border border-red-100 rounded-xl">
-              <p className="text-xs text-red-500">{erro}</p>
+            <div className="p-3 bg-[#F3F8F5] border border-[#DAEBE5] rounded-xl">
+              <p className="text-xs text-[#0F766E]">{erro}</p>
             </div>
           )}
 
           <div className="flex gap-3 pt-1">
             <button type="button" onClick={() => { if (!saving && (assinatura === inicial.current || window.confirm('Descartar alterações não salvas desta atividade?'))) onClose?.(); }} disabled={saving}
-              className="flex-1 py-2.5 bg-slate-50 hover:bg-slate-200 border border-slate-200 rounded-xl text-sm text-slate-500 font-medium transition-all">
+              className="flex-1 py-2.5 bg-[#F3F8F5] hover:bg-[#D5E3DC] border border-[#D5E3DC] rounded-xl text-sm text-[#566F65] font-medium transition-all">
               Cancelar
             </button>
             <button type="submit" disabled={saving}
-              className="flex-1 py-2.5 bg-violet-500 hover:bg-violet-400 disabled:bg-slate-200 disabled:text-slate-400 rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary">
+              className="flex-1 py-2.5 bg-[#0F766E] hover:bg-[#0B5F59] disabled:bg-[#D5E3DC] disabled:text-slate-400 rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary">
               {saving ? 'Salvando...' : isEdit ? 'Salvar Alterações' : modoCopia ? 'Criar cópia' : 'Criar Atividade'}
             </button>
           </div>

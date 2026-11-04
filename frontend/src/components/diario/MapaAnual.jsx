@@ -87,36 +87,36 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
 
   return (
     <div>
-      <p className="text-xs text-slate-500 mb-3">Meta: 25 pontos por semestre e 50 no ano. Situação anual conclusiva após os quatro bimestres.</p>
+      <p className="text-xs text-[#566F65] mb-3">Meta: 25 pontos por semestre e 50 no ano. Situação anual conclusiva após os quatro bimestres.</p>
       <div className="flex items-center gap-3 mb-5 flex-wrap">
         <StatChipAnual label="Aprovados no ano" value={aprovados} color="border-green-200 text-green-600 bg-green-50" />
         <StatChipAnual label="Ano em andamento" value={pendentes} color="border-blue-200 text-blue-600 bg-blue-50" />
         <StatChipAnual label="Recuperação anual" value={reprovados} color="border-red-200 text-red-600 bg-red-50" />
         {mediaGeral !== null && (
-          <div className="ml-auto flex items-center gap-2 text-sm text-slate-500">
+          <div className="ml-auto flex items-center gap-2 text-sm text-[#566F65]">
             Média geral: <span className={`font-mono font-bold text-base ${mediaGeral >= ANUAL_MIN ? 'text-green-600' : 'text-blue-600'}`}>{fmt(mediaGeral)}</span>
           </div>
         )}
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm">
+      <div className="overflow-x-auto rounded-2xl border border-[#D5E3DC] bg-white/80 backdrop-blur-sm">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-left">
-              <th className="hidden sm:table-cell sticky left-0 z-20 bg-slate-50 px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider w-8">#</th>
-              <th className="sticky left-0 sm:left-[32px] z-20 bg-slate-50 px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider min-w-[130px] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">Aluno</th>
-              <th className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center border-l border-slate-200 w-20">1º Bim</th>
-              <th className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-20">2º Bim</th>
-              <th className="px-2 py-3 text-xs text-violet-500 font-bold uppercase tracking-wider text-center w-20" title="Recuperação do 1º Semestre">REC S1</th>
-              <th className="px-2 py-3 text-xs text-violet-500 font-bold uppercase tracking-wider text-center w-24">Total S1</th>
+            <tr className="bg-[#F3F8F5] border-b border-[#D5E3DC] text-left">
+              <th className="hidden sm:table-cell sticky left-0 z-20 bg-[#F3F8F5] px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider w-8">#</th>
+              <th className="sticky left-0 sm:left-[32px] z-20 bg-[#F3F8F5] px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider min-w-[130px] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">Aluno</th>
+              <th className="px-2 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center border-l border-[#D5E3DC] w-20">1º Bim</th>
+              <th className="px-2 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center w-20">2º Bim</th>
+              <th className="px-2 py-3 text-xs text-[#0F766E] font-bold uppercase tracking-wider text-center w-20" title="Recuperação do 1º Semestre">REC S1</th>
+              <th className="px-2 py-3 text-xs text-[#0F766E] font-bold uppercase tracking-wider text-center w-24">Total S1</th>
               <th className="px-1 py-3 text-xs text-blue-600 font-bold uppercase tracking-wider text-center w-24" title="Pontos que faltam para 25 no 1º semestre">Falta S1</th>
-              <th className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center border-l border-slate-200 w-20">3º Bim</th>
-              <th className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-20">4º Bim</th>
-              <th className="px-2 py-3 text-xs text-violet-500 font-bold uppercase tracking-wider text-center w-20" title="Recuperação do 2º Semestre">REC S2</th>
-              <th className="px-2 py-3 text-xs text-violet-500 font-bold uppercase tracking-wider text-center w-24">Total S2</th>
-              <th className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center border-l border-slate-200 w-24">Soma Anual</th>
+              <th className="px-2 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center border-l border-[#D5E3DC] w-20">3º Bim</th>
+              <th className="px-2 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center w-20">4º Bim</th>
+              <th className="px-2 py-3 text-xs text-[#0F766E] font-bold uppercase tracking-wider text-center w-20" title="Recuperação do 2º Semestre">REC S2</th>
+              <th className="px-2 py-3 text-xs text-[#0F766E] font-bold uppercase tracking-wider text-center w-24">Total S2</th>
+              <th className="px-2 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center border-l border-[#D5E3DC] w-24">Soma Anual</th>
               <th className="px-1 py-3 text-xs text-red-500 font-bold uppercase tracking-wider text-center w-24" title="Pontos que faltam para 50">Falta Final</th>
-              <th className="px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-28">Situação anual</th>
+              <th className="px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center w-28">Situação anual</th>
             </tr>
           </thead>
           <tbody>
@@ -128,19 +128,19 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
               const todosBims = bimTotais[0] !== null && bimTotais[1] !== null && sem2Completo;
 
               return (
-                <tr key={aluno.id} className={`border-b border-slate-100 transition-all ${idx % 2 === 0 ? 'bg-slate-50/80' : 'bg-white'} hover:bg-slate-100`}>
+                <tr key={aluno.id} className={`border-b border-[#F3F7F5] transition-all ${idx % 2 === 0 ? 'bg-[#F3F8F5]/80' : 'bg-white'} hover:bg-[#F3F7F5]`}>
                   <td className="hidden sm:table-cell sticky left-0 z-10 bg-inherit px-3 py-2 text-slate-400 font-mono text-xs">{idx + 1}</td>
-                  <td className="sticky left-0 sm:left-[32px] z-10 bg-inherit px-3 py-2 text-slate-900 font-medium shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">{titleCase(aluno.nome)}</td>
-                  <td className="px-2 py-2 text-center border-l border-slate-200"><BimCell value={bimTotais[0]} config={turma.bimestres["1"]?.config} /></td>
+                  <td className="sticky left-0 sm:left-[32px] z-10 bg-inherit px-3 py-2 text-[#123C3A] font-medium shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">{titleCase(aluno.nome)}</td>
+                  <td className="px-2 py-2 text-center border-l border-[#D5E3DC]"><BimCell value={bimTotais[0]} config={turma.bimestres["1"]?.config} /></td>
                   <td className="px-2 py-2 text-center"><BimCell value={bimTotais[1]} config={turma.bimestres["2"]?.config} /></td>
                   <td className="px-1 py-1 text-center"><NumCell value={alunoRec.rec1 ?? ''} min={0} max={10} onChange={(v) => onSetRecuperacao(turma.id, aluno.id, 'rec1', v)} placeholder="—" /></td>
-                  <td className="px-2 py-2 text-center bg-violet-50/60"><SemestreCell semestre={S1} /></td>
+                  <td className="px-2 py-2 text-center bg-[#F3F8F5]/60"><SemestreCell semestre={S1} /></td>
                   <td className="px-1 py-2 text-center"><FaltaS1Cell s1Total={S1.total} /></td>
-                  <td className="px-2 py-2 text-center border-l border-slate-200"><BimCell value={bimTotais[2]} config={turma.bimestres["3"]?.config} /></td>
+                  <td className="px-2 py-2 text-center border-l border-[#D5E3DC]"><BimCell value={bimTotais[2]} config={turma.bimestres["3"]?.config} /></td>
                   <td className="px-2 py-2 text-center"><BimCell value={bimTotais[3]} config={turma.bimestres["4"]?.config} /></td>
                   <td className="px-1 py-1 text-center"><NumCell value={alunoRec.rec2 ?? ''} min={0} max={10} onChange={(v) => onSetRecuperacao(turma.id, aluno.id, 'rec2', v)} placeholder="—" /></td>
-                  <td className="px-2 py-2 text-center bg-violet-50/60"><SemestreCell semestre={S2} /></td>
-                  <td className="px-2 py-2 text-center border-l border-slate-200">
+                  <td className="px-2 py-2 text-center bg-[#F3F8F5]/60"><SemestreCell semestre={S2} /></td>
+                  <td className="px-2 py-2 text-center border-l border-[#D5E3DC]">
                     {totalAnual !== null ? <span className={`font-mono font-bold text-sm px-2 py-0.5 rounded ${STATUS_STYLES[statusFinal]}`}>{fmt(totalAnual)}</span> : <span className="text-slate-400 text-xs font-mono">&mdash;</span>}
                   </td>
                   <td className="px-1 py-2 text-center"><FaltaFinalCell total={totalAnual} todosBims={todosBims} /></td>
@@ -156,31 +156,31 @@ export const MapaAnual = ({ turma, onSetRecuperacao }) => {
             })}
           </tbody>
           <tfoot>
-            <tr className="bg-slate-50 border-t-2 border-slate-200">
+            <tr className="bg-[#F3F8F5] border-t-2 border-[#D5E3DC]">
               <td className="hidden sm:table-cell sticky left-0 z-10 bg-inherit px-3 py-3"></td>
               <td className="sticky left-0 sm:left-[32px] z-10 bg-inherit px-3 py-3 shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">
-                <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Média da Turma</span>
+                <span className="text-xs text-[#566F65] uppercase font-bold tracking-wider">Média da Turma</span>
               </td>
               {mediaBim.slice(0, 2).map((m, i) => (
-                <td key={i} className="px-2 py-3 text-center border-l border-slate-200">
+                <td key={i} className="px-2 py-3 text-center border-l border-[#D5E3DC]">
                   {m !== null ? <span className={`font-mono font-semibold text-sm ${estiloNotaBimestral(m, turma.bimestres[String(i + 1)]?.config).split(' ')[0]}`}>{fmt(m)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
                 </td>
               ))}
               <td className="px-2 py-3 text-center"><span className="text-slate-400 font-mono text-sm">&mdash;</span></td>
-              <td className="px-2 py-3 text-center bg-violet-50/80">
-                {avgS1 !== null ? <span className="font-mono font-bold text-sm text-slate-900">{fmt(avgS1)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
+              <td className="px-2 py-3 text-center bg-[#F3F8F5]/80">
+                {avgS1 !== null ? <span className="font-mono font-bold text-sm text-[#123C3A]">{fmt(avgS1)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
               </td>
               <td className="px-1 py-3 text-center"><span className="text-slate-400 font-mono text-xs">&mdash;</span></td>
               {mediaBim.slice(2, 4).map((m, i) => (
-                <td key={i + 2} className="px-2 py-3 text-center border-l border-slate-200">
+                <td key={i + 2} className="px-2 py-3 text-center border-l border-[#D5E3DC]">
                   {m !== null ? <span className={`font-mono font-semibold text-sm ${estiloNotaBimestral(m, turma.bimestres[String(i + 3)]?.config).split(' ')[0]}`}>{fmt(m)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
                 </td>
               ))}
               <td className="px-2 py-3 text-center"><span className="text-slate-400 font-mono text-sm">&mdash;</span></td>
-              <td className="px-2 py-3 text-center bg-violet-50/80">
-                {avgS2 !== null ? <span className="font-mono font-bold text-sm text-slate-900">{fmt(avgS2)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
+              <td className="px-2 py-3 text-center bg-[#F3F8F5]/80">
+                {avgS2 !== null ? <span className="font-mono font-bold text-sm text-[#123C3A]">{fmt(avgS2)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
               </td>
-              <td className="px-2 py-3 text-center border-l border-slate-200">
+              <td className="px-2 py-3 text-center border-l border-[#D5E3DC]">
                 {mediaGeral !== null ? <span className={`font-mono font-bold text-sm ${mediaGeral >= ANUAL_MIN ? 'text-green-600' : 'text-blue-600'}`}>{fmt(mediaGeral)}</span> : <span className="text-slate-400 font-mono text-sm">&mdash;</span>}
               </td>
               <td className="px-1 py-3 text-center"><span className="text-slate-400 font-mono text-xs">&mdash;</span></td>

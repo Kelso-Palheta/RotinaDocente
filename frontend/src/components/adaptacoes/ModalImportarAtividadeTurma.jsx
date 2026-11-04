@@ -119,27 +119,27 @@ export function ModalImportarAtividadeTurma({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/50 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123c3a]/50 backdrop-blur-xs"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Puxar Atividade da Turma"
     >
       <div
-        className="bg-white rounded-3xl border border-[#dce0f0] shadow-2xl p-6 w-full max-w-xl max-h-[85vh] flex flex-col animate-in fade-in zoom-in-95"
+        className="bg-white rounded-3xl border border-[#d5e3dc] shadow-2xl p-6 w-full max-w-xl max-h-[85vh] flex flex-col animate-in fade-in zoom-in-95"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Cabeçalho */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="flex items-center justify-between pb-3 border-b border-[#F3F7F5]">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-2xl bg-[#fff2f6] border border-[#fde4ec] flex items-center justify-center text-[#f60c49]">
+            <div className="w-9 h-9 rounded-2xl bg-[#f3f8f5] border border-[#daebe5] flex items-center justify-center text-[#0f766e]">
               <FolderOpen size={18} />
             </div>
             <div>
-              <h3 className="text-sm font-extrabold text-[#101942]">
+              <h3 className="text-sm font-extrabold text-[#123c3a]">
                 Puxar Atividade Cadastrada da Turma
               </h3>
-              <p className="text-[11px] text-[#6070a0] font-medium">
+              <p className="text-[11px] text-[#4f6b63] font-medium">
                 Importe os enunciados e questões originais para adaptar para o estudante (RN-60)
               </p>
             </div>
@@ -147,7 +147,7 @@ export function ModalImportarAtividadeTurma({
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 p-1 rounded-xl transition-colors"
+            className="text-slate-400 hover:text-[#4F6B63] p-1 rounded-xl transition-colors"
           >
             <X size={18} />
           </button>
@@ -157,13 +157,13 @@ export function ModalImportarAtividadeTurma({
         <div className="py-3 space-y-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#6070a0] mb-1">
+              <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#4f6b63] mb-1">
                 Turma
               </label>
               <select
                 value={turmaId}
                 onChange={(e) => setTurmaId(e.target.value)}
-                className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs font-bold text-[#101942] outline-none focus:border-[#f60c49] transition-all"
+                className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs font-bold text-[#123c3a] outline-none focus:border-[#0f766e] transition-all"
               >
                 {turmas.map((t) => (
                   <option key={t.id} value={t.id}>
@@ -174,7 +174,7 @@ export function ModalImportarAtividadeTurma({
             </div>
 
             <div>
-              <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#6070a0] mb-1">
+              <label className="block text-[10px] font-extrabold uppercase tracking-wider text-[#4f6b63] mb-1">
                 Filtrar por nome
               </label>
               <input
@@ -182,7 +182,7 @@ export function ModalImportarAtividadeTurma({
                 placeholder="Ex: Prova, Lista, Revolução..."
                 value={termoBusca}
                 onChange={(e) => setTermoBusca(e.target.value)}
-                className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none focus:border-[#f60c49] transition-all"
+                className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none focus:border-[#0f766e] transition-all"
               />
             </div>
           </div>
@@ -191,22 +191,22 @@ export function ModalImportarAtividadeTurma({
         {/* Lista de Atividades */}
         <div className="flex-1 overflow-y-auto space-y-2 py-2 pr-1 min-h-[180px]">
           {carregando ? (
-            <div className="flex flex-col items-center justify-center py-10 text-xs text-[#6070a0] gap-2">
-              <Loader2 size={18} className="animate-spin text-[#f60c49]" />
+            <div className="flex flex-col items-center justify-center py-10 text-xs text-[#4f6b63] gap-2">
+              <Loader2 size={18} className="animate-spin text-[#0f766e]" />
               <span>Buscando atividades cadastradas...</span>
             </div>
           ) : erro ? (
-            <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-xs text-center">
-              <AlertCircle size={18} className="mx-auto mb-1 text-rose-600" />
+            <div className="p-4 bg-[#F3F8F5] border border-[#D5E3DC] rounded-2xl text-[#0B5F59] text-xs text-center">
+              <AlertCircle size={18} className="mx-auto mb-1 text-[#0F766E]" />
               <p>{erro}</p>
             </div>
           ) : atividadesFiltradas.length === 0 ? (
-            <div className="text-center py-10 px-4 bg-[#f7f8fc] border border-dashed border-[#dce0f0] rounded-2xl">
-              <FileText size={24} className="mx-auto mb-2 text-[#9098c0]" />
-              <p className="text-xs font-bold text-[#101942]">
+            <div className="text-center py-10 px-4 bg-[#f3f7f5] border border-dashed border-[#d5e3dc] rounded-2xl">
+              <FileText size={24} className="mx-auto mb-2 text-[#566f65]" />
+              <p className="text-xs font-bold text-[#123c3a]">
                 Nenhuma atividade encontrada nesta turma.
               </p>
-              <p className="text-[11px] text-[#6070a0] mt-1">
+              <p className="text-[11px] text-[#4f6b63] mt-1">
                 Você pode anexar um arquivo PDF/Word ou colar as questões manualmente.
               </p>
             </div>
@@ -215,27 +215,27 @@ export function ModalImportarAtividadeTurma({
               <div
                 key={atv.id}
                 onClick={() => handleSelecionar(atv)}
-                className="p-3.5 rounded-2xl border border-[#dce0f0] hover:border-[#f60c49] hover:bg-[#fff2f6]/40 cursor-pointer transition-all flex items-center justify-between gap-3 group"
+                className="p-3.5 rounded-2xl border border-[#d5e3dc] hover:border-[#0f766e] hover:bg-[#f3f8f5]/40 cursor-pointer transition-all flex items-center justify-between gap-3 group"
               >
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-bold text-[#101942] group-hover:text-[#d40840] transition-colors truncate">
+                    <span className="text-xs font-bold text-[#123c3a] group-hover:text-[#0b5f59] transition-colors truncate">
                       {atv.titulo || atv.nome}
                     </span>
                     {atv.bimestre && (
-                      <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-slate-100 text-[#6070a0]">
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-[#F3F7F5] text-[#4f6b63]">
                         {atv.bimestre}º Bimestre
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] text-[#6070a0]">
+                  <p className="text-[11px] text-[#4f6b63]">
                     {atv.disciplina || "Geral"}
                     {Array.isArray(atv.questoes) && ` • ${atv.questoes.length} questão(ões)`}
                   </p>
                 </div>
                 <button
                   type="button"
-                  className="shrink-0 px-3 py-1.5 bg-white border border-[#dce0f0] group-hover:border-[#f60c49] group-hover:bg-[#f60c49] group-hover:text-white text-xs font-bold rounded-xl transition-all shadow-2xs"
+                  className="shrink-0 px-3 py-1.5 bg-white border border-[#d5e3dc] group-hover:border-[#0f766e] group-hover:bg-[#0f766e] group-hover:text-white text-xs font-bold rounded-xl transition-all shadow-2xs"
                 >
                   Selecionar
                 </button>
@@ -245,14 +245,14 @@ export function ModalImportarAtividadeTurma({
         </div>
 
         {/* Rodapé Informativo */}
-        <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-[#6070a0]">
+        <div className="pt-3 border-t border-[#F3F7F5] flex items-center justify-between text-[11px] text-[#4f6b63]">
           <span>
             {atividadesFiltradas.length} atividade(s) disponível(is)
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="px-3.5 py-1.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold transition-all"
+            className="px-3.5 py-1.5 border border-[#D5E3DC] hover:bg-[#F3F8F5] text-[#35594D] rounded-xl font-bold transition-all"
           >
             Fechar
           </button>

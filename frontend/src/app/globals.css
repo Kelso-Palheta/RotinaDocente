@@ -2,30 +2,30 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #101942;
-  
-  /* SimuladoApp Brand Tokens */
-  --navy: #101942;
-  --pink: #f60c49;
-  --pink-dark: #d40840;
-  --pink-light: #fde4ec;
-  --pink-soft: #fff2f6;
-  --green-light: #eef0f8;
-  --ink: #101942;
-  --gray: #6070a0;
-  --gray-light: #9098c0;
-  --bg-soft: #eef0f8;
-  --border: #dce0f0;
+  --foreground: #123c3a;
+
+  /* Rotina Docente Brand Tokens — petróleo e sálvia */
+  --navy: #123c3a;
+  --pink: #0f766e;
+  --pink-dark: #0b5f59;
+  --pink-light: #daebe5;
+  --pink-soft: #f3f8f5;
+  --green-light: #f3f7f5;
+  --ink: #123c3a;
+  --gray: #4f6b63;
+  --gray-light: #566f65;
+  --bg-soft: #f3f7f5;
+  --border: #d5e3dc;
   --white: #ffffff;
 
   /* Primary Brand Colors (Edu Hub) */
-  --primary: #f60c49;
+  --primary: #0f766e;
   --primary-foreground: #ffffff;
-  
+
   /* Glassmorphism Tokens */
   --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(220, 224, 240, 0.8);
-  --glass-shadow: 0 8px 30px rgba(16, 25, 66, 0.08);
+  --glass-border: rgba(213, 227, 220, 0.8);
+  --glass-shadow: 0 8px 30px rgba(18, 60, 58, 0.08);
 
   --font-head: var(--font-manrope), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
@@ -61,12 +61,12 @@ h1, h2, h3, h4, .font-head {
   font-family: var(--font-head);
   font-weight: 700;
   border-radius: 100px;
-  box-shadow: 0 8px 24px rgba(246, 12, 73, 0.28);
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.28);
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-brand-primary:hover {
   background: var(--pink-dark);
-  box-shadow: 0 12px 30px rgba(246, 12, 73, 0.38);
+  box-shadow: 0 12px 30px rgba(15, 118, 110, 0.38);
   transform: translateY(-1px);
 }
 
@@ -81,7 +81,7 @@ h1, h2, h3, h4, .font-head {
 }
 .btn-brand-ghost:hover {
   border-color: var(--navy);
-  background: rgba(16, 25, 66, 0.03);
+  background: rgba(18, 60, 58, 0.03);
 }
 
 .btn-brand-navy {
@@ -93,7 +93,7 @@ h1, h2, h3, h4, .font-head {
   transition: all 0.25s ease;
 }
 .btn-brand-navy:hover {
-  background: #090f28;
+  background: #0a2a27;
   transform: translateY(-1px);
 }
 

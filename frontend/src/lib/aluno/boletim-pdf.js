@@ -46,11 +46,11 @@ export const generateBoletimPDF = ({
   const faixaY = emissaoY + 4;
   const alturaCabecalho = faixaY + 2;
 
-  doc.setFillColor(16, 25, 66); // #101942
+  doc.setFillColor(18, 60, 58); // #123c3a
   doc.rect(0, 0, pageWidth, alturaCabecalho, "F");
 
   // Faixa rosa SimuladoApp
-  doc.setFillColor(246, 12, 73); // #f60c49
+  doc.setFillColor(15, 118, 110); // #0f766e
   doc.rect(0, faixaY, pageWidth, 2, "F");
 
   doc.setFont("helvetica", "bold");
@@ -60,7 +60,7 @@ export const generateBoletimPDF = ({
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  doc.setTextColor(220, 224, 240);
+  doc.setTextColor(213, 227, 220);
   let cabecalhoY = 26;
   for (const linha of [...alunoLinhas, ...turmaLinhas]) {
     doc.text(linha, margin, cabecalhoY);
@@ -71,14 +71,14 @@ export const generateBoletimPDF = ({
   let cursorY = alturaCabecalho + 10;
 
   // ── TABELA DE NOTAS BIMESTRAIS ──
-  doc.setFillColor(238, 240, 248);
+  doc.setFillColor(243, 247, 245);
   doc.rect(margin, cursorY, maxLineWidth, 8, "F");
-  doc.setDrawColor(220, 224, 240);
+  doc.setDrawColor(213, 227, 220);
   doc.rect(margin, cursorY, maxLineWidth, 8, "S");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
   doc.text("PERÍODO / ETAPA", margin + 4, cursorY + 5.5);
   doc.text("NOTA OBTIDA", margin + 80, cursorY + 5.5);
   doc.text("SITUAÇÃO", margin + maxLineWidth - 25, cursorY + 5.5);
@@ -94,15 +94,15 @@ export const generateBoletimPDF = ({
 
   bimestresConfig.forEach((b, idx) => {
     if (idx % 2 === 1) {
-      doc.setFillColor(247, 248, 252);
+      doc.setFillColor(243, 248, 245);
       doc.rect(margin, cursorY, maxLineWidth, 9, "F");
     }
-    doc.setDrawColor(240, 242, 248);
+    doc.setDrawColor(213, 227, 220);
     doc.line(margin, cursorY + 9, margin + maxLineWidth, cursorY + 9);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     doc.text(b.label, margin + 4, cursorY + 6);
 
     // Nota — ausência é distinta de zero real.
@@ -122,12 +122,12 @@ export const generateBoletimPDF = ({
 
   // ── RESUMO SEMESTRAL E ANUAL ──
   cursorY += 6;
-  doc.setFillColor(247, 248, 252);
+  doc.setFillColor(243, 248, 245);
   doc.roundedRect(margin, cursorY, maxLineWidth, 32, 2, 2, "F");
-  doc.setDrawColor(220, 224, 240);
+  doc.setDrawColor(213, 227, 220);
   doc.roundedRect(margin, cursorY, maxLineWidth, 32, 2, 2, "S");
   const situacoes = situacoesBoletim(bimTotais, S1, S2, totalAnual);
-  const cores = { good: [22, 101, 52], bad: [153, 27, 27], warn: [37, 99, 235], none: [100, 116, 139] };
+  const cores = { good: [22, 101, 52], bad: [153, 27, 27], warn: [37, 99, 235], none: [86, 111, 101] };
   [
     { label: '1º SEMESTRE', total: S1.total, status: situacoes.S1.status, meta: 25 },
     { label: '2º SEMESTRE', total: S2.total, status: situacoes.S2.status, meta: 25 },
@@ -136,7 +136,7 @@ export const generateBoletimPDF = ({
     const x = margin + 7 + i * (maxLineWidth / 3);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
-    doc.setTextColor(96, 112, 160);
+    doc.setTextColor(79, 107, 99);
     doc.text(etapa.label, x, cursorY + 7);
     doc.setTextColor(...cores[etapa.status]);
     doc.setFontSize(13);
@@ -144,26 +144,26 @@ export const generateBoletimPDF = ({
     doc.setFontSize(8);
     doc.text(ROTULOS_APROVACAO[etapa.status], x, cursorY + 22);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(96, 112, 160);
+    doc.setTextColor(79, 107, 99);
     doc.text(`Mínimo: ${fmt(etapa.meta)} pontos`, x, cursorY + 28);
   });
   cursorY += 40;
 
   // ── SEÇÃO DE REDAÇÃO ENEM SE HOUVER ──
   if (redacao) {
-    doc.setFillColor(255, 242, 246);
+    doc.setFillColor(243, 248, 245);
     doc.roundedRect(margin, cursorY, maxLineWidth, 24, 2, 2, "F");
-    doc.setDrawColor(253, 228, 236);
+    doc.setDrawColor(218, 235, 229);
     doc.roundedRect(margin, cursorY, maxLineWidth, 24, 2, 2, "S");
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
-    doc.setTextColor(212, 8, 64);
+    doc.setTextColor(15, 118, 110);
     doc.text("Última Redação ENEM Corrigida por IA", margin + 5, cursorY + 7);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     const temaCortado = redacao.essayTheme?.length > 70 ? redacao.essayTheme.substring(0, 67) + "..." : redacao.essayTheme;
     doc.text(`Tema: ${temaCortado}`, margin + 5, cursorY + 13);
     const notasRedacao=normalizarNotasHistorico(redacao);
@@ -174,12 +174,12 @@ export const generateBoletimPDF = ({
 
   // ── ASSINATURAS E VALIDAÇÃO ──
   cursorY = pageHeight - 35;
-  doc.setDrawColor(180, 190, 210);
+  doc.setDrawColor(183, 211, 200);
   doc.line(margin + 10, cursorY, margin + 70, cursorY);
   doc.line(pageWidth - margin - 70, cursorY, pageWidth - margin - 10, cursorY);
 
   doc.setFontSize(8);
-  doc.setTextColor(100, 110, 140);
+  doc.setTextColor(79, 107, 99);
   doc.text("Assinatura da Coordenação Pedagógica", margin + 40, cursorY + 5, { align: "center" });
   doc.text("Assinatura do Responsável", pageWidth - margin - 40, cursorY + 5, { align: "center" });
 

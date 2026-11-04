@@ -86,13 +86,13 @@ export const ImportModal = ({ turma, onConfirm, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="w-full max-w-lg bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+      <div className="w-full max-w-lg bg-white border border-[#D5E3DC] rounded-2xl shadow-xl overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#D5E3DC]">
           <div>
-            <h2 className="font-semibold text-slate-900">Importar Alunos</h2>
+            <h2 className="font-semibold text-[#123C3A]">Importar Alunos</h2>
             <p className="text-xs text-slate-400 mt-0.5">Turma {turma.nome}</p>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors text-xl leading-none">×</button>
+          <button onClick={onClose} className="text-slate-400 hover:text-[#4F6B63] transition-colors text-xl leading-none">×</button>
         </div>
 
         <div className="p-6">
@@ -104,12 +104,12 @@ export const ImportModal = ({ turma, onConfirm, onClose }) => {
                 onDrop={onDrop}
                 onClick={() => inputRef.current?.click()}
                 className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors
-                  ${dragging ? 'border-violet-500 bg-violet-50' : 'border-slate-300 hover:border-violet-400 hover:bg-slate-50'}`}
+                  ${dragging ? 'border-[#0F766E] bg-[#F3F8F5]' : 'border-[#B7D3C8] hover:border-[#0F766E] hover:bg-[#F3F8F5]'}`}
               >
                 <div className="text-4xl mb-3">📂</div>
-                <p className="text-sm text-slate-600 font-medium">Arraste ou clique para selecionar</p>
+                <p className="text-sm text-[#4F6B63] font-medium">Arraste ou clique para selecionar</p>
                 <p className="text-xs text-slate-400 mt-1">.xlsx · .csv · .pdf · .jpg · .png · .webp</p>
-                <p className="text-[10px] text-slate-500 mt-2">PDF/imagem usa extração por IA</p>
+                <p className="text-[10px] text-[#566F65] mt-2">PDF/imagem usa extração por IA</p>
                 <input
                   ref={inputRef}
                   type="file"
@@ -119,7 +119,7 @@ export const ImportModal = ({ turma, onConfirm, onClose }) => {
                 />
               </div>
               {stage === 'error' && (
-                <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+                <div className="mt-3 p-3 bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg text-sm text-[#0F766E]">
                   ⚠ {erro}
                 </div>
               )}
@@ -128,7 +128,7 @@ export const ImportModal = ({ turma, onConfirm, onClose }) => {
 
           {stage === 'processing' && (
             <div className="py-16 flex flex-col items-center gap-4">
-              <div className="w-10 h-10 rounded-full border-2 border-violet-500 border-t-transparent animate-spin" />
+              <div className="w-10 h-10 rounded-full border-2 border-[#0F766E] border-t-transparent animate-spin" />
               <p className="text-sm text-slate-400">Processando arquivo…</p>
             </div>
           )}
@@ -136,30 +136,30 @@ export const ImportModal = ({ turma, onConfirm, onClose }) => {
           {stage === 'preview' && (
             <>
               <div className="flex items-center gap-2 mb-3 flex-wrap">
-                <span className="text-sm text-slate-600">
-                  <strong className="text-green-600">{novos.length}</strong> novo{novos.length !== 1 && 's'}
+                <span className="text-sm text-[#4F6B63]">
+                  <strong className="text-[#0F766E]">{novos.length}</strong> novo{novos.length !== 1 && 's'}
                   {duplicatas.length > 0 && (
-                    <>, <strong className="text-amber-500">{duplicatas.length}</strong> já exist{duplicatas.length !== 1 ? 'em' : 'e'}</>
+                    <>, <strong className="text-[#0F766E]">{duplicatas.length}</strong> já exist{duplicatas.length !== 1 ? 'em' : 'e'}</>
                   )}
                 </span>
                 {comData > 0 && (
-                  <span className="text-[10px] bg-violet-50 text-violet-600 border border-violet-200 px-2 py-0.5 rounded-full font-medium">
+                  <span className="text-[10px] bg-[#F3F8F5] text-[#0F766E] border border-[#D5E3DC] px-2 py-0.5 rounded-full font-medium">
                     📅 {comData} com data de nascimento
                   </span>
                 )}
-                <button onClick={() => setStage('drop')} className="ml-auto text-xs text-slate-400 hover:text-slate-600">← trocar arquivo</button>
+                <button onClick={() => setStage('drop')} className="ml-auto text-xs text-slate-400 hover:text-[#4F6B63]">← trocar arquivo</button>
               </div>
 
               <div className="max-h-64 overflow-y-auto space-y-1 pr-1">
                 {alunos.map((aluno, i) => {
                   const isDup = existentes.has(normalizeNome(aluno.nome));
                   return (
-                    <div key={i} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${isDup ? 'opacity-40' : 'bg-slate-50'}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isDup ? 'bg-amber-400' : 'bg-green-400'}`} />
+                    <div key={i} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${isDup ? 'opacity-40' : 'bg-[#F3F8F5]'}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isDup ? 'bg-[#0F766E]' : 'bg-[#0F766E]'}`} />
                       {editNome === i ? (
                         <input
                           autoFocus
-                          className="flex-1 bg-transparent border-b border-violet-500 outline-none text-slate-900 font-mono text-xs"
+                          className="flex-1 bg-transparent border-b border-[#0F766E] outline-none text-[#123C3A] font-mono text-xs"
                           defaultValue={aluno.nome}
                           onBlur={(e) => {
                             const novo = cleanNome(e.target.value);
@@ -169,30 +169,30 @@ export const ImportModal = ({ turma, onConfirm, onClose }) => {
                           onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur(); if (e.key === 'Escape') setEditNome(null); }}
                         />
                       ) : (
-                        <span className="flex-1 font-mono text-xs text-slate-800">{titleCase(aluno.nome)}</span>
+                        <span className="flex-1 font-mono text-xs text-[#194D46]">{titleCase(aluno.nome)}</span>
                       )}
                       {aluno.dataNascimento && (
-                        <span className="text-[10px] font-mono text-violet-500 bg-violet-50 px-1.5 py-0.5 rounded border border-violet-200" title="Data de nascimento (ddMM)">
+                        <span className="text-[10px] font-mono text-[#0F766E] bg-[#F3F8F5] px-1.5 py-0.5 rounded border border-[#D5E3DC]" title="Data de nascimento (ddMM)">
                           📅 {aluno.dataNascimento}
                         </span>
                       )}
                       {!isDup && (
-                        <button onClick={() => setEditNome(i)} className="text-slate-400 hover:text-slate-600 text-xs">✎</button>
+                        <button onClick={() => setEditNome(i)} className="text-slate-400 hover:text-[#4F6B63] text-xs">✎</button>
                       )}
-                      <button onClick={() => setAlunos((prev) => prev.filter((_, j) => j !== i))} className="text-slate-400 hover:text-red-500 text-xs">×</button>
+                      <button onClick={() => setAlunos((prev) => prev.filter((_, j) => j !== i))} className="text-slate-400 hover:text-[#0F766E] text-xs">×</button>
                     </div>
                   );
                 })}
               </div>
 
               <div className="flex gap-3 mt-4">
-                <button onClick={onClose} className="flex-1 py-2 rounded-lg border border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300 text-sm transition-all">
+                <button onClick={onClose} className="flex-1 py-2 rounded-lg border border-[#D5E3DC] text-[#566F65] hover:text-[#35594D] hover:border-[#B7D3C8] text-sm transition-all">
                   Cancelar
                 </button>
                 <button
                   onClick={confirmar}
                   disabled={novos.length === 0}
-                  className="flex-1 py-2 rounded-lg bg-violet-500 hover:bg-violet-400 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium transition-all"
+                  className="flex-1 py-2 rounded-lg bg-[#0F766E] hover:bg-[#0B5F59] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium transition-all"
                 >
                   Adicionar {novos.length} aluno{novos.length !== 1 && 's'}
                 </button>

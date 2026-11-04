@@ -148,3 +148,8 @@ Revisão independente de 29/10/2026: os dois bloqueios restantes (emissão colid
 
 ## RN-82 — Copiar recuperação para outra turma
 No Gerador de Atividades → Recuperação semestral, permitir reaproveitar o conteúdo de uma atividade regular pelo botão “Copiar para outra turma”. Escolher conjunto/turma de destino, semestre/alunos do destino e novo prazo; revisar questões, imagens e pontuação antes de criar. Novo conjunto pode ser criado pelo fluxo existente. Não copiar respostas, notas ou vínculos da origem. Manter isolamento e liberação apenas quando a distribuição do destino fechar 10 pontos. Plano: `docs/plans/2026-10-28-copiar-recuperacao-outra-turma.md`. Entrega inicial do DeepSeek corrigida neste chat após revisão. Evidências e limites: `docs/analises/2026-10-28-correcao-copia-recuperacao.md`.
+
+
+### Identidade visual petróleo e sálvia (04/11/2026)
+
+Toda a interface própria adota a paleta aprovada em `PALETA_PETROLEO_SALVIA_SPEC.md`: fundos, navegação, títulos, botões, formulários, estados, diálogos e decoração de exportações. A estrutura, fontes, dimensões, responsividade, comportamento, dados e cores de classificação das notas permanecem. Imagens didáticas, alto contraste educacional, cores personalizadas e marcas de terceiros não sofrem migração. A autorização posterior permite ajustar somente expectativas literais de cor em três testes anteriores.

@@ -52,11 +52,11 @@ export async function generateFichaAluno360PDF({
   const faixaY = emissaoY + 4;
   const alturaCabecalho = Math.max(36, faixaY + 1.5);
 
-  doc.setFillColor(16, 25, 66); // #101942
+  doc.setFillColor(18, 60, 58); // #123c3a
   doc.rect(0, 0, pageWidth, alturaCabecalho, 'F');
 
   // Linha rosa de destaque
-  doc.setFillColor(246, 12, 73); // #f60c49
+  doc.setFillColor(15, 118, 110); // #0f766e
   doc.rect(0, faixaY, pageWidth, 1.5, 'F');
 
   doc.setFont('helvetica', 'bold');
@@ -66,7 +66,7 @@ export async function generateFichaAluno360PDF({
 
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(220, 224, 240);
+  doc.setTextColor(213, 227, 220);
   doc.text(`DOCUMENTO INDIVIDUAL PARA CONSELHO DE CLASSE E REUNIÃO DE PAIS`, margin, 21);
   let cabecalhoY = 27;
   for (const linha of professorLinhas) {
@@ -82,7 +82,7 @@ export async function generateFichaAluno360PDF({
     const tamanho = doc.getFontSize?.() || 8;
     const cor = doc.getTextColor?.();
     doc.addPage();
-    doc.setFont('helvetica', 'bold');doc.setFontSize(9);doc.setTextColor(16,25,66);
+    doc.setFont('helvetica', 'bold');doc.setFontSize(9);doc.setTextColor(18,60,58);
     doc.text(`Ficha 360º • ${ficha.aluno.nome}`, margin, 14);
     cursorY = 24;
     doc.setFont(fonte?.fontName || 'helvetica', fonte?.fontStyle || 'normal');
@@ -104,25 +104,25 @@ export async function generateFichaAluno360PDF({
       texto: `ESTUDANTE: ${ficha.aluno.nome.toUpperCase()}`,
       fonte: 'bold',
       tamanho: 9.5,
-      cor: [16, 25, 66],
+      cor: [18, 60, 58],
     },
     {
       texto: `TURMA: ${ficha.turma.nome}`,
       fonte: 'normal',
       tamanho: 8.5,
-      cor: [70, 80, 100],
+      cor: [79, 107, 99],
     },
     {
       texto: `DISCIPLINA: ${ficha.turma.disciplina}`,
       fonte: 'normal',
       tamanho: 8.5,
-      cor: [70, 80, 100],
+      cor: [79, 107, 99],
     },
     {
       texto: `MATRÍCULA: ${ficha.aluno.matricula}`,
       fonte: 'normal',
       tamanho: 8.5,
-      cor: [70, 80, 100],
+      cor: [79, 107, 99],
     },
   ].map((bloco) => {
     // Medir cada bloco com a mesma fonte/estilo/tamanho usados para desenhá-lo.
@@ -137,9 +137,9 @@ export async function generateFichaAluno360PDF({
     + identificacaoBlocos.reduce((total, bloco) => total + bloco.linhas.length, 0) * 4.2
     + 3;
 
-  doc.setFillColor(245, 247, 252);
+  doc.setFillColor(243, 248, 245);
   doc.roundedRect(margin, cursorY, contentWidth, alturaIdentificacao, 2, 2, 'F');
-  doc.setDrawColor(220, 226, 240);
+  doc.setDrawColor(213, 227, 220);
   doc.roundedRect(margin, cursorY, contentWidth, alturaIdentificacao, 2, 2, 'S');
 
   let identificacaoY = cursorY + 6;
@@ -158,20 +158,20 @@ export async function generateFichaAluno360PDF({
   // ── 2. RENDIMENTO ACADÊMICO BIMESTRAL ──
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
   doc.text('1. RENDIMENTO ACADÊMICO & AVALIAÇÕES', margin, cursorY);
   cursorY += 3;
 
   // Cabeçalho da tabela de notas
   const colW = contentWidth / 6;
-  doc.setFillColor(238, 241, 250);
+  doc.setFillColor(218, 235, 229);
   doc.rect(margin, cursorY, contentWidth, 6, 'F');
-  doc.setDrawColor(215, 222, 238);
+  doc.setDrawColor(213, 227, 220);
   doc.rect(margin, cursorY, contentWidth, 6, 'S');
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(20, 30, 70);
+  doc.setTextColor(18, 60, 58);
   const labelsNotas = ['1º BIMESTRE', '2º BIMESTRE', '3º BIMESTRE', '4º BIMESTRE', 'TOTAL / MÉDIA', 'SITUAÇÃO'];
   labelsNotas.forEach((lbl, i) => {
     doc.text(lbl, margin + i * colW + colW / 2, cursorY + 4.2, { align: 'center' });
@@ -182,12 +182,12 @@ export async function generateFichaAluno360PDF({
   // Linha de dados de notas
   doc.setFillColor(255, 255, 255);
   doc.rect(margin, cursorY, contentWidth, 7, 'F');
-  doc.setDrawColor(215, 222, 238);
+  doc.setDrawColor(213, 227, 220);
   doc.rect(margin, cursorY, contentWidth, 7, 'S');
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
 
   const notasValores = [
     fmt(ficha.academico.bimestres[0]),
@@ -213,7 +213,7 @@ export async function generateFichaAluno360PDF({
   if (ficha.academico.S1 && ficha.academico.S2) {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     [ficha.academico.S1, ficha.academico.S2].forEach((semestre, i) => {
       doc.text(`${i + 1}º semestre: ${fmt(semestre.total)} — ${ROTULOS_APROVACAO[semestre.status]} (mínimo 25)`, margin, cursorY);
       cursorY += 5;
@@ -224,7 +224,7 @@ export async function generateFichaAluno360PDF({
   // ── 3. ASSIDUIDADE & CUMPRIMENTO LDB (ART. 24) ──
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
   doc.text('2. FREQUÊNCIA ESCOLAR & MONITORAMENTO LEGAL (LDB ART. 24)', margin, cursorY);
   cursorY += 3;
 
@@ -240,12 +240,12 @@ export async function generateFichaAluno360PDF({
 
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
   if (semFrequencia) {
     doc.text('Frequência indisponível: sem registros de aulas no período.', margin + 5, cursorY + 7);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.setTextColor(90, 100, 120);
+    doc.setTextColor(86, 111, 101);
     doc.text('A apuração será apresentada quando houver chamadas registradas.', margin + 5, cursorY + 14);
   } else {
     doc.text(`Total de Aulas Registradas: ${ficha.frequencia.totalAulas}`, margin + 5, cursorY + 6);
@@ -269,26 +269,26 @@ export async function generateFichaAluno360PDF({
   // ── 4. PERFIL INCLUSIVO & ADAPTAÇÕES DUA ──
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
   doc.text('3. PERFIL INCLUSIVO & DIRETRIZES DE ACESSIBILIDADE DUA', margin, cursorY);
   cursorY += 3;
 
-  doc.setFillColor(250, 251, 255);
+  doc.setFillColor(243, 248, 245);
   doc.roundedRect(margin, cursorY, contentWidth, 24, 2, 2, 'F');
-  doc.setDrawColor(220, 226, 245);
+  doc.setDrawColor(213, 227, 220);
   doc.roundedRect(margin, cursorY, contentWidth, 24, 2, 2, 'S');
 
   doc.setFontSize(8.5);
   if (ficha.inclusao.temNecessidades) {
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(246, 12, 73); // tom de destaque
+    doc.setTextColor(15, 118, 110); // tom de destaque
     const rotuloTexto = ficha.inclusao.exibirDiagnosticoClinico && Array.isArray(ficha.inclusao.labels)
       ? `Necessidades Atendidas: ${ficha.inclusao.labels.join(', ')}`
       : `Diretrizes Pedagógicas: ${ficha.inclusao.rotuloSigiloso || 'Apoio Metodológico DUA'}`;
     doc.text(rotuloTexto, margin + 5, cursorY + 6);
 
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(40, 50, 75);
+    doc.setTextColor(79, 107, 99);
     doc.setFontSize(7.5);
     let recY = cursorY + 11;
     ficha.inclusao.recomendacoes.slice(0, 3).forEach((rec) => {
@@ -297,7 +297,7 @@ export async function generateFichaAluno360PDF({
     });
   } else {
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(90, 100, 120);
+    doc.setTextColor(86, 111, 101);
     doc.text('• Perfil de Desenvolvimento Regular — sem adaptações curriculares específicas registradas.', margin + 5, cursorY + 8);
     doc.text('• O estudante acompanha as estratégias metodológicas padronizadas da turma.', margin + 5, cursorY + 14);
   }
@@ -308,25 +308,25 @@ export async function generateFichaAluno360PDF({
   if (ficha.redacao) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     doc.text('4. DIAGNÓSTICO DE REDAÇÃO & COMPETÊNCIAS ENEM', margin, cursorY);
     cursorY += 3;
 
-    doc.setFillColor(252, 253, 255);
+    doc.setFillColor(243, 248, 245);
     doc.roundedRect(margin, cursorY, contentWidth, 16, 2, 2, 'F');
-    doc.setDrawColor(225, 230, 245);
+    doc.setDrawColor(213, 227, 220);
     doc.roundedRect(margin, cursorY, contentWidth, 16, 2, 2, 'S');
 
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(30, 40, 60);
+    doc.setTextColor(18, 60, 58);
     doc.text(`Total de Redações: ${ficha.redacao.totalRedacoes}`, margin + 5, cursorY + 6);
     doc.text(`Média Pontuação ENEM: ${ficha.redacao.mediaTotal} pts`, margin + 55, cursorY + 6);
     doc.text(`Destaque: ${ficha.redacao.competenciaDestaque}`, margin + 115, cursorY + 6);
     doc.text(`Foco Prioritário: ${ficha.redacao.competenciaAlvo}`, margin + 145, cursorY + 6);
 
     doc.setFontSize(7.5);
-    doc.setTextColor(100, 110, 130);
+    doc.setTextColor(86, 111, 101);
     doc.text(
       'Análise automática baseada nos critérios e competências da Matriz de Referência do ENEM.',
       margin + 5,
@@ -340,13 +340,13 @@ export async function generateFichaAluno360PDF({
   // ── 6. PARECER QUALITATIVO & OBSERVAÇÕES PEDAGÓGICAS ──
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.setTextColor(16, 25, 66);
+  doc.setTextColor(18, 60, 58);
   doc.text('5. PARECER DESCRITIVO & ENCAMINHAMENTOS DO CONSELHO', margin, cursorY);
   cursorY += 3;
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
-  doc.setTextColor(50, 60, 80);
+  doc.setTextColor(79, 107, 99);
   cursorY += 5;
   const parecerTexto = ficha.parecerPedagogico || 'Registro destinado ao acompanhamento pedagógico e à ciência da família.';
   escreverTexto(parecerTexto, contentWidth - 10, 5);
@@ -356,7 +356,7 @@ export async function generateFichaAluno360PDF({
   // ── 7. ASSINATURAS FORMAIS ──
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
-  doc.setTextColor(100, 110, 130);
+  doc.setTextColor(86, 111, 101);
 
   const signW = (contentWidth - 16) / 3;
 
@@ -387,7 +387,7 @@ export async function generateFichaAluno360PDF({
 
   if (ficha.ocorrencias.length) {
     doc.addPage();cursorY=24;
-    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(16,25,66);
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(18,60,58);
     doc.text('Ocorrências autorizadas para a família', margin,14);
     doc.setFont('helvetica','normal');doc.setFontSize(8);
     for (const ocorrencia of ficha.ocorrencias) {

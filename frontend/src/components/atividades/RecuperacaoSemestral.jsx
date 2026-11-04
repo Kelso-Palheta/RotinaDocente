@@ -32,27 +32,27 @@ const situacaoDaMontagem = (conjunto, totalDistribuido, restante) => {
     return {
       titulo: 'Conjunto cancelado',
       detalhe: 'Nenhuma nova entrega é aceita. Entregas e notas já registradas permanecem preservadas.',
-      classe: 'bg-slate-50 border-slate-200 text-slate-700',
+      classe: 'bg-[#F3F8F5] border-[#D5E3DC] text-[#35594D]',
     };
   }
   if (centesimos(restante) > 0) {
     return {
       titulo: `Montagem: ${pontos(totalDistribuido)} de 10 pontos`,
       detalhe: 'As parcelas ficam ocultas no Portal e não recebem entregas até a distribuição fechar exatamente 10 pontos.',
-      classe: 'bg-amber-50 border-amber-200 text-amber-900',
+      classe: 'bg-[#F3F8F5] border-[#D5E3DC] text-[#123C3A]',
     };
   }
   if (!conjuntoLiberadoParaResposta(conjunto)) {
     return {
       titulo: 'Distribuição completa; liberação pendente',
       detalhe: 'As parcelas só aparecem para os alunos depois que a liberação do conjunto for confirmada.',
-      classe: 'bg-amber-50 border-amber-200 text-amber-900',
+      classe: 'bg-[#F3F8F5] border-[#D5E3DC] text-[#123C3A]',
     };
   }
   return {
     titulo: 'Recuperação liberada para os alunos',
     detalhe: 'As parcelas já podem ser respondidas pelos destinatários. A primeira entrega congela a composição.',
-    classe: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+    classe: 'bg-[#F3F8F5] border-[#D5E3DC] text-[#123C3A]',
   };
 };
 
@@ -399,7 +399,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
   if (atividadeAberta) {
     return (
       <div>
-        <button type="button" onClick={() => { setAtividadeAberta(null); carregarDetalhe(); }} className="mb-3 text-xs font-semibold text-[#6070a0] underline">Voltar ao conjunto</button>
+        <button type="button" onClick={() => { setAtividadeAberta(null); carregarDetalhe(); }} className="mb-3 text-xs font-semibold text-[#4f6b63] underline">Voltar ao conjunto</button>
         <AtividadePainel
           atividade={atividadeAberta}
           user={user}
@@ -420,16 +420,16 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold text-[#101942]">Recuperação semestral</h1>
-          <p className="text-sm text-[#6070a0]">Uma ou várias atividades somando 10 pontos. Corrigir, conferir, lançar e publicar são ações separadas.</p>
+          <h1 className="text-2xl font-bold text-[#123c3a]">Recuperação semestral</h1>
+          <p className="text-sm text-[#4f6b63]">Uma ou várias atividades somando 10 pontos. Corrigir, conferir, lançar e publicar são ações separadas.</p>
         </div>
-        <button type="button" onClick={() => setCriando(true)} disabled={ocupado} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-300">Novo conjunto</button>
+        <button type="button" onClick={() => setCriando(true)} disabled={ocupado} className="px-4 py-2 rounded-xl bg-[#0f766e] text-white text-sm font-semibold disabled:bg-[#B7D3C8]">Novo conjunto</button>
       </div>
 
-      {erro && <p role="alert" className="bg-red-50 text-red-800 rounded-xl p-3 text-sm">{erro}</p>}
-      {mensagem && <p role="status" className="bg-emerald-50 text-emerald-900 rounded-xl p-3 text-sm">{mensagem}</p>}
-      {carregando && <p className="text-sm text-[#6070a0]">Carregando conjuntos...</p>}
-      {!carregando && !conjuntosVisiveis.length && !criando && <p className="bg-white border border-[#dce0f0] rounded-2xl p-5 text-sm text-[#6070a0]">Nenhum conjunto de recuperação neste ano letivo. Crie um para distribuir os 10 pontos.</p>}
+      {erro && <p role="alert" className="bg-[#F3F8F5] text-[#123C3A] rounded-xl p-3 text-sm">{erro}</p>}
+      {mensagem && <p role="status" className="bg-[#F3F8F5] text-[#123C3A] rounded-xl p-3 text-sm">{mensagem}</p>}
+      {carregando && <p className="text-sm text-[#4f6b63]">Carregando conjuntos...</p>}
+      {!carregando && !conjuntosVisiveis.length && !criando && <p className="bg-white border border-[#d5e3dc] rounded-2xl p-5 text-sm text-[#4f6b63]">Nenhum conjunto de recuperação neste ano letivo. Crie um para distribuir os 10 pontos.</p>}
 
       {criando && (
         <CriacaoConjunto
@@ -448,7 +448,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
               type="button"
               onClick={() => trocarConjunto(conjunto.id)}
               disabled={ocupado}
-              className={`px-3 py-2 rounded-xl border text-xs font-semibold disabled:opacity-60 ${selecionadoId === conjunto.id ? 'bg-[#101942] text-white border-[#101942]' : 'bg-white text-[#101942] border-[#dce0f0]'}`}
+              className={`px-3 py-2 rounded-xl border text-xs font-semibold disabled:opacity-60 ${selecionadoId === conjunto.id ? 'bg-[#123c3a] text-white border-[#123c3a]' : 'bg-white text-[#123c3a] border-[#d5e3dc]'}`}
             >
               {turmas.find(t => t.id === conjunto.turmaId)?.nome || conjunto.turmaId} · {conjunto.semestre}º sem. · {conjunto.anoLetivo}
             </button>
@@ -457,19 +457,19 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
       )}
 
       {detalheVisivel && (
-        <section className="bg-white border border-[#dce0f0] rounded-2xl p-5 space-y-4">
+        <section className="bg-white border border-[#d5e3dc] rounded-2xl p-5 space-y-4">
           <header className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h2 className="font-bold text-[#101942]">
+              <h2 className="font-bold text-[#123c3a]">
                 {turmaDoConjunto?.nome || detalheVisivel.conjunto.turmaId} · Recuperação do {detalheVisivel.conjunto.semestre}º semestre
               </h2>
-              <p className="text-xs text-[#6070a0]">
+              <p className="text-xs text-[#4f6b63]">
                 {detalheVisivel.conjunto.destinatariosIds.length} {detalheVisivel.conjunto.destinatariosIds.length === 1 ? 'aluno destinatário' : 'alunos destinatários'} · ano {detalheVisivel.conjunto.anoLetivo} · versão {detalheVisivel.conjunto.versao}
               </p>
             </div>
             <div className="text-right text-xs">
-              <p className="font-bold text-[#101942]">{pontos(totalDistribuido)} de 10 pontos distribuídos</p>
-              <p className={restante === 0 ? 'text-emerald-700' : 'text-amber-700'}>
+              <p className="font-bold text-[#123c3a]">{pontos(totalDistribuido)} de 10 pontos distribuídos</p>
+              <p className={restante === 0 ? 'text-[#0B5F59]' : 'text-[#0B5F59]'}>
                 {restante === 0 ? 'Distribuição completa' : `Restam ${pontos(restante)} pontos`}
               </p>
             </div>
@@ -484,42 +484,42 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
 
           <div className="space-y-2">
             {detalheVisivel.atividades.map(atividade => (
-              <div key={atividade.id} className="flex flex-wrap items-center justify-between gap-2 border border-[#dce0f0] rounded-xl p-3">
+              <div key={atividade.id} className="flex flex-wrap items-center justify-between gap-2 border border-[#d5e3dc] rounded-xl p-3">
                 <div>
-                  <p className="text-sm font-semibold text-[#101942]">{atividade.titulo}</p>
-                  <p className="text-xs text-[#6070a0]">Vale até {pontos(atividade.notaMaxima)} · entrega em {formatarDataEntrega(atividade.dataEntrega, { vazio: 'data não informada' })} · {atividade.status}</p>
+                  <p className="text-sm font-semibold text-[#123c3a]">{atividade.titulo}</p>
+                  <p className="text-xs text-[#4f6b63]">Vale até {pontos(atividade.notaMaxima)} · entrega em {formatarDataEntrega(atividade.dataEntrega, { vazio: 'data não informada' })} · {atividade.status}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" onClick={() => setCopiando(atividade)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#dce0f0] text-[#101942] disabled:opacity-60">Copiar para outra turma</button>
-                  <button type="button" onClick={() => setAtividadeAberta(atividade)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#eef0f8] text-[#101942]">Corrigir</button>
+                  <button type="button" onClick={() => setCopiando(atividade)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#d5e3dc] text-[#123c3a] disabled:opacity-60">Copiar para outra turma</button>
+                  <button type="button" onClick={() => setAtividadeAberta(atividade)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#f3f7f5] text-[#123c3a]">Corrigir</button>
                 </div>
               </div>
             ))}
-            {!detalheVisivel.atividades.length && <p className="text-sm text-[#6070a0]">Nenhuma atividade ainda. Distribua os 10 pontos criando a primeira.</p>}
+            {!detalheVisivel.atividades.length && <p className="text-sm text-[#4f6b63]">Nenhuma atividade ainda. Distribua os 10 pontos criando a primeira.</p>}
           </div>
 
           {restante > 0 && detalheVisivel.conjunto.estado !== 'cancelado' && (
-            <button type="button" onClick={() => setFormAtividade({})} className="px-4 py-2 rounded-xl bg-[#101942] text-white text-sm font-semibold">
+            <button type="button" onClick={() => setFormAtividade({})} className="px-4 py-2 rounded-xl bg-[#123c3a] text-white text-sm font-semibold">
               {detalheVisivel.atividades.length ? `Adicionar atividade (até ${pontos(restante)} pontos)` : 'Criar primeira atividade'}
             </button>
           )}
-          {restante === 0 && detalheVisivel.conjunto.estado !== 'pronto' && detalheVisivel.conjunto.estado !== 'cancelado' && <p className="text-xs text-emerald-700">A distribuição está completa. O conjunto será marcado como pronto ao salvar a última atividade.</p>}
+          {restante === 0 && detalheVisivel.conjunto.estado !== 'pronto' && detalheVisivel.conjunto.estado !== 'cancelado' && <p className="text-xs text-[#0B5F59]">A distribuição está completa. O conjunto será marcado como pronto ao salvar a última atividade.</p>}
 
-          <div className="border-t border-[#dce0f0] pt-3 flex flex-wrap gap-2">
-            <button type="button" onClick={conferir} disabled={ocupado || restante > 0 || !detalheVisivel.atividades.length || detalheVisivel.conjunto.estado === 'cancelado'} className="px-4 py-2 rounded-xl bg-[#f60c49] text-white text-sm font-semibold disabled:bg-slate-200">
+          <div className="border-t border-[#d5e3dc] pt-3 flex flex-wrap gap-2">
+            <button type="button" onClick={conferir} disabled={ocupado || restante > 0 || !detalheVisivel.atividades.length || detalheVisivel.conjunto.estado === 'cancelado'} className="px-4 py-2 rounded-xl bg-[#0f766e] text-white text-sm font-semibold disabled:bg-[#D5E3DC]">
               {ocupado ? 'Conferindo...' : 'Conferir recuperação'}
             </button>
-            <p className="text-xs text-[#6070a0] self-center">A prévia não grava nota. Só a confirmação lança em rec{detalheVisivel.conjunto.semestre === '2' ? '2' : '1'}.</p>
+            <p className="text-xs text-[#4f6b63] self-center">A prévia não grava nota. Só a confirmação lança em rec{detalheVisivel.conjunto.semestre === '2' ? '2' : '1'}.</p>
           </div>
 
           {previaVisivel && (
-            <div className="border border-amber-200 bg-amber-50 rounded-xl p-3 space-y-2">
-              <h3 className="text-sm font-bold text-amber-900">Prévia do lançamento em rec{previaVisivel.campo === 'rec2' ? '2' : '1'}</h3>
-              <p className="text-xs text-amber-900">{previaVisivel.completos} completo(s), {previaVisivel.pendentes} pendente(s), {previaVisivel.substituicoes} substituição(ões) de nota manual.</p>
+            <div className="border border-[#D5E3DC] bg-[#F3F8F5] rounded-xl p-3 space-y-2">
+              <h3 className="text-sm font-bold text-[#123C3A]">Prévia do lançamento em rec{previaVisivel.campo === 'rec2' ? '2' : '1'}</h3>
+              <p className="text-xs text-[#123C3A]">{previaVisivel.completos} completo(s), {previaVisivel.pendentes} pendente(s), {previaVisivel.substituicoes} substituição(ões) de nota manual.</p>
               <div className="overflow-auto">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="text-left text-amber-900">
+                    <tr className="text-left text-[#123C3A]">
                       <th className="p-2">Lançar</th>
                       <th className="p-2">Aluno</th>
                       <th className="p-2">Parcelas conferidas</th>
@@ -535,7 +535,7 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
                       const efeito = efeitoPorAluno.get(aluno.alunoId);
                       const titulo = atividadeId => detalheVisivel.atividades.find(a => a.id === atividadeId)?.titulo || atividadeId;
                       return (
-                        <tr key={aluno.alunoId} className="border-t border-amber-200 align-top">
+                        <tr key={aluno.alunoId} className="border-t border-[#D5E3DC] align-top">
                           <td className="p-2">
                             <input type="checkbox" aria-label={`Lançar recuperação de ${aluno.nome || aluno.alunoId}`} disabled={!aluno.completo || aluno.repetido} checked={selecionados.includes(aluno.alunoId)} onChange={() => alternarSelecionado(aluno.alunoId)} />
                           </td>
@@ -568,27 +568,27 @@ export function RecuperacaoSemestral({ user, turmas = [], ano, useAtividadesHook
                 </table>
               </div>
               <div className="flex flex-wrap gap-2">
-                <button type="button" onClick={() => setPrevia(null)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-amber-300">Cancelar prévia</button>
-                <button type="button" onClick={lancar} disabled={ocupado || !selecionados.length} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 text-white disabled:bg-slate-300">
+                <button type="button" onClick={() => setPrevia(null)} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#B7D3C8]">Cancelar prévia</button>
+                <button type="button" onClick={lancar} disabled={ocupado || !selecionados.length} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0F766E] text-white disabled:bg-[#B7D3C8]">
                   {ocupado ? 'Lançando...' : 'Lançar recuperação'}
                 </button>
               </div>
             </div>
           )}
 
-          <div className="border-t border-[#dce0f0] pt-3">
+          <div className="border-t border-[#d5e3dc] pt-3">
             {detalheVisivel.conjunto.estado === 'cancelado' ? (
-              <p className="text-xs text-slate-600">Conjunto cancelado. Nenhuma nova entrega será aceita; o histórico existente permanece preservado.</p>
+              <p className="text-xs text-[#4F6B63]">Conjunto cancelado. Nenhuma nova entrega será aceita; o histórico existente permanece preservado.</p>
             ) : !confirmandoCancelamento ? (
-              <button type="button" onClick={() => setConfirmandoCancelamento(true)} disabled={ocupado} className="px-3 py-2 rounded-xl border border-red-200 text-red-700 text-xs font-semibold disabled:opacity-60">
+              <button type="button" onClick={() => setConfirmandoCancelamento(true)} disabled={ocupado} className="px-3 py-2 rounded-xl border border-[#D5E3DC] text-[#0B5F59] text-xs font-semibold disabled:opacity-60">
                 Cancelar conjunto
               </button>
             ) : (
-              <div role="alertdialog" aria-label="Confirmar cancelamento do conjunto" className="border border-red-200 bg-red-50 rounded-xl p-3 space-y-2">
-                <p className="text-xs text-red-800">Cancelar o conjunto impede novas entregas e novas parcelas. Entregas e notas já registradas não são apagadas.</p>
+              <div role="alertdialog" aria-label="Confirmar cancelamento do conjunto" className="border border-[#D5E3DC] bg-[#F3F8F5] rounded-xl p-3 space-y-2">
+                <p className="text-xs text-[#123C3A]">Cancelar o conjunto impede novas entregas e novas parcelas. Entregas e notas já registradas não são apagadas.</p>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" onClick={() => setConfirmandoCancelamento(false)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300">Voltar</button>
-                  <button type="button" onClick={cancelarConjunto} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-700 text-white disabled:bg-slate-300">
+                  <button type="button" onClick={() => setConfirmandoCancelamento(false)} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#B7D3C8]">Voltar</button>
+                  <button type="button" onClick={cancelarConjunto} disabled={ocupado} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0B5F59] text-white disabled:bg-[#B7D3C8]">
                     {ocupado ? 'Cancelando...' : 'Confirmar cancelamento'}
                   </button>
                 </div>

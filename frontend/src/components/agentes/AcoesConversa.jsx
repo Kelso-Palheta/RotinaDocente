@@ -7,7 +7,7 @@ import { baixarConversaTxt, nomeArquivoConversa } from './conversaTxt';
 
 const paragrafo = {
   margin: 0,
-  color: '#475569',
+  color: '#4F6B63',
   fontSize: '0.82rem',
   lineHeight: 1.6,
   overflowWrap: 'anywhere',
@@ -205,9 +205,9 @@ export default function AcoesConversa({ agente, messages }) {
                 marginTop: '0.75rem',
                 padding: '0.5rem 0.625rem',
                 borderRadius: '0.5rem',
-                background: '#fef2f2',
-                border: '1px solid #fecaca',
-                color: '#b91c1c',
+                background: '#F3F8F5',
+                border: '1px solid #B7D3C8',
+                color: '#0B5F59',
                 fontSize: '0.75rem',
                 fontWeight: 600,
               }}

@@ -63,16 +63,16 @@ export function PainelBancoQuestoes({
   return (
     <div className="space-y-6">
       {/* Barra de Topo: Estatísticas e Ações Rápidas */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-white border border-[#dce0f0] rounded-3xl shadow-sm">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-white border border-[#d5e3dc] rounded-3xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-indigo-500 to-[#101942] flex items-center justify-center text-white shadow-md shadow-indigo-500/10">
+          <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-[#0F766E] to-[#123c3a] flex items-center justify-center text-white shadow-md shadow-[#0F766E]/10">
             <BookOpen size={22} />
           </div>
           <div>
-            <h2 className="text-base font-black text-[#101942]">
+            <h2 className="text-base font-black text-[#123c3a]">
               Banco de Questões Adaptadas
             </h2>
-            <p className="text-xs text-[#6070a0]">
+            <p className="text-xs text-[#4f6b63]">
               {questoes.length} {questoes.length === 1 ? "questão cadastrada" : "questões cadastradas"} disponíveis para montagem
             </p>
           </div>
@@ -83,10 +83,10 @@ export function PainelBancoQuestoes({
             <button
               type="button"
               onClick={onNavegarParaMontador}
-              className="px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 shadow-xs"
+              className="px-4 py-2.5 bg-[#F3F8F5] hover:bg-[#DAEBE5] text-[#123C3A] border border-[#D5E3DC] rounded-2xl text-xs font-bold transition-all flex items-center gap-2 shadow-xs"
             >
               <span>Prova em Montagem:</span>
-              <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px] font-black">
+              <span className="w-5 h-5 rounded-full bg-[#0F766E] text-white flex items-center justify-center text-[10px] font-black">
                 {questoesNaProva.length}
               </span>
               <ArrowRight size={14} />
@@ -99,7 +99,7 @@ export function PainelBancoQuestoes({
               setQuestaoParaEditar(null);
               setModalNovoAberto(true);
             }}
-            className="px-4 py-2.5 bg-linear-to-r from-[#f60c49] to-[#d40840] hover:opacity-95 text-white rounded-2xl text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-[#f60c49]/20"
+            className="px-4 py-2.5 bg-linear-to-r from-[#0f766e] to-[#0b5f59] hover:opacity-95 text-white rounded-2xl text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-[#0f766e]/20"
           >
             <Plus size={16} />
             Nova Questão
@@ -108,17 +108,17 @@ export function PainelBancoQuestoes({
       </div>
 
       {/* Filtros e Busca */}
-      <div className="p-4 bg-white border border-[#dce0f0] rounded-3xl shadow-xs space-y-3">
+      <div className="p-4 bg-white border border-[#d5e3dc] rounded-3xl shadow-xs space-y-3">
         <div className="flex flex-col md:flex-row items-center gap-3">
           {/* Busca textual */}
           <div className="relative flex-1 w-full">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6070a0]" size={16} />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4f6b63]" size={16} />
             <input
               type="text"
               placeholder="Buscar por enunciado, tema ou código BNCC..."
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] placeholder-[#6070a0]/60 focus:outline-hidden focus:border-[#f60c49]"
+              className="w-full pl-10 pr-4 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-medium text-[#123c3a] placeholder-[#4f6b63]/60 focus:outline-hidden focus:border-[#0f766e]"
             />
           </div>
 
@@ -126,7 +126,7 @@ export function PainelBancoQuestoes({
           <select
             value={filtroDisciplina}
             onChange={(e) => setFiltroDisciplina(e.target.value)}
-            className="w-full md:w-44 px-3 py-2 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
+            className="w-full md:w-44 px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
           >
             <option value="">Todas as Disciplinas</option>
             <option value="Língua Portuguesa">Língua Portuguesa</option>
@@ -145,7 +145,7 @@ export function PainelBancoQuestoes({
           <select
             value={filtroNecessidade}
             onChange={(e) => setFiltroNecessidade(e.target.value)}
-            className="w-full md:w-48 px-3 py-2 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
+            className="w-full md:w-48 px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
           >
             <option value="">Todas as Necessidades</option>
             {CATEGORIAS_DEFICIENCIA.map((c) => (
@@ -159,7 +159,7 @@ export function PainelBancoQuestoes({
           <select
             value={filtroTipo}
             onChange={(e) => setFiltroTipo(e.target.value)}
-            className="w-full md:w-40 px-3 py-2 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
+            className="w-full md:w-40 px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
           >
             <option value="">Todos os Tipos</option>
             <option value="multipla_escolha">Múltipla Escolha</option>
@@ -172,12 +172,12 @@ export function PainelBancoQuestoes({
 
       {/* Grid de Questões */}
       {filtradas.length === 0 ? (
-        <div className="p-12 text-center bg-white border border-[#dce0f0] rounded-3xl space-y-3">
-          <div className="w-12 h-12 mx-auto rounded-2xl bg-[#f8f9fd] border border-[#dce0f0] flex items-center justify-center text-[#6070a0]">
+        <div className="p-12 text-center bg-white border border-[#d5e3dc] rounded-3xl space-y-3">
+          <div className="w-12 h-12 mx-auto rounded-2xl bg-[#f3f8f5] border border-[#d5e3dc] flex items-center justify-center text-[#4f6b63]">
             <BookOpen size={24} />
           </div>
-          <h3 className="text-sm font-bold text-[#101942]">Nenhuma questão encontrada</h3>
-          <p className="text-xs text-[#6070a0] max-w-sm mx-auto">
+          <h3 className="text-sm font-bold text-[#123c3a]">Nenhuma questão encontrada</h3>
+          <p className="text-xs text-[#4f6b63] max-w-sm mx-auto">
             {busca || filtroDisciplina || filtroNecessidade || filtroTipo
               ? "Tente ajustar os filtros ou os termos da busca acima."
               : "Cadastre novas questões manualmente ou salve as questões geradas pelo Gerador de IA DUA."}
@@ -188,7 +188,7 @@ export function PainelBancoQuestoes({
               setQuestaoParaEditar(null);
               setModalNovoAberto(true);
             }}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#f60c49] text-white rounded-xl text-xs font-bold shadow-sm"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#0f766e] text-white rounded-xl text-xs font-bold shadow-sm"
           >
             <Plus size={14} /> Cadastrar Primeira Questão
           </button>
@@ -202,22 +202,22 @@ export function PainelBancoQuestoes({
                 key={q.id}
                 className={`bg-white border rounded-3xl p-5 transition-all shadow-xs flex flex-col justify-between ${
                   naProva
-                    ? "border-indigo-400 ring-2 ring-indigo-500/10"
-                    : "border-[#dce0f0] hover:border-gray-300"
+                    ? "border-[#0F766E] ring-2 ring-[#0F766E]/10"
+                    : "border-[#d5e3dc] hover:border-[#B7D3C8]"
                 }`}
               >
                 <div className="space-y-3">
                   {/* Badges de Metadados */}
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2.5 py-0.5 rounded-lg bg-[#f8f9fd] border border-[#dce0f0] text-[10px] font-black text-[#101942]">
+                    <span className="px-2.5 py-0.5 rounded-lg bg-[#f3f8f5] border border-[#d5e3dc] text-[10px] font-black text-[#123c3a]">
                       {q.disciplina || "Geral"}
                     </span>
                     {q.anoEscolar && (
-                      <span className="px-2.5 py-0.5 rounded-lg bg-gray-100 text-[10px] font-bold text-gray-700">
+                      <span className="px-2.5 py-0.5 rounded-lg bg-[#F3F7F5] text-[10px] font-bold text-[#35594D]">
                         {q.anoEscolar}
                       </span>
                     )}
-                    <span className="px-2.5 py-0.5 rounded-lg bg-purple-50 text-purple-700 text-[10px] font-bold">
+                    <span className="px-2.5 py-0.5 rounded-lg bg-[#F3F8F5] text-[#123C3A] text-[10px] font-bold">
                       {q.tipo === "multipla_escolha"
                         ? "Múltipla Escolha"
                         : q.tipo === "verdadeiro_falso"
@@ -231,7 +231,7 @@ export function PainelBancoQuestoes({
                       return (
                         <span
                           key={nec}
-                          className="px-2 py-0.5 rounded-lg bg-pink-50 border border-pink-100 text-[#f60c49] text-[10px] font-bold"
+                          className="px-2 py-0.5 rounded-lg bg-[#F3F8F5] border border-[#DAEBE5] text-[#0f766e] text-[10px] font-bold"
                         >
                           {cat ? cat.nome : nec}
                         </span>
@@ -240,15 +240,15 @@ export function PainelBancoQuestoes({
                   </div>
 
                   {/* Enunciado */}
-                  <p className="text-xs font-bold text-[#101942] leading-relaxed">
+                  <p className="text-xs font-bold text-[#123c3a] leading-relaxed">
                     {q.enunciado}
                   </p>
 
                   {/* Apoio Visual */}
                   {q.apoioVisualDescricao && (
-                    <div className="p-2.5 bg-amber-50/70 border border-amber-200/60 rounded-xl flex items-start gap-2">
-                      <ImageIcon size={14} className="text-amber-600 shrink-0 mt-0.5" />
-                      <p className="text-[11px] font-medium text-amber-900 leading-tight">
+                    <div className="p-2.5 bg-[#F3F8F5]/70 border border-[#D5E3DC]/60 rounded-xl flex items-start gap-2">
+                      <ImageIcon size={14} className="text-[#0F766E] shrink-0 mt-0.5" />
+                      <p className="text-[11px] font-medium text-[#123C3A] leading-tight">
                         <strong className="font-bold">Apoio Visual:</strong> {q.apoioVisualDescricao}
                       </p>
                     </div>
@@ -258,8 +258,8 @@ export function PainelBancoQuestoes({
                   {Array.isArray(q.alternativas) && q.alternativas.length > 0 && (
                     <div className="space-y-1 pl-1">
                       {q.alternativas.map((alt, i) => (
-                        <div key={i} className="text-[11px] text-[#6070a0] flex items-center gap-1.5">
-                          <span className="font-bold text-[#101942]">{alt.slice(0, 3)}</span>
+                        <div key={i} className="text-[11px] text-[#4f6b63] flex items-center gap-1.5">
+                          <span className="font-bold text-[#123c3a]">{alt.slice(0, 3)}</span>
                           <span>{alt.slice(3)}</span>
                         </div>
                       ))}
@@ -268,22 +268,22 @@ export function PainelBancoQuestoes({
 
                   {/* Gabarito para o Professor */}
                   {q.gabarito && (
-                    <div className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg inline-block">
+                    <div className="text-[11px] font-bold text-[#0B5F59] bg-[#F3F8F5] px-2.5 py-1 rounded-lg inline-block">
                       Gabarito: {q.gabarito}
                     </div>
                   )}
 
                   {/* Scaffolding */}
                   {q.scaffolding && (
-                    <div className="text-[11px] text-indigo-700 bg-indigo-50/60 px-2.5 py-1.5 rounded-xl flex items-center gap-1.5">
-                      <Lightbulb size={13} className="text-indigo-600 shrink-0" />
+                    <div className="text-[11px] text-[#123C3A] bg-[#F3F8F5]/60 px-2.5 py-1.5 rounded-xl flex items-center gap-1.5">
+                      <Lightbulb size={13} className="text-[#0F766E] shrink-0" />
                       <span>{q.scaffolding}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Rodapé do Card com Ações */}
-                <div className="flex items-center justify-between pt-4 mt-4 border-t border-[#dce0f0]">
+                <div className="flex items-center justify-between pt-4 mt-4 border-t border-[#d5e3dc]">
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
@@ -291,7 +291,7 @@ export function PainelBancoQuestoes({
                         setQuestaoParaEditar(q);
                         setModalNovoAberto(true);
                       }}
-                      className="p-1.5 rounded-lg text-[#6070a0] hover:text-[#101942] hover:bg-[#f8f9fd] transition-colors"
+                      className="p-1.5 rounded-lg text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f8f5] transition-colors"
                       title="Editar questão"
                     >
                       <Edit3 size={15} />
@@ -303,7 +303,7 @@ export function PainelBancoQuestoes({
                           onExcluirQuestao(q.id);
                         }
                       }}
-                      className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                      className="p-1.5 rounded-lg text-gray-400 hover:text-[#0F766E] hover:bg-[#F3F8F5] transition-colors"
                       title="Excluir questão"
                     >
                       <Trash2 size={15} />
@@ -321,8 +321,8 @@ export function PainelBancoQuestoes({
                     }}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
                       naProva
-                        ? "bg-indigo-600 text-white shadow-xs"
-                        : "bg-[#f8f9fd] border border-[#dce0f0] text-[#101942] hover:border-indigo-300 hover:text-indigo-700"
+                        ? "bg-[#0F766E] text-white shadow-xs"
+                        : "bg-[#f3f8f5] border border-[#d5e3dc] text-[#123c3a] hover:border-[#B7D3C8] hover:text-[#123C3A]"
                     }`}
                   >
                     {naProva ? (

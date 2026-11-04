@@ -74,17 +74,17 @@ function ImportPlanejamentoEditor({ onClose, turmaSelecionada, onImportSuccess, 
   return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3">
     <div role="dialog" aria-modal="true" aria-labelledby="importar-conteudos-titulo" className="bg-white rounded-xl shadow-xl w-full max-w-2xl flex flex-col max-h-[90vh]">
       <header className="flex items-center justify-between px-6 py-4 border-b">
-        <h2 id="importar-conteudos-titulo" className="text-lg font-bold text-[#101942] flex items-center gap-2"><FileText className="w-5 h-5 text-[#f60c49]" />Importar conteúdos</h2>
+        <h2 id="importar-conteudos-titulo" className="text-lg font-bold text-[#123c3a] flex items-center gap-2"><FileText className="w-5 h-5 text-[#0f766e]" />Importar conteúdos</h2>
         <button aria-label="Fechar importação" onClick={onClose} disabled={!!loading}><X className="w-5 h-5" /></button>
       </header>
-      <div className="p-6 overflow-y-auto space-y-4 text-[#101942]">
+      <div className="p-6 overflow-y-auto space-y-4 text-[#123c3a]">
         <p className="text-sm">{turmaSelecionada.nome} · Ano letivo {anoLetivo}. Envie um arquivo ou cole texto; revise antes de salvar.</p>
-        {error && <div role="alert" className="p-3 rounded bg-red-50 border border-red-200 text-red-700 text-sm">{error}</div>}
+        {error && <div role="alert" className="p-3 rounded bg-[#F3F8F5] border border-[#D5E3DC] text-[#0B5F59] text-sm">{error}</div>}
         {!topicos ? <>
           <input ref={inputRef} aria-label="Arquivo do planejamento" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.docx,.txt,.md" className="hidden" disabled={!!loading} onChange={lerArquivo} />
           <button className="btn-brand-navy flex items-center gap-2" disabled={!!loading} onClick={() => inputRef.current?.click()}><Upload className="w-4 h-4" />Enviar PDF, imagem ou documento</button>
           {nomeArquivo && <p className="text-sm break-all">Arquivo: {nomeArquivo}</p>}
-          <p className="text-xs text-slate-600">PDF/DOCX/TXT/MD até 15 MB; imagens JPG/PNG/WebP até 7 MB. PDF escaneado: até 10 páginas. Imagens e organização dos conteúdos usam sua chave de IA conectada.</p>
+          <p className="text-xs text-[#4F6B63]">PDF/DOCX/TXT/MD até 15 MB; imagens JPG/PNG/WebP até 7 MB. PDF escaneado: até 10 páginas. Imagens e organização dos conteúdos usam sua chave de IA conectada.</p>
           <label className="block text-sm font-medium" htmlFor="texto-planejamento">Texto do planejamento</label>
           <textarea id="texto-planejamento" value={texto} onChange={e => setTexto(e.target.value)} disabled={!!loading} className="w-full h-56 p-3 border rounded-lg text-sm" placeholder="Cole o planejamento aqui ou revise o texto extraído do arquivo." />
         </> : <>
@@ -94,12 +94,12 @@ function ImportPlanejamentoEditor({ onClose, turmaSelecionada, onImportSuccess, 
             <label className="block text-sm">Título do conteúdo {index + 1}<input aria-label={`Título do conteúdo ${index + 1}`} value={topico.titulo} onChange={e => editar(index, 'titulo', e.target.value)} className="w-full border rounded p-2" /></label>
             <label className="block text-sm">Descrição do conteúdo {index + 1}<textarea value={topico.descricao} onChange={e => editar(index, 'descricao', e.target.value)} className="w-full border rounded p-2" /></label>
             <label className="block text-sm">Duração do conteúdo {index + 1} (aulas)<input type="number" min="1" max="200" step="1" value={topico.duracaoEstimadaAulas} onChange={e => editar(index, 'duracaoEstimadaAulas', e.target.value)} className="ml-2 w-20 border rounded p-2" /></label>
-            <button className="text-sm text-red-700 underline" onClick={() => setTopicos(items => items.filter((_, i) => i !== index))}>Remover conteúdo {index + 1}</button>
+            <button className="text-sm text-[#0B5F59] underline" onClick={() => setTopicos(items => items.filter((_, i) => i !== index))}>Remover conteúdo {index + 1}</button>
           </fieldset>)}
           <fieldset disabled={!!loading} className="space-y-2 text-sm"><legend className="font-semibold mb-2">Como salvar?</legend>
             <label className="block"><input type="radio" name="modo-importacao" checked={modo === 'mesclar'} onChange={() => setModo('mesclar')} /> Adicionar aos conteúdos existentes</label>
             <label className="block"><input type="radio" name="modo-importacao" checked={modo === 'substituir'} onChange={() => setModo('substituir')} /> Substituir conteúdos pendentes</label>
-            <p className="text-xs text-slate-600">Conteúdos vinculados a aulas e histórico de realização serão preservados.</p>
+            <p className="text-xs text-[#4F6B63]">Conteúdos vinculados a aulas e histórico de realização serão preservados.</p>
           </fieldset>
         </>}
       </div>

@@ -69,7 +69,7 @@ beforeEach(() => {
   m.docs.length = 0;
 });
 
-const faixaRosa = (doc) => doc.__faixas.find((faixa) => faixa.cor?.join(',') === '246,12,73');
+const faixaDecorativa = (doc) => doc.__faixas.find((faixa) => faixa.cor?.join(',') === '15,118,110');
 
 const limites = (chamada) => {
   if (chamada.opcoes?.align === 'right') return [chamada.x - chamada.largura, chamada.x];
@@ -79,7 +79,7 @@ const limites = (chamada) => {
 
 const divisaoDe = (doc, prefixo) => doc.__divididos.find((item) => item.texto.startsWith(prefixo));
 
-describe('REV-H81-01 — emissão do boletim separada da faixa rosa', () => {
+describe('REV-H81-01 — emissão do boletim separada da faixa decorativa', () => {
   it('cabeçalho curto: reserva folga e desloca a tabela para baixo da faixa', () => {
     generateBoletimPDF({
       nomeAluno: 'Aluno Exemplo',
@@ -88,7 +88,7 @@ describe('REV-H81-01 — emissão do boletim separada da faixa rosa', () => {
     });
     const doc = m.docs.at(-1);
     const emissao = doc.__textos.find((texto) => texto.texto.startsWith('EMISSÃO:'));
-    const faixa = faixaRosa(doc);
+    const faixa = faixaDecorativa(doc);
     const tabela = doc.__textos.find((texto) => texto.texto === 'PERÍODO / ETAPA');
 
     expect(faixa).toBeDefined();
@@ -107,7 +107,7 @@ describe('REV-H81-01 — emissão do boletim separada da faixa rosa', () => {
     });
     const doc = m.docs.at(-1);
     const emissao = doc.__textos.find((texto) => texto.texto.startsWith('EMISSÃO:'));
-    const faixa = faixaRosa(doc);
+    const faixa = faixaDecorativa(doc);
     const tabela = doc.__textos.find((texto) => texto.texto === 'PERÍODO / ETAPA');
 
     const aluno = divisaoDe(doc, 'ALUNO(A):');
@@ -133,7 +133,7 @@ describe('REV-H81-02 — identificação medida com a fonte da impressão', () =
     await generateFichaAluno360PDF({ aluno, turma, professorNome: 'Professor de Teste' });
     const doc = m.docs.at(-1);
     const emissao = doc.__textos.find((texto) => texto.texto.startsWith('EMISSÃO:'));
-    const faixa = faixaRosa(doc);
+    const faixa = faixaDecorativa(doc);
     const professor = divisaoDe(doc, 'PROFESSOR(A):');
 
     expect(professor.estilo).toBe('normal');
@@ -161,7 +161,7 @@ describe('REV-H81-02 — identificação medida com a fonte da impressão', () =
     });
     const doc = m.docs.at(-1);
     const emissao = doc.__textos.find((texto) => texto.texto.startsWith('EMISSÃO:'));
-    const faixa = faixaRosa(doc);
+    const faixa = faixaDecorativa(doc);
     const estudante = divisaoDe(doc, 'ESTUDANTE:');
 
     expect(estudante.estilo).toBe('bold');

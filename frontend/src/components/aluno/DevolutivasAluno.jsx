@@ -2,14 +2,14 @@ export function DevolutivasAluno({ historico = [] }) {
   if (!historico.length) return null;
   return (
     <section className="mt-6 space-y-3" aria-label="Devolutivas das atividades">
-      <h2 className="text-sm font-extrabold text-[#101942]">Devolutivas das atividades</h2>
+      <h2 className="text-sm font-extrabold text-[#123c3a]">Devolutivas das atividades</h2>
       {historico.map((atividade, index) => (
-        <details key={`${atividade.atividadeId}-${index}`} className="bg-white border border-[#dce0f0] rounded-2xl p-4 text-sm text-[#101942]">
+        <details key={`${atividade.atividadeId}-${index}`} className="bg-white border border-[#d5e3dc] rounded-2xl p-4 text-sm text-[#123c3a]">
           <summary className="cursor-pointer font-bold">{atividade.titulo} · {atividade.periodo || (atividade.finalidade === 'recuperacao_semestral' ? `${atividade.semestre}º semestre` : `${atividade.bimestre}º bimestre`)}</summary>
           {atividade.feedback && <p className="mt-3 whitespace-pre-wrap">{atividade.feedback}</p>}
           {atividade.resposta && <p className="mt-2 whitespace-pre-wrap">Sua resposta: {atividade.resposta}</p>}
           {(atividade.questoes || []).map(questao => (
-            <div key={questao.numero} className="mt-3 border-t border-[#dce0f0] pt-3 space-y-2">
+            <div key={questao.numero} className="mt-3 border-t border-[#d5e3dc] pt-3 space-y-2">
               <p className="font-bold">Questão {questao.numero} · Nota: {questao.nota ?? '—'} / {questao.notaMaxima ?? '—'}</p>
               <p className="whitespace-pre-wrap">Sua resposta: {questao.resposta || 'Não informada'}</p>
               <p className="whitespace-pre-wrap">{questao.feedback || 'Feedback não informado.'}</p>

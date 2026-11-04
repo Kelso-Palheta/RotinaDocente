@@ -20,7 +20,7 @@ export default function AgentCard({ agente, selected, onClick }) {
       onClick={() => onClick(agente.id)}
       style={{
         background: isSelected ? agente.cor : 'rgba(255,255,255,0.92)',
-        border: `2px solid ${isSelected ? agente.cor : 'rgba(220,224,240,0.7)'}`,
+        border: `2px solid ${isSelected ? agente.cor : 'rgba(213,227,220,0.7)'}`,
         borderRadius: '1.25rem',
         padding: '1.25rem',
         cursor: 'pointer',
@@ -35,7 +35,7 @@ export default function AgentCard({ agente, selected, onClick }) {
         WebkitBackdropFilter: 'blur(16px)',
         boxShadow: isSelected
           ? `0 12px 32px ${agente.cor}40`
-          : '0 4px 16px rgba(16,25,66,0.07)',
+          : '0 4px 16px rgba(18,60,58,0.07)',
         transform: isSelected ? 'translateY(-2px)' : 'none',
       }}
       aria-pressed={isSelected}

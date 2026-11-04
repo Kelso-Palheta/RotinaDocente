@@ -17,37 +17,37 @@ export default function CriteriosPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]"
-      style={{ backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99,102,241,0.06), transparent)' }}>
-      <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200/60 px-4 sm:px-6 py-3 flex items-center gap-3 sticky top-0 z-30 overflow-x-auto no-scrollbar">
+    <div className="min-h-screen bg-[#F3F8F5]"
+      style={{ backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(15,118,110,0.06), transparent)' }}>
+      <header className="bg-white/80 backdrop-blur-xl border-b border-[#D5E3DC]/60 px-4 sm:px-6 py-3 flex items-center gap-3 sticky top-0 z-30 overflow-x-auto no-scrollbar">
         <button onClick={() => router.push('/redacao')}
-          className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#fff2f6] hover:bg-[#fde4ec] text-[#f60c49] border border-[#f60c49]/30 hover:border-[#f60c49]/50 transition-all duration-300 shadow-sm whitespace-nowrap">
+          className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3f8f5] hover:bg-[#daebe5] text-[#0f766e] border border-[#0f766e]/30 hover:border-[#0f766e]/50 transition-all duration-300 shadow-sm whitespace-nowrap">
           <ArrowLeft size={16} /> <span className="hidden sm:inline">Voltar</span>
         </button>
-        <h1 className="text-sm font-semibold text-slate-700 flex items-center gap-2 whitespace-nowrap"><BookOpen size={16} /> Critérios INEP</h1>
+        <h1 className="text-sm font-semibold text-[#35594D] flex items-center gap-2 whitespace-nowrap"><BookOpen size={16} /> Critérios INEP</h1>
       </header>
 
       <main className="max-w-3xl mx-auto px-4 py-10 space-y-8">
         <div className="text-center mb-6">
-          <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-[#f60c49] to-[#d40840] flex items-center justify-center shadow-xl shadow-[#f60c49]/20 mb-4">
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0f766e] to-[#0b5f59] flex items-center justify-center shadow-xl shadow-[#0f766e]/20 mb-4">
             <Shield size={28} color="white" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">Competências do ENEM</h2>
+          <h2 className="text-2xl font-black text-[#123C3A] tracking-tight">Competências do ENEM</h2>
           <p className="text-sm text-slate-400 mt-2 max-w-md mx-auto">As 5 competências avaliadas na redação do ENEM, conforme a matriz de referência oficial do INEP.</p>
         </div>
 
         <div className="space-y-4">
           {CRITERIOS_INEP.map((c, i) => (
             <div key={c.num}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 p-6 shadow-sm"
+              className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#D5E3DC]/60 p-6 shadow-sm"
               style={{ borderLeftWidth: 4, borderLeftColor: c.cor }}>
               <div className="flex items-start gap-4">
                 <span className="text-3xl font-black tabular-nums flex-shrink-0" style={{ color: c.cor }}>
                   C{c.num}
                 </span>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 leading-snug">{c.titulo}</h3>
-                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">{c.desc}</p>
+                  <h3 className="text-sm font-bold text-[#123C3A] leading-snug">{c.titulo}</h3>
+                  <p className="text-sm text-[#566F65] mt-2 leading-relaxed">{c.desc}</p>
                 </div>
               </div>
             </div>
@@ -55,11 +55,11 @@ export default function CriteriosPage() {
         </div>
 
         {/* Escala de notas */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 p-6 shadow-sm text-center">
-          <h3 className="text-sm font-bold text-slate-800 mb-4">Escala de Notas por Competência</h3>
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#D5E3DC]/60 p-6 shadow-sm text-center">
+          <h3 className="text-sm font-bold text-[#194D46] mb-4">Escala de Notas por Competência</h3>
           <div className="flex justify-center gap-3 flex-wrap">
             {NOTAS_VALIDAS.map(n => (
-              <span key={n} className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono font-bold text-slate-700">
+              <span key={n} className="px-4 py-2 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-sm font-mono font-bold text-[#35594D]">
                 {n} pts
               </span>
             ))}

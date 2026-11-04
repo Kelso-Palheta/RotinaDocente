@@ -1,0 +1,992 @@
+{
+  "rotulo": "depois",
+  "url": "http://127.0.0.1:4180/",
+  "telas": [
+    {
+      "tela": "landing",
+      "arquivo": "landing-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "RotinaDocente\nToda a sua rotina letiva em 1 clique\nO RotinaDocente devolve seus\n finais de semana.\n\nDiga adeus às noites",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 19077,
+        "rolagemHorizontal": false
+      },
+      "titulo": "O RotinaDocente devolve seus finais de semana.",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)",
+        "caixa": {
+          "esquerda": 0,
+          "direita": 0,
+          "topo": 0,
+          "base": 0,
+          "largura": 0,
+          "altura": 0
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "classe": "relative flex h-2.5 w-2.5",
+          "scrollWidth": 15,
+          "clientWidth": 10
+        },
+        {
+          "tag": "DIV",
+          "classe": "bg-white rounded-2xl p-5 shadow-xs border border-[#d5e3dc] space-y-4",
+          "scrollWidth": 326,
+          "clientWidth": 306
+        },
+        {
+          "tag": "DIV",
+          "classe": "flex items-center justify-between pb-3 border-b border-[#d5e3dc]",
+          "scrollWidth": 306,
+          "clientWidth": 266
+        }
+      ]
+    },
+    {
+      "tela": "landing",
+      "arquivo": "landing-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "RotinaDocente\nPor que usar\nComo funciona\nMódulos\nEconomia de Tempo\nPlanos\nDúvidas\nEntrar\nExperimentar Grátis\nToda a sua ",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 11107,
+        "rolagemHorizontal": false
+      },
+      "titulo": "O RotinaDocente devolve seus finais de semana.",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)",
+        "caixa": {
+          "esquerda": 1043.19,
+          "direita": 1109.86,
+          "topo": 22,
+          "base": 58,
+          "largura": 66.67,
+          "altura": 36
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "classe": "relative flex h-2.5 w-2.5",
+          "scrollWidth": 15,
+          "clientWidth": 10
+        }
+      ]
+    },
+    {
+      "tela": "notas",
+      "arquivo": "diario-portal-notas-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Diário — Tabela de notas (4 estados)\n\nComponente real do Diário. Notas sintéticas: abaixo da média, na média, excelente ",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 662,
+        "clientWidth": 390,
+        "scrollHeight": 1073,
+        "rolagemHorizontal": true
+      },
+      "titulo": null,
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)",
+        "caixa": {
+          "esquerda": 355,
+          "direita": 479.8,
+          "topo": 97.8,
+          "base": 131.8,
+          "largura": 124.8,
+          "altura": 34
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": {
+        "caixa": {
+          "esquerda": 42,
+          "direita": 644.11,
+          "topo": 239.3,
+          "base": 494.8,
+          "largura": 602.11,
+          "altura": 255.5
+        },
+        "cabecalho": {
+          "texto": "rgb(18, 60, 58)",
+          "fundo": "oklch(0.984 0.003 247.858)",
+          "borda": "rgb(18, 60, 58)"
+        }
+      },
+      "estadosNota": {
+        "abaixo": {
+          "texto": "oklch(0.577 0.245 27.325)",
+          "fundo": "oklch(0.971 0.013 17.38)",
+          "borda": "oklch(0.885 0.062 18.334)"
+        },
+        "aprovado": null,
+        "excelente": {
+          "texto": "oklch(0.627 0.194 149.214)",
+          "fundo": "oklch(0.982 0.018 155.826)",
+          "borda": "oklch(0.925 0.084 155.995)"
+        },
+        "semNota": {
+          "texto": "oklch(0.704 0.04 256.788)",
+          "fundo": "rgba(0, 0, 0, 0)",
+          "borda": "oklch(0.704 0.04 256.788)"
+        }
+      },
+      "overflow": [
+        {
+          "tag": "HTML",
+          "classe": "",
+          "scrollWidth": 662,
+          "clientWidth": 390
+        },
+        {
+          "tag": "BODY",
+          "classe": "",
+          "scrollWidth": 662,
+          "clientWidth": 390
+        },
+        {
+          "tag": "DIV",
+          "classe": "",
+          "scrollWidth": 662,
+          "clientWidth": 390
+        },
+        {
+          "tag": "DIV",
+          "classe": "",
+          "scrollWidth": 662,
+          "clientWidth": 390
+        },
+        {
+          "tag": "DIV",
+          "classe": "",
+          "scrollWidth": 638,
+          "clientWidth": 342
+        }
+      ]
+    },
+    {
+      "tela": "notas",
+      "arquivo": "diario-portal-notas-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Diário — Tabela de notas (4 estados)\n\nComponente real do Diário. Notas sintéticas: abaixo da média, na média, excelente ",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 1000,
+        "rolagemHorizontal": false
+      },
+      "titulo": null,
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)",
+        "caixa": {
+          "esquerda": 461,
+          "direita": 585.8,
+          "topo": 97.8,
+          "base": 131.8,
+          "largura": 124.8,
+          "altura": 34
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": {
+        "caixa": {
+          "esquerda": 148,
+          "direita": 1292,
+          "topo": 223.3,
+          "base": 452.3,
+          "largura": 1144,
+          "altura": 229
+        },
+        "cabecalho": {
+          "texto": "rgb(18, 60, 58)",
+          "fundo": "oklch(0.984 0.003 247.858)",
+          "borda": "rgb(18, 60, 58)"
+        }
+      },
+      "estadosNota": {
+        "abaixo": {
+          "texto": "oklch(0.577 0.245 27.325)",
+          "fundo": "oklch(0.971 0.013 17.38)",
+          "borda": "oklch(0.885 0.062 18.334)"
+        },
+        "aprovado": null,
+        "excelente": {
+          "texto": "oklch(0.627 0.194 149.214)",
+          "fundo": "oklch(0.982 0.018 155.826)",
+          "borda": "oklch(0.925 0.084 155.995)"
+        },
+        "semNota": {
+          "texto": "oklch(0.704 0.04 256.788)",
+          "fundo": "rgba(0, 0, 0, 0)",
+          "borda": "oklch(0.704 0.04 256.788)"
+        }
+      },
+      "overflow": []
+    },
+    {
+      "tela": "agentes",
+      "arquivo": "agentes-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Hub\nAgentes Pedagógicos\nAgente EM\nEnsino Médio — 1º ao 3º EM\nComo organizar uma sequência de leitura para o 2º ano do En",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 844,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(255, 255, 255)",
+        "fundo": "rgba(255, 255, 255, 0.08)",
+        "borda": "rgba(255, 255, 255, 0.15)",
+        "caixa": {
+          "esquerda": 16,
+          "direita": 97.7,
+          "topo": 14,
+          "base": 51.19,
+          "largura": 81.7,
+          "altura": 37.19
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(255, 255, 255)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(255, 255, 255)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "agentes",
+      "arquivo": "agentes-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Hub\nAgentes Pedagógicos\nAgente EM\nEnsino Médio — 1º ao 3º EM\nEspecialista em ENEM, vestibulares, habilidades BNCC-EM e c",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 1000,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Agentes Pedagógicos",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(255, 255, 255)",
+        "fundo": "rgba(255, 255, 255, 0.08)",
+        "borda": "rgba(255, 255, 255, 0.15)",
+        "caixa": {
+          "esquerda": 24,
+          "direita": 105.7,
+          "topo": 16,
+          "base": 53.19,
+          "largura": 81.7,
+          "altura": 37.19
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(255, 255, 255)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(255, 255, 255)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "calendario",
+      "arquivo": "calendario-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Calendário pedagógico — visão semanal\n\nComponente real com aulas sintéticas nos quatro status: agendada, concluída, parc",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 1178,
+        "rolagemHorizontal": false
+      },
+      "titulo": null,
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)",
+        "caixa": {
+          "esquerda": 41,
+          "direita": 97.73,
+          "topo": 166.09,
+          "base": 204.09,
+          "largura": 56.73,
+          "altura": 38
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "calendario",
+      "arquivo": "calendario-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Calendário pedagógico — visão semanal\n\nComponente real com aulas sintéticas nos quatro status: agendada, concluída, parc",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 1000,
+        "rolagemHorizontal": false
+      },
+      "titulo": null,
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)",
+        "caixa": {
+          "esquerda": 953.42,
+          "direita": 1010.16,
+          "topo": 97.3,
+          "base": 135.3,
+          "largura": 56.73,
+          "altura": 38
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "horario",
+      "arquivo": "horario-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "RotinaDocente\nMeu Horário Escolar\n\nSalvo apenas neste dispositivo\n\nPROFESSOR(A):\nESCOLA:\n🇧🇷 PT-BR\n🌎 ES-Latam\nTurno: M",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 475,
+        "clientWidth": 390,
+        "scrollHeight": 917,
+        "rolagemHorizontal": true
+      },
+      "titulo": "RotinaDocenteMeu Horário Escolar",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(243, 247, 245)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgba(0, 0, 0, 0)",
+        "caixa": {
+          "esquerda": 20,
+          "direita": 128.56,
+          "topo": 189.58,
+          "base": 223.95,
+          "largura": 108.56,
+          "altura": 34.38
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "tabelaNotas": {
+        "caixa": {
+          "esquerda": 17,
+          "direita": 877,
+          "topo": 442.3,
+          "base": 787.3,
+          "largura": 860,
+          "altura": 345
+        },
+        "cabecalho": {
+          "texto": "rgb(18, 60, 58)",
+          "fundo": "rgb(243, 247, 245)",
+          "borda": "rgb(18, 60, 58)"
+        }
+      },
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": [
+        {
+          "tag": "HTML",
+          "classe": "",
+          "scrollWidth": 475,
+          "clientWidth": 390
+        },
+        {
+          "tag": "BODY",
+          "classe": "",
+          "scrollWidth": 475,
+          "clientWidth": 390
+        },
+        {
+          "tag": "DIV",
+          "classe": "",
+          "scrollWidth": 475,
+          "clientWidth": 390
+        },
+        {
+          "tag": "DIV",
+          "classe": "horario-module-wrapper",
+          "scrollWidth": 475,
+          "clientWidth": 390
+        },
+        {
+          "tag": "HEADER",
+          "classe": "app-header no-print",
+          "scrollWidth": 475,
+          "clientWidth": 390
+        },
+        {
+          "tag": "DIV",
+          "classe": "header-container",
+          "scrollWidth": 475,
+          "clientWidth": 390
+        }
+      ]
+    },
+    {
+      "tela": "horario",
+      "arquivo": "horario-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "RotinaDocente\nMeu Horário Escolar\n\nSalvo apenas neste dispositivo\n\nPROFESSOR(A):\nESCOLA:\n🇧🇷 PT-BR\n🌎 ES-Latam\nTurno: M",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 1000,
+        "rolagemHorizontal": false
+      },
+      "titulo": "RotinaDocenteMeu Horário Escolar",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(243, 247, 245)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgba(0, 0, 0, 0)",
+        "caixa": {
+          "esquerda": 424.56,
+          "direita": 533.13,
+          "topo": 55.52,
+          "base": 89.89,
+          "largura": 108.56,
+          "altura": 34.38
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "tabelaNotas": {
+        "caixa": {
+          "esquerda": 17,
+          "direita": 1423,
+          "topo": 150.86,
+          "base": 495.86,
+          "largura": 1406,
+          "altura": 345
+        },
+        "cabecalho": {
+          "texto": "rgb(18, 60, 58)",
+          "fundo": "rgb(243, 247, 245)",
+          "borda": "rgb(18, 60, 58)"
+        }
+      },
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "redacao",
+      "arquivo": "redacao-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Redação — revisão docente\n\nComponente real com redação sintética. As notas C1–C5 são dados de avaliação, não cor decorat",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 1776,
+        "rolagemHorizontal": false
+      },
+      "titulo": null,
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(255, 255, 255)",
+        "fundo": "rgb(18, 60, 58)",
+        "borda": "rgb(255, 255, 255)",
+        "caixa": {
+          "esquerda": 45,
+          "direita": 177.61,
+          "topo": 730.09,
+          "base": 770.09,
+          "largura": 132.61,
+          "altura": 40
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "redacao",
+      "arquivo": "redacao-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Redação — revisão docente\n\nComponente real com redação sintética. As notas C1–C5 são dados de avaliação, não cor decorat",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 1440,
+        "rolagemHorizontal": false
+      },
+      "titulo": null,
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(255, 255, 255)",
+        "fundo": "rgb(18, 60, 58)",
+        "borda": "rgb(255, 255, 255)",
+        "caixa": {
+          "esquerda": 311,
+          "direita": 443.61,
+          "topo": 527.3,
+          "base": 567.3,
+          "largura": 132.61,
+          "altura": 40
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "criterios",
+      "arquivo": "redacao-criterios-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Critérios INEP\nCompetências do ENEM\n\nAs 5 competências avaliadas na redação do ENEM, conforme a matriz de referência ofi",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 1800,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Critérios INEP",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(15, 118, 110)",
+        "fundo": "rgb(243, 248, 245)",
+        "borda": "oklab(0.510931 -0.0854972 -0.00957102 / 0.3)",
+        "caixa": {
+          "esquerda": 16,
+          "direita": 58,
+          "topo": 12,
+          "base": 46,
+          "largura": 42,
+          "altura": 34
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "oklch(0.372 0.044 257.287)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "oklch(0.372 0.044 257.287)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "criterios",
+      "arquivo": "redacao-criterios-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Voltar\nCritérios INEP\nCompetências do ENEM\n\nAs 5 competências avaliadas na redação do ENEM, conforme a matriz de referên",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 1247,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Critérios INEP",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(15, 118, 110)",
+        "fundo": "rgb(243, 248, 245)",
+        "borda": "oklab(0.510931 -0.0854972 -0.00957102 / 0.3)",
+        "caixa": {
+          "esquerda": 24,
+          "direita": 122.14,
+          "topo": 12,
+          "base": 50,
+          "largura": 98.14,
+          "altura": 38
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "oklch(0.372 0.044 257.287)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "oklch(0.372 0.044 257.287)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "adaptadas",
+      "arquivo": "adaptadas-390.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Atividades adaptadas — visualização do estudante\n\nComponente real com atividade sintética. Imagens pedagógicas não são g",
+      "viewport": {
+        "largura": 390,
+        "altura": 844,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 3920,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Interpretação de texto — crônica",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(11, 95, 89)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(11, 95, 89)",
+        "caixa": {
+          "esquerda": 48,
+          "direita": 191,
+          "topo": 154.59,
+          "base": 202.59,
+          "largura": 143,
+          "altura": 48
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    },
+    {
+      "tela": "adaptadas",
+      "arquivo": "adaptadas-1440.png",
+      "pronto": true,
+      "filhos": 1,
+      "texto": "Atividades adaptadas — visualização do estudante\n\nComponente real com atividade sintética. Imagens pedagógicas não são g",
+      "viewport": {
+        "largura": 1440,
+        "altura": 1000,
+        "dpr": 1
+      },
+      "documento": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollHeight": 2710,
+        "rolagemHorizontal": false
+      },
+      "titulo": "Interpretação de texto — crônica",
+      "corpo": {
+        "texto": "rgb(18, 60, 58)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(18, 60, 58)"
+      },
+      "primeiroBotao": {
+        "texto": "rgb(11, 95, 89)",
+        "fundo": "rgb(255, 255, 255)",
+        "borda": "rgb(11, 95, 89)",
+        "caixa": {
+          "esquerda": 204,
+          "direita": 360.89,
+          "topo": 108.3,
+          "base": 156.3,
+          "largura": 156.89,
+          "altura": 48
+        }
+      },
+      "primeiroTitulo": {
+        "texto": "rgb(55, 65, 81)",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "borda": "rgb(55, 65, 81)"
+      },
+      "tabelaNotas": null,
+      "estadosNota": {
+        "abaixo": null,
+        "aprovado": null,
+        "excelente": null,
+        "semNota": null
+      },
+      "overflow": []
+    }
+  ],
+  "erros": [
+    {
+      "tela": "horario-390",
+      "tipo": "warning",
+      "texto": "[HorarioRepository] Erro ao carregar do Firestore, recorrendo ao cache local: FirebaseError: Expected first argument to doc() to be a CollectionReference, a DocumentReference or FirebaseFirestore"
+    },
+    {
+      "tela": "horario-1440",
+      "tipo": "warning",
+      "texto": "[HorarioRepository] Erro ao carregar do Firestore, recorrendo ao cache local: FirebaseError: Expected first argument to doc() to be a CollectionReference, a DocumentReference or FirebaseFirestore"
+    }
+  ]
+}

@@ -82,7 +82,7 @@ export function generateSchedule({ requests, availableSlots, maxClassesPerDay = 
         subject: req.subject,
         grade: req.grade,
         room: req.room || '',
-        color: req.color || '#f60c49',
+        color: req.color || '#0f766e',
         id: req.id || Date.now().toString()
       };
       placed = true;

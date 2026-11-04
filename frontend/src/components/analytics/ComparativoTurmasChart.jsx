@@ -8,9 +8,9 @@ function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-[#101942] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
+      <div className="bg-[#123c3a] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
         <p className="font-bold text-sm text-white">{data.nomeCompleto}</p>
-        <p className="text-slate-300 font-medium">{data.disciplina || 'Geral'}</p>
+        <p className="text-[#B7D3C8] font-medium">{data.disciplina || 'Geral'}</p>
         <div className="pt-1 space-y-0.5 border-t border-white/10">
           <p className="text-emerald-400 font-semibold">
             % da escala: {data.media !== null ? `${data.media.toFixed(2).replace('.', ',')} %` : 'Sem dados'}
@@ -48,15 +48,15 @@ export function ComparativoTurmasChart({ turmasMetricas = [], bimestral = true }
   const temDados = chartData.some((d) => d.media !== null);
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-[#D5E3DC]/80 shadow-sm flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div>
-          <h4 className="text-base font-bold text-[#101942]">Comparativo entre Turmas</h4>
-          <p className="text-xs text-slate-500 font-medium">
+          <h4 className="text-base font-bold text-[#123c3a]">Comparativo entre Turmas</h4>
+          <p className="text-xs text-[#566F65] font-medium">
             Percentual da escala de cada turma; consulte as notas originais abaixo
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-slate-500">
+        <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-[#566F65]">
           {bimestral && (
             <span className="flex items-center gap-1">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />{' '}
@@ -71,7 +71,7 @@ export function ComparativoTurmasChart({ turmasMetricas = [], bimestral = true }
           </span>
           {!bimestral && (
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-400" /> Em andamento / sem dados
+              <span className="w-2.5 h-2.5 rounded-full bg-[#566F65]" /> Em andamento / sem dados
             </span>
           )}
         </div>
@@ -105,7 +105,7 @@ export function ComparativoTurmasChart({ turmasMetricas = [], bimestral = true }
       </details>
       {!temDados ? (
         <div className="h-64 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
-          <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+          <div className="w-10 h-10 rounded-full bg-[#F3F7F5] flex items-center justify-center text-slate-400">
             📊
           </div>
           <span>Sem notas lançadas nas turmas</span>
@@ -114,15 +114,15 @@ export function ComparativoTurmasChart({ turmasMetricas = [], bimestral = true }
         <div className="w-full h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#D5E3DC" vertical={false} />
               <XAxis
                 dataKey="nome"
-                stroke="#64748b"
+                stroke="#566F65"
                 fontSize={11}
                 tickLine={false}
-                axisLine={{ stroke: '#cbd5e1' }}
+                axisLine={{ stroke: '#D5E3DC' }}
               />
-              <YAxis domain={[0, 100]} stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis domain={[0, 100]} stroke="#566F65" fontSize={12} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="media" radius={[8, 8, 0, 0]} maxBarSize={40}>
                 {chartData.map((entry) => (

@@ -16,8 +16,8 @@ import { RUBRICA_REDACAO } from '@/dominio/redacao/rubrica';
 import { generatePDF } from '@/lib/redacao/pdf-generator';
 
 const COMPETENCIAS = ['c1', 'c2', 'c3', 'c4', 'c5'];
-const field = 'w-full border border-slate-300 rounded-xl p-3 bg-white text-[#101942]';
-const box = 'rounded-2xl border border-slate-200 bg-white p-5 space-y-4';
+const field = 'w-full border border-[#B7D3C8] rounded-xl p-3 bg-white text-[#123c3a]';
+const box = 'rounded-2xl border border-[#D5E3DC] bg-white p-5 space-y-4';
 const vazio = () => ({ turmaId:'', alunoId:'', nome:'', turmaNome:'', anoLetivo:'', bimestre:1, tema:'', texto:'', motivador:'', depth:'analyzed', competencias:[...COMPETENCIAS], fonte:null });
 const chaveRascunho = uid => `redacao_rascunho_v2_${uid}`;
 const chaveContexto = (uid,form) => `${chaveRascunho(uid)}:contexto:${form.turmaId ? `${encodeURIComponent(form.turmaId)}:${encodeURIComponent(form.alunoId || 'sem-aluno')}` : 'avulsa'}`;
@@ -174,16 +174,16 @@ export default function RedacaoPage() {
   if(!perfil?.modulos_permitidos?.includes('redacao-corretor'))return <p className="p-8">Seu plano não inclui Redação Corrigida. <Link href="/">Voltar ao Hub</Link></p>;
   const contexto=form.nome ? `${form.turmaNome || 'Avulsa'} · ${form.nome} · ${form.bimestre}º bimestre`:'Selecione turma e aluno ou crie uma redação avulsa.';
   const label=(texto,children)=><label className="block space-y-1"><span className="text-sm font-semibold">{texto}</span>{children}</label>;
-  return <main onClickCapture={e=>{const link=e.target.closest('a');if(!link)return;if(busy){e.preventDefault();e.stopPropagation();setErro('Aguarde o processamento terminar antes de sair.');}else if((dirty || revisaoDirty) && !window.confirm('Sair desta redação? O texto ficará no rascunho deste dispositivo; a imagem precisará ser reenviada.')){e.preventDefault();e.stopPropagation();}}} className="min-h-screen bg-slate-50 text-[#101942] p-4 sm:p-8">
+  return <main onClickCapture={e=>{const link=e.target.closest('a');if(!link)return;if(busy){e.preventDefault();e.stopPropagation();setErro('Aguarde o processamento terminar antes de sair.');}else if((dirty || revisaoDirty) && !window.confirm('Sair desta redação? O texto ficará no rascunho deste dispositivo; a imagem precisará ser reenviada.')){e.preventDefault();e.stopPropagation();}}} className="min-h-screen bg-[#F3F8F5] text-[#123c3a] p-4 sm:p-8">
     <div className="max-w-5xl mx-auto space-y-5">
       <header className="flex flex-wrap items-center justify-between gap-3"><div><Link href="/" className="text-sm underline">Voltar ao Hub</Link><h1 className="text-2xl font-bold">Redação Corrigida</h1></div><nav className="flex flex-wrap gap-3"><Link className="btn-brand-navy rounded-xl px-4 py-2" href="/redacao/desempenho">Histórico e evolução</Link><Link href="/redacao/criterios" className="underline py-2">Critérios ENEM</Link><button className="btn-brand-ghost rounded-xl px-4 py-2" disabled={!!busy} onClick={novo}>Nova redação</button></nav></header>
       <p className="text-sm">Enviar → Revisar texto → Corrigir → Revisar resultado → Disponibilizar. Salvamento e publicação são etapas separadas.</p>
-      <p className="rounded-xl bg-[#fff2f6] border border-[#f60c49]/20 p-3 font-semibold">{contexto}</p>
+      <p className="rounded-xl bg-[#f3f8f5] border border-[#0f766e]/20 p-3 font-semibold">{contexto}</p>
       {recuperavel && <section className={box}><p>Há um rascunho desta conta neste dispositivo. Fonte original deve ser reenviada para comparação visual.</p><button className="btn-brand-primary rounded-xl px-4 py-2" disabled={!!busy} onClick={recuperar}>Recuperar rascunho</button><button className="ml-3 underline" disabled={!!busy} onClick={()=>{setRecuperavel(null);localStorage.removeItem(chaveRascunho(user.uid));}}>Descartar rascunho</button></section>}
       {rascunhos.length>0 && <details className={box}><summary>Rascunhos por aluno ({rascunhos.length})</summary>{rascunhos.map(d=><button key={chaveContexto(user.uid,d.form)} disabled={!!busy} className="block underline text-left py-2" onClick={()=>setRecuperavel(d)}>{d.form.nome || 'Aluno não selecionado'} · {d.form.turmaNome || 'Avulsa'} · {d.form.bimestre}º bimestre — recuperar</button>)}</details>}
-      {erro && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-4">{erro}</p>}
-      {aviso && <p role="status" className="rounded-xl bg-amber-50 p-4">{aviso}</p>}
-      {busy && <p role="status" aria-live="polite" className="p-4 bg-blue-50 rounded-xl">{busy}</p>}
+      {erro && <p role="alert" className="rounded-xl bg-[#F3F8F5] border border-[#D5E3DC] p-4">{erro}</p>}
+      {aviso && <p role="status" className="rounded-xl bg-[#F3F8F5] p-4">{aviso}</p>}
+      {busy && <p role="status" aria-live="polite" className="p-4 bg-[#F3F8F5] rounded-xl">{busy}</p>}
       {etapa!=='result' && <fieldset disabled={!!busy} className="space-y-5">
         <section className={box}><h2 className="font-bold">1. Identificar redação</h2>
           {diario.erro && <p role="alert">Turmas indisponíveis: {diario.erro} <button type="button" onClick={()=>diario.tentarNovamente?.().catch(e=>setErro(e.message))} className="underline">Tentar novamente</button></p>}
@@ -193,10 +193,10 @@ export default function RedacaoPage() {
             {label('Bimestre',<select className={field} value={form.bimestre} onChange={e=>mudar({bimestre:Number(e.target.value)})}>{[1,2,3,4].map(b=><option key={b} value={b}>{b}º bimestre</option>)}</select>)}
             {label('Ano letivo',<input className={field} value={form.anoLetivo} onChange={e=>mudar({anoLetivo:e.target.value})} maxLength={4} inputMode="numeric"/>)}
             {label('Tema',<input className={field} value={form.tema} onChange={e=>mudar({tema:e.target.value})} maxLength={500}/>)}
-          </div><p className="text-sm text-slate-600">Redação avulsa não publica para aluno por associação automática de nome. Escolha o aluno cadastrado para disponibilizar no Portal.</p>
+          </div><p className="text-sm text-[#4F6B63]">Redação avulsa não publica para aluno por associação automática de nome. Escolha o aluno cadastrado para disponibilizar no Portal.</p>
         </section>
         <section className={box}><h2 className="font-bold">2. Enviar e revisar texto</h2>
-          <label className="block font-semibold">Enviar redação<input className={`${field} mt-2`} type="file" accept="image/*,.heic,.heif,.pdf,.docx,.txt" onChange={e=>importar(e)}/></label><p className="text-sm text-slate-600">Imagem até 7 MB; PDF, DOCX e TXT até 15 MB. Até 10 páginas escaneadas. Fotografe sem sombras e com a folha inteira. Confira a transcrição sem corrigir os erros do aluno.</p>
+          <label className="block font-semibold">Enviar redação<input className={`${field} mt-2`} type="file" accept="image/*,.heic,.heif,.pdf,.docx,.txt" onChange={e=>importar(e)}/></label><p className="text-sm text-[#4F6B63]">Imagem até 7 MB; PDF, DOCX e TXT até 15 MB. Até 10 páginas escaneadas. Fotografe sem sombras e com a folha inteira. Confira a transcrição sem corrigir os erros do aluno.</p>
           {form.fonte && <p>Fonte: {form.fonte.nome}</p>}
           {imagem && <button onClick={()=>setZoom(true)} type="button" className="block text-left"><img src={imagem} alt="Fonte original da redação; ampliar para conferir" className="max-h-72 max-w-full object-contain border rounded-xl"/><span className="underline">Ampliar original</span></button>}
           {label('Texto original / transcrição',<textarea className={field} rows={12} value={form.texto} spellCheck={false} lang="pt-BR" maxLength={25000} onChange={e=>mudar({texto:e.target.value})}/>)}
@@ -214,7 +214,7 @@ export default function RedacaoPage() {
         {etapa!=='review' && <p className="text-sm">Após conferir o texto, escolha Corrigir com IA ou Corrigir manualmente.</p>}
       </fieldset>}
       {etapa==='result' && registro && <div className="space-y-5"><section className={box}><h2 className="font-bold">4. Revisar resultado</h2><p role="status">{salvo?'Salvo no histórico. Revise antes da publicação.':'Resultado preservado neste dispositivo; salvamento pendente.'}</p>{!salvo && <button disabled={!!busy} className="btn-brand-primary rounded-xl px-4 py-3" onClick={()=>salvar()}>Tentar salvar novamente</button>}<p className="font-bold text-xl">{registro.totalScore===null?'Avaliação parcial — sem total':`${registro.totalScore} / 1000`}</p><div className="flex flex-wrap gap-4">{registro.scoreData.map(c=><span key={c.subject}>{c.subject}: {c.A}/200</span>)}</div>{renderFeedbackText(registro.result)}<button className="btn-brand-ghost rounded-xl px-4 py-2" onClick={()=>generatePDF(registro.result,registro.studentName,registro.studentClass,registro.essayTheme,registro.scoreData,registro)}>Exportar relatório PDF</button></section>{salvo && <RevisaoRedacao key={`${registro.id}:${registro.revision}`} redacao={registro} professorUid={user.uid} onDirtyChange={setRevisaoDirty} onSaved={r=>{setRegistro(r);setDirty(false);}}/>}</div>}
-      {dirty && <p className="text-xs text-slate-500">Rascunho privado desta conta salvo neste dispositivo. A imagem original não é armazenada no rascunho; reenvie se recarregar.</p>}
+      {dirty && <p className="text-xs text-[#566F65]">Rascunho privado desta conta salvo neste dispositivo. A imagem original não é armazenada no rascunho; reenvie se recarregar.</p>}
     </div>
     {zoom && <div role="dialog" aria-modal="true" aria-label="Original ampliado" className="fixed inset-0 z-50 bg-white p-4 overflow-auto"><button className="btn-brand-navy rounded-xl p-3 mb-3" onClick={()=>setZoom(false)}>Fechar original</button><img src={imagem} alt="Redação original ampliada" className="max-w-none w-auto"/></div>}
   </main>;

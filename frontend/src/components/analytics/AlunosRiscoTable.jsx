@@ -17,11 +17,11 @@ export function AlunosRiscoTable({
   const paginas = Math.max(1, Math.ceil(filtrados.length / 15));
   const atual = Math.min(pagina, paginas - 1);
   return (
-    <section className="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+    <section className="bg-white rounded-2xl border border-[#D5E3DC] p-4 space-y-3">
       <h2 className="font-bold text-lg">
         {titulo} · {alunos.length}
       </h2>
-      <p className="text-sm text-slate-600">
+      <p className="text-sm text-[#4F6B63]">
         Sugestões para revisão do professor. Nenhuma avaliação ou penalidade é criada automaticamente.
       </p>
       {!totalAvaliados ? (

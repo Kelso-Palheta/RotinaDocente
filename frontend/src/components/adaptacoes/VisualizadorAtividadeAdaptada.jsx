@@ -266,17 +266,17 @@ export function VisualizadorAtividadeAdaptada({
   return (
     <div className="space-y-6">
       {/* Barra de Ações & Alternador de Abas */}
-      <div className="p-4 bg-white border border-[#dce0f0] rounded-2xl shadow-2xs flex flex-col md:flex-row items-center justify-between gap-4 print:hidden">
+      <div className="p-4 bg-white border border-[#d5e3dc] rounded-2xl shadow-2xs flex flex-col md:flex-row items-center justify-between gap-4 print:hidden">
         {/* Abas */}
-        <div className="flex items-center gap-2 bg-[#f7f8fc] p-1.5 rounded-2xl border border-[#dce0f0] w-full md:w-auto">
+        <div className="flex items-center gap-2 bg-[#f3f7f5] p-1.5 rounded-2xl border border-[#d5e3dc] w-full md:w-auto">
           <button
             id="tab-atividade-estudante"
             type="button"
             onClick={() => setAbaAtiva("aluno")}
             className={`flex-1 md:flex-initial px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               abaAtiva === "aluno"
-                ? "bg-white text-[#d40840] shadow-xs"
-                : "text-[#6070a0] hover:text-[#101942]"
+                ? "bg-white text-[#0b5f59] shadow-xs"
+                : "text-[#4f6b63] hover:text-[#123c3a]"
             }`}
           >
             <FileText size={16} />
@@ -288,8 +288,8 @@ export function VisualizadorAtividadeAdaptada({
             onClick={() => setAbaAtiva("mediacao")}
             className={`flex-1 md:flex-initial px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               abaAtiva === "mediacao"
-                ? "bg-white text-indigo-700 shadow-xs"
-                : "text-[#6070a0] hover:text-[#101942]"
+                ? "bg-white text-[#123C3A] shadow-xs"
+                : "text-[#4f6b63] hover:text-[#123c3a]"
             }`}
           >
             <UserCheck size={16} />
@@ -314,18 +314,18 @@ export function VisualizadorAtividadeAdaptada({
               }}
               className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                 salvoAtual
-                  ? "bg-emerald-50 border-emerald-300 text-emerald-700"
-                  : "bg-white border-[#dce0f0] hover:border-[#f60c49]/40 text-[#101942] hover:text-[#d40840]"
+                  ? "bg-[#F3F8F5] border-[#B7D3C8] text-[#0B5F59]"
+                  : "bg-white border-[#d5e3dc] hover:border-[#0f766e]/40 text-[#123c3a] hover:text-[#0b5f59]"
               }`}
             >
               {salvoAtual ? (
                 <>
-                  <BookmarkCheck size={15} className="text-emerald-600" />
+                  <BookmarkCheck size={15} className="text-[#0F766E]" />
                   Salvo no Banco
                 </>
               ) : (
                 <>
-                  <BookmarkPlus size={15} className="text-[#f60c49]" />
+                  <BookmarkPlus size={15} className="text-[#0f766e]" />
                   {salvandoLocal ? "Salvando..." : "Salvar Prova/Atividade"}
                 </>
               )}
@@ -343,12 +343,12 @@ export function VisualizadorAtividadeAdaptada({
               }}
               className={`px-3.5 py-2 border rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                 questoesSalvasNoBanco
-                  ? "bg-indigo-50 border-indigo-300 text-indigo-700"
-                  : "bg-white border-[#dce0f0] hover:border-indigo-400 text-[#101942] hover:text-indigo-700"
+                  ? "bg-[#F3F8F5] border-[#B7D3C8] text-[#123C3A]"
+                  : "bg-white border-[#d5e3dc] hover:border-[#0F766E] text-[#123c3a] hover:text-[#123C3A]"
               }`}
               title="Salva todas as questões geradas individualmente no Banco de Questões"
             >
-              <BookOpen size={15} className="text-indigo-600" />
+              <BookOpen size={15} className="text-[#0F766E]" />
               {questoesSalvasNoBanco ? "Questões Salvas no Banco!" : "Salvar Questões no Banco"}
             </button>
           )}
@@ -357,10 +357,10 @@ export function VisualizadorAtividadeAdaptada({
             <button
               type="button"
               onClick={onAbrirBanco}
-              className="px-3 py-2 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white text-[#101942] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
+              className="px-3 py-2 border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-white text-[#123c3a] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
               title="Abrir Banco de Atividades para reaproveitar para outros alunos"
             >
-              <FolderOpen size={15} className="text-[#6070a0]" />
+              <FolderOpen size={15} className="text-[#4f6b63]" />
               <span className="hidden sm:inline">Ver no</span> Banco
             </button>
           )}
@@ -372,10 +372,10 @@ export function VisualizadorAtividadeAdaptada({
               setTurmaPublicacaoId(resultadoAtual.turmaId || "");setAlunoPublicacaoId("");
               setModalPublicarOnline(true);
             }}
-            className="px-3.5 py-2 border border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
+            className="px-3.5 py-2 border border-[#D5E3DC] bg-[#F3F8F5] hover:bg-[#DAEBE5] text-[#123C3A] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs"
             title="Publicar online para o estudante responder no Portal do Aluno com Leitor Imersivo"
           >
-            <Globe size={15} className="text-purple-600" />
+            <Globe size={15} className="text-[#0F766E]" />
             <span>Publicar no Portal</span>
           </button>
 
@@ -383,16 +383,16 @@ export function VisualizadorAtividadeAdaptada({
             id="btn-copiar-atividade"
             type="button"
             onClick={handleCopiar}
-            className="px-3.5 py-2 border border-[#dce0f0] hover:border-[#f60c49]/40 bg-white text-[#101942] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-white text-[#123c3a] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
           >
-            {copiado ? <Check size={15} className="text-green-600" /> : <Copy size={15} />}
+            {copiado ? <Check size={15} className="text-[#0F766E]" /> : <Copy size={15} />}
             {copiado ? "Copiado!" : "Copiar Texto"}
           </button>
           <button
             id="btn-imprimir-pdf"
             type="button"
             onClick={handleImprimir}
-            className="px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#0f766e] hover:bg-[#0b5f59] text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center gap-1.5"
           >
             <Printer size={15} />
             Imprimir / Salvar PDF
@@ -402,16 +402,16 @@ export function VisualizadorAtividadeAdaptada({
 
       {/* Barra de Ajustes de Acessibilidade Visual (apenas na aba do aluno) */}
       {abaAtiva === "aluno" && (
-        <div className="p-3.5 bg-gradient-to-r from-slate-50 to-blue-50/50 border border-[#dce0f0] rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs print:hidden">
-          <div className="flex items-center gap-2 text-[#101942] font-bold">
-            <Eye size={16} className="text-[#f60c49]" />
+        <div className="p-3.5 bg-gradient-to-r from-[#F3F8F5] to-[#F3F8F5]/50 border border-[#d5e3dc] rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs print:hidden">
+          <div className="flex items-center gap-2 text-[#123c3a] font-bold">
+            <Eye size={16} className="text-[#0f766e]" />
             Acessibilidade Visual (RN-36):
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             {/* Seletor de Tamanho de Fonte */}
-            <div className="flex items-center gap-1 bg-white border border-[#dce0f0] rounded-xl p-1">
-              <Type size={14} className="text-[#6070a0] ml-1.5" />
+            <div className="flex items-center gap-1 bg-white border border-[#d5e3dc] rounded-xl p-1">
+              <Type size={14} className="text-[#4f6b63] ml-1.5" />
               {[
                 { label: "Normal (16px)", val: "16px" },
                 { label: "Grande (18px)", val: "18px" },
@@ -424,8 +424,8 @@ export function VisualizadorAtividadeAdaptada({
                   onClick={() => setTamanhoFonte(f.val)}
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${
                     tamanhoFonte === f.val
-                      ? "bg-[#f60c49] text-white"
-                      : "text-[#6070a0] hover:text-[#101942]"
+                      ? "bg-[#0f766e] text-white"
+                      : "text-[#4f6b63] hover:text-[#123c3a]"
                   }`}
                 >
                   {f.val}
@@ -439,8 +439,8 @@ export function VisualizadorAtividadeAdaptada({
               onClick={() => setEspacamentoDuplo(!espacamentoDuplo)}
               className={`px-3 py-1.5 rounded-xl border text-[11px] font-bold transition-all ${
                 espacamentoDuplo
-                  ? "bg-indigo-600 text-white border-indigo-600"
-                  : "bg-white text-[#6070a0] border-[#dce0f0] hover:bg-slate-50"
+                  ? "bg-[#0F766E] text-white border-[#0F766E]"
+                  : "bg-white text-[#4f6b63] border-[#d5e3dc] hover:bg-[#F3F8F5]"
               }`}
             >
               Espaçamento 2.0 {espacamentoDuplo ? "✓" : ""}
@@ -452,8 +452,8 @@ export function VisualizadorAtividadeAdaptada({
               onClick={() => setAltoContraste(!altoContraste)}
               className={`px-3 py-1.5 rounded-xl border text-[11px] font-bold transition-all ${
                 altoContraste
-                  ? "bg-black text-yellow-300 border-yellow-400 ring-2 ring-yellow-400"
-                  : "bg-white text-[#101942] border-[#dce0f0] hover:bg-slate-50"
+                  ? "bg-black text-[#B7D3C8] border-[#0F766E] ring-2 ring-[#0F766E]"
+                  : "bg-white text-[#123c3a] border-[#d5e3dc] hover:bg-[#F3F8F5]"
               }`}
             >
               Alto Contraste {altoContraste ? "✓" : ""}
@@ -465,10 +465,10 @@ export function VisualizadorAtividadeAdaptada({
               type="button"
               disabled={gerandoTodas}
               onClick={handleGerarTodasImagens}
-              className="px-3 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 text-[11px] font-bold transition-all flex items-center gap-1.5 disabled:opacity-50"
+              className="px-3 py-1.5 rounded-xl border border-[#D5E3DC] bg-[#F3F8F5]/80 hover:bg-[#DAEBE5] text-[#123C3A] text-[11px] font-bold transition-all flex items-center gap-1.5 disabled:opacity-50"
               title="Gerar imagens automáticas para todas as questões que possuem apoio visual"
             >
-              <ImageIcon size={14} className="text-indigo-600" />
+              <ImageIcon size={14} className="text-[#0F766E]" />
               <span>{gerandoTodas ? "Gerando Imagens..." : "Produzir imagens pendentes"}</span>
             </button>
           </div>
@@ -476,7 +476,7 @@ export function VisualizadorAtividadeAdaptada({
       )}
 
       {erroImagem && (
-        <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2 print:hidden">
+        <div className="p-3 bg-[#F3F8F5] border border-[#D5E3DC] text-[#0B5F59] text-xs rounded-xl flex items-center gap-2 print:hidden">
           <AlertCircle size={16} className="flex-shrink-0" />
           <span>{erroImagem}</span>
         </div>
@@ -484,8 +484,8 @@ export function VisualizadorAtividadeAdaptada({
 
       {/* Convite para chave BYOK quando as imagens usam o serviço gratuito padrão (RN-39) */}
       {!temChave && (
-        <div className="p-3 bg-indigo-50 border border-indigo-200 text-indigo-950 text-xs rounded-xl flex flex-wrap items-center gap-2.5 print:hidden">
-          <Sparkles size={16} className="text-indigo-600 flex-shrink-0" />
+        <div className="p-3 bg-[#F3F8F5] border border-[#D5E3DC] text-[#123C3A] text-xs rounded-xl flex flex-wrap items-center gap-2.5 print:hidden">
+          <Sparkles size={16} className="text-[#0F766E] flex-shrink-0" />
           <span className="flex-1 min-w-48">
             Geração e adaptação por IA utilizam sua chave <strong>Google Gemini</strong>. Imagens próprias e desenhos exatos podem ser preparados sem IA. Toda figura exige revisão antes da distribuição.
           </span>
@@ -493,7 +493,7 @@ export function VisualizadorAtividadeAdaptada({
             <button
               type="button"
               onClick={onConectarIA}
-              className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[11px] font-bold transition-all shadow-xs"
+              className="px-3 py-1.5 bg-[#0F766E] hover:bg-[#0B5F59] text-white rounded-lg text-[11px] font-bold transition-all shadow-xs"
             >
               Conectar Gemini
             </button>
@@ -512,22 +512,22 @@ export function VisualizadorAtividadeAdaptada({
             espacamentoDuplo ? "leading-loose" : "leading-relaxed"
           } ${
             altoContraste
-              ? "bg-[#000000] text-[#ffea00] border-yellow-400 selection:bg-yellow-400 selection:text-black font-semibold"
-              : "bg-white text-[#101942] border-[#dce0f0]"
+              ? "bg-[#000000] text-[#ffea00] border-[#0F766E] selection:bg-[#0F766E] selection:text-black font-semibold"
+              : "bg-white text-[#123c3a] border-[#d5e3dc]"
           }`}
         >
           {/* Cabeçalho do Estudante */}
           <div
             className={`pb-6 mb-8 border-b ${
-              altoContraste ? "border-yellow-400/50" : "border-[#dce0f0]"
+              altoContraste ? "border-[#0F766E]/50" : "border-[#d5e3dc]"
             } flex flex-col sm:flex-row sm:items-center justify-between gap-4`}
           >
             <div>
               <span
                 className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md ${
                   altoContraste
-                    ? "bg-yellow-400 text-black font-black"
-                    : "bg-[#fff2f6] text-[#d40840] border border-[#fde4ec]"
+                    ? "bg-[#0F766E] text-black font-black"
+                    : "bg-[#f3f8f5] text-[#0b5f59] border border-[#daebe5]"
                 }`}
               >
                 {disciplina} • {anoEscolar}
@@ -538,8 +538,8 @@ export function VisualizadorAtividadeAdaptada({
             <div
               className={`p-3 rounded-2xl border text-xs min-w-[200px] ${
                 altoContraste
-                  ? "border-yellow-400 bg-black text-yellow-300"
-                  : "bg-[#f7f8fc] border-[#dce0f0] text-[#6070a0]"
+                  ? "border-[#0F766E] bg-black text-[#B7D3C8]"
+                  : "bg-[#f3f7f5] border-[#d5e3dc] text-[#4f6b63]"
               }`}
             >
               <p>
@@ -556,8 +556,8 @@ export function VisualizadorAtividadeAdaptada({
             <div
               className={`p-4 rounded-2xl mb-8 border ${
                 altoContraste
-                  ? "bg-black border-yellow-400 text-yellow-300 font-bold"
-                  : "bg-blue-50/70 border-blue-200/80 text-blue-950 font-medium"
+                  ? "bg-black border-[#0F766E] text-[#B7D3C8] font-bold"
+                  : "bg-[#F3F8F5]/70 border-[#D5E3DC]/80 text-[#0B2B2A] font-medium"
               }`}
             >
               <p className="text-sm font-bold flex items-center gap-2 mb-1">
@@ -575,8 +575,8 @@ export function VisualizadorAtividadeAdaptada({
                 key={idx}
                 className={`p-5 sm:p-6 rounded-2xl border transition-all ${
                   altoContraste
-                    ? "border-yellow-400/70 bg-black"
-                    : "border-[#dce0f0] bg-white hover:border-[#f60c49]/30"
+                    ? "border-[#0F766E]/70 bg-black"
+                    : "border-[#d5e3dc] bg-white hover:border-[#0f766e]/30"
                 }`}
               >
                 {/* Enunciado */}
@@ -584,8 +584,8 @@ export function VisualizadorAtividadeAdaptada({
                   <span
                     className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm flex-shrink-0 ${
                       altoContraste
-                        ? "bg-yellow-400 text-black font-black"
-                        : "bg-[#f60c49] text-white shadow-xs"
+                        ? "bg-[#0F766E] text-black font-black"
+                        : "bg-[#0f766e] text-white shadow-xs"
                     }`}
                   >
                     {q.numero || idx + 1}
@@ -605,12 +605,12 @@ export function VisualizadorAtividadeAdaptada({
                           }}
                           className={`px-2 py-1 text-xs rounded-xl border transition-all flex items-center gap-1 shrink-0 print:hidden ${
                             indicesSalvos[idx]
-                              ? "bg-emerald-50 border-emerald-300 text-emerald-700"
-                              : "bg-[#f8f9fd] border-[#dce0f0] text-[#6070a0] hover:text-indigo-700 hover:border-indigo-300"
+                              ? "bg-[#F3F8F5] border-[#B7D3C8] text-[#0B5F59]"
+                              : "bg-[#f3f8f5] border-[#d5e3dc] text-[#4f6b63] hover:text-[#123C3A] hover:border-[#B7D3C8]"
                           }`}
                           title="Salvar esta questão individual no Banco de Questões"
                         >
-                          {indicesSalvos[idx] ? <Check size={13} className="text-emerald-600" /> : <BookOpen size={13} />}
+                          {indicesSalvos[idx] ? <Check size={13} className="text-[#0F766E]" /> : <BookOpen size={13} />}
                           <span className="text-[10px] font-bold">
                             {indicesSalvos[idx] ? "Salva no Banco" : "+ Banco de Questões"}
                           </span>
@@ -632,13 +632,13 @@ export function VisualizadorAtividadeAdaptada({
                         key={aIdx}
                         className={`p-3.5 rounded-xl border flex items-center gap-3 transition-colors cursor-pointer ${
                           altoContraste
-                            ? "border-yellow-400 bg-black hover:bg-yellow-400 hover:text-black font-bold"
-                            : "border-[#dce0f0] bg-[#fafbfe] hover:bg-[#fff5f8] hover:border-[#f60c49]/40"
+                            ? "border-[#0F766E] bg-black hover:bg-[#0F766E] hover:text-black font-bold"
+                            : "border-[#d5e3dc] bg-[#f3f8f5] hover:bg-[#f3f8f5] hover:border-[#0f766e]/40"
                         }`}
                       >
                         <span
                           className={`w-6 h-6 rounded-lg border flex items-center justify-center font-bold text-xs flex-shrink-0 ${
-                            altoContraste ? "border-yellow-400" : "border-slate-300 bg-white"
+                            altoContraste ? "border-[#0F766E]" : "border-[#B7D3C8] bg-white"
                           }`}
                         >
                           ( )
@@ -651,17 +651,17 @@ export function VisualizadorAtividadeAdaptada({
 
                 {/* Dica de Apoio / Scaffolding Pedagógico */}
                 {q.dicaScaffolding && (
-                  <div className="mt-4 pt-3 border-t border-slate-100 print:hidden pl-0 sm:pl-11">
+                  <div className="mt-4 pt-3 border-t border-[#F3F7F5] print:hidden pl-0 sm:pl-11">
                     <button
                       type="button"
                       onClick={() => toggleDica(idx)}
                       className={`text-xs font-bold flex items-center gap-1.5 transition-colors ${
                         altoContraste
-                          ? "text-yellow-300 hover:underline"
-                          : "text-amber-700 hover:text-amber-800"
+                          ? "text-[#B7D3C8] hover:underline"
+                          : "text-[#0B5F59] hover:text-[#123C3A]"
                       }`}
                     >
-                      <Lightbulb size={14} className="text-amber-500" />
+                      <Lightbulb size={14} className="text-[#0F766E]" />
                       {dicasAbertas[idx] ? "Ocultar Dica de Apoio" : "Ver Dica de Apoio (Scaffolding)"}
                       {dicasAbertas[idx] ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                     </button>
@@ -669,8 +669,8 @@ export function VisualizadorAtividadeAdaptada({
                       <div
                         className={`mt-2 p-3 rounded-xl text-xs ${
                           altoContraste
-                            ? "bg-yellow-400/10 border border-yellow-400 text-yellow-300"
-                            : "bg-amber-50 border border-amber-200 text-amber-900"
+                            ? "bg-[#0F766E]/10 border border-[#0F766E] text-[#B7D3C8]"
+                            : "bg-[#F3F8F5] border border-[#D5E3DC] text-[#123C3A]"
                         }`}
                       >
                         {q.dicaScaffolding}
@@ -686,48 +686,48 @@ export function VisualizadorAtividadeAdaptada({
 
       {/* ÁREA DO GUIA DE MEDIAÇÃO DOCENTE (ABA 2 - RN-35) */}
       {abaAtiva === "mediacao" && (
-        <div className="p-6 sm:p-8 bg-white border border-indigo-200 rounded-3xl shadow-sm space-y-6">
+        <div className="p-6 sm:p-8 bg-white border border-[#D5E3DC] rounded-3xl shadow-sm space-y-6">
           {/* Header do Guia */}
-          <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-2xl flex items-start gap-3">
-            <div className="p-2 rounded-xl bg-indigo-600 text-white flex-shrink-0">
+          <div className="p-4 bg-[#F3F8F5] border border-[#D5E3DC] rounded-2xl flex items-start gap-3">
+            <div className="p-2 rounded-xl bg-[#0F766E] text-white flex-shrink-0">
               <UserCheck size={20} />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-md bg-indigo-600 text-white text-[10px] font-black uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-md bg-[#0F766E] text-white text-[10px] font-black uppercase tracking-wider">
                   Guia Exclusivo do Professor / Mediador
                 </span>
-                <span className="text-xs text-indigo-700 font-bold">
+                <span className="text-xs text-[#123C3A] font-bold">
                   (Em conformidade com RN-35)
                 </span>
               </div>
-              <h2 className="text-lg font-bold text-indigo-950 mt-1">
+              <h2 className="text-lg font-bold text-[#123C3A] mt-1">
                 Estratégias de Aplicação & Mediação Pedagógica DUA
               </h2>
-              <p className="text-xs text-indigo-800/80">
+              <p className="text-xs text-[#123C3A]/80">
                 Orientações para conduzir a atividade garantindo o engajamento e a aprendizagem sem rebaixamento curricular.
               </p>
             </div>
           </div>
 
           {/* 1. Objetivo Pedagógico Inalterado (RN-31) */}
-          <div className="p-4 bg-[#fff9fa] border border-[#fde4ec] rounded-2xl space-y-1.5">
-            <h3 className="text-xs font-bold text-[#d40840] uppercase tracking-wider flex items-center gap-2">
+          <div className="p-4 bg-[#f3f8f5] border border-[#daebe5] rounded-2xl space-y-1.5">
+            <h3 className="text-xs font-bold text-[#0b5f59] uppercase tracking-wider flex items-center gap-2">
               <Sparkles size={15} />
               1. Objetivo Pedagógico Inalterado (Não Empobrecimento - RN-31)
             </h3>
-            <p className="text-sm font-semibold text-[#101942]">
+            <p className="text-sm font-semibold text-[#123c3a]">
               {guiaMediacao.objetivoPedagogicoInalterado || "O estudante desenvolve o conceito curricular central através de múltiplos formatos de ação e expressão."}
             </p>
           </div>
 
           {/* 2. Tempo Estimado & Cronograma */}
-          <div className="p-4 bg-amber-50/60 border border-amber-200 rounded-2xl space-y-1.5">
-            <h3 className="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-2">
+          <div className="p-4 bg-[#F3F8F5]/60 border border-[#D5E3DC] rounded-2xl space-y-1.5">
+            <h3 className="text-xs font-bold text-[#123C3A] uppercase tracking-wider flex items-center gap-2">
               <Clock size={15} />
               2. Tempo Estimado & Gestão de Pausas
             </h3>
-            <p className="text-xs font-medium text-amber-950">
+            <p className="text-xs font-medium text-[#0B2B2A]">
               {guiaMediacao.tempoEstimado || "Recomenda-se bloco de 30 minutos com pausa de 5 minutos após a metade da tarefa."}
             </p>
           </div>
@@ -735,17 +735,17 @@ export function VisualizadorAtividadeAdaptada({
           {/* 3. Passo a Passo para o Professor */}
           {Array.isArray(guiaMediacao.passoAPassoProfessor) && guiaMediacao.passoAPassoProfessor.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-xs font-bold text-[#101942] uppercase tracking-wider flex items-center gap-2">
-                <Layers size={15} className="text-[#f60c49]" />
+              <h3 className="text-xs font-bold text-[#123c3a] uppercase tracking-wider flex items-center gap-2">
+                <Layers size={15} className="text-[#0f766e]" />
                 3. Roteiro Passo a Passo de Mediação em Sala
               </h3>
               <div className="space-y-2">
                 {guiaMediacao.passoAPassoProfessor.map((passo, pIdx) => (
                   <div
                     key={pIdx}
-                    className="p-3.5 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl flex items-start gap-3 text-xs text-[#101942]"
+                    className="p-3.5 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl flex items-start gap-3 text-xs text-[#123c3a]"
                   >
-                    <span className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-700 font-bold text-[11px] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full bg-[#DAEBE5] text-[#123C3A] font-bold text-[11px] flex items-center justify-center flex-shrink-0 mt-0.5">
                       {pIdx + 1}
                     </span>
                     <span className="leading-relaxed">{passo}</span>
@@ -757,12 +757,12 @@ export function VisualizadorAtividadeAdaptada({
 
           {/* 4. Antecipação Comportamental & Manejo Sensorial */}
           {guiaMediacao.antecipacaoComportamental && (
-            <div className="p-4 bg-rose-50/70 border border-rose-200 rounded-2xl space-y-1.5">
-              <h3 className="text-xs font-bold text-rose-900 uppercase tracking-wider flex items-center gap-2">
+            <div className="p-4 bg-[#F3F8F5]/70 border border-[#D5E3DC] rounded-2xl space-y-1.5">
+              <h3 className="text-xs font-bold text-[#123C3A] uppercase tracking-wider flex items-center gap-2">
                 <AlertCircle size={15} />
                 4. Antecipação Comportamental & Regulação Sensorial
               </h3>
-              <p className="text-xs text-rose-950 leading-relaxed font-medium">
+              <p className="text-xs text-[#0B2B2A] leading-relaxed font-medium">
                 {guiaMediacao.antecipacaoComportamental}
               </p>
             </div>
@@ -770,12 +770,12 @@ export function VisualizadorAtividadeAdaptada({
 
           {/* 5. Critérios de Avaliação Flexibilizada */}
           {guiaMediacao.criteriosAvaliacaoFlexibilizada && (
-            <div className="p-4 bg-emerald-50/70 border border-emerald-200 rounded-2xl space-y-1.5">
-              <h3 className="text-xs font-bold text-emerald-900 uppercase tracking-wider flex items-center gap-2">
+            <div className="p-4 bg-[#F3F8F5]/70 border border-[#D5E3DC] rounded-2xl space-y-1.5">
+              <h3 className="text-xs font-bold text-[#123C3A] uppercase tracking-wider flex items-center gap-2">
                 <Check size={15} />
                 5. Critérios de Avaliação Flexibilizada (Evidências de Aprendizagem)
               </h3>
-              <p className="text-xs text-emerald-950 leading-relaxed font-medium">
+              <p className="text-xs text-[#0B2B2A] leading-relaxed font-medium">
                 {guiaMediacao.criteriosAvaliacaoFlexibilizada}
               </p>
             </div>
@@ -783,15 +783,15 @@ export function VisualizadorAtividadeAdaptada({
 
           {/* Diretrizes DUA Aplicadas */}
           {diretrizesHarmonizadas.length > 0 && (
-            <div className="pt-4 border-t border-slate-200 space-y-2">
-              <h4 className="text-xs font-bold text-[#6070a0] uppercase tracking-wider">
+            <div className="pt-4 border-t border-[#D5E3DC] space-y-2">
+              <h4 className="text-xs font-bold text-[#4f6b63] uppercase tracking-wider">
                 Diretrizes de Acessibilidade DUA Utilizadas nesta Atividade:
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {diretrizesHarmonizadas.map((d, dIdx) => (
                   <span
                     key={dIdx}
-                    className="text-[11px] bg-slate-100 border border-slate-200 text-[#6070a0] px-2.5 py-1 rounded-lg"
+                    className="text-[11px] bg-[#F3F7F5] border border-[#D5E3DC] text-[#4f6b63] px-2.5 py-1 rounded-lg"
                   >
                     • {d}
                   </span>
@@ -805,17 +805,17 @@ export function VisualizadorAtividadeAdaptada({
       {/* Modal de Publicação Online no Portal do Aluno (RN-59) */}
       {modalPublicarOnline && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 print:hidden">
-          <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border border-purple-100 space-y-4 animate-in fade-in zoom-in-95">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border border-[#DAEBE5] space-y-4 animate-in fade-in zoom-in-95">
+            <div className="flex items-center justify-between pb-3 border-b border-[#F3F7F5]">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700">
+                <div className="w-8 h-8 rounded-xl bg-[#DAEBE5] flex items-center justify-center text-[#123C3A]">
                   <Globe size={18} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">
+                  <h3 className="text-sm font-bold text-[#194D46]">
                     Publicar no Portal do Aluno
                   </h3>
-                  <p className="text-[11px] text-slate-500 font-medium">
+                  <p className="text-[11px] text-[#566F65] font-medium">
                     Disponibilizar atividade acessível com Leitor de Voz (TTS)
                   </p>
                 </div>
@@ -823,18 +823,18 @@ export function VisualizadorAtividadeAdaptada({
               <button
                 type="button"
                 onClick={() => setModalPublicarOnline(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+                className="text-slate-400 hover:text-[#4F6B63] p-1 rounded-lg"
               >
                 <X size={18} />
               </button>
             </div>
 
             {publicadoOnlineSucesso ? (
-              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-3 text-emerald-800 text-xs">
-                <Check size={20} className="text-emerald-600 shrink-0" />
+              <div className="p-4 bg-[#F3F8F5] border border-[#D5E3DC] rounded-2xl flex items-center gap-3 text-[#123C3A] text-xs">
+                <Check size={20} className="text-[#0F766E] shrink-0" />
                 <div>
                   <p className="font-bold">Atividade Publicada com Sucesso!</p>
-                  <p className="text-[11px] text-emerald-700 mt-0.5">
+                  <p className="text-[11px] text-[#0B5F59] mt-0.5">
                     O estudante {aluno.nome || "adaptado"} já pode acessar a atividade no Portal do Aluno com síntese de voz e scaffolding DUA.
                   </p>
                 </div>
@@ -842,30 +842,30 @@ export function VisualizadorAtividadeAdaptada({
             ) : (
               <form onSubmit={handleConfirmarPublicacaoOnline} className="space-y-4 text-xs">
                 {erroPublicacao && (
-                  <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 flex items-center gap-2">
+                  <div className="p-3 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-[#0B5F59] flex items-center gap-2">
                     <AlertCircle size={16} className="shrink-0" />
                     <span>{erroPublicacao}</span>
                   </div>
                 )}
 
-                <div className="p-3 bg-purple-50/60 border border-purple-100 rounded-xl space-y-1">
-                  <p className="font-semibold text-purple-900">
+                <div className="p-3 bg-[#F3F8F5]/60 border border-[#DAEBE5] rounded-xl space-y-1">
+                  <p className="font-semibold text-[#123C3A]">
                     🔒 Publicação individual com revisão
                   </p>
-                  <p className="text-[11px] text-purple-700 leading-relaxed">
+                  <p className="text-[11px] text-[#123C3A] leading-relaxed">
                     Esta atividade adaptada ficará vinculada <strong>exclusivamente</strong> a <strong>{aluno.nome || "este estudante"}</strong>. Nenhum outro aluno da turma terá acesso ou visualização da versão adaptada no Portal.
                   </p>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-bold text-slate-700 block">
+                  <label className="font-bold text-[#35594D] block">
                     Turma de Vínculo:
                   </label>
                   {turmas && turmas.length > 0 ? (
                     <select
                       value={turmaPublicacaoId}
                       onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");setConjuntosRecuperacao([]);setConjuntoPublicacaoId("");setPontosPublicacao("");setConjuntosConsultados(false);setErroConjuntos("");}}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                      className="w-full px-3 py-2 border border-[#D5E3DC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F766E] bg-white"
                       required
                     >
                       <option value="">Selecione uma turma...</option>
@@ -881,7 +881,7 @@ export function VisualizadorAtividadeAdaptada({
                       value={turmaPublicacaoId}
                       onChange={(e) => {setTurmaPublicacaoId(e.target.value);setAlunoPublicacaoId("");setConjuntosRecuperacao([]);setConjuntoPublicacaoId("");setPontosPublicacao("");setConjuntosConsultados(false);setErroConjuntos("");}}
                       placeholder="Identificador da turma (ex: 9A, Turma 1)"
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      className="w-full px-3 py-2 border border-[#D5E3DC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F766E]"
                       required
                     />
                   )}
@@ -890,7 +890,7 @@ export function VisualizadorAtividadeAdaptada({
                 <label className="block font-bold">Estudante do Diário<select required value={alunoPublicacaoId} onChange={e=>setAlunoPublicacaoId(e.target.value)} className="block w-full border rounded-xl p-2 mt-1"><option value="">Selecione o estudante…</option>{(turmas.find(t=>t.id===turmaPublicacaoId)?.alunos||[]).map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select></label>
 
                 <div className="space-y-1">
-                  <label className="font-bold text-slate-700 block">Finalidade:</label>
+                  <label className="font-bold text-[#35594D] block">Finalidade:</label>
                   <select
                     aria-label="Finalidade da publicação"
                     value={modoPublicacao}
@@ -903,7 +903,7 @@ export function VisualizadorAtividadeAdaptada({
                       setConjuntosConsultados(false);
                       setErroConjuntos("");
                     }}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                    className="w-full px-3 py-2 border border-[#D5E3DC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F766E] bg-white"
                   >
                     <option value="regular">Atividade regular (bimestre)</option>
                     <option value="recuperacao">Recuperação semestral</option>
@@ -911,13 +911,13 @@ export function VisualizadorAtividadeAdaptada({
                 </div>
 
                 {modoPublicacao === "recuperacao" && (
-                  <div className="space-y-3 p-3 bg-amber-50 border border-amber-200 rounded-xl">
-                    {erroConjuntos && <p role="alert" className="text-rose-700">{erroConjuntos}</p>}
-                    {!conjuntosConsultados && <p className="text-amber-800">Carregando conjuntos...</p>}
+                  <div className="space-y-3 p-3 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl">
+                    {erroConjuntos && <p role="alert" className="text-[#0B5F59]">{erroConjuntos}</p>}
+                    {!conjuntosConsultados && <p className="text-[#123C3A]">Carregando conjuntos...</p>}
                     {conjuntosConsultados && !conjuntosRecuperacao.length && (
-                      <p className="text-amber-800">Nenhum conjunto de recuperação nesta turma. Crie um em Atividades › Recuperação semestral.</p>
+                      <p className="text-[#123C3A]">Nenhum conjunto de recuperação nesta turma. Crie um em Atividades › Recuperação semestral.</p>
                     )}
-                    <label className="block font-bold text-amber-900">Conjunto
+                    <label className="block font-bold text-[#123C3A]">Conjunto
                       <select
                         aria-label="Conjunto de recuperação"
                         value={conjuntoPublicacaoId}
@@ -926,7 +926,7 @@ export function VisualizadorAtividadeAdaptada({
                           setConjuntoPublicacaoId(e.target.value);
                           setPontosPublicacao(conjunto ? String(conjunto.restante).replace('.', ',') : "");
                         }}
-                        className="block w-full border border-amber-200 rounded-xl p-2 mt-1 bg-white"
+                        className="block w-full border border-[#D5E3DC] rounded-xl p-2 mt-1 bg-white"
                       >
                         <option value="">Selecione o conjunto…</option>
                         {conjuntosRecuperacao.map(conjunto => (
@@ -936,16 +936,16 @@ export function VisualizadorAtividadeAdaptada({
                         ))}
                       </select>
                     </label>
-                    <label className="block font-bold text-amber-900">Pontos desta atividade
+                    <label className="block font-bold text-[#123C3A]">Pontos desta atividade
                       <input
                         aria-label="Pontos desta atividade na recuperação"
                         value={pontosPublicacao}
                         onChange={(e) => setPontosPublicacao(e.target.value)}
                         inputMode="decimal"
-                        className="block w-full border border-amber-200 rounded-xl p-2 mt-1 bg-white"
+                        className="block w-full border border-[#D5E3DC] rounded-xl p-2 mt-1 bg-white"
                       />
                     </label>
-                    <p className="text-[11px] text-amber-800">
+                    <p className="text-[11px] text-[#123C3A]">
                       A distribuição das questões será proporcional aos pontos informados e somará exatamente essa parcela. Lançar a nota continua sendo uma ação separada em Recuperação semestral.
                     </p>
                   </div>
@@ -954,13 +954,13 @@ export function VisualizadorAtividadeAdaptada({
                 {modoPublicacao === "regular" && (
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="font-bold text-slate-700 block">
+                      <label className="font-bold text-[#35594D] block">
                         Bimestre:
                       </label>
                       <select
                         value={bimestrePublicacao}
                         onChange={(e) => setBimestrePublicacao(Number(e.target.value))}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                        className="w-full px-3 py-2 border border-[#D5E3DC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F766E] bg-white"
                       >
                         <option value={1}>1º Bimestre</option>
                         <option value={2}>2º Bimestre</option>
@@ -969,14 +969,14 @@ export function VisualizadorAtividadeAdaptada({
                       </select>
                     </div>
                     <div className="space-y-1">
-                      <label className="font-bold text-slate-700 block">
+                      <label className="font-bold text-[#35594D] block">
                         Prazo de Entrega:
                       </label>
                       <input
                         type="date"
                         value={prazoPublicacao}
                         onChange={(e) => setPrazoPublicacao(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                        className="w-full px-3 py-2 border border-[#D5E3DC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F766E] bg-white"
                         required
                       />
                     </div>
@@ -985,22 +985,22 @@ export function VisualizadorAtividadeAdaptada({
 
                 {modoPublicacao === "recuperacao" && (
                   <div className="space-y-1">
-                    <label className="font-bold text-slate-700 block">Prazo de Entrega:</label>
+                    <label className="font-bold text-[#35594D] block">Prazo de Entrega:</label>
                     <input
                       type="date"
                       value={prazoPublicacao}
                       onChange={(e) => setPrazoPublicacao(e.target.value)}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"
+                      className="w-full px-3 py-2 border border-[#D5E3DC] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F766E] bg-white"
                       required
                     />
                   </div>
                 )}
 
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                <div className="pt-3 border-t border-[#F3F7F5] flex items-center justify-end gap-2">
                   <button
                     type="button"
                     onClick={() => setModalPublicarOnline(false)}
-                    className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-bold"
+                    className="px-4 py-2 border border-[#D5E3DC] hover:bg-[#F3F8F5] text-[#35594D] rounded-xl font-bold"
                     disabled={publicandoOnline}
                   >
                     Cancelar
@@ -1008,7 +1008,7 @@ export function VisualizadorAtividadeAdaptada({
                   <button
                     type="submit"
                     disabled={publicandoOnline}
-                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50"
+                    className="px-4 py-2 bg-[#0F766E] hover:bg-[#0B5F59] text-white rounded-xl font-bold flex items-center gap-1.5 shadow-sm transition-all disabled:opacity-50"
                   >
                     {publicandoOnline ? (
                       <RefreshCw size={15} className="animate-spin" />

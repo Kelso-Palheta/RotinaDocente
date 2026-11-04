@@ -18,11 +18,11 @@ vi.mock('../../frontend/node_modules/jspdf/dist/jspdf.node.min.js', async () => 
 import { generateBoletimPDF } from '@/lib/aluno/boletim-pdf';
 import { generateFichaAluno360PDF } from '@/lib/diario/fichaAlunoExport';
 beforeEach(() => { m.docs.length = 0; });
-it('REV-H81-01: emissão do boletim deve ficar acima da faixa rosa, sem colisão com a linha de base', () => {
+it('REV-H81-01: emissão do boletim deve ficar acima da faixa decorativa, sem colisão com a linha de base', () => {
   generateBoletimPDF({ nomeAluno: 'Aluno Exemplo', turmaNome: 'Turma de teste', bimTotais: [5,5,5,5] });
   const doc = m.docs.at(-1);
   const emissao = doc.__textos.find(t => t.texto.startsWith('EMISSÃO:'));
-  const faixa = doc.__faixas.find(f => f.cor?.join(',') === '246,12,73');
+  const faixa = doc.__faixas.find(f => f.cor?.join(',') === '15,118,110');
   expect(emissao.y + 1).toBeLessThan(faixa.y);
 });
 it('REV-H81-02: identificação longa cabe na margem com a fonte efetivamente usada na escrita', async () => {

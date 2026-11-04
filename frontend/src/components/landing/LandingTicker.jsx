@@ -13,15 +13,15 @@ export function LandingTicker() {
   ];
 
   return (
-    <div className="border-y border-[#dce0f0] py-6 overflow-hidden bg-white">
+    <div className="border-y border-[#d5e3dc] py-6 overflow-hidden bg-white">
       <div className="flex animate-marquee gap-14 items-center">
         {[...items, ...items].map((text, idx) => (
           <div
             key={idx}
-            className="flex items-center gap-14 text-sm sm:text-base font-extrabold text-[#9098c0] tracking-wider whitespace-nowrap"
+            className="flex items-center gap-14 text-sm sm:text-base font-extrabold text-[#566f65] tracking-wider whitespace-nowrap"
           >
-            <span className="text-[#101942]/60 hover:text-[#f60c49] transition-colors">{text}</span>
-            <span className="w-2 h-2 rounded-full bg-[#f60c49]/40"></span>
+            <span className="text-[#123c3a]/60 hover:text-[#0f766e] transition-colors">{text}</span>
+            <span className="w-2 h-2 rounded-full bg-[#0f766e]/40"></span>
           </div>
         ))}
       </div>

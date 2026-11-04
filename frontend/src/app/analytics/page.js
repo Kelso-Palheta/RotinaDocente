@@ -132,7 +132,7 @@ function AnalyticsConta({ uid, professorNome }) {
     setErroPDF('');
   };
   return (
-    <main className="min-h-screen bg-slate-50 text-[#101942] p-3 md:p-6 space-y-4 max-w-7xl mx-auto">
+    <main className="min-h-screen bg-[#F3F8F5] text-[#123c3a] p-3 md:p-6 space-y-4 max-w-7xl mx-auto">
       <AnalyticsHeader
         turmas={contexto}
         turmaSelecionadaId={turmaId}
@@ -169,7 +169,7 @@ function AnalyticsConta({ uid, professorNome }) {
         </Link>
       </div>
       {dados.erro && (
-        <p role="alert" className="p-3 rounded-lg bg-amber-50 text-amber-900">
+        <p role="alert" className="p-3 rounded-lg bg-[#F3F8F5] text-[#123C3A]">
           {dados.erro}{' '}
           {dados.origem === 'cache local'
             ? 'Exibindo cópia deste dispositivo; dados podem estar desatualizados.'
@@ -204,7 +204,7 @@ function AnalyticsConta({ uid, professorNome }) {
                 key={id}
                 aria-pressed={aba === id}
                 onClick={() => setAba(id)}
-                className={`px-4 py-2 rounded-lg border ${aba === id ? 'bg-[#101942] text-white' : 'bg-white'}`}
+                className={`px-4 py-2 rounded-lg border ${aba === id ? 'bg-[#123c3a] text-white' : 'bg-white'}`}
               >
                 {nome}
               </button>
@@ -215,7 +215,7 @@ function AnalyticsConta({ uid, professorNome }) {
             pode ter vínculos em mais de uma turma/disciplina.
           </p>
           {analise.criteriosDiferentes && (
-            <p className="text-sm bg-amber-50 p-3">
+            <p className="text-sm bg-[#F3F8F5] p-3">
               Há critérios diferentes entre as turmas. Confira os mínimos abaixo; comparações gráficas usam
               percentual da escala.
             </p>

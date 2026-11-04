@@ -1,0 +1,6086 @@
+[
+  {
+    "phase": "antes",
+    "screen": "notas",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Diário — Tabela de notas (4 estados)",
+        "w": 1180,
+        "x": 130,
+        "y": 24
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 153,
+        "x": 147,
+        "y": 105.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Opções avançadas",
+        "w": 124.7890625,
+        "x": 463.5,
+        "y": 97.296875
+      },
+      {
+        "h": 26,
+        "tag": "BUTTON",
+        "text": "⚙ Critérios",
+        "w": 82.1328125,
+        "x": 400.4609375,
+        "y": 179.296875
+      },
+      {
+        "h": 229,
+        "tag": "TABLE",
+        "text": "#AlunoSimulado(0–5,00)Atividade 1(0–5,00)✕TotalAções1Ana Clara Souza12",
+        "w": 1144,
+        "x": 148,
+        "y": 222.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 250.296875
+      },
+      {
+        "h": 10,
+        "tag": "BUTTON",
+        "text": "✕",
+        "w": 8.2265625,
+        "x": 986.5625,
+        "y": 272.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 306.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1203",
+        "w": 32.0859375,
+        "x": 348.734375,
+        "y": 306.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "2,00",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 299.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "1,00",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 299.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 335.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 359.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 415.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 471.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 507.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 563.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 345.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "2407",
+        "w": 32.0859375,
+        "x": 370.2421875,
+        "y": 345.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 338.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 338.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 374.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 398.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 454.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 510.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 546.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 602.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 384.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "0511",
+        "w": 32.0859375,
+        "x": 376.046875,
+        "y": 384.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 377.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 377.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 413.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 437.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 493.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 549.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 585.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 641.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 423.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1902",
+        "w": 32.0859375,
+        "x": 364.4453125,
+        "y": 423.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 416.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 416.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 452.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 476.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 532.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 588.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 624.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 680.296875
+      },
+      {
+        "h": 38,
+        "tag": "INPUT",
+        "text": "",
+        "w": 845.40625,
+        "x": 147,
+        "y": 468.296875
+      },
+      {
+        "h": 38,
+        "tag": "INPUT",
+        "text": "",
+        "w": 160,
+        "x": 1004.40625,
+        "y": 468.296875
+      },
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "+ Adicionar",
+        "w": 116.59375,
+        "x": 1176.40625,
+        "y": 469.296875
+      },
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Portal do Aluno — cartões de bimestre",
+        "w": 1180,
+        "x": 130,
+        "y": 551.296875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "landing",
+    "elements": [
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "Entrar",
+        "w": 66.671875,
+        "x": 1043.1953125,
+        "y": 22
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Experimentar Grátis",
+        "w": 202.1328125,
+        "x": 1125.8671875,
+        "y": 20
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 194.390625,
+        "tag": "H1",
+        "text": "O RotinaDocente devolve seus finais de semana.",
+        "w": 696,
+        "x": 112,
+        "y": 218
+      },
+      {
+        "h": 52,
+        "tag": "BUTTON",
+        "text": "Criar Conta Gratuita",
+        "w": 249.34375,
+        "x": 112,
+        "y": 567.390625
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Diário",
+        "w": 155.328125,
+        "x": 847,
+        "y": 269.6953125
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Redação IA",
+        "w": 155.3359375,
+        "x": 1006.328125,
+        "y": 269.6953125
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Grade",
+        "w": 155.3359375,
+        "x": 1165.6640625,
+        "y": 269.6953125
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Testar com meus dados →",
+        "w": 157.078125,
+        "x": 1149.921875,
+        "y": 588.4453125
+      },
+      {
+        "h": 144,
+        "tag": "H2",
+        "text": "Você foi contratado para lecionar, não para virar escravo da burocraci",
+        "w": 768,
+        "x": 336,
+        "y": 995.890625
+      },
+      {
+        "h": 96,
+        "tag": "H2",
+        "text": "Do planejamento à nota final: tudo em um só lugar.",
+        "w": 768,
+        "x": 336,
+        "y": 1877.890625
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Testar Grátis",
+        "w": 129.6328125,
+        "x": 1173.359375,
+        "y": 2489.765625
+      },
+      {
+        "h": 96,
+        "tag": "H2",
+        "text": "Ferramentas especializadas para cada etapa do seu trabalho.",
+        "w": 768,
+        "x": 336,
+        "y": 2779.140625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Diário Grátis",
+        "w": 207.703125,
+        "x": 112,
+        "y": 3473.640625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Correção ENEM",
+        "w": 229.1640625,
+        "x": 744,
+        "y": 4047.140625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Gerar Primeira Atividade",
+        "w": 243.9453125,
+        "x": 112,
+        "y": 4620.640625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Ver Grade Inteligente",
+        "w": 221.140625,
+        "x": 744,
+        "y": 5194.140625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Conhecer Horário Escolar Inteligente",
+        "w": 328.8046875,
+        "x": 112,
+        "y": 5805.140625
+      },
+      {
+        "h": 40,
+        "tag": "H2",
+        "text": "Quanto tempo você vai ganhar de volta?",
+        "w": 798,
+        "x": 321,
+        "y": 6135.140625
+      },
+      {
+        "h": 12,
+        "tag": "INPUT",
+        "text": "",
+        "w": 576,
+        "x": 432,
+        "y": 6311.140625
+      },
+      {
+        "h": 56,
+        "tag": "BUTTON",
+        "text": "Resgatar Minhas 36 Horas Grátis",
+        "w": 366.828125,
+        "x": 536.5859375,
+        "y": 6629.140625
+      },
+      {
+        "h": 144,
+        "tag": "H2",
+        "text": "Investimento acessível que se paga no primeiro fim de semana livre.",
+        "w": 768,
+        "x": 336,
+        "y": 7901.390625
+      },
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "Mensal",
+        "w": 89.3125,
+        "x": 592.8125,
+        "y": 8156.390625
+      },
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "Anual-25% OFF",
+        "w": 153.0625,
+        "x": 694.125,
+        "y": 8156.390625
+      },
+      {
+        "h": 43,
+        "tag": "BUTTON",
+        "text": "Usar Diário Grátis",
+        "w": 236,
+        "x": 137,
+        "y": 8727.390625
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Professor Geral",
+        "w": 234,
+        "x": 448,
+        "y": 8729.390625
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Hub Pro",
+        "w": 234,
+        "x": 758,
+        "y": 8729.390625
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Combo Total",
+        "w": 236,
+        "x": 1067,
+        "y": 8730.390625
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Conhecer Plano Redação",
+        "w": 181.796875,
+        "x": 1121.203125,
+        "y": 8888.390625
+      },
+      {
+        "h": 40,
+        "tag": "H2",
+        "text": "Perguntas Frequentes",
+        "w": 832,
+        "x": 304,
+        "y": 9179.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Preciso cadastrar cartão de crédito para testar?",
+        "w": 830,
+        "x": 305,
+        "y": 9320.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Como a IA do Rotina Docente corrige as redações do ENEM?",
+        "w": 830,
+        "x": 305,
+        "y": 9418.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "As questões geradas são realmente alinhadas à BNCC?",
+        "w": 830,
+        "x": 305,
+        "y": 9516.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Como funciona a importação de alunos no Diário Pedagógico?",
+        "w": 830,
+        "x": 305,
+        "y": 9614.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Os dados dos meus alunos estão seguros de acordo com a LGPD?",
+        "w": 830,
+        "x": 305,
+        "y": 9712.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Posso cancelar minha assinatura Pro quando quiser?",
+        "w": 830,
+        "x": 305,
+        "y": 9810.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "O que acontece se meus créditos acabarem?",
+        "w": 830,
+        "x": 305,
+        "y": 9908.390625
+      },
+      {
+        "h": 180,
+        "tag": "H2",
+        "text": "Pronto para transformar sua rotina e ter seus finais de semana de volt",
+        "w": 672,
+        "x": 384,
+        "y": 10284.390625
+      },
+      {
+        "h": 60,
+        "tag": "BUTTON",
+        "text": "Criar Minha Conta Gratuita",
+        "w": 340.6953125,
+        "x": 549.6484375,
+        "y": 10576.390625
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "hub",
+    "elements": [
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": "RotinaDocente",
+        "w": 151.3984375,
+        "x": 132,
+        "y": 16
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "IA: ConectadaIA Ativa",
+        "w": 148.078125,
+        "x": 1019.6953125,
+        "y": 17
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Perfil",
+        "w": 88.859375,
+        "x": 1179.7734375,
+        "y": 17
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Sair",
+        "w": 79.3671875,
+        "x": 1280.6328125,
+        "y": 17
+      },
+      {
+        "h": 36,
+        "tag": "H2",
+        "text": "Seu Hub Pedagógico com Inteligência Artificial",
+        "w": 672,
+        "x": 145,
+        "y": 174
+      },
+      {
+        "h": 14.6640625,
+        "tag": "BUTTON",
+        "text": "Gerenciar",
+        "w": 53.390625,
+        "x": 360.6640625,
+        "y": 291.1640625
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Horário InteligenteCrie e organize as grades escolares da escola com I",
+        "w": 392,
+        "x": 112,
+        "y": 422.5
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Diário PedagógicoPlanejamento de aulas, turmas e notas bimestraisAbrir",
+        "w": 392,
+        "x": 524,
+        "y": 422.5
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Gerador de AtividadesCrie atividades, corrija com IA e acompanhe entre",
+        "w": 392,
+        "x": 936,
+        "y": 422.5
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Redação CorrigidaCorreção de redações com IA por competência ENEMAbrir",
+        "w": 392,
+        "x": 112,
+        "y": 643
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Calendário PedagógicoGrade horária e remanejamento automático de aulas",
+        "w": 392,
+        "x": 524,
+        "y": 643
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Dashboard AnalyticsMétricas, taxas de aprovação e evolução do rendimen",
+        "w": 392,
+        "x": 936,
+        "y": 643
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Agentes Pedagógicos IAAssistentes conversacionais especializados em En",
+        "w": 392,
+        "x": 112,
+        "y": 883
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Meu Horário EscolarOrganização semanal da grade de aulas, turnos e per",
+        "w": 392,
+        "x": 524,
+        "y": 883
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Atividades Adaptadas (DUA)Elaboração e adaptação de atividades inclusi",
+        "w": 392,
+        "x": 936,
+        "y": 883
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "agentes",
+    "elements": [
+      {
+        "h": 37.1953125,
+        "tag": "BUTTON",
+        "text": "Hub",
+        "w": 81.6953125,
+        "x": 24,
+        "y": 16
+      },
+      {
+        "h": 23.9140625,
+        "tag": "H1",
+        "text": "Agentes Pedagógicos",
+        "w": 187.796875,
+        "x": 143.6953125,
+        "y": 22.640625
+      },
+      {
+        "h": 200.8536071777344,
+        "tag": "BUTTON",
+        "text": "Agente EMEnsino Médio — 1º ao 3º EMEspecialista em ENEM, vestibulares,",
+        "w": 591.2470703125,
+        "x": 424.3764343261719,
+        "y": 251.39987182617188
+      },
+      {
+        "h": 182.0108642578125,
+        "tag": "BUTTON",
+        "text": "Agente EF2Ensino Fundamental II — 6º ao 9º anoEspecialista em descrito",
+        "w": 588.448486328125,
+        "x": 425.7757263183594,
+        "y": 469.451904296875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "calendario",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Calendário pedagógico — visão semanal",
+        "w": 1180,
+        "x": 130,
+        "y": 24
+      },
+      {
+        "h": 24,
+        "tag": "H2",
+        "text": "novembro 2026",
+        "w": 120.8359375,
+        "x": 147,
+        "y": 96.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Lista",
+        "w": 56.734375,
+        "x": 953.453125,
+        "y": 97.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Semana",
+        "w": 77.8203125,
+        "x": 1018.1875,
+        "y": 97.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Mês",
+        "w": 53.1171875,
+        "x": 1104.0078125,
+        "y": 97.296875
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "←",
+        "w": 32.1796875,
+        "x": 1165.125,
+        "y": 95.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Hoje",
+        "w": 47.515625,
+        "x": 1205.3046875,
+        "y": 97.296875
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "→",
+        "w": 32.1796875,
+        "x": 1260.8203125,
+        "y": 95.296875
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 152,
+        "y": 288.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 152,
+        "y": 450.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.2890625,
+        "x": 320.28125,
+        "y": 264.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 488.5703125,
+        "y": 296.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.2890625,
+        "x": 656.8515625,
+        "y": 344.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 825.140625,
+        "y": 288.296875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "horario",
+    "elements": [
+      {
+        "h": 19.3125,
+        "tag": "H1",
+        "text": "RotinaDocenteMeu Horário Escolar",
+        "w": 246.109375,
+        "x": 64.3984375,
+        "y": 5.59375
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 1075.2578125,
+        "y": 11.65625
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 1278.6015625,
+        "y": 11.65625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Horários",
+        "w": 108.5703125,
+        "x": 420.578125,
+        "y": 55.515625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Importar Horário",
+        "w": 160.5078125,
+        "x": 538.7421875,
+        "y": 55.515625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Imprimir / PDF",
+        "w": 144.5546875,
+        "x": 708.84375,
+        "y": 55.515625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Backup",
+        "w": 101.4375,
+        "x": 862.9921875,
+        "y": 55.515625
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 38,
+        "x": 974.0234375,
+        "y": 53.7109375
+      },
+      {
+        "h": 0,
+        "tag": "H2",
+        "text": "QUADRO SEMANAL DE HORÁRIO INDIVIDUAL DO PROFESSOR",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "INPUT",
+        "text": "",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 25.59375,
+        "tag": "BUTTON",
+        "text": "Deseja limpar toda a grade",
+        "w": 199.125,
+        "x": 1211.875,
+        "y": 111.296875
+      },
+      {
+        "h": 345.0859375,
+        "tag": "TABLE",
+        "text": "HorárioSegunda-feiraTerça-feiraQuarta-feiraQuinta-feiraSexta-feira1º H",
+        "w": 1406,
+        "x": 17,
+        "y": 150.8828125
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "redacao",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Redação — revisão docente",
+        "w": 860,
+        "x": 290,
+        "y": 24
+      },
+      {
+        "h": 28,
+        "tag": "H2",
+        "text": "Revisar resultado",
+        "w": 818,
+        "x": 311,
+        "y": 99.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 311,
+        "y": 259.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Salvar revisão",
+        "w": 132.6015625,
+        "x": 311,
+        "y": 526.796875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Disponibilizar ao aluno",
+        "w": 194.8828125,
+        "x": 311,
+        "y": 622.796875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "criterios",
+    "elements": [
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": " Voltar",
+        "w": 98.1328125,
+        "x": 24,
+        "y": 12
+      },
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": " Critérios INEP",
+        "w": 114,
+        "x": 134.1328125,
+        "y": 21
+      },
+      {
+        "h": 32,
+        "tag": "H2",
+        "text": "Competências do ENEM",
+        "w": 736,
+        "x": 352,
+        "y": 183
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "adaptadas",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Atividades adaptadas — visualização do estudante",
+        "w": 1080,
+        "x": 180,
+        "y": 24
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Caderno do Estudante",
+        "w": 156.8984375,
+        "x": 204,
+        "y": 108.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Guia de Mediação Docente (RN-35)",
+        "w": 219.0390625,
+        "x": 368.8984375,
+        "y": 108.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Salvo no Banco",
+        "w": 142.3671875,
+        "x": 662.5703125,
+        "y": 95.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Ver no Banco",
+        "w": 128.859375,
+        "x": 812.9375,
+        "y": 95.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Publicar no Portal",
+        "w": 158.203125,
+        "x": 949.796875,
+        "y": 95.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Copiar Texto",
+        "w": 127,
+        "x": 1116,
+        "y": 95.296875
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Imprimir / Salvar PDF",
+        "w": 179.5390625,
+        "x": 1063.4609375,
+        "y": 137.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "16px",
+        "w": 46.59375,
+        "x": 579.609375,
+        "y": 230.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "18px",
+        "w": 46.703125,
+        "x": 630.203125,
+        "y": 230.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "22px",
+        "w": 47.5859375,
+        "x": 680.90625,
+        "y": 230.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "26px",
+        "w": 48.0390625,
+        "x": 732.4921875,
+        "y": 230.296875
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Espaçamento 2.0 ",
+        "w": 122.3515625,
+        "x": 793.53125,
+        "y": 227.296875
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Alto Contraste ",
+        "w": 107.25,
+        "x": 923.8828125,
+        "y": 227.296875
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Produzir imagens pendentes",
+        "w": 205.8671875,
+        "x": 1039.1328125,
+        "y": 227.296875
+      },
+      {
+        "h": 32,
+        "tag": "H1",
+        "text": "Interpretação de texto — crônica",
+        "w": 366.7109375,
+        "x": 221,
+        "y": 371.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 886,
+        "x": 299,
+        "y": 816.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 794.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 1028.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 1094.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 466.4296875,
+        "y": 1250.9609375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 307,
+        "y": 1298.4609375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 307,
+        "y": 1324.9609375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 290,
+        "y": 1680.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 1977.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 2211.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 2277.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 466.4296875,
+        "y": 2433.9609375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 307,
+        "y": 2481.4609375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 307,
+        "y": 2507.9609375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 290,
+        "y": 2601.9609375
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "notas",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Diário — Tabela de notas (4 estados)",
+        "w": 1180,
+        "x": 130,
+        "y": 24
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 153,
+        "x": 147,
+        "y": 105.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Opções avançadas",
+        "w": 124.7890625,
+        "x": 463.5,
+        "y": 97.296875
+      },
+      {
+        "h": 26,
+        "tag": "BUTTON",
+        "text": "⚙ Critérios",
+        "w": 82.1328125,
+        "x": 400.4609375,
+        "y": 179.296875
+      },
+      {
+        "h": 229,
+        "tag": "TABLE",
+        "text": "#AlunoSimulado(0–5,00)Atividade 1(0–5,00)✕TotalAções1Ana Clara Souza12",
+        "w": 1144,
+        "x": 148,
+        "y": 222.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 250.296875
+      },
+      {
+        "h": 10,
+        "tag": "BUTTON",
+        "text": "✕",
+        "w": 8.2265625,
+        "x": 986.5625,
+        "y": 272.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 306.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1203",
+        "w": 32.0859375,
+        "x": 348.734375,
+        "y": 306.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "2,00",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 299.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "1,00",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 299.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 335.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 359.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 415.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 471.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 507.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 563.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 345.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "2407",
+        "w": 32.0859375,
+        "x": 370.2421875,
+        "y": 345.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 338.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 338.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 374.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 398.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 454.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 510.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 546.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 602.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 384.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "0511",
+        "w": 32.0859375,
+        "x": 376.046875,
+        "y": 384.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 377.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 377.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 413.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 437.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 493.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 549.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 585.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 641.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 161.5,
+        "y": 423.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1902",
+        "w": 32.0859375,
+        "x": 364.4453125,
+        "y": 423.1484375
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 96,
+        "x": 789.5234375,
+        "y": 416.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 178.3046875,
+        "x": 901.5234375,
+        "y": 416.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 452.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 476.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 532.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 1192.828125,
+        "y": 588.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 1192.828125,
+        "y": 624.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 1192.828125,
+        "y": 680.296875
+      },
+      {
+        "h": 38,
+        "tag": "INPUT",
+        "text": "",
+        "w": 845.40625,
+        "x": 147,
+        "y": 468.296875
+      },
+      {
+        "h": 38,
+        "tag": "INPUT",
+        "text": "",
+        "w": 160,
+        "x": 1004.40625,
+        "y": 468.296875
+      },
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "+ Adicionar",
+        "w": 116.59375,
+        "x": 1176.40625,
+        "y": 469.296875
+      },
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Portal do Aluno — cartões de bimestre",
+        "w": 1180,
+        "x": 130,
+        "y": 551.296875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "landing",
+    "elements": [
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "Entrar",
+        "w": 66.671875,
+        "x": 1043.1953125,
+        "y": 22
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Experimentar Grátis",
+        "w": 202.1328125,
+        "x": 1125.8671875,
+        "y": 20
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 194.390625,
+        "tag": "H1",
+        "text": "O RotinaDocente devolve seus finais de semana.",
+        "w": 696,
+        "x": 112,
+        "y": 218
+      },
+      {
+        "h": 52,
+        "tag": "BUTTON",
+        "text": "Criar Conta Gratuita",
+        "w": 249.34375,
+        "x": 112,
+        "y": 567.390625
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Diário",
+        "w": 155.328125,
+        "x": 847,
+        "y": 269.6953125
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Redação IA",
+        "w": 155.3359375,
+        "x": 1006.328125,
+        "y": 269.6953125
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Grade",
+        "w": 155.3359375,
+        "x": 1165.6640625,
+        "y": 269.6953125
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Testar com meus dados →",
+        "w": 157.078125,
+        "x": 1149.921875,
+        "y": 588.4453125
+      },
+      {
+        "h": 144,
+        "tag": "H2",
+        "text": "Você foi contratado para lecionar, não para virar escravo da burocraci",
+        "w": 768,
+        "x": 336,
+        "y": 995.890625
+      },
+      {
+        "h": 96,
+        "tag": "H2",
+        "text": "Do planejamento à nota final: tudo em um só lugar.",
+        "w": 768,
+        "x": 336,
+        "y": 1877.890625
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Testar Grátis",
+        "w": 129.6328125,
+        "x": 1173.359375,
+        "y": 2489.765625
+      },
+      {
+        "h": 96,
+        "tag": "H2",
+        "text": "Ferramentas especializadas para cada etapa do seu trabalho.",
+        "w": 768,
+        "x": 336,
+        "y": 2779.140625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Diário Grátis",
+        "w": 207.703125,
+        "x": 112,
+        "y": 3473.640625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Correção ENEM",
+        "w": 229.1640625,
+        "x": 744,
+        "y": 4047.140625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Gerar Primeira Atividade",
+        "w": 243.9453125,
+        "x": 112,
+        "y": 4620.640625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Ver Grade Inteligente",
+        "w": 221.140625,
+        "x": 744,
+        "y": 5194.140625
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Conhecer Horário Escolar Inteligente",
+        "w": 328.8046875,
+        "x": 112,
+        "y": 5805.140625
+      },
+      {
+        "h": 40,
+        "tag": "H2",
+        "text": "Quanto tempo você vai ganhar de volta?",
+        "w": 798,
+        "x": 321,
+        "y": 6135.140625
+      },
+      {
+        "h": 12,
+        "tag": "INPUT",
+        "text": "",
+        "w": 576,
+        "x": 432,
+        "y": 6311.140625
+      },
+      {
+        "h": 56,
+        "tag": "BUTTON",
+        "text": "Resgatar Minhas 36 Horas Grátis",
+        "w": 366.828125,
+        "x": 536.5859375,
+        "y": 6629.140625
+      },
+      {
+        "h": 144,
+        "tag": "H2",
+        "text": "Investimento acessível que se paga no primeiro fim de semana livre.",
+        "w": 768,
+        "x": 336,
+        "y": 7901.390625
+      },
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "Mensal",
+        "w": 89.3125,
+        "x": 592.8125,
+        "y": 8156.390625
+      },
+      {
+        "h": 36,
+        "tag": "BUTTON",
+        "text": "Anual-25% OFF",
+        "w": 153.0625,
+        "x": 694.125,
+        "y": 8156.390625
+      },
+      {
+        "h": 43,
+        "tag": "BUTTON",
+        "text": "Usar Diário Grátis",
+        "w": 236,
+        "x": 137,
+        "y": 8727.390625
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Professor Geral",
+        "w": 234,
+        "x": 448,
+        "y": 8729.390625
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Hub Pro",
+        "w": 234,
+        "x": 758,
+        "y": 8729.390625
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Combo Total",
+        "w": 236,
+        "x": 1067,
+        "y": 8730.390625
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Conhecer Plano Redação",
+        "w": 181.796875,
+        "x": 1121.203125,
+        "y": 8888.390625
+      },
+      {
+        "h": 40,
+        "tag": "H2",
+        "text": "Perguntas Frequentes",
+        "w": 832,
+        "x": 304,
+        "y": 9179.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Preciso cadastrar cartão de crédito para testar?",
+        "w": 830,
+        "x": 305,
+        "y": 9320.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Como a IA do Rotina Docente corrige as redações do ENEM?",
+        "w": 830,
+        "x": 305,
+        "y": 9418.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "As questões geradas são realmente alinhadas à BNCC?",
+        "w": 830,
+        "x": 305,
+        "y": 9516.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Como funciona a importação de alunos no Diário Pedagógico?",
+        "w": 830,
+        "x": 305,
+        "y": 9614.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Os dados dos meus alunos estão seguros de acordo com a LGPD?",
+        "w": 830,
+        "x": 305,
+        "y": 9712.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Posso cancelar minha assinatura Pro quando quiser?",
+        "w": 830,
+        "x": 305,
+        "y": 9810.390625
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "O que acontece se meus créditos acabarem?",
+        "w": 830,
+        "x": 305,
+        "y": 9908.390625
+      },
+      {
+        "h": 180,
+        "tag": "H2",
+        "text": "Pronto para transformar sua rotina e ter seus finais de semana de volt",
+        "w": 672,
+        "x": 384,
+        "y": 10284.390625
+      },
+      {
+        "h": 60,
+        "tag": "BUTTON",
+        "text": "Criar Minha Conta Gratuita",
+        "w": 340.6953125,
+        "x": 549.6484375,
+        "y": 10576.390625
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "hub",
+    "elements": [
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": "RotinaDocente",
+        "w": 151.3984375,
+        "x": 132,
+        "y": 16
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "IA: ConectadaIA Ativa",
+        "w": 148.078125,
+        "x": 1019.6953125,
+        "y": 17
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Perfil",
+        "w": 88.859375,
+        "x": 1179.7734375,
+        "y": 17
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Sair",
+        "w": 79.3671875,
+        "x": 1280.6328125,
+        "y": 17
+      },
+      {
+        "h": 36,
+        "tag": "H2",
+        "text": "Seu Hub Pedagógico com Inteligência Artificial",
+        "w": 672,
+        "x": 145,
+        "y": 174
+      },
+      {
+        "h": 14.6640625,
+        "tag": "BUTTON",
+        "text": "Gerenciar",
+        "w": 53.390625,
+        "x": 360.6640625,
+        "y": 291.1640625
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Horário InteligenteCrie e organize as grades escolares da escola com I",
+        "w": 392,
+        "x": 112,
+        "y": 422.5
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Diário PedagógicoPlanejamento de aulas, turmas e notas bimestraisAbrir",
+        "w": 392,
+        "x": 524,
+        "y": 422.5
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Gerador de AtividadesCrie atividades, corrija com IA e acompanhe entre",
+        "w": 392,
+        "x": 936,
+        "y": 422.5
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Redação CorrigidaCorreção de redações com IA por competência ENEMAbrir",
+        "w": 392,
+        "x": 112,
+        "y": 643
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Calendário PedagógicoGrade horária e remanejamento automático de aulas",
+        "w": 392,
+        "x": 524,
+        "y": 643
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Dashboard AnalyticsMétricas, taxas de aprovação e evolução do rendimen",
+        "w": 392,
+        "x": 936,
+        "y": 643
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Agentes Pedagógicos IAAssistentes conversacionais especializados em En",
+        "w": 392,
+        "x": 112,
+        "y": 883
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Meu Horário EscolarOrganização semanal da grade de aulas, turnos e per",
+        "w": 392,
+        "x": 524,
+        "y": 883
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Atividades Adaptadas (DUA)Elaboração e adaptação de atividades inclusi",
+        "w": 392,
+        "x": 936,
+        "y": 883
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "agentes",
+    "elements": [
+      {
+        "h": 37.1953125,
+        "tag": "BUTTON",
+        "text": "Hub",
+        "w": 81.6953125,
+        "x": 24,
+        "y": 16
+      },
+      {
+        "h": 23.9140625,
+        "tag": "H1",
+        "text": "Agentes Pedagógicos",
+        "w": 187.796875,
+        "x": 143.6953125,
+        "y": 22.640625
+      },
+      {
+        "h": 200.42645263671875,
+        "tag": "BUTTON",
+        "text": "Agente EMEnsino Médio — 1º ao 3º EMEspecialista em ENEM, vestibulares,",
+        "w": 589.98974609375,
+        "x": 425.0051574707031,
+        "y": 252.74630737304688
+      },
+      {
+        "h": 180.06219482421875,
+        "tag": "BUTTON",
+        "text": "Agente EF2Ensino Fundamental II — 6º ao 9º anoEspecialista em descrito",
+        "w": 582.1484375,
+        "x": 428.9258117675781,
+        "y": 476.10205078125
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "calendario",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Calendário pedagógico — visão semanal",
+        "w": 1180,
+        "x": 130,
+        "y": 24
+      },
+      {
+        "h": 24,
+        "tag": "H2",
+        "text": "novembro 2026",
+        "w": 120.8359375,
+        "x": 147,
+        "y": 96.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Lista",
+        "w": 56.734375,
+        "x": 953.453125,
+        "y": 97.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Semana",
+        "w": 77.8203125,
+        "x": 1018.1875,
+        "y": 97.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Mês",
+        "w": 53.1171875,
+        "x": 1104.0078125,
+        "y": 97.296875
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "←",
+        "w": 32.1796875,
+        "x": 1165.125,
+        "y": 95.296875
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Hoje",
+        "w": 47.515625,
+        "x": 1205.3046875,
+        "y": 97.296875
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "→",
+        "w": 32.1796875,
+        "x": 1260.8203125,
+        "y": 95.296875
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 152,
+        "y": 288.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 152,
+        "y": 450.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.2890625,
+        "x": 320.28125,
+        "y": 264.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 488.5703125,
+        "y": 296.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.2890625,
+        "x": 656.8515625,
+        "y": 344.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 125.28125,
+        "x": 825.140625,
+        "y": 288.296875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "horario",
+    "elements": [
+      {
+        "h": 19.3125,
+        "tag": "H1",
+        "text": "RotinaDocenteMeu Horário Escolar",
+        "w": 246.109375,
+        "x": 64.3984375,
+        "y": 5.59375
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 1075.2578125,
+        "y": 11.65625
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 1278.6015625,
+        "y": 11.65625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Horários",
+        "w": 108.5703125,
+        "x": 420.578125,
+        "y": 55.515625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Importar Horário",
+        "w": 160.5078125,
+        "x": 538.7421875,
+        "y": 55.515625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Imprimir / PDF",
+        "w": 144.5546875,
+        "x": 708.84375,
+        "y": 55.515625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Backup",
+        "w": 101.4375,
+        "x": 862.9921875,
+        "y": 55.515625
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 38,
+        "x": 974.0234375,
+        "y": 53.7109375
+      },
+      {
+        "h": 0,
+        "tag": "H2",
+        "text": "QUADRO SEMANAL DE HORÁRIO INDIVIDUAL DO PROFESSOR",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "INPUT",
+        "text": "",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 25.59375,
+        "tag": "BUTTON",
+        "text": "Deseja limpar toda a grade",
+        "w": 199.125,
+        "x": 1211.875,
+        "y": 111.296875
+      },
+      {
+        "h": 345.0859375,
+        "tag": "TABLE",
+        "text": "HorárioSegunda-feiraTerça-feiraQuarta-feiraQuinta-feiraSexta-feira1º H",
+        "w": 1406,
+        "x": 17,
+        "y": 150.8828125
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "redacao",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Redação — revisão docente",
+        "w": 860,
+        "x": 290,
+        "y": 24
+      },
+      {
+        "h": 28,
+        "tag": "H2",
+        "text": "Revisar resultado",
+        "w": 818,
+        "x": 311,
+        "y": 99.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 311,
+        "y": 259.296875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Salvar revisão",
+        "w": 132.6015625,
+        "x": 311,
+        "y": 526.796875
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Disponibilizar ao aluno",
+        "w": 194.8828125,
+        "x": 311,
+        "y": 622.796875
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "criterios",
+    "elements": [
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": " Voltar",
+        "w": 98.1328125,
+        "x": 24,
+        "y": 12
+      },
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": " Critérios INEP",
+        "w": 114,
+        "x": 134.1328125,
+        "y": 21
+      },
+      {
+        "h": 32,
+        "tag": "H2",
+        "text": "Competências do ENEM",
+        "w": 736,
+        "x": 352,
+        "y": 183
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "depois",
+    "screen": "adaptadas",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Atividades adaptadas — visualização do estudante",
+        "w": 1080,
+        "x": 180,
+        "y": 24
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Caderno do Estudante",
+        "w": 156.8984375,
+        "x": 204,
+        "y": 108.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Guia de Mediação Docente (RN-35)",
+        "w": 219.0390625,
+        "x": 368.8984375,
+        "y": 108.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Salvo no Banco",
+        "w": 142.3671875,
+        "x": 662.5703125,
+        "y": 95.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Ver no Banco",
+        "w": 128.859375,
+        "x": 812.9375,
+        "y": 95.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Publicar no Portal",
+        "w": 158.203125,
+        "x": 949.796875,
+        "y": 95.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Copiar Texto",
+        "w": 127,
+        "x": 1116,
+        "y": 95.296875
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Imprimir / Salvar PDF",
+        "w": 179.5390625,
+        "x": 1063.4609375,
+        "y": 137.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "16px",
+        "w": 46.59375,
+        "x": 579.609375,
+        "y": 230.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "18px",
+        "w": 46.703125,
+        "x": 630.203125,
+        "y": 230.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "22px",
+        "w": 47.5859375,
+        "x": 680.90625,
+        "y": 230.296875
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "26px",
+        "w": 48.0390625,
+        "x": 732.4921875,
+        "y": 230.296875
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Espaçamento 2.0 ",
+        "w": 122.3515625,
+        "x": 793.53125,
+        "y": 227.296875
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Alto Contraste ",
+        "w": 107.25,
+        "x": 923.8828125,
+        "y": 227.296875
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Produzir imagens pendentes",
+        "w": 205.8671875,
+        "x": 1039.1328125,
+        "y": 227.296875
+      },
+      {
+        "h": 32,
+        "tag": "H1",
+        "text": "Interpretação de texto — crônica",
+        "w": 366.7109375,
+        "x": 221,
+        "y": 371.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 886,
+        "x": 299,
+        "y": 816.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 794.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 1028.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 1094.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 466.4296875,
+        "y": 1250.9609375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 307,
+        "y": 1298.4609375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 307,
+        "y": 1324.9609375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 290,
+        "y": 1680.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 1977.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 2211.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 870,
+        "x": 307,
+        "y": 2277.9609375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 466.4296875,
+        "y": 2433.9609375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 307,
+        "y": 2481.4609375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 307,
+        "y": 2507.9609375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 290,
+        "y": 2601.9609375
+      }
+    ],
+    "height": 1000,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "phase": "antes",
+    "screen": "notas",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Diário — Tabela de notas (4 estados)",
+        "w": 635.703125,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 153,
+        "x": 41,
+        "y": 105.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Opções avançadas",
+        "w": 124.7890625,
+        "x": 357.5,
+        "y": 97.296875
+      },
+      {
+        "h": 26,
+        "tag": "BUTTON",
+        "text": "⚙ Critérios",
+        "w": 82.1328125,
+        "x": 294.4609375,
+        "y": 195.296875
+      },
+      {
+        "h": 255.5,
+        "tag": "TABLE",
+        "text": "#AlunoSimulado(0–5,00)Atividade 1(0–5,00)✕TotalAções1Ana Clara Souza12",
+        "w": 599.703125,
+        "x": 42,
+        "y": 238.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 274.296875
+      },
+      {
+        "h": 10,
+        "tag": "BUTTON",
+        "text": "✕",
+        "w": 8.2265625,
+        "x": 393.609375,
+        "y": 304.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 338.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1203",
+        "w": 32.0859375,
+        "x": 181.6484375,
+        "y": 338.15625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "2,00",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 331.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "1,00",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 331.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 367.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 391.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 447.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 503.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 539.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 595.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 379.046875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "2407",
+        "w": 32.0859375,
+        "x": 194,
+        "y": 378.90625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 372.046875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 372.046875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 408.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 432.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 488.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 544.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 580.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 636.046875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 421.546875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "0511",
+        "w": 32.0859375,
+        "x": 194,
+        "y": 421.40625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 414.546875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 414.546875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 450.546875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 474.546875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 530.546875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 586.546875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 622.546875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 678.546875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 464.046875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1902",
+        "w": 32.0859375,
+        "x": 194,
+        "y": 463.90625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 457.046875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 457.046875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 493.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 517.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 573.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 629.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 665.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 721.046875
+      },
+      {
+        "h": 30,
+        "tag": "INPUT",
+        "text": "",
+        "w": 414.6328125,
+        "x": 41,
+        "y": 510.796875
+      },
+      {
+        "h": 30,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 463.6328125,
+        "y": 510.796875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "+ Adicionar",
+        "w": 91.0703125,
+        "x": 551.6328125,
+        "y": 511.796875
+      },
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Portal do Aluno — cartões de bimestre",
+        "w": 635.703125,
+        "x": 24,
+        "y": 585.796875
+      }
+    ],
+    "height": 844,
+    "scroll": 659,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "landing",
+    "elements": [
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Entrar",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Experimentar Grátis",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 40,
+        "x": 334,
+        "y": 20
+      },
+      {
+        "h": 116.625,
+        "tag": "H1",
+        "text": "O RotinaDocente devolve seus finais de semana.",
+        "w": 358,
+        "x": 16,
+        "y": 182
+      },
+      {
+        "h": 52,
+        "tag": "BUTTON",
+        "text": "Criar Conta Gratuita",
+        "w": 358,
+        "x": 16,
+        "y": 500.875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Diário",
+        "w": 112,
+        "x": 23,
+        "y": 862.375
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Redação IA",
+        "w": 112,
+        "x": 139,
+        "y": 862.375
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Grade",
+        "w": 112,
+        "x": 255,
+        "y": 862.375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Testar com meus dados →",
+        "w": 146.546875,
+        "x": 206.453125,
+        "y": 1170.875
+      },
+      {
+        "h": 108,
+        "tag": "H2",
+        "text": "Você foi contratado para lecionar, não para virar escravo da burocraci",
+        "w": 358,
+        "x": 16,
+        "y": 1507.375
+      },
+      {
+        "h": 72,
+        "tag": "H2",
+        "text": "Do planejamento à nota final: tudo em um só lugar.",
+        "w": 358,
+        "x": 16,
+        "y": 3195.375
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Testar Grátis",
+        "w": 92.296875,
+        "x": 256.703125,
+        "y": 4411.03125
+      },
+      {
+        "h": 108,
+        "tag": "H2",
+        "text": "Ferramentas especializadas para cada etapa do seu trabalho.",
+        "w": 358,
+        "x": 16,
+        "y": 4713.03125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Diário Grátis",
+        "w": 207.703125,
+        "x": 16,
+        "y": 5562.53125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Correção ENEM",
+        "w": 229.1640625,
+        "x": 16,
+        "y": 6650.03125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Gerar Primeira Atividade",
+        "w": 243.9453125,
+        "x": 16,
+        "y": 7725.53125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Ver Grade Inteligente",
+        "w": 221.140625,
+        "x": 16,
+        "y": 8873.03125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Conhecer Horário Escolar Inteligente",
+        "w": 328.8046875,
+        "x": 16,
+        "y": 9901.859375
+      },
+      {
+        "h": 72,
+        "tag": "H2",
+        "text": "Quanto tempo você vai ganhar de volta?",
+        "w": 292,
+        "x": 49,
+        "y": 10602.859375
+      },
+      {
+        "h": 12,
+        "tag": "INPUT",
+        "text": "",
+        "w": 292,
+        "x": 49,
+        "y": 10858.859375
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Resgatar Minhas 36 Horas Grátis",
+        "w": 292,
+        "x": 49,
+        "y": 11512.859375
+      },
+      {
+        "h": 108,
+        "tag": "H2",
+        "text": "Investimento acessível que se paga no primeiro fim de semana livre.",
+        "w": 358,
+        "x": 16,
+        "y": 13775.609375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Mensal",
+        "w": 83.0390625,
+        "x": 73.4453125,
+        "y": 14011.2734375
+      },
+      {
+        "h": 33.328125,
+        "tag": "BUTTON",
+        "text": "Anual-25% OFF",
+        "w": 148.0703125,
+        "x": 168.484375,
+        "y": 14010.609375
+      },
+      {
+        "h": 43,
+        "tag": "BUTTON",
+        "text": "Usar Diário Grátis",
+        "w": 308,
+        "x": 41,
+        "y": 14480.9375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Professor Geral",
+        "w": 306,
+        "x": 42,
+        "y": 15000.9375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Hub Pro",
+        "w": 306,
+        "x": 42,
+        "y": 15492.9375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Combo Total",
+        "w": 308,
+        "x": 41,
+        "y": 15983.9375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Conhecer Plano Redação",
+        "w": 181.796875,
+        "x": 104.1015625,
+        "y": 16233.9375
+      },
+      {
+        "h": 36,
+        "tag": "H2",
+        "text": "Perguntas Frequentes",
+        "w": 358,
+        "x": 16,
+        "y": 16512.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Preciso cadastrar cartão de crédito para testar?",
+        "w": 356,
+        "x": 17,
+        "y": 16673.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Como a IA do Rotina Docente corrige as redações do ENEM?",
+        "w": 356,
+        "x": 17,
+        "y": 16787.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "As questões geradas são realmente alinhadas à BNCC?",
+        "w": 356,
+        "x": 17,
+        "y": 16901.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Como funciona a importação de alunos no Diário Pedagógico?",
+        "w": 356,
+        "x": 17,
+        "y": 17015.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Os dados dos meus alunos estão seguros de acordo com a LGPD?",
+        "w": 356,
+        "x": 17,
+        "y": 17129.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Posso cancelar minha assinatura Pro quando quiser?",
+        "w": 356,
+        "x": 17,
+        "y": 17243.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "O que acontece se meus créditos acabarem?",
+        "w": 356,
+        "x": 17,
+        "y": 17357.9375
+      },
+      {
+        "h": 187.5,
+        "tag": "H2",
+        "text": "Pronto para transformar sua rotina e ter seus finais de semana de volt",
+        "w": 276,
+        "x": 57,
+        "y": 17725.9375
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Criar Minha Conta Gratuita",
+        "w": 276,
+        "x": 57,
+        "y": 18041.4375
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "hub",
+    "elements": [
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": "RotinaDocente",
+        "w": 140.328125,
+        "x": 65.078125,
+        "y": 16
+      },
+      {
+        "h": 50,
+        "tag": "BUTTON",
+        "text": "IA: ConectadaIA Ativa",
+        "w": 82.7890625,
+        "x": 205.40625,
+        "y": 19
+      },
+      {
+        "h": 33,
+        "tag": "BUTTON",
+        "text": "Perfil",
+        "w": 45,
+        "x": 298.1953125,
+        "y": 27.5
+      },
+      {
+        "h": 33,
+        "tag": "BUTTON",
+        "text": "Sair",
+        "w": 45,
+        "x": 353.1953125,
+        "y": 27.5
+      },
+      {
+        "h": 64,
+        "tag": "H2",
+        "text": "Seu Hub Pedagógico com Inteligência Artificial",
+        "w": 308,
+        "x": 41,
+        "y": 182
+      },
+      {
+        "h": 14.6640625,
+        "tag": "BUTTON",
+        "text": "Gerenciar",
+        "w": 53.390625,
+        "x": 256.6640625,
+        "y": 349.9140625
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Horário InteligenteCrie e organize as grades escolares da escola com I",
+        "w": 358,
+        "x": 16,
+        "y": 603.75
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Diário PedagógicoPlanejamento de aulas, turmas e notas bimestraisAbrir",
+        "w": 358,
+        "x": 16,
+        "y": 824.25
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Gerador de AtividadesCrie atividades, corrija com IA e acompanhe entre",
+        "w": 358,
+        "x": 16,
+        "y": 1044.75
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Redação CorrigidaCorreção de redações com IA por competência ENEMAbrir",
+        "w": 358,
+        "x": 16,
+        "y": 1265.25
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Calendário PedagógicoGrade horária e remanejamento automático de aulas",
+        "w": 358,
+        "x": 16,
+        "y": 1485.75
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Dashboard AnalyticsMétricas, taxas de aprovação e evolução do rendimen",
+        "w": 358,
+        "x": 16,
+        "y": 1706.25
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Agentes Pedagógicos IAAssistentes conversacionais especializados em En",
+        "w": 358,
+        "x": 16,
+        "y": 1946.25
+      },
+      {
+        "h": 200,
+        "tag": "BUTTON",
+        "text": "Meu Horário EscolarOrganização semanal da grade de aulas, turnos e per",
+        "w": 358,
+        "x": 16,
+        "y": 2186.25
+      },
+      {
+        "h": 200,
+        "tag": "BUTTON",
+        "text": "Atividades Adaptadas (DUA)Elaboração e adaptação de atividades inclusi",
+        "w": 358,
+        "x": 16,
+        "y": 2406.25
+      }
+    ],
+    "height": 844,
+    "scroll": 398,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "agentes",
+    "elements": [
+      {
+        "h": 37.1953125,
+        "tag": "BUTTON",
+        "text": "Hub",
+        "w": 81.6953125,
+        "x": 16,
+        "y": 14
+      },
+      {
+        "h": 21.296875,
+        "tag": "H1",
+        "text": "Agentes Pedagógicos",
+        "w": 168.765625,
+        "x": 135.6953125,
+        "y": 21.9453125
+      },
+      {
+        "h": 200.15017700195312,
+        "tag": "BUTTON",
+        "text": "Agente EMEnsino Médio — 1º ao 3º EMEspecialista em ENEM, vestibulares,",
+        "w": 356.29248046875,
+        "x": 16.853744506835938,
+        "y": 248.0155334472656
+      },
+      {
+        "h": 196.56024169921875,
+        "tag": "BUTTON",
+        "text": "Agente EF2Ensino Fundamental II — 6º ao 9º anoEspecialista em descrito",
+        "w": 349.9019775390625,
+        "x": 20.048995971679688,
+        "y": 474.440185546875
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "calendario",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Calendário pedagógico — visão semanal",
+        "w": 342,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 24,
+        "tag": "H2",
+        "text": "novembro 2026",
+        "w": 120.8359375,
+        "x": 41,
+        "y": 112.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Lista",
+        "w": 56.734375,
+        "x": 41,
+        "y": 166.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Semana",
+        "w": 77.8203125,
+        "x": 105.734375,
+        "y": 166.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Mês",
+        "w": 53.1171875,
+        "x": 191.5546875,
+        "y": 166.09375
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "←",
+        "w": 32.1796875,
+        "x": 252.671875,
+        "y": 164.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Hoje",
+        "w": 47.515625,
+        "x": 292.8515625,
+        "y": 166.09375
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "→",
+        "w": 32.1796875,
+        "x": 41,
+        "y": 214.09375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 379.59375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 487.09375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 634.59375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 782.09375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 953.59375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 1101.09375
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "horario",
+    "elements": [
+      {
+        "h": 19.3125,
+        "tag": "H1",
+        "text": "RotinaDocenteMeu Horário Escolar",
+        "w": 246.109375,
+        "x": 64.3984375,
+        "y": 5.59375
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 130.203125,
+        "y": 57.90625
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 333.546875,
+        "y": 57.90625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Horários",
+        "w": 108.5703125,
+        "x": 20,
+        "y": 189.671875
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Importar Horário",
+        "w": 160.5078125,
+        "x": 138.1640625,
+        "y": 189.671875
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Imprimir / PDF",
+        "w": 144.5546875,
+        "x": 20,
+        "y": 235.4609375
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Backup",
+        "w": 101.4375,
+        "x": 174.1484375,
+        "y": 235.4609375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 38,
+        "x": 285.1796875,
+        "y": 233.65625
+      },
+      {
+        "h": 0,
+        "tag": "H2",
+        "text": "QUADRO SEMANAL DE HORÁRIO INDIVIDUAL DO PROFESSOR",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "INPUT",
+        "text": "",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 25.59375,
+        "tag": "BUTTON",
+        "text": "Deseja limpar toda a grade",
+        "w": 199.125,
+        "x": 161.875,
+        "y": 396.90625
+      },
+      {
+        "h": 345.0859375,
+        "tag": "TABLE",
+        "text": "HorárioSegunda-feiraTerça-feiraQuarta-feiraQuinta-feiraSexta-feira1º H",
+        "w": 860,
+        "x": 17,
+        "y": 442.40625
+      }
+    ],
+    "height": 844,
+    "scroll": 475,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "redacao",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Redação — revisão docente",
+        "w": 342,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 28,
+        "tag": "H2",
+        "text": "Revisar resultado",
+        "w": 300,
+        "x": 45,
+        "y": 116.09375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 45,
+        "y": 461.09375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Salvar revisão",
+        "w": 132.6015625,
+        "x": 45,
+        "y": 728.59375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Disponibilizar ao aluno",
+        "w": 194.8828125,
+        "x": 45,
+        "y": 824.59375
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "criterios",
+    "elements": [
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": " Voltar",
+        "w": 42,
+        "x": 16,
+        "y": 12
+      },
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": " Critérios INEP",
+        "w": 114,
+        "x": 70,
+        "y": 19
+      },
+      {
+        "h": 32,
+        "tag": "H2",
+        "text": "Competências do ENEM",
+        "w": 358,
+        "x": 16,
+        "y": 179
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "antes",
+    "screen": "adaptadas",
+    "elements": [
+      {
+        "h": 39,
+        "tag": "H2",
+        "text": "Atividades adaptadas — visualização do estudante",
+        "w": 342,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Caderno do Estudante",
+        "w": 143,
+        "x": 48,
+        "y": 154.59375
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Guia de Mediação Docente (RN-35)",
+        "w": 143,
+        "x": 199,
+        "y": 138.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Salvo no Banco",
+        "w": 142.3671875,
+        "x": 114.21875,
+        "y": 241.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Ver no Banco",
+        "w": 84.4140625,
+        "x": 264.5859375,
+        "y": 241.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Publicar no Portal",
+        "w": 158.203125,
+        "x": 55.796875,
+        "y": 283.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Copiar Texto",
+        "w": 127,
+        "x": 222,
+        "y": 283.59375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Imprimir / Salvar PDF",
+        "w": 179.5390625,
+        "x": 169.4609375,
+        "y": 325.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "16px",
+        "w": 46.59375,
+        "x": 68,
+        "y": 446.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "18px",
+        "w": 46.703125,
+        "x": 118.59375,
+        "y": 446.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "22px",
+        "w": 47.5859375,
+        "x": 169.296875,
+        "y": 446.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "26px",
+        "w": 48.0390625,
+        "x": 220.8828125,
+        "y": 446.59375
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Espaçamento 2.0 ",
+        "w": 122.3515625,
+        "x": 39,
+        "y": 482.2578125
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Alto Contraste ",
+        "w": 107.25,
+        "x": 169.3515625,
+        "y": 482.2578125
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Produzir imagens pendentes",
+        "w": 205.8671875,
+        "x": 39,
+        "y": 518.921875
+      },
+      {
+        "h": 56,
+        "tag": "H1",
+        "text": "Interpretação de texto — crônica",
+        "w": 292,
+        "x": 49,
+        "y": 645.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 188,
+        "x": 123,
+        "y": 1300.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 1314.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 1706.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 1772.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 135,
+        "y": 2024.5859375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 127,
+        "y": 2080.0859375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 127,
+        "y": 2114.5859375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 70,
+        "y": 2530.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 2939.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 3331.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 3397.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 135,
+        "y": 3649.5859375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 127,
+        "y": 3705.0859375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 127,
+        "y": 3739.5859375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 70,
+        "y": 3829.5859375
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "notas",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Diário — Tabela de notas (4 estados)",
+        "w": 635.703125,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 153,
+        "x": 41,
+        "y": 105.296875
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Opções avançadas",
+        "w": 124.7890625,
+        "x": 357.5,
+        "y": 97.296875
+      },
+      {
+        "h": 26,
+        "tag": "BUTTON",
+        "text": "⚙ Critérios",
+        "w": 82.1328125,
+        "x": 294.4609375,
+        "y": 195.296875
+      },
+      {
+        "h": 255.5,
+        "tag": "TABLE",
+        "text": "#AlunoSimulado(0–5,00)Atividade 1(0–5,00)✕TotalAções1Ana Clara Souza12",
+        "w": 599.703125,
+        "x": 42,
+        "y": 238.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 274.296875
+      },
+      {
+        "h": 10,
+        "tag": "BUTTON",
+        "text": "✕",
+        "w": 8.2265625,
+        "x": 393.609375,
+        "y": 304.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 338.296875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1203",
+        "w": 32.0859375,
+        "x": 181.6484375,
+        "y": 338.15625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "2,00",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 331.296875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "1,00",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 331.296875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 367.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 391.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 447.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 503.296875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 539.296875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 595.296875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 379.046875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "2407",
+        "w": 32.0859375,
+        "x": 194,
+        "y": 378.90625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 372.046875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "3,00",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 372.046875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 408.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 432.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 488.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 544.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 580.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 636.046875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 421.546875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "0511",
+        "w": 32.0859375,
+        "x": 194,
+        "y": 421.40625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 414.546875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "5,00",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 414.546875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 450.546875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 474.546875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 530.546875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 586.546875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 622.546875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 678.546875
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 54,
+        "y": 464.046875
+      },
+      {
+        "h": 14.28125,
+        "tag": "BUTTON",
+        "text": "1902",
+        "w": 32.0859375,
+        "x": 194,
+        "y": 463.90625
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 79.0703125,
+        "x": 267,
+        "y": 457.046875
+      },
+      {
+        "h": 30,
+        "tag": "BUTTON",
+        "text": "—",
+        "w": 71.3125,
+        "x": 362.0703125,
+        "y": 457.046875
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Editar cadastro",
+        "w": 85.8046875,
+        "x": 0,
+        "y": 493.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar notas de atividades",
+        "w": 166,
+        "x": 542.53125,
+        "y": 517.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Limpar nota do simulado",
+        "w": 166,
+        "x": 542.53125,
+        "y": 573.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Editar perfil inclusivo",
+        "w": 142.859375,
+        "x": 542.53125,
+        "y": 629.046875
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Relatório e perfil do aluno",
+        "w": 166,
+        "x": 542.53125,
+        "y": 665.046875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Remover aluno",
+        "w": 103.625,
+        "x": 542.53125,
+        "y": 721.046875
+      },
+      {
+        "h": 30,
+        "tag": "INPUT",
+        "text": "",
+        "w": 414.6328125,
+        "x": 41,
+        "y": 510.796875
+      },
+      {
+        "h": 30,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 463.6328125,
+        "y": 510.796875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "+ Adicionar",
+        "w": 91.0703125,
+        "x": 551.6328125,
+        "y": 511.796875
+      },
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Portal do Aluno — cartões de bimestre",
+        "w": 635.703125,
+        "x": 24,
+        "y": 585.796875
+      }
+    ],
+    "height": 844,
+    "scroll": 659,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "landing",
+    "elements": [
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Entrar",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Experimentar Grátis",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 40,
+        "x": 334,
+        "y": 20
+      },
+      {
+        "h": 116.625,
+        "tag": "H1",
+        "text": "O RotinaDocente devolve seus finais de semana.",
+        "w": 358,
+        "x": 16,
+        "y": 182
+      },
+      {
+        "h": 52,
+        "tag": "BUTTON",
+        "text": "Criar Conta Gratuita",
+        "w": 358,
+        "x": 16,
+        "y": 500.875
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Diário",
+        "w": 112,
+        "x": 23,
+        "y": 862.375
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Redação IA",
+        "w": 112,
+        "x": 139,
+        "y": 862.375
+      },
+      {
+        "h": 28,
+        "tag": "BUTTON",
+        "text": "Grade",
+        "w": 112,
+        "x": 255,
+        "y": 862.375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Testar com meus dados →",
+        "w": 146.546875,
+        "x": 206.453125,
+        "y": 1170.875
+      },
+      {
+        "h": 108,
+        "tag": "H2",
+        "text": "Você foi contratado para lecionar, não para virar escravo da burocraci",
+        "w": 358,
+        "x": 16,
+        "y": 1507.375
+      },
+      {
+        "h": 72,
+        "tag": "H2",
+        "text": "Do planejamento à nota final: tudo em um só lugar.",
+        "w": 358,
+        "x": 16,
+        "y": 3195.375
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Testar Grátis",
+        "w": 92.296875,
+        "x": 256.703125,
+        "y": 4411.03125
+      },
+      {
+        "h": 108,
+        "tag": "H2",
+        "text": "Ferramentas especializadas para cada etapa do seu trabalho.",
+        "w": 358,
+        "x": 16,
+        "y": 4713.03125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Diário Grátis",
+        "w": 207.703125,
+        "x": 16,
+        "y": 5562.53125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Testar Correção ENEM",
+        "w": 229.1640625,
+        "x": 16,
+        "y": 6650.03125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Gerar Primeira Atividade",
+        "w": 243.9453125,
+        "x": 16,
+        "y": 7725.53125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Ver Grade Inteligente",
+        "w": 221.140625,
+        "x": 16,
+        "y": 8873.03125
+      },
+      {
+        "h": 47,
+        "tag": "BUTTON",
+        "text": "Conhecer Horário Escolar Inteligente",
+        "w": 328.8046875,
+        "x": 16,
+        "y": 9901.859375
+      },
+      {
+        "h": 72,
+        "tag": "H2",
+        "text": "Quanto tempo você vai ganhar de volta?",
+        "w": 292,
+        "x": 49,
+        "y": 10602.859375
+      },
+      {
+        "h": 12,
+        "tag": "INPUT",
+        "text": "",
+        "w": 292,
+        "x": 49,
+        "y": 10858.859375
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Resgatar Minhas 36 Horas Grátis",
+        "w": 292,
+        "x": 49,
+        "y": 11512.859375
+      },
+      {
+        "h": 108,
+        "tag": "H2",
+        "text": "Investimento acessível que se paga no primeiro fim de semana livre.",
+        "w": 358,
+        "x": 16,
+        "y": 13775.609375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Mensal",
+        "w": 83.0390625,
+        "x": 73.4453125,
+        "y": 14011.2734375
+      },
+      {
+        "h": 33.328125,
+        "tag": "BUTTON",
+        "text": "Anual-25% OFF",
+        "w": 148.0703125,
+        "x": 168.484375,
+        "y": 14010.609375
+      },
+      {
+        "h": 43,
+        "tag": "BUTTON",
+        "text": "Usar Diário Grátis",
+        "w": 308,
+        "x": 41,
+        "y": 14480.9375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Professor Geral",
+        "w": 306,
+        "x": 42,
+        "y": 15000.9375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Hub Pro",
+        "w": 306,
+        "x": 42,
+        "y": 15492.9375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Assinar Combo Total",
+        "w": 308,
+        "x": 41,
+        "y": 15983.9375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Conhecer Plano Redação",
+        "w": 181.796875,
+        "x": 104.1015625,
+        "y": 16233.9375
+      },
+      {
+        "h": 36,
+        "tag": "H2",
+        "text": "Perguntas Frequentes",
+        "w": 358,
+        "x": 16,
+        "y": 16512.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Preciso cadastrar cartão de crédito para testar?",
+        "w": 356,
+        "x": 17,
+        "y": 16673.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Como a IA do Rotina Docente corrige as redações do ENEM?",
+        "w": 356,
+        "x": 17,
+        "y": 16787.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "As questões geradas são realmente alinhadas à BNCC?",
+        "w": 356,
+        "x": 17,
+        "y": 16901.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Como funciona a importação de alunos no Diário Pedagógico?",
+        "w": 356,
+        "x": 17,
+        "y": 17015.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Os dados dos meus alunos estão seguros de acordo com a LGPD?",
+        "w": 356,
+        "x": 17,
+        "y": 17129.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "Posso cancelar minha assinatura Pro quando quiser?",
+        "w": 356,
+        "x": 17,
+        "y": 17243.9375
+      },
+      {
+        "h": 96,
+        "tag": "BUTTON",
+        "text": "O que acontece se meus créditos acabarem?",
+        "w": 356,
+        "x": 17,
+        "y": 17357.9375
+      },
+      {
+        "h": 187.5,
+        "tag": "H2",
+        "text": "Pronto para transformar sua rotina e ter seus finais de semana de volt",
+        "w": 276,
+        "x": 57,
+        "y": 17725.9375
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Criar Minha Conta Gratuita",
+        "w": 276,
+        "x": 57,
+        "y": 18041.4375
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "hub",
+    "elements": [
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": "RotinaDocente",
+        "w": 140.328125,
+        "x": 65.078125,
+        "y": 16
+      },
+      {
+        "h": 50,
+        "tag": "BUTTON",
+        "text": "IA: ConectadaIA Ativa",
+        "w": 82.7890625,
+        "x": 205.40625,
+        "y": 19
+      },
+      {
+        "h": 33,
+        "tag": "BUTTON",
+        "text": "Perfil",
+        "w": 45,
+        "x": 298.1953125,
+        "y": 27.5
+      },
+      {
+        "h": 33,
+        "tag": "BUTTON",
+        "text": "Sair",
+        "w": 45,
+        "x": 353.1953125,
+        "y": 27.5
+      },
+      {
+        "h": 64,
+        "tag": "H2",
+        "text": "Seu Hub Pedagógico com Inteligência Artificial",
+        "w": 308,
+        "x": 41,
+        "y": 182
+      },
+      {
+        "h": 14.6640625,
+        "tag": "BUTTON",
+        "text": "Gerenciar",
+        "w": 53.390625,
+        "x": 256.6640625,
+        "y": 349.9140625
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Horário InteligenteCrie e organize as grades escolares da escola com I",
+        "w": 358,
+        "x": 16,
+        "y": 603.75
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Diário PedagógicoPlanejamento de aulas, turmas e notas bimestraisAbrir",
+        "w": 358,
+        "x": 16,
+        "y": 824.25
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Gerador de AtividadesCrie atividades, corrija com IA e acompanhe entre",
+        "w": 358,
+        "x": 16,
+        "y": 1044.75
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Redação CorrigidaCorreção de redações com IA por competência ENEMAbrir",
+        "w": 358,
+        "x": 16,
+        "y": 1265.25
+      },
+      {
+        "h": 200.5,
+        "tag": "BUTTON",
+        "text": "Calendário PedagógicoGrade horária e remanejamento automático de aulas",
+        "w": 358,
+        "x": 16,
+        "y": 1485.75
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Dashboard AnalyticsMétricas, taxas de aprovação e evolução do rendimen",
+        "w": 358,
+        "x": 16,
+        "y": 1706.25
+      },
+      {
+        "h": 220,
+        "tag": "BUTTON",
+        "text": "Agentes Pedagógicos IAAssistentes conversacionais especializados em En",
+        "w": 358,
+        "x": 16,
+        "y": 1946.25
+      },
+      {
+        "h": 200,
+        "tag": "BUTTON",
+        "text": "Meu Horário EscolarOrganização semanal da grade de aulas, turnos e per",
+        "w": 358,
+        "x": 16,
+        "y": 2186.25
+      },
+      {
+        "h": 200,
+        "tag": "BUTTON",
+        "text": "Atividades Adaptadas (DUA)Elaboração e adaptação de atividades inclusi",
+        "w": 358,
+        "x": 16,
+        "y": 2406.25
+      }
+    ],
+    "height": 844,
+    "scroll": 398,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "agentes",
+    "elements": [
+      {
+        "h": 37.1953125,
+        "tag": "BUTTON",
+        "text": "Hub",
+        "w": 81.6953125,
+        "x": 16,
+        "y": 14
+      },
+      {
+        "h": 21.296875,
+        "tag": "H1",
+        "text": "Agentes Pedagógicos",
+        "w": 168.765625,
+        "x": 135.6953125,
+        "y": 21.9453125
+      },
+      {
+        "h": 199.2724609375,
+        "tag": "BUTTON",
+        "text": "Agente EMEnsino Médio — 1º ao 3º EMEspecialista em ENEM, vestibulares,",
+        "w": 354.7301025390625,
+        "x": 17.634963989257812,
+        "y": 250.78204345703125
+      },
+      {
+        "h": 195.0760803222656,
+        "tag": "BUTTON",
+        "text": "Agente EF2Ensino Fundamental II — 6º ao 9º anoEspecialista em descrito",
+        "w": 347.260009765625,
+        "x": 21.3699951171875,
+        "y": 479.1181945800781
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "calendario",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Calendário pedagógico — visão semanal",
+        "w": 342,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 24,
+        "tag": "H2",
+        "text": "novembro 2026",
+        "w": 120.8359375,
+        "x": 41,
+        "y": 112.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Lista",
+        "w": 56.734375,
+        "x": 41,
+        "y": 166.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Semana",
+        "w": 77.8203125,
+        "x": 105.734375,
+        "y": 166.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Mês",
+        "w": 53.1171875,
+        "x": 191.5546875,
+        "y": 166.09375
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "←",
+        "w": 32.1796875,
+        "x": 252.671875,
+        "y": 164.09375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "Hoje",
+        "w": 47.515625,
+        "x": 292.8515625,
+        "y": 166.09375
+      },
+      {
+        "h": 42,
+        "tag": "BUTTON",
+        "text": "→",
+        "w": 32.1796875,
+        "x": 41,
+        "y": 214.09375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 379.59375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 487.09375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 634.59375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 782.09375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 953.59375
+      },
+      {
+        "h": 24,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 176.390625,
+        "x": 50,
+        "y": 1101.09375
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "BUTTON",
+        "text": "Ver aula / registrar realização",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "horario",
+    "elements": [
+      {
+        "h": 19.3125,
+        "tag": "H1",
+        "text": "RotinaDocenteMeu Horário Escolar",
+        "w": 246.109375,
+        "x": 64.3984375,
+        "y": 5.59375
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 130.203125,
+        "y": 57.90625
+      },
+      {
+        "h": 23.9921875,
+        "tag": "INPUT",
+        "text": "",
+        "w": 130,
+        "x": 333.546875,
+        "y": 57.90625
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Horários",
+        "w": 108.5703125,
+        "x": 20,
+        "y": 189.671875
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Importar Horário",
+        "w": 160.5078125,
+        "x": 138.1640625,
+        "y": 189.671875
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Imprimir / PDF",
+        "w": 144.5546875,
+        "x": 20,
+        "y": 235.4609375
+      },
+      {
+        "h": 34.390625,
+        "tag": "BUTTON",
+        "text": "Backup",
+        "w": 101.4375,
+        "x": 174.1484375,
+        "y": 235.4609375
+      },
+      {
+        "h": 38,
+        "tag": "BUTTON",
+        "text": "",
+        "w": 38,
+        "x": 285.1796875,
+        "y": 233.65625
+      },
+      {
+        "h": 0,
+        "tag": "H2",
+        "text": "QUADRO SEMANAL DE HORÁRIO INDIVIDUAL DO PROFESSOR",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 0,
+        "tag": "INPUT",
+        "text": "",
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 25.59375,
+        "tag": "BUTTON",
+        "text": "Deseja limpar toda a grade",
+        "w": 199.125,
+        "x": 161.875,
+        "y": 396.90625
+      },
+      {
+        "h": 345.0859375,
+        "tag": "TABLE",
+        "text": "HorárioSegunda-feiraTerça-feiraQuarta-feiraQuinta-feiraSexta-feira1º H",
+        "w": 860,
+        "x": 17,
+        "y": 442.40625
+      }
+    ],
+    "height": 844,
+    "scroll": 475,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "redacao",
+    "elements": [
+      {
+        "h": 19.5,
+        "tag": "H2",
+        "text": "Redação — revisão docente",
+        "w": 342,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 28,
+        "tag": "H2",
+        "text": "Revisar resultado",
+        "w": 300,
+        "x": 45,
+        "y": 116.09375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 45,
+        "y": 461.09375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Salvar revisão",
+        "w": 132.6015625,
+        "x": 45,
+        "y": 728.59375
+      },
+      {
+        "h": 40,
+        "tag": "BUTTON",
+        "text": "Disponibilizar ao aluno",
+        "w": 194.8828125,
+        "x": 45,
+        "y": 824.59375
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "criterios",
+    "elements": [
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": " Voltar",
+        "w": 42,
+        "x": 16,
+        "y": 12
+      },
+      {
+        "h": 20,
+        "tag": "H1",
+        "text": " Critérios INEP",
+        "w": 114,
+        "x": 70,
+        "y": 19
+      },
+      {
+        "h": 32,
+        "tag": "H2",
+        "text": "Competências do ENEM",
+        "w": 358,
+        "x": 16,
+        "y": 179
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "phase": "depois",
+    "screen": "adaptadas",
+    "elements": [
+      {
+        "h": 39,
+        "tag": "H2",
+        "text": "Atividades adaptadas — visualização do estudante",
+        "w": 342,
+        "x": 24,
+        "y": 24
+      },
+      {
+        "h": 48,
+        "tag": "BUTTON",
+        "text": "Caderno do Estudante",
+        "w": 143,
+        "x": 48,
+        "y": 154.59375
+      },
+      {
+        "h": 80,
+        "tag": "BUTTON",
+        "text": "Guia de Mediação Docente (RN-35)",
+        "w": 143,
+        "x": 199,
+        "y": 138.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Salvo no Banco",
+        "w": 142.3671875,
+        "x": 114.21875,
+        "y": 241.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Ver no Banco",
+        "w": 84.4140625,
+        "x": 264.5859375,
+        "y": 241.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Publicar no Portal",
+        "w": 158.203125,
+        "x": 55.796875,
+        "y": 283.59375
+      },
+      {
+        "h": 34,
+        "tag": "BUTTON",
+        "text": "Copiar Texto",
+        "w": 127,
+        "x": 222,
+        "y": 283.59375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Imprimir / Salvar PDF",
+        "w": 179.5390625,
+        "x": 169.4609375,
+        "y": 325.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "16px",
+        "w": 46.59375,
+        "x": 68,
+        "y": 446.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "18px",
+        "w": 46.703125,
+        "x": 118.59375,
+        "y": 446.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "22px",
+        "w": 47.5859375,
+        "x": 169.296875,
+        "y": 446.59375
+      },
+      {
+        "h": 22.6640625,
+        "tag": "BUTTON",
+        "text": "26px",
+        "w": 48.0390625,
+        "x": 220.8828125,
+        "y": 446.59375
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Espaçamento 2.0 ",
+        "w": 122.3515625,
+        "x": 39,
+        "y": 482.2578125
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Alto Contraste ",
+        "w": 107.25,
+        "x": 169.3515625,
+        "y": 482.2578125
+      },
+      {
+        "h": 28.6640625,
+        "tag": "BUTTON",
+        "text": "Produzir imagens pendentes",
+        "w": 205.8671875,
+        "x": 39,
+        "y": 518.921875
+      },
+      {
+        "h": 56,
+        "tag": "H1",
+        "text": "Interpretação de texto — crônica",
+        "w": 292,
+        "x": 49,
+        "y": 645.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 188,
+        "x": 123,
+        "y": 1300.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 1314.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 1706.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 1772.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 135,
+        "y": 2024.5859375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 127,
+        "y": 2080.0859375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 127,
+        "y": 2114.5859375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 70,
+        "y": 2530.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 2939.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 3331.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 180,
+        "x": 127,
+        "y": 3397.5859375
+      },
+      {
+        "h": 34,
+        "tag": "INPUT",
+        "text": "",
+        "w": 80,
+        "x": 135,
+        "y": 3649.5859375
+      },
+      {
+        "h": 13,
+        "tag": "INPUT",
+        "text": "",
+        "w": 13,
+        "x": 127,
+        "y": 3705.0859375
+      },
+      {
+        "h": 32,
+        "tag": "BUTTON",
+        "text": "Produzir imagem",
+        "w": 126.3515625,
+        "x": 127,
+        "y": 3739.5859375
+      },
+      {
+        "h": 16,
+        "tag": "BUTTON",
+        "text": "Ver Dica de Apoio (Scaffolding)",
+        "w": 228.875,
+        "x": 70,
+        "y": 3829.5859375
+      }
+    ],
+    "height": 844,
+    "scroll": 390,
+    "width": 390
+  }
+]

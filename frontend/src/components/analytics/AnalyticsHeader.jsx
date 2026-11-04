@@ -16,7 +16,7 @@ export function AnalyticsHeader({
   exportingPDF = false,
   exportDisabled = false,
 }) {
-  const input = 'border border-slate-300 bg-white text-slate-900 rounded-lg p-2 text-sm';
+  const input = 'border border-[#B7D3C8] bg-white text-[#123C3A] rounded-lg p-2 text-sm';
   return (
     <header className="bg-white border rounded-2xl p-4 space-y-3">
       <div className="flex gap-4 flex-wrap justify-between items-center">
@@ -25,7 +25,7 @@ export function AnalyticsHeader({
             Voltar ao Hub
           </Link>
           <h1 className="text-xl font-bold">Dashboard Analytics</h1>
-          <p className="text-sm text-slate-600">Acompanhe notas, pendências e evolução.</p>
+          <p className="text-sm text-[#4F6B63]">Acompanhe notas, pendências e evolução.</p>
         </div>
         <button
           onClick={onExportPDF}

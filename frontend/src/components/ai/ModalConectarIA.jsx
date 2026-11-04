@@ -133,17 +133,17 @@ export function ModalConectarIA({ isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/60 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123c3a]/60 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="bg-white border border-[#dce0f0] rounded-3xl shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden text-[#101942]"
+        className="bg-white border border-[#d5e3dc] rounded-3xl shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden text-[#123c3a]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Superior Navy */}
-        <div className="bg-[#101942] text-white px-6 py-5 flex items-center justify-between border-b border-white/10 shrink-0">
+        <div className="bg-[#123c3a] text-white px-6 py-5 flex items-center justify-between border-b border-white/10 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#f60c49] flex items-center justify-center text-white shadow-md">
+            <div className="w-10 h-10 rounded-2xl bg-[#0f766e] flex items-center justify-center text-white shadow-md">
               <Key size={20} />
             </div>
             <div>
@@ -170,30 +170,30 @@ export function ModalConectarIA({ isOpen, onClose }) {
         <div className="p-6 overflow-y-auto space-y-6 flex-1">
           {/* Status Ativo Badge */}
           {temChave ? (
-            <div className="p-4 rounded-2xl bg-[#22c55e]/10 border border-[#22c55e]/30 flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-[#0F766E]/10 border border-[#0F766E]/30 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <CheckCircle2 size={20} className="text-[#22c55e] shrink-0" />
+                <CheckCircle2 size={20} className="text-[#0F766E] shrink-0" />
                 <div>
-                  <p className="text-xs font-bold text-[#166534]">
+                  <p className="text-xs font-bold text-[#0B5F59]">
                     Chave Própria Conectada: {AIProviders[config?.provider]?.nome || config?.provider}
                   </p>
-                  <p className="text-[11px] text-[#166534]/80 mt-0.5">
+                  <p className="text-[11px] text-[#0B5F59]/80 mt-0.5">
                     Chave ativa: <span className="font-mono font-semibold">{config?.getMaskedKey()}</span>
                   </p>
                 </div>
               </div>
               <button
                 onClick={handleRemove}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#0F766E] bg-[#F3F8F5] hover:bg-[#DAEBE5] transition-colors"
               >
                 <Trash2 size={14} />
                 <span>Desconectar</span>
               </button>
             </div>
           ) : (
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-3">
-              <AlertCircle size={18} className="text-amber-600 shrink-0 mt-0.5" />
-              <div className="text-xs text-amber-800 leading-relaxed">
+            <div className="p-4 rounded-2xl bg-[#F3F8F5] border border-[#D5E3DC] flex items-start gap-3">
+              <AlertCircle size={18} className="text-[#0F766E] shrink-0 mt-0.5" />
+              <div className="text-xs text-[#123C3A] leading-relaxed">
                 <strong className="font-bold">Nenhuma chave conectada:</strong> O Rotina Docente opera exclusivamente com a sua chave pessoal. Para corrigir redações, conversar com agentes pedagógicos ou gerar atividades, conecte seu provedor abaixo.
               </div>
             </div>
@@ -201,8 +201,8 @@ export function ModalConectarIA({ isOpen, onClose }) {
 
           {/* 1. Escolha de Provedor */}
           <div>
-            <label className="block text-xs font-bold text-[#101942] uppercase tracking-wider mb-2.5 flex items-center gap-2">
-              <Cpu size={14} className="text-[#f60c49]" />
+            <label className="block text-xs font-bold text-[#123c3a] uppercase tracking-wider mb-2.5 flex items-center gap-2">
+              <Cpu size={14} className="text-[#0f766e]" />
               1. Selecione o Provedor de IA
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -215,18 +215,18 @@ export function ModalConectarIA({ isOpen, onClose }) {
                     onClick={() => handleSelectProvider(p.id)}
                     className={`p-3.5 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                       isSelected
-                        ? 'border-[#f60c49] bg-[#fff2f6] shadow-sm ring-2 ring-[#f60c49]/20'
-                        : 'border-[#dce0f0] bg-white hover:border-[#b0b8d8] hover:bg-[#f7f8fc]'
+                        ? 'border-[#0f766e] bg-[#f3f8f5] shadow-sm ring-2 ring-[#0f766e]/20'
+                        : 'border-[#d5e3dc] bg-white hover:border-[#a9c9bc] hover:bg-[#f3f7f5]'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs font-extrabold text-[#101942]">{p.nome}</span>
+                        <span className="text-xs font-extrabold text-[#123c3a]">{p.nome}</span>
                         {isSelected && (
-                          <span className="w-2 h-2 rounded-full bg-[#f60c49]"></span>
+                          <span className="w-2 h-2 rounded-full bg-[#0f766e]"></span>
                         )}
                       </div>
-                      <p className="text-[11px] text-[#6070a0] leading-snug line-clamp-2">
+                      <p className="text-[11px] text-[#4f6b63] leading-snug line-clamp-2">
                         {p.descricao}
                       </p>
                     </div>
@@ -239,8 +239,8 @@ export function ModalConectarIA({ isOpen, onClose }) {
           {/* 2. Campo de Chave de API */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-[#101942] uppercase tracking-wider flex items-center gap-2">
-                <Key size={14} className="text-[#f60c49]" />
+              <label className="text-xs font-bold text-[#123c3a] uppercase tracking-wider flex items-center gap-2">
+                <Key size={14} className="text-[#0f766e]" />
                 2. Chave de API ({currentProv.nome})
               </label>
               {currentProv.keyHelpUrl && (
@@ -248,7 +248,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
                   href={currentProv.keyHelpUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[11px] font-bold text-[#f60c49] hover:underline flex items-center gap-1"
+                  className="text-[11px] font-bold text-[#0f766e] hover:underline flex items-center gap-1"
                 >
                   <span>{currentProv.keyHelpText || 'Obter chave'}</span>
                   <ExternalLink size={12} />
@@ -262,33 +262,33 @@ export function ModalConectarIA({ isOpen, onClose }) {
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder={currentProv.keyPlaceholder}
-                className="w-full px-4 py-3 pr-12 rounded-2xl bg-white border border-[#dce0f0] text-sm text-[#101942] placeholder-[#a0a8c4] focus:outline-none focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] font-mono transition-all"
+                className="w-full px-4 py-3 pr-12 rounded-2xl bg-white border border-[#d5e3dc] text-sm text-[#123c3a] placeholder-[#566f65] focus:outline-none focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] font-mono transition-all"
               />
               <button
                 type="button"
                 onClick={() => setShowKey(!showKey)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6070a0] hover:text-[#101942] p-1.5"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4f6b63] hover:text-[#123c3a] p-1.5"
                 title={showKey ? 'Ocultar chave' : 'Mostrar chave'}
               >
                 {showKey ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
-            <p className="text-[11px] text-[#6070a0] flex items-center gap-1.5">
-              <ShieldCheck size={13} className="text-[#22c55e]" />
+            <p className="text-[11px] text-[#4f6b63] flex items-center gap-1.5">
+              <ShieldCheck size={13} className="text-[#0F766E]" />
               Sua chave é salva com segurança no seu perfil e nunca compartilhada com terceiros.
             </p>
           </div>
 
           {/* 3. Seleção de Modelo */}
           <div>
-            <label className="block text-xs font-bold text-[#101942] uppercase tracking-wider mb-2 flex items-center gap-2">
-              <Zap size={14} className="text-[#f60c49]" />
+            <label className="block text-xs font-bold text-[#123c3a] uppercase tracking-wider mb-2 flex items-center gap-2">
+              <Zap size={14} className="text-[#0f766e]" />
               3. Modelo Padrão
             </label>
             <select
               value={model}
               onChange={(e) => setModel(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl bg-white border border-[#dce0f0] text-sm text-[#101942] font-semibold focus:outline-none focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all cursor-pointer"
+              className="w-full px-4 py-3 rounded-2xl bg-white border border-[#d5e3dc] text-sm text-[#123c3a] font-semibold focus:outline-none focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all cursor-pointer"
             >
               {currentProv.modelos.map((m) => (
                 <option key={m.id} value={m.id}>
@@ -303,41 +303,41 @@ export function ModalConectarIA({ isOpen, onClose }) {
             <div
               className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-3 ${
                 testResult.ok
-                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+                  ? 'bg-[#F3F8F5] text-[#123C3A] border border-[#D5E3DC]'
+                  : 'bg-[#F3F8F5] text-[#123C3A] border border-[#D5E3DC]'
               }`}
             >
               {testResult.ok ? (
-                <CheckCircle2 size={18} className="text-emerald-600 shrink-0" />
+                <CheckCircle2 size={18} className="text-[#0F766E] shrink-0" />
               ) : (
-                <AlertCircle size={18} className="text-rose-600 shrink-0" />
+                <AlertCircle size={18} className="text-[#0F766E] shrink-0" />
               )}
               <span className="flex-1">{testResult.message}</span>
             </div>
           )}
 
           {/* Banner de Autonomia */}
-          <div className="p-4 rounded-2xl bg-[#f7f8fc] border border-[#dce0f0] text-xs text-[#6070a0] leading-relaxed">
-            <strong className="text-[#101942]">Transparência total:</strong> O consumo de tokens e custos é cobrado diretamente na sua conta do provedor (Google, OpenAI, Anthropic, Maritaca ou OpenRouter). A plataforma não retém nenhuma taxa sobre seu saldo de IA.
+          <div className="p-4 rounded-2xl bg-[#f3f7f5] border border-[#d5e3dc] text-xs text-[#4f6b63] leading-relaxed">
+            <strong className="text-[#123c3a]">Transparência total:</strong> O consumo de tokens e custos é cobrado diretamente na sua conta do provedor (Google, OpenAI, Anthropic, Maritaca ou OpenRouter). A plataforma não retém nenhuma taxa sobre seu saldo de IA.
           </div>
         </div>
 
         {/* Rodapé com Ações */}
-        <div className="bg-[#f7f8fc] border-t border-[#dce0f0] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+        <div className="bg-[#f3f7f5] border-t border-[#d5e3dc] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
           <button
             type="button"
             onClick={handleTest}
             disabled={testing || !apiKey.trim()}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-2xl border border-[#101942]/20 hover:border-[#101942] text-xs font-bold text-[#101942] hover:bg-white transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-2xl border border-[#123c3a]/20 hover:border-[#123c3a] text-xs font-bold text-[#123c3a] hover:bg-white transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {testing ? (
               <>
-                <Loader2 size={14} className="animate-spin text-[#f60c49]" />
+                <Loader2 size={14} className="animate-spin text-[#0f766e]" />
                 <span>Testando conexão...</span>
               </>
             ) : (
               <>
-                <Zap size={14} className="text-[#f60c49]" />
+                <Zap size={14} className="text-[#0f766e]" />
                 <span>Testar Conexão</span>
               </>
             )}
@@ -347,7 +347,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 sm:flex-none px-5 py-2.5 rounded-2xl text-xs font-bold text-[#6070a0] hover:text-[#101942] hover:bg-[#eef0f8] transition-all"
+              className="flex-1 sm:flex-none px-5 py-2.5 rounded-2xl text-xs font-bold text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f7f5] transition-all"
             >
               Cancelar
             </button>
@@ -355,7 +355,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
               type="button"
               onClick={handleSave}
               disabled={saving || !apiKey.trim()}
-              className="flex-1 sm:flex-none px-6 py-2.5 rounded-2xl bg-[#f60c49] hover:bg-[#d40840] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 sm:flex-none px-6 py-2.5 rounded-2xl bg-[#0f766e] hover:bg-[#0b5f59] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {saving ? (
                 <>

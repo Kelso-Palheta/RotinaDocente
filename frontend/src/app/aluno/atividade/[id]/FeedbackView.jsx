@@ -14,7 +14,7 @@ export const FeedbackView = ({ entrega, atividade }) => {
       {/* Nota geral */}
       <div className="text-center py-4">
         <div className="inline-flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-violet-500 tabular-nums">
+          <span className="text-4xl font-bold text-[#0F766E] tabular-nums">
             {nota != null ? nota.toFixed(2).replace('.', ',') : '—'}
           </span>
           <span className="text-sm text-slate-400">/ {notaMaxima.toFixed(1).replace('.', ',')}</span>
@@ -22,7 +22,7 @@ export const FeedbackView = ({ entrega, atividade }) => {
         <p className="text-xs text-slate-400 mt-1">{statusLabel}</p>
       </div>
 
-      {entrega.feedbackGeral && <section className="bg-slate-50 border border-slate-200 rounded-xl p-4"><h3 className="text-sm font-semibold text-slate-900">Feedback geral da atividade</h3><p className="text-sm text-slate-600 whitespace-pre-wrap mt-2">{entrega.feedbackGeral}</p></section>}
+      {entrega.feedbackGeral && <section className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4"><h3 className="text-sm font-semibold text-[#123C3A]">Feedback geral da atividade</h3><p className="text-sm text-[#4F6B63] whitespace-pre-wrap mt-2">{entrega.feedbackGeral}</p></section>}
       {/* Multi-questão: resultados por questão */}
       {questoes?.length > 0 && resultados ? (
         questoes.map((q, i) => {
@@ -31,10 +31,10 @@ export const FeedbackView = ({ entrega, atividade }) => {
           const objetiva = ehQuestaoObjetiva(q.tipo);
           if (!res) return null;
           return (
-            <div key={q.id} className="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <div key={q.id} className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className={`w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center ${objetiva ? 'bg-blue-500' : 'bg-violet-500'}`}>{i + 1}</span>
-                <span className="text-xs font-semibold text-slate-900 flex-1 truncate">{q.enunciado?.slice(0, 60)}{q.enunciado?.length > 60 ? '…' : ''}</span>
+                <span className={`w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center ${objetiva ? 'bg-[#0F766E]' : 'bg-[#0F766E]'}`}>{i + 1}</span>
+                <span className="text-xs font-semibold text-[#123C3A] flex-1 truncate">{q.enunciado?.slice(0, 60)}{q.enunciado?.length > 60 ? '…' : ''}</span>
                 <span className={`text-xs font-mono font-bold tabular-nums ${res.notaObtida >= res.notaMaxima ? 'text-green-600' : res.notaObtida > 0 ? 'text-blue-500' : 'text-red-500'}`}>
                   {res.notaObtida.toFixed(1).replace('.', ',')} / {res.notaMaxima.toFixed(1).replace('.', ',')}
                 </span>
@@ -48,13 +48,13 @@ export const FeedbackView = ({ entrega, atividade }) => {
               )}
 
               {res.feedback && (
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">{res.feedback}</p>
+                <p className="text-xs text-[#566F65] mt-1 leading-relaxed">{res.feedback}</p>
               )}
 
               {q.tipo === 'discursiva' && resposta && (
-                <div className="mt-2 bg-white rounded-lg p-2 border border-slate-200">
+                <div className="mt-2 bg-white rounded-lg p-2 border border-[#D5E3DC]">
                   <p className="text-[10px] text-slate-400 mb-1 uppercase font-semibold">Sua resposta</p>
-                  <p className="text-xs text-slate-500 whitespace-pre-wrap leading-relaxed">{resposta}</p>
+                  <p className="text-xs text-[#566F65] whitespace-pre-wrap leading-relaxed">{resposta}</p>
                 </div>
               )}
             </div>
@@ -64,28 +64,28 @@ export const FeedbackView = ({ entrega, atividade }) => {
         /* Legado: feedback único */
         <>
           {entrega.feedback && (
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">Feedback</p>
-              <p className="text-sm text-slate-500 leading-relaxed whitespace-pre-wrap">{entrega.feedback}</p>
+            <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4">
+              <p className="text-xs font-semibold text-[#123C3A] uppercase tracking-wider mb-2">Feedback</p>
+              <p className="text-sm text-[#566F65] leading-relaxed whitespace-pre-wrap">{entrega.feedback}</p>
             </div>
           )}
           {entrega.criterios?.length > 0 && (
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-3">Critérios</p>
+            <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4">
+              <p className="text-xs font-semibold text-[#123C3A] uppercase tracking-wider mb-3">Critérios</p>
               <div className="space-y-2">
                 {entrega.criterios.map((c, i) => (
                   <div key={i} className="flex items-center justify-between">
-                    <span className="text-sm text-slate-500">{c.nome}</span>
-                    <span className="text-xs font-mono text-slate-900 tabular-nums">{c.pontos_obtidos}/{c.pontos_maximos}</span>
+                    <span className="text-sm text-[#566F65]">{c.nome}</span>
+                    <span className="text-xs font-mono text-[#123C3A] tabular-nums">{c.pontos_obtidos}/{c.pontos_maximos}</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
           {entrega.respostaTexto && (
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2">Sua resposta</p>
-              <p className="text-sm text-slate-500 leading-relaxed whitespace-pre-wrap">{entrega.respostaTexto}</p>
+            <div className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4">
+              <p className="text-xs font-semibold text-[#123C3A] uppercase tracking-wider mb-2">Sua resposta</p>
+              <p className="text-sm text-[#566F65] leading-relaxed whitespace-pre-wrap">{entrega.respostaTexto}</p>
             </div>
           )}
         </>

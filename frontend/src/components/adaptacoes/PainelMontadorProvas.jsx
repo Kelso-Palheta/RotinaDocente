@@ -131,25 +131,25 @@ export function PainelMontadorProvas({
     return (
       <div className="space-y-6">
         {/* Barra superior de controle de impressão */}
-        <div className="no-print flex flex-wrap items-center justify-between gap-4 p-4 bg-white border border-[#dce0f0] rounded-3xl shadow-xs">
+        <div className="no-print flex flex-wrap items-center justify-between gap-4 p-4 bg-white border border-[#d5e3dc] rounded-3xl shadow-xs">
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setModoImpressao(false)}
-              className="px-3.5 py-2 text-xs font-bold text-[#6070a0] hover:text-[#101942] rounded-xl hover:bg-[#f8f9fd] transition-colors"
+              className="px-3.5 py-2 text-xs font-bold text-[#4f6b63] hover:text-[#123c3a] rounded-xl hover:bg-[#f3f8f5] transition-colors"
             >
               ← Voltar à Edição
             </button>
-            <div className="h-4 w-px bg-gray-200" />
+            <div className="h-4 w-px bg-[#D5E3DC]" />
             {/* Abas Caderno do Estudante / Guia de Mediação */}
-            <div className="flex bg-[#f8f9fd] p-1 rounded-2xl border border-[#dce0f0]">
+            <div className="flex bg-[#f3f8f5] p-1 rounded-2xl border border-[#d5e3dc]">
               <button
                 type="button"
                 onClick={() => setAbaExibicao("aluno")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   abaExibicao === "aluno"
-                    ? "bg-white text-[#101942] shadow-xs"
-                    : "text-[#6070a0]"
+                    ? "bg-white text-[#123c3a] shadow-xs"
+                    : "text-[#4f6b63]"
                 }`}
               >
                 Caderno do Estudante
@@ -159,8 +159,8 @@ export function PainelMontadorProvas({
                 onClick={() => setAbaExibicao("mediacao")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                   abaExibicao === "mediacao"
-                    ? "bg-white text-indigo-700 shadow-xs"
-                    : "text-[#6070a0]"
+                    ? "bg-white text-[#123C3A] shadow-xs"
+                    : "text-[#4f6b63]"
                 }`}
               >
                 Guia de Mediação
@@ -170,7 +170,7 @@ export function PainelMontadorProvas({
 
           <div className="flex flex-wrap items-center gap-2">
             {/* Controles de Acessibilidade */}
-            <div className="flex items-center gap-1.5 bg-[#f8f9fd] p-1 rounded-2xl border border-[#dce0f0] text-xs font-bold text-[#6070a0]">
+            <div className="flex items-center gap-1.5 bg-[#f3f8f5] p-1 rounded-2xl border border-[#d5e3dc] text-xs font-bold text-[#4f6b63]">
               <span className="px-2">Fonte:</span>
               {["14px", "16px", "18px", "22px"].map((tam) => (
                 <button
@@ -178,7 +178,7 @@ export function PainelMontadorProvas({
                   type="button"
                   onClick={() => setTamanhoFonte(tam)}
                   className={`px-2 py-1 rounded-lg transition-all ${
-                    tamanhoFonte === tam ? "bg-white text-[#101942] shadow-xs" : "hover:text-[#101942]"
+                    tamanhoFonte === tam ? "bg-white text-[#123c3a] shadow-xs" : "hover:text-[#123c3a]"
                   }`}
                 >
                   {tam.replace("px", "")}pt
@@ -191,8 +191,8 @@ export function PainelMontadorProvas({
               onClick={() => setEspacamentoDuplo((p) => !p)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                 espacamentoDuplo
-                  ? "bg-pink-50 border-[#f60c49] text-[#f60c49]"
-                  : "bg-white border-[#dce0f0] text-[#6070a0]"
+                  ? "bg-[#F3F8F5] border-[#0f766e] text-[#0f766e]"
+                  : "bg-white border-[#d5e3dc] text-[#4f6b63]"
               }`}
             >
               Espaçamento 1.5
@@ -203,8 +203,8 @@ export function PainelMontadorProvas({
               onClick={() => setAltoContraste((p) => !p)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                 altoContraste
-                  ? "bg-gray-900 border-gray-900 text-yellow-300"
-                  : "bg-white border-[#dce0f0] text-[#6070a0]"
+                  ? "bg-[#123C3A] border-[#123C3A] text-[#B7D3C8]"
+                  : "bg-white border-[#d5e3dc] text-[#4f6b63]"
               }`}
             >
               Alto Contraste
@@ -213,21 +213,21 @@ export function PainelMontadorProvas({
             <button
               type="button"
               onClick={imprimir}
-              className="px-4 py-2 bg-linear-to-r from-[#f60c49] to-[#d40840] text-white rounded-xl text-xs font-black shadow-md shadow-[#f60c49]/20 flex items-center gap-1.5"
+              className="px-4 py-2 bg-linear-to-r from-[#0f766e] to-[#0b5f59] text-white rounded-xl text-xs font-black shadow-md shadow-[#0f766e]/20 flex items-center gap-1.5"
             >
               <Printer size={15} /> Imprimir / Salvar PDF
             </button>
           </div>
         </div>
 
-        {erroVisual&&<p role="alert" className="text-red-700 print:hidden">{erroVisual}</p>}
+        {erroVisual&&<p role="alert" className="text-[#0B5F59] print:hidden">{erroVisual}</p>}
         {/* Folha de Prova Formatada para Impressão */}
         <div
           id="area-impressao-prova"
           className={`p-8 md:p-12 rounded-3xl border transition-all shadow-md ${
             altoContraste
-              ? "bg-black text-yellow-300 border-yellow-500"
-              : "bg-white text-[#101942] border-[#dce0f0]"
+              ? "bg-black text-[#B7D3C8] border-[#0F766E]"
+              : "bg-white text-[#123c3a] border-[#d5e3dc]"
           }`}
           style={{
             fontSize: tamanhoFonte,
@@ -237,12 +237,12 @@ export function PainelMontadorProvas({
           {abaExibicao === "aluno" ? (
             <div className="space-y-8">
               {/* Cabeçalho da Prova */}
-              <div className={`pb-6 border-b-2 ${altoContraste ? "border-yellow-500" : "border-[#101942]"} space-y-3`}>
+              <div className={`pb-6 border-b-2 ${altoContraste ? "border-[#0F766E]" : "border-[#123c3a]"} space-y-3`}>
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                   <h1 className="text-xl md:text-2xl font-black uppercase tracking-tight">
                     {prova.titulo || "Avaliação Adaptada"}
                   </h1>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-800 print:border print:border-gray-400">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#F3F7F5] text-[#194D46] print:border print:border-[#566F65]">
                     {prova.disciplina || "Geral"} {prova.anoEscolar ? `• ${prova.anoEscolar}` : ""}
                   </span>
                 </div>
@@ -258,7 +258,7 @@ export function PainelMontadorProvas({
                 </div>
 
                 {prova.instrucoes && (
-                  <div className="p-3 bg-gray-50 border rounded-xl text-xs leading-relaxed italic print:bg-transparent">
+                  <div className="p-3 bg-[#F3F8F5] border rounded-xl text-xs leading-relaxed italic print:bg-transparent">
                     <strong>Orientações:</strong> {prova.instrucoes}
                   </div>
                 )}
@@ -275,7 +275,7 @@ export function PainelMontadorProvas({
 
                     {q.imagemUrl && <img src={q.imagemUrl} alt={q.apoioVisualDescricao||"Figura da questão"} className="w-full object-contain" style={{maxWidth:`${q.planoVisual?.larguraCm||10}cm`,maxHeight:'16cm'}}/>}
                     {q.apoioVisualDescricao && (
-                      <div className="p-3 rounded-xl border border-dashed text-xs bg-gray-50 print:bg-transparent">
+                      <div className="p-3 rounded-xl border border-dashed text-xs bg-[#F3F8F5] print:bg-transparent">
                         <strong>[Apoio Visual]:</strong> {q.apoioVisualDescricao}
                       </div>
                     )}
@@ -284,7 +284,7 @@ export function PainelMontadorProvas({
                       <div className="space-y-2.5 pl-6">
                         {q.alternativas.map((alt, aIdx) => (
                           <div key={aIdx} className="flex items-start gap-3">
-                            <span className="w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5" />
+                            <span className="w-5 h-5 rounded-full border-2 border-[#566F65] flex items-center justify-center text-[10px] font-black shrink-0 mt-0.5" />
                             <span className="text-sm font-medium">{alt}</span>
                           </div>
                         ))}
@@ -292,7 +292,7 @@ export function PainelMontadorProvas({
                     )}
 
                     {["discursiva","discursiva_curta"].includes(q.tipo) && (
-                      <div className="border border-dashed border-gray-300 rounded-xl h-24 mt-2 print:border-gray-500" />
+                      <div className="border border-dashed border-[#B7D3C8] rounded-xl h-24 mt-2 print:border-[#566F65]" />
                     )}
                   </div>
                 ))}
@@ -302,31 +302,31 @@ export function PainelMontadorProvas({
             /* Guia de Mediação Pedagógica */
             <div className="space-y-6">
               <div className="border-b pb-4">
-                <h2 className="text-xl font-black text-indigo-900">
+                <h2 className="text-xl font-black text-[#123C3A]">
                   Guia de Mediação Docente e Apoio AEE
                 </h2>
-                <p className="text-xs text-[#6070a0]">
+                <p className="text-xs text-[#4f6b63]">
                   Orientações para o professor regente e mediador durante a aplicação desta prova
                 </p>
               </div>
 
               <div className="space-y-4">
                 {questoes.map((q, idx) => (
-                  <div key={q.id || idx} className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl space-y-2">
-                    <h3 className="text-xs font-black text-indigo-950">
+                  <div key={q.id || idx} className="p-4 bg-[#F3F8F5]/50 border border-[#DAEBE5] rounded-2xl space-y-2">
+                    <h3 className="text-xs font-black text-[#123C3A]">
                       Questão {idx + 1}: {q.enunciado?.slice(0, 80)}...
                     </h3>
                     {q.scaffolding ? (
-                      <p className="text-xs text-indigo-900">
+                      <p className="text-xs text-[#123C3A]">
                         <strong>Estratégia de Mediação / Scaffolding:</strong> {q.scaffolding}
                       </p>
                     ) : (
-                      <p className="text-xs text-[#6070a0] italic">
+                      <p className="text-xs text-[#4f6b63] italic">
                         Mediação padrão: leia o enunciado com entonação clara e permita o tempo necessário para resposta.
                       </p>
                     )}
                     {q.gabarito && (
-                      <p className="text-xs font-bold text-emerald-800">
+                      <p className="text-xs font-bold text-[#123C3A]">
                         Gabarito Oficial: {q.gabarito}
                       </p>
                     )}
@@ -343,16 +343,16 @@ export function PainelMontadorProvas({
   return (
     <div className="space-y-6">
       {/* Cabeçalho do Montador */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-white border border-[#dce0f0] rounded-3xl shadow-sm">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-white border border-[#d5e3dc] rounded-3xl shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-md shadow-emerald-500/10">
+          <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-[#0F766E] to-[#0B5F59] flex items-center justify-center text-white shadow-md shadow-[#0F766E]/10">
             <FileText size={22} />
           </div>
           <div>
-            <h2 className="text-base font-black text-[#101942]">
+            <h2 className="text-base font-black text-[#123c3a]">
               Montador de Provas e Avaliações Adaptadas
             </h2>
-            <p className="text-xs text-[#6070a0]">
+            <p className="text-xs text-[#4f6b63]">
               Personalize a sequência, ajuste enunciados e vincule a um estudante PEI
             </p>
           </div>
@@ -362,9 +362,9 @@ export function PainelMontadorProvas({
           <button
             type="button"
             onClick={() => setModalProvasAberto(true)}
-            className="px-3.5 py-2.5 bg-white hover:bg-[#f8f9fd] text-[#101942] border border-[#dce0f0] rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+            className="px-3.5 py-2.5 bg-white hover:bg-[#f3f8f5] text-[#123c3a] border border-[#d5e3dc] rounded-2xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
           >
-            <FolderOpen size={15} className="text-[#6070a0]" />
+            <FolderOpen size={15} className="text-[#4f6b63]" />
             Provas Salvas ({provasSalvas.length})
           </button>
 
@@ -374,8 +374,8 @@ export function PainelMontadorProvas({
             onClick={handleSalvar}
             className={`px-4 py-2.5 rounded-2xl text-xs font-black transition-all flex items-center gap-1.5 shadow-md ${
               salvoFeedback
-                ? "bg-emerald-600 text-white"
-                : "bg-linear-to-r from-[#f60c49] to-[#d40840] text-white hover:opacity-95 shadow-[#f60c49]/20"
+                ? "bg-[#0F766E] text-white"
+                : "bg-linear-to-r from-[#0f766e] to-[#0b5f59] text-white hover:opacity-95 shadow-[#0f766e]/20"
             }`}
           >
             {salvoFeedback ? (
@@ -393,7 +393,7 @@ export function PainelMontadorProvas({
             <button
               type="button"
               onClick={() => setModoImpressao(true)}
-              className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-indigo-600/20"
+              className="px-4 py-2.5 bg-[#0F766E] hover:bg-[#0B5F59] text-white rounded-2xl text-xs font-black transition-all flex items-center gap-1.5 shadow-md shadow-[#0F766E]/20"
             >
               <Printer size={16} />
               Visualizar & Imprimir
@@ -405,14 +405,14 @@ export function PainelMontadorProvas({
       {/* Bloco 1: Metadados da Prova e Vinculação ao Aluno PEI */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Dados da Prova */}
-        <div className="lg:col-span-2 p-6 bg-white border border-[#dce0f0] rounded-3xl shadow-xs space-y-4">
-          <h3 className="text-xs font-black uppercase tracking-wider text-[#6070a0] flex items-center gap-2">
-            <FileText size={16} className="text-[#f60c49]" /> Identificação da Avaliação
+        <div className="lg:col-span-2 p-6 bg-white border border-[#d5e3dc] rounded-3xl shadow-xs space-y-4">
+          <h3 className="text-xs font-black uppercase tracking-wider text-[#4f6b63] flex items-center gap-2">
+            <FileText size={16} className="text-[#0f766e]" /> Identificação da Avaliação
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-[#101942] mb-1">
+              <label className="block text-xs font-bold text-[#123c3a] mb-1">
                 Título da Prova / Avaliação
               </label>
               <input
@@ -420,18 +420,18 @@ export function PainelMontadorProvas({
                 value={prova.titulo || ""}
                 onChange={(e) => aplicarProva({ ...prova, titulo: e.target.value })}
                 placeholder="Ex: Avaliação Diagnóstica de Ciências - 1º Bimestre"
-                className="w-full px-3.5 py-2.5 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-bold text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
+                className="w-full px-3.5 py-2.5 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-bold text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#101942] mb-1">
+              <label className="block text-xs font-bold text-[#123c3a] mb-1">
                 Ano Escolar
               </label>
               <select
                 value={prova.anoEscolar || "8º Ano"}
                 onChange={(e) => aplicarProva({ ...prova, anoEscolar: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
+                className="w-full px-3.5 py-2.5 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
               >
                 <option value="6º Ano">6º Ano</option>
                 <option value="7º Ano">7º Ano</option>
@@ -445,7 +445,7 @@ export function PainelMontadorProvas({
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#101942] mb-1">
+            <label className="block text-xs font-bold text-[#123c3a] mb-1">
               Instruções Gerais ao Estudante
             </label>
             <textarea
@@ -453,23 +453,23 @@ export function PainelMontadorProvas({
               value={prova.instrucoes || ""}
               onChange={(e) => aplicarProva({ ...prova, instruções: e.target.value, instrucoes: e.target.value })}
               placeholder="Ex: Leia com tranquilidade. Use os apoios visuais para ajudar na compreensão..."
-              className="w-full px-3.5 py-2 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl text-xs font-medium text-[#101942] focus:outline-hidden focus:border-[#f60c49]"
+              className="w-full px-3.5 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
             />
           </div>
         </div>
 
         {/* Card: Vincular Aluno PEI */}
-        <div className="p-6 bg-linear-to-br from-indigo-50/50 to-white border border-indigo-100 rounded-3xl shadow-xs space-y-4">
+        <div className="p-6 bg-linear-to-br from-[#F3F8F5]/50 to-white border border-[#DAEBE5] rounded-3xl shadow-xs space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-black uppercase tracking-wider text-indigo-900 flex items-center gap-2">
-              <UserCheck size={16} className="text-indigo-600" />
+            <h3 className="text-xs font-black uppercase tracking-wider text-[#123C3A] flex items-center gap-2">
+              <UserCheck size={16} className="text-[#0F766E]" />
               Estudante Vinculado
             </h3>
             {prova.alunoNome && (
               <button
                 type="button"
                 onClick={() => handleSelecionarAluno("")}
-                className="text-[11px] font-bold text-red-500 hover:underline"
+                className="text-[11px] font-bold text-[#0F766E] hover:underline"
               >
                 Desvincular
               </button>
@@ -477,13 +477,13 @@ export function PainelMontadorProvas({
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#101942] mb-1.5">
+            <label className="block text-xs font-bold text-[#123c3a] mb-1.5">
               Selecionar do Banco de Alunos PEI:
             </label>
             <select
               value={prova.alunoId || ""}
               onChange={(e) => handleSelecionarAluno(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white border border-indigo-200 rounded-2xl text-xs font-bold text-[#101942] focus:outline-hidden focus:border-indigo-500 shadow-xs"
+              className="w-full px-3.5 py-2.5 bg-white border border-[#D5E3DC] rounded-2xl text-xs font-bold text-[#123c3a] focus:outline-hidden focus:border-[#0F766E] shadow-xs"
             >
               <option value="">-- Prova Geral ou Avulsa --</option>
               {alunosPEI.map((aluno) => (
@@ -495,8 +495,8 @@ export function PainelMontadorProvas({
           </div>
 
           {prova.alunoNome ? (
-            <div className="p-3 bg-white border border-indigo-100 rounded-2xl space-y-2">
-              <p className="text-xs font-black text-indigo-950">
+            <div className="p-3 bg-white border border-[#DAEBE5] rounded-2xl space-y-2">
+              <p className="text-xs font-black text-[#123C3A]">
                 {prova.alunoNome}
               </p>
               <div className="flex flex-wrap gap-1">
@@ -505,7 +505,7 @@ export function PainelMontadorProvas({
                   return (
                     <span
                       key={nec}
-                      className="px-2 py-0.5 rounded-lg bg-indigo-50 text-indigo-700 text-[10px] font-bold"
+                      className="px-2 py-0.5 rounded-lg bg-[#F3F8F5] text-[#123C3A] text-[10px] font-bold"
                     >
                       {cat ? cat.nome : nec}
                     </span>
@@ -514,7 +514,7 @@ export function PainelMontadorProvas({
               </div>
             </div>
           ) : (
-            <p className="text-[11px] text-[#6070a0] leading-tight">
+            <p className="text-[11px] text-[#4f6b63] leading-tight">
               Você pode aplicar esta prova para toda a turma ou vinculá-la a um aluno com PEI para gerar o cabeçalho adaptado.
             </p>
           )}
@@ -525,10 +525,10 @@ export function PainelMontadorProvas({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h3 className="text-sm font-black text-[#101942]">
+            <h3 className="text-sm font-black text-[#123c3a]">
               Questões da Prova ({questoes.length})
             </h3>
-            <span className="text-xs text-[#6070a0]">
+            <span className="text-xs text-[#4f6b63]">
               Reordene, edite ou remova itens livremente
             </span>
           </div>
@@ -536,27 +536,27 @@ export function PainelMontadorProvas({
           <button
             type="button"
             onClick={onNavegarParaBanco}
-            className="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[#F3F8F5] hover:bg-[#DAEBE5] text-[#123C3A] border border-[#D5E3DC] rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
           >
             <Plus size={14} /> Adicionar Mais Questões do Banco
           </button>
         </div>
 
         {questoes.length === 0 ? (
-          <div className="p-12 text-center bg-white border border-dashed border-[#dce0f0] rounded-3xl space-y-3">
-            <div className="w-12 h-12 mx-auto rounded-2xl bg-[#f8f9fd] flex items-center justify-center text-[#6070a0]">
+          <div className="p-12 text-center bg-white border border-dashed border-[#d5e3dc] rounded-3xl space-y-3">
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-[#f3f8f5] flex items-center justify-center text-[#4f6b63]">
               <BookOpen size={24} />
             </div>
-            <h4 className="text-sm font-bold text-[#101942]">
+            <h4 className="text-sm font-bold text-[#123c3a]">
               Nenhuma questão adicionada à prova ainda
             </h4>
-            <p className="text-xs text-[#6070a0] max-w-sm mx-auto">
+            <p className="text-xs text-[#4f6b63] max-w-sm mx-auto">
               Acesse o Banco de Questões e clique em &quot;+ Adicionar à Prova&quot; nas questões desejadas.
             </p>
             <button
               type="button"
               onClick={onNavegarParaBanco}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-linear-to-r from-[#f60c49] to-[#d40840] text-white rounded-2xl text-xs font-black shadow-md shadow-[#f60c49]/20"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-linear-to-r from-[#0f766e] to-[#0b5f59] text-white rounded-2xl text-xs font-black shadow-md shadow-[#0f766e]/20"
             >
               <BookOpen size={15} /> Explorar Banco de Questões
             </button>
@@ -568,17 +568,17 @@ export function PainelMontadorProvas({
               return (
                 <div
                   key={q.id || idx}
-                  className="bg-white border border-[#dce0f0] rounded-3xl p-5 shadow-xs transition-all hover:border-gray-300 space-y-3"
+                  className="bg-white border border-[#d5e3dc] rounded-3xl p-5 shadow-xs transition-all hover:border-[#B7D3C8] space-y-3"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="w-7 h-7 rounded-xl bg-[#101942] text-white text-xs font-black flex items-center justify-center shrink-0">
+                      <span className="w-7 h-7 rounded-xl bg-[#123c3a] text-white text-xs font-black flex items-center justify-center shrink-0">
                         {idx + 1}
                       </span>
-                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-lg bg-[#f8f9fd] border text-[#6070a0]">
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-lg bg-[#f3f8f5] border text-[#4f6b63]">
                         {q.disciplina || "Geral"}
                       </span>
-                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-lg bg-purple-50 text-purple-700">
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-lg bg-[#F3F8F5] text-[#123C3A]">
                         {q.tipo === "multipla_escolha" ? "Múltipla Escolha" : q.tipo}
                       </span>
                     </div>
@@ -591,8 +591,8 @@ export function PainelMontadorProvas({
                         onClick={() => onMoverQuestao(idx, idx - 1)}
                         className={`p-1.5 rounded-lg transition-colors ${
                           idx === 0
-                            ? "text-gray-300 cursor-not-allowed"
-                            : "text-[#6070a0] hover:text-[#101942] hover:bg-[#f8f9fd]"
+                            ? "text-[#B7D3C8] cursor-not-allowed"
+                            : "text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f8f5]"
                         }`}
                         title="Subir posição"
                       >
@@ -604,8 +604,8 @@ export function PainelMontadorProvas({
                         onClick={() => onMoverQuestao(idx, idx + 1)}
                         className={`p-1.5 rounded-lg transition-colors ${
                           idx === questoes.length - 1
-                            ? "text-gray-300 cursor-not-allowed"
-                            : "text-[#6070a0] hover:text-[#101942] hover:bg-[#f8f9fd]"
+                            ? "text-[#B7D3C8] cursor-not-allowed"
+                            : "text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f8f5]"
                         }`}
                         title="Descer posição"
                       >
@@ -620,15 +620,15 @@ export function PainelMontadorProvas({
                             handleIniciarEdicao(idx, q);
                           }
                         }}
-                        className="p-1.5 rounded-lg text-[#6070a0] hover:text-[#101942] hover:bg-[#f8f9fd] transition-colors"
+                        className="p-1.5 rounded-lg text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f8f5] transition-colors"
                         title={estaEditando ? "Concluir edição" : "Editar enunciado"}
                       >
-                        {estaEditando ? <CheckCircle2 size={16} className="text-green-600" /> : <Edit3 size={16} />}
+                        {estaEditando ? <CheckCircle2 size={16} className="text-[#0F766E]" /> : <Edit3 size={16} />}
                       </button>
                       <button
                         type="button"
                         onClick={() => onRemoverQuestao(q.id)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-[#0F766E] hover:bg-[#F3F8F5] transition-colors"
                         title="Remover da prova"
                       >
                         <Trash2 size={16} />
@@ -643,27 +643,27 @@ export function PainelMontadorProvas({
                         rows={3}
                         value={textoEditado}
                         onChange={(e) => setTextoEditado(e.target.value)}
-                        className="w-full p-3 bg-[#f8f9fd] border border-[#f60c49] rounded-2xl text-xs font-bold text-[#101942] focus:outline-hidden"
+                        className="w-full p-3 bg-[#f3f8f5] border border-[#0f766e] rounded-2xl text-xs font-bold text-[#123c3a] focus:outline-hidden"
                       />
                       <div className="flex justify-end gap-2">
                         <button
                           type="button"
                           onClick={() => setEditandoIdx(null)}
-                          className="px-3 py-1 text-xs text-[#6070a0]"
+                          className="px-3 py-1 text-xs text-[#4f6b63]"
                         >
                           Cancelar
                         </button>
                         <button
                           type="button"
                           onClick={() => handleSalvarEdicaoLocal(idx)}
-                          className="px-3.5 py-1 bg-green-600 text-white rounded-xl text-xs font-bold"
+                          className="px-3.5 py-1 bg-[#0F766E] text-white rounded-xl text-xs font-bold"
                         >
                           Confirmar
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <p className="text-xs font-bold text-[#101942] leading-relaxed">
+                    <p className="text-xs font-bold text-[#123c3a] leading-relaxed">
                       {q.enunciado}
                     </p>
                   )}
@@ -671,7 +671,7 @@ export function PainelMontadorProvas({
                   {(q.imagemUrl||q.apoioVisualDescricao)&&<EditorVisualQuestao key={`${prova.documentoVisualId||prova.id||"em-construcao"}_${q.id}`} questao={q} {...configVisual} disciplina={prova.disciplina} anoEscolar={prova.anoEscolar} necessidades={prova.necessidades||[]} onChange={nova=>atualizarImagemQuestao(q.id,nova)}/>}
                   {/* Apoio Visual */}
                   {q.apoioVisualDescricao && (
-                    <div className="p-2.5 bg-amber-50/70 border border-amber-200/60 rounded-xl text-[11px] text-amber-900 font-medium">
+                    <div className="p-2.5 bg-[#F3F8F5]/70 border border-[#D5E3DC]/60 rounded-xl text-[11px] text-[#123C3A] font-medium">
                       <strong>Apoio Visual:</strong> {q.apoioVisualDescricao}
                     </div>
                   )}
@@ -680,8 +680,8 @@ export function PainelMontadorProvas({
                   {Array.isArray(q.alternativas) && q.alternativas.length > 0 && (
                     <div className="space-y-1 pl-2">
                       {q.alternativas.map((alt, i) => (
-                        <div key={i} className="text-[11px] text-[#6070a0]">
-                          <span className="font-bold text-[#101942]">{alt.slice(0, 3)}</span> {alt.slice(3)}
+                        <div key={i} className="text-[11px] text-[#4f6b63]">
+                          <span className="font-bold text-[#123c3a]">{alt.slice(0, 3)}</span> {alt.slice(3)}
                         </div>
                       ))}
                     </div>
@@ -696,16 +696,16 @@ export function PainelMontadorProvas({
       {/* Modal de Provas Salvas */}
       {modalProvasAberto && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-[#dce0f0] overflow-hidden">
-            <div className="flex items-center justify-between p-5 border-b border-[#dce0f0]">
+          <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-[#d5e3dc] overflow-hidden">
+            <div className="flex items-center justify-between p-5 border-b border-[#d5e3dc]">
               <div className="flex items-center gap-2.5">
-                <FolderOpen className="text-indigo-600" size={20} />
-                <h3 className="text-sm font-black text-[#101942]">Provas Montadas Salvas</h3>
+                <FolderOpen className="text-[#0F766E]" size={20} />
+                <h3 className="text-sm font-black text-[#123c3a]">Provas Montadas Salvas</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setModalProvasAberto(false)}
-                className="p-1.5 text-gray-400 hover:text-gray-700"
+                className="p-1.5 text-gray-400 hover:text-[#35594D]"
               >
                 <X size={18} />
               </button>
@@ -713,18 +713,18 @@ export function PainelMontadorProvas({
 
             <div className="p-5 max-h-96 overflow-y-auto space-y-3">
               {provasSalvas.length === 0 ? (
-                <p className="text-xs text-center py-8 text-[#6070a0]">
+                <p className="text-xs text-center py-8 text-[#4f6b63]">
                   Nenhuma avaliação montada salva ainda.
                 </p>
               ) : (
                 provasSalvas.map((p) => (
                   <div
                     key={p.id}
-                    className="p-4 bg-[#f8f9fd] border border-[#dce0f0] rounded-2xl flex items-center justify-between gap-3"
+                    className="p-4 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl flex items-center justify-between gap-3"
                   >
                     <div>
-                      <h4 className="text-xs font-black text-[#101942]">{p.titulo}</h4>
-                      <p className="text-[11px] text-[#6070a0]">
+                      <h4 className="text-xs font-black text-[#123c3a]">{p.titulo}</h4>
+                      <p className="text-[11px] text-[#4f6b63]">
                         {p.disciplina} • {p.questoes?.length || 0} questões • Aluno: {p.alunoNome || "Geral"}
                       </p>
                     </div>
@@ -735,7 +735,7 @@ export function PainelMontadorProvas({
                           onCarregarProva(p);
                           setModalProvasAberto(false);
                         }}
-                        className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700"
+                        className="px-3 py-1.5 bg-[#0F766E] text-white rounded-xl text-xs font-bold hover:bg-[#0B5F59]"
                       >
                         Carregar
                       </button>
@@ -746,7 +746,7 @@ export function PainelMontadorProvas({
                             onExcluirProva(p.id);
                           }
                         }}
-                        className="p-1.5 text-gray-400 hover:text-red-600"
+                        className="p-1.5 text-gray-400 hover:text-[#0F766E]"
                       >
                         <Trash2 size={15} />
                       </button>

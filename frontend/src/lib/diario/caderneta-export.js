@@ -15,11 +15,11 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   const maxLineWidth = pageWidth - margin * 2;
 
   // ── CABEÇALHO OFICIAL NAVY ──
-  doc.setFillColor(16, 25, 66); // #101942
+  doc.setFillColor(18, 60, 58); // #123c3a
   doc.rect(0, 0, pageWidth, 32, "F");
 
   // Faixa rosa decorativa
-  doc.setFillColor(246, 12, 73); // #f60c49
+  doc.setFillColor(15, 118, 110); // #0f766e
   doc.rect(0, 30.5, pageWidth, 1.5, "F");
 
   doc.setFont("helvetica", "bold");
@@ -29,7 +29,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
 
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");
-  doc.setTextColor(220, 224, 240);
+  doc.setTextColor(213, 227, 220);
   doc.text(`TURMA: ${turma.nome.toUpperCase()}`, margin, 21);
   doc.text(`TOTAL DE ALUNOS: ${turma.alunos.length}`, margin + 65, 21);
   doc.text(`PROFESSOR(A): ${professorNome}`, margin + 125, 21);
@@ -52,14 +52,14 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   ];
 
   const renderTableHeader = (y) => {
-    doc.setFillColor(238, 240, 248);
+    doc.setFillColor(243, 247, 245);
     doc.rect(margin, y, maxLineWidth, 7, "F");
-    doc.setDrawColor(220, 224, 240);
+    doc.setDrawColor(213, 227, 220);
     doc.rect(margin, y, maxLineWidth, 7, "S");
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(7.5);
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
 
     let curX = margin;
     cols.forEach(col => {
@@ -91,10 +91,10 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
 
     // Fundo zebrado
     if (idx % 2 === 1) {
-      doc.setFillColor(247, 248, 252);
+      doc.setFillColor(243, 248, 245);
       doc.rect(margin, cursorY, maxLineWidth, 11, "F");
     }
-    doc.setDrawColor(240, 242, 248);
+    doc.setDrawColor(213, 227, 220);
     doc.line(margin, cursorY + 11, margin + maxLineWidth, cursorY + 11);
 
     let curX = margin;
@@ -102,7 +102,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     // Nome
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     const nomeCortado = d.aluno.nome.length > 34 ? d.aluno.nome.substring(0, 32) + "..." : d.aluno.nome;
     doc.text(`${String(d.ordem).padStart(2, '0')}. ${titleCase(nomeCortado)}`, curX + 2, cursorY + 4.5);
     curX += cols[0].w;
@@ -117,7 +117,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     curX += cols[2].w;
 
     // 1º Sem
-    const s1Color = d.S1.status === 'good' ? [22, 101, 52] : d.S1.status === 'bad' ? [153, 27, 27] : [96, 112, 160];
+    const s1Color = d.S1.status === 'good' ? [22, 101, 52] : d.S1.status === 'bad' ? [153, 27, 27] : [79, 107, 99];
     doc.setTextColor(s1Color[0], s1Color[1], s1Color[2]);
     doc.text(d.S1.total !== null ? fmt(d.S1.total) : "—", curX + cols[3].w / 2, cursorY + 4.5, { align: "center" });
     doc.setFontSize(5.5);
@@ -126,7 +126,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     curX += cols[3].w;
 
     // 3º Bim
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     doc.text(d.bimTotais[2] !== null ? fmt(d.bimTotais[2]) : "—", curX + cols[4].w / 2, cursorY + 4.5, { align: "center" });
     curX += cols[4].w;
 
@@ -135,7 +135,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     curX += cols[5].w;
 
     // 2º Sem
-    const s2Color = d.S2.status === 'good' ? [22, 101, 52] : d.S2.status === 'bad' ? [153, 27, 27] : [96, 112, 160];
+    const s2Color = d.S2.status === 'good' ? [22, 101, 52] : d.S2.status === 'bad' ? [153, 27, 27] : [79, 107, 99];
     doc.setTextColor(s2Color[0], s2Color[1], s2Color[2]);
     doc.text(d.S2.total !== null ? fmt(d.S2.total) : "—", curX + cols[6].w / 2, cursorY + 4.5, { align: "center" });
     doc.setFontSize(5.5);
@@ -144,19 +144,19 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     curX += cols[6].w;
 
     // Rec. Final
-    doc.setTextColor(96, 112, 160);
+    doc.setTextColor(79, 107, 99);
     doc.text(d.recFinal !== null ? fmt(d.recFinal) : "—", curX + cols[7].w / 2, cursorY + 4.5, { align: "center" });
     curX += cols[7].w;
 
     // Total Anual
-    doc.setTextColor(16, 25, 66);
+    doc.setTextColor(18, 60, 58);
     doc.text(d.totalAnual !== null ? fmt(d.totalAnual) : "—", curX + cols[8].w / 2, cursorY + 4.5, { align: "center" });
     curX += cols[8].w;
 
     // Situação
     const statusMap = {
       good: { label: "APROVADO", color: [22, 101, 52] },
-      warn: { label: "EM ANDAMENTO", color: [96, 112, 160] },
+      warn: { label: "EM ANDAMENTO", color: [79, 107, 99] },
       bad: { label: "RECUPERAÇÃO", color: [153, 27, 27] }
     };
     const st = statusMap[d.statusFinal] || statusMap.warn;
@@ -173,12 +173,12 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   } else {
     cursorY += 12;
   }
-  doc.setDrawColor(180, 190, 210);
+  doc.setDrawColor(183, 211, 200);
   doc.line(margin + 20, cursorY, margin + 90, cursorY);
   doc.line(pageWidth - margin - 90, cursorY, pageWidth - margin - 20, cursorY);
 
   doc.setFontSize(7.5);
-  doc.setTextColor(100, 110, 140);
+  doc.setTextColor(79, 107, 99);
   doc.text("Assinatura do(a) Professor(a) Regente", margin + 55, cursorY + 4, { align: "center" });
   doc.text("Assinatura da Coordenação / Direção", pageWidth - margin - 55, cursorY + 4, { align: "center" });
 

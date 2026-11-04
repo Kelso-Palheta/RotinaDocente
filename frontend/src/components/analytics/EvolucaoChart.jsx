@@ -6,7 +6,7 @@ function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-[#101942] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
+      <div className="bg-[#123c3a] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
         <p className="font-bold text-sm text-white">{label}</p>
         <p className="text-emerald-400 font-semibold">
           Média:{' '}
@@ -14,7 +14,7 @@ function CustomTooltip({ active, payload, label }) {
             ? `${data.media.toFixed(2).replace('.', ',')} ${data.unidade || 'pts'}`
             : 'Sem dados'}
         </p>
-        <p className="text-slate-300">
+        <p className="text-[#B7D3C8]">
           Avaliados: {data.avaliados} {data.avaliados === 1 ? 'aluno' : 'alunos'}
         </p>
       </div>
@@ -38,17 +38,17 @@ export function EvolucaoChart({
   const temDados = data.some((d) => d.media !== null);
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-[#D5E3DC]/80 shadow-sm flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h4 className="text-base font-bold text-[#101942]">{titulo}</h4>
-          <p className="text-xs text-slate-500 font-medium">
+          <h4 className="text-base font-bold text-[#123c3a]">{titulo}</h4>
+          <p className="text-xs text-[#566F65] font-medium">
             Desempenho histórico médio nos 4 bimestres letivos
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#f60c49]" />
-          <span className="text-xs font-semibold text-slate-600">
+          <div className="w-3 h-3 rounded-full bg-[#0f766e]" />
+          <span className="text-xs font-semibold text-[#4F6B63]">
             {percentual ? '% da escala de cada turma' : 'Notas do Diário'}
           </span>
         </div>
@@ -80,7 +80,7 @@ export function EvolucaoChart({
       </details>
       {!temDados ? (
         <div className="h-64 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
-          <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+          <div className="w-10 h-10 rounded-full bg-[#F3F7F5] flex items-center justify-center text-slate-400">
             📊
           </div>
           <span>Nenhuma nota lançada nos bimestres selecionados</span>
@@ -95,17 +95,17 @@ export function EvolucaoChart({
                   <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#D5E3DC" vertical={false} />
               <XAxis
                 dataKey="bimestre"
-                stroke="#64748b"
+                stroke="#566F65"
                 fontSize={12}
                 tickLine={false}
-                axisLine={{ stroke: '#cbd5e1' }}
+                axisLine={{ stroke: '#D5E3DC' }}
               />
               <YAxis
                 domain={[0, escalaMax]}
-                stroke="#64748b"
+                stroke="#566F65"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
@@ -120,7 +120,7 @@ export function EvolucaoChart({
                 fillOpacity={1}
                 fill="url(#colorMedia)"
                 dot={{ r: 5, fill: '#2563eb', strokeWidth: 2, stroke: '#ffffff' }}
-                activeDot={{ r: 7, fill: '#f60c49', strokeWidth: 2, stroke: '#ffffff' }}
+                activeDot={{ r: 7, fill: '#0f766e', strokeWidth: 2, stroke: '#ffffff' }}
                 connectNulls={false}
               />
             </AreaChart>

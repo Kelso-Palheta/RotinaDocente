@@ -1,0 +1,42 @@
+[
+  {
+    "arquivo": "ficha-zero-presenca-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": false
+  },
+  {
+    "arquivo": "analytics-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": true
+  },
+  {
+    "arquivo": "caderneta-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": false
+  },
+  {
+    "arquivo": "bimestre-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": true
+  },
+  {
+    "arquivo": "redacao-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": true
+  },
+  {
+    "arquivo": "calendario-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": true
+  },
+  {
+    "arquivo": "ficha-sem-registros-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": false
+  },
+  {
+    "arquivo": "boletim-texto.txt",
+    "conteudoSemHorarioDinamicoIgual": true,
+    "textoLiteralIgual": false
+  }
+]

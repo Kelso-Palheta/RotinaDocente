@@ -73,7 +73,7 @@ export function importarGradeJson(jsonString, turnoAtual = 'manha') {
         subject: String(aula.subject || '').trim(),
         grade: String(aula.grade || '').trim(),
         room: String(aula.room || '').trim(),
-        color: aula.color || '#f60c49',
+        color: aula.color || '#0f766e',
         notes: String(aula.notes || '').trim(),
       };
     }

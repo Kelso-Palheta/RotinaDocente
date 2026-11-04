@@ -7,7 +7,7 @@ export function adicionarHistoricoFeedbackPDF(doc, historico = []) {
   let y;
   const novaPagina = () => {
     doc.addPage();
-    doc.setFillColor(16, 25, 66);
+    doc.setFillColor(18, 60, 58);
     doc.rect(0, 0, width, 18, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
@@ -15,7 +15,7 @@ export function adicionarHistoricoFeedbackPDF(doc, historico = []) {
     doc.text('Devolutivas das atividades', margin, 11);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.setTextColor(96, 112, 160);
+    doc.setTextColor(79, 107, 99);
     doc.text(`Rotina Docente • Página ${doc.getNumberOfPages()}`, margin, height - 10);
     y = 27;
   };
@@ -28,7 +28,7 @@ export function adicionarHistoricoFeedbackPDF(doc, historico = []) {
       if (y > height - 20) novaPagina();
       doc.setFont('helvetica', bold ? 'bold' : 'normal');
       doc.setFontSize(9);
-      doc.setTextColor(16, 25, 66);
+      doc.setTextColor(18, 60, 58);
       doc.text(linha, margin, y);
       y += 4.5;
     }

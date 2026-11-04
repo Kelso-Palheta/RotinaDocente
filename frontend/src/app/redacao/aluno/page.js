@@ -12,7 +12,7 @@ export default function AlunoRedacaoPage() {
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#d40840] to-[#f60c49] animate-pulse" />
+      <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#0b5f59] to-[#0f766e] animate-pulse" />
     </div>
   );
 }

@@ -25,8 +25,8 @@ import { mapearEstadoSync, chaveRotuloSync, precisaNovaTentativa } from "./estad
 import "./horario.css";
 
 const COLOR_PALETTE = [
-  "#f60c49",
-  "#101942",
+  "#0f766e",
+  "#123c3a",
   "#0284c7",
   "#0d9488",
   "#16a34a",
@@ -38,8 +38,8 @@ const COLOR_PALETTE = [
 ];
 
 const COMMON_SUBJECTS = [
-  { name: "Matemática", color: "#f60c49" },
-  { name: "Português", color: "#101942" },
+  { name: "Matemática", color: "#0f766e" },
+  { name: "Português", color: "#123c3a" },
   { name: "História", color: "#d97706" },
   { name: "Geografia", color: "#16a34a" },
   { name: "Biologia", color: "#0d9488" },
@@ -48,7 +48,7 @@ const COMMON_SUBJECTS = [
   { name: "Inglês", color: "#0284c7" },
   { name: "Arte", color: "#db2777" },
   { name: "Ed. Física", color: "#059669" },
-  { name: "Filosofia", color: "#6070a0" },
+  { name: "Filosofia", color: "#4f6b63" },
   { name: "Sociologia", color: "#475569" },
 ];
 
@@ -85,7 +85,7 @@ export default function HorarioApp() {
   const [formSubject, setFormSubject] = useState("");
   const [formGrade, setFormGrade] = useState("");
   const [formRoom, setFormRoom] = useState("");
-  const [formColor, setFormColor] = useState("#f60c49");
+  const [formColor, setFormColor] = useState("#0f766e");
   const [formNotes, setFormNotes] = useState("");
   const [replicateDays, setReplicateDays] = useState([]);
 
@@ -267,7 +267,7 @@ export default function HorarioApp() {
     setFormSubject(existing?.subject || "");
     setFormGrade(existing?.grade || "");
     setFormRoom(existing?.room || "");
-    setFormColor(existing?.color || "#f60c49");
+    setFormColor(existing?.color || "#0f766e");
     setFormNotes(existing?.notes || "");
     setReplicateDays([]);
     setSlotModalOpen(true);
@@ -544,8 +544,8 @@ export default function HorarioApp() {
 
   if (loading || contaCarregada !== contaAtual) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="w-10 h-10 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#F3F8F5]">
+        <div className="w-10 h-10 rounded-full border-4 border-[#0F766E] border-t-transparent animate-spin" />
       </div>
     );
   }
@@ -792,7 +792,7 @@ export default function HorarioApp() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="main-container">
-        {conflitoNuvem && <section role="alert" className="no-print p-4 mb-4 rounded-lg border border-amber-300 bg-amber-50 text-sm">
+        {conflitoNuvem && <section role="alert" className="no-print p-4 mb-4 rounded-lg border border-[#B7D3C8] bg-[#F3F8F5] text-sm">
           <p>Seu rascunho pendente foi preservado. A nuvem tem outra versão; confira antes de reenviar.</p>
           <button type="button" className="underline" onClick={() => setVerNuvem(v => !v)}>Conferir versão da nuvem</button>
           {verNuvem && <div className="mt-2"><p>{conflitoNuvem.teacherName} · {conflitoNuvem.schoolName}</p><ul>{Object.entries(conflitoNuvem.schedule || {}).map(([id,aula]) => <li key={id}>{id}: {aula.subject} · {aula.grade} · {aula.room}</li>)}</ul><p>Esta conferência não substitui seu rascunho.</p></div>}
@@ -942,12 +942,12 @@ export default function HorarioApp() {
                             <td
                               key={key}
                               className="slot-cell filled-slot"
-                              style={{ borderLeftColor: aula.color || "#f60c49" }}
+                              style={{ borderLeftColor: aula.color || "#0f766e" }}
                               onClick={() => handleSlotClick(d.id, slot)}
                             >
                               <div className="class-card-content">
                                 <div className="card-top-row">
-                                  <strong className="class-subject" style={{ color: aula.color || "#f60c49" }}>
+                                  <strong className="class-subject" style={{ color: aula.color || "#0f766e" }}>
                                     {aula.subject}
                                   </strong>
                                 </div>
@@ -1150,7 +1150,7 @@ export default function HorarioApp() {
                         <Link
                           href={`/diario?turma=${encodeURIComponent(formGrade)}`}
                           className="btn"
-                          style={{ backgroundColor: "#eef0f8", color: "#101942", border: "1px solid #dce0f0" }}
+                          style={{ backgroundColor: "#f3f7f5", color: "#123c3a", border: "1px solid #d5e3dc" }}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
@@ -1224,7 +1224,7 @@ export default function HorarioApp() {
                 <div className="slots-list-container">
                   {tempSlots.map((s, idx) => (
                     <div key={s.id} className="slot-config-row" style={{ display: "grid", gridTemplateColumns: "100px 1fr 100px 100px 60px", gap: "0.5rem", alignItems: "center", padding: "0.5rem 0", borderBottom: "1px solid var(--border-subtle)" }}>
-                      <span className={`badge-type ${s.isBreak ? "badge-break" : "badge-class"}`} style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem", borderRadius: "4px", background: s.isBreak ? "#fef3c7" : "#e0e7ff", color: s.isBreak ? "#92400e" : "#3730a3" }}>
+                      <span className={`badge-type ${s.isBreak ? "badge-break" : "badge-class"}`} style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem", borderRadius: "4px", background: s.isBreak ? "#F3F8F5" : "#daebe5", color: s.isBreak ? "#0B5F59" : "#123c3a" }}>
                         {s.isBreak ? "☕ Intervalo" : "📖 Aula"}
                       </span>
                       <input
@@ -1633,7 +1633,7 @@ export default function HorarioApp() {
       {/* TOAST FLUTUANTE */}
       {toastMsg && (
         <div
-          className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-xl bg-slate-900 text-white font-medium text-sm flex items-center gap-2"
+          className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-xl bg-[#123C3A] text-white font-medium text-sm flex items-center gap-2"
           role="status"
         >
           <span>✓</span>

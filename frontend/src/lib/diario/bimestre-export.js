@@ -62,8 +62,8 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
   let y = 36;
 
   const cabecalhoPagina = () => {
-    doc.setFillColor(16, 25, 66); doc.rect(0, 0, largura, 29, 'F');
-    doc.setFillColor(246, 12, 73); doc.rect(0, 29, largura, 1, 'F');
+    doc.setFillColor(18, 60, 58); doc.rect(0, 0, largura, 29, 'F');
+    doc.setFillColor(15, 118, 110); doc.rect(0, 29, largura, 1, 'F');
     doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(15);
     doc.text('Rotina Docente - Relatório de notas', margem, 12);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
@@ -71,11 +71,11 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
   };
   const novaPagina = () => { doc.addPage(); cabecalhoPagina(); y = 36; };
   const paragrafo = (texto, tamanho = 9, negrito = false) => {
-    doc.setFont('helvetica', negrito ? 'bold' : 'normal'); doc.setFontSize(tamanho); doc.setTextColor(16, 25, 66);
+    doc.setFont('helvetica', negrito ? 'bold' : 'normal'); doc.setFontSize(tamanho); doc.setTextColor(18, 60, 58);
     const linhas = doc.splitTextToSize(String(texto), larguraUtil);
     linhas.forEach(linha => {
       if (y + 5 > limiteY) novaPagina();
-      doc.setFont('helvetica', negrito ? 'bold' : 'normal'); doc.setFontSize(tamanho); doc.setTextColor(16, 25, 66);
+      doc.setFont('helvetica', negrito ? 'bold' : 'normal'); doc.setFontSize(tamanho); doc.setTextColor(18, 60, 58);
       doc.text(linha, margem, y); y += 4.5;
     });
     y += 2;
@@ -100,9 +100,9 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
     ];
     const cabecalhoTabela = () => {
       if (y + 18 > limiteY) novaPagina();
-      doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(16, 25, 66);
+      doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(18, 60, 58);
       doc.text(`Notas do ${dados.bimestre}º bimestre${blocos.length > 1 ? ` - bloco ${indiceBloco + 1}/${blocos.length}` : ''}`, margem, y); y += 3;
-      doc.setFillColor(238, 240, 248); doc.rect(margem, y, larguraUtil, 8, 'F');
+      doc.setFillColor(243, 247, 245); doc.rect(margem, y, larguraUtil, 8, 'F');
       let x = margem;
       colunas.forEach((coluna, index) => {
         doc.setFontSize(8);
@@ -122,14 +122,14 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
         const capacidade = Math.max(1, Math.floor((limiteY - y - 4) / 3.8));
         const linhas = linhasNome.splice(0, capacidade);
         const alturaLinha = Math.max(8, linhas.length * 3.8 + 4);
-        if (ordem % 2 === 0) { doc.setFillColor(247, 248, 252); doc.rect(margem, y, larguraUtil, alturaLinha, 'F'); }
-        doc.setDrawColor(220, 224, 240); doc.line(margem, y + alturaLinha, largura - margem, y + alturaLinha);
-        doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(16, 25, 66);
+        if (ordem % 2 === 0) { doc.setFillColor(243, 248, 245); doc.rect(margem, y, larguraUtil, alturaLinha, 'F'); }
+        doc.setDrawColor(213, 227, 220); doc.line(margem, y + alturaLinha, largura - margem, y + alturaLinha);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(18, 60, 58);
         linhas.forEach((linha, index) => doc.text(linha, margem + 2, y + 4.5 + index * 3.8));
         let x = margem + colunas[0].largura;
         colunas.slice(1).forEach(coluna => {
           const valor = coluna.campo === 'simulado' ? notas.simulado : coluna.campo === 'soma' ? somaAtividades : coluna.campo === 'total' ? total : notas[coluna.campo];
-          const cor = coluna.campo === 'total' ? CORES[faixaNotaBimestral(valor, dados.config)] : [16, 25, 66];
+          const cor = coluna.campo === 'total' ? CORES[faixaNotaBimestral(valor, dados.config)] : [18, 60, 58];
           doc.setTextColor(...cor); doc.setFont('helvetica', coluna.campo === 'total' ? 'bold' : 'normal');
           doc.text(valor == null || valor === '' ? '-' : fmt(valor), x + coluna.largura / 2, y + 4.5, { align: 'center' });
           x += coluna.largura;
@@ -149,7 +149,7 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
   }
   const paginas = doc.getNumberOfPages();
   for (let pagina = 1; pagina <= paginas; pagina += 1) {
-    doc.setPage(pagina); doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(96, 112, 160);
+    doc.setPage(pagina); doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(79, 107, 99);
     doc.text(`${dados.bimestre}º bimestre | Página ${pagina} de ${paginas}`, margem, altura - 12);
   }
   doc.save(`${nomeArquivo(turma, bimestre)}.pdf`);

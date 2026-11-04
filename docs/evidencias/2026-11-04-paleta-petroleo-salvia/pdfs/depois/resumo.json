@@ -1,0 +1,34 @@
+[
+  {
+    "arquivo": "analytics.pdf",
+    "paginas": 1
+  },
+  {
+    "arquivo": "bimestre.pdf",
+    "paginas": 1
+  },
+  {
+    "arquivo": "boletim.pdf",
+    "paginas": 2
+  },
+  {
+    "arquivo": "caderneta.pdf",
+    "paginas": 1
+  },
+  {
+    "arquivo": "calendario.pdf",
+    "paginas": 1
+  },
+  {
+    "arquivo": "ficha-sem-registros.pdf",
+    "paginas": 2
+  },
+  {
+    "arquivo": "ficha-zero-presenca.pdf",
+    "paginas": 2
+  },
+  {
+    "arquivo": "redacao.pdf",
+    "paginas": 1
+  }
+]

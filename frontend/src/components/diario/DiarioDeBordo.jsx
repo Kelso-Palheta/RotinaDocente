@@ -109,15 +109,15 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
   return (
     <div data-diario-rascunho={rascunhoEditado ? 'true' : 'false'} data-diario-salvando={salvando ? 'true' : 'false'} className="flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto max-w-6xl mx-auto w-full">
       {/* Topo / Barra de Ações */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#dce0f0]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#d5e3dc]">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-lg sm:text-xl font-extrabold text-[#101942]">Diário de Bordo & Ocorrências</h2>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#eef0f8] text-[#101942] border border-[#dce0f0]">
+            <h2 className="text-lg sm:text-xl font-extrabold text-[#123c3a]">Diário de Bordo & Ocorrências</h2>
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#f3f7f5] text-[#123c3a] border border-[#d5e3dc]">
               {ocorrencias.length} {ocorrencias.length === 1 ? 'registro' : 'registros'}
             </span>
           </div>
-          <p className="text-xs text-[#6070a0] mt-0.5">
+          <p className="text-xs text-[#4f6b63] mt-0.5">
             Anotações pedagógicas, convivência, elogios e alinhamentos com a família da Turma {turma?.nome}.
           </p>
         </div>
@@ -135,25 +135,25 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
         </button>
       </div>
 
-      <p className="text-xs text-slate-600 mt-3">Autorizar na Ficha permite incluir o registro no PDF familiar. Isso não envia mensagens nem publica no Portal. Confira a prévia no perfil do aluno antes de exportar.</p>
-      {erroMsg && !mostrarForm && <p role="alert" className="text-red-600 text-xs">{erroMsg}</p>}
+      <p className="text-xs text-[#4F6B63] mt-3">Autorizar na Ficha permite incluir o registro no PDF familiar. Isso não envia mensagens nem publica no Portal. Confira a prévia no perfil do aluno antes de exportar.</p>
+      {erroMsg && !mostrarForm && <p role="alert" className="text-[#0F766E] text-xs">{erroMsg}</p>}
       {/* Formulário de Cadastro */}
       {mostrarForm && (
-        <form onChange={() => setRascunhoEditado(true)} onSubmit={handleSalvarNova} className="bg-white border border-[#dce0f0] rounded-2xl p-5 my-5 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <h3 className="text-sm font-extrabold text-[#101942]">Nova Ocorrência ou Anotação Pedagógica</h3>
+        <form onChange={() => setRascunhoEditado(true)} onSubmit={handleSalvarNova} className="bg-white border border-[#d5e3dc] rounded-2xl p-5 my-5 shadow-sm space-y-4">
+          <div className="flex items-center justify-between border-b border-[#F3F7F5] pb-3">
+            <h3 className="text-sm font-extrabold text-[#123c3a]">Nova Ocorrência ou Anotação Pedagógica</h3>
             <span className="text-[11px] text-slate-400">RN-58 • Histórico Formativo</span>
           </div>
 
           {erroMsg && (
-            <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-xl text-xs font-semibold">
+            <div className="p-3 bg-[#F3F8F5] border border-[#D5E3DC] text-[#0F766E] rounded-xl text-xs font-semibold">
               ⚠️ {erroMsg}
             </div>
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-[#566F65] uppercase tracking-wider mb-1">
                 Data do Registro
               </label>
               <input
@@ -161,20 +161,20 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                 disabled={salvando}
                 value={novaData}
                 onChange={(e) => setNovaData(e.target.value)}
-                className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] font-semibold outline-none focus:bg-white focus:ring-1 focus:ring-[#f60c49]"
+                className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs text-[#123c3a] font-semibold outline-none focus:bg-white focus:ring-1 focus:ring-[#0f766e]"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-[#566F65] uppercase tracking-wider mb-1">
                 Tipo de Registro
               </label>
               <select
                 disabled={salvando}
                 value={novoTipo}
                 onChange={(e) => setNovoTipo(e.target.value)}
-                className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] font-semibold outline-none focus:bg-white focus:ring-1 focus:ring-[#f60c49]"
+                className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs text-[#123c3a] font-semibold outline-none focus:bg-white focus:ring-1 focus:ring-[#0f766e]"
               >
                 {TIPOS_OCORRENCIA.map((t) => (
                   <option key={t} value={t}>
@@ -185,7 +185,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <label className="block text-[11px] font-bold text-[#566F65] uppercase tracking-wider mb-1">
                 Título / Motivo
               </label>
               <input
@@ -194,14 +194,14 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                 placeholder="Ex: Evolução na produção textual dissertativa"
                 value={novoTitulo}
                 onChange={(e) => setNovoTitulo(e.target.value)}
-                className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none focus:bg-white focus:ring-1 focus:ring-[#f60c49]"
+                className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none focus:bg-white focus:ring-1 focus:ring-[#0f766e]"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-[#566F65] uppercase tracking-wider mb-1">
               Descrição Detalhada & Encaminhamentos
             </label>
             <textarea
@@ -210,17 +210,17 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
               placeholder="Descreva o ocorrido, intervenção realizada ou combinados com o aluno/turma..."
               value={novaDescricao}
               onChange={(e) => setNovaDescricao(e.target.value)}
-              className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl p-3 text-xs text-[#101942] outline-none focus:bg-white focus:ring-1 focus:ring-[#f60c49] leading-relaxed"
+              className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl p-3 text-xs text-[#123c3a] outline-none focus:bg-white focus:ring-1 focus:ring-[#0f766e] leading-relaxed"
               required
             />
           </div>
 
           {/* Seleção de Alunos Envolvidos */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+            <label className="block text-[11px] font-bold text-[#566F65] uppercase tracking-wider mb-1.5">
               Alunos Envolvidos <span className="font-normal text-slate-400 normal-case">(opcional — deixe vazio se for sobre a turma toda)</span>
             </label>
-            <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-2 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl">
+            <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-2 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl">
               {alunos.map((al) => {
                 const selecionado = alunosSelecionados.includes(al.id);
                 return (
@@ -231,8 +231,8 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                     onClick={() => handleToggleAluno(al.id)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                       selecionado
-                        ? 'bg-[#101942] text-white shadow-2xs'
-                        : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
+                        ? 'bg-[#123c3a] text-white shadow-2xs'
+                        : 'bg-white text-[#4F6B63] border border-[#D5E3DC] hover:border-[#B7D3C8]'
                     }`}
                   >
                     {selecionado ? '✓ ' : '+ '}
@@ -245,13 +245,13 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
 
           {/* Toggle Família */}
           <div className="flex items-center justify-between pt-2">
-            <label className="flex items-center gap-2 cursor-pointer text-xs text-[#101942] font-semibold select-none">
+            <label className="flex items-center gap-2 cursor-pointer text-xs text-[#123c3a] font-semibold select-none">
               <input
                 type="checkbox"
                 disabled={salvando}
                 checked={visivelFamilia}
                 onChange={(e) => setVisivelFamilia(e.target.checked)}
-                className="rounded border-slate-300 text-[#f60c49] focus:ring-[#f60c49]"
+                className="rounded border-[#B7D3C8] text-[#0f766e] focus:ring-[#0f766e]"
               />
               <span>Autorizar inclusão na Ficha 360º familiar</span>
             </label>
@@ -261,7 +261,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                 type="button"
                 disabled={salvando}
                 onClick={fecharFormulario}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 text-xs font-bold transition-all"
+                className="px-4 py-2 bg-[#F3F7F5] hover:bg-[#D5E3DC] rounded-xl text-[#4F6B63] text-xs font-bold transition-all"
               >
                 Cancelar
               </button>
@@ -278,14 +278,14 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
       )}
 
       {/* Barra de Filtros */}
-      <div className="bg-white border border-[#dce0f0] rounded-2xl p-3.5 my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 items-center">
+      <div className="bg-white border border-[#d5e3dc] rounded-2xl p-3.5 my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 items-center">
         <div>
           <input
             type="text"
             placeholder="Buscar por termo ou motivo..."
             value={termoBusca}
             onChange={(e) => setTermoBusca(e.target.value)}
-            className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] outline-none focus:bg-white"
+            className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-1.5 text-xs text-[#123c3a] outline-none focus:bg-white"
           />
         </div>
 
@@ -293,7 +293,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
           <select
             value={tipoFiltro}
             onChange={(e) => setTipoFiltro(e.target.value)}
-            className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] font-medium outline-none focus:bg-white"
+            className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-1.5 text-xs text-[#123c3a] font-medium outline-none focus:bg-white"
           >
             <option value="">Todos os tipos</option>
             {TIPOS_OCORRENCIA.map((t) => (
@@ -308,7 +308,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
           <select
             value={alunoFiltro}
             onChange={(e) => setAlunoFiltro(e.target.value)}
-            className="w-full bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-1.5 text-xs text-[#101942] font-medium outline-none focus:bg-white"
+            className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-1.5 text-xs text-[#123c3a] font-medium outline-none focus:bg-white"
           >
             <option value="">Todos os alunos / Turma</option>
             {alunos.map((a) => (
@@ -320,12 +320,12 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
         </div>
 
         <div className="flex items-center">
-          <label className="flex items-center gap-1.5 cursor-pointer text-xs text-slate-600 select-none">
+          <label className="flex items-center gap-1.5 cursor-pointer text-xs text-[#4F6B63] select-none">
             <input
               type="checkbox"
               checked={apenasFamilia}
               onChange={(e) => setApenasFamilia(e.target.checked)}
-              className="rounded border-slate-300 text-[#f60c49] focus:ring-[#f60c49]"
+              className="rounded border-[#B7D3C8] text-[#0f766e] focus:ring-[#0f766e]"
             />
             <span>Apenas Ficha 360 / Família</span>
           </label>
@@ -335,10 +335,10 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
       {/* Lista de Registros */}
       <div className="space-y-3 mt-1">
         {ocorrenciasFiltradas.length === 0 ? (
-          <div className="text-center py-12 bg-white/60 border border-dashed border-[#dce0f0] rounded-2xl">
+          <div className="text-center py-12 bg-white/60 border border-dashed border-[#d5e3dc] rounded-2xl">
             <div className="text-3xl mb-2">📝</div>
-            <h4 className="text-sm font-bold text-[#101942]">Nenhuma ocorrência encontrada</h4>
-            <p className="text-xs text-[#6070a0] mt-1 max-w-sm mx-auto">
+            <h4 className="text-sm font-bold text-[#123c3a]">Nenhuma ocorrência encontrada</h4>
+            <p className="text-xs text-[#4f6b63] mt-1 max-w-sm mx-auto">
               Utilize o botão acima para registrar fatos pedagógicos, atitudes de destaque ou alinhamentos com pais.
             </p>
           </div>
@@ -350,9 +350,9 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
             return (
               <div
                 key={oc.id}
-                className="bg-white border border-[#dce0f0] rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-sm transition-all relative group"
+                className="bg-white border border-[#d5e3dc] rounded-2xl p-4 sm:p-5 shadow-2xs hover:shadow-sm transition-all relative group"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#F3F7F5] pb-2.5">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span
                       className={`px-2.5 py-0.5 rounded-full text-[11px] font-extrabold border flex items-center gap-1 ${configTipo.badgeClass}`}
@@ -362,7 +362,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                     </span>
                     <span className="text-xs font-mono text-slate-400 font-medium">📅 {dataFmt}</span>
                     {oc.visivelFamilia && (
-                      <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md text-[10px] font-bold">
+                      <span className="px-2 py-0.5 bg-[#F3F8F5] text-[#0B5F59] border border-[#D5E3DC] rounded-md text-[10px] font-bold">
                         ✓ Ficha 360 / Família
                       </span>
                     )}
@@ -371,7 +371,7 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                   <button
                     disabled={salvando}
                     onClick={() => handleRemover(oc.id)}
-                    className="text-slate-400 hover:text-red-500 text-xs font-medium transition-all self-end sm:self-auto"
+                    className="text-slate-400 hover:text-[#0F766E] text-xs font-medium transition-all self-end sm:self-auto"
                     title="Excluir ocorrência"
                   >
                     🗑 Excluir
@@ -379,19 +379,19 @@ export const DiarioDeBordo = ({ turma, onSalvarOcorrencias }) => {
                 </div>
 
                 <div className="mt-2.5">
-                  <h4 className="text-sm font-extrabold text-[#101942]">{oc.titulo}</h4>
-                  <p className="text-xs text-[#304060] mt-1 whitespace-pre-wrap leading-relaxed">
+                  <h4 className="text-sm font-extrabold text-[#123c3a]">{oc.titulo}</h4>
+                  <p className="text-xs text-[#3a554d] mt-1 whitespace-pre-wrap leading-relaxed">
                     {oc.descricao}
                   </p>
                 </div>
 
                 {Array.isArray(oc.alunoIds) && oc.alunoIds.length > 0 && (
-                  <div className="flex items-center gap-1.5 flex-wrap mt-3 pt-2.5 border-t border-slate-100">
+                  <div className="flex items-center gap-1.5 flex-wrap mt-3 pt-2.5 border-t border-[#F3F7F5]">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Estudantes:</span>
                     {oc.alunoIds.map((aid) => (
                       <span
                         key={aid}
-                        className="px-2 py-0.5 rounded-md text-[11px] bg-[#f7f8fc] border border-[#dce0f0] text-[#101942] font-medium"
+                        className="px-2 py-0.5 rounded-md text-[11px] bg-[#f3f7f5] border border-[#d5e3dc] text-[#123c3a] font-medium"
                       >
                         👤 {getNomeAluno(aid)}
                       </span>

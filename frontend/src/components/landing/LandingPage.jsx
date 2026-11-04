@@ -24,7 +24,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#101942] font-sans antialiased selection:bg-[#f60c49] selection:text-white">
+    <div className="min-h-screen bg-white text-[#123c3a] font-sans antialiased selection:bg-[#0f766e] selection:text-white">
       {/* Header Fixo */}
       <LandingHeader onOpenAuth={handleOpenAuth} />
 
@@ -37,7 +37,7 @@ export default function LandingPage() {
       {/* Dores & Problemas Reais do Professor */}
       <LandingProblems />
 
-      {/* Jornada Pedagógica Interativa (Navy #101942) */}
+      {/* Jornada Pedagógica Interativa (Navy #123c3a) */}
       <LandingJourney onOpenAuth={handleOpenAuth} />
 
       {/* Showcase dos 4 Módulos Centrais */}

@@ -4,10 +4,10 @@ import { ArrowRight, ShieldCheck, Heart } from "lucide-react";
 
 export function LandingFooter({ onOpenAuth }) {
   return (
-    <footer className="bg-[#101942] text-white pt-20 pb-12 overflow-hidden relative">
+    <footer className="bg-[#123c3a] text-white pt-20 pb-12 overflow-hidden relative">
       {/* Banner de CTA Final */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="relative rounded-3xl bg-gradient-to-r from-[#101942] via-[#1c275e] to-[#f60c49]/30 p-10 sm:p-16 border border-white/10 overflow-hidden shadow-2xl text-center space-y-6">
+        <div className="relative rounded-3xl bg-gradient-to-r from-[#123c3a] via-[#1b4a46] to-[#0f766e]/30 p-10 sm:p-16 border border-white/10 overflow-hidden shadow-2xl text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold uppercase tracking-wider border border-white/20">
             COMECE EM MENOS DE 1 MINUTO
           </div>
@@ -23,7 +23,7 @@ export function LandingFooter({ onOpenAuth }) {
           <div className="pt-2">
             <button
               onClick={() => onOpenAuth("cadastro")}
-              className="btn-brand-primary text-base sm:text-lg py-4 px-10 inline-flex items-center gap-3 group shadow-xl shadow-[#f60c49]/30"
+              className="btn-brand-primary text-base sm:text-lg py-4 px-10 inline-flex items-center gap-3 group shadow-xl shadow-[#0f766e]/30"
             >
               <span>Criar Minha Conta Gratuita</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1.5" />
@@ -42,14 +42,14 @@ export function LandingFooter({ onOpenAuth }) {
           {/* Coluna 1 - Marca */}
           <div className="space-y-4 md:col-span-1">
             <a href="#" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#f60c49] flex items-center justify-center text-white font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#0f766e] flex items-center justify-center text-white font-bold">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                   <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                   <path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5" />
                 </svg>
               </div>
               <span className="font-head text-lg font-extrabold text-white">
-                Rotina<span className="text-[#f60c49]">Docente</span>
+                Rotina<span className="text-[#B7D3C8]">Docente</span>
               </span>
             </a>
             <p className="text-xs text-white/60 leading-relaxed">
@@ -92,7 +92,7 @@ export function LandingFooter({ onOpenAuth }) {
             </h4>
             <div className="space-y-2 text-xs text-white/60">
               <p className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#22c55e]" />
+                <ShieldCheck className="w-4 h-4 text-[#B7D3C8]" />
                 Conformidade Total com LGPD Escolar
               </p>
               <p>Suporte: suporte@rotinadocente.com.br</p>
@@ -105,7 +105,7 @@ export function LandingFooter({ onOpenAuth }) {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/40 gap-4">
           <p>© {new Date().getFullYear()} Rotina Docente — Toda a sua rotina letiva em 1 clique. Todos os direitos reservados.</p>
           <p className="flex items-center gap-1">
-            Desenvolvido com <Heart className="w-3.5 h-3.5 text-[#f60c49] fill-[#f60c49]" /> para os professores brasileiros.
+            Desenvolvido com <Heart className="w-3.5 h-3.5 text-[#B7D3C8] fill-[#0f766e]" /> para os professores brasileiros.
           </p>
         </div>
       </div>

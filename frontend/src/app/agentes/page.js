@@ -35,7 +35,7 @@ export default function AgentesPage() {
       className="agentes-page"
       data-testid="agentes-page"
       style={{
-        background: 'linear-gradient(145deg, #101942 0%, #1a2560 45%, #0d1535 100%)',
+        background: 'linear-gradient(145deg, #123c3a 0%, #1b4d48 45%, #0b2f2c 100%)',
         fontFamily: 'var(--font-body)',
       }}
     >
@@ -105,11 +105,11 @@ export default function AgentesPage() {
             <div className="agentes-painel-cabecalho" style={{ textAlign: 'center' }}>
               <div style={{
                 width: 56, height: 56, borderRadius: '1.25rem',
-                background: 'rgba(246,12,73,0.2)',
+                background: 'rgba(15,118,110,0.2)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 margin: '0 auto 0.875rem',
               }}>
-                <Bot size={28} color="#f60c49" />
+                <Bot size={28} color="#0f766e" />
               </div>
               <p style={{
                 color: 'rgba(255,255,255,0.62)',
@@ -165,7 +165,7 @@ export default function AgentesPage() {
             boxSizing: 'border-box',
             textAlign: 'center',
           }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', flexShrink: 0 }} />
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#0F766E', flexShrink: 0 }} />
             <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.5)', fontWeight: 600, overflowWrap: 'anywhere' }}>
               Powered by sabiazinho-4 · Maritalk
             </span>
@@ -237,7 +237,7 @@ export default function AgentesPage() {
         }
         .agentes-page button:focus-visible,
         .agentes-page textarea:focus-visible {
-          outline: 2px solid #f60c49;
+          outline: 2px solid #0f766e;
           outline-offset: 2px;
         }
         @media (min-width: 900px) {

@@ -205,34 +205,34 @@ export function ModalAlunoPEI({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/60 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-white border border-[#dce0f0] rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-scaleIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123c3a]/60 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-white border border-[#d5e3dc] rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-scaleIn">
         {/* Header */}
-        <div className="p-5 border-b border-[#dce0f0] flex items-center justify-between bg-gradient-to-r from-[#fff2f6] to-white">
+        <div className="p-5 border-b border-[#d5e3dc] flex items-center justify-between bg-gradient-to-r from-[#f3f8f5] to-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#f60c49] text-white flex items-center justify-center shadow-xs">
+            <div className="w-10 h-10 rounded-2xl bg-[#0f766e] text-white flex items-center justify-center shadow-xs">
               <Users size={20} />
             </div>
             <div>
-              <h3 className="text-base font-bold text-[#101942]">
+              <h3 className="text-base font-bold text-[#123c3a]">
                 Banco de Estudantes Inclusivos (PEI Rápido)
               </h3>
-              <p className="text-xs text-[#6070a0]">
+              <p className="text-xs text-[#4f6b63]">
                 Salve perfis e reutilize suas necessidades DUA em qualquer atividade
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-[#6070a0] hover:text-[#101942] hover:bg-slate-100 transition-colors"
+            className="p-2 rounded-xl text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#F3F7F5] transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Banner LGPD */}
-        <div className="px-5 py-2.5 bg-blue-50/80 border-b border-blue-100 flex items-center gap-2 text-xs text-blue-900">
-          <ShieldCheck size={16} className="text-blue-600 flex-shrink-0" />
+        <div className="px-5 py-2.5 bg-[#F3F8F5]/80 border-b border-[#DAEBE5] flex items-center gap-2 text-xs text-[#123C3A]">
+          <ShieldCheck size={16} className="text-[#0F766E] flex-shrink-0" />
           <span>
             <strong>Privacidade & LGPD (RN-33):</strong> Seus dados são salvos apenas no seu ambiente. Recomendamos o uso de iniciais ou apelido do aluno (ex: L.S. ou Lucas).
           </span>
@@ -246,7 +246,7 @@ export function ModalAlunoPEI({
           {modoVisao === "lista" && (
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                <span className="text-xs font-bold text-[#6070a0] uppercase tracking-wider">
+                <span className="text-xs font-bold text-[#4f6b63] uppercase tracking-wider">
                   {alunosVisiveis.length} Estudante(s) Cadastrado(s)
                 </span>
                 <div className="flex items-center gap-2">
@@ -259,17 +259,17 @@ export function ModalAlunoPEI({
                       setErroImportacao("");
                       setSucessoImportacao("");
                     }}
-                    className="px-3 py-1.5 bg-[#f7f8fc] hover:bg-white border border-[#dce0f0] hover:border-[#f60c49]/40 text-[#101942] text-xs font-bold rounded-xl shadow-2xs flex items-center gap-1.5 transition-all"
+                    className="px-3 py-1.5 bg-[#f3f7f5] hover:bg-white border border-[#d5e3dc] hover:border-[#0f766e]/40 text-[#123c3a] text-xs font-bold rounded-xl shadow-2xs flex items-center gap-1.5 transition-all"
                     title="Importar lista de estudantes via planilha Excel (.xlsx) ou CSV"
                   >
-                    <FileSpreadsheet size={15} className="text-[#f60c49]" />
+                    <FileSpreadsheet size={15} className="text-[#0f766e]" />
                     Importar Planilha (Excel/CSV)
                   </button>
                   <button
                     id="btn-novo-estudante"
                     type="button"
                     onClick={() => setModoVisao("criacao")}
-                    className="px-3.5 py-1.5 bg-[#f60c49] hover:bg-[#d40840] text-white text-xs font-bold rounded-xl shadow-xs flex items-center gap-1.5 transition-all"
+                    className="px-3.5 py-1.5 bg-[#0f766e] hover:bg-[#0b5f59] text-white text-xs font-bold rounded-xl shadow-xs flex items-center gap-1.5 transition-all"
                   >
                     <UserPlus size={15} />
                     Cadastrar Estudante
@@ -278,27 +278,27 @@ export function ModalAlunoPEI({
               </div>
 
               {alunosVisiveis.length === 0 ? (
-                <div className="p-8 text-center border-2 border-dashed border-[#dce0f0] rounded-2xl space-y-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#f7f8fc] text-[#9098c0] flex items-center justify-center mx-auto">
+                <div className="p-8 text-center border-2 border-dashed border-[#d5e3dc] rounded-2xl space-y-3">
+                  <div className="w-12 h-12 rounded-2xl bg-[#f3f7f5] text-[#566f65] flex items-center justify-center mx-auto">
                     <Users size={24} />
                   </div>
-                  <p className="text-sm font-bold text-[#101942]">Nenhum perfil de aluno salvo ainda</p>
-                  <p className="text-xs text-[#6070a0] max-w-sm mx-auto">
+                  <p className="text-sm font-bold text-[#123c3a]">Nenhum perfil de aluno salvo ainda</p>
+                  <p className="text-xs text-[#4f6b63] max-w-sm mx-auto">
                     Cadastre os estudantes individualmente ou envie uma planilha com a lista da turma para importar todos de uma vez.
                   </p>
                   <div className="flex items-center justify-center gap-2 pt-2">
                     <button
                       type="button"
                       onClick={() => setModoVisao("importacao")}
-                      className="px-3.5 py-2 bg-white border border-[#dce0f0] hover:border-[#f60c49]/50 text-[#101942] text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
+                      className="px-3.5 py-2 bg-white border border-[#d5e3dc] hover:border-[#0f766e]/50 text-[#123c3a] text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
                     >
-                      <FileSpreadsheet size={15} className="text-[#f60c49]" />
+                      <FileSpreadsheet size={15} className="text-[#0f766e]" />
                       Importar Planilha Excel/CSV
                     </button>
                     <button
                       type="button"
                       onClick={() => setModoVisao("criacao")}
-                      className="px-4 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white text-xs font-bold rounded-xl transition-colors shadow-xs"
+                      className="px-4 py-2 bg-[#0f766e] hover:bg-[#0b5f59] text-white text-xs font-bold rounded-xl transition-colors shadow-xs"
                     >
                       + Cadastrar Aluno
                     </button>
@@ -313,24 +313,24 @@ export function ModalAlunoPEI({
                         if (onSelectAluno) onSelectAluno(a);
                         onClose();
                       }}
-                      className="p-4 rounded-2xl border border-[#dce0f0] hover:border-[#f60c49]/50 hover:bg-[#fff5f8]/50 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
+                      className="p-4 rounded-2xl border border-[#d5e3dc] hover:border-[#0f766e]/50 hover:bg-[#f3f8f5]/50 transition-all cursor-pointer flex items-center justify-between group shadow-2xs"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-sm font-bold text-[#101942] group-hover:text-[#d40840] transition-colors">
+                          <h4 className="text-sm font-bold text-[#123c3a] group-hover:text-[#0b5f59] transition-colors">
                             {a.nome}
                           </h4>
                           {a.origem === "diario" && (
-                            <span className="text-[10px] font-bold text-[#4338ca] bg-[#eef2ff] px-2 py-0.5 rounded-md border border-[#e0e7ff]">
+                            <span className="text-[10px] font-bold text-[#0f766e] bg-[#f3f8f5] px-2 py-0.5 rounded-md border border-[#daebe5]">
                               Diário
                             </span>
                           )}
                           {a.turmaNome && (
-                            <span className="text-[10px] font-semibold text-[#6070a0] bg-[#f7f8fc] px-2 py-0.5 rounded-md border border-[#dce0f0]">
+                            <span className="text-[10px] font-semibold text-[#4f6b63] bg-[#f3f7f5] px-2 py-0.5 rounded-md border border-[#d5e3dc]">
                               {a.turmaNome}
                             </span>
                           )}
-                          <span className="text-[10px] font-bold text-[#d40840] bg-[#fff2f6] px-2 py-0.5 rounded-md border border-[#fde4ec]">
+                          <span className="text-[10px] font-bold text-[#0b5f59] bg-[#f3f8f5] px-2 py-0.5 rounded-md border border-[#daebe5]">
                             Nível {a.nivelSuporte || 1}
                           </span>
                         </div>
@@ -338,7 +338,7 @@ export function ModalAlunoPEI({
                           {(a.necessidades || []).map((nid) => (
                             <span
                               key={nid}
-                              className="text-[10px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded-md"
+                              className="text-[10px] bg-[#F3F7F5] text-[#35594D] font-medium px-2 py-0.5 rounded-md"
                             >
                               {CATEGORIAS_MAP[nid]?.nome || nid}
                             </span>
@@ -350,7 +350,7 @@ export function ModalAlunoPEI({
                         <button
                           type="button"
                           onClick={(e) => handleRemover(a.id, e)}
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-white opacity-0 group-hover:opacity-100 transition-all"
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-[#0F766E] hover:bg-white opacity-0 group-hover:opacity-100 transition-all"
                           title="Remover perfil"
                         >
                           <Trash2 size={16} />
@@ -368,7 +368,7 @@ export function ModalAlunoPEI({
           {/* ======================================================== */}
           {modoVisao === "importacao" && (
             <div className="space-y-4 animate-fadeIn">
-              <div className="flex items-center justify-between pb-3 border-b border-[#dce0f0]">
+              <div className="flex items-center justify-between pb-3 border-b border-[#d5e3dc]">
                 <button
                   type="button"
                   onClick={() => {
@@ -377,7 +377,7 @@ export function ModalAlunoPEI({
                     setErroImportacao("");
                     setSucessoImportacao("");
                   }}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6070a0] hover:text-[#101942]"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4f6b63] hover:text-[#123c3a]"
                 >
                   <ArrowLeft size={14} />
                   Voltar para Lista
@@ -385,7 +385,7 @@ export function ModalAlunoPEI({
                 <button
                   type="button"
                   onClick={handleBaixarModelo}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d40840] hover:text-[#b00634] bg-[#fff2f6] px-3 py-1.5 rounded-xl border border-[#fde4ec] transition-all"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0b5f59] hover:text-[#084c47] bg-[#f3f8f5] px-3 py-1.5 rounded-xl border border-[#daebe5] transition-all"
                   title="Baixar planilha de exemplo com as colunas corretas preenchidas"
                 >
                   <Download size={14} />
@@ -394,15 +394,15 @@ export function ModalAlunoPEI({
               </div>
 
               {/* Banner de Instruções */}
-              <div className="p-3.5 rounded-2xl bg-[#f7f8fc] border border-[#dce0f0] text-xs text-[#475569] space-y-1.5">
-                <p className="font-bold text-[#101942] flex items-center gap-1.5">
-                  <FileSpreadsheet size={15} className="text-[#f60c49]" />
+              <div className="p-3.5 rounded-2xl bg-[#f3f7f5] border border-[#d5e3dc] text-xs text-[#475569] space-y-1.5">
+                <p className="font-bold text-[#123c3a] flex items-center gap-1.5">
+                  <FileSpreadsheet size={15} className="text-[#0f766e]" />
                   Instruções para Importação em Lote:
                 </p>
                 <p>
                   Sua planilha deve conter ao menos as colunas: <strong>Nome</strong>, <strong>Turma</strong> e <strong>Deficiência</strong> (ou Necessidade).
                 </p>
-                <p className="text-[11px] text-[#6070a0]">
+                <p className="text-[11px] text-[#4f6b63]">
                   • <em>Exemplos aceitos:</em> "Autismo", "TEA", "TDAH", "Deficiência Intelectual", "Baixa Visão", "Surdez", "Dislexia".
                   <br />
                   • <em>Comorbidades:</em> Você pode colocar mais de uma deficiência separando por vírgula ou "e" (ex: <strong>Autismo e TDAH</strong>).
@@ -411,7 +411,7 @@ export function ModalAlunoPEI({
 
               {/* Mensagem de Erro de Importação */}
               {erroImportacao && (
-                <div className="p-3 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2 font-medium">
+                <div className="p-3 rounded-2xl bg-[#F3F8F5] border border-[#D5E3DC] text-[#0B5F59] text-xs flex items-center gap-2 font-medium">
                   <AlertCircle size={16} className="flex-shrink-0" />
                   <span>{erroImportacao}</span>
                 </div>
@@ -419,8 +419,8 @@ export function ModalAlunoPEI({
 
               {/* Mensagem de Sucesso */}
               {sucessoImportacao && (
-                <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 font-bold animate-fadeIn">
-                  <CheckCircle2 size={18} className="flex-shrink-0 text-emerald-600" />
+                <div className="p-3.5 rounded-2xl bg-[#F3F8F5] border border-[#D5E3DC] text-[#123C3A] text-xs flex items-center gap-2 font-bold animate-fadeIn">
+                  <CheckCircle2 size={18} className="flex-shrink-0 text-[#0F766E]" />
                   <span>{sucessoImportacao}</span>
                 </div>
               )}
@@ -456,11 +456,11 @@ export function ModalAlunoPEI({
                     onClick={() => fileInputRef.current?.click()}
                     className={`p-8 rounded-3xl border-2 border-dashed text-center transition-all cursor-pointer space-y-3 ${
                       dragAtivo
-                        ? "border-[#f60c49] bg-[#fff2f6]"
-                        : "border-[#dce0f0] bg-[#fbfbfe] hover:bg-[#f7f8fc] hover:border-[#b4bee0]"
+                        ? "border-[#0f766e] bg-[#f3f8f5]"
+                        : "border-[#d5e3dc] bg-[#f3f8f5] hover:bg-[#f3f7f5] hover:border-[#a9c9bc]"
                     }`}
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-[#fff2f6] text-[#f60c49] flex items-center justify-center mx-auto shadow-xs">
+                    <div className="w-12 h-12 rounded-2xl bg-[#f3f8f5] text-[#0f766e] flex items-center justify-center mx-auto shadow-xs">
                       {processandoArquivo ? (
                         <Loader2 size={24} className="animate-spin" />
                       ) : (
@@ -468,12 +468,12 @@ export function ModalAlunoPEI({
                       )}
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm font-bold text-[#101942]">
+                      <p className="text-sm font-bold text-[#123c3a]">
                         {processandoArquivo
                           ? "Lendo e validando estudantes da planilha..."
                           : "Clique para selecionar ou arraste o arquivo aqui"}
                       </p>
-                      <p className="text-xs text-[#6070a0]">
+                      <p className="text-xs text-[#4f6b63]">
                         Formatos aceitos: Planilhas Excel (<strong>.xlsx</strong>, <strong>.xls</strong>) ou texto delimitado (<strong>.csv</strong>)
                       </p>
                     </div>
@@ -484,17 +484,17 @@ export function ModalAlunoPEI({
               {/* Pré-visualização dos Alunos Encontrados */}
               {resultadoImportacao && (
                 <div className="space-y-3 animate-fadeIn">
-                  <div className="flex items-center justify-between bg-blue-50/80 border border-blue-200/80 p-3 rounded-2xl">
+                  <div className="flex items-center justify-between bg-[#F3F8F5]/80 border border-[#D5E3DC]/80 p-3 rounded-2xl">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-blue-600" />
-                      <span className="text-xs font-bold text-blue-950">
+                      <CheckCircle2 size={16} className="text-[#0F766E]" />
+                      <span className="text-xs font-bold text-[#0B2B2A]">
                         {resultadoImportacao.alunos.length} Estudante(s) pronto(s) para importação
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => setResultadoImportacao(null)}
-                      className="text-[11px] font-semibold text-blue-700 hover:text-blue-900 underline"
+                      className="text-[11px] font-semibold text-[#0B5F59] hover:text-[#123C3A] underline"
                     >
                       Trocar arquivo
                     </button>
@@ -502,12 +502,12 @@ export function ModalAlunoPEI({
 
                   {/* Avisos de linhas ignoradas */}
                   {resultadoImportacao.avisos && resultadoImportacao.avisos.length > 0 && (
-                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs space-y-1">
+                    <div className="p-3 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-[#123C3A] text-xs space-y-1">
                       <p className="font-bold flex items-center gap-1">
-                        <AlertCircle size={14} className="text-amber-600" />
+                        <AlertCircle size={14} className="text-[#0F766E]" />
                         Observações sobre o arquivo ({resultadoImportacao.avisos.length}):
                       </p>
-                      <ul className="list-disc list-inside text-[11px] text-amber-800 space-y-0.5 max-h-24 overflow-y-auto">
+                      <ul className="list-disc list-inside text-[11px] text-[#123C3A] space-y-0.5 max-h-24 overflow-y-auto">
                         {resultadoImportacao.avisos.map((aviso, idx) => (
                           <li key={idx}>{aviso}</li>
                         ))}
@@ -516,23 +516,23 @@ export function ModalAlunoPEI({
                   )}
 
                   {/* Lista de Alunos Identificados */}
-                  <div className="max-h-60 overflow-y-auto space-y-2 border border-[#dce0f0] rounded-2xl p-2 bg-[#fbfbfe]">
+                  <div className="max-h-60 overflow-y-auto space-y-2 border border-[#d5e3dc] rounded-2xl p-2 bg-[#f3f8f5]">
                     {resultadoImportacao.alunos.map((aluno, i) => (
                       <div
                         key={i}
-                        className="p-3 bg-white border border-[#dce0f0] rounded-xl flex items-center justify-between gap-2 shadow-2xs"
+                        className="p-3 bg-white border border-[#d5e3dc] rounded-xl flex items-center justify-between gap-2 shadow-2xs"
                       >
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold text-[#101942] truncate">
+                            <span className="text-xs font-bold text-[#123c3a] truncate">
                               {aluno.nome}
                             </span>
                             {aluno.turmaNome && (
-                              <span className="text-[10px] font-semibold text-[#6070a0] bg-[#f7f8fc] px-2 py-0.5 rounded border border-[#dce0f0]">
+                              <span className="text-[10px] font-semibold text-[#4f6b63] bg-[#f3f7f5] px-2 py-0.5 rounded border border-[#d5e3dc]">
                                 {aluno.turmaNome}
                               </span>
                             )}
-                            <span className="text-[10px] font-bold text-[#d40840] bg-[#fff2f6] px-1.5 py-0.5 rounded">
+                            <span className="text-[10px] font-bold text-[#0b5f59] bg-[#f3f8f5] px-1.5 py-0.5 rounded">
                               Nível {aluno.nivelSuporte}
                             </span>
                           </div>
@@ -540,7 +540,7 @@ export function ModalAlunoPEI({
                             {aluno.necessidades.map((nId) => (
                               <span
                                 key={nId}
-                                className="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium"
+                                className="text-[10px] bg-[#F3F7F5] text-[#35594D] px-2 py-0.5 rounded font-medium"
                               >
                                 {CATEGORIAS_MAP[nId]?.nome || nId}
                               </span>
@@ -552,11 +552,11 @@ export function ModalAlunoPEI({
                   </div>
 
                   {/* Ações de Confirmação */}
-                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#dce0f0]">
+                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#d5e3dc]">
                     <button
                       type="button"
                       onClick={() => setResultadoImportacao(null)}
-                      className="px-4 py-2 border border-[#dce0f0] rounded-xl text-xs font-bold text-[#6070a0] hover:bg-slate-50 transition-colors"
+                      className="px-4 py-2 border border-[#d5e3dc] rounded-xl text-xs font-bold text-[#4f6b63] hover:bg-[#F3F8F5] transition-colors"
                     >
                       Cancelar
                     </button>
@@ -565,7 +565,7 @@ export function ModalAlunoPEI({
                       id="btn-confirmar-salvar-lote"
                       onClick={handleConfirmarImportacaoLote}
                       disabled={salvando}
-                      className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                      className="px-5 py-2 bg-[#0F766E] hover:bg-[#0B5F59] text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                     >
                       {salvando ? (
                         <>
@@ -590,20 +590,20 @@ export function ModalAlunoPEI({
           {/* ======================================================== */}
           {modoVisao === "criacao" && (
             <form onSubmit={handleSalvarManual} className="space-y-4 animate-fadeIn">
-              <div className="flex items-center justify-between pb-2 border-b border-[#dce0f0]">
+              <div className="flex items-center justify-between pb-2 border-b border-[#d5e3dc]">
                 <button
                   type="button"
                   onClick={() => setModoVisao("lista")}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6070a0] hover:text-[#101942]"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4f6b63] hover:text-[#123c3a]"
                 >
                   <ArrowLeft size={14} />
                   Voltar para Lista
                 </button>
-                <span className="text-xs font-bold text-[#f60c49]">Novo Perfil Inclusivo</span>
+                <span className="text-xs font-bold text-[#0f766e]">Novo Perfil Inclusivo</span>
               </div>
 
               {erro && (
-                <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2">
+                <div className="p-3 bg-[#F3F8F5] border border-[#D5E3DC] text-[#0B5F59] text-xs rounded-xl flex items-center gap-2">
                   <AlertCircle size={16} />
                   <span>{erro}</span>
                 </div>
@@ -611,7 +611,7 @@ export function ModalAlunoPEI({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#101942] block mb-1">
+                  <label className="text-xs font-bold text-[#123c3a] block mb-1">
                     Nome do Aluno / Iniciais *
                   </label>
                   <input
@@ -620,12 +620,12 @@ export function ModalAlunoPEI({
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
                     placeholder="Ex: Lucas S. ou L.S."
-                    className="w-full bg-[#f7f8fc] border border-[#dce0f0] focus:bg-white focus:border-[#f60c49] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none"
+                    className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#101942] block mb-1">
+                  <label className="text-xs font-bold text-[#123c3a] block mb-1">
                     Turma / Ano Escolar
                   </label>
                   <input
@@ -633,17 +633,17 @@ export function ModalAlunoPEI({
                     value={turmaNome}
                     onChange={(e) => setTurmaNome(e.target.value)}
                     placeholder="Ex: 6º Ano A, 1º Ano EM..."
-                    className="w-full bg-[#f7f8fc] border border-[#dce0f0] focus:bg-white focus:border-[#f60c49] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none"
+                    className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none"
                   />
                 </div>
               </div>
 
               {/* Necessidades DUA */}
               <div>
-                <label className="text-xs font-bold text-[#101942] block mb-1">
+                <label className="text-xs font-bold text-[#123c3a] block mb-1">
                   Necessidades Específicas / Deficiências * (Selecione 1 ou mais)
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-48 overflow-y-auto p-1 border border-[#dce0f0] rounded-xl bg-[#fbfbfe]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-48 overflow-y-auto p-1 border border-[#d5e3dc] rounded-xl bg-[#f3f8f5]">
                   {CATEGORIAS_DEFICIENCIA.map((c) => {
                     const sel = necessidades.includes(c.id);
                     return (
@@ -653,12 +653,12 @@ export function ModalAlunoPEI({
                         onClick={() => toggleNecessidadeForm(c.id)}
                         className={`p-2 rounded-lg text-left text-xs border transition-all flex items-center justify-between ${
                           sel
-                            ? "bg-[#fff2f6] border-[#f60c49] text-[#d40840] font-bold"
-                            : "bg-[#f7f8fc] border-[#dce0f0] text-[#6070a0]"
+                            ? "bg-[#f3f8f5] border-[#0f766e] text-[#0b5f59] font-bold"
+                            : "bg-[#f3f7f5] border-[#d5e3dc] text-[#4f6b63]"
                         }`}
                       >
                         <span className="truncate">{c.nome}</span>
-                        {sel && <Check size={14} className="flex-shrink-0 text-[#f60c49]" />}
+                        {sel && <Check size={14} className="flex-shrink-0 text-[#0f766e]" />}
                       </button>
                     );
                   })}
@@ -667,7 +667,7 @@ export function ModalAlunoPEI({
 
               {/* Nível de Suporte */}
               <div>
-                <label className="text-xs font-bold text-[#101942] block mb-1">
+                <label className="text-xs font-bold text-[#123c3a] block mb-1">
                   Nível de Suporte (DSM-5 / CID-11)
                 </label>
                 <div className="flex gap-2">
@@ -678,8 +678,8 @@ export function ModalAlunoPEI({
                       onClick={() => setNivelSuporte(n)}
                       className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                         nivelSuporte === n
-                          ? "bg-[#fff2f6] border-[#f60c49] text-[#d40840]"
-                          : "bg-[#f7f8fc] border-[#dce0f0] text-[#6070a0]"
+                          ? "bg-[#f3f8f5] border-[#0f766e] text-[#0b5f59]"
+                          : "bg-[#f3f7f5] border-[#d5e3dc] text-[#4f6b63]"
                       }`}
                     >
                       Nível {n} ({n === 1 ? "Leve" : n === 2 ? "Moderado" : "Intenso"})
@@ -690,7 +690,7 @@ export function ModalAlunoPEI({
 
               {/* Hiperfoco */}
               <div>
-                <label className="text-xs font-bold text-[#101942] block mb-1">
+                <label className="text-xs font-bold text-[#123c3a] block mb-1">
                   Âncora de Engajamento / Hiperfoco (Opcional)
                 </label>
                 <input
@@ -698,13 +698,13 @@ export function ModalAlunoPEI({
                   value={hiperfoco}
                   onChange={(e) => setHiperfoco(e.target.value)}
                   placeholder="Ex: Trens, Astronomia, Futebol, Robôs..."
-                  className="w-full bg-[#f7f8fc] border border-[#dce0f0] focus:bg-white focus:border-[#f60c49] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none"
+                  className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none"
                 />
               </div>
 
               {/* Observações */}
               <div>
-                <label className="text-xs font-bold text-[#101942] block mb-1">
+                <label className="text-xs font-bold text-[#123c3a] block mb-1">
                   Observações Pedagógicas do PEI (Opcional)
                 </label>
                 <textarea
@@ -712,7 +712,7 @@ export function ModalAlunoPEI({
                   value={observacoes}
                   onChange={(e) => setObservacoes(e.target.value)}
                   placeholder="Ex: Utilizar apoios visuais e pausas após 20 minutos de foco..."
-                  className="w-full bg-[#f7f8fc] border border-[#dce0f0] focus:bg-white focus:border-[#f60c49] rounded-xl px-3 py-2 text-xs text-[#101942] outline-none resize-none"
+                  className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none resize-none"
                 />
               </div>
 
@@ -720,14 +720,14 @@ export function ModalAlunoPEI({
                 <button
                   type="button"
                   onClick={() => setModoVisao("lista")}
-                  className="px-4 py-2 border border-[#dce0f0] rounded-xl text-xs font-bold text-[#6070a0] hover:bg-slate-50"
+                  className="px-4 py-2 border border-[#d5e3dc] rounded-xl text-xs font-bold text-[#4f6b63] hover:bg-[#F3F8F5]"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={salvando}
-                  className="px-5 py-2 bg-[#f60c49] hover:bg-[#d40840] text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center gap-1.5"
+                  className="px-5 py-2 bg-[#0f766e] hover:bg-[#0b5f59] text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center gap-1.5"
                 >
                   {salvando ? "Salvando..." : "Salvar Perfil"}
                 </button>

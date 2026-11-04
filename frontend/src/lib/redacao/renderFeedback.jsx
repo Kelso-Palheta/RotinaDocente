@@ -35,7 +35,7 @@ export function parseBoldText(text) {
   return parts.map((part, idx) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong key={idx} className="font-bold text-[#101942] bg-[#fde4ec] px-1 rounded">
+        <strong key={idx} className="font-bold text-[#123c3a] bg-[#daebe5] px-1 rounded">
           {part.slice(2, -2)}
         </strong>
       );
@@ -67,12 +67,12 @@ export function renderFeedbackText(text) {
               className={`font-bold tracking-tight mt-6 mb-3 pb-2 border-b flex items-center gap-2 ${
                 depth === 1
                   ? isAnulacao
-                    ? 'text-base text-[#d40840] border-[#fde4ec]'
-                    : 'text-base text-[#101942] border-[#dce0f0]'
+                    ? 'text-base text-[#0b5f59] border-[#daebe5]'
+                    : 'text-base text-[#123c3a] border-[#d5e3dc]'
                   : 'text-sm text-slate-800 border-slate-100'
               }`}
             >
-              {isAnulacao ? <AlertCircle size={16} className="text-rose-500 animate-bounce" /> : <Sparkles size={15} className="text-[#f60c49]" />}
+              {isAnulacao ? <AlertCircle size={16} className="text-rose-500 animate-bounce" /> : <Sparkles size={15} className="text-[#0f766e]" />}
               {cleanText}
             </h3>
           );
@@ -106,7 +106,7 @@ export function renderFeedbackText(text) {
           const listText = isCheckbox ? cleanText.replace(/^\[[ xX]\]\s*/, '') : cleanText;
           return (
             <div key={idx} className="flex items-start gap-2.5 pl-2 my-1">
-              <span className="text-[#f60c49] mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#f60c49]" />
+              <span className="text-[#0f766e] mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#0f766e]" />
               <span className="text-slate-600">{parseBoldText(listText)}</span>
             </div>
           );

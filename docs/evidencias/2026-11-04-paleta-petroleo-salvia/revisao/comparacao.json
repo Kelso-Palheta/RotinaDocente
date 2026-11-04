@@ -1,0 +1,146 @@
+[
+  {
+    "tela": "notas",
+    "largura": 1440,
+    "elementos": 51,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "landing",
+    "largura": 1440,
+    "elementos": 39,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "hub",
+    "largura": 1440,
+    "elementos": 15,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "agentes",
+    "largura": 1440,
+    "elementos": 4,
+    "diferencas": 2,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "calendario",
+    "largura": 1440,
+    "elementos": 20,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "horario",
+    "largura": 1440,
+    "elementos": 12,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "redacao",
+    "largura": 1440,
+    "elementos": 5,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "criterios",
+    "largura": 1440,
+    "elementos": 3,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "adaptadas",
+    "largura": 1440,
+    "elementos": 31,
+    "diferencas": 0,
+    "scrollAntes": 1440,
+    "scrollDepois": 1440
+  },
+  {
+    "tela": "notas",
+    "largura": 390,
+    "elementos": 51,
+    "diferencas": 0,
+    "scrollAntes": 659,
+    "scrollDepois": 659
+  },
+  {
+    "tela": "landing",
+    "largura": 390,
+    "elementos": 39,
+    "diferencas": 0,
+    "scrollAntes": 390,
+    "scrollDepois": 390
+  },
+  {
+    "tela": "hub",
+    "largura": 390,
+    "elementos": 15,
+    "diferencas": 0,
+    "scrollAntes": 398,
+    "scrollDepois": 398
+  },
+  {
+    "tela": "agentes",
+    "largura": 390,
+    "elementos": 4,
+    "diferencas": 2,
+    "scrollAntes": 390,
+    "scrollDepois": 390
+  },
+  {
+    "tela": "calendario",
+    "largura": 390,
+    "elementos": 20,
+    "diferencas": 0,
+    "scrollAntes": 390,
+    "scrollDepois": 390
+  },
+  {
+    "tela": "horario",
+    "largura": 390,
+    "elementos": 12,
+    "diferencas": 0,
+    "scrollAntes": 475,
+    "scrollDepois": 475
+  },
+  {
+    "tela": "redacao",
+    "largura": 390,
+    "elementos": 5,
+    "diferencas": 0,
+    "scrollAntes": 390,
+    "scrollDepois": 390
+  },
+  {
+    "tela": "criterios",
+    "largura": 390,
+    "elementos": 3,
+    "diferencas": 0,
+    "scrollAntes": 390,
+    "scrollDepois": 390
+  },
+  {
+    "tela": "adaptadas",
+    "largura": 390,
+    "elementos": 31,
+    "diferencas": 0,
+    "scrollAntes": 390,
+    "scrollDepois": 390
+  }
+]

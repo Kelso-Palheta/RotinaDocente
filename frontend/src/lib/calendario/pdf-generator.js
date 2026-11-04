@@ -28,9 +28,9 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
   let y;
   const novaPagina = () => {
     if (y !== undefined) doc.addPage();
-    doc.setFillColor(16, 25, 66);
+    doc.setFillColor(18, 60, 58);
     doc.rect(0, 0, largura, 25, 'F');
-    doc.setFillColor(246, 12, 73);
+    doc.setFillColor(15, 118, 110);
     doc.rect(0, 25, largura, 1.5, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
@@ -41,7 +41,7 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
     doc.text('Rotina Docente', margem, 20);
     y = 36;
   };
-  const escrever = (texto, { negrito = false, cor = [16, 25, 66], tamanho = 10 } = {}) => {
+  const escrever = (texto, { negrito = false, cor = [18, 60, 58], tamanho = 10 } = {}) => {
     if (!texto) return;
     doc.setFont('helvetica', negrito ? 'bold' : 'normal');
     doc.setFontSize(tamanho);
@@ -59,7 +59,7 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
   const separar = () => {
     y += 3;
     if (y > altura - 25) novaPagina();
-    doc.setDrawColor(220, 224, 240);
+    doc.setDrawColor(213, 227, 220);
     doc.line(margem, y, largura - margem, y);
     y += 7;
   };
@@ -78,8 +78,8 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
     escrever(`${dataLegivel(aula.dataAgendada)} | ${aula.horarioInicio || '--:--'} - ${aula.horarioFim || '--:--'}`, { negrito: true });
     escrever(`Status: ${STATUS[aula.status] || aula.status || STATUS.AGENDADA}`, { negrito: true });
     const associados = aula.topicosAssociados?.length ? aula.topicosAssociados : aula.historicoConteudos?.length ? aula.historicoConteudos : aula.topicoTitulo || aula.topicoId ? [{ topicoId: aula.topicoId, topicoTitulo: aula.topicoTitulo, descricao: aula.descricao }] : [];
-    if (associados.length && (aula.conteudoEncaminhado || aula.status === 'NAO_REALIZADA')) escrever('Histórico de conteúdo - não representa agendamento ativo', { tamanho: 9, cor: [96, 112, 160] });
-    if (!associados.length) escrever('Conteúdo: A definir', { cor: [96, 112, 160] });
+    if (associados.length && (aula.conteudoEncaminhado || aula.status === 'NAO_REALIZADA')) escrever('Histórico de conteúdo - não representa agendamento ativo', { tamanho: 9, cor: [79, 107, 99] });
+    if (!associados.length) escrever('Conteúdo: A definir', { cor: [79, 107, 99] });
     for (const vinculo of associados) {
       const topico = topicosPorId.get(String(vinculo.id ?? vinculo.topicoId)) || {};
       escrever(`Conteúdo: ${vinculo.titulo || vinculo.topicoTitulo || topico.titulo || topico.topicoTitulo || 'Sem título'}`, { negrito: true });
@@ -106,7 +106,7 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
     doc.setPage(p);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.setTextColor(96, 112, 160);
+    doc.setTextColor(79, 107, 99);
     doc.text(`Página ${p} de ${paginas}`, largura - margem, altura - 10, { align: 'right' });
     doc.text('Rotina Docente', margem, altura - 10);
   }

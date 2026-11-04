@@ -36,26 +36,26 @@ const AddAlunoForm = ({ onAdd }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 sm:gap-3 mt-3 pt-3 border-t border-[#dce0f0]">
+    <div className="flex flex-col gap-2 sm:gap-3 mt-3 pt-3 border-t border-[#d5e3dc]">
       <div className="flex items-center gap-2 sm:gap-3">
         <input
           value={nome} onChange={(e) => setNome(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && submit()}
           placeholder="Nome completo do aluno"
-          className="flex-1 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all"
+          className="flex-1 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#123c3a] placeholder-[#566f65] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
         />
         <input
           value={data} onChange={(e) => setData(e.target.value.replace(/\D/g, '').slice(0, 4))}
           onKeyDown={(e) => e.key === 'Enter' && submit()}
           placeholder="ddMM (Nascimento)" maxLength={4}
-          className="w-24 sm:w-36 bg-[#f7f8fc] border border-[#dce0f0] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#101942] placeholder-[#9098c0] outline-none focus:bg-white focus:ring-2 focus:ring-[#f60c49]/30 focus:border-[#f60c49] transition-all font-mono text-center"
+          className="w-24 sm:w-36 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#123c3a] placeholder-[#566f65] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all font-mono text-center"
         />
         <button
           onClick={() => setShowNec((v) => !v)}
           className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
             nec.length > 0
-              ? 'bg-[#fff2f6] border-[#f60c49] text-[#d40840]'
-              : 'bg-[#f7f8fc] border-[#dce0f0] text-[#6070a0] hover:border-[#f60c49]/40'
+              ? 'bg-[#f3f8f5] border-[#0f766e] text-[#0b5f59]'
+              : 'bg-[#f3f7f5] border-[#d5e3dc] text-[#4f6b63] hover:border-[#0f766e]/40'
           }`}
           title="Necessidades / PCD do aluno"
         >
@@ -97,14 +97,14 @@ const AddAtvForm = ({ onAdd, somaAtual, maxAtv }) => {
   return (
     <div className="flex items-center gap-2 sm:gap-3 mt-4">
       <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome da atividade"
-        className="flex-1 bg-slate-50 border border-slate-200 rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all" />
+        className="flex-1 bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all" />
       <input value={max} onChange={(e) => setMax(e.target.value)} placeholder={`máx: ${fmt(dispLeft)}`}
-        className="w-20 sm:w-40 bg-slate-50 border border-slate-200 rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-mono text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-1 focus:ring-violet-400/50 transition-all text-center" />
+        className="w-20 sm:w-40 bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-mono text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all text-center" />
       <button onClick={submit}
-        className="px-3 sm:px-5 py-1.5 sm:py-2 bg-violet-500 hover:bg-violet-400 hover:scale-[1.03] active:scale-[0.97] rounded-lg text-xs sm:text-sm text-white font-semibold transition-all whitespace-nowrap">
+        className="px-3 sm:px-5 py-1.5 sm:py-2 bg-[#0F766E] hover:bg-[#0B5F59] hover:scale-[1.03] active:scale-[0.97] rounded-lg text-xs sm:text-sm text-white font-semibold transition-all whitespace-nowrap">
         + Adicionar
       </button>
-      {erro && <span role="alert" className="text-xs text-red-700">{erro}</span>}
+      {erro && <span role="alert" className="text-xs text-[#0B5F59]">{erro}</span>}
     </div>
   );
 };
@@ -310,43 +310,43 @@ export const TabelaNotas = ({
         {onImportarSimulado && <button className="border rounded-lg p-2 text-xs font-semibold" onClick={() => setShowColagem(v => !v)}>Colar notas do simulado</button>}
         <button className="border rounded-lg p-2 text-xs" onClick={() => setShowAvancadas(v => !v)}>Opções avançadas</button>
       </div>
-      <p className="text-xs mb-3" aria-label="Legenda de notas"><span className="text-red-600">Vermelho: abaixo de {fmt(config.mediaAprovacao ?? 5)}</span> · <span className="text-blue-600">Azul: a partir da média, abaixo de 8</span> · <span className="text-green-600">Verde: a partir de {fmt(Math.max(8, Number(config.mediaAprovacao ?? 5)))}</span>. Situação semestral/anual disponível no Resumo anual.</p>
+      <p className="text-xs mb-3" aria-label="Legenda de notas"><span className="text-[#0F766E]">Vermelho: abaixo de {fmt(config.mediaAprovacao ?? 5)}</span> · <span className="text-[#0F766E]">Azul: a partir da média, abaixo de 8</span> · <span className="text-[#0F766E]">Verde: a partir de {fmt(Math.max(8, Number(config.mediaAprovacao ?? 5)))}</span>. Situação semestral/anual disponível no Resumo anual.</p>
       {showColagem && <section className="border rounded-xl p-4 mb-4 space-y-3" aria-label="Colar notas">
         <p className="text-sm">{turma.nome} · {bimestre}º bimestre · Somente simulado. Nome completo e nota separados por tabulação ou ponto e vírgula. Notas existentes são preservadas.</p>
         <textarea aria-label="Nomes e notas" className="w-full border rounded p-2" value={colagem} onChange={e => { setColagem(e.target.value); setPreviaColagem(null); }} placeholder={'Ana Lima\t4,50'} />
         <button className="border rounded px-3 py-2" onClick={conferirColagem}>Conferir colagem</button>
-        {erroColagem && <p role="alert" className="text-red-700">{erroColagem}</p>}
+        {erroColagem && <p role="alert" className="text-[#0B5F59]">{erroColagem}</p>}
         {previaColagem && <><ul>{previaColagem.map((l, i) => <li key={i}>{l.alunoNome || l.nome} — {fmt(l.nota)} — {({ pronto: 'Pronto para importar', nota_existente: 'Nota existente preservada', ambiguo: 'Nome ambíguo', duplicado: 'Nome duplicado', nao_encontrado: 'Nome não encontrado', nota_invalida: 'Nota inválida', fora_da_escala: 'Fora da escala' })[l.situacao]}</li>)}</ul><button disabled={!previaColagem.some(l => l.situacao === 'pronto')} className="border rounded px-3 py-2 disabled:opacity-50" onClick={aplicarColagem}>Aplicar {previaColagem.filter(l => l.situacao === 'pronto').length} nota(s)</button></>}
       </section>}
       {/* Cabeçalho bimestre */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-sm text-slate-500">
-            Soma máx. atividades: <span className={`font-mono font-semibold ${excede ? 'text-red-500' : 'text-slate-900'}`}>{fmt(somaMaxima)} / {fmt(atvMax)}</span>
+          <span className="text-sm text-[#566F65]">
+            Soma máx. atividades: <span className={`font-mono font-semibold ${excede ? 'text-[#0F766E]' : 'text-[#123C3A]'}`}>{fmt(somaMaxima)} / {fmt(atvMax)}</span>
           </span>
-          {excede && <span className="text-xs bg-red-50 border border-red-200 text-red-600 rounded-full px-2 py-0.5 font-semibold">⚠ excede {fmt(atvMax)} pts</span>}
+          {excede && <span className="text-xs bg-[#F3F8F5] border border-[#D5E3DC] text-[#0F766E] rounded-full px-2 py-0.5 font-semibold">⚠ excede {fmt(atvMax)} pts</span>}
           {showAvancadas && selectedIds.length > 0 && (
-            <button onClick={handleBulkDelete} className="bg-red-500 hover:bg-red-400 text-white text-xs px-3 py-1 rounded-lg transition-colors flex items-center gap-1 font-medium">
+            <button onClick={handleBulkDelete} className="bg-[#0F766E] hover:bg-[#0F766E] text-white text-xs px-3 py-1 rounded-lg transition-colors flex items-center gap-1 font-medium">
               🗑 Excluir selecionados ({selectedIds.length})
             </button>
           )}
-          <button onClick={() => setShowConfig(!showConfig)} className="flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-xs text-slate-600 transition-colors font-medium">
+          <button onClick={() => setShowConfig(!showConfig)} className="flex items-center gap-1.5 px-2.5 py-1 bg-[#F3F8F5] hover:bg-[#F3F7F5] border border-[#D5E3DC] rounded-lg text-xs text-[#4F6B63] transition-colors font-medium">
             ⚙ Critérios
           </button>
           {showAvancadas && turma.alunos.length > 0 && atividades.length > 0 && (
-            <button onClick={handleClearBulkActivities} className="flex items-center gap-1.5 px-2.5 py-1 bg-red-50 text-red-500 hover:text-red-600 border border-red-200 hover:bg-red-100 rounded-lg text-xs transition-colors font-medium">
+            <button onClick={handleClearBulkActivities} className="flex items-center gap-1.5 px-2.5 py-1 bg-[#F3F8F5] text-[#0F766E] hover:text-[#0F766E] border border-[#D5E3DC] hover:bg-[#DAEBE5] rounded-lg text-xs transition-colors font-medium">
               🧹 Limpar Atividades
             </button>
           )}
           {showAvancadas && turma.alunos.length > 0 && (
-            <button onClick={handleClearBulkSimulado} className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 text-amber-600 hover:text-amber-700 border border-amber-200 hover:bg-amber-100 rounded-lg text-xs transition-colors font-medium">
+            <button onClick={handleClearBulkSimulado} className="flex items-center gap-1.5 px-2.5 py-1 bg-[#F3F8F5] text-[#0F766E] hover:text-[#0B5F59] border border-[#D5E3DC] hover:bg-[#DAEBE5] rounded-lg text-xs transition-colors font-medium">
               🧪 Limpar Simulados
             </button>
           )}
         </div>
         <div className="flex items-center gap-3">
           {media !== null && (
-            <div className="text-sm text-slate-500">
+            <div className="text-sm text-[#566F65]">
               Média turma: <span className={`font-mono font-bold ${estiloNotaBimestral(media, config).split(' ')[0]}`}>{fmt(media)}</span>
             </div>
           )}
@@ -355,73 +355,73 @@ export const TabelaNotas = ({
 
       {/* Painel de Configurações */}
       {showConfig && (
-        <div className="glass-panel border border-slate-200 rounded-2xl p-5 mb-5 grid grid-cols-2 sm:grid-cols-5 gap-4 items-end">
+        <div className="glass-panel border border-[#D5E3DC] rounded-2xl p-5 mb-5 grid grid-cols-2 sm:grid-cols-5 gap-4 items-end">
           <div>
             <label htmlFor="cfgSimLanca" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Simulado Máx (Lançamento)</label>
             <input id="cfgSimLanca" type="text" value={cfgSimLanca} onChange={(e) => { setCfgSimLanca(e.target.value); setPreviaConfig(null); }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
+              className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50 transition-all font-mono" />
           </div>
           <div>
             <label htmlFor="cfgSimFinal" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Peso Simulado Final</label>
             <input id="cfgSimFinal" type="text" value={cfgSimFinal} onChange={(e) => { setCfgSimFinal(e.target.value); setPreviaConfig(null); }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
+              className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50 transition-all font-mono" />
           </div>
           <div>
             <label htmlFor="cfgAtvFinal" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Peso Atividades Final</label>
             <input id="cfgAtvFinal" type="text" value={cfgAtvFinal} onChange={(e) => { setCfgAtvFinal(e.target.value); setPreviaConfig(null); }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
+              className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50 transition-all font-mono" />
           </div>
           <div>
             <label htmlFor="cfgAprov" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Média para aprovação</label>
             <input id="cfgAprov" type="text" value={cfgAprov} onChange={(e) => { setCfgAprov(e.target.value); setPreviaConfig(null); }}
-              className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
+              className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50 transition-all font-mono" />
           </div>
           <div className="flex gap-2">
             <div className="flex-1">
               <label htmlFor="cfgRecup" className="block text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-1.5">Limite de recuperação</label>
               <input id="cfgRecup" type="text" value={cfgRecup} onChange={(e) => { setCfgRecup(e.target.value); setPreviaConfig(null); }}
-                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-900 outline-none focus:ring-1 focus:ring-violet-400/50 transition-all font-mono" />
+                className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50 transition-all font-mono" />
             </div>
-            <button onClick={handleSaveConfig} className="bg-violet-500 hover:bg-violet-400 text-white font-semibold text-xs px-4 py-1.5 rounded-lg transition-all h-[32px] self-end">
+            <button onClick={handleSaveConfig} className="bg-[#0F766E] hover:bg-[#0B5F59] text-white font-semibold text-xs px-4 py-1.5 rounded-lg transition-all h-[32px] self-end">
               Conferir critérios
             </button>
           </div>
-          {erroConfig && <p role="alert" className="col-span-full text-red-700 text-sm">{erroConfig}</p>}
+          {erroConfig && <p role="alert" className="col-span-full text-[#0B5F59] text-sm">{erroConfig}</p>}
           <p className="col-span-full text-xs">Simulado: nota ÷ escala × peso. Atividades: soma das notas, limitada ao teto; não são proporcionalizadas.</p>
           {previaConfig && <div className="col-span-full border rounded-xl p-3 text-sm space-y-2">
             <p>Prévia: metade do simulado ({fmt(previaConfig.simuladoMaxLanca / 2)}) contribui {fmt(previaConfig.simuladoMaxFinal / 2)}; atividades somam até {fmt(previaConfig.atividadesMaxFinal)}. Total máximo: {fmt(previaConfig.simuladoMaxFinal + previaConfig.atividadesMaxFinal)}.</p>
             <p>{turma.alunos.filter(al => temNota(notas[al.id], atividades) && calcTotal(notas[al.id]?.simulado, atividades, notas[al.id], config) !== calcTotal(notas[al.id]?.simulado, atividades, notas[al.id], previaConfig)).length} aluno(s) terão o total recalculado. Lançamentos existentes serão preservados.</p>
-            {turma.alunos.some(al => Number(notas[al.id]?.simulado) > previaConfig.simuladoMaxLanca) && <p className="text-amber-700">Há notas existentes acima da nova escala. Revise antes de aplicar.</p>}
+            {turma.alunos.some(al => Number(notas[al.id]?.simulado) > previaConfig.simuladoMaxLanca) && <p className="text-[#0B5F59]">Há notas existentes acima da nova escala. Revise antes de aplicar.</p>}
             <button className="rounded border p-2 font-semibold" onClick={async () => { try { await onUpdateConfig(previaConfig); setShowConfig(false); setPreviaConfig(null); } catch { setErroConfig('Não foi possível salvar os critérios. Tente novamente.'); } }}>Aplicar critérios</button>
           </div>}
         </div>
       )}
 
       {/* Tabela */}
-      <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white/80 backdrop-blur-sm">
+      <div className="overflow-x-auto rounded-2xl border border-[#D5E3DC] bg-white/80 backdrop-blur-sm">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200 text-left">
-              <th className="sticky left-0 z-20 bg-slate-50 px-3 py-3 text-center w-10">
+            <tr className="bg-[#F3F8F5] border-b border-[#D5E3DC] text-left">
+              <th className="sticky left-0 z-20 bg-[#F3F8F5] px-3 py-3 text-center w-10">
                 <input type="checkbox" checked={alunosVisiveis.length > 0 && alunosVisiveis.every(al => selectedIds.includes(al.id))}
-                  onChange={handleToggleSelectAll} className="rounded border-slate-300 text-violet-500 focus:ring-violet-400" />
+                  onChange={handleToggleSelectAll} className="rounded border-[#B7D3C8] text-[#0F766E] focus:ring-[#0F766E]" />
               </th>
-              <th className="hidden sm:table-cell sticky left-10 z-20 bg-slate-50 px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider w-8">#</th>
-              <th className="sticky left-10 sm:left-[72px] z-20 bg-slate-50 px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider min-w-[180px] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">Aluno</th>
-              <th className="px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-28">
+              <th className="hidden sm:table-cell sticky left-10 z-20 bg-[#F3F8F5] px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider w-8">#</th>
+              <th className="sticky left-10 sm:left-[72px] z-20 bg-[#F3F8F5] px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider min-w-[180px] shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">Aluno</th>
+              <th className="px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center w-28">
                 Simulado<br /><span className="text-slate-400 font-normal font-mono normal-case tracking-normal">(0–{fmt(config?.simuladoMaxLanca ?? 5)})</span>
               </th>
               {atividades.map((atv) => (
-                <th key={atv.id} className="px-2 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center group">
+                <th key={atv.id} className="px-2 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center group">
                   <div className="flex flex-col items-center gap-0.5">
                     <span>{atv.nome}</span>
                     <span className="text-slate-400 font-normal font-mono normal-case tracking-normal">(0–{fmt(atv.max)})</span>
-                    <button onClick={() => onRemoveAtv(atv.id)} className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-500 text-[10px] leading-none mt-0.5 transition-opacity" title="Remover atividade">✕</button>
+                    <button onClick={() => onRemoveAtv(atv.id)} className="opacity-0 group-hover:opacity-100 text-[#0F766E] hover:text-[#0F766E] text-[10px] leading-none mt-0.5 transition-opacity" title="Remover atividade">✕</button>
                   </div>
                 </th>
               ))}
-              <th className="px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-20">Total</th>
-              <th className="px-3 py-3 text-xs text-slate-500 font-bold uppercase tracking-wider text-center w-20">Ações</th>
+              <th className="px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center w-20">Total</th>
+              <th className="px-3 py-3 text-xs text-[#566F65] font-bold uppercase tracking-wider text-center w-20">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -431,30 +431,30 @@ export const TabelaNotas = ({
               const temNotaAluno = temNota(nota, atividades);
 
               return (
-                <tr key={al.id} className={`border-b border-slate-100 transition-all duration-300 ${idx % 2 === 0 ? 'bg-slate-50/80' : 'bg-white'} hover:bg-slate-100`}>
+                <tr key={al.id} className={`border-b border-[#F3F7F5] transition-all duration-300 ${idx % 2 === 0 ? 'bg-[#F3F8F5]/80' : 'bg-white'} hover:bg-[#F3F7F5]`}>
                   <td className="sticky left-0 z-10 bg-inherit px-3 py-1.5 text-center">
-                    <input type="checkbox" checked={selectedIds.includes(al.id)} onChange={() => handleToggleSelect(al.id)} className="rounded border-slate-300 text-violet-500 focus:ring-violet-400" />
+                    <input type="checkbox" checked={selectedIds.includes(al.id)} onChange={() => handleToggleSelect(al.id)} className="rounded border-[#B7D3C8] text-[#0F766E] focus:ring-[#0F766E]" />
                   </td>
                   <td className="hidden sm:table-cell sticky left-10 z-10 bg-inherit px-3 py-1.5 text-slate-400 font-mono text-xs">{idx + 1}</td>
-                  <td className="sticky left-10 sm:left-[72px] z-10 bg-inherit px-2 sm:px-3 py-1.5 text-slate-900 font-medium shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">
+                  <td className="sticky left-10 sm:left-[72px] z-10 bg-inherit px-2 sm:px-3 py-1.5 text-[#123C3A] font-medium shadow-[4px_0_8px_-4px_rgba(0,0,0,0.05)]">
                     <div className="flex items-center gap-1 sm:gap-2">
                       <span className="text-[11px] sm:text-sm leading-tight max-w-[100px] sm:max-w-none break-words">{titleCase(al.nome)}</span>
                       {editingBirthday === al.id ? (
                         <input autoFocus type="text" maxLength={4} placeholder="ddMM" defaultValue={al.dataNascimento || ''}
-                          className="w-16 px-1.5 py-0.5 text-xs font-mono bg-slate-100 border border-violet-400 rounded text-slate-900 focus:outline-none"
+                          className="w-16 px-1.5 py-0.5 text-xs font-mono bg-[#F3F7F5] border border-[#0F766E] rounded text-[#123C3A] focus:outline-none"
                           onBlur={(e) => { const v = e.target.value.replace(/\D/g, '').slice(0, 4); if (v.length === 4 && onUpdateAluno) onUpdateAluno(turma.id, al.id, { dataNascimento: v }); setEditingBirthday(null); }}
                           onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur(); if (e.key === 'Escape') setEditingBirthday(null); }} />
                       ) : (
-                        <button onClick={() => setEditingBirthday(al.id)} className="text-[10px] font-mono transition-colors px-1 rounded" style={{ color: al.dataNascimento ? '#6b7280' : '#7c3aed' }} title="Data de nascimento (ddMM)">
+                        <button onClick={() => setEditingBirthday(al.id)} className="text-[10px] font-mono transition-colors px-1 rounded" style={{ color: al.dataNascimento ? '#6b7280' : '#0f766e' }} title="Data de nascimento (ddMM)">
                           {al.dataNascimento || '+ data'}
                         </button>
                       )}
                       {al.dataNascimento ? (
-                        <span className="hidden sm:inline text-[9px] font-mono text-emerald-600 bg-emerald-50 px-1 py-0.5 rounded border border-emerald-200" title="Login do aluno no Portal">
+                        <span className="hidden sm:inline text-[9px] font-mono text-[#0F766E] bg-[#F3F8F5] px-1 py-0.5 rounded border border-[#D5E3DC]" title="Login do aluno no Portal">
                           🔑 {selecionarLoginExibido(loginsArmazenados[al.nome] || [], al) || gerarLoginAluno(al.nome, al.dataNascimento)}
                         </span>
                       ) : (
-                        <span className="hidden sm:inline text-[9px] text-amber-500 font-medium" title="Sem data = sem login no Portal do Aluno">
+                        <span className="hidden sm:inline text-[9px] text-[#0F766E] font-medium" title="Sem data = sem login no Portal do Aluno">
                           ⚠ sem login
                         </span>
                       )}
@@ -474,9 +474,9 @@ export const TabelaNotas = ({
                     <details className="relative"><summary className="cursor-pointer text-xs whitespace-nowrap font-semibold">Ações do aluno</summary><div className="flex flex-col items-start gap-2 bg-white border rounded-xl p-3 min-w-48">
                     <button className="text-xs" onClick={() => { setCadastro({ ...al }); setErroCadastro(''); }}>Editar cadastro</button>
                     {atividades.length > 0 && (
-                      <button onClick={() => handleClearSingleActivities(al.id, al.nome)} className="text-slate-400 hover:text-cyan-500 transition-colors p-1" title="Limpar notas de atividades">Limpar notas de atividades</button>
+                      <button onClick={() => handleClearSingleActivities(al.id, al.nome)} className="text-slate-400 hover:text-[#0F766E] transition-colors p-1" title="Limpar notas de atividades">Limpar notas de atividades</button>
                     )}
-                    <button onClick={() => handleClearSingleSimulado(al.id, al.nome)} className="text-slate-400 hover:text-amber-500 transition-colors p-1" title="Limpar nota do simulado">Limpar nota do simulado</button>
+                    <button onClick={() => handleClearSingleSimulado(al.id, al.nome)} className="text-slate-400 hover:text-[#0F766E] transition-colors p-1" title="Limpar nota do simulado">Limpar nota do simulado</button>
                     <button
                       onClick={() => {
                         setEditingNeeds(al.id);
@@ -485,7 +485,7 @@ export const TabelaNotas = ({
                         setHiperfocoDraft(typeof al.hiperfoco === 'string' ? al.hiperfoco : '');
                         setObservacoesDraft(typeof al.observacoes === 'string' ? al.observacoes : '');
                       }}
-                      className={`transition-colors p-1 ${al.necessidades?.length ? 'text-[#d40840] hover:text-[#f60c49]' : 'text-slate-400 hover:text-[#f60c49]'}`}
+                      className={`transition-colors p-1 ${al.necessidades?.length ? 'text-[#0b5f59] hover:text-[#0f766e]' : 'text-slate-400 hover:text-[#0f766e]'}`}
                       title="Perfil inclusivo do aluno (necessidades, nível de suporte, âncora)"
                     >Editar perfil inclusivo</button>
                     <button
@@ -494,10 +494,10 @@ export const TabelaNotas = ({
                         setHistoricoFicha([]); setCarregandoHistorico(true); setErroFichaPDF('');
                         setAlunoFichaModal(al);
                       }}
-                      className="text-slate-400 hover:text-[#101942] transition-colors p-1"
+                      className="text-slate-400 hover:text-[#123c3a] transition-colors p-1"
                       title="Emitir Ficha Pedagógica 360º em PDF (Reunião de Pais e Conselho de Classe)"
                     >Relatório e perfil do aluno</button>
-                    <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-red-500 transition-colors p-1" title="Excluir aluno">Remover aluno</button>
+                    <button onClick={() => handleRemoveSingle(al.id, al.nome)} className="text-slate-400 hover:text-[#0F766E] transition-colors p-1" title="Excluir aluno">Remover aluno</button>
                     </div></details>
                   </td>
                 </tr>
@@ -510,13 +510,13 @@ export const TabelaNotas = ({
       {onAddAlunoManual && <AddAlunoForm onAdd={onAddAlunoManual} />}
       <AddAtvForm onAdd={onAddAtv} somaAtual={somaMaxima} maxAtv={atvMax} />
 
-      {cadastro && <div className="fixed inset-0 z-50 bg-slate-900/40 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Editar cadastro do aluno">
+      {cadastro && <div className="fixed inset-0 z-50 bg-[#123C3A]/40 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Editar cadastro do aluno">
         <div className="bg-white rounded-2xl p-5 w-full max-w-md space-y-3">
           <h3 className="font-bold">Editar cadastro</h3>
           <label className="block text-sm">Nome completo<input aria-label="Nome completo" className="block w-full border rounded p-2" value={cadastro.nome} onChange={e => setCadastro({ ...cadastro, nome: e.target.value })} /></label>
           <label className="block text-sm">Nascimento (ddMM)<input aria-label="Nascimento (ddMM)" className="block w-full border rounded p-2" maxLength={4} value={cadastro.dataNascimento || ''} onChange={e => setCadastro({ ...cadastro, dataNascimento: e.target.value.replace(/\D/g, '').slice(0, 4) })} /></label>
-          <p className="text-xs text-slate-600">Após alterar os dados de acesso, confira o login e publique novamente para atualizar o Portal.</p>
-          {erroCadastro && <p role="alert" className="text-red-700 text-sm">{erroCadastro}</p>}
+          <p className="text-xs text-[#4F6B63]">Após alterar os dados de acesso, confira o login e publique novamente para atualizar o Portal.</p>
+          {erroCadastro && <p role="alert" className="text-[#0B5F59] text-sm">{erroCadastro}</p>}
           <div className="flex justify-end gap-2"><button className="border rounded p-2" onClick={() => setCadastro(null)}>Cancelar</button><button className="border rounded p-2" onClick={async () => {
             if (!cadastro.nome.trim() || (cadastro.dataNascimento && !/^\d{4}$/.test(cadastro.dataNascimento))) { setErroCadastro('Informe o nome e uma data com quatro dígitos, ou deixe a data vazia.'); return; }
             try { await onUpdateAluno?.(turma.id, cadastro.id, { nome: cadastro.nome.trim(), dataNascimento: cadastro.dataNascimento || '' }); setCadastro(null); }
@@ -530,26 +530,26 @@ export const TabelaNotas = ({
         const alunoEdit = turma.alunos.find((al) => al.id === editingNeeds);
         return (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/40 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123c3a]/40 backdrop-blur-sm"
             onClick={() => setEditingNeeds(null)}
             role="dialog"
             aria-modal="true"
             aria-label="Editar perfil inclusivo do aluno"
           >
             <div
-              className="bg-white rounded-2xl border border-[#dce0f0] shadow-xl p-5 w-full max-w-xl"
+              className="bg-white rounded-2xl border border-[#d5e3dc] shadow-xl p-5 w-full max-w-xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-sm font-extrabold text-[#101942] mb-1">
+              <h3 className="text-sm font-extrabold text-[#123c3a] mb-1">
                 Perfil Inclusivo — {alunoEdit ? titleCase(alunoEdit.nome) : ''}
               </h3>
-              <p className="text-[11px] text-[#6070a0] mb-4 leading-relaxed">
+              <p className="text-[11px] text-[#4f6b63] mb-4 leading-relaxed">
                 Necessidades DUA, nível de suporte, âncora de engajamento e observações (RN-43/RN-46).
                 Dados sensíveis conforme LGPD: visíveis apenas para o professor, nunca enviados ao Portal do Aluno.
               </p>
               <div className="space-y-4">
                 <div>
-                  <span className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                  <span className="block text-[11px] font-semibold text-[#566F65] uppercase tracking-wider mb-1.5">
                     Necessidades / PCD
                   </span>
                   <SeletorNecessidadesDiario
@@ -571,7 +571,7 @@ export const TabelaNotas = ({
               <div className="flex justify-end gap-2 mt-5">
                 <button
                   onClick={() => setEditingNeeds(null)}
-                  className="px-4 py-2 bg-[#f7f8fc] hover:bg-[#eef0f8] border border-[#dce0f0] rounded-xl text-[#101942] text-xs font-bold transition-all"
+                  className="px-4 py-2 bg-[#f3f7f5] hover:bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl text-[#123c3a] text-xs font-bold transition-all"
                 >
                   Cancelar
                 </button>
@@ -598,25 +598,25 @@ export const TabelaNotas = ({
       {/* Modal de Emissão da Ficha 360º com Sigilo LGPD (RN-62) */}
       {alunoFichaModal && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#101942]/50 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123c3a]/50 backdrop-blur-xs"
           onClick={() => setAlunoFichaModal(null)}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="bg-white rounded-3xl border border-[#dce0f0] shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto space-y-4 animate-in fade-in zoom-in-95"
+            className="bg-white rounded-3xl border border-[#d5e3dc] shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto space-y-4 animate-in fade-in zoom-in-95"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3 border-b border-[#F3F7F5]">
               <div className="flex items-center gap-2">
-                <div className="w-9 h-9 rounded-2xl bg-[#fff2f6] border border-[#fde4ec] flex items-center justify-center text-[#f60c49]">
+                <div className="w-9 h-9 rounded-2xl bg-[#f3f8f5] border border-[#daebe5] flex items-center justify-center text-[#0f766e]">
                   📋
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-[#101942]">
+                  <h3 className="text-sm font-extrabold text-[#123c3a]">
                     Ficha Pedagógica 360º
                   </h3>
-                  <p className="text-[11px] text-[#6070a0] font-medium">
+                  <p className="text-[11px] text-[#4f6b63] font-medium">
                     {alunoFichaModal.nome} • {turma.nome}
                   </p>
                 </div>
@@ -624,7 +624,7 @@ export const TabelaNotas = ({
               <button
                 type="button"
                 onClick={() => setAlunoFichaModal(null)}
-                className="text-slate-400 hover:text-slate-600 p-1"
+                className="text-slate-400 hover:text-[#4F6B63] p-1"
               >
                 ✕
               </button>
@@ -632,7 +632,7 @@ export const TabelaNotas = ({
 
             <PerfilAlunoDiario aluno={alunoFichaModal} turma={turma} historicoAtividades={historicoFicha} carregando={carregandoHistorico} />
             <div className="space-y-3 text-xs">
-              <p className="font-bold text-[#101942]">
+              <p className="font-bold text-[#123c3a]">
                 Selecione o nível de privacidade do documento (RN-62):
               </p>
 
@@ -641,8 +641,8 @@ export const TabelaNotas = ({
                   onClick={() => setIncluirCIDNaExportacao(false)}
                   className={`p-3.5 rounded-2xl border cursor-pointer block transition-all ${
                     !incluirCIDNaExportacao
-                      ? "border-[#f60c49] bg-[#fff2f6]/40 text-[#101942]"
-                      : "border-[#dce0f0] bg-white text-[#6070a0] hover:border-[#f60c49]/40"
+                      ? "border-[#0f766e] bg-[#f3f8f5]/40 text-[#123c3a]"
+                      : "border-[#d5e3dc] bg-white text-[#4f6b63] hover:border-[#0f766e]/40"
                   }`}
                 >
                   <div className="flex items-start gap-2.5">
@@ -651,13 +651,13 @@ export const TabelaNotas = ({
                       name="destino_ficha"
                       checked={!incluirCIDNaExportacao}
                       onChange={() => setIncluirCIDNaExportacao(false)}
-                      className="mt-0.5 text-[#f60c49] focus:ring-[#f60c49]"
+                      className="mt-0.5 text-[#0f766e] focus:ring-[#0f766e]"
                     />
                     <div>
-                      <span className="font-extrabold text-xs block text-[#101942]">
+                      <span className="font-extrabold text-xs block text-[#123c3a]">
                         👨‍👩‍👧 Para a Família / Responsáveis (Recomendado)
                       </span>
-                      <p className="text-[11px] text-[#6070a0] mt-0.5 leading-relaxed">
+                      <p className="text-[11px] text-[#4f6b63] mt-0.5 leading-relaxed">
                         <strong>Sigilo LGPD:</strong> Oculta códigos de CID e nomes de diagnósticos clínicos. Apresenta o parecer, notas, frequência legal e adaptações metodológicas sem estigmas.
                       </p>
                     </div>
@@ -668,8 +668,8 @@ export const TabelaNotas = ({
                   onClick={() => setIncluirCIDNaExportacao(true)}
                   className={`p-3.5 rounded-2xl border cursor-pointer block transition-all ${
                     incluirCIDNaExportacao
-                      ? "border-[#f60c49] bg-[#fff2f6]/40 text-[#101942]"
-                      : "border-[#dce0f0] bg-white text-[#6070a0] hover:border-[#f60c49]/40"
+                      ? "border-[#0f766e] bg-[#f3f8f5]/40 text-[#123c3a]"
+                      : "border-[#d5e3dc] bg-white text-[#4f6b63] hover:border-[#0f766e]/40"
                   }`}
                 >
                   <div className="flex items-start gap-2.5">
@@ -678,13 +678,13 @@ export const TabelaNotas = ({
                       name="destino_ficha"
                       checked={incluirCIDNaExportacao}
                       onChange={() => setIncluirCIDNaExportacao(true)}
-                      className="mt-0.5 text-[#f60c49] focus:ring-[#f60c49]"
+                      className="mt-0.5 text-[#0f766e] focus:ring-[#0f766e]"
                     />
                     <div>
-                      <span className="font-extrabold text-xs block text-[#101942]">
+                      <span className="font-extrabold text-xs block text-[#123c3a]">
                         🏛️ Conselho de Classe / Coordenação Pedagógica
                       </span>
-                      <p className="text-[11px] text-[#6070a0] mt-0.5 leading-relaxed">
+                      <p className="text-[11px] text-[#4f6b63] mt-0.5 leading-relaxed">
                         <strong>Dossiê Interno:</strong> Inclui as categorias completas de diagnóstico (ex: TEA, TDAH) e nível de suporte para análise colegiada.
                       </p>
                     </div>
@@ -693,12 +693,12 @@ export const TabelaNotas = ({
               </div>
             </div>
 
-            {erroFichaPDF && <p role="alert" className="text-xs text-red-700">{erroFichaPDF}</p>}
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+            {erroFichaPDF && <p role="alert" className="text-xs text-[#0B5F59]">{erroFichaPDF}</p>}
+            <div className="pt-3 border-t border-[#F3F7F5] flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setAlunoFichaModal(null)}
-                className="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold"
+                className="px-4 py-2 border border-[#D5E3DC] hover:bg-[#F3F8F5] text-[#35594D] rounded-xl text-xs font-bold"
                 disabled={gerandoFichaPDF}
               >
                 Cancelar

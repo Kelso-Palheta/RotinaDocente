@@ -28,21 +28,21 @@ export function SimilaridadePainel({ grupos = [], onAbrir, onFechar }) {
         className="bg-white rounded-xl p-6 max-w-2xl w-full max-h-[85vh] overflow-auto"
       >
         <header className="flex items-start justify-between gap-3">
-          <h3 className="font-bold text-[#101942]">Respostas parecidas</h3>
-          <button type="button" onClick={onFechar} className="text-xs font-semibold text-slate-500 hover:text-slate-800">Fechar</button>
+          <h3 className="font-bold text-[#123c3a]">Respostas parecidas</h3>
+          <button type="button" onClick={onFechar} className="text-xs font-semibold text-[#566F65] hover:text-[#194D46]">Fechar</button>
         </header>
-        <p className="text-xs text-[#6070a0] my-3">
+        <p className="text-xs text-[#4f6b63] my-3">
           Nenhuma nota foi alterada. O alerta aproxima respostas com 70% ou mais de semelhança de escrita —
           leia os trechos e decida. Vocabulário parecido em ordem diferente não entra no grupo.
         </p>
 
-        {grupos.length === 0 && <p className="text-sm text-[#6070a0]">Nenhum grupo para revisar.</p>}
+        {grupos.length === 0 && <p className="text-sm text-[#4f6b63]">Nenhum grupo para revisar.</p>}
 
         {grupos.map((grupo, indice) => {
           const nome = alunoId => grupo.alunos.find(aluno => aluno.alunoId === alunoId)?.nome || alunoId;
           return (
-            <article key={indice} className="border border-[#dce0f0] rounded-xl p-4 mb-3">
-              <h4 className="text-sm font-bold text-[#101942]">
+            <article key={indice} className="border border-[#d5e3dc] rounded-xl p-4 mb-3">
+              <h4 className="text-sm font-bold text-[#123c3a]">
                 Grupo {indice + 1} · {grupo.alunos.length} alunos
                 {Number.isFinite(grupo.similaridadeMaxima) && grupo.similaridadeMaxima > 0
                   ? ` · ${percentual(grupo.similaridadeMinima)} a ${percentual(grupo.similaridadeMaxima)}`
@@ -51,10 +51,10 @@ export function SimilaridadePainel({ grupos = [], onAbrir, onFechar }) {
 
               <ul className="mt-2 space-y-2">
                 {grupo.alunos.map(aluno => (
-                  <li key={aluno.alunoId} className="flex flex-col sm:flex-row sm:items-start gap-2 border-t border-slate-100 pt-2 first:border-0 first:pt-0">
+                  <li key={aluno.alunoId} className="flex flex-col sm:flex-row sm:items-start gap-2 border-t border-[#F3F7F5] pt-2 first:border-0 first:pt-0">
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-900">{aluno.nome || aluno.alunoId}</p>
-                      <p className="text-xs text-[#6070a0] whitespace-pre-wrap">{recortar(aluno.texto)}</p>
+                      <p className="text-sm font-medium text-[#123C3A]">{aluno.nome || aluno.alunoId}</p>
+                      <p className="text-xs text-[#4f6b63] whitespace-pre-wrap">{recortar(aluno.texto)}</p>
                     </div>
                     <button
                       type="button"
@@ -68,7 +68,7 @@ export function SimilaridadePainel({ grupos = [], onAbrir, onFechar }) {
               </ul>
 
               {grupo.pares?.length > 0 && (
-                <p className="text-[11px] text-[#6070a0] mt-2">
+                <p className="text-[11px] text-[#4f6b63] mt-2">
                   Pares: {grupo.pares.map(par => `${nome(par.a)} × ${nome(par.b)} ${percentual(par.similaridade)}`).join(' · ')}
                 </p>
               )}
