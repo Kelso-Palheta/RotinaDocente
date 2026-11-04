@@ -424,3 +424,7 @@ Arquivo complementar da correção: `tests/unit/components/agentes/AgentesHistor
 Contrato: `PALETA_PETROLEO_SALVIA_SPEC.md`. Novos arquivos `paleta_petroleo_salvia.test.js`, `paleta_complemento.test.js`, `paleta_notas_preservadas.test.js`, `paleta_superficies_escuras.test.js`: tokens, cinco pares de contraste, inventário de marca, estados de conexão/planos/PDF, preservação das faixas críticas de Analytics e legibilidade da marca no fundo escuro. RED/GREEN próprio documentado para os seis testes complementares.
 
 Com autorização expressa do usuário, apenas valores/nomes ligados às cores de marca foram atualizados em `padrao_visual_redacao.test.js`, `relatorios_pdf_cabecalho.test.js`, `relatorios_pdf_revisao.test.js`; asserções de notas, dados, fontes, margens e paginação preservadas. Suíte publicável e evidências em `docs/analises/2026-11-04-paleta-petroleo-salvia.md`. Logout local RN-83 não integra esta aprovação.
+
+## Hub — sequência dos módulos (04/11/2026)
+
+`HUB-ORDEM-01`, contrato em `HUB_ORDEM_SPEC.md`: `tests/unit/hub_ordem_modulos.test.js` garante a sequência pedida de todos os nove módulos no catálogo que o Dashboard renderiza, incluindo os bloqueados. IDs, nomes oficiais, ícones, descrições, caminhos, acesso, estrutura e cores permanecem.
