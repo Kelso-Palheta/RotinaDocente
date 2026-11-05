@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-regular-arte-112",
+  "ano": 2014,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Cavaquinho e violão no choro e no samba",
+  "habilidades": [],
+  "enunciado": "Por onde houve colonização portuguesa, a música popular se desenvolveu basicamente com o mesmo instrumental. Podemos ver cavaquinho e violão atuarem juntos aqui, em Cabo Verde, em Jacarta, na Indonésia, ou em Goa. O caráter nostálgico, sentimental, é outro ponto comum da música das colônias portuguesas em todo o mundo. O kronjong, a música típica de Jacarta, é uma espécie de lundu mais lento, tocado comumente com flauta, cavaquinho e violão. Em Goa não é muito diferente. De acordo com o texto de Henrique Cazes, grande parte da música popular desenvolvida nos países colonizados por Portugal compartilham um instrumental, destacando-se o cavaquinho e o violão. No Brasil, são exemplos de música popular que empregam esses mesmos instrumentos:",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Maracatu e ciranda."
+    },
+    {
+      "id": "B",
+      "texto": "Carimbó e baião."
+    },
+    {
+      "id": "C",
+      "texto": "Choro e samba."
+    },
+    {
+      "id": "D",
+      "texto": "Chula e siriri."
+    },
+    {
+      "id": "E",
+      "texto": "Xote e frevo."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Maracatu e ciranda destacam outras formações rítmicas e percussivas; não são o par instrumental característico solicitado.",
+    "B": "Carimbó e baião não formam o par tradicionalmente identificado pelo conjunto cavaquinho e violão.",
+    "C": "Choro e samba empregam de modo característico cavaquinho e violão em suas formações instrumentais brasileiras.",
+    "D": "Chula e siriri têm práticas e formações regionais distintas do conjunto destacado pelo texto.",
+    "E": "Xote e frevo não são os exemplos centrais do uso conjunto de cavaquinho e violão apresentado."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Cavaquinho e violão no choro e no samba. Choro e samba empregam de modo característico cavaquinho e violão em suas formações instrumentais brasileiras."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 112,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2014/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

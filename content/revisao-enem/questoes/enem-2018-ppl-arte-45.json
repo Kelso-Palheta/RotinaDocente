@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-45",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Frevo e o vocabulário dos passos",
+  "habilidades": [],
+  "enunciado": "Frevo Nino Pernambuquinho É o frevo Arrastando a multidão, fervendo. É na ponta do pé e no calcanhar É no calcanhar e na ponta do pé com a direita É na ponta do pé e no calcanhar com a esquerda Saci-pererê, saci-pererê com a direita Saci-pererê com a esquerda Girando, girando, girando no girassol É o frevo no pé e a sombrinha no ar. É na ponta do pé e no calcanhar Pisando em brasa Pisando em brasa porque o chão está pegando fogo Na Avenida Guararapes Arrastando o Galo da Madrugada Olha a tesoura, para cortar todos os males. É o frevo no pé e a sombrinha no ar. DUDA. Perré-bumbá. Recife: Gravadora Independente, 1998 (fragmento). A letra da canção apresenta o frevo como uma expressão da cultura corporal que pode ser reconhecida por meio da descrição de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "diversos ritmos."
+    },
+    {
+      "id": "B",
+      "texto": "diferentes passos."
+    },
+    {
+      "id": "C",
+      "texto": "distintos adereços."
+    },
+    {
+      "id": "D",
+      "texto": "vários personagens."
+    },
+    {
+      "id": "E",
+      "texto": "uso de instrumentos."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A letra se concentra numa mesma manifestação e não enumera vários ritmos musicais diferentes.",
+    "B": "Ponta do pé, calcanhar, saci-pererê, girassol e tesoura nomeiam movimentos que permitem reconhecer a dança.",
+    "C": "A sombrinha aparece como elemento visual, mas a descrição predominante é dos passos do frevo.",
+    "D": "O Galo da Madrugada integra a referência festiva, sem formar uma lista de personagens dançados.",
+    "E": "O trecho não descreve os instrumentos de uma orquestra; privilegia a realização corporal da dança."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Frevo e o vocabulário dos passos. Ponta do pé, calcanhar, saci-pererê, girassol e tesoura nomeiam movimentos que permitem reconhecer a dança."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

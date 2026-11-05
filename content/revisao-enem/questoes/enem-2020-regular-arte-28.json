@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-regular-arte-28",
+  "ano": 2020,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "MC Fioti, Bach e a criação por apropriação",
+  "habilidades": [],
+  "enunciado": "Leandro Aparecido Ferreira, o MC Fioti, compôs em 2017 a música Bum bum tam tam, que gerou, em nove meses, 480 milhões de visualizações no YouTube. É o funk brasileiro mais ouvido na história do site. A partir de uma gravação da flauta que achou na internet, MC Fioti fez tudo sozinho: compôs, cantou e produziu em uma noite só. “Comecei a pesquisar alguns tipos de flauta, coisas antigas. E nisso eu achei a ‘flautinha do Sebastian Bach’”, conta. A descoberta foi por acaso: Fioti não sabia quem era o músico alemão e não sabe tocar o instrumento. A “flauta envolvente” da música é um trecho da Partita em Lá menor, escrita pelo alemão Johann Sebastian Bach por volta de 1723. Disponível em: https://g1.globo.com. Acesso em: 6 jun. 2018 (adaptado). A incorporação de um trecho da obra para flauta solo de Johann Sebastian Bach na música de MC Fioti demonstra a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "influência permanente da cultura eurocêntrica nas produções musicais brasileiras."
+    },
+    {
+      "id": "B",
+      "texto": "homenagem aos referenciais estéticos que deram origem às produções da música popular."
+    },
+    {
+      "id": "C",
+      "texto": "necessidade de divulgar a música de concerto nos meios populares nas periferias das grandes cidades."
+    },
+    {
+      "id": "D",
+      "texto": "utilização desintencional de uma música excessivamente distante da realidade cultural dos jovens brasileiros."
+    },
+    {
+      "id": "E",
+      "texto": "inter-relação de elementos culturais vindos de realidades distintas na construção de uma nova proposta musical."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A apropriação não demonstra a submissão permanente da música brasileira a um centro cultural europeu.",
+    "B": "O relato descreve descoberta e reutilização sonora; não uma homenagem consciente à origem histórica da música popular.",
+    "C": "A proposta de Fioti não é apresentada como campanha para ensinar música de concerto nas periferias.",
+    "D": "O encontro casual não impede uma recriação deliberada do trecho numa nova composição musical.",
+    "E": "A combinação entre o trecho de Bach e o funk cria uma proposta com referências de contextos culturais diferentes."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "MC Fioti, Bach e a criação por apropriação. A combinação entre o trecho de Bach e o funk cria uma proposta com referências de contextos culturais diferentes."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 28,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-ppl-arte-127",
+  "ano": 2012,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Niemeyer: arquitetura moderna e integração à paisagem",
+  "habilidades": [],
+  "enunciado": "STUCKERT, R. Palácio da Alvorada. Disponível em: www.g1.globo.com. Acesso em: 28 abr. 2010. Rompendo com as paredes retas e com a geometrização clássica acadêmica, os arquitetos modernistas desenvolveram seus projetos graças também a um momento de industrialização e modernização do Brasil. Observando a imagem apresentada, analisa-se que",
+  "imagens": [
+    {
+      "id": "enem-2012-ppl-arte-127-figura-1",
+      "arquivo": "imagens/enem-2012-ppl-arte-127-figura-1.png",
+      "alt": "Palácio da Alvorada: fachada horizontal, colunas curvas e integração com o gramado e a paisagem.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "pagina": 17,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Niemeyer projetou os edifícios de Brasília com a intenção de impor a arquitetura sobre a natureza, seguindo os princípios da arquitetura moderna."
+    },
+    {
+      "id": "B",
+      "texto": "o Palácio da Alvorada, em Brasília, na posição horizontal permite fazer uma integração do edifício com a paisagem do cerrado e o horizonte, um conceito de vanguarda para a arquitetura da época."
+    },
+    {
+      "id": "C",
+      "texto": "Niemeyer projetou o Palácio da Alvorada com colunas de linhas quebradas e rígidas, com o propósito de unir as tendências recentes da arquitetura moderna, criando um novo estilo."
+    },
+    {
+      "id": "D",
+      "texto": "os prédios de Brasília são elevados e sustentados por colunas, deixando um espaço livre sob o edifício, com o objetivo de separar o ambiente externo do interno, trazendo mais harmonia à obra."
+    },
+    {
+      "id": "E",
+      "texto": "Niemeyer projetou os edifícios de Brasília com espaços amplos, colunas curvas, janelas largas e grades de proteção, separando os jardins e praças da área útil do prédio."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A construção não se impõe como barreira à natureza; sua composição estabelece diálogo com o entorno e a linha do horizonte.",
+    "B": "A horizontalidade do conjunto aproxima o edifício da paisagem do cerrado e do horizonte, integrando arquitetura e ambiente.",
+    "C": "As colunas são inovadoras, mas a alternativa enfatiza uma ruptura que não explica a integração paisagística solicitada.",
+    "D": "A elevação sobre apoios não tem como propósito isolar rigidamente o interior do exterior; a abertura favorece continuidade visual.",
+    "E": "O projeto não se caracteriza por grades protetoras que separem o edifício dos jardins, e sim pela relação com o espaço aberto."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Niemeyer: arquitetura moderna e integração à paisagem. A horizontalidade do conjunto aproxima o edifício da paisagem do cerrado e do horizonte, integrando arquitetura e ambiente."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 127,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 127,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

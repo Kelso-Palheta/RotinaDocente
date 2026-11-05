@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-regular-arte-39",
+  "ano": 2022,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Donald Judd e as formas sintéticas do minimalismo",
+  "habilidades": [],
+  "enunciado": "TEXTO I JUDD, D. Sem título. 1969. Disponível em: https://dasartes.com.br. Acesso em: 16 jun. 2022. TEXTO II Embora não fosse um grupo ou um movimento organizado, o Minimalismo foi um dos muitos rótulos (incluindo estruturas primárias, objetos unitários, arte ABC e Cool Art) aplicados pelos críticos para descrever estruturas aparentemente simples que alguns artistas estavam criando. Quando a arte minimalista começou a surgir, muitos críticos e um público opinativo julgaram-na fria, anônima e imperdoável. Os materiais industriais pré-fabricados frequentemente usados não pareciam “arte”. DEMPSEY, A. Estilos, escolas e movimentos. São Paulo: Cosac & Naify, 2003 (adaptado). De acordo com os textos I e II, compreende-se que a obra minimalista é uma",
+  "imagens": [
+    {
+      "id": "enem-2022-regular-arte-39-figura-1",
+      "arquivo": "imagens/enem-2022-regular-arte-39-figura-1.png",
+      "alt": "Escultura modular vertical formada por volumes retangulares alternados, com vãos entre os elementos.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "pagina": 17,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "representação da simplicidade pelo artista."
+    },
+    {
+      "id": "B",
+      "texto": "exploração da técnica da escultura cubista."
+    },
+    {
+      "id": "C",
+      "texto": "valorização do cotidiano por meio da geometria."
+    },
+    {
+      "id": "D",
+      "texto": "utilização da complexidade dos elementos formais."
+    },
+    {
+      "id": "E",
+      "texto": "combinação de formas sintéticas no espaço utilizado. - AZUL - 1a Aplicação 17"
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A aparência simples não deve ser confundida com uma expressão pessoal de simplicidade do artista.",
+    "B": "A obra não é uma aplicação da decomposição de objetos característica da escultura cubista.",
+    "C": "As estruturas industriais não se definem como representação de uma cena cotidiana por geometria.",
+    "D": "O minimalismo enfatiza redução e economia de elementos, não complexidade ornamental ou formal.",
+    "E": "A combinação de unidades e formas sintéticas organiza a percepção do objeto e do espaço em que se encontra."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Donald Judd e as formas sintéticas do minimalismo. A combinação de unidades e formas sintéticas organiza a percepção do objeto e do espaço em que se encontra."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 39,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-regular-arte-10",
+  "ano": 2021,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Son of Saul: ponto de vista e apreciação cinematográfica",
+  "habilidades": [],
+  "enunciado": "Intenso e original, Son of Saul retrata horror do holocausto Centenas de filmes sobre o holocausto já foram produzidos em diversos países do mundo, mas nenhum é tão intenso como o húngaro Son of Saul, do estreante em longa-metragens László Nemes, vencedor do Grande Prêmio do Júri no último Festival de Cannes. Ao contrário da grande maioria das produções do gênero, que costuma oferecer uma variedade de informações didáticas e não raro cruza diferentes pontos de vista sobre o horror do campo de concentração, o filme acompanha apenas um personagem. Ele é Saul (Géza Röhrig), um dos encarregados de conduzir as execuções de judeus como ele que, por um dia e meio, luta obsessivamente para que um menino já morto — que pode ou não ser seu filho — tenha um enterro digno e não seja simplesmente incinerado. O acompanhamento da jornada desse prisioneiro é no sentido mais literal que o cinema pode proporcionar: a câmera está o tempo todo com o personagem, seja por sobre seus ombros, seja com um close em primeiro plano ou em sua visão subjetiva. O que se passa ao seu redor é secundário, muitas vezes desfocado. Saul percorre diferentes divisões de Auschwitz à procura de um rabino que possa conduzir o enterro da criança, e por isso pouco se envolve nos planos de fuga que os companheiros tramam e, quando o faz, geralmente atrapalha. “Você abandonou os vivos para cuidar de um morto”, acusa um deles. Ver toda essa via crucis é por vezes duro e exige certa entrega do espectador, mas certamente é daquelas experiências cinematográficas que permanecem na cabeça por muito tempo. O longa já está sendo apontado como o grande favorito ao Oscar de filme estrangeiro. Se levar a estatueta, certamente não faltará quem diga que a Academia tem uma preferência por quem aborda a 2o Guerra. Por mais que exista uma dose de verdade na afirmação, premiar uma abordagem tão ousada e radical como Son of Saul não deixaria de ser um passo à frente dos votantes. Carta Capital, n. 873, 22 out. 2015. A resenha é, normalmente, um texto de base argumentativa. Na resenha do filme Son of Saul, o trecho da sequência argumentativa que se constitui como opinião implícita é",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "“[...] do estreante em longa-metragens László Nemes, vencedor do Grande Prêmio do Júri no último Festival de Cannes”."
+    },
+    {
+      "id": "B",
+      "texto": "“Ele é Saul (Géza Röhrig), um dos encarregados de conduzir as execuções de judeus [...]”."
+    },
+    {
+      "id": "C",
+      "texto": "“[...] a câmera está o tempo todo com o personagem, seja por sobre seus ombros, seja com um close [...]”."
+    },
+    {
+      "id": "D",
+      "texto": "“Saul percorre diferentes divisões de Auschwitz à procura de um rabino que possa conduzir o enterro da criança [...]”."
+    },
+    {
+      "id": "E",
+      "texto": "“[...] premiar uma abordagem tão ousada e radical como Son of Saul não deixaria de ser um passo à frente dos votantes”."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O trecho informa a estreia e um prêmio recebido; sua função predominante é apresentar dados da trajetória do diretor.",
+    "B": "A identificação do personagem e de sua função integra a descrição da narrativa, não uma avaliação implícita.",
+    "C": "A posição da câmera descreve um recurso de linguagem; o fragmento selecionado não conclui pela valorização da premiação.",
+    "D": "O percurso do personagem é uma informação do enredo e não a apreciação implícita solicitada.",
+    "E": "A hipótese de que premiar essa abordagem faria a Academia avançar pressupõe uma avaliação positiva da ousadia do filme."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Son of Saul: ponto de vista e apreciação cinematográfica. A hipótese de que premiar essa abordagem faria a Academia avançar pressupõe uma avaliação positiva da ousadia do filme."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 10,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

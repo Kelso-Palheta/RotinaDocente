@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-regular-arte-109",
+  "ano": 2016,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Marilá Dardot, A origem da obra de arte e a participação do espectador",
+  "habilidades": [
+    "Interpretar instalação contemporânea",
+    "Relacionar obra, espaço e ação do público"
+  ],
+  "enunciado": "A origem da obra de arte (2002) é uma instalação seminal na obra de Marilá Dardot. Apresentada originalmente em sua primeira exposição individual, no Museu de Arte da Pampulha, em Belo Horizonte, a obra constitui um convite para a interação do espectador, instigado a compor palavras e sentenças e a distribuí-las pelo campo. Cada letra tem o feitio de um vaso de cerâmica (ou será o contrário?) e, à disposição do espectador, encontram-se utensílios de plantio, terra e sementes. Para abrigar a obra e servir de ponto de partida para a criação dos textos, foi construído um pequeno galpão, evocando uma estufa ou um ateliê de jardinagem. As 1 500 letras-vaso foram produzidas pela cerâmica que funciona no Instituto Inhotim, em Minas Gerais, num processo que durou vários meses e contou com a participação de dezenas de mulheres das comunidades do entorno. Plantar palavras, semear ideias é o que nos propõe o trabalho. No contexto de Inhotim, onde natureza e arte dialogam de maneira privilegiada, esta proposição se torna, de certa maneira, mais perto da possibilidade.\n\nDisponível em: www.inhotim.org.br. Acesso em: 22 maio 2013 (adaptado).\n\nA função da obra de arte como possibilidade de experimentação e de construção pode ser constatada no trabalho de Marilá Dardot porque",
+  "imagens": [
+    {
+      "id": "instalacao-origem",
+      "arquivo": "imagens/enem-2016-regular-arte-109-instalacao.png",
+      "alt": "Vista da instalação A origem da obra de arte, de Marilá Dardot, com centenas de letras de cerâmica em forma de vaso espalhadas sobre a terra diante de um galpão.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "pagina": 9,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "o projeto artístico acontece ao ar livre."
+    },
+    {
+      "id": "B",
+      "texto": "o observador da obra atua como seu criador."
+    },
+    {
+      "id": "C",
+      "texto": "a obra integra-se ao espaço artístico e botânico."
+    },
+    {
+      "id": "D",
+      "texto": "as letras-vaso são utilizadas para o plantio de mudas."
+    },
+    {
+      "id": "E",
+      "texto": "as mulheres da comunidade participam na confecção das peças."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O galpão e o jardim fazem parte da instalação, mas estar ao ar livre não é o que demonstra a experimentação: o essencial é a ação do visitante.",
+    "B": "O espectador recebe letras-vaso, terra e sementes e é convidado a compor palavras e sentenças; ele deixa de apenas olhar e passa a criar.",
+    "C": "A integração com o jardim é o cenário escolhido, não a prova da função experimental e construtiva da obra.",
+    "D": "As letras têm forma de vaso, porém não são vasos utilitários para plantar mudas: o plantio é uma metáfora para semear palavras.",
+    "E": "As mulheres do entorno participam da confecção das peças, mas a questão pergunta como o público experimenta e constrói com a obra."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A instalação de Marilá Dardot desloca a ideia de obra acabada: o público recebe materiais e um espaço para compor textos. A arte contemporânea frequentemente transforma o espectador em participante, e a obra só se completa com essa ação."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "instalacao-origem",
+      "legenda": "Marilá Dardot, A origem da obra de arte, 2002. Instituto Inhotim."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 109,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

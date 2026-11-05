@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-regular-arte-20",
+  "ano": 2021,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Dança contemporânea e multimodalidade na internet",
+  "habilidades": [],
+  "enunciado": "Que tal transformar a internet em palco para a dança?\n\nO coreógrafo e bailarino Didier Mulleras se destaca como um dos criadores que descobriram a dança de outro ponto de vista. Mini@tures é uma experiência emblemática entre movimento, computador, internet e vídeo. Com os recursos da computação gráfica, a dança das miniaturas pode caber na palma da mão. Pelo fato de usar a internet como palco, o processo de criação das miniaturas de dança levou em consideração os limites de tempo de download e o tamanho de arquivo, para que um número maior de “espectadores” pudesse assistir. A graça das miniaturas está justamente na contaminação entre mídias: corpo/dança/computação gráfica/internet. De fato, é a rede que faz a maior diferença nesse grupo. Mini@tures explora uma nova dimensão que descobre o espaço-tempo da web e conquista um novo território para a dança contemporânea. A qualquer hora, dança on-line. SPANGHERO, M. A dança dos encéfalos acesos. São Paulo: Itaú Cultural, 2003 (adaptado). Considerado o primeiro projeto de dança contemporânea concebido para a rede, esse trabalho é apresentado como inovador por",
+  "imagens": [
+    {
+      "id": "enem-2021-regular-arte-20-figura-1",
+      "arquivo": "imagens/enem-2021-regular-arte-20-figura-1.png",
+      "alt": "Grade de registros de dança com diferentes poses corporais e enquadramentos para a internet.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "adotar uma perspectiva conceitual como contraposição à tradição de grandes espetáculos."
+    },
+    {
+      "id": "B",
+      "texto": "criar novas formas de financiamento ao utilizar a internet para divulgação das apresentações."
+    },
+    {
+      "id": "C",
+      "texto": "privilegiar movimentos gerados por computação gráfica, com a substituição do palco pela tela."
+    },
+    {
+      "id": "D",
+      "texto": "produzir uma arte multimodal, com o intuito de ampliar as possibilidades de expressão estética."
+    },
+    {
+      "id": "E",
+      "texto": "redefinir a extensão e o propósito do espetáculo para adaptá-lo ao perfil de diferentes usuários."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A inovação não depende de rejeitar conceitualmente todo espetáculo de grandes dimensões.",
+    "B": "O texto trata de criação e circulação estética, não de um novo modelo de financiamento.",
+    "C": "A computação não elimina o corpo do dançarino nem reduz a proposta à troca do palco por uma tela.",
+    "D": "Corpo, dança, vídeo, computação e rede se articulam, ampliando modos de produzir e experimentar a linguagem artística.",
+    "E": "Os limites técnicos são considerados, mas não constituem uma personalização do espetáculo para perfis individuais."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Dança contemporânea e multimodalidade na internet. Corpo, dança, vídeo, computação e rede se articulam, ampliando modos de produzir e experimentar a linguagem artística."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 20,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

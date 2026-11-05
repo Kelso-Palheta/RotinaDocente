@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-115",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Pixinguinha, iorubá e matrizes africanas",
+  "habilidades": [],
+  "enunciado": "Yaô Aqui có no terreiro Pelú adié Faz inveja pra gente Que não tem mulher No jacutá de preto velho Há uma festa de yaô Ôi tem nêga de Ogum De Oxalá, de Iemanjá Mucama de Oxossi é caçador Ora viva Nanã Nanã Buruku Yô yôo Yô yôoo No terreiro de preto velho iaiá Vamos saravá (a quem meu pai?) Xangô! VIANA, G. Agô, Pixinguinha! 100 Anos. Som Livre, 1997. A canção Yaô foi composta na década de 1930 por Pixinguinha, em parceria com Gastão Viana, que escreveu a letra. O texto mistura o português com o iorubá, língua usada por africanos escravizados trazidos para o Brasil. Ao fazer uso do iorubá nessa composição, o autor",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "promove uma crítica bem-humorada às religiões afrobrasileiras, destacando diversos orixás."
+    },
+    {
+      "id": "B",
+      "texto": "ressalta uma mostra da marca da cultura africana, que se mantém viva na produção musical brasileira."
+    },
+    {
+      "id": "C",
+      "texto": "evidencia a superioridade da cultura africana e seu caráter de resistência à dominação do branco."
+    },
+    {
+      "id": "D",
+      "texto": "deixa à mostra a separação racial e cultural que caracteriza a constituição do povo brasileiro."
+    },
+    {
+      "id": "E",
+      "texto": "expressa os rituais africanos com maior autenticidade, respeitando as referências originais."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A canção mobiliza referências religiosas sem construir uma crítica jocosa às religiões afro-brasileiras.",
+    "B": "A presença do iorubá e dos orixás evidencia a continuidade de matrizes africanas na música brasileira.",
+    "C": "Valorizar uma contribuição cultural não significa afirmar sua superioridade em relação a outras.",
+    "D": "A mistura de português e iorubá demonstra contato cultural, e não uma separação absoluta entre grupos.",
+    "E": "O uso de referências religiosas numa canção não garante uma reprodução integral e mais autêntica de rituais."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Pixinguinha, iorubá e matrizes africanas. A presença do iorubá e dos orixás evidencia a continuidade de matrizes africanas na música brasileira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 115,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

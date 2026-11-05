@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-ppl-arte-17",
+  "ano": 2021,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Hasegawa Tohaku e a contemplação zen",
+  "habilidades": [],
+  "enunciado": "TEXTO I\n\nTOHAKU, H. Floresta de pinheiros. Nanquim sobre papel, 1,56 m x 3,47 m. Museu Nacional de Tóquio, Japão, 1595. Disponível em: https://medium.com. Acesso em: 19 jun. 2019. TEXTO II Arte japonesa O zen (chán, em chinês) enfatiza a autoconfiança e a meditação, rejeitando os estudos tradicionais das escrituras budistas e a realização de complicados rituais. O zen foi introduzido no Japão no século XIII por monges japoneses que viajaram à China a fim de estudar as mais recentes doutrinas. A simplicidade e a autodisciplina rígida ensinadas pelos mestres zen atraíram a classe dos samurais (guerreiros), e muitos templos zen foram construídos no Japão entre os séculos XIII e XV. ARICHI, M. In: FARTHING, S. (Ed.). Tudo sobre arte. Rio de Janeiro: Sextante, 2011 (adaptado). A obra Floresta de pinheiros, do artista Hasegawa Tohaku, expressa influências do zen-budismo ao",
+  "imagens": [
+    {
+      "id": "enem-2021-ppl-arte-17-figura-1",
+      "arquivo": "imagens/enem-2021-ppl-arte-17-figura-1.png",
+      "alt": "Biombo de Hasegawa Tohaku com pinheiros em tinta preta diluída e amplos espaços claros.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "apresentar uma cena completa ao espectador."
+    },
+    {
+      "id": "B",
+      "texto": "criar uma atmosfera propícia à contemplação."
+    },
+    {
+      "id": "C",
+      "texto": "transmitir os valores de um ideal guerreiro."
+    },
+    {
+      "id": "D",
+      "texto": "desafiar os paradigmas estéticos vigentes."
+    },
+    {
+      "id": "E",
+      "texto": "mimetizar espaços de culto religioso."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "Os vazios e a síntese da paisagem não pretendem apresentar cada detalhe de uma cena integralmente preenchida.",
+    "B": "A economia de elementos e os espaços vazios favorecem uma experiência de silêncio e contemplação.",
+    "C": "A associação histórica do zen aos samurais não transforma a paisagem numa exaltação de valores guerreiros.",
+    "D": "A relação pedida é com princípios contemplativos do zen, não com uma ruptura de vanguarda contra a estética vigente.",
+    "E": "A paisagem não reproduz literalmente um templo ou outro espaço de culto religioso."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Hasegawa Tohaku e a contemplação zen. A economia de elementos e os espaços vazios favorecem uma experiência de silêncio e contemplação."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 17,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 17,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

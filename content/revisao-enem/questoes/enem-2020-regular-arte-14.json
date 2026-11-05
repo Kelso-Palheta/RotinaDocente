@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-regular-arte-14",
+  "ano": 2020,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Damien Hirst e os materiais da arte contemporânea",
+  "habilidades": [],
+  "enunciado": "TEXTO I HIRST, D. Mother and Child. Bezerro dividido em duas partes: 1029 x 1689 x 625mm, 1993 (detalhe). Vidro, aço pintado, silicone, acrílico, monofilamento, aço inoxidável, bezerro e solução de formaldeído. TEXTO II O grupo Jovens Artistas Britânicos (YABs), que surgiu no final da década de 1980, possui obras diversificadas que incluem fotografias, instalações, pinturas e carcaças desmembradas. O trabalho desses artistas chamou a atenção no final do período da recessão, por utilizar materiais incomuns, como esterco de elefantes, sangue e legumes, o que expressava os detritos da vida e uma atmosfera de niilismo, temperada por um humor mordaz. Disponível em: http://damienhirst.com. Acesso em: 15 jul. 2015. FARTHING, S. Tudo sobre arte. Rio de Janeiro: Sextante, 2011 (adaptado). A provocação desse grupo gera um debate em torno da obra de arte pelo(a)",
+  "imagens": [
+    {
+      "id": "enem-2020-regular-arte-14-figura-1",
+      "arquivo": "imagens/enem-2020-regular-arte-14-figura-1.png",
+      "alt": "Obra visual com vaca representada na superfície de um recipiente de leite.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "pagina": 8,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "recusa a crenças, convicções, valores morais, estéticos e políticos na história moderna."
+    },
+    {
+      "id": "B",
+      "texto": "frutífero arsenal de materiais e formas que se relacionam com os objetos construídos."
+    },
+    {
+      "id": "C",
+      "texto": "economia e problemas financeiros gerados pela recessão que tiveram grande impacto no mercado."
+    },
+    {
+      "id": "D",
+      "texto": "influência desse grupo junto aos estilos pós-modernos que surgiram nos anos 1990."
+    },
+    {
+      "id": "E",
+      "texto": "interesse em produtos indesejáveis que revela uma consciência sustentável no mercado."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O niilismo aparece no contexto, mas a questão destaca a variedade de materiais e suas relações na construção da obra.",
+    "B": "Materiais incomuns e formas diversas ampliam o debate sobre o que pode constituir uma obra de arte.",
+    "C": "A recessão situa historicamente o grupo, mas os problemas financeiros não explicam o procedimento artístico apresentado.",
+    "D": "O texto não fundamenta a provocação na influência do grupo sobre estilos posteriores.",
+    "E": "Usar matéria indesejada não equivale necessariamente a uma defesa da sustentabilidade no mercado de arte."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Damien Hirst e os materiais da arte contemporânea. Materiais incomuns e formas diversas ampliam o debate sobre o que pode constituir uma obra de arte."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 14,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

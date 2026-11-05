@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-regular-arte-124",
+  "ano": 2012,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Os Mutantes e a experimentação tropicalista",
+  "habilidades": [],
+  "enunciado": "Capa do LP Os Mutantes, 1968. Disponível em: http://mutantes.com. Acesso em: 28 fev. 2012. A capa do LP Os Mutantes, de 1968, ilustra o movimento da contracultura. O desafio à tradição nessa criação musical é caracterizado por",
+  "imagens": [
+    {
+      "id": "enem-2012-regular-arte-124-mutantes",
+      "arquivo": "imagens/enem-2012-regular-arte-124-mutantes.png",
+      "alt": "Figura original da questão 124: Os Mutantes e a experimentação tropicalista.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "pagina": 16,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "letras e melodias com características amargas e depressivas."
+    },
+    {
+      "id": "B",
+      "texto": "arranjos baseados em ritmos e melodias nordestinos."
+    },
+    {
+      "id": "C",
+      "texto": "sonoridades experimentais e confluência de elementos populares e eruditos."
+    },
+    {
+      "id": "D",
+      "texto": "temas que refletem situações domésticas ligadas à tradição popular."
+    },
+    {
+      "id": "E",
+      "texto": "ritmos contidos e reservados em oposição aos modelos estrangeiros."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O desafio à tradição não se define por letras amargas; o grupo combinava irreverência, invenção sonora e referências variadas.",
+    "B": "A música nordestina pode ser uma referência, mas o experimentalismo do grupo não se restringe a esses ritmos.",
+    "C": "O grupo articula sonoridades experimentais e referências populares e eruditas, rompendo fronteiras convencionais.",
+    "D": "A temática doméstica tradicional não explica a contracultura e a pesquisa sonora de Os Mutantes.",
+    "E": "O grupo dialoga com referências estrangeiras e experimenta arranjos; não defende ritmos reservados e isolamento cultural."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Os Mutantes e a experimentação tropicalista. O grupo articula sonoridades experimentais e referências populares e eruditas, rompendo fronteiras convencionais."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 124,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2012/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

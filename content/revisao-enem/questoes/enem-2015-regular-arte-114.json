@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-114",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Surrealismo e a subversão da representação em Magritte",
+  "habilidades": [
+    "Identificar procedimentos surrealistas",
+    "Interpretar o jogo entre imagem e reflexo"
+  ],
+  "enunciado": "MAGRITTE, R. A reprodução proibida. Óleo sobre tela, 81,3 x 65 cm. Museum Boijmans Van Buningen, Holanda, 1937.\n\nO Surrealismo configurou-se como uma das vanguardas artísticas europeias do início do século XX. René Magritte, pintor belga, apresenta elementos dessa vanguarda em suas produções. Um traço do Surrealismo presente nessa pintura é o(a)",
+  "imagens": [
+    {
+      "id": "magritte-reproducao",
+      "arquivo": "imagens/enem-2015-regular-arte-114-magritte.png",
+      "alt": "Pintura de René Magritte mostrando um homem de costas diante de um espelho que reflete as costas de sua cabeça, e não o rosto.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "pagina": 12,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "justaposição de elementos díspares, observada na imagem do homem no espelho."
+    },
+    {
+      "id": "B",
+      "texto": "crítica ao passadismo, exposta na dupla imagem do homem olhando sempre para frente."
+    },
+    {
+      "id": "C",
+      "texto": "construção de perspectiva, apresentada na sobreposição de planos visuais."
+    },
+    {
+      "id": "D",
+      "texto": "processo de automatismo, indicado na repetição da imagem do homem."
+    },
+    {
+      "id": "E",
+      "texto": "procedimento de colagem, identificado no reflexo do livro no espelho."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O espelho deveria refletir o rosto, mas mostra as costas da cabeça: Magritte justapõe o esperado e o impossível, produzindo estranhamento surrealista.",
+    "B": "A obra não critica o passadismo nem afirma uma dupla imagem voltada ao futuro; ela joga com a lógica do reflexo.",
+    "C": "A perspectiva é construída com rigor, mas não é o traço surrealista destacado pela questão.",
+    "D": "Não há automatismo na repetição: a imagem é calculada e precisa, típica do surrealismo de Magritte.",
+    "E": "Não há colagem: a cena é pintada, e o livro aparece como elemento da composição."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Magritte pinta cenas realistas com uma lógica impossível. Em A reprodução proibida, o reflexo não corresponde ao corpo, e o espectador é obrigado a duvidar da representação. Esse estranhamento é uma marca do Surrealismo."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "magritte-reproducao",
+      "legenda": "René Magritte, A reprodução proibida, 1937."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 114,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

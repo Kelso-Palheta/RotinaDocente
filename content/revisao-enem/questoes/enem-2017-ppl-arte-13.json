@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-13",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Flávio de Carvalho e a performance New Look",
+  "habilidades": [],
+  "enunciado": "CARVALHO, F. R. New Look, Experiência n. 3, 1956. Disponível em: www.carbonoquatorze.com.br. Acesso em: 3 mar. 2012. Em 1956, o artista Flávio de Resende Carvalho desfilou pela Avenida Paulista com o traje New Look, uma proposta tropical para o guarda-roupa masculino. Suas obras mais conhecidas são relacionadas às performances. A imagem permite relacionar como características dessa manifestação artística o uso",
+  "imagens": [
+    {
+      "id": "enem-2017-ppl-arte-13-figura-1",
+      "arquivo": "imagens/enem-2017-ppl-arte-13-figura-1.png",
+      "alt": "Fotografia de Flávio de Carvalho em experiência pública com traje masculino de saia e mangas curtas.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "da intimidade, da política e do corpo."
+    },
+    {
+      "id": "B",
+      "texto": "do público, da ironia e da dor."
+    },
+    {
+      "id": "C",
+      "texto": "do espaço urbano, da intimidade e do drama."
+    },
+    {
+      "id": "D",
+      "texto": "da moda, do drama e do humor."
+    },
+    {
+      "id": "E",
+      "texto": "do corpo, da provocação e da moda."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A ação ocorre publicamente e não se define pela exploração da intimidade pessoal do artista.",
+    "B": "O estranhamento pode provocar ironia, mas a dor não constitui o elemento apresentado na experiência.",
+    "C": "O espaço urbano é importante, mas intimidade e drama não descrevem o gesto público de vestir o traje.",
+    "D": "O traje dialoga com a moda, mas o drama não é a característica principal dessa manifestação.",
+    "E": "O corpo vestido e a provocação às convenções da moda masculina constituem a performance apresentada."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Flávio de Carvalho e a performance New Look. O corpo vestido e a provocação às convenções da moda masculina constituem a performance apresentada."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 13,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

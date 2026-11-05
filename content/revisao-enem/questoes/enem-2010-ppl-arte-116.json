@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-ppl-arte-116",
+  "ano": 2010,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Dança e diversidade das expressões culturais",
+  "habilidades": [],
+  "enunciado": "Não é raro ouvirmos falar que o Brasil é o país das danças ou um país dançante. Essa nossa “fama” é bem pertinente, se levarmos em consideração a diversidade de manifestações rítmicas e expressivas existentes de Norte a Sul. Sem contar a imensa repercussão de nível internacional de algumas delas. Danças trazidas pelos africanos escravizados, danças relativas aos mais diversos rituais, danças trazidas pelos imigrantes etc. Algumas preservam suas características e pouco se transformaram com o passar do tempo, como o forró, o maxixe, o xote, o frevo. Outras foram criadas e são recriadas a cada instante: inúmeras influências são incorporadas, e as danças transformam-se, multiplicamse. Nos centros urbanos, existem danças como o funk, o hip hop, as danças de rua e de salão. É preciso deixar claro que não há jeito certo ou errado de dançar. Todos podem dançar, independentemente de biótipo, etnia ou habilidade, respeitando-se as diferenciações de ritmos e estilos individuais. GASPARI, T. C. Dança e educação física na escola: implicações para a prática pedagógica. Rio de Janeiro: Guanabara Koogan, 2008 (adaptado). Com base no texto, verifica-se que a dança, presente em todas as épocas, espaços geográficos e culturais, é uma",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "prática corporal que conserva inalteradas suas formas, independentemente das influências culturais da sociedade."
+    },
+    {
+      "id": "B",
+      "texto": "forma de expressão corporal baseada em gestos padronizados e realizada por quem tem habilidade para dançar."
+    },
+    {
+      "id": "C",
+      "texto": "manifestação rítmica e expressiva voltada para as apresentações artísticas, sem que haja preocupação com a linguagem corporal."
+    },
+    {
+      "id": "D",
+      "texto": "prática que traduz os costumes de determinado povo ou região e está restrita a este."
+    },
+    {
+      "id": "E",
+      "texto": "representação das manifestações, expressões, comunicações e características culturais de um povo."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O texto descreve danças que incorporam influências e se recriam; suas formas não permanecem sempre inalteradas.",
+    "B": "A prática não é privilégio de pessoas habilidosas nem depende de gestos universalmente padronizados.",
+    "C": "A dança também é comunicação corporal e vivência cultural, não apenas apresentação para um público.",
+    "D": "Uma dança pode circular, ser apropriada e transformada em outros contextos; não fica restrita à origem.",
+    "E": "A dança expressa e comunica experiências e características culturais de diferentes comunidades."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Dança e diversidade das expressões culturais. A dança expressa e comunica experiências e características culturais de diferentes comunidades."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

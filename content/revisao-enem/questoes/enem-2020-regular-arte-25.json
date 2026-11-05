@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-regular-arte-25",
+  "ano": 2020,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Joseph Kosuth e a arte conceitual",
+  "habilidades": [],
+  "enunciado": "KOSUTH, J. One and Three Chairs. Museu Reina Sofia, Espanha, 1965. Disponível em: www.museoreinasofia.es. Acesso em: 4 jun. 2018 (adaptado). A obra de Joseph Kosuth data de 1965 e se constitui por uma fotografia de cadeira, uma cadeira exposta e um quadro com o verbete “Cadeira”. Trata-se de um exemplo de arte conceitual que revela o paradoxo entre verdade e imitação, já que a arte",
+  "imagens": [
+    {
+      "id": "enem-2020-regular-arte-25-figura-1",
+      "arquivo": "imagens/enem-2020-regular-arte-25-figura-1.png",
+      "alt": "Obra de Joseph Kosuth com cadeira, fotografia da cadeira e definição textual expostas lado a lado.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "não é a realidade, mas uma representação dela."
+    },
+    {
+      "id": "B",
+      "texto": "fundamenta-se na repetição, construindo variações."
+    },
+    {
+      "id": "C",
+      "texto": "não se define, pois depende da interpretação do fruidor."
+    },
+    {
+      "id": "D",
+      "texto": "resiste ao tempo, beneficiada por múltiplas formas de registro."
+    },
+    {
+      "id": "E",
+      "texto": "redesenha a verdade, aproximando-se das definições lexicais."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Objeto, fotografia e definição colocam em confronto a coisa e suas representações, que não se confundem com a realidade.",
+    "B": "As três apresentações não são apenas repetições formais; pertencem a sistemas de representação diferentes.",
+    "C": "A participação interpretativa do público não elimina o problema específico entre realidade e representação.",
+    "D": "O tema central não é a duração da obra no tempo nem a vantagem de registrar objetos por vários meios.",
+    "E": "A definição lexical é uma das representações, e não uma verdade final a que a obra deve se ajustar."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Joseph Kosuth e a arte conceitual. Objeto, fotografia e definição colocam em confronto a coisa e suas representações, que não se confundem com a realidade."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 25,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

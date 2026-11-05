@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-ppl-arte-100",
+  "ano": 2013,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Rosana Paulino e os suportes da arte contemporânea",
+  "habilidades": [],
+  "enunciado": "PAULINO, R. Bastidores (detalhe),1997. Xerox transferida e costurada sobre tecido montado em bastidor. Disponível em: www.galeriavirgilio.com.br. Acesso em: 29 out. 2010. Nas últimas décadas, a ruptura, o efêmero, o descartável incorporam-se cada vez mais ao fazer artístico, em consonância com a pós-modernidade. No detalhe da obra Bastidores, percebe-se a",
+  "imagens": [
+    {
+      "id": "enem-2013-ppl-arte-100-bastidores",
+      "arquivo": "imagens/enem-2013-ppl-arte-100-bastidores.png",
+      "alt": "Figura original da questão 100: Rosana Paulino e os suportes da arte contemporânea.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "utilização de objetos do cotidiano como tecido, bastidores, agulha, linha e fotocópia, que tornam a obra de abrangência regional."
+    },
+    {
+      "id": "B",
+      "texto": "ruptura com meios e suportes tradicionais por utilizar objetos do cotidiano, dando-lhes novo sentido condizente."
+    },
+    {
+      "id": "C",
+      "texto": "apropriação de materiais e objetos do cotidiano, que conferem à obra um resultado inacabado."
+    },
+    {
+      "id": "D",
+      "texto": "apropriação de objetos de uso cotidiano das mulheres, o que confere à obra um caráter feminista."
+    },
+    {
+      "id": "E",
+      "texto": "aplicação de materiais populares, o que a caracteriza como obra de arte utilitária."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "Materiais cotidianos não restringem a obra a uma abrangência regional; eles integram sua linguagem e seus sentidos.",
+    "B": "A apropriação de tecido, bastidor, costura e fotocópia ressignifica objetos cotidianos e rompe limites de suporte.",
+    "C": "O uso desses materiais é uma escolha artística; não demonstra que a obra tenha ficado inacabada.",
+    "D": "A obra permite debate sobre gênero, mas o procedimento solicitado é a ruptura e a ressignificação dos suportes cotidianos.",
+    "E": "O bastidor é deslocado de seu uso habitual; a obra não se reduz a um objeto utilitário de artesanato."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Rosana Paulino e os suportes da arte contemporânea. A apropriação de tecido, bastidor, costura e fotocópia ressignifica objetos cotidianos e rompe limites de suporte."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 100,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 100,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

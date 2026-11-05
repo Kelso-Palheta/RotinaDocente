@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-ppl-arte-107",
+  "ano": 2014,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Foco e imaginação nos jogos teatrais",
+  "habilidades": [],
+  "enunciado": "O termo Foco equivale ao ponto de concentração do ator. O nível de concentração é determinado pelo envolvimento com o problema a ser solucionado. Tomemos o exemplo do jogo teatral Cabo de Guerra: o Foco desse jogo reside em dar realidade ao objeto, que nesse caso é a corda imaginária. A dupla de jogadores no palco mobiliza toda sua atenção e energia para dar realidade à corda. Quando a concentração é plena, a dupla sai do jogo com toda evidência de ter realmente jogado o Cabo de Guerra — sem fôlego, com dor nos músculos do braço etc. A plateia observa em função do Foco. KOUDELA, I. D. Jogos teatrais. São Paulo: Perspectiva, 1990. De acordo com o texto, a autora argumenta que o uso do foco da cena teatral permite",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "transformar um objeto imaginário em um objeto concreto, produzindo sobre o espectador uma sensação igual à que ele teria em um espetáculo de mágica."
+    },
+    {
+      "id": "B",
+      "texto": "produzir sobre a plateia, por meio do envolvimento dos atores, imagens e/ou situações capazes de ativar seu imaginário e seu conhecimento de mundo."
+    },
+    {
+      "id": "C",
+      "texto": "provocar efeito físico no ator, o que lhe confere a certeza de que seu corpo foi trabalhado adequadamente para a produção da cena."
+    },
+    {
+      "id": "D",
+      "texto": "acionar no ator a atenção a múltiplas ações que ocorrem concomitantemente, tornando-o mais disponível para a atuação em cena."
+    },
+    {
+      "id": "E",
+      "texto": "determinar uma única leitura da ação proposta, explicitando qual entendimento o espectador deve ter da cena."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O objeto permanece imaginário; a atuação lhe dá realidade cênica, não existência material como em um truque de mágica.",
+    "B": "A concentração dos atores constrói uma situação perceptível que mobiliza o imaginário e a experiência da plateia.",
+    "C": "O cansaço pode evidenciar o envolvimento, mas não é a finalidade comunicativa principal do foco teatral.",
+    "D": "O foco concentra a atenção em um problema cênico; não consiste em dispersá-la entre muitas ações simultâneas.",
+    "E": "A participação imaginativa da plateia não exige uma interpretação única determinada antecipadamente."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Foco e imaginação nos jogos teatrais. A concentração dos atores constrói uma situação perceptível que mobiliza o imaginário e a experiência da plateia."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 107,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_PV_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_GB_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

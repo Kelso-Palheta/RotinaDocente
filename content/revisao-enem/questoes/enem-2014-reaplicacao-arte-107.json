@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-reaplicacao-arte-107",
+  "ano": 2014,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Danças folclóricas e vida comunitária",
+  "habilidades": [],
+  "enunciado": "Essa forma de dança social (folclórica) desenvolveuse como parte dos costumes e tradições de um povo que expressa sua manifestação cultural. Transmitida de geração a geração, é uma das formas de dança mais antigas, datando desde a época das culturas tribais evoluídas que estabeleceram ligação com as grandes civilizações da história da humanidade. A principal característica dessa dança é a integração, socialização, prazer, divertimento, respeito aos costumes e tradições. HASS, A. N; GARCIA, A. Ritmo e Dança. Canoas: Ulbra, 2003 (fragmento). As danças folclóricas, sendo uma expressão das diferentes manifestações da dança",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "distinguem-se das demais pelo refinamento técnico dos seus gestos e movimentos e pela complexidade dos seus elementos coreográficos."
+    },
+    {
+      "id": "B",
+      "texto": "compreendem expressões culturais brasileiras diversificadas como o maracatu, o funk, a catira, o boi-bumbá, o hip hop e o baião."
+    },
+    {
+      "id": "C",
+      "texto": "são contextuais, pois seus gestos e coreografias fazem referência a situações da vida cotidiana e/ou expressam visões de mundo de uma comunidade."
+    },
+    {
+      "id": "D",
+      "texto": "possuem qualidades rítmicas e expressivas secundárias em relação aos significados sociais, culturais e representacionais."
+    },
+    {
+      "id": "E",
+      "texto": "reforçam tendências de massificação social e de dispersão de sentidos da vida comunitária, favorecendo a universalização de valores culturais."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Refinamento técnico e complexidade coreográfica não definem o caráter folclórico de uma manifestação.",
+    "B": "A lista mistura manifestações de trajetórias distintas; nem todo gênero popular citado é classificado como dança folclórica.",
+    "C": "Gestos e coreografias expressam experiências cotidianas e visões de mundo das comunidades em que se desenvolvem.",
+    "D": "Ritmo e expressão não são dimensões secundárias que possam ser separadas do significado cultural da dança.",
+    "E": "A transmissão comunitária tende a preservar e recriar sentidos locais, não a dispersá-los em uma cultura massificada universal."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Danças folclóricas e vida comunitária. Gestos e coreografias expressam experiências cotidianas e visões de mundo das comunidades em que se desenvolvem."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 107,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_GB_terceira_aplicacao_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

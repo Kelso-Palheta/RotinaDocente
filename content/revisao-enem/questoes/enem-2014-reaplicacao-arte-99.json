@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-reaplicacao-arte-99",
+  "ano": 2014,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Cordel, oralidade e memória cultural",
+  "habilidades": [],
+  "enunciado": "A literatura de cordel é ainda considerada, por muitos, uma literatura menor. A alma do homem não é mensurável e — desde que o cordel possa exprimir a história, a ideologia e os sentimentos de qualquer homem — vai ser sempre o gênero literário preferido de quem procura apreender o espírito nordestino. Os costumes, a língua, os sonhos, os medos e as alegrias do povo estão no cordel. Na nossa época, apesar dos jornais e da TV — que poderiam ter feito diminuir o interesse neste tipo de literatura — e da falta de apoio econômico, o cordel continua vivo no interior e em cenáculos acadêmicos. A literatura de cordel, as xilogravuras e o repente não foram apenas um divertimento do povo. Cordéis e cantorias foram o professor que ensinava as primeiras letras e o médico que falava para inculcar comportamentos sanitários. O cordel e o repente fazem, muitas vezes, de um candidato o ganhador da banca de deputado. E assim, lendo e ouvindo, foi-se formando a memória coletiva desse povo alegre e trabalhador, que embora calmo, enfrenta o mar e o sertão com a mesma valentia. BRICKMANN, L. B. E de repente foi o cordel. Disponível em: http://pt.scribd.com. Acesso em: 29 fev. 2012 (fragmento). O gênero textual cordel, também conhecido como folheto, tem origem em relatos orais e constitui uma forma literária popular no Brasil. A leitura do texto sobre a literatura de cordel permite",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "descrever esse gênero textual exclusivamente como instrumento político."
+    },
+    {
+      "id": "B",
+      "texto": "valorizar o povo nordestino, que tem no cordel sua única forma de expressão."
+    },
+    {
+      "id": "C",
+      "texto": "ressaltar sua importância e preservar a memória cultural de nosso povo."
+    },
+    {
+      "id": "D",
+      "texto": "avaliar o baixo custo econômico dos folhetos expostos em barbantes."
+    },
+    {
+      "id": "E",
+      "texto": "informar aos leitores o baixo valor literário desse tipo de produção."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O texto apresenta funções educativas, culturais e sociais do cordel; sua atuação não se restringe exclusivamente à propaganda política.",
+    "B": "A valorização do povo nordestino não significa que o cordel seja sua única linguagem ou forma de expressão.",
+    "C": "O texto reconhece o cordel como registro de costumes, sentimentos e experiências, destacando sua importância para preservar a memória cultural coletiva.",
+    "D": "O baixo preço de folhetos não é o argumento central: o texto enfatiza seus sentidos culturais e sua permanência social.",
+    "E": "A leitura contesta a desvalorização do cordel; não procura convencer o leitor de que essa produção tem baixo valor literário."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Cordel, oralidade e memória cultural. O texto reconhece o cordel como registro de costumes, sentimentos e experiências, destacando sua importância para preservar a memória cultural coletiva."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 99,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_GB_terceira_aplicacao_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

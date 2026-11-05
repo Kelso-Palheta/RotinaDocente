@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-35",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Texto dramático, encenação e analogia",
+  "habilidades": [],
+  "enunciado": "O comportamento do público, em geral, parece indicar o seguinte: o texto da peça de teatro não basta em si mesmo, não é uma obra de arte completa, pois ele só se realiza plenamente quando levado ao palco. Para quem pensa assim, ler um texto dramático equivale a comer a massa do bolo antes de ele ir para o forno. Mas ele só fica pronto mesmo depois que os atores deram vida àquelas emoções; que cenógrafos compuseram os espaços, refletindo externamente os conflitos internos dos envolvidos; que os figurinistas vestiram os corpos sofredores em movimento. LACERDA, R. Leitores. Metáfora, n. 7, abr. 2012. Em um texto argumentativo, podem-se encontrar diferentes estratégias para guiar o leitor por um raciocínio e chegar a determinada conclusão. Para defender sua ideia a favor da incompletude do texto dramático fora do palco, o autor usa como estratégia argumentativa a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "comoção."
+    },
+    {
+      "id": "B",
+      "texto": "analogia."
+    },
+    {
+      "id": "C",
+      "texto": "identificação."
+    },
+    {
+      "id": "D",
+      "texto": "contextualização."
+    },
+    {
+      "id": "E",
+      "texto": "enumeração."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O raciocínio não depende de emocionar o leitor com sofrimento; compara dois processos de realização.",
+    "B": "Comparar o texto ainda não encenado à massa do bolo antes de assar constitui uma analogia argumentativa.",
+    "C": "Não se pede ao leitor que se reconheça numa personagem; a defesa da ideia é construída pela comparação.",
+    "D": "O contexto teatral é apresentado, mas a estratégia decisiva é a aproximação entre teatro e preparação de um bolo.",
+    "E": "A lista de profissionais reforça a ideia, mas a imagem comparativa é o recurso que a organiza."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Texto dramático, encenação e analogia. Comparar o texto ainda não encenado à massa do bolo antes de assar constitui uma analogia argumentativa."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 35,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 20,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

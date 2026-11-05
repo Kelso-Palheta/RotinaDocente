@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-117",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Diversidade artística e base antropológica",
+  "habilidades": [],
+  "enunciado": "Ao se apossarem do novo território, os europeus ignoraram um universo de antiga sabedoria, povoado por homens e bens unidos por um sistema integrado. A recusa em se inteirar dos valores culturais dos primeiros habitantes levou-os a uma descrição simplista desses grupos e à sua sucessiva destruição. Na verdade, não existe uma distinção entre a nossa arte e aquela produzida por povos tecnicamente menos desenvolvidos. As duas manifestações devem ser encaradas como expressões diferentes dos modos de sentir e pensar das várias sociedades, mas também como equivalentes, por resultarem de impulsos humanos comuns. SCATAMACHIA, M. C. M. In: AGUILAR, N. (Org.). Mostra do redescobrimento: arqueologia. São Paulo: Fundação Bienal de São Paulo – Associação Brasil 500 anos artes visuais, 2000. De acordo com o texto, inexiste distinção entre as artes produzidas pelos colonizadores e pelos colonizados, pois ambas compartilham o(a)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "suporte artístico."
+    },
+    {
+      "id": "B",
+      "texto": "nível tecnológico."
+    },
+    {
+      "id": "C",
+      "texto": "base antropológica."
+    },
+    {
+      "id": "D",
+      "texto": "concepção estética."
+    },
+    {
+      "id": "E",
+      "texto": "referencial temático."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Materiais e suportes podem variar profundamente entre sociedades, sem invalidar seu valor artístico.",
+    "B": "O texto reconhece diferenças tecnológicas e rejeita utilizá-las como hierarquia de valor entre as artes.",
+    "C": "As manifestações compartilham impulsos humanos de criação e expressão, embora pertençam a culturas diferentes.",
+    "D": "Concepções de beleza e organização formal variam; não constituem uma estética universal idêntica.",
+    "E": "Os temas e os referenciais culturais também podem ser distintos, sem eliminar a equivalência humana das produções."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Diversidade artística e base antropológica. As manifestações compartilham impulsos humanos de criação e expressão, embora pertençam a culturas diferentes."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 117,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-ppl-arte-127",
+  "ano": 2016,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Presença e disponibilidade do corpo na dança",
+  "habilidades": [],
+  "enunciado": "Se o dançarino já preparou toda a sensação antes, ele não está no vazio... já está acabado. Nesse momento (vazio) é o seu corpo que está dizendo algo, não é você. Quando o ator está nesse momento de desistir, é nesse momento que ele deve continuar; é nesse momento que chega algo para quem está assistindo. Não importa tanto a coreografia e todo esse trabalho. O mais importante é isso, o vazio, e como você continua com isso... COLLA, A. C. Caminhante, não há caminhos, só rastros. São Paulo: Perspectiva, 2013. O texto considera que um corpo vazio (de som, sentimento e pensamento) pode fazer qualquer coisa. Nessa concepção, a atuação do dançarino alcança o ápice de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "inércia em cena."
+    },
+    {
+      "id": "B",
+      "texto": "transcendência de si."
+    },
+    {
+      "id": "C",
+      "texto": "significação do preparo."
+    },
+    {
+      "id": "D",
+      "texto": "ausência de comunicação."
+    },
+    {
+      "id": "E",
+      "texto": "consciência do movimento."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O vazio proposto não é imobilidade: ele permite que uma ação e uma sensação novas emerjam em cena.",
+    "B": "A disponibilidade corporal permite ultrapassar o controle prévio e a experiência pessoal já preparada pelo intérprete.",
+    "C": "O texto desloca o foco da sensação ensaiada antecipadamente para o acontecimento do presente.",
+    "D": "O encontro com o espectador se intensifica; não se busca interromper a comunicação cênica.",
+    "E": "A questão não reduz a experiência a fiscalizar conscientemente cada movimento já previsto."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Presença e disponibilidade do corpo na dança. A disponibilidade corporal permite ultrapassar o controle prévio e a experiência pessoal já preparada pelo intérprete."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 127,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2016/gabarito_caderno_cinza_13_2016.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

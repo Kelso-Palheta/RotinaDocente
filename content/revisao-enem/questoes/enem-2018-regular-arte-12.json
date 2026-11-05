@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-regular-arte-12",
+  "ano": 2018,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Audiodescrição e acesso à experiência artística",
+  "habilidades": [],
+  "enunciado": "Deficientes visuais já podem ir a algumas salas de cinema e teatros para curtir, em maior intensidade, as atrações em cartaz. Quem ajuda na tarefa é o aplicativo Whatscine, recém-chegado ao Brasil e disponível para os sistemas operacionais iOS (Apple) ou Android (Google). Ao ser conectado à rede wi-fi de cinemas e teatros, o app sincroniza um áudio que descreve o que ocorre na tela ou no palco com o espetáculo em andamento: o usuário, então, pode ouvir a narração em seu celular. O programa foi desenvolvido por pesquisadores da Universidade Carlos III, em Madri. “Na Espanha, 200 salas de cinema já oferecem o recurso e filmes de grandes estúdios já são exibidos com o recurso do Whatscine!”, diz o brasileiro Luis Mauch, que trouxe a tecnologia para o país. “No Brasil, já fechamos parceria com a São Paulo Companhia de Dança para adaptar os espetáculos deles! Isso já é um avanço. Concorda?” Disponível em: http://veja.abril.com.br. Acesso em: 25 jun. 2014 (adaptado). Por ser múltipla e apresentar peculiaridades de acordo com a intenção do emissor, a linguagem apresenta funções diferentes. Nesse fragmento, predomina a função referencial da linguagem, porque há a presença de elementos que",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "buscam convencer o leitor, incitando o uso do aplicativo."
+    },
+    {
+      "id": "B",
+      "texto": "definem o aplicativo, revelando o ponto de vista da autora."
+    },
+    {
+      "id": "C",
+      "texto": "evidenciam a subjetividade, explorando a entonação emotiva."
+    },
+    {
+      "id": "D",
+      "texto": "expõem dados sobre o aplicativo, usando linguagem denotativa."
+    },
+    {
+      "id": "E",
+      "texto": "objetivam manter um diálogo com o leitor, recorrendo a uma indagação."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A matéria informa funcionamento e uso do recurso; a intenção predominante não é ordenar ou incitar a adoção do aplicativo.",
+    "B": "O texto descreve o aplicativo sem organizar sua definição como manifestação subjetiva da autora.",
+    "C": "O fragmento privilegia informação objetiva, não a expressão emotiva como função dominante.",
+    "D": "Os dados sobre desenvolvimento, funcionamento e utilização do aplicativo caracterizam o predomínio da função referencial.",
+    "E": "A pergunta final aproxima o leitor, mas não substitui o predomínio informativo do fragmento."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Audiodescrição e acesso à experiência artística. Os dados sobre desenvolvimento, funcionamento e utilização do aplicativo caracterizam o predomínio da função referencial."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 12,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_AZUL.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

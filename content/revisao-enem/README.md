@@ -1,45 +1,57 @@
 # Acervo de Arte do ENEM — Revisão ao Vivo
 
-**Entrega parcial: 48 questões únicas, 36 imagens, nenhuma questão liberada para uso em sala.** Consulta e revisão técnica: 04/11/2026.
+**197 questões únicas, 124 imagens, 2009–2025. Nenhuma questão liberada para uso em sala.** Consulta técnica: 05/11/2026. O acervo continua **parcial**: representar todos os anos não demonstra levantamento de todas as questões de Arte.
 
-## Cobertura atual
+## Cobertura catalogada
 
-| Ano | Aplicação | Questões únicas |
-| --- | --- | --- |
-| 2019 | Regular | 6 |
-| 2019 | PPL/reaplicação compartilhadas | 4 |
-| 2023 | Regular | 5 |
-| 2023 | PPL/reaplicação compartilhadas | 6 |
-| 2024 | Regular | 7 |
-| 2024 | PPL/reaplicação compartilhadas | 6 |
-| 2025 | Regular nacional | 5 |
-| 2025 | Regular regional (Belém/Ananindeua/Marituba) | 6 |
-| 2025 | Reaplicação nacional | 3 |
+| Ano | Únicas | Regular | PPL | Reaplicação |
+| --- | ---: | ---: | ---: | ---: |
+| 2009 | 4 | 4 | 0 | 0 |
+| 2010 | 9 | 5 | 4 | 4 |
+| 2011 | 5 | 5 | 0 | 0 |
+| 2012 | 8 | 4 | 4 | 4 |
+| 2013 | 9 | 5 | 4 | 4 |
+| 2014 | 17 | 7 | 5 | 5 |
+| 2015 | 13 | 7 | 6 | 6 |
+| 2016 | 18 | 6 | 5 | 7 |
+| 2017 | 16 | 7 | 9 | 9 |
+| 2018 | 14 | 5 | 9 | 9 |
+| 2019 | 11 | 7 | 4 | 4 |
+| 2020 | 8 | 6 | 2 | 2 |
+| 2021 | 9 | 6 | 3 | 3 |
+| 2022 | 11 | 6 | 5 | 5 |
+| 2023 | 15 | 8 | 7 | 7 |
+| 2024 | 14 | 8 | 6 | 6 |
+| 2025 | 16 | 11 | 0 | 5 |
 
-Os IDs das questões de 2024 compartilhadas continuam contendo `ppl` para preservar identidade; `aplicacoes` e `fontes` incluem também `reaplicacao`. Não são 12 questões diferentes. Cor do caderno não cria outra questão.
+As colunas de aplicação não devem ser somadas: várias questões são compartilhadas. A identidade é única, com referências específicas por caderno, número impresso e página do PDF. Em 2017, nove questões do caderno PPL também aparecem no caderno azul da reaplicação, com numeração diferente; as referências foram associadas sem duplicar os registros.
 
-## Revisão e uso
+Os seis IDs legados `enem-2025-reaplicacao-d3-*` pertencem à aplicação **regular regional de Belém/Ananindeua/Marituba**, identificada em `edicao`. Permanecem estáveis; não inferir modalidade pelo ID. A reaplicação nacional é D5.
 
-Todas as questões permanecem `rascunho`, com `revisao.explicacoes: false`. As outras verificações registram a conferência declarada na entrega original; não equivalem a uma aprovação humana atribuída pelo sistema. Explicações são rascunhos de IA. Somente status `revisada` com as quatro verificações verdadeiras permite elegibilidade, a ser validada no servidor. Nenhuma questão deste lote está elegível.
+## Revisão e imagens
 
-Imagens foram extraídas de documentos oficiais, conforme a entrega original; não recriar obras com IA. As 36 figuras têm caminho, origem e descrição nos JSONs. O controlador deve produzir URLs autorizadas para a interface, sem expor o acervo privado com gabaritos.
+Todas as questões permanecem `rascunho`, com `revisao.explicacoes: false`. Nenhuma conferência técnica foi convertida em revisão docente. A elegibilidade exige status `revisada` e as quatro verificações verdadeiras, com validação no servidor. Textos recuperados por OCR, transcrições e explicações exigem leitura docente antes do uso.
 
-## Inventário
+Figuras são recortes dos PDFs oficiais, sem recriação por IA. Foram corrigidos 55 recortes que confundiam CropBox com MediaBox. As figuras das alternativas visuais de 2010/102, 2016 PPL/111 e 2017/21 têm descrições que identificam as alternativas. A resolução do documento de origem limita a qualidade disponível; não houve reconstrução artificial de detalhes. Os arquivos continuam privados, fora de `public/`; o servidor deve autorizar sua entrega sem expor os gabaritos.
 
-`fontes.json` contém 51 entradas (2009–2025 × regular/PPL/reaplicação). Contagens atuais: 6 `catalogada`, 5 `conferida`, 33 `localizada`, 1 `nao_aplicavel`, 3 `nao_localizada`, 3 `pendente`. Os estados catalogada/conferida não significam que todas as questões de Arte daquela prova foram levantadas.
+## Rastreabilidade
 
-Na revisão independente, as referências históricas de Linguagens de 2009–2016 foram corrigidas para o segundo dia. Conjuntos Reaplicação/PPL são representados nas modalidades correspondentes sem duplicar questão. Ausência de caderno separado não prova modalidade inexistente; casos sem comprovação continuam como não localizados. Fontes antigas podem exigir leitura da capa, inclusive arquivo de 2013 cujo nome oficial contém D1_CD6 apesar de o gabarito corresponder ao segundo dia.
+- `fontes.json`: 51 entradas, regular/PPL/reaplicação para cada ano; 46 catalogadas, 3 não localizadas e 2 pendentes. Catalogada não significa completa.
+- `curadoria.json`: hashes SHA-256 de prova e gabarito de 34 cadernos, percurso técnico de 1.360 posições de Linguagens, correspondência dos gabaritos de cada referência catalogada, hashes das imagens e coordenadas dos 55 recortes corrigidos.
+- Cada posição sem decisão individual permanece `curadoria_pendente`. Não foi marcada como exclusão apenas por não conter palavra-chave de Arte. `percursoIntegralDaProva: false` explicita o limite do levantamento.
+- Antes de 2017, Linguagens está no segundo dia (96–135 no recorte principal); desde 2017, no primeiro dia (6–45). Questões já existentes de outras áreas e línguas estrangeiras foram preservadas.
 
-PPL 2010/2011 e a referência compartilhada de 2010 ainda têm gabarito pendente; PPL 2025 continua não localizado neste levantamento. Aplicação especial de 2025 em Belém/Ananindeua/Marituba consta das observações da fonte de 2025, sem questões catalogadas. Aplicações digitais não foram catalogadas. A cobertura de 2009–2018 e 2020–2022 não recebeu questões; os quatro anos representados também não têm completude demonstrada. O restante do recorte 2009–2025 permanece pendente de extração, conferência e deduplicação.
+A questão 41 do caderno azul regular de 2025 tinha gabarito D na entrega anterior. O gabarito oficial indica **B**; chave e comentários de B/D foram corrigidos. Os gabaritos de 2010 foram lidos nas marcações oficiais do próprio caderno, sem inventar uma tabela inexistente.
 
-## Fontes e testes
+## Pendências exatas
 
-Ponto de entrada oficial: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos . Cada questão tem referência da prova/gabarito, caderno, número impresso e página do PDF separados.
+1. Localizar o gabarito de 2011 Reaplicação/PPL. A prova está publicada; sem a chave correspondente, não foram criadas questões com respostas presumidas.
+2. Investigar PPL/reaplicação de 2009 e PPL de 2025. Ausência de link não prova inexistência da modalidade.
+3. Concluir a decisão editorial dos itens ainda pendentes, percorrer integralmente Ciências Humanas e demais áreas em busca de Arte interdisciplinar e conferir as questões de língua estrangeira. O rastro atual cobre posições de Linguagens, não a íntegra de cada prova.
+4. Conferir transcrições, imagens, explicações e conteúdos preparatórios com o professor. Aplicações digitais continuam fora do lote.
 
-`tests/contract/revisao_acervo.test.js` verifica estrutura, arquivos e coerência. `revisao_acervo_revisao.test.js` protege modalidades compartilhadas e o dia de Linguagens. Esses testes não verificam transcrição, qualidade pedagógica nem disponibilidade de URLs na rede.
+## Fontes e validação
 
-Contrato: `specs/REVISAO_AO_VIVO_SPEC.md`. Relatório independente: `docs/analises/2026-11-04-revisao-entregas-aulao.md`. Não usar quantidade de registros ou testes verdes como prova de acervo completo.
+Entrada oficial: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos . As URLs específicas constam de cada questão e do inventário. IDs de caderno não substituem leitura da capa e da chave correspondente.
 
-## Segunda entrega e classificação regional
-
-O lote passou de 16 para 48 questões; nenhuma foi promovida a revisada. Os seis IDs legados `enem-2025-reaplicacao-d3-*` foram preservados, mas `aplicacoes`, `fontes` e inventário indicam `regular`, com `edicao: "belem-ananindeua-marituba"`. Não inferir modalidade pelo ID. O relatório solicitado ao DeepSeek para a continuação não foi encontrado; a revisão independente registra somente o material efetivamente presente.
+Os contratos verificam estrutura, referências locais, anos, inventário, modalidades compartilhadas e regressões de OCR/gabarito. Testes verdes não comprovam completude, qualidade pedagógica nem revisão humana. Contrato: `specs/REVISAO_AO_VIVO_SPEC.md`. Relatório: `docs/analises/2026-11-04-acervo-arte-enem-continuacao.md`.

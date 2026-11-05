@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-regular-arte-132",
+  "ano": 2010,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Anita Malfatti e a ruptura modernista",
+  "habilidades": [],
+  "enunciado": "Após estudar na Europa, Anita Malfatti retornou ao Brasil com uma mostra que abalou a cultura nacional do início do século XX. Elogiada por seus mestres na Europa, Anita se considerava pronta para mostrar seu trabalho no Brasil, mas enfrentou as duras críticas de Monteiro Lobato. Com a intenção de criar uma arte que valorizasse a cultura brasileira, Anita Malfatti e outros artistas modernistas",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "buscaram libertar a arte brasileira das normas acadêmicas europeias, valorizando as cores, a originalidade e os temas nacionais."
+    },
+    {
+      "id": "B",
+      "texto": "defenderam a liberdade limitada de uso da cor, até então utilizada de forma irrestrita, afetando a criação artística nacional."
+    },
+    {
+      "id": "C",
+      "texto": "representaram a ideia de que a arte deveria copiar fielmente a natureza, tendo como finalidade a prática educativa."
+    },
+    {
+      "id": "D",
+      "texto": "mantiveram de forma fiel a realidade nas figuras retratadas, defendendo uma liberdade artística ligada à tradição acadêmica."
+    },
+    {
+      "id": "E",
+      "texto": "buscaram a liberdade na composição de suas figuras, respeitando limites de temas abordados."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Os modernistas buscaram liberdade formal e temas brasileiros, questionando a submissão aos padrões acadêmicos europeus.",
+    "B": "A liberdade da cor foi uma conquista das vanguardas; os modernistas não pretendiam limitar seu uso.",
+    "C": "A cópia fiel da natureza não orienta a experimentação de Malfatti, marcada pela liberdade de cor e de forma.",
+    "D": "Preservar a tradição acadêmica por meio da reprodução fiel contraria a ruptura defendida pelos modernistas.",
+    "E": "A proposta modernista ampliava a liberdade de temas; não estabelecia a limitação temática indicada na alternativa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Anita Malfatti e a ruptura modernista. Os modernistas buscaram liberdade formal e temas brasileiros, questionando a submissão aos padrões acadêmicos europeus."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 132,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo_com_gab.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

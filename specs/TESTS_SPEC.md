@@ -477,3 +477,12 @@ Contrato: `REVISAO_AO_VIVO_SPEC.md`, seção 6. Testes ainda não executados nem
 RV-REV-02 — resultado independente: 13 regressões RED→GREEN; 1.254 testes em 269 arquivos aprovados em cópia isolada da entrega (2 workers), lint dos componentes/domínio e build webpack exit 0. Dois testes externos de preparação/conferência preservados. Acervo com 48 questões em rascunho; correção regional D3 sem renomear IDs. O visual vibrante concorrente e o backend ao vivo não integram esta aprovação. Evidências em `docs/analises/2026-11-04-revisao-segunda-entrega-aulao.md`.
 
 RV-REV-03: testes independentes `RevisaoVisualIndependente.test.jsx` e `revisao_visual_contraste_independente.test.js`: exports padrão preservados, código de sala não inventado, destaque por posição incluindo empates, movimento reduzido abrangente e contraste com transparências/hover. Quatro regressões de componente e uma de contraste reproduzidas RED antes das correções; testes recebidos preservados. Verificação de largura em navegador inclui nomes longos.
+
+### Manutenção — lint e inicialização de componentes (05/11/2026)
+
+- LINT-01: os sete arquivos com erros históricos aprovam as regras existentes do ESLint, sem desativar regras ou adicionar supressões.
+- LINT-02: formulários de questão/IA recebem a configuração atual antes de exibir campos; trocar a origem ou reabrir reinicia os campos previstos, sem perder edição por mera renderização do pai.
+- LINT-03: seletor de turma acompanha a seleção externa e recebe turmas carregadas depois; lista e importação permanecem associadas à turma atual.
+- LINT-04: banco PEI preserva o rascunho manual ao fechar/reabrir; respostas atrasadas de outra conta ou repositório não substituem os alunos atuais.
+- LINT-05: inicialização do perfil aguarda dados externos, encerra carregamento em falha e ignora respostas após desmontagem/logout/troca de sessão; nenhuma alteração na política de planos, permissões ou notas.
+- LINT-06: restauração dos vínculos do aluno e detecção de voz respeitam hidratação; conteúdo inválido no armazenamento não quebra a página.

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-ppl-arte-110",
+  "ano": 2013,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Cinema, televisão e recepção da obra",
+  "habilidades": [],
+  "enunciado": "Televisão x cinema Mais uma vez, reacende-se o desgastante debate sobre “linguagem de televisão” e “linguagem de cinema”. No mesmo país em que pagar ingresso ainda é luxo para milhões de pessoas, alguns críticos utilizam o termo “televisivo” para depreciar uma obra. E “cinematográfico” para enaltecê-la. Como se houvesse um juiz onipotente a permitir ou não que se sinta uma história da maneira que se pretende senti-la. Todos os sentidos ficam de fora da análise ignorante, tipicamente política, que divorcia a técnica da percepção sensorial. E é exatamente aí que reside o único interesse de um realizador: o momento do encontro do espectador com a obra. MONJARDIM, J. O Globo, Rio de Janeiro, 24 set. 2004 (adaptado). Ao comentar o ressurgimento do debate sobre “linguagem de televisão” e “linguagem de cinema”, o autor mostra a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "importância do debate para o entendimento destes dois diferentes meios de linguagem: a televisão e o cinema."
+    },
+    {
+      "id": "B",
+      "texto": "atitude prepotente dos críticos ao julgarem preconceituosamente as escolhas do público."
+    },
+    {
+      "id": "C",
+      "texto": "validade do debate para o aprimoramento da linguagem do cinema e da televisão."
+    },
+    {
+      "id": "D",
+      "texto": "neutralidade dos críticos no uso das palavras “televisivo” e “cinematográfico”."
+    },
+    {
+      "id": "E",
+      "texto": "contribuição dos críticos na valorização dos sentimentos do espectador."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O autor considera o debate desgastante e critica seus juízos; não o apresenta como fonte de entendimento produtivo.",
+    "B": "A crítica recai sobre hierarquias preconceituosas que depreciam escolhas e experiências do espectador.",
+    "C": "O artigo não atribui a esse debate o aprimoramento técnico das linguagens; contesta seu modo de avaliar.",
+    "D": "Os termos são usados para depreciar ou enaltecer obras, portanto não funcionam de maneira neutra.",
+    "E": "O autor acusa a análise de excluir a percepção sensorial; não elogia a valorização dos sentimentos pelos críticos."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Cinema, televisão e recepção da obra. A crítica recai sobre hierarquias preconceituosas que depreciam escolhas e experiências do espectador."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 110,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 110,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

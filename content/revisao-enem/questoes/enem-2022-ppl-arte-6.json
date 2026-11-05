@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-ppl-arte-6",
+  "ano": 2022,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Kusiwa e a cosmologia Wajãpi",
+  "habilidades": [],
+  "enunciado": "O povo indígena Wajãpi utiliza o Kusiwa — reconhecido como bem imaterial da humanidade em 2003 — como repertório codificado de padrões gráficos que decora e colore o corpo e os objetos. Para além de enfeitar, Kusiwa aparece como “arte”, “marca”, “pintura” e “desenho”. Esses grafismos ultrapassam a noção estética e alcançam a cosmologia e as crenças religiosas. ALMEIDA, C. S.; CARDOSO, P. B. Arte coussiouar, perspectivas históricas de alteridade e reconhecimento. Espaço Ameríndio, n. 1, jan.-jul. 2021. O povo Wajãpi, que vive na Serra do Tumucumaque, entre Amapá, Pará e Guiana Francesa, vivencia práticas culturais que",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "perdem significado quando desprovidas de elementos gráficos."
+    },
+    {
+      "id": "B",
+      "texto": "revelam uma concepção de arte para além de funções estéticas."
+    },
+    {
+      "id": "C",
+      "texto": "funcionam como elementos de representação figurativa de seu mundo."
+    },
+    {
+      "id": "D",
+      "texto": "padronizam uma mesma identidade gráfica entre diferentes povos indígenas."
+    },
+    {
+      "id": "E",
+      "texto": "primam pela utilização dos grafismos como contraposição ao mundo imaginário."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "As práticas não são apresentadas como completamente destituídas de sentido fora dos grafismos.",
+    "B": "Os padrões gráficos articulam beleza, cosmologia e crenças, ultrapassando uma função puramente decorativa.",
+    "C": "O repertório não se limita a imitar figurativamente o mundo; ele envolve códigos e conhecimentos culturais.",
+    "D": "A identidade gráfica descrita pertence a um povo e não padroniza as práticas de todos os povos indígenas.",
+    "E": "Os grafismos se articulam ao universo de crenças; não se opõem a ele como negação do imaginário."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Kusiwa e a cosmologia Wajãpi. Os padrões gráficos articulam beleza, cosmologia e crenças, ultrapassando uma função puramente decorativa."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 6,
+      "pagina": 5,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 6,
+      "pagina": 5,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-regular-arte-119",
+  "ano": 2016,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "A metáfora da pérola e o processo de criação",
+  "habilidades": [],
+  "enunciado": "Pérolas absolutas Há, no seio de uma ostra, um movimento — ainda que imperceptível. Qualquer coisa imiscuiu-se pela fissura, uma partícula qualquer, diminuta e invisível. Venceu as paredes lacradas, que se fecham como a boca que tem medo de deixar escapar um segredo. Venceu. E agora penetra o núcleo da ostra, contaminando-lhe a própria substância. A ostra reage, imediatamente. E começa a secretar o nácar. É um mecanismo de defesa, uma tentativa de purificação contra a partícula invasora. Com uma paciência de fundo de mar, a ostra profanada continua seu trabalho incansável, secretando por anos a fio o nácar que aos poucos se vai solidificando. É dessa solidificação que nascem as pérolas. As pérolas são, assim, o resultado de uma contaminação. A arte por vezes também. A arte é quase sempre a transformação da dor. [...] Escrever é preciso. É preciso continuar secretando o nácar, formar a pérola que talvez seja imperfeita, que talvez jamais seja encontrada e viva para sempre encerrada no fundo do mar. Talvez estas, as pérolas esquecidas, jamais achadas, as pérolas intocadas e por isso absolutas em si mesmas, guardem em si uma parcela faiscante da eternidade. SEIXAS, H. Uma ilha chamada livro. Rio de Janeiro: Record, 2009 (fragmento). Considerando os aspectos estéticos e semânticos presentes no texto, a imagem da pérola configura uma percepção que",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "reforça o valor do sofrimento e do esquecimento para o processo criativo."
+    },
+    {
+      "id": "B",
+      "texto": "ilustra o conflito entre a procura do novo e a rejeição ao elemento exótico."
+    },
+    {
+      "id": "C",
+      "texto": "concebe a criação literária como trabalho progressivo e de autoconhecimento."
+    },
+    {
+      "id": "D",
+      "texto": "expressa a ideia de atividade poética como experiência anônima e involuntária."
+    },
+    {
+      "id": "E",
+      "texto": "destaca o efeito introspectivo gerado pelo contato com o inusitado e com o desconhecido."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O sofrimento pode desencadear a criação, mas não é valorizado por si mesmo nem depende de esquecimento.",
+    "B": "A comparação trata da transformação de uma experiência, não da simples rejeição de um elemento exótico.",
+    "C": "A formação lenta da pérola permite pensar a escrita como elaboração progressiva de experiências e de si.",
+    "D": "O trabalho artístico exige continuidade e elaboração; não é descrito apenas como reação anônima e involuntária.",
+    "E": "O contato com o estranho inicia a metáfora, mas o texto enfatiza o processo continuado de transformação."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A metáfora da pérola e o processo de criação. A formação lenta da pérola permite pensar a escrita como elaboração progressiva de experiências e de si."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 119,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

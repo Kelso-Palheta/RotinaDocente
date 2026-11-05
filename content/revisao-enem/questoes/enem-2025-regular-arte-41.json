@@ -10,7 +10,7 @@
     "Interpretar a relação entre forma, grafismo e cosmologia",
     "Reconhecer a arte indígena como patrimônio cultural"
   ],
-  "enunciado": "TEXTO I\n\nOrigem, tradição e resistência\n\nFoi sentada em seu banco de quartzo que a avó do universo, moradora da Maloca do Céu, criou os homens, os animais, a terra e as águas. O banco foi entregue aos ancestrais dos atuais Tukano, que passaram a reproduzi-lo em madeira. O mito Tukano — povo do noroeste da Amazônia que ainda hoje fabrica os bancos em seu estilo tradicional — indica o lugar dos bancos entre os objetos sagrados, ao mesmo tempo parte do universo primitivo e fonte do poder de criação. A presença nos mitos de origem de alguns povos atesta a antiguidade da arte de talhar bancos: os primeiros registros do uso desses objetos entre ameríndios das terras baixas da América do Sul, do Caribe e da América Central datam de, pelo menos, 4 mil anos.\n\nASSIS, R.; MENDES JR., L. Bancos indígenas do Brasil. São Paulo: BEI Comunicação, 2013.\n\nTEXTO II\n\nKAMAYURÁ, Y. Tatu Kamayurá 1. Madeira, 61 × 24 × 20 cm. Xingu (MT), s.d.\n\nDisponível em: www.colecaobaei.com.br. Acesso em: 15 out. 2024.\n\nOs textos I e II demonstram, na confecção dos bancos, uma íntima relação de sacralidade entre o ser humano e a natureza, perceptível por meio da",
+  "enunciado": "TEXTO I\n\nOrigem, tradição e resistência\n\nFoi sentada em seu banco de quartzo que a avó do universo, moradora da Maloca do Céu, criou os homens, os animais, a terra e as águas. O banco foi entregue aos ancestrais dos atuais Tukano, que passaram a reproduzi-lo em madeira. O mito Tukano — povo do noroeste da Amazônia que ainda hoje fabrica os bancos em seu estilo tradicional — indica o lugar dos bancos entre os objetos sagrados, ao mesmo tempo parte do universo primitivo e fonte do poder de criação. A presença nos mitos de origem de alguns povos atesta a antiguidade da arte de talhar bancos: os primeiros registros do uso desses objetos entre ameríndios das terras baixas da América do Sul, do Caribe e da América Central datam de, pelo menos, 4 mil anos.\n\nASSIS, R.; MENDES JR., L. Bancos indígenas do Brasil. São Paulo: BEI Comunicação, 2013.\n\nTEXTO II\n\nKAMAYURÁ, Y. Tatu Kamayurá 1. Madeira, 61 × 24 × 20 cm. Xingu (MT), s.d.\n\nDisponível em: www.colecaobei.com.br. Acesso em: 15 out. 2024.\n\nOs textos I e II demonstram, na confecção dos bancos, uma íntima relação de sacralidade entre o ser humano e a natureza, perceptível por meio da",
   "imagens": [
     {
       "id": "tatu-kamayura",
@@ -43,12 +43,12 @@
       "texto": "criação de figuras fantásticas baseadas em formas animais."
     }
   ],
-  "gabarito": "D",
+  "gabarito": "B",
   "explicacoes": {
     "A": "A forma animal não é realista nem expressa domínio sobre a natureza; o banco integra cosmologia e cotidiano.",
-    "B": "A herança cultural é mantida, mas não se atribui nova função aos elementos da fauna: o animal faz parte da própria concepção do banco.",
+    "B": "A confecção mantém a herança cultural e a dimensão sagrada dos bancos, atribuindo aos elementos da fauna uma função de assento e objeto cultural, em diálogo com os mitos de origem.",
     "C": "Os traços do tatu continuam reconhecíveis; a forma animal não é anulada.",
-    "D": "Os grafismos gravados no corpo do tatu articulam forma animal e padrões visuais tradicionais, expressando a relação sagrada entre humano, natureza e cosmologia.",
+    "D": "A presença de grafismos é um aspecto formal do banco, mas isoladamente não explica a continuidade da herança cultural e a atribuição de função sagrada aos elementos da natureza, relação solicitada pelos dois textos.",
     "E": "O banco representa um animal reconhecível, não uma figura fantástica inventada."
   },
   "conteudoRevisao": [
@@ -70,7 +70,7 @@
       "pagina": 18,
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
-      "consultadoEm": "2026-11-04"
+      "consultadoEm": "2026-11-05"
     }
   ],
   "status": "rascunho",

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-regular-arte-106",
+  "ano": 2014,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Guernica, charge e polissemia",
+  "habilidades": [],
+  "enunciado": "Jornal Zero Hora, 2 mar. 2006. Na criação do texto, o chargista Iotti usa criativamente um intertexto: os traços reconstroem uma cena de Guernica, painel de Pablo Picasso que retrata os horrores e a destruição provocados pelo bombardeio a uma pequena cidade da Espanha. Na charge, publicada no período de carnaval, recebe destaque a figura do carro, elemento introduzido por Iotti no intertexto. Além dessa figura, a linguagem verbal contribui para estabelecer um diálogo entre a obra de Picasso e a charge, ao explorar",
+  "imagens": [
+    {
+      "id": "enem-2014-regular-arte-106-guernica-charge",
+      "arquivo": "imagens/enem-2014-regular-arte-106-guernica-charge.png",
+      "alt": "Figura original da questão 106: Guernica, charge e polissemia.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "pagina": 10,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "uma referência ao contexto, “trânsito no feriadão”, esclarecendo-se o referente tanto do texto de Iotti quanto da obra de Picasso."
+    },
+    {
+      "id": "B",
+      "texto": "uma referência ao tempo presente, com o emprego da forma verbal “é”, evidenciando-se a atualidade do tema abordado tanto pelo pintor espanhol quanto pelo chargista brasileiro."
+    },
+    {
+      "id": "C",
+      "texto": "um termo pejorativo, “trânsito”, reforçando-se a imagem negativa de mundo caótico presente tanto em Guernica quanto na charge."
+    },
+    {
+      "id": "D",
+      "texto": "uma referência temporal, “sempre”, referindo-se à permanência de tragédias retratadas tanto em Guernica quanto na charge."
+    },
+    {
+      "id": "E",
+      "texto": "uma expressão polissêmica, “quadro dramático”, remetendo-se tanto à obra pictórica quanto ao contexto do trânsito brasileiro."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A expressão sobre o trânsito identifica o contexto da charge, mas não nomeia o bombardeio representado por Picasso.",
+    "B": "O verbo no presente não estabelece sozinho a ligação semântica decisiva entre pintura e trânsito.",
+    "C": "Trânsito não é, por si, um termo pejorativo; a crítica depende da composição e da expressão polissêmica.",
+    "D": "A permanência de tragédias pode ser sugerida, mas não explica o jogo entre a imagem pictórica e a situação viária.",
+    "E": "Quadro dramático pode nomear tanto uma pintura quanto uma situação grave, conectando a charge à obra de Picasso."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Guernica, charge e polissemia. Quadro dramático pode nomear tanto uma pintura quanto uma situação grave, conectando a charge à obra de Picasso."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 106,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2014/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

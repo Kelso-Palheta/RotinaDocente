@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2011-regular-arte-104",
+  "ano": 2011,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Oscar Niemeyer e a expressividade das colunas",
+  "habilidades": [],
+  "enunciado": "Brasília 50 anos. veja. No 2 138, nov. 2009. Utilizadas desde a Antiguidade, as colunas, elementos verticais de sustentação, foram sofrendo modificações e incorporando novos materiais com ampliação de possibilidades. Ainda que as clássicas colunas gregas sejam retomadas, notáveis inovações são percebidas, por exemplo, nas obras de Oscar Niemeyer, arquiteto brasileiro nascido no Rio de Janeiro em 1907. No desenho de Niemeyer, das colunas do Palácio da Alvorada, observa-se",
+  "imagens": [
+    {
+      "id": "enem-2011-regular-arte-104-colunas",
+      "arquivo": "imagens/enem-2011-regular-arte-104-colunas.png",
+      "alt": "Figura original da questão 104: Oscar Niemeyer e a expressividade das colunas.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "pagina": 10,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "a presença de um capitel muito simples, reforçando a sustentação."
+    },
+    {
+      "id": "B",
+      "texto": "o traçado simples de amplas linhas curvas opostas, resultando em formas marcantes."
+    },
+    {
+      "id": "C",
+      "texto": "a disposição simétrica das curvas, conferindo saliência e distorção à base."
+    },
+    {
+      "id": "D",
+      "texto": "a oposição de curvas em concreto, configurando certo peso e rebuscamento."
+    },
+    {
+      "id": "E",
+      "texto": "o excesso de linhas curvas, levando a um exagero na ornamentação."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O desenho não se caracteriza por um capitel clássico simples; destaca a reinvenção da estrutura em concreto.",
+    "B": "As curvas opostas e o traçado sintético das colunas produzem a forma marcante associada ao Palácio da Alvorada.",
+    "C": "As curvas não deformam a base como efeito principal; sua organização dá leveza e identidade à estrutura.",
+    "D": "O concreto permite curvas expressivas, mas a composição não busca peso visual e rebuscamento ornamental.",
+    "E": "A economia de linhas e a clareza do desenho afastam a leitura de exagero decorativo."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Oscar Niemeyer e a expressividade das colunas. As curvas opostas e o traçado sintético das colunas produzem a forma marcante associada ao Palácio da Alvorada."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 104,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2011/05_AMARELO_GABARITO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

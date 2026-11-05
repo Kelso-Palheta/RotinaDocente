@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-regular-arte-10",
+  "ano": 2022,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte digital e proteção da autoria",
+  "habilidades": [],
+  "enunciado": "Ciente de que, no campo da criação, as inovações tecnológicas abrem amplo leque de possibilidades — ao permitir, e mesmo estimular, que o artista explore a fundo, em seu processo criativo, questões como a aleatoriedade, o acaso, a não linearidade e a hipermídia —, Leo Cunha comenta que, no que tange ao campo da divulgação, as alternativas são ainda mais evidentes: “Afinal, é imensa a capacidade de reprodução, multiplicação e compartilhamento das obras artísticas/culturais. Ao mesmo tempo, ganham dimensão os dilemas envolvidos com a questão da autoria, dos direitos autorais, da reprodução e intervenção não autorizadas, entre outras questões”. Já segundo a professora Yacy-Ara Froner, o uso de ferramentas tecnológicas não pode ser visto como um fim em si mesmo. Isso porque computadores, samplers, programas de imersão, internet e intranet, vídeo, televisão, rádio, GPD etc. são apenas suportes com os quais os artistas exercem sua imaginação. SILVA JR., M. G. Movidas pela dúvida. Minas faz Ciências, n. 52, dez.-fev. 2013 (adaptado). Segundo os autores citados no texto, a expansão de possibilidades no campo das manifestações artísticas promovida pela internet pode pôr em risco o(a)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "sucesso dos artistas."
+    },
+    {
+      "id": "B",
+      "texto": "valorização dos suportes."
+    },
+    {
+      "id": "C",
+      "texto": "proteção da produção estética."
+    },
+    {
+      "id": "D",
+      "texto": "modo de distribuição de obras."
+    },
+    {
+      "id": "E",
+      "texto": "compartilhamento das obras artísticas."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Ampliar a reprodução não implica necessariamente impedir o reconhecimento ou o sucesso dos artistas.",
+    "B": "O risco destacado não é a perda do valor dos equipamentos ou suportes utilizados.",
+    "C": "Reprodução e intervenção não autorizadas podem comprometer direitos autorais e a proteção da produção artística.",
+    "D": "A distribuição se amplia pela rede; o problema jurídico destacado está na autorização e na autoria.",
+    "E": "O compartilhamento é uma possibilidade ampliada, e não aquilo que o texto apresenta como ameaçado."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Arte digital e proteção da autoria. Reprodução e intervenção não autorizadas podem comprometer direitos autorais e a proteção da produção artística."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 10,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

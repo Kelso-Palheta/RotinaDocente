@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-regular-arte-106",
+  "ano": 2010,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Danças folclóricas e balé",
+  "habilidades": [],
+  "enunciado": "O folclore é o retrato da cultura de um povo. A dança popular e folclórica é uma forma de representar a cultura regional, pois retrata seus valores, crenças, trabalho e significados. Dançar a cultura de outras regiões é conhecê-la, é de alguma forma se apropriar dela, é enriquecer a própria cultura. BREGOLATO, R. A. Cultura Corporal da Dança. São Paulo: Ícone, 2007. As manifestações folclóricas perpetuam uma tradição cultural, é obra de um povo que a cria, recria e a perpetua. Sob essa abordagem deixa-se de identificar como dança folclórica brasileira",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "o Bumba-meu-boi, que é uma dança teatral onde personagens contam uma história envolvendo crítica social, morte e ressurreição. o"
+    },
+    {
+      "id": "B",
+      "texto": "a Quadrilha das festas juninas, que associam festejos religiosos a celebrações de origens pagãs envolvendo as colheitas e a fogueira."
+    },
+    {
+      "id": "C",
+      "texto": "o Congado, que é uma representação de um reinado africano onde se homenageia santos através de música, cantos e dança."
+    },
+    {
+      "id": "D",
+      "texto": "o Balé, em que se utilizam músicos, bailarinos e vários outros profissionais para contar uma história em forma de espetáculo."
+    },
+    {
+      "id": "E",
+      "texto": "o Carnaval, em que o samba derivado do batuque africano é utilizado com o objetivo de contar ou recriar uma história nos desfiles."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O Bumba-meu-boi é uma manifestação popular brasileira com narrativa, personagens e elementos de celebração coletiva.",
+    "B": "A quadrilha foi incorporada às festas juninas e reelaborada nas tradições populares de diversas regiões brasileiras.",
+    "C": "O Congado articula memória africana e devoção religiosa em cantos, danças e organização comunitária.",
+    "D": "O balé é uma tradição cênica de formação técnica e origem cortesã europeia; não é classificado aqui como dança folclórica brasileira.",
+    "E": "O samba e os desfiles carnavalescos integram manifestações populares reelaboradas historicamente na cultura brasileira."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Danças folclóricas e balé. O balé é uma tradição cênica de formação técnica e origem cortesã europeia; não é classificado aqui como dança folclórica brasileira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 106,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo_com_gab.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

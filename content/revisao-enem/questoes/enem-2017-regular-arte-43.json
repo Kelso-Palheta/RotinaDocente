@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-regular-arte-43",
+  "ano": 2017,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Speto, grafite e xilogravura nordestina",
+  "habilidades": [],
+  "enunciado": "TEXTO I SPETO. Grafite. Museu Afro Brasil, 2009. Disponível em: www.diariosp.com.br. Acesso em: 25 set. 2015. TEXTO II Speto Paulo César Silva, mais conhecido como Speto, é um grafiteiro paulista envolvido com o skate e a música. O fortalecimento de sua arte ocorreu, em 1999, pela oportunidade de ver de perto as referências que trazia há tempos, ao passar por diversas cidades do Norte do Brasil em uma turnê com a banda O Rappa. Revista Zupi, n. 19, 2010. O grafite do artista paulista Speto, exposto no Museu Afro Brasil, revela elementos da cultura brasileira reconhecidos",
+  "imagens": [
+    {
+      "id": "enem-2017-regular-arte-43-figura-1",
+      "arquivo": "imagens/enem-2017-regular-arte-43-figura-1.png",
+      "alt": "Grafite de Speto com figuras humanas e animais e padrões de forte contraste.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 17,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "na influência da expressão abstrata."
+    },
+    {
+      "id": "B",
+      "texto": "na representação de lendas nacionais."
+    },
+    {
+      "id": "C",
+      "texto": "na inspiração das composições musicais."
+    },
+    {
+      "id": "D",
+      "texto": "nos traços marcados pela xilogravura nordestina."
+    },
+    {
+      "id": "E",
+      "texto": "nos usos característicos de grafismos dos skates."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O grafite apresenta figuras e referências populares reconhecíveis; não se define pelo abstracionismo.",
+    "B": "A presença de referências culturais não implica que a imagem ilustre uma lenda nacional específica.",
+    "C": "O contato com a música foi importante na trajetória do artista, mas o traço visual remete à xilogravura.",
+    "D": "Os contrastes e as linhas marcadas do grafite dialogam com o repertório visual da xilogravura nordestina.",
+    "E": "O skate integra a experiência do artista, mas não explica os elementos formais destacados no grafite."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Speto, grafite e xilogravura nordestina. Os contrastes e as linhas marcadas do grafite dialogam com o repertório visual da xilogravura nordestina."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 43,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

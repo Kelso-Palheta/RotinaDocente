@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-reaplicacao-arte-125",
+  "ano": 2016,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Picasso e as referências às máscaras africanas",
+  "habilidades": [],
+  "enunciado": "PICASSO, P. Les desmoiselles d’Avignon. Óleo sobre tela, 243,9 x 233,7 cm. Museu de Arte Moderna, Nova Iorque, 1907. Disponível em: www.moma.org. Acesso em: 13 set. 2012. A obra Les desmoiselles d’Avignon, do pintor espanhol Pablo Picasso, é um dos marcos iniciais do movimento cubista. Essa obra filia-se também ao Primitivismo, uma vez que sua composição recorre à manifestação cultural de um determinado grupo étnico, que se caracteriza por",
+  "imagens": [
+    {
+      "id": "enem-2016-reaplicacao-arte-125-figura-1",
+      "arquivo": "imagens/enem-2016-reaplicacao-arte-125-figura-1.png",
+      "alt": "Les Demoiselles d’Avignon, de Picasso: figuras humanas angulares em composição de planos fragmentados.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "pagina": 15,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "produção de máscaras ritualísticas africanas."
+    },
+    {
+      "id": "B",
+      "texto": "rituais de fertilidade das comunidades celtas."
+    },
+    {
+      "id": "C",
+      "texto": "festas profanas dos povos mediterrâneos."
+    },
+    {
+      "id": "D",
+      "texto": "culto à nudez de populações aborígenes."
+    },
+    {
+      "id": "E",
+      "texto": "danças ciganas do sul da Espanha."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "As máscaras ritualísticas africanas constituem uma referência formal reconhecida na construção dos rostos da obra.",
+    "B": "A questão não associa a composição aos ritos de fertilidade de comunidades celtas.",
+    "C": "Festas mediterrâneas não explicam a referência étnica e formal mobilizada pelo primitivismo na obra.",
+    "D": "A nudez isolada não caracteriza a apropriação das soluções plásticas das máscaras africanas.",
+    "E": "A presença de mulheres na composição não a relaciona às danças ciganas do sul da Espanha."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Picasso e as referências às máscaras africanas. As máscaras ritualísticas africanas constituem uma referência formal reconhecida na construção dos rostos da obra."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 05 — Linguagens — 2º dia",
+      "numeroQuestao": 125,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

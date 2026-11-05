@@ -28,13 +28,13 @@ export function ModalImportarAtividadeTurma({
   const [erro, setErro] = useState("");
   const [termoBusca, setTermoBusca] = useState("");
 
-  useEffect(() => {
-    if (turmaSelecionadaId) {
-      setTurmaId(turmaSelecionadaId);
-    } else if (turmas.length > 0 && !turmaId) {
-      setTurmaId(turmas[0].id);
-    }
-  }, [turmaSelecionadaId, turmas]);
+  const [turmaExternaAnterior, setTurmaExternaAnterior] = useState(turmaSelecionadaId);
+  if (turmaExternaAnterior !== turmaSelecionadaId) {
+    setTurmaExternaAnterior(turmaSelecionadaId);
+    setTurmaId(turmaSelecionadaId || turmas[0]?.id || "");
+  } else if (!turmaId && turmas.length > 0) {
+    setTurmaId(turmas[0].id);
+  }
 
   useEffect(() => {
     if (!isOpen) return;

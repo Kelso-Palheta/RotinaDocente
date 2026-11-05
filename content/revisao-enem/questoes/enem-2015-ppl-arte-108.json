@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-ppl-arte-108",
+  "ano": 2015,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Barroco mineiro e síntese cultural",
+  "habilidades": [],
+  "enunciado": "Síntese entre erudito e popular Na região mineira, a separação entre cultura popular (as artes mecânicas) e erudita (as artes liberais) é marcada pela elite colonial, que tem como exemplo os valores europeus, e o grupo popular, formado pela fusão de várias culturas: portugueses aventureiros ou degredados, negros e índios. Aleijadinho, unindo as sofisticações da arte erudita ao entendimento do artífice popular, consegue fazer essa síntese característica deste momento único na história da arte brasileira: o barroco colonial. MAJORA, C. BrHistória, n. 3, mar. 2007 (adaptado). No século XVIII, a arte brasileira, mais especificamente a de Minas Gerais, apresentava a valorização da técnica e um estilo próprio, incluindo a escolha dos materiais. Artistas como Aleijadinho e Mestre Ataíde têm suas obras caracterizadas por peculiaridades que são identificadas por meio",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "do emprego de materiais oriundos da Europa e da interpretação realista dos objetos representados."
+    },
+    {
+      "id": "B",
+      "texto": "do uso de recursos materiais disponíveis no local e da interpretação formal com características próprias."
+    },
+    {
+      "id": "C",
+      "texto": "da utilização de recursos materiais vindos da Europa e da homogeneização e linearidade representacional."
+    },
+    {
+      "id": "D",
+      "texto": "da observação e da cópia detalhada do objeto representado e do emprego de materiais disponíveis na região."
+    },
+    {
+      "id": "E",
+      "texto": "da utilização de materiais disponíveis no Brasil e da interpretação idealizada e linear dos objetos representados."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A especificidade das obras não se resume a materiais europeus ou à cópia realista de modelos.",
+    "B": "O uso de materiais disponíveis na região e uma interpretação formal própria caracterizam a produção mineira.",
+    "C": "A síntese de experiências culturais locais não produz homogeneidade e linearidade universais.",
+    "D": "A reprodução minuciosa do objeto não explica a liberdade formal e a expressividade dos artistas citados.",
+    "E": "Os materiais locais são relevantes, mas a leitura idealizada e linear não descreve a linguagem barroca destacada."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Barroco mineiro e síntese cultural. O uso de materiais disponíveis na região e uma interpretação formal própria caracterizam a produção mineira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

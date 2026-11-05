@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-135",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Lucian Freud e o corpo sem idealização",
+  "habilidades": [],
+  "enunciado": "TExTO I FREUD, L. Francis Wyndham. Óleo sobre tela, 64 x 52 cm. Coleção pessoal, 1993. TExTO II Lucian Freud é, como ele próprio gosta de relembrar às pessoas, um biólogo. Mais propriamente, tem querido registrar verdades muito específicas sobre como é tomar posse deste determinado corpo nesta situação particular, neste específico espaço de tempo. SMEE, S. Freud. Köln: Taschen, 2010. Considerando a intencionalidade do artista, mencionada no Texto II, e a ruptura da arte no século XX com o parâmetro acadêmico, a obra apresentada trata do(a)",
+  "imagens": [
+    {
+      "id": "enem-2015-regular-arte-135-figura-1",
+      "arquivo": "imagens/enem-2015-regular-arte-135-figura-1.png",
+      "alt": "Retrato de homem idoso com camisa, pintado com pinceladas e marcas expressivas no rosto.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "pagina": 18,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "exaltação da figura masculina."
+    },
+    {
+      "id": "B",
+      "texto": "descrição precisa e idealizada da forma."
+    },
+    {
+      "id": "C",
+      "texto": "arranjo simétrico e proporcional dos elementos."
+    },
+    {
+      "id": "D",
+      "texto": "representação do padrão do belo contemporâneo."
+    },
+    {
+      "id": "E",
+      "texto": "fidelidade à forma realista isenta do ideal de perfeição."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A figura masculina é o sujeito do retrato, mas a questão não a apresenta como objeto de exaltação heroica.",
+    "B": "O artista procura a singularidade física do corpo; não uma forma precisa ajustada a um ideal de perfeição.",
+    "C": "Simetria e proporção acadêmicas não constituem o princípio central da representação apresentada.",
+    "D": "A obra não estabelece um padrão de beleza a ser seguido; enfatiza a experiência concreta de um corpo.",
+    "E": "O retrato valoriza as particularidades corporais sem subordiná-las a uma aparência ideal e perfeita."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Lucian Freud e o corpo sem idealização. O retrato valoriza as particularidades corporais sem subordiná-las a uma aparência ideal e perfeita."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 135,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

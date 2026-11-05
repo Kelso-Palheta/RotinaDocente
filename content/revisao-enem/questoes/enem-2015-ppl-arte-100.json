@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-ppl-arte-100",
+  "ano": 2015,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Leonilson, bordado e composição assimétrica",
+  "habilidades": [
+    "Interpretar a materialidade do bordado",
+    "Relacionar palavra e forma na arte contemporânea"
+  ],
+  "enunciado": "LEONILSON. O recruta, a aranha e Penélope. Bordado sobre tecido, 1992.\nDisponível em: www.projetoleonilson.com.br. Acesso em: 3 ago. 2012.\n\nA obra do artista plástico Leonilson (1953-1993) marca presença no panorama da arte brasileira e internacional. Nessa obra, ele utilizou a habilidade técnica do bordado manual para",
+  "imagens": [
+    {
+      "id": "leonilson-penelope",
+      "arquivo": "imagens/enem-2015-ppl-arte-100-leonilson.png",
+      "alt": "Bordado de Leonilson sobre tecido claro, com palavras bordadas e desenhos de figuras e linhas.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 7,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "obtenção das linhas retas paralelas."
+    },
+    {
+      "id": "B",
+      "texto": "valorização do tracejado retilíneo."
+    },
+    {
+      "id": "C",
+      "texto": "exploração de diferentes texturas."
+    },
+    {
+      "id": "D",
+      "texto": "obtenção do equilíbrio assimétrico."
+    },
+    {
+      "id": "E",
+      "texto": "inscrição homogênea das formas e palavras."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O bordado de Leonilson é irregular e manual; não busca linhas retas paralelas.",
+    "B": "O tracejado não é retilíneo: as palavras e figuras são dispersas e orgânicas.",
+    "C": "As texturas variam, mas a questão destaca a organização da composição, não apenas a materialidade.",
+    "D": "Palavras e desenhos são distribuídos de modo aparentemente solto, mas equilibrado; esse equilíbrio assimétrico é o resultado do bordado manual.",
+    "E": "A inscrição não é homogênea: formas e palavras ocupam posições e escalas diferentes."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Leonilson usa o bordado como desenho e escrita. A linha manual, o tecido e as palavras criam uma composição íntima, em que o aparente desequilíbrio é organizado por relações de peso e espaço."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "leonilson-penelope",
+      "legenda": "Leonilson, O recruta, a aranha e Penélope, 1992."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 Cinza — 2º dia",
+      "numeroQuestao": 100,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 Cinza — 2º dia",
+      "numeroQuestao": 100,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

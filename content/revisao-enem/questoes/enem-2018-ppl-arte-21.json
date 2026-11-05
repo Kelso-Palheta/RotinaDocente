@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-21",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Azulejaria e circulação de saberes",
+  "habilidades": [],
+  "enunciado": "Disponível em: http://portal.iphan.gov.br. Acesso em: 11 mar. 2016. Os azulejos das fachadas do centro histórico de São Luís (MA) integram o patrimônio cultural da humanidade reconhecido pela Unesco. A técnica artística utilizada para a produção desses revestimentos advém das",
+  "imagens": [
+    {
+      "id": "enem-2018-ppl-arte-21-figura-1",
+      "arquivo": "imagens/enem-2018-ppl-arte-21-figura-1.png",
+      "alt": "Padrão ornamental de azulejos com motivos curvos repetidos e simetria entre módulos.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 11,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "confluências de diferentes saberes do Oriente Médio e da Europa."
+    },
+    {
+      "id": "B",
+      "texto": "adequações para aproveitamento da mão de obra local."
+    },
+    {
+      "id": "C",
+      "texto": "inovações decorrentes da Revolução Industrial."
+    },
+    {
+      "id": "D",
+      "texto": "influências das culturas francesa e holandesa."
+    },
+    {
+      "id": "E",
+      "texto": "descobertas de recursos naturais na Colônia."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A azulejaria resulta de trocas históricas de técnicas e repertórios entre o Oriente Médio e a Europa.",
+    "B": "O aproveitamento da mão de obra local não explica a origem da técnica do revestimento.",
+    "C": "A tradição dos azulejos é anterior à Revolução Industrial, embora a industrialização altere sua produção.",
+    "D": "Limitar a origem às culturas francesa e holandesa exclui matrizes históricas importantes da técnica.",
+    "E": "Recursos naturais disponíveis na Colônia não explicam a circulação e a origem cultural da azulejaria."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Azulejaria e circulação de saberes. A azulejaria resulta de trocas históricas de técnicas e repertórios entre o Oriente Médio e a Europa."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 21,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 21,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

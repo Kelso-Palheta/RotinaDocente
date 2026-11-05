@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-regular-arte-32",
+  "ano": 2018,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "O Teatro Mágico e a integração de linguagens",
+  "habilidades": [],
+  "enunciado": "Fotografia: LUCAS HALLEL. Disponível em: www.flickr.com. Acesso em: 16 abr. 2018 (adaptado). O grupo O Teatro Mágico apresenta composições autorais que têm referências estéticas do rock, do pop e da música folclórica brasileira. A originalidade dos seus shows tem relação com a ópera europeia do século XIX a partir da",
+  "imagens": [
+    {
+      "id": "enem-2018-regular-arte-32-figura-1",
+      "arquivo": "imagens/enem-2018-regular-arte-32-figura-1.png",
+      "alt": "Pintura religiosa de Mestre Ataíde com figura central e personagens dispostas ao redor.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "pagina": 14,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "disposição cênica dos artistas no espaço teatral."
+    },
+    {
+      "id": "B",
+      "texto": "integração de diversas linguagens artísticas."
+    },
+    {
+      "id": "C",
+      "texto": "sobreposição entre música e texto literário."
+    },
+    {
+      "id": "D",
+      "texto": "manutenção de um diálogo com o público."
+    },
+    {
+      "id": "E",
+      "texto": "adoção de um enredo como fio condutor."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A posição dos intérpretes no espaço não basta para aproximar a proposta da complexidade da ópera.",
+    "B": "A combinação de música, atuação e recursos cênicos aproxima o espetáculo da integração de linguagens presente na ópera.",
+    "C": "A relação entre palavra e música é apenas uma parte dessa articulação; não abrange toda a cena.",
+    "D": "Dialogar com o público pode ocorrer em muitos espetáculos e não define a aproximação solicitada.",
+    "E": "A fotografia e o texto não demonstram que um enredo único organize necessariamente todo o show."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O Teatro Mágico e a integração de linguagens. A combinação de música, atuação e recursos cênicos aproxima o espetáculo da integração de linguagens presente na ópera."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 32,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_AZUL.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

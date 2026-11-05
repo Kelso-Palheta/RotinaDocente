@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-regular-arte-115",
+  "ano": 2014,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Texto dramático, rubricas e autonomia da encenação",
+  "habilidades": [],
+  "enunciado": "FABIANA, arrepelando-se de raiva — Hum! Ora, eis aí está para que se casou meu filho, e trouxe a mulher para minha casa. É isto constantemente. Não sabe o senhor meu filho que quem casa quer casa... Já não posso, não posso, não posso! (Batendo com o pé). Um dia arrebento, e então veremos! PENA, M. Quem casa quer casa. www.dominiopublico.gov.br. Acesso em: 7 dez. 2012. As rubricas em itálico, como as trazidas no trecho de Martins Pena, em uma atuação teatral, constituem",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "necessidade, porque as encenações precisam ser fiéis às diretrizes do autor."
+    },
+    {
+      "id": "B",
+      "texto": "possibilidade, porque o texto pode ser mudado, assim como outros elementos."
+    },
+    {
+      "id": "C",
+      "texto": "preciosismo, porque são irrelevantes para o texto ou para a encenação."
+    },
+    {
+      "id": "D",
+      "texto": "exigência, porque elas determinam as características do texto teatral."
+    },
+    {
+      "id": "E",
+      "texto": "imposição, porque elas anulam a autonomia do diretor."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "Rubricas orientam a cena, mas não obrigam toda montagem a reproduzir literalmente cada indicação do dramaturgo.",
+    "B": "A montagem pode transformar texto e elementos da cena, pois a encenação é uma realização artística que interpreta as indicações do texto dramático.",
+    "C": "As rubricas contribuem para caracterizar ação, entonação e gestos; não são detalhes irrelevantes para o espetáculo.",
+    "D": "A importância das rubricas não implica exigir reprodução literal para definir o gênero teatral da obra.",
+    "E": "As indicações não anulam a autonomia do diretor: a encenação articula interpretação e decisões próprias sobre a linguagem cênica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Texto dramático, rubricas e autonomia da encenação. A montagem pode transformar texto e elementos da cena, pois a encenação é uma realização artística que interpreta as indicações do texto dramático."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 115,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2014/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

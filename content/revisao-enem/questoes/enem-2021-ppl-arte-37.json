@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-ppl-arte-37",
+  "ano": 2021,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Peter Brook e a concentração do tempo teatral",
+  "habilidades": [],
+  "enunciado": "Vamos ao teatro para um encontro com a vida, mas, se não houver diferença entre a vida lá fora e a vida em cena, o teatro não terá sentido. Não há razão para fazê-lo. Se aceitarmos, porém, que a vida no teatro é mais visível, mais vívida do que lá fora, então veremos que é a mesma coisa e, ao mesmo tempo, um tanto diferente. Convém acrescentar algumas particularidades. A vida, no teatro é mais compreensível e intensa porque é mais concentrada. A limitação do espaço e a compressão do tempo criam essa concentração. BROOK, P. A porta aberta. Rio de Janeiro: Civilização Brasileira, 1999. Segundo o diretor inglês Peter Brook, na passagem citada, a relação entre vida cotidiana e teatro pode ser resumida da maneira seguinte:",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Para assistir a uma peça de teatro, é preciso estar concentrado."
+    },
+    {
+      "id": "B",
+      "texto": "Não existe diferença entre a vida cotidiana e o teatro, eles são iguais."
+    },
+    {
+      "id": "C",
+      "texto": "No teatro, uma vida inteira pode acontecer e ser compreendida em apenas duas horas sobre um palco de dez metros quadrados."
+    },
+    {
+      "id": "D",
+      "texto": "No teatro, as falas são mais longas do que na vida cotidiana, e o palco é mais bonito."
+    },
+    {
+      "id": "E",
+      "texto": "No teatro, tudo é visível, os atores falam mais alto e mais pausadamente do que falamos no cotidiano, o que torna a vida mais compreensível."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A concentração discutida é uma propriedade da construção cênica, não apenas uma obrigação de atenção do espectador.",
+    "B": "O teatro se relaciona com a vida cotidiana, mas transforma sua intensidade e sua organização temporal e espacial.",
+    "C": "A compressão do tempo e do espaço permite representar uma trajetória inteira dentro de limites cênicos reduzidos.",
+    "D": "O palco mais bonito ou falas mais longas não explicam a concentração da experiência descrita por Brook.",
+    "E": "A intensidade teatral não se reduz a aumentar o volume da fala ou a torná-la mais lenta."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Peter Brook e a concentração do tempo teatral. A compressão do tempo e do espaço permite representar uma trajetória inteira dentro de limites cênicos reduzidos."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 37,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 37,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

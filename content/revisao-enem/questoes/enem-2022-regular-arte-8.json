@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-regular-arte-8",
+  "ano": 2022,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Design de jogos e representação das mulheres",
+  "habilidades": [],
+  "enunciado": "É ruivo? Tem olhos azuis? É homem ou mulher? Usa chapéu? Quem jogou Cara a Cara na infância sabe de cor o roteiro de perguntas para adivinhar quem é o personagem misterioso do seu oponente. Agora, o jogo está prestes a ganhar uma nova versão. A designer polonesa Zuzia Kozerska-Girard está desenvolvendo uma variação do Guess Who? (nome do Cara a Cara em inglês), em que as personalidades do tabuleiro são, na verdade, mulheres notáveis da história e da atualidade, como a artista Frida Kahlo, a ativista Malala Yousafzai, a astronauta Valentina Tereshkova e a aviadora Amelia Earhart. O Who’s She? (“Quem é ela?”, em português) traz, no total, 28 mulheres que representam diversas profissões, nacionalidades e idades.\n\nA ideia é que, em vez de perguntar sobre a aparência das personagens, as questões sejam direcionadas aos feitos delas: ganhou algum Nobel, fez alguma descoberta? Para cada personagem há um cartão com fatos divertidos e interessantes sobre sua vida. Uma campanha entrou no ar com o objetivo de arrecadar dinheiro para desenvolver o Who’s She?. A meta inicial era reunir 17 mil dólares. Oito dias antes de a campanha acabar, o projeto já angariou quase 350 mil dólares. A chegada do jogo à casa do comprador varia de acordo com a quantia doada — quanto mais você doou, mais rápido vai poder jogar. Disponível em: www.super.abril.com.br. Acesso em: 4 dez. 2018 (adaptado). Ao divulgar a adaptação do jogo para questões relativas a ações e habilidades de mulheres notáveis, o texto busca",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "contribuir para a formação cidadã dos jogadores."
+    },
+    {
+      "id": "B",
+      "texto": "refutar modelos estereotipados de beleza e elegância."
+    },
+    {
+      "id": "C",
+      "texto": "estimular a competitividade entre potenciais compradores."
+    },
+    {
+      "id": "D",
+      "texto": "exemplificar estratégias de arrecadação financeira pela internet."
+    },
+    {
+      "id": "E",
+      "texto": "desenvolver conhecimentos lúdicos específicos dos tempos atuais."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Ao deslocar as perguntas da aparência para as realizações das mulheres, o jogo contribui para conhecimento histórico e formação cidadã.",
+    "B": "A mudança vai além de questionar padrões de beleza: torna habilidades e trajetórias objeto das perguntas.",
+    "C": "A campanha de arrecadação não tem como finalidade principal gerar competição entre os compradores.",
+    "D": "O financiamento coletivo é um meio de produzir o jogo, não a finalidade educativa de sua adaptação.",
+    "E": "O jogo não se limita a ensinar saberes lúdicos atuais; apresenta realizações de mulheres de diferentes épocas."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Design de jogos e representação das mulheres. Ao deslocar as perguntas da aparência para as realizações das mulheres, o jogo contribui para conhecimento histórico e formação cidadã."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 8,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

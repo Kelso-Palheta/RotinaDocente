@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-18",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Frevo: definição e reconhecimento patrimonial",
+  "habilidades": [],
+  "enunciado": "TEXTO I Frevo: Dança de rua e de salão, é a grande alucinação do Carnaval pernambucano. Trata-se de uma marcha de ritmo frenético, que é a sua característica principal. E a multidão ondulando, nos meneios da dança, fica a ferver. E foi dessa ideia de fervura (o povo pronuncia frevura, frever) que se criou o nome frevo. CASCUDO, L. C. Dicionário do folclore brasileiro. São Paulo: Global, 2001 (adaptado). TEXTO II Frevo é Patrimônio Imaterial da Humanidade O frevo, ritmo genuinamente pernambucano, agora é do mundo. A música que hipnotiza milhões de foliões e dá o tom do Carnaval no estado foi oficialmente reconhecida como Patrimônio Imaterial da Humanidade. O anúncio foi feito em Paris, nesta quarta-feira, durante cerimônia da Organização das Nações Unidas para a Educação, a Ciência e a Cultura (Unesco). Disponível em: www.diariodepernambuco.com.br. Acesso em: 14 jun. 2015. Apesar de abordarem o mesmo tema, os textos I e II diferenciam-se por pertencerem a gêneros que cumprem, respectivamente, a função social de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "resumir e avaliar."
+    },
+    {
+      "id": "B",
+      "texto": "analisar e reportar."
+    },
+    {
+      "id": "C",
+      "texto": "definir e informar."
+    },
+    {
+      "id": "D",
+      "texto": "comentar e explanar."
+    },
+    {
+      "id": "E",
+      "texto": "discutir e conscientizar."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O primeiro texto não resume uma obra, e o segundo comunica uma notícia em vez de avaliar um produto cultural.",
+    "B": "O verbete define a manifestação; a análise crítica não é sua função predominante.",
+    "C": "O primeiro texto define e caracteriza o frevo; o segundo informa sobre seu reconhecimento pela Unesco.",
+    "D": "O primeiro não se limita a comentar, e o segundo não desenvolve uma exposição teórica sobre a manifestação.",
+    "E": "Os textos não organizam um debate para conscientizar: apresentam definição e notícia sobre o mesmo tema."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Frevo: definição e reconhecimento patrimonial. O primeiro texto define e caracteriza o frevo; o segundo informa sobre seu reconhecimento pela Unesco."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 18,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 30,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-regular-arte-36",
+  "ano": 2017,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Rubem Valentim e a síntese de matrizes culturais",
+  "habilidades": [],
+  "enunciado": "VALENTIM, R. Emblema 78. Acrílico sobre tela. 73 x 100 cm. 1978. Disponível em: www.espacoarte.com.br. Acesso em: 2 ago. 2012. A obra de Rubem Valentim apresenta emblemas que, baseando-se em signos de religiões afro-brasileiras, se transformam em produção artística. A obra Emblema 78 relaciona-se com o Modernismo em virtude da",
+  "imagens": [
+    {
+      "id": "enem-2017-regular-arte-36-figura-1",
+      "arquivo": "imagens/enem-2017-regular-arte-36-figura-1.png",
+      "alt": "Obra de Rubem Valentim com formas geométricas simétricas e símbolos sobrepostos em campo circular.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "simplificação de formas da paisagem brasileira."
+    },
+    {
+      "id": "B",
+      "texto": "valorização de símbolos do processo de urbanização."
+    },
+    {
+      "id": "C",
+      "texto": "fusão de elementos da cultura brasileira com a arte europeia."
+    },
+    {
+      "id": "D",
+      "texto": "alusão aos símbolos cívicos presentes na bandeira nacional."
+    },
+    {
+      "id": "E",
+      "texto": "composição simétrica de elementos relativos à miscigenação racial."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Os emblemas partem de signos religiosos e de uma síntese geométrica; não são uma paisagem brasileira simplificada.",
+    "B": "A obra não enfatiza signos da urbanização, mas referências simbólicas afro-brasileiras.",
+    "C": "A síntese geométrica de referências afro-brasileiras dialoga com procedimentos formais da arte moderna europeia.",
+    "D": "Os emblemas não são uma releitura dos símbolos cívicos da bandeira nacional.",
+    "E": "A simetria da composição não demonstra, por si, uma representação da miscigenação racial."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Rubem Valentim e a síntese de matrizes culturais. A síntese geométrica de referências afro-brasileiras dialoga com procedimentos formais da arte moderna europeia."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 36,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

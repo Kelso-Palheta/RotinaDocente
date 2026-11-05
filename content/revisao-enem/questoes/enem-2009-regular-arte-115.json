@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2009-regular-arte-115",
+  "ano": 2009,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Augusto Boal e a participação no Teatro do Oprimido",
+  "habilidades": [],
+  "enunciado": "Teatro do Oprimido é um método teatral que sistematiza exercícios, jogos e técnicas teatrais elaboradas pelo teatrólogo brasileiro Augusto Boal, recentemente falecido, que visa à desmecanização física e intelectual de seus praticantes. Partindo do princípio de que a linguagem teatral não deve ser diferenciada da que é usada cotidianamente pelo cidadão comum (oprimido), ele propõe condições práticas para que o oprimido se aproprie dos meios do fazer teatral e, assim, amplie suas possibilidades de expressão. Nesse sentido, todos podem desenvolver essa linguagem e, consequentemente, fazer teatro. Tratase de um teatro em que o espectador é convidado a substituir o protagonista e mudar a condução ou mesmo o fim da história, conforme o olhar interpretativo e contextualizado do receptor. Companhia Teatro do Oprimido. Disponível em: www.ctorio.org.br. Acesso em: 1 jul. 2009 (adaptado). Considerando-se as características do Teatro do Oprimido apresentadas, conclui-se que",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "esse modelo teatral é um método tradicional de fazer teatro que usa, nas suas ações cênicas, a linguagem rebuscada e hermética falada normalmente pelo cidadão comum."
+    },
+    {
+      "id": "B",
+      "texto": "a forma de recepção desse modelo teatral se destaca pela separação entre atores e público, na qual os atores representam seus personagens e a plateia assiste passivamente ao espetáculo."
+    },
+    {
+      "id": "C",
+      "texto": "sua linguagem teatral pode ser democratizada e apropriada pelo cidadão comum, no sentido de proporcionar-lhe autonomia crítica para compreensão e interpretação do mundo em que vive."
+    },
+    {
+      "id": "D",
+      "texto": "o convite ao espectador para substituir o protagonista e mudar o fim da história evidencia que a proposta de Boal se aproxima das regras do teatro tradicional para a preparação de atores."
+    },
+    {
+      "id": "E",
+      "texto": "a metodologia teatral do Teatro do Oprimido segue a concepção do teatro clássico aristotélico, que visa à desautomação física e intelectual de seus praticantes."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Boal aproxima o teatro da linguagem cotidiana; não propõe uma linguagem rebuscada ou hermética.",
+    "B": "O espectador intervém na ação e pode substituir o protagonista, rompendo a recepção passiva.",
+    "C": "Ao apropriar-se do fazer teatral, o cidadão amplia sua expressão e sua autonomia de leitura crítica da realidade.",
+    "D": "Mudar o rumo da história com a participação do espectador rompe a organização tradicional da representação.",
+    "E": "A intervenção ativa do espectador diferencia a proposta de Boal da recepção associada à dramaturgia clássica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Augusto Boal e a participação no Teatro do Oprimido. Ao apropriar-se do fazer teatral, o cidadão amplia sua expressão e sua autonomia de leitura crítica da realidade."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 115,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2009/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2009/gabarito_dia2.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

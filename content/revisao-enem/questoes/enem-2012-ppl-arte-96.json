@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-ppl-arte-96",
+  "ano": 2012,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Heitor dos Prazeres e a vida popular",
+  "habilidades": [],
+  "enunciado": "Disponível em: www.itaucultural.org.br. Acesso em: 26 jul. 2010. Sem formação acadêmica específica em artes visuais, Heitor dos Prazeres, que também é compositor e instrumentista, é reconhecido artista popular do Rio de Janeiro. Suas pinturas de perspectivas imprecisas e com traços bem demarcados são figurativas e sugerem movimento. Essa obra retrata",
+  "imagens": [
+    {
+      "id": "enem-2012-ppl-arte-96-heitor",
+      "arquivo": "imagens/enem-2012-ppl-arte-96-heitor.png",
+      "alt": "Figura original da questão 96: Heitor dos Prazeres e a vida popular.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "a confraternização de uma população socialmente marginalizada."
+    },
+    {
+      "id": "B",
+      "texto": "o inconformismo da população de baixa renda da capital."
+    },
+    {
+      "id": "C",
+      "texto": "o cotidiano da burguesia contemporânea da capital."
+    },
+    {
+      "id": "D",
+      "texto": "a instabilidade de uma realidade rural do Brasil."
+    },
+    {
+      "id": "E",
+      "texto": "a solidariedade da população nordestina."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A reunião festiva de personagens figurativos e em movimento apresenta a confraternização de uma população marginalizada socialmente.",
+    "B": "A cena descrita valoriza o encontro e a celebração; não evidencia uma manifestação de inconformismo político.",
+    "C": "O universo popular de Heitor dos Prazeres não representa o cotidiano da burguesia da capital.",
+    "D": "A obra se relaciona à experiência popular urbana do artista, não à instabilidade de uma realidade rural.",
+    "E": "A imagem não oferece elementos que a identifiquem especificamente com a solidariedade da população nordestina."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Heitor dos Prazeres e a vida popular. A reunião festiva de personagens figurativos e em movimento apresenta a confraternização de uma população marginalizada socialmente."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 96,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 96,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

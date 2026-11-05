@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-reaplicacao-arte-118",
+  "ano": 2014,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Viola Spolin e a experiência do presente",
+  "habilidades": [],
+  "enunciado": "Os mesmos objetivos que a teatróloga Spolin propõe para o espetáculo são válidos em cada momento durante o processo de aprendizagem, onde o teatro, enquanto manifestação viva e espontânea, deve estar presente em todos os momentos. Da mesma forma como a plateia de espectadores é normalmente pouco estimulada por emoções que pertencem ao passado, o jogador no palco não explora a si mesmo (suas emoções) através de um processo de identificação subjetivo, mas atua em função do momento presente. KOUDELA, I. D. Jogos teatrais. São Paulo: Perspectiva, 2006. O jogo teatral permite a liberdade de ação e o estabelecimento de contato com o ambiente e a ação espontânea se desenvolve de forma a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "ocultar a atuação do ator, dispensando a renovação das emoções, que são desestimulantes."
+    },
+    {
+      "id": "B",
+      "texto": "estimular a lembrança de momentos passados para salientar a importância das novas emoções."
+    },
+    {
+      "id": "C",
+      "texto": "entender os processos que se desenvolvem no palco com a exploração dos seus próprios sentimentos."
+    },
+    {
+      "id": "D",
+      "texto": "experienciar emoções novas, que surgem no presente, sem a exploração das velhas emoções do ator."
+    },
+    {
+      "id": "E",
+      "texto": "vivenciar alguns momentos, que Spolin acredita serem pertencentes ao processo subjetivo do ator."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A proposta não oculta a atuação; estimula a presença e a ação viva em vez de eliminar a renovação emocional.",
+    "B": "O método apresentado não se funda na repetição de lembranças emocionais do passado.",
+    "C": "O texto distingue o jogo da exploração subjetiva dos sentimentos pessoais do ator.",
+    "D": "O jogo favorece emoções que emergem da relação com a situação e o ambiente no momento presente.",
+    "E": "A ação espontânea não é reduzida ao processo subjetivo: ela se constrói no contato efetivo com o ambiente cênico."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Viola Spolin e a experiência do presente. O jogo favorece emoções que emergem da relação com a situação e o ambiente no momento presente."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 118,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_GB_terceira_aplicacao_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

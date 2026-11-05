@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   X,
   HelpCircle,
@@ -36,7 +36,9 @@ export function ModalNovaQuestao({
   const [nivelSuporte, setNivelSuporte] = useState(1);
   const [erro, setErro] = useState("");
 
-  useEffect(() => {
+  const [contextoAnterior, setContextoAnterior] = useState({ isOpen: false, questaoParaEditar: null });
+  if (contextoAnterior.isOpen !== isOpen || contextoAnterior.questaoParaEditar !== questaoParaEditar) {
+    setContextoAnterior({ isOpen, questaoParaEditar });
     if (isOpen) {
       setErro("");
       if (questaoParaEditar) {
@@ -71,7 +73,7 @@ export function ModalNovaQuestao({
         setNivelSuporte(1);
       }
     }
-  }, [isOpen, questaoParaEditar]);
+  }
 
   if (!isOpen) return null;
 

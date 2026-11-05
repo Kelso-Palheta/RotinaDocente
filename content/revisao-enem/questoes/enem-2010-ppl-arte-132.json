@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-ppl-arte-132",
+  "ano": 2010,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Tarsila do Amaral e a síntese modernista",
+  "habilidades": [],
+  "enunciado": "AMARAL, Tarsila do. O mamoeiro. 1925, óleo sobre tela, 65x70, IEB//USP. O modernismo brasileiro teve forte influência das vanguardas europeias. A partir da Semana de Arte Moderna, esses conceitos passaram a fazer parte da arte brasileira definitivamente. Tomando como referência o quadro O mamoeiro, identifica-se que, nas artes plásticas, a",
+  "imagens": [
+    {
+      "id": "enem-2010-ppl-arte-132-figura-1",
+      "arquivo": "imagens/enem-2010-ppl-arte-132-figura-1.png",
+      "alt": "Pintura de Tarsila do Amaral com casario, morros, vegetação e vias em composição geométrica.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "pagina": 19,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "imagem passa a valer mais que as formas vanguardistas."
+    },
+    {
+      "id": "B",
+      "texto": "forma estética ganha linhas retas e valoriza o cotidiano."
+    },
+    {
+      "id": "C",
+      "texto": "natureza passa a ser admirada como um espaço utópico."
+    },
+    {
+      "id": "D",
+      "texto": "imagem privilegia uma ação moderna e industrializada."
+    },
+    {
+      "id": "E",
+      "texto": "forma apresenta contornos e detalhes humanos."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A questão não estabelece superioridade da imagem sobre as formas; examina sua organização estética.",
+    "B": "A geometrização e a valorização do cotidiano aproximam O mamoeiro das propostas do modernismo brasileiro.",
+    "C": "O espaço cotidiano representado não é proposto como natureza ideal ou lugar utópico.",
+    "D": "A cena não privilegia uma atividade industrial; a composição reelabora um ambiente cotidiano brasileiro.",
+    "E": "A síntese geométrica dos corpos e do espaço não se define pelo detalhamento anatômico humano."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Tarsila do Amaral e a síntese modernista. A geometrização e a valorização do cotidiano aproximam O mamoeiro das propostas do modernismo brasileiro."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 132,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 132,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

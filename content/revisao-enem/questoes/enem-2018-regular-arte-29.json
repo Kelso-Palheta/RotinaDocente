@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-regular-arte-29",
+  "ano": 2018,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Man Ray e a investigação do fotograma",
+  "habilidades": [],
+  "enunciado": "TEXTO I Também chamados impressões ou imagens fotogramáticas [...], os fotogramas são, numa definição genérica, imagens realizadas sem a utilização da câmera fotográfica, por contato direto de um objeto ou material com uma superfície fotossensível exposta a uma fonte de luz. Essa técnica, que nasceu junto com a fotografia e serviu de modelo a muitas discussões sobre a ontologia da imagem fotográfica, foi profundamente transformada pelos artistas da vanguarda, nas primeiras décadas do século XX. Representou mesmo, ao lado das colagens, fotomontagens e outros procedimentos técnicos, a incorporação definitiva da fotografia à arte moderna e seu distanciamento da representação figurativa. COLUCCI, M. B. Impressões fotogramáticas e vanguardas: as experiências de Man Ray. Studium, n. 2, 2000. TEXTO II RAY, M. Rayograph, 1922. 23,9 x 29,9 cm. MOMA, Nova York. Disponível em: www.moma.org. Acesso em: 18 abr. 2018 (adaptado). No fotograma de Man Ray, o “distanciamento da representação figurativa” a que se refere o Texto I manifesta-se na",
+  "imagens": [
+    {
+      "id": "enem-2018-regular-arte-29-figura-1",
+      "arquivo": "imagens/enem-2018-regular-arte-29-figura-1.png",
+      "alt": "Fotografia de Man Ray com rosto parcialmente encoberto e fragmentado por faixas e contrastes.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "pagina": 13,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "ressignificação do jogo de luz e sombra, nos moldes surrealistas."
+    },
+    {
+      "id": "B",
+      "texto": "imposição do acaso sobre a técnica, como crítica à arte realista."
+    },
+    {
+      "id": "C",
+      "texto": "composição experimental, fragmentada e de contornos difusos."
+    },
+    {
+      "id": "D",
+      "texto": "abstração radical, voltada para a própria linguagem fotográfica."
+    },
+    {
+      "id": "E",
+      "texto": "imitação de formas humanas, com base em diferentes objetos."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Luz e sombra são matéria da fotografia, mas o afastamento da figuração é discutido como pesquisa da própria linguagem.",
+    "B": "O experimento fotográfico não elimina a técnica nem se reduz à imposição aleatória do acaso.",
+    "C": "A exposição direta de materiais à luz produz uma composição experimental com fragmentos e contornos imprecisos, afastada da figuração convencional.",
+    "D": "O experimento investiga a fotografia, mas a alternativa generaliza uma abstração radical; o texto pede a configuração visual efetivamente observada.",
+    "E": "Os objetos não são organizados para imitar formas humanas; a proposta investiga possibilidades próprias da fotografia."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Man Ray e a investigação do fotograma. A exposição direta de materiais à luz produz uma composição experimental com fragmentos e contornos imprecisos, afastada da figuração convencional."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 29,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_AZUL.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

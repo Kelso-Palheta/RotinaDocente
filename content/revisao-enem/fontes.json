@@ -1,26 +1,31 @@
 {
   "schemaVersion": 1,
-  "consultadoEm": "2026-11-04",
+  "consultadoEm": "2026-11-05",
   "aplicacoes": [
     {
       "ano": 2009,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2009/dia2_caderno5_amarelo.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2009/gabarito_dia2.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2009-regular-arte-100",
+        "enem-2009-regular-arte-113",
+        "enem-2009-regular-arte-115",
+        "enem-2009-regular-arte-116"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2009,
       "aplicacao": "ppl",
-      "status": "nao_aplicavel",
+      "status": "nao_localizada",
       "provaUrl": null,
       "gabaritoUrl": null,
       "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "O ENEM PPL não teve aplicação publicada na página oficial de 2009; a modalidade regular é a única registrada."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Aplicação PPL não localizada na página oficial de 2009. Ausência de publicação não comprova inexistência; investigação histórica pendente."
     },
     {
       "ano": 2009,
@@ -29,48 +34,70 @@
       "provaUrl": null,
       "gabaritoUrl": null,
       "questaoIds": [],
-      "consultadoEm": "2026-11-04",
+      "consultadoEm": "2026-11-05",
       "observacoes": "Não foi identificado caderno próprio nesta revisão; ausência de publicação na página consultada não prova inexistência da aplicação. Requer investigação histórica antes de declarar não aplicável."
     },
     {
       "ano": 2010,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo_com_gab.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2010-regular-arte-102",
+        "enem-2010-regular-arte-106",
+        "enem-2010-regular-arte-108",
+        "enem-2010-regular-arte-123",
+        "enem-2010-regular-arte-132"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2010,
       "aplicacao": "ppl",
-      "status": "pendente",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
-      "gabaritoUrl": null,
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada. Gabarito pendente de localização."
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "questaoIds": [
+        "enem-2010-ppl-arte-108",
+        "enem-2010-ppl-arte-114",
+        "enem-2010-ppl-arte-116",
+        "enem-2010-ppl-arte-132"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2010,
       "aplicacao": "reaplicacao",
-      "status": "pendente",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
-      "gabaritoUrl": null,
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "questaoIds": [
+        "enem-2010-ppl-arte-108",
+        "enem-2010-ppl-arte-114",
+        "enem-2010-ppl-arte-116",
+        "enem-2010-ppl-arte-132"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2011,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2011/05_AMARELO_GABARITO.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2011-regular-arte-104",
+        "enem-2011-regular-arte-108",
+        "enem-2011-regular-arte-110",
+        "enem-2011-regular-arte-111",
+        "enem-2011-regular-arte-114"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2011,
@@ -79,245 +106,394 @@
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2011/PPL_ENEM_2011_06_CINZA.pdf",
       "gabaritoUrl": null,
       "questaoIds": [],
-      "consultadoEm": "2026-11-04",
+      "consultadoEm": "2026-11-05",
       "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada. Gabarito pendente de localização."
     },
     {
       "ano": 2011,
       "aplicacao": "reaplicacao",
-      "status": "nao_localizada",
-      "provaUrl": null,
+      "status": "pendente",
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2011/PPL_ENEM_2011_06_CINZA.pdf",
       "gabaritoUrl": null,
       "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Não foi identificado caderno próprio nesta revisão; ausência de publicação na página consultada não prova inexistência da aplicação. Requer investigação histórica antes de declarar não aplicável."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "A página oficial identifica Reaplicação/PPL e disponibiliza o caderno cinza do segundo dia. Gabarito correspondente ainda não localizado; nenhuma questão foi criada com gabarito presumido."
     },
     {
       "ano": 2012,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2012/dia2_amarelo.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2012-regular-arte-114",
+        "enem-2012-regular-arte-123",
+        "enem-2012-regular-arte-124",
+        "enem-2012-regular-arte-131"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2012,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada."
+      "questaoIds": [
+        "enem-2012-ppl-arte-113",
+        "enem-2012-ppl-arte-127",
+        "enem-2012-ppl-arte-128",
+        "enem-2012-ppl-arte-96"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2012,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2012-ppl-arte-113",
+        "enem-2012-ppl-arte-127",
+        "enem-2012-ppl-arte-128",
+        "enem-2012-ppl-arte-96"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2013,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2013/dia2_amarelo.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2013-regular-arte-102",
+        "enem-2013-regular-arte-108",
+        "enem-2013-regular-arte-117",
+        "enem-2013-regular-arte-127",
+        "enem-2013-regular-arte-97"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2013,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada. O nome do arquivo oficial de 2013 contém D1_CD6 apesar do caderno 6 e do gabarito corresponderem ao segundo dia; conferir capa antes de extrair."
+      "questaoIds": [
+        "enem-2013-ppl-arte-100",
+        "enem-2013-ppl-arte-105",
+        "enem-2013-ppl-arte-110",
+        "enem-2013-ppl-arte-117"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2013,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2013-ppl-arte-100",
+        "enem-2013-ppl-arte-105",
+        "enem-2013-ppl-arte-110",
+        "enem-2013-ppl-arte-117"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2014,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2014/CADERNO_5_AMARELO_DOMINGO.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2014-regular-arte-106",
+        "enem-2014-regular-arte-109",
+        "enem-2014-regular-arte-111",
+        "enem-2014-regular-arte-112",
+        "enem-2014-regular-arte-115",
+        "enem-2014-regular-arte-129",
+        "enem-2014-regular-arte-134"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2014,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_PV_D2_CD6.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_GB_D2_CD6.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada."
+      "questaoIds": [
+        "enem-2014-ppl-arte-100",
+        "enem-2014-ppl-arte-107",
+        "enem-2014-ppl-arte-110",
+        "enem-2014-ppl-arte-115",
+        "enem-2014-ppl-arte-116"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2014,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_GB_terceira_aplicacao_D2_CD6.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Aplicação adicional: caderno de Linguagens do 2º dia localizado na página oficial; nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2014-reaplicacao-arte-107",
+        "enem-2014-reaplicacao-arte-109",
+        "enem-2014-reaplicacao-arte-118",
+        "enem-2014-reaplicacao-arte-98",
+        "enem-2014-reaplicacao-arte-99"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2015,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2015-regular-arte-114",
+        "enem-2015-regular-arte-115",
+        "enem-2015-regular-arte-116",
+        "enem-2015-regular-arte-117",
+        "enem-2015-regular-arte-118",
+        "enem-2015-regular-arte-135",
+        "enem-2015-regular-arte-96"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2015,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada."
+      "questaoIds": [
+        "enem-2015-ppl-arte-100",
+        "enem-2015-ppl-arte-105",
+        "enem-2015-ppl-arte-108",
+        "enem-2015-ppl-arte-122",
+        "enem-2015-ppl-arte-129",
+        "enem-2015-ppl-arte-130"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2015,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2015-ppl-arte-100",
+        "enem-2015-ppl-arte-105",
+        "enem-2015-ppl-arte-108",
+        "enem-2015-ppl-arte-122",
+        "enem-2015-ppl-arte-129",
+        "enem-2015-ppl-arte-130"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2016,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte de Linguagens do 2º dia, localizada na página oficial; corrigida na revisão independente de 04/11/2026. Nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2016-regular-arte-101",
+        "enem-2016-regular-arte-109",
+        "enem-2016-regular-arte-119",
+        "enem-2016-regular-arte-123",
+        "enem-2016-regular-arte-129",
+        "enem-2016-regular-arte-130"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2016,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2016/gabarito_caderno_cinza_13_2016.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Caderno de Linguagens do 2º dia identificado na página oficial. Não há questões catalogadas nesta entrada."
+      "questaoIds": [
+        "enem-2016-ppl-arte-111",
+        "enem-2016-ppl-arte-116",
+        "enem-2016-ppl-arte-127",
+        "enem-2016-ppl-arte-134",
+        "enem-2016-ppl-arte-99"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2016,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Aplicação adicional: caderno de Linguagens do 2º dia localizado na página oficial; nenhuma questão catalogada nesta entrada."
+      "questaoIds": [
+        "enem-2016-reaplicacao-arte-102",
+        "enem-2016-reaplicacao-arte-112",
+        "enem-2016-reaplicacao-arte-114",
+        "enem-2016-reaplicacao-arte-116",
+        "enem-2016-reaplicacao-arte-119",
+        "enem-2016-reaplicacao-arte-125",
+        "enem-2016-reaplicacao-arte-98"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2017,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do 1º dia localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2017-regular-arte-21",
+        "enem-2017-regular-arte-25",
+        "enem-2017-regular-arte-32",
+        "enem-2017-regular-arte-36",
+        "enem-2017-regular-arte-37",
+        "enem-2017-regular-arte-43",
+        "enem-2017-regular-arte-45"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2017,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2017-ppl-arte-10",
+        "enem-2017-ppl-arte-13",
+        "enem-2017-ppl-arte-18",
+        "enem-2017-ppl-arte-20",
+        "enem-2017-ppl-arte-22",
+        "enem-2017-ppl-arte-34",
+        "enem-2017-ppl-arte-35",
+        "enem-2017-ppl-arte-37",
+        "enem-2017-ppl-arte-40"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2017,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Segunda aplicação de 2017 registrada como reaplicação; prova e gabarito localizados na página oficial."
+      "questaoIds": [
+        "enem-2017-ppl-arte-10",
+        "enem-2017-ppl-arte-13",
+        "enem-2017-ppl-arte-18",
+        "enem-2017-ppl-arte-20",
+        "enem-2017-ppl-arte-22",
+        "enem-2017-ppl-arte-34",
+        "enem-2017-ppl-arte-35",
+        "enem-2017-ppl-arte-37",
+        "enem-2017-ppl-arte-40"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2018,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_AZUL.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do 1º dia localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2018-regular-arte-11",
+        "enem-2018-regular-arte-12",
+        "enem-2018-regular-arte-29",
+        "enem-2018-regular-arte-32",
+        "enem-2018-regular-arte-45"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2018,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2018-ppl-arte-16",
+        "enem-2018-ppl-arte-21",
+        "enem-2018-ppl-arte-25",
+        "enem-2018-ppl-arte-27",
+        "enem-2018-ppl-arte-29",
+        "enem-2018-ppl-arte-31",
+        "enem-2018-ppl-arte-34",
+        "enem-2018-ppl-arte-41",
+        "enem-2018-ppl-arte-45"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2018,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2018-ppl-arte-16",
+        "enem-2018-ppl-arte-21",
+        "enem-2018-ppl-arte-25",
+        "enem-2018-ppl-arte-27",
+        "enem-2018-ppl-arte-29",
+        "enem-2018-ppl-arte-31",
+        "enem-2018-ppl-arte-34",
+        "enem-2018-ppl-arte-41",
+        "enem-2018-ppl-arte-45"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2019,
       "aplicacao": "regular",
-      "status": "conferida",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
       "questaoIds": [
         "enem-2019-regular-arte-12",
         "enem-2019-regular-arte-13",
+        "enem-2019-regular-arte-15",
         "enem-2019-regular-arte-25",
         "enem-2019-regular-arte-31",
         "enem-2019-regular-arte-36",
         "enem-2019-regular-arte-40"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Seis questões de Arte catalogadas; amostra ampliada em 04/11/2026 com Q12, Q13, Q25 e Q40. Não implica cobertura integral da aplicação."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2019,
@@ -331,8 +507,8 @@
         "enem-2019-ppl-arte-40",
         "enem-2019-ppl-arte-55"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Quatro questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2019; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2019,
@@ -346,114 +522,164 @@
         "enem-2019-ppl-arte-40",
         "enem-2019-ppl-arte-55"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Quatro questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2019; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2020,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do 1º dia localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2020-regular-arte-14",
+        "enem-2020-regular-arte-21",
+        "enem-2020-regular-arte-25",
+        "enem-2020-regular-arte-28",
+        "enem-2020-regular-arte-33",
+        "enem-2020-regular-arte-8"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2020,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2020-ppl-arte-13",
+        "enem-2020-ppl-arte-38"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2020,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2020-ppl-arte-13",
+        "enem-2020-ppl-arte-38"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2021,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_impresso_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do 1º dia localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2021-regular-arte-10",
+        "enem-2021-regular-arte-14",
+        "enem-2021-regular-arte-15",
+        "enem-2021-regular-arte-20",
+        "enem-2021-regular-arte-23",
+        "enem-2021-regular-arte-33"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2021,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2021-ppl-arte-17",
+        "enem-2021-ppl-arte-35",
+        "enem-2021-ppl-arte-37"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2021,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2021-ppl-arte-17",
+        "enem-2021-ppl-arte-35",
+        "enem-2021-ppl-arte-37"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2022,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do 1º dia localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2022-regular-arte-10",
+        "enem-2022-regular-arte-38",
+        "enem-2022-regular-arte-39",
+        "enem-2022-regular-arte-44",
+        "enem-2022-regular-arte-45",
+        "enem-2022-regular-arte-8"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2022,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "questaoIds": [
+        "enem-2022-ppl-arte-11",
+        "enem-2022-ppl-arte-23",
+        "enem-2022-ppl-arte-24",
+        "enem-2022-ppl-arte-25",
+        "enem-2022-ppl-arte-6"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2022,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "questaoIds": [
+        "enem-2022-ppl-arte-11",
+        "enem-2022-ppl-arte-23",
+        "enem-2022-ppl-arte-24",
+        "enem-2022-ppl-arte-25",
+        "enem-2022-ppl-arte-6"
+      ],
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2023,
       "aplicacao": "regular",
-      "status": "conferida",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
       "questaoIds": [
+        "enem-2023-regular-arte-17",
+        "enem-2023-regular-arte-19",
+        "enem-2023-regular-arte-32",
         "enem-2023-regular-arte-33",
         "enem-2023-regular-arte-34",
         "enem-2023-regular-arte-36",
         "enem-2023-regular-arte-37",
         "enem-2023-regular-arte-38"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Cinco questões de Arte catalogadas; amostra ampliada em 04/11/2026 com Q37 (arte e redes) e Q38 (rap indígena). Não implica cobertura integral da aplicação."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2023,
@@ -463,14 +689,15 @@
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
       "questaoIds": [
         "enem-2023-ppl-arte-07",
+        "enem-2023-ppl-arte-13",
         "enem-2023-ppl-arte-20",
         "enem-2023-ppl-arte-21",
         "enem-2023-ppl-arte-22",
         "enem-2023-ppl-arte-26",
         "enem-2023-ppl-arte-37"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Seis questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2023; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2023,
@@ -480,19 +707,20 @@
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
       "questaoIds": [
         "enem-2023-ppl-arte-07",
+        "enem-2023-ppl-arte-13",
         "enem-2023-ppl-arte-20",
         "enem-2023-ppl-arte-21",
         "enem-2023-ppl-arte-22",
         "enem-2023-ppl-arte-26",
         "enem-2023-ppl-arte-37"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Seis questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2023; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2024,
       "aplicacao": "regular",
-      "status": "conferida",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
       "questaoIds": [
@@ -502,15 +730,16 @@
         "enem-2024-regular-arte-25",
         "enem-2024-regular-arte-30",
         "enem-2024-regular-arte-36",
-        "enem-2024-regular-arte-43"
+        "enem-2024-regular-arte-43",
+        "enem-2024-regular-arte-44"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Sete questões de Arte catalogadas; amostra ampliada em 04/11/2026 com Q08 (instrumentos musicais) e Q43 (fotografia). Não implica cobertura integral da aplicação."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2024,
       "aplicacao": "ppl",
-      "status": "conferida",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
       "questaoIds": [
@@ -521,13 +750,13 @@
         "enem-2024-ppl-arte-40",
         "enem-2024-ppl-arte-47"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Amostra de 6 questões de Arte/área afim catalogadas e conferidas; não implica cobertura integral da aplicação."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2024,
       "aplicacao": "reaplicacao",
-      "status": "conferida",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
       "questaoIds": [
@@ -538,8 +767,8 @@
         "enem-2024-ppl-arte-40",
         "enem-2024-ppl-arte-47"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2025,
@@ -548,20 +777,20 @@
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
       "questaoIds": [
-        "enem-2025-regular-arte-15",
-        "enem-2025-regular-arte-22",
-        "enem-2025-regular-arte-23",
-        "enem-2025-regular-arte-41",
-        "enem-2025-regular-arte-45",
         "enem-2025-reaplicacao-d3-arte-03",
         "enem-2025-reaplicacao-d3-arte-15",
         "enem-2025-reaplicacao-d3-arte-27",
         "enem-2025-reaplicacao-d3-arte-30",
         "enem-2025-reaplicacao-d3-arte-42",
-        "enem-2025-reaplicacao-d3-arte-44"
+        "enem-2025-reaplicacao-d3-arte-44",
+        "enem-2025-regular-arte-15",
+        "enem-2025-regular-arte-22",
+        "enem-2025-regular-arte-23",
+        "enem-2025-regular-arte-41",
+        "enem-2025-regular-arte-45"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Onze questões catalogadas: cinco da aplicação regular nacional D1 e seis da edição regional regular D3 (Belém/Ananindeua/Marituba), conforme classificação oficial INEP. Fontes específicas constam de cada questão; revisão docente e completude pendentes."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     },
     {
       "ano": 2025,
@@ -570,7 +799,7 @@
       "provaUrl": null,
       "gabaritoUrl": null,
       "questaoIds": [],
-      "consultadoEm": "2026-11-04",
+      "consultadoEm": "2026-11-05",
       "observacoes": "PPL 2025 não localizado na página oficial até 04/11/2026; a página lista aplicação regular, aplicação especial de Belém/Ananindeua/Marituba e reaplicação nacional."
     },
     {
@@ -580,12 +809,14 @@
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
       "questaoIds": [
+        "enem-2025-reaplicacao-arte-12",
+        "enem-2025-reaplicacao-arte-33",
         "enem-2025-reaplicacao-d5-arte-09",
         "enem-2025-reaplicacao-d5-arte-20",
         "enem-2025-reaplicacao-d5-arte-42"
       ],
-      "consultadoEm": "2026-11-04",
-      "observacoes": "Três questões catalogadas da reaplicação nacional D5. A edição regional D3 é regular e está no inventário regular; IDs das questões preservados apesar do prefixo legado. Explicações e cobertura integral pendentes."
+      "consultadoEm": "2026-11-05",
+      "observacoes": "Catalogação técnica em rascunho; exige conferência docente de texto, imagem e comentários. As referências específicas de cada questão prevalecem para cadernos e edições regionais. Não indica exaustividade."
     }
   ]
 }

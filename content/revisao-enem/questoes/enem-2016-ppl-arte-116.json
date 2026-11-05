@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-ppl-arte-116",
+  "ano": 2016,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Neoclassicismo, poder e idealização histórica",
+  "habilidades": [
+    "Identificar características do Neoclassicismo",
+    "Interpretar a função ideológica da pintura"
+  ],
+  "enunciado": "DAVID, J. L. Napoleão cruzando os Alpes. Óleo sobre tela. 271 cm x 232 cm. Museu de Versalhes, Paris, 1801.\n\nA pintura Napoleão cruzando os Alpes, do artista francês Jacques Louis-David, produzida em 1801, contempla as características de um estilo que",
+  "imagens": [
+    {
+      "id": "david-napoleao",
+      "arquivo": "imagens/enem-2016-ppl-arte-116-david.png",
+      "alt": "Pintura de Jacques-Louis David com Napoleão montado em um cavalo empinado, vestindo capa e chapéu, sobre rochas com inscrições.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 12,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "utiliza técnicas e suportes artísticos inovadores."
+    },
+    {
+      "id": "B",
+      "texto": "reflete a percepção da população sobre a realidade."
+    },
+    {
+      "id": "C",
+      "texto": "caricaturiza episódios marcantes da história europeia."
+    },
+    {
+      "id": "D",
+      "texto": "idealiza eventos históricos pela ótica de grupos dominantes."
+    },
+    {
+      "id": "E",
+      "texto": "compõe obras com base na visão crítica de artistas consagrados."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "David usa técnica acadêmica e suportes tradicionais; a novidade está no conteúdo político, não em recursos técnicos revolucionários.",
+    "B": "A pintura não retrata a percepção popular, mas uma imagem oficial construída para exaltar Napoleão.",
+    "C": "Não há caricatura: a cena é heroica e grandiosa, não cômica.",
+    "D": "O Neoclassicismo de David idealiza Napoleão e o apresenta como herói, servindo à propaganda do poder dominante.",
+    "E": "A obra não é uma visão crítica de um artista consagrado; é uma encomenda que glorifica o governante."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O Neoclassicismo retoma a clareza, o desenho e os temas heroicos da Antiguidade. Em David, essa linguagem serve à exaltação de Napoleão: o cavalo empinado, o manto e a inscrição nas pedras constroem uma imagem idealizada do líder."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "david-napoleao",
+      "legenda": "Jacques-Louis David, Napoleão cruzando os Alpes, 1801."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 Cinza — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2016/gabarito_caderno_cinza_13_2016.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

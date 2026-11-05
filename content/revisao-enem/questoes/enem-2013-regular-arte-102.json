@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-regular-arte-102",
+  "ano": 2013,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte gráfica e crítica ao trabalho infantil",
+  "habilidades": [],
+  "enunciado": "KUCZYNSKIEGO, P. Ilustração, 2008. Disponível em: http://capu.pl. Acesso em: 3 ago. 2012. O artista gráfico polonês Pawla Kuczynskiego nasceu em 1976 e recebeu diversos prêmios por suas ilustrações. Nessa obra, ao abordar o trabalho infantil, Kuczynskiego usa sua arte para",
+  "imagens": [
+    {
+      "id": "enem-2013-regular-arte-102-kuczynski",
+      "arquivo": "imagens/enem-2013-regular-arte-102-kuczynski.png",
+      "alt": "Figura original da questão 102: Arte gráfica e crítica ao trabalho infantil.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "pagina": 8,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "difundir a origem de marcantes diferenças sociais."
+    },
+    {
+      "id": "B",
+      "texto": "estabelecer uma postura proativa da sociedade."
+    },
+    {
+      "id": "C",
+      "texto": "provocar a reflexão sobre essa realidade."
+    },
+    {
+      "id": "D",
+      "texto": "propor alternativas para solucionar esse problema."
+    },
+    {
+      "id": "E",
+      "texto": "retratar como a questão é enfrentada em vários países do mundo."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A ilustração não reconstrói a origem histórica das desigualdades; apresenta uma situação que provoca reflexão social.",
+    "B": "A obra não demonstra uma postura já assumida pela sociedade; interpela quem a observa sobre o trabalho infantil.",
+    "C": "A composição visual do artista torna o trabalho infantil objeto de reflexão crítica para o espectador.",
+    "D": "A imagem não oferece um plano de solução; seu efeito principal é problematizar a realidade representada.",
+    "E": "O desenho não compara políticas de vários países; concentra sua crítica em uma situação simbólica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Arte gráfica e crítica ao trabalho infantil. A composição visual do artista torna o trabalho infantil objeto de reflexão crítica para o espectador."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 102,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2013/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

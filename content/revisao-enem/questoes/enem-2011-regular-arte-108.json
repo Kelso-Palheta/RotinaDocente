@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2011-regular-arte-108",
+  "ano": 2011,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Dança como expressão da cultura de um povo",
+  "habilidades": [],
+  "enunciado": "A dança é um importante componente cultural da humanidade. O folclore brasileiro é rico em danças que representam as tradições e a cultura de várias regiões do país. Estão ligadas aos aspectos religiosos, festas, lendas, fatos históricos, acontecimentos do cotidiano e brincadeiras e caracterizam-se pelas músicas animadas (com letras simples e populares), figurinos e cenários representativos. SECRETARIA DA EDUCAÇÃO. Proposta Curricular do Estado de São Paulo: Educação Física. São Paulo: 2009 (adaptado). A dança, como manifestação e representação da cultura rítmica, envolve a expressão corporal própria de um povo. Considerando-a como elemento folclórico, a dança revela",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "manifestações afetivas, históricas, ideológicas, intelectuais e espirituais de um povo, refletindo seu modo de expressar-se no mundo."
+    },
+    {
+      "id": "B",
+      "texto": "aspectos eminentemente afetivos, espirituais e de entretenimento de um povo, desconsiderando fatos históricos."
+    },
+    {
+      "id": "C",
+      "texto": "acontecimentos do cotidiano, sob influência mitológica e religiosa de cada região, sobrepondo aspectos políticos."
+    },
+    {
+      "id": "D",
+      "texto": "tradições culturais de cada região, cujas manifestações rítmicas são classificadas em um ranking das mais originais."
+    },
+    {
+      "id": "E",
+      "texto": "lendas, que se sustentam em inverdades históricas, uma vez que são inventadas, e servem apenas para a vivência lúdica de um povo."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A dança reúne dimensões históricas, afetivas, intelectuais e espirituais na expressão corporal de uma comunidade.",
+    "B": "Excluir os fatos históricos reduz indevidamente uma manifestação ligada à memória e à vida social.",
+    "C": "Religião e mitologia podem integrar a dança, mas não substituem necessariamente as dimensões políticas da cultura.",
+    "D": "As tradições não precisam ser ordenadas em um ranking de originalidade para terem valor cultural.",
+    "E": "As lendas expressam imaginários coletivos; sua função cultural não se resume a divertir com inverdades."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Dança como expressão da cultura de um povo. A dança reúne dimensões históricas, afetivas, intelectuais e espirituais na expressão corporal de uma comunidade."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2011/05_AMARELO_GABARITO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

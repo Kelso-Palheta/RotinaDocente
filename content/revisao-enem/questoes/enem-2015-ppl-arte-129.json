@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-ppl-arte-129",
+  "ano": 2015,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Improvisação teatral e trabalho coletivo",
+  "habilidades": [],
+  "enunciado": "Um relacionamento de grupo saudável exige um número de indivíduos trabalhando interdependentemente para completar um projeto, com total participação individual e contribuição pessoal. Se uma pessoa domina, os outros membros têm pouco crescimento ou prazer na atividade, não existe um verdadeiro relacionamento no grupo. O teatro é uma atividade artística que exige o talento e a energia de muitas pessoas — desde a primeira ideia de uma peça ou cena até o último eco de aplauso. Sem esta interação não há lugar para o ator individualmente, pois sem o funcionamento do grupo, para quem iria ele representar, que materiais usaria e que efeitos poderia produzir? O aluno-ator deve aprender que “como atuar”, assim como no jogo, está intrinsecamente ligado a todas as outras pessoas na complexidade da forma da arte. O teatro improvisacional requer relacionamento de grupo muito intenso, pois é a partir do acordo e da atuação em grupo que emerge o material para as cenas e peças. SPOLIN, V. Improvisação para o teatro. São Paulo: Perspectiva, 2008. Com base no texto, as diferenças e similaridades dos atores são aceitas no teatro de improvisação quando",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "todos experimentam o teatro juntos e sem julgamentos."
+    },
+    {
+      "id": "B",
+      "texto": "uma parte do grupo comanda a outra, exercendo o poder."
+    },
+    {
+      "id": "C",
+      "texto": "a opinião de alguns tem valor e demonstra a sua capacidade individual."
+    },
+    {
+      "id": "D",
+      "texto": "a individualidade se destaca e traz à tona o talento daquele que é o melhor."
+    },
+    {
+      "id": "E",
+      "texto": "uma pessoa precisa dominar, comandando as ações do grupo, sem acordos."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A criação em grupo permite experimentar e acolher diferenças sem submeter a participação ao julgamento hierarquizante.",
+    "B": "A dominação de parte do grupo impede a interdependência e a contribuição pessoal defendidas no texto.",
+    "C": "Valorizar somente algumas opiniões restringe a participação necessária à construção coletiva das cenas.",
+    "D": "A primazia de um ator considerado melhor contraria a cooperação que sustenta a improvisação.",
+    "E": "A imposição individual sem acordos impede o relacionamento intenso de grupo descrito por Spolin."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Improvisação teatral e trabalho coletivo. A criação em grupo permite experimentar e acolher diferenças sem submeter a participação ao julgamento hierarquizante."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 129,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 129,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

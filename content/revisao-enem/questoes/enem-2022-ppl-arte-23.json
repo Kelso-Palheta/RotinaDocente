@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-ppl-arte-23",
+  "ano": 2022,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Subodh Gupta e a circulação global da arte indiana",
+  "habilidades": [],
+  "enunciado": "GUPTA, S. Booth B20 Thing (Coisa). Aço inoxidável e ferro, 95 cm x 120 cm x 42 cm, Feira de Arte de Frieze, 2005. Disponível em: https://art-sheep.com. Acesso em: 28 jun. 2022 (adaptado). O ano de 2005 foi importante para a arte indiana em razão das novas conjunções entre a globalização e a economia do país. Mudanças geopolíticas e a evolução dos meios de comunicação intensificaram as trocas artísticas e a projeção dessa cultura, que pôde",
+  "imagens": [
+    {
+      "id": "enem-2022-ppl-arte-23-figura-1",
+      "arquivo": "imagens/enem-2022-ppl-arte-23-figura-1.png",
+      "alt": "Obra em volume circular composta por numerosos elementos alongados reunidos em superfície densa.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 11,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "trabalhar com novas mídias, instalações e performances."
+    },
+    {
+      "id": "B",
+      "texto": "modificar a arte contemporânea com objetos extraídos do cotidiano."
+    },
+    {
+      "id": "C",
+      "texto": "enfatizar a pintura e a escultura com a desmaterialização do objeto."
+    },
+    {
+      "id": "D",
+      "texto": "apresentar um novo conceito de uso das formas e materiais naturais."
+    },
+    {
+      "id": "E",
+      "texto": "retratar imagens múltiplas que expressam a agitação da modernidade."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "As trocas e os meios de comunicação ampliam as possibilidades de trabalhar com novas mídias, instalações e performances.",
+    "B": "O uso de objetos cotidianos participa da obra, mas não é uma invenção exclusiva dessa projeção da arte indiana.",
+    "C": "A instalação não elimina a materialidade nem reduz a criação contemporânea à pintura e à escultura tradicionais.",
+    "D": "Os materiais industriais da obra não sustentam uma proposta centrada exclusivamente em formas naturais.",
+    "E": "A estrutura apresentada não é uma representação pictórica da velocidade ou da agitação moderna."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Subodh Gupta e a circulação global da arte indiana. As trocas e os meios de comunicação ampliam as possibilidades de trabalhar com novas mídias, instalações e performances."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 23,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 23,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

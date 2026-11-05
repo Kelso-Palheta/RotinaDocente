@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2011-regular-arte-114",
+  "ano": 2011,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Guernica, cubismo e denúncia da guerra",
+  "habilidades": [],
+  "enunciado": "PICASSO, P. Guernica. Óleo sobre tela. 349 X 777 cm. Museu Reina Sofia, Espanha, 1937. Disponível em: http://www.fddreis.files.wordpress.com. Acesso em: 26 jul. 2010. O pintor espanhol Pablo Picasso (1881-1973), um dos mais valorizados no mundo artístico, tanto em termos financeiros quanto históricos, criou a obra Guernica em protesto ao ataque aéreo à pequena cidade basca de mesmo nome. A obra, feita para integrar o Salão Internacional de Artes Plásticas de Paris, percorreu toda a Europa, chegando aos EUA e instalando-se no MoMA, de onde sairia apenas em 1981. Essa obra cubista apresenta elementos plásticos identificados pelo",
+  "imagens": [
+    {
+      "id": "enem-2011-regular-arte-114-figura-1",
+      "arquivo": "imagens/enem-2011-regular-arte-114-figura-1.png",
+      "alt": "Guernica, de Pablo Picasso: composição em preto e branco com figuras humanas e animais fragmentados.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "pagina": 13,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "painel ideográfico, monocromático, que enfoca várias dimensões de um evento, renunciando à realidade, colocando-se em plano frontal ao espectador."
+    },
+    {
+      "id": "B",
+      "texto": "horror da guerra de forma fotográfica, com o uso da perspectiva clássica, envolvendo o espectador nesse exemplo brutal de crueldade do ser humano."
+    },
+    {
+      "id": "C",
+      "texto": "uso das formas geométricas no mesmo plano, sem emoção e expressão, despreocupado com o volume, a perspectiva e a sensação escultórica."
+    },
+    {
+      "id": "D",
+      "texto": "esfacelamento dos objetos abordados na mesma narrativa, minimizando a dor humana a serviço da objetividade, observada pelo uso do claro-escuro."
+    },
+    {
+      "id": "E",
+      "texto": "uso de vários ícones que representam personagens fragmentados bidimensionalmente, de forma fotográfica livre de sentimentalismo."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A composição monocromática organiza figuras e símbolos em plano frontal para construir múltiplas dimensões da tragédia.",
+    "B": "Picasso fragmenta e deforma as figuras; a obra não reproduz fotograficamente o ataque por perspectiva clássica.",
+    "C": "A geometrização não elimina a emoção; os corpos, gestos e expressões intensificam o sofrimento.",
+    "D": "A fragmentação da narrativa não minimiza a dor humana: ela constitui um recurso de denúncia do massacre.",
+    "E": "Os personagens fragmentados são carregados de expressão e não formam uma fotografia sem sentimentalismo."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Guernica, cubismo e denúncia da guerra. A composição monocromática organiza figuras e símbolos em plano frontal para construir múltiplas dimensões da tragédia."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 114,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2011/05_AMARELO_GABARITO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

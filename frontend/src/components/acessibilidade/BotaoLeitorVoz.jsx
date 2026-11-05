@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
 import { Volume2, Square, Loader2 } from 'lucide-react';
 import {
   prepararTextoParaLeitura,
@@ -8,15 +8,13 @@ import {
   ESTADOS_LEITURA,
 } from '@/dominio/adaptacoes/leitorAcessivel';
 
+const observarSuporteVoz = () => () => {};
+const lerSuporteVoz = () => typeof window !== 'undefined' && 'speechSynthesis' in window;
+const suporteVozServidor = () => false;
+
 export function BotaoLeitorVoz({ texto, rate = 1.0, label = 'Ouvir', className = '' }) {
   const [estado, setEstado] = useState(ESTADOS_LEITURA.IDLE);
-  const [suportado, setSuportado] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      setSuportado(true);
-    }
-  }, []);
+  const suportado = useSyncExternalStore(observarSuporteVoz, lerSuporteVoz, suporteVozServidor);
 
   useEffect(() => {
     // Parar áudio caso o componente desmonte

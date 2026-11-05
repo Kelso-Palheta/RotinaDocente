@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-regular-arte-21",
+  "ano": 2020,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Lenine e a diversidade da cultura pernambucana",
+  "habilidades": [],
+  "enunciado": "Sou o coração do folclore nordestino Eu sou Mateus e Bastião do Boi-bumbá Sou o boneco de Mestre Vitalino Dançando uma ciranda em Itamaracá Eu sou um verso de Carlos Pena Filho Num frevo de Capiba Ao som da Orquestra Armorial Sou Capibaribe Num livro de João Cabral Sou mamulengo de São Bento do Una Vindo no baque solto de maracatu Eu sou um auto de Ariano Suassuna No meio da Feira de Caruaru Sou Frei Caneca do Pastoril do Faceta Levando a flor da lira Pra Nova Jerusalém Sou Luiz Gonzaga E sou do mangue também Eu sou mameluco, sou de Casa Forte Sou de Pernambuco, sou o Leão do Norte LENINE; PINHEIRO, P.C. Leão do Norte. In: LENINE; SUZANO, M. Olho de peixe. São Paulo: Velas, 1993 (fragmento). O fragmento faz parte da canção brasileira contemporânea e celebra a cultura popular nordestina. Nele, o artista exalta as diferentes manifestações culturais pela",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "valorização do teatro, música, artesanato, literatura, dança, personagens históricos e artistas populares, compondo um tecido diversificado e enriquecedor da cultura popular como patrimônio regional e nacional."
+    },
+    {
+      "id": "B",
+      "texto": "identificação dos lugares pernambucanos, manifestações culturais, como o bumba meu boi, as cirandas, os bonecos mamulengos e heróis locais, fazendo com que essa canção se apresente como uma referência à cultura popular nordestina."
+    },
+    {
+      "id": "C",
+      "texto": "exaltação das raízes populares, como a poesia, a literatura de cordel e o frevo, misturadas ao erudito, como a Orquestra Armorial, compondo um rico tecido cultural, que transforma o popular em erudito."
+    },
+    {
+      "id": "D",
+      "texto": "caracterização das festas populares como identidade cultural localizada e como representantes de uma cultura que reflete valores históricos e sociais próprios da população local."
+    },
+    {
+      "id": "E",
+      "texto": "apresentação do Pastoril do Faceta, do maracatu, do bumba meu boi e dos autos como representação da musicalidade e do teatro popular religioso, bastante comum ao folclore brasileiro."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O elenco é culturalmente amplo, mas a alternativa generaliza para o patrimônio nacional sem enfatizar as referências pernambucanas que estruturam a canção.",
+    "B": "Lugares, personagens e manifestações de Pernambuco articulam uma celebração da identidade cultural regional nordestina.",
+    "C": "A mistura não converte o popular em erudito nem apaga a especificidade das manifestações reunidas.",
+    "D": "A letra vai além das festas: inclui artistas, obras literárias, lugares e figuras da história regional.",
+    "E": "A cultura celebrada não se restringe ao teatro e à música de matriz religiosa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Lenine e a diversidade da cultura pernambucana. Lugares, personagens e manifestações de Pernambuco articulam uma celebração da identidade cultural regional nordestina."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 21,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

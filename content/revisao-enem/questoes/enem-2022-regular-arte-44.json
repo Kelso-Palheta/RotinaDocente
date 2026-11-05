@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-regular-arte-44",
+  "ano": 2022,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Regina Silveira e a crítica aos valores estéticos",
+  "habilidades": [],
+  "enunciado": "TEXTO I SILVEIRA, R. In absentia, 1983. Instalação, 17a Bienal de São Paulo. Disponível em: www.bienal.org.br. Acesso em: 1 set. 2016 (adaptado). TEXTO II O termo ready-made foi criado por Marcel Duchamp (1887-1968) para designar um tipo de objeto, por ele inventado, que consiste em um ou mais artigos de uso cotidiano, produzidos em massa, selecionados sem critérios estéticos e expostos como obras de arte em espaços especializados (museus e galerias). Seu primeiro ready-made, de 1912, é uma roda de bicicleta montada sobre um banquinho (Roda de bicicleta). Ao transformar qualquer objeto em obra de arte, o artista realiza uma crítica radical ao sistema da arte. Disponível em: www.bienal.org.br. Acesso em: 1 set. 2016 (adaptado). A instalação In absentia propõe um diálogo com o ready-made Roda de bicicleta, demonstrando que",
+  "imagens": [
+    {
+      "id": "enem-2022-regular-arte-44-figura-1",
+      "arquivo": "imagens/enem-2022-regular-arte-44-figura-1.png",
+      "alt": "Instalação em sala branca com estrutura semelhante a escada deslocada e apoiada em base inclinada.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "pagina": 19,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "as formas de criticar obras do passado se repetem."
+    },
+    {
+      "id": "B",
+      "texto": "a recorrência de temas marca a arte do final do século XX."
+    },
+    {
+      "id": "C",
+      "texto": "as criações desmistificam os valores estéticos estabelecidos."
+    },
+    {
+      "id": "D",
+      "texto": "o distanciamento temporal permite a transformação dos referenciais estéticos."
+    },
+    {
+      "id": "E",
+      "texto": "o objeto ausente sugere a degradação da forma superando o modelo artístico."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O diálogo histórico não implica repetir a mesma maneira de criticar obras anteriores.",
+    "B": "A recorrência de um tema não explica, por si, o procedimento crítico que aproxima as proposições.",
+    "C": "O deslocamento do objeto e de sua presença questiona os valores que definem a experiência e a legitimação da arte.",
+    "D": "A distância no tempo não garante por si a transformação dos referenciais; importa a operação crítica da criação.",
+    "E": "O objeto ausente não é apresentado como simples degradação de uma forma que superaria a anterior."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Regina Silveira e a crítica aos valores estéticos. O deslocamento do objeto e de sua presença questiona os valores que definem a experiência e a legitimação da arte."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 44,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

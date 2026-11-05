@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-40",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Mímica corporal e expressão do ator",
+  "habilidades": [],
+  "enunciado": "A arte de Luís Otávio Burnier O movimento natural do corpo segue as leis cotidianas: o menor esforço para o maior efeito. Etienne Decroux inverte a frase e cria o que, para ele, seria uma das mais importantes leis da arte: o maior esforço para o menor efeito. “Se eu pedir a um ator que me expresse alegria, ele me fará assim (fazia uma grande máscara de alegria com o rosto), mas se eu cobrir o seu rosto com um pano ou uma máscara neutra, amarrar seus braços para trás e lhe pedir que me expresse agora a alegria, ele precisará de anos de estudo”, dizia. CAFIERO, C. Revista do Lume, n. 5, jul. 2003. No texto, Carlota Cafiero expõe a concepção elaborada por Etienne Decroux, que desafia o ator a estabelecer uma comunicação com o público sem as expressões convencionais, por meio da",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "estética facial."
+    },
+    {
+      "id": "B",
+      "texto": "mímica corporal."
+    },
+    {
+      "id": "C",
+      "texto": "amarra no corpo."
+    },
+    {
+      "id": "D",
+      "texto": "função da máscara."
+    },
+    {
+      "id": "E",
+      "texto": "simbologia do tecido."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A expressão facial convencional é justamente o recurso suspenso no exercício proposto por Decroux.",
+    "B": "A mímica corporal desenvolve a capacidade de comunicar pela organização expressiva do corpo além da fisionomia habitual.",
+    "C": "Amarrar os braços é uma restrição do exercício, não a linguagem expressiva que se pretende desenvolver.",
+    "D": "A máscara impede a expressão facial convencional para mobilizar outras possibilidades do corpo.",
+    "E": "O tecido funciona como recurso para limitar a face; seu simbolismo não é o objetivo da proposta."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Mímica corporal e expressão do ator. A mímica corporal desenvolve a capacidade de comunicar pela organização expressiva do corpo além da fisionomia habitual."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 40,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 7,
+      "pagina": 5,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-17",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Identidade visual e sentidos dos colchetes",
+  "habilidades": [],
+  "enunciado": "Como é bom reencontrar os leitores da Revista da Cultura por meio de uma publicação com outro visual, conteúdo de qualidade e interesses ampliados! ]cultura[, este nome simples, e eu diria mesmo familiar, nasce entre dois colchetes voltados para fora. E não é por acaso: são sinais abertos, receptivos, propícios à circulação de ideias. O DNA da publicação se mantém o mesmo, afinal, por longos anos montamos nossas edições com assuntos saídos das estantes de uma grande livraria — e assim continuará sendo. Literatura, sociologia, filosofia, artes... nunca será difícil montar a pauta da revista porque os livros nos ensinam que monotonia é só para quem não lê. HERZ, P. ]cultura[, n. 1, jun. 2018 (adaptado).",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "perfil de público-alvo, constituído por leitores exigentes e especializados em leitura acadêmica."
+    },
+    {
+      "id": "B",
+      "texto": "propósito do editor, chamando a atenção para o rigor normativo nos textos da revista."
+    },
+    {
+      "id": "C",
+      "texto": "exclusividade na seleção temática, direcionada para a área das ciências humanas."
+    },
+    {
+      "id": "D",
+      "texto": "identidade da revista, voltada para a recepção e a promoção de ideias circulantes em livros."
+    },
+    {
+      "id": "E",
+      "texto": "padrão editorial dos artigos, organizados em torno de uma proposta de design inovador."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O editor não restringe a revista a leitores acadêmicos; anuncia um espaço de interesses ampliados.",
+    "B": "O emprego deliberadamente não padrão dos sinais não pretende demonstrar obediência ao rigor normativo.",
+    "C": "A lista de assuntos não implica uma exclusividade que feche a publicação a outros interesses.",
+    "D": "Os colchetes abertos para fora materializam a identidade receptiva da revista e a circulação de ideias.",
+    "E": "O foco não é padronizar o desenho dos artigos: os sinais participam da identidade e da proposta editorial da revista."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Identidade visual e sentidos dos colchetes. Os colchetes abertos para fora materializam a identidade receptiva da revista e a circulação de ideias."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 17,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

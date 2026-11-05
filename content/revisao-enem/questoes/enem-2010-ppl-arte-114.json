@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-ppl-arte-114",
+  "ano": 2010,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Artesanato, saberes e diversidade cultural",
+  "habilidades": [],
+  "enunciado": "Onde ficam os “artistas”? Onde ficam os “artesãos”? Submergidos no interior da sociedade, sem reconhecimento formal, esses grupos passam a ser vistos de diferentes perspectivas pelos seus intérpretes, a maioria das vezes, engajados em discussões que se polarizam entre artesanato, cultura erudita e cultura popular. PORTO ALEGRE, M. S. Arte e ofício de artesão. São Paulo, 1985 (adaptado). O texto aponta para uma discussão antiga e recorrente sobre o que é arte. Artesanato é arte ou não? De acordo com uma tendência inclusiva sobre a relação entre arte e educação,",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "o artesanato é algo do passado e tem sua sobrevivência fadada à extinção por se tratar de trabalho estático produzido por poucos."
+    },
+    {
+      "id": "B",
+      "texto": "os artistas populares não têm capacidade de pensar e conceber a arte intelectual, visto que muitos deles sequer dominam a leitura."
+    },
+    {
+      "id": "C",
+      "texto": "o artista popular e o artesão, portadores de saber cultural, têm a capacidade de exprimir, em seus trabalhos, determinada formação cultural."
+    },
+    {
+      "id": "D",
+      "texto": "os artistas populares produzem suas obras pautados em normas técnicas e educacionais rígidas, aprendidas em escolas preparatórias."
+    },
+    {
+      "id": "E",
+      "texto": "o artesanato tem seu sentido limitado à região em que está inserido como uma produção particular, sem expansão de seu caráter cultural."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O artesanato se transforma e transmite saberes; não é uma prática estática destinada necessariamente à extinção.",
+    "B": "Escolarização e domínio da escrita não determinam a capacidade de pensar ou criar artisticamente.",
+    "C": "Artistas populares e artesãos exprimem experiências e saberes culturais por meio de suas produções.",
+    "D": "A produção popular não depende de regras rígidas aprendidas em escolas de preparação artística.",
+    "E": "O vínculo regional não impede a circulação nem reduz o valor cultural da produção artesanal."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Artesanato, saberes e diversidade cultural. Artistas populares e artesãos exprimem experiências e saberes culturais por meio de suas produções."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 114,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 114,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

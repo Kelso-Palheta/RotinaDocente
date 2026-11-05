@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-19",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Slam, resistência negra e argumentação",
+  "habilidades": [],
+  "enunciado": "“São tantas formas de matar um preto Que para alguns sua morte é justificada Devia tá fazendo coisa errada Se não era bandido, um dia ia ser Por ser PRETO sua morte é defendida O PRETO sempre merece morrer”. A estrofe acima é do poeta e educador social Baticum Proletário, que atua na periferia de Fortaleza, no Ceará, preparando jovens — em quase sua totalidade negros — para enfrentar as dificuldades impostas pelo racismo estrutural no país. É a partir da arte que Baticum consegue envolver a juventude em um projeto de fortalecimento dessa população ao promover batalhas de rimas, slams e saraus com temáticas que discutem os problemas sociais. Não por acaso, o tema mais explorado nas rimas, versos e prosas é a violência. De acordo com o mais recente Atlas da violência, em 2019, os negros representaram 77% das vítimas de homicídios, quase 30 assassinatos por 100 mil habitantes, a maioria deles jovens. O Atlas revela ainda que um negro tem quase 2,7 vezes mais chance de ser morto do que um branco, o que justifica o movimento de resistência crescente no Brasil. MENDONÇA, F. Disponível em: www.cartacapital.com.br. Acesso em: 22 nov. 2021 (adaptado). O uso de citação e de dados estatísticos nesse texto tem o objetivo de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "ressaltar a importância da poesia para denunciar a morte de negros, que cresce a cada dia."
+    },
+    {
+      "id": "B",
+      "texto": "destacar o crescimento exponencial da temática do preconceito na produção literária no Brasil."
+    },
+    {
+      "id": "C",
+      "texto": "demonstrar o incremento no quantitativo de expressões artísticas na discussão de problemas sociais."
+    },
+    {
+      "id": "D",
+      "texto": "evidenciar argumentos que reforçam a ideia de que os negros são vítimas em potencial da violência."
+    },
+    {
+      "id": "E",
+      "texto": "salientar o aumento da participação de jovens nos movimentos de resistência na área da cultura."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A denúncia poética é importante, mas os números não demonstram por si um aumento diário de mortes.",
+    "B": "Os dados tratam da violência sofrida pela população negra, não da taxa de crescimento de temas na literatura.",
+    "C": "A matéria não quantifica expressões artísticas; os índices apresentados são de vitimização pela violência.",
+    "D": "A citação poética e as estatísticas se reforçam para evidenciar a exposição da população negra à violência.",
+    "E": "O texto menciona jovens envolvidos no projeto, mas não apresenta uma série estatística sobre o aumento dessa participação."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Slam, resistência negra e argumentação. A citação poética e as estatísticas se reforçam para evidenciar a exposição da população negra à violência."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 19,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

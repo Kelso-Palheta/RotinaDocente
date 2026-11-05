@@ -162,3 +162,7 @@ Na barra lateral de Atividades, **Sair** deve chamar o `logout` existente do con
 ## RN-84 — Revisão ao Vivo (planejamento)
 
 Novo módulo para aulão de Arte/ENEM com login do Portal, conteúdo preparatório, perguntas temporizadas, projeção de respondentes e contagens A–E, feedback por alternativa e ranking separado das notas. Acervo inicial inclui regular, PPL e reaplicações; recorte de planejamento 2009–2025. Requisitos, contrato visual e critérios RV-01..11 em `REVISAO_AO_VIVO_SPEC.md`. Três execuções: ChatGPT (coordenação/backend/revisão), DeepSeek (acervo) e Antigravity (interfaces). Nenhuma funcionalidade ao vivo, capacidade ou completude do acervo é declarada por esta documentação.
+
+### Manutenção de inicialização e lint (05/11/2026)
+
+Eliminar os erros existentes de lint nos sete componentes identificados, sem mudar regras do linter, estrutura visual, permissões, fórmulas de notas ou testes recebidos. Inicialização do navegador deve ser compatível com renderização no servidor; formulários conservam seus resets por contexto e o rascunho PEI ao reabrir. Carregamentos assíncronos não devem aplicar respostas depois que seu contexto deixa de ser válido.

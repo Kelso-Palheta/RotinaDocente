@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-ppl-arte-116",
+  "ano": 2014,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Brô MCs e o dinamismo das culturas indígenas",
+  "habilidades": [],
+  "enunciado": "Sem flecha, na rima O grupo de rap Brô MCs, criado no final de 2009, é formado pelos pares de irmãos (daí o “bro”, de brother) Bruno/Clemerson e Kelvin/Charles, jovens que cresceram ouvindo hip hop nas rádios da aldeia Jaguapiru Bororo, em Dourados, Mato Grosso do Sul. — Desde o começo a gente não queria impor uma cultura estranha que invadisse a cultura indígena — afirma o produtor, chamando a atenção para o grande destaque do Brô MCs: as letras em língua indígena. Expressar-se em língua originária e fazer com que os jovens indígenas percebam a vitalidade do idioma nativo é uma das motivações do grupo. A dificuldade maior vem dos críticos, que não aceitam o fato de que a cultura indígena é dinâmica e sempre incorpora novidades. — “Mas índio cantando rap?”, tem gente que questiona. O rap é de quem canta, é de quem gosta, não é só dos americanos — avalia Dani [o vocal feminino]. BONFIM, E. Revista Língua Portuguesa, n. 81, jul. 2012 (adaptado). Considerando-se as opiniões apresentadas no texto, a indagação “Mas índio cantando rap?” traduz um ponto de vista que evidencia",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "desqualificação dos indígenas como músicos, desmerecendo sua capacidade musical devido a sua cultura."
+    },
+    {
+      "id": "B",
+      "texto": "desvalorização da cultura rap em contrapartida às tradições musicais indígenas, motivo pelo qual os índios não devem cantar rap."
+    },
+    {
+      "id": "C",
+      "texto": "preconceito por parte de quem não concebe que os índios possam conhecer o rap e, menos ainda, cantar esse gênero musical."
+    },
+    {
+      "id": "D",
+      "texto": "equívoco por desconsiderar as origens culturais do gênero musical, ligadas ao contexto urbano."
+    },
+    {
+      "id": "E",
+      "texto": "entendimento do rap como um gênero ultrapassado em relação à linguagem musical dos indígenas."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O comentário questiona a associação entre identidade indígena e rap; não avalia a habilidade musical dos integrantes.",
+    "B": "A pergunta não apresenta uma análise do valor do rap diante de outros gêneros indígenas.",
+    "C": "A indagação revela o preconceito de supor que uma cultura indígena não possa conhecer e apropriar-se do rap.",
+    "D": "A origem urbana do rap não impede sua apropriação por outros grupos; esse não é o fundamento da crítica relatada.",
+    "E": "O texto não caracteriza o rap como ultrapassado; discute a resistência à inovação dentro da cultura indígena."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Brô MCs e o dinamismo das culturas indígenas. A indagação revela o preconceito de supor que uma cultura indígena não possa conhecer e apropriar-se do rap."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_PV_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_GB_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

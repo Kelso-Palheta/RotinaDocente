@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-regular-arte-97",
+  "ano": 2013,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Portinari e os diferentes olhares sobre o descobrimento",
+  "habilidades": [],
+  "enunciado": "TEXTO I Andaram na praia, quando saímos, oito ou dez deles; e daí a pouco começaram a vir mais. E parece-me que viriam, este dia, à praia, quatrocentos ou quatrocentos e cinquenta. Alguns deles traziam arcos e flechas, que todos trocaram por carapuças ou por qualquer coisa que lhes davam. [...] Andavam todos tão bem-dispostos, tão bem feitos e galantes com suas tinturas que muito agradavam. CASTRO, S. A carta de Pero Vaz de Caminha. Porto Alegre: L&PM, 1996 (fragmento). TEXTO II PORTINARI, C. O descobrimento do Brasil. 1956. Óleo sobre tela, 199 x 169 cm Disponível em: www.portinari.org.br. Acesso em: 12 jun. 2013. Pertencentes ao patrimônio cultural brasileiro, a carta de Pero Vaz de Caminha e a obra de Portinari retratam a chegada dos portugueses ao Brasil. Da leitura dos textos, constata-se que",
+  "imagens": [
+    {
+      "id": "enem-2013-regular-arte-97-figura-1",
+      "arquivo": "imagens/enem-2013-regular-arte-97-figura-1.png",
+      "alt": "O descobrimento do Brasil, de Portinari: figuras indígenas em primeiro plano diante da paisagem.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "a carta de Pero Vaz de Caminha representa uma das primeiras manifestações artísticas dos portugueses em terras brasileiras e preocupa-se apenas com a estética literária."
+    },
+    {
+      "id": "B",
+      "texto": "a tela de Portinari retrata indígenas nus com corpos pintados, cuja grande significação é a afirmação da arte acadêmica brasileira e a contestação de uma linguagem moderna."
+    },
+    {
+      "id": "C",
+      "texto": "a carta, como testemunho histórico-político, mostra o olhar do colonizador sobre a gente da terra, e a pintura destaca, em primeiro plano, a inquietação dos nativos."
+    },
+    {
+      "id": "D",
+      "texto": "as duas produções, embora usem linguagens diferentes — verbal e não verbal —, cumprem a mesma função social e artística."
+    },
+    {
+      "id": "E",
+      "texto": "a pintura e a carta de Caminha são manifestações de grupos étnicos diferentes, produzidas em um mesmo momento histórico, retratando a colonização."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A carta não é somente uma construção estética: registra o ponto de vista histórico e político do colonizador sobre os habitantes locais.",
+    "B": "Portinari se vincula ao modernismo brasileiro; a tela não demonstra uma negação do movimento em favor do academicismo.",
+    "C": "A carta expressa o olhar do colonizador, enquanto a composição de Portinari desloca a atenção para os indígenas em primeiro plano e sua inquietação.",
+    "D": "Carta e pintura têm contextos, linguagens e funções distintos; não desempenham a mesma função social e artística.",
+    "E": "A obra de Portinari é do século XX, e a carta é do início da colonização; as produções não pertencem ao mesmo momento histórico."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Portinari e os diferentes olhares sobre o descobrimento. A carta expressa o olhar do colonizador, enquanto a composição de Portinari desloca a atenção para os indígenas em primeiro plano e sua inquietação."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 97,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2013/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

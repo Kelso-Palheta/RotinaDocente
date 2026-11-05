@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-ppl-arte-38",
+  "ano": 2020,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Instalação artística e denúncia ambiental",
+  "habilidades": [],
+  "enunciado": "Ação coloca baleia encalhada às margens do Rio Sena As pessoas em Paris acordaram com uma notícia inusitada: uma baleia encalhada foi encontrada nas margens do Sena, perto de Notre Dame. Para deixar tudo ainda mais surreal, cientistas forenses foram vistos estudando o fenômeno. O público ficou impressionado com as cenas e bombou as redes sociais de comentários e fotos. Horas mais tarde, a verdade por trás do espetáculo bizarro foi revelada. Embora parecesse muito com um animal real, tudo não passava de uma instalação artística criada pelo coletivo belga Capitão Boomer. A escultura gigante media 17 metros e simulava o cheiro de uma baleia morta, com todos os seus detalhes, incluindo o sangue. O projeto foi desenvolvido para aumentar a conscientização sobre o impacto provocado pelos seres humanos no meio ambiente, em todas as espécies, incluindo as baleias. Disponível em: http://exame.abril.com.br. Acesso em: 16 ago. 2017 (adaptado). Essa notícia tem sua relevância informativa estabelecida ao apresentar um fato inesperado relativo ao(à)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "excesso de comentários nas redes sociais sobre valores ecológicos e meio ambiente."
+    },
+    {
+      "id": "B",
+      "texto": "presença de um animal marinho encalhado e em decomposição no centro de Paris."
+    },
+    {
+      "id": "C",
+      "texto": "uso de uma instalação artística realista como instrumento de denúncia social."
+    },
+    {
+      "id": "D",
+      "texto": "falta de ações de preservação do meio ambiente no continente europeu."
+    },
+    {
+      "id": "E",
+      "texto": "opção por uma análise sensacionalista de um evento inusitado."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A repercussão nas redes decorre do acontecimento; não é a inovação principal que sustenta a notícia.",
+    "B": "A baleia não era um animal encalhado de verdade, mas uma escultura concebida para a intervenção.",
+    "C": "O realismo da instalação provoca estranhamento e funciona como denúncia dos impactos humanos no ambiente.",
+    "D": "O episódio não comprova a ausência de todas as ações de preservação no continente europeu.",
+    "E": "O caráter insólito não reduz o fato a sensacionalismo: o texto explicita sua finalidade artística e crítica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Instalação artística e denúncia ambiental. O realismo da instalação provoca estranhamento e funciona como denúncia dos impactos humanos no ambiente."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 38,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 38,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

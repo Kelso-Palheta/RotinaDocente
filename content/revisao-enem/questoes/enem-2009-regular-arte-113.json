@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2009-regular-arte-113",
+  "ano": 2009,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Representações coloniais dos povos indígenas",
+  "habilidades": [],
+  "enunciado": "ECKHOUT, A. “Índio Tapuia” (1610-1666). Disponível em: http://www.diaadia.pr.gov.br. Acesso em: 9 jul. 2009. A feição deles é serem pardos, maneira d’avermelhados, de bons rostos e bons narizes, bem feitos. Andam nus, sem nenhuma cobertura, nem estimam nenhuma cousa cobrir, nem mostrar suas vergonhas. E estão acerca disso com tanta inocência como têm em mostrar o rosto. CAMINHA, P. V. A carta. Disponível em: www.dominiopublico.gov.br. Acesso em: 12 ago. 2009. Ao se estabelecer uma relação entre a obra de Eckhout e o trecho do texto de Caminha, conclui-se que",
+  "imagens": [
+    {
+      "id": "enem-2009-regular-arte-113-eckhout",
+      "arquivo": "imagens/enem-2009-regular-arte-113-eckhout.png",
+      "alt": "Figura original da questão 113: Representações coloniais dos povos indígenas.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2009/dia2_caderno5_amarelo.pdf",
+      "pagina": 11,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "ambos se identificam pelas características estéticas marcantes, como tristeza e melancolia, do movimento romântico das artes plásticas."
+    },
+    {
+      "id": "B",
+      "texto": "o artista, na pintura, foi fiel ao seu objeto, representando-o de maneira realista, ao passo que o texto é apenas fantasioso."
+    },
+    {
+      "id": "C",
+      "texto": "a pintura e o texto têm uma característica em comum, que é representar o habitante das terras que sofreriam processo colonizador."
+    },
+    {
+      "id": "D",
+      "texto": "o texto e a pintura são baseados no contraste entre a cultura europeia e a cultura indígena."
+    },
+    {
+      "id": "E",
+      "texto": "há forte direcionamento religioso no texto e na pintura, uma vez que o índio representado é objeto da catequização jesuítica."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Caminha e Eckhout precedem o romantismo; a aproximação proposta não é tristeza ou melancolia romântica.",
+    "B": "A carta contém observação e interpretação europeias; não é simplesmente fantasiosa em oposição à pintura.",
+    "C": "Os dois registros representam habitantes indígenas das terras submetidas à colonização, por linguagens distintas.",
+    "D": "O contraste cultural pode ser discutido, mas os registros apresentados se aproximam principalmente pelo sujeito representado.",
+    "E": "A nudez descrita e a figura retratada não comprovam que o personagem esteja em catequização jesuítica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Representações coloniais dos povos indígenas. Os dois registros representam habitantes indígenas das terras submetidas à colonização, por linguagens distintas."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 113,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2009/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2009/gabarito_dia2.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

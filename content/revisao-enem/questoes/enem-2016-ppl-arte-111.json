@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-ppl-arte-111",
+  "ano": 2016,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Baião e referências culturais nordestinas",
+  "habilidades": [],
+  "enunciado": "Baião é um ritmo popular da Região Nordeste do Brasil, derivado de um tipo de lundu, denominado “baiano”, cujo nome é corruptela. Nasceu sob a influência do cantochão, canto litúrgico da Igreja Católica praticado pelos missionários, e tornou-se expressiva forma modificada pela inconsciente influência de manifestações locais. Um dos grandes sucessos veio com a música homônima, Baião (1946), de Luiz Gonzaga e Humberto Teixeira. CASCUDO, C. Dicionário do folclore brasileiro. Rio de Janeiro: Ediouro, 1998 (adaptado). Os elementos regionais que influenciaram culturalmente o baião aparecem em outras formas artísticas e podem ser verificados na obra",
+  "imagens": [
+    {
+      "id": "enem-2016-ppl-arte-111-figura-1",
+      "arquivo": "imagens/enem-2016-ppl-arte-111-figura-1.png",
+      "alt": "Alternativa A: Samba em terreiro, Heitor dos Prazeres.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2016-ppl-arte-111-figura-3",
+      "arquivo": "imagens/enem-2016-ppl-arte-111-figura-3.png",
+      "alt": "Alternativa B: Amolador de facas, Adalton Lopes.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2016-ppl-arte-111-figura-5",
+      "arquivo": "imagens/enem-2016-ppl-arte-111-figura-5.png",
+      "alt": "Alternativa C: Folia de Reis, Rosa Gauditano.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2016-ppl-arte-111-figura-2",
+      "arquivo": "imagens/enem-2016-ppl-arte-111-figura-2.png",
+      "alt": "Alternativa D: Lampião a cavalo, Mestre Vitalino.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2016-ppl-arte-111-figura-4",
+      "arquivo": "imagens/enem-2016-ppl-arte-111-figura-4.png",
+      "alt": "Alternativa E: Violeiro, José Ferraz Almeida Jr.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "pagina": 10,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Samba em terreiro, Heitor dos Prazeres."
+    },
+    {
+      "id": "B",
+      "texto": "Amolador de facas, Adalton Lopes."
+    },
+    {
+      "id": "C",
+      "texto": "Folia de Reis, Rosa Gauditano."
+    },
+    {
+      "id": "D",
+      "texto": "Lampião a cavalo, Mestre Vitalino."
+    },
+    {
+      "id": "E",
+      "texto": "Violeiro, José Ferraz Almeida Jr."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A cena de samba dialoga com outro universo de práticas e não reúne o elemento regional solicitado para o baião.",
+    "B": "O ofício do amolador não caracteriza, por si, as referências culturais regionais discutidas no texto.",
+    "C": "A Folia de Reis articula uma tradição religiosa, mas não é a representação regional específica solicitada.",
+    "D": "A figura de Lampião em cerâmica de Mestre Vitalino aproxima o universo do cangaço e a cultura visual nordestina do contexto do baião.",
+    "E": "O violeiro de Almeida Júnior pertence a outro contexto de representação regional e não é a referência nordestina pedida."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Baião e referências culturais nordestinas. A figura de Lampião em cerâmica de Mestre Vitalino aproxima o universo do cangaço e a cultura visual nordestina do contexto do baião."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 111,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2016/gabarito_caderno_cinza_13_2016.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-regular-arte-102",
+  "ano": 2010,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Apropriação, paródia e imagens de diferentes épocas",
+  "habilidades": [],
+  "enunciado": "Na busca constante pela sua evolução, o ser humano vem alternando a sua maneira de pensar, de sentir e de criar. Nas últimas décadas do século XVIII e no início do século XIX, os artistas criaram obras em que predominam o equilíbrio e a simetria de formas e cores, imprimindo um estilo caracterizado pela imagem da respeitabilidade, da sobriedade, do concreto e do civismo. Esses artistas misturaram o passado ao presente, retratando os personagens da nobreza e da burguesia, além de cenas míticas e histórias cheias de vigor.\n\nRAZOUK, J. J. (Org.). Histórias reais e belas nas telas. Posigraf: 2003.\n\nAtualmente, os artistas apropriam-se de desenhos, charges, grafismo e até de ilustrações de livros para compor obras em que se misturam personagens de diferentes épocas, como na seguinte imagem:",
+  "imagens": [
+    {
+      "id": "enem-2010-regular-arte-102-figura-1",
+      "arquivo": "imagens/enem-2010-regular-arte-102-figura-1.png",
+      "alt": "Alternativa A: Romero Britto, Gisele e Tom.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "pagina": 8,
+      "revisada": false
+    },
+    {
+      "id": "enem-2010-regular-arte-102-figura-2",
+      "arquivo": "imagens/enem-2010-regular-arte-102-figura-2.png",
+      "alt": "Alternativa B: Andy Warhol, Michael Jackson.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "pagina": 8,
+      "revisada": false
+    },
+    {
+      "id": "enem-2010-regular-arte-102-figura-3",
+      "arquivo": "imagens/enem-2010-regular-arte-102-figura-3.png",
+      "alt": "Alternativa C: Funny Filez, Monabean.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "pagina": 8,
+      "revisada": false
+    },
+    {
+      "id": "enem-2010-regular-arte-102-figura-4",
+      "arquivo": "imagens/enem-2010-regular-arte-102-figura-4.png",
+      "alt": "Alternativa D: Andy Warhol, Marilyn Monroe.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "pagina": 8,
+      "revisada": false
+    },
+    {
+      "id": "enem-2010-regular-arte-102-figura-5",
+      "arquivo": "imagens/enem-2010-regular-arte-102-figura-5.png",
+      "alt": "Alternativa E: Pablo Picasso, Retrato de Jaqueline Roque com as Mãos Cruzadas.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "pagina": 8,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Romero Britto, Gisele e Tom."
+    },
+    {
+      "id": "B",
+      "texto": "Andy Warhol, Michael Jackson."
+    },
+    {
+      "id": "C",
+      "texto": "Funny Filez, Monabean."
+    },
+    {
+      "id": "D",
+      "texto": "Andy Warhol, Marilyn Monroe."
+    },
+    {
+      "id": "E",
+      "texto": "Pablo Picasso, Retrato de Jaqueline Roque com as Mãos Cruzadas."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O retrato de Gisele e Tom reinterpreta figuras contemporâneas, sem produzir o encontro de personagens de épocas diferentes pedido no enunciado.",
+    "B": "Michael Jackson, na obra de Warhol, é um ícone contemporâneo ao circuito pop; a alternativa não exemplifica a mistura histórica solicitada.",
+    "C": "Monabean combina a referência à Mona Lisa com a personagem Mr. Bean, apropriando-se de uma imagem histórica para produzir uma releitura paródica.",
+    "D": "O retrato de Marilyn Monroe utiliza a repetição e a estética pop, sem fundir personagens de diferentes períodos históricos na mesma figura.",
+    "E": "O retrato de Jaqueline Roque apresenta uma interpretação de Picasso, mas não combina personagens de épocas diferentes como a releitura indicada."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Apropriação, paródia e imagens de diferentes épocas. Monabean combina a referência à Mona Lisa com a personagem Mr. Bean, apropriando-se de uma imagem histórica para produzir uma releitura paródica."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 102,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo_com_gab.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

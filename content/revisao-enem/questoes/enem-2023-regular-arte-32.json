@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-32",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Jurandy do Sax e a circulação de repertórios",
+  "habilidades": [],
+  "enunciado": "O sol começa a descer por trás da vegetação da Ilha da Restinga, na outra margem do rio Paraíba, colorindo o céu de amarelo, laranja e lilás. Então se ouvem as primeiras notas do Bolero, do compositor francês Maurice Ravel, executadas pelo saxofonista Jurandy. É assim o pôr do sol da praia do Jacaré, em Cabedelo (Grande João Pessoa). Depois do Bolero, Jurandy toca Asa branca, de Luiz Gonzaga, e Meu sublime torrão, de Genival Macedo, espécie de hino não oficial da Paraíba. PINHEIRO, A. Sol se põe embalado pelo Bolero de Ravel. Disponível em: http://tools.folha.com.br. Acesso em: 16 set. 2012 (adaptado). A interpretação musical de Jurandy do Sax, codinome de José Jurandy Félix, apresenta um repertório caracterizado pela",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "inter-relação de referenciais estéticos aparentemente distanciados."
+    },
+    {
+      "id": "B",
+      "texto": "valorização de músicas que revelam mensagens de serenidade."
+    },
+    {
+      "id": "C",
+      "texto": "consagração do repertório erudito como cultura dominante."
+    },
+    {
+      "id": "D",
+      "texto": "iniciativa de estímulo à vocação turística da cidade."
+    },
+    {
+      "id": "E",
+      "texto": "divisão hierárquica entre gêneros e estilos musicais."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O programa reúne uma obra de concerto francesa, Asa branca e uma canção regional, aproximando referências diversas.",
+    "B": "A serenidade possível do ambiente não explica o contraste de tradições musicais que compõem o repertório.",
+    "C": "A presença de Ravel não estabelece a música erudita como dominante nem elimina as referências populares.",
+    "D": "A apresentação integra um cenário turístico, mas a pergunta se concentra na composição estética do repertório.",
+    "E": "Os gêneros são aproximados, sem que o texto estabeleça uma hierarquia de valor entre eles."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Jurandy do Sax e a circulação de repertórios. O programa reúne uma obra de concerto francesa, Asa branca e uma canção regional, aproximando referências diversas."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 32,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

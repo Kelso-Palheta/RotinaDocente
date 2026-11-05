@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-ppl-arte-24",
+  "ano": 2022,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Monet, luz e percepção da cor",
+  "habilidades": [],
+  "enunciado": "Claude Monet, influenciado por Turner, passou a pintar temas que apresentassem fluidez. Para isso, ele fragmentou a imagem com pinceladas de cor pura, passando a retratar a impressão captada diante do modelo. Monet inspirava-se, por exemplo, no pôr do sol, na luminosidade do feno ou num jardim florido. Suas obras contêm a característica de dissociação das cores e gradação dos tons complementares. As tintas não eram misturadas na palheta, dessa forma, a luz emanada das manchas e das pinceladas coloridas impressionava a retina, formando novas cores. Disponível em: http://professormarioartes.blogspot.com. Acesso em: 12 ago. 2012 (adaptado). Diante dessa nova concepção artística, a cor é",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "composta por uma substância química que, sob a incidência de raios luminosos, absorve-os, refletindo para os nossos olhos os raios de tons vermelhos."
+    },
+    {
+      "id": "B",
+      "texto": "formada pelo equilíbrio óptico causado pela impressão simultânea de cores como magenta, ciano e amarelo, consideradas cores primárias."
+    },
+    {
+      "id": "C",
+      "texto": "imaterial e só se pode senti-la, passando a ser uma sensação provocada pela ação dos raios de luz sobre os nossos olhos."
+    },
+    {
+      "id": "D",
+      "texto": "resultante da mistura óptica de duas outras que estão presentes em sua composição de origem, causando um equilíbrio entre elas."
+    },
+    {
+      "id": "E",
+      "texto": "física, presente nos raios solares e na luz branca, sendo impossível perceber sua existência pela decomposição da luz solar."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A descrição restringe a reflexão a raios vermelhos e não explica a experiência cromática proposta pelo impressionismo.",
+    "B": "O texto não atribui o efeito especificamente à combinação das três cores primárias citadas.",
+    "C": "A cor é apresentada como sensação visual provocada pela luz, explorada pela relação entre pinceladas e percepção.",
+    "D": "A experiência não se restringe a uma mistura entre apenas duas cores que já estariam materialmente combinadas.",
+    "E": "A luz pode ser decomposta e percebida; afirmar ser impossível perceber as cores contraria a experiência descrita."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Monet, luz e percepção da cor. A cor é apresentada como sensação visual provocada pela luz, explorada pela relação entre pinceladas e percepção."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 24,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 24,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

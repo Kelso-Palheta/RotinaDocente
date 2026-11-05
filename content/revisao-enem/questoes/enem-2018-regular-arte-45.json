@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-regular-arte-45",
+  "ano": 2018,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Stephen Lund e o GPS como linguagem artística",
+  "habilidades": [],
+  "enunciado": "TEXTO I BRACCO, A; LOSCHI, M. Quando rotas se tornam arte. Retratos: a revista do IBGE. Rio de Janeiro, n. 3, set. 2017 (adaptado). TEXTO II Stephen Lund, artista canadense, morador em Victoria, capital da Colúmbia Britânica (Canadá), transformou-se em fenômeno mundial produzindo obras de arte virtuais pedalando sua bike. Seguindo rotas traçadas com o auxílio de um dispositivo de GPS, ele calcula ter percorrido mais de 10 mil quilômetros. Disponível em: www.booooooom.com. Acesso em: 9 dez. 2017 (adaptado). Os textos destacam a inovação artística proposta por Stephen Lund a partir do(a)",
+  "imagens": [
+    {
+      "id": "enem-2018-regular-arte-45-figura-1",
+      "arquivo": "imagens/enem-2018-regular-arte-45-figura-1.png",
+      "alt": "Mapa e imagem de Leonardo da Vinci justapostos em composição sobre criação e conhecimento.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "pagina": 18,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "deslocamento das tecnologias de suas funções habituais."
+    },
+    {
+      "id": "B",
+      "texto": "perspectiva de funcionamento do dispositivo de GPS."
+    },
+    {
+      "id": "C",
+      "texto": "ato de guiar sua bicicleta pelas ruas da cidade."
+    },
+    {
+      "id": "D",
+      "texto": "análise dos problemas de mobilidade urbana."
+    },
+    {
+      "id": "E",
+      "texto": "foco na promoção cultural da sua cidade."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Uma tecnologia de orientação passa a produzir desenhos e experiências estéticas, deslocando sua função habitual.",
+    "B": "O conhecimento de como o GPS funciona é um meio, mas não constitui por si a inovação artística.",
+    "C": "Pedalar é a ação necessária, porém a originalidade está em transformar os percursos registrados em desenho.",
+    "D": "O trabalho não é apresentado como diagnóstico ou solução para os problemas de trânsito da cidade.",
+    "E": "A cidade funciona como espaço de criação, não como destinatária de uma campanha de promoção cultural."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Stephen Lund e o GPS como linguagem artística. Uma tecnologia de orientação passa a produzir desenhos e experiências estéticas, deslocando sua função habitual."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_AZUL.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

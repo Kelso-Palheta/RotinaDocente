@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-regular-arte-131",
+  "ano": 2012,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Barroco brasileiro e matrizes culturais",
+  "habilidades": [],
+  "enunciado": "BARDI, P. M. Em torno da escultura no Brasil. São Paulo: Banco Sudameris Brasil, 1989. Com contornos assimétricos, riqueza de detalhes nas vestes e nas feições, a escultura barroca no Brasil tem forte influência do rococó europeu e está representada aqui por um dos profetas do pátio do Santuário do Bom Jesus de Matosinho, em Congonhas (MG), esculpido em pedra-sabão por Aleijadinho. Profundamente religiosa, sua obra revela",
+  "imagens": [
+    {
+      "id": "enem-2012-regular-arte-131-figura-1",
+      "arquivo": "imagens/enem-2012-regular-arte-131-figura-1.png",
+      "alt": "Figura 1 da questão 131: Barroco brasileiro e matrizes culturais.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "pagina": 18,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "liberdade, representando a vida de mineiros à procura da salvação."
+    },
+    {
+      "id": "B",
+      "texto": "credibilidade, atendendo a encomendas dos nobres de Minas Gerais."
+    },
+    {
+      "id": "C",
+      "texto": "simplicidade, demonstrando compromisso com a contemplação do divino."
+    },
+    {
+      "id": "D",
+      "texto": "personalidade, modelando uma imagem sacra com feições populares."
+    },
+    {
+      "id": "E",
+      "texto": "singularidade, esculpindo personalidades do reinado nas obras divinas."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O tema religioso não equivale à representação direta da vida dos mineiros procurando salvação.",
+    "B": "A encomenda da obra não demonstra que seu valor esteja em atender à nobreza de Minas Gerais.",
+    "C": "A riqueza de detalhes e a expressividade das figuras não se definem pela simplicidade formal da contemplação.",
+    "D": "Aleijadinho dá personalidade à imagem sacra ao incorporar feições populares em sua representação religiosa.",
+    "E": "As imagens dos profetas não são retratos de personalidades do reinado inseridas em um tema divino."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Barroco brasileiro e matrizes culturais. Aleijadinho dá personalidade à imagem sacra ao incorporar feições populares em sua representação religiosa."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 131,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2012/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

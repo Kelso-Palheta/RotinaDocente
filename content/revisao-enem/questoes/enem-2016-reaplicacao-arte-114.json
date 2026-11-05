@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-reaplicacao-arte-114",
+  "ano": 2016,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Rap como linguagem da cultura hip-hop",
+  "habilidades": [],
+  "enunciado": "O hip hop tem sua filosofia própria, com valores construídos pela condição das experiências vividas nas periferias de muitas cidades. Colocando-se como um contraponto à miséria, às drogas, ao crime e à violência, o hip hop busca interpretar a realidade social. Seu objetivo é justamente encontrar saídas e fornecer uma alternativa à população excluída. SOUZA, J.; FIALHO, V. M.; ARALDI, J. Hip hop: da rua para a escola. Porto Alegre: Sulina, 2008. As autoras abordam no texto um movimento cultural que também tem características reconhecidas",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "nos traços e formas que representam personagens de olhos desproporcionalmente maiores e expressivos, conhecidos como mangá."
+    },
+    {
+      "id": "B",
+      "texto": "nas formas de se vestir e de cortar os cabelos com objetivos contestadores à ordem social, próprios do movimento punk."
+    },
+    {
+      "id": "C",
+      "texto": "nas frases e dizeres de qualquer espécie, rabiscados sobre fachadas de edifícios, que marcam a pichação."
+    },
+    {
+      "id": "D",
+      "texto": "nos movimentos leves e sincronizados com os pés que deslocam o dançarino, denominado moonwalk."
+    },
+    {
+      "id": "E",
+      "texto": "nas declamações rápidas e ritmadas de um texto, com alturas aproximadas, características do rap."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O mangá pertence a outra tradição de linguagem visual e não é um dos pilares do hip-hop descrito.",
+    "B": "O punk também pode contestar a sociedade, mas não equivale à manifestação musical solicitada.",
+    "C": "A pichação não pode ser confundida automaticamente com o grafite nem caracteriza a linguagem vocal em questão.",
+    "D": "Moonwalk é um recurso de dança, não a enunciação musical e textual característica do rap.",
+    "E": "A declamação ritmada de palavras com alturas próximas caracteriza o rap, uma das linguagens do hip-hop."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Rap como linguagem da cultura hip-hop. A declamação ritmada de palavras com alturas próximas caracteriza o rap, uma das linguagens do hip-hop."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 05 — Linguagens — 2º dia",
+      "numeroQuestao": 114,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

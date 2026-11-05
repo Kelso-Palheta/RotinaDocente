@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-regular-arte-129",
+  "ano": 2016,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Francis Bacon, autorretrato e a subjetividade moderna",
+  "habilidades": [
+    "Relacionar pintura e literatura modernas",
+    "Interpretar a deformação do rosto"
+  ],
+  "enunciado": "TEXTO I\n\nBACON, F. Três estudos para um autorretrato. Óleo sobre tela, 37,5 x 31,8 cm (cada), 1974.\nDisponível em: www.metmuseum.org. Acesso em: 30 maio 2016.\n\nTEXTO II\n\nTenho um rosto lacerado por rugas secas e profundas, sulcos na pele. Não é um rosto desfeito, como acontece com pessoas de traços delicados, o contorno é o mesmo mas a matéria foi destruída. Tenho um rosto destruído.\n\nDURAS, M. O amante. Rio de Janeiro: Nova Fronteira, 1985.\n\nNa imagem e no texto do romance de Marguerite Duras, os dois autorretratos apontam para o modo de representação da subjetividade moderna. Na pintura e na literatura modernas, o rosto humano deforma-se, destrói-se ou fragmenta-se em razão",
+  "imagens": [
+    {
+      "id": "bacon-autorretrato",
+      "arquivo": "imagens/enem-2016-regular-arte-129-bacon.png",
+      "alt": "Tríptico de Francis Bacon com três retratos deformados de um rosto masculino, em tons de cinza e ocre.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "pagina": 15,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "da adesão à estética do grotesco, herdada do romantismo europeu, que trouxe novas possibilidades de representação."
+    },
+    {
+      "id": "B",
+      "texto": "das catástrofes que assolaram o século XX e da descoberta de uma realidade psíquica pela psicanálise."
+    },
+    {
+      "id": "C",
+      "texto": "da opção em demonstrarem oposição aos limites estéticos da revolução permanente trazida pela arte moderna."
+    },
+    {
+      "id": "D",
+      "texto": "do posicionamento do artista do século XX contra a negação do passado, que se torna prática dominante na sociedade burguesa."
+    },
+    {
+      "id": "E",
+      "texto": "da intenção de garantir uma forma de criar obras de arte independentes da matéria presente em sua história pessoal."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O grotesco romântico é uma referência possível, mas não explica sozinho a violência e a fragmentação típicas do século XX.",
+    "B": "As guerras e os totalitarismos do século XX, somados à psicanálise e à ideia de inconsciente, ajudam a entender o rosto deformado e destruído.",
+    "C": "Bacon e Duras não se opõem à revolução moderna; eles radicalizam seus procedimentos.",
+    "D": "A questão não é defender o passado contra a burguesia, mas registrar uma subjetividade fraturada.",
+    "E": "As obras são profundamente marcadas pela história pessoal e pelo contexto; não buscam independência da matéria vivida."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O retrato moderno deixa de ser cópia idealizada do rosto. Bacon desfigura a face com pinceladas e borrões, enquanto Duras descreve um rosto destruído pela experiência. As duas obras expressam uma subjetividade em crise."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "bacon-autorretrato",
+      "legenda": "Francis Bacon, Três estudos para um autorretrato, 1974."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 129,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

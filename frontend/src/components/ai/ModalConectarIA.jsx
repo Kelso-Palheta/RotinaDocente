@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   X,
   Key,
@@ -48,7 +48,9 @@ export function ModalConectarIA({ isOpen, onClose }) {
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  useEffect(() => {
+  const [contextoAnterior, setContextoAnterior] = useState({ config, isOpen });
+  if (contextoAnterior.config !== config || contextoAnterior.isOpen !== isOpen) {
+    setContextoAnterior({ config, isOpen });
     if (config) {
       setProvider(config.provider);
       setApiKey(config.apiKey);
@@ -60,7 +62,7 @@ export function ModalConectarIA({ isOpen, onClose }) {
     }
     setTestResult(null);
     setSaveSuccess(false);
-  }, [config, isOpen]);
+  }
 
   // Ao mudar de provedor, ajusta o modelo padrão
   const handleSelectProvider = (provId) => {

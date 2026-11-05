@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-regular-arte-32",
+  "ano": 2017,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "O bem-amado: teatro e sátira política",
+  "habilidades": [],
+  "enunciado": "Segundo quadro Uma sala da prefeitura. O ambiente é modesto. Durante a mutação, ouve-se um dobrado e vivas a Odorico, “viva o prefeito” etc. Estão em cena Dorotéa, Juju, Dirceu, Dulcinéa, o vigário e Odorico. Este último, à janela, discursa. ODORICO — Povo sucupirano! Agoramente já investido no cargo de Prefeito, aqui estou para receber a confirmação, a ratificação, a autenticação e por que não dizer a sagração do povo que me elegeu. Aplausos vêm de fora. ODORICO — Eu prometi que o meu primeiro ato como prefeito seria ordenar a construção do cemitério. Aplausos, aos quais se incorporam as personagens em cena. ODORICO — (Continuando o discurso:) Botando de lado os entretantos e partindo pros finalmente, é uma alegria poder anunciar que prafrentemente vocês já poderão morrer descansados, tranquilos e desconstrangidos, na certeza de que vão ser sepultados aqui mesmo, nesta terra morna e cheirosa de Sucupira. E quem votou em mim, basta dizer isso ao padre na hora da extrema-unção, que tem enterro e cova de graça, conforme o prometido. GOMES, D. O bem amado. Rio de Janeiro: Ediouro, 2012. O gênero peça teatral tem o entretenimento como uma de suas funções. Outra função relevante do gênero, explícita nesse trecho de O bem amado, é",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "criticar satiricamente o comportamento de pessoas públicas."
+    },
+    {
+      "id": "B",
+      "texto": "denunciar a escassez de recursos públicos nas prefeituras do interior."
+    },
+    {
+      "id": "C",
+      "texto": "censurar a falta de domínio da língua padrão em eventos sociais."
+    },
+    {
+      "id": "D",
+      "texto": "despertar a preocupação da plateia com a expectativa de vida dos cidadãos."
+    },
+    {
+      "id": "E",
+      "texto": "questionar o apoio irrestrito de agentes públicos aos gestores governamentais."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A promessa de enterro gratuito a eleitores transforma a inauguração do cemitério em moeda eleitoral, construindo uma sátira do oportunismo político.",
+    "B": "O foco da cena é o uso eleitoral da promessa, não uma análise da escassez orçamentária do município.",
+    "C": "A comicidade não depende principalmente de fiscalizar a correção gramatical das personagens, mas do discurso e da conduta política.",
+    "D": "A peça não apresenta um levantamento sobre a expectativa de vida; o cemitério serve à crítica das promessas do prefeito.",
+    "E": "A cena evidencia manipulação e interesse eleitoral, sem defender apoio irrestrito aos agentes públicos."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O bem-amado: teatro e sátira política. A promessa de enterro gratuito a eleitores transforma a inauguração do cemitério em moeda eleitoral, construindo uma sátira do oportunismo político."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 32,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

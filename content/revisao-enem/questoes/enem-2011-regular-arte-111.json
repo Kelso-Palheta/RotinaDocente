@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2011-regular-arte-111",
+  "ano": 2011,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Nelson Leirner e a ressignificação do objeto",
+  "habilidades": [],
+  "enunciado": "LEIRNER, N. Tronco com cadeira (detalhe), 1964. Disponível em: http://www.itaucultural.org.br. Acesso em: 27 jul. 2010. Nessa estranha dignidade e nesse abandono, o objeto foi exaltado de maneira ilimitada e ganhou um significado que se pode considerar mágico. Daí sua “vida inquietante e absurda”. Tornou-se ídolo e, ao mesmo tempo, objeto de zombaria. Sua realidade intrínseca foi anulada. JAFFÉ, A. O simbolismo nas artes plásticas. In: JUNG, C.G. (org.). O homem e os seus símbolos. Rio de Janeiro: Nova Fronteira, 2008. A relação observada entre a imagem e o texto apresentados permite o entendimento da intenção de um artista contemporâneo. Neste caso, a obra apresenta características",
+  "imagens": [
+    {
+      "id": "enem-2011-regular-arte-111-leirner",
+      "arquivo": "imagens/enem-2011-regular-arte-111-leirner.png",
+      "alt": "Figura original da questão 111: Nelson Leirner e a ressignificação do objeto.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "funcionais e de sofisticação decorativa."
+    },
+    {
+      "id": "B",
+      "texto": "futuristas e do abstrato geométrico."
+    },
+    {
+      "id": "C",
+      "texto": "construtivistas e de estruturas modulares."
+    },
+    {
+      "id": "D",
+      "texto": "abstracionistas e de releitura do objeto."
+    },
+    {
+      "id": "E",
+      "texto": "figurativas e de representação do cotidiano."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A obra retira do objeto sua utilidade habitual; não pretende sofisticar um móvel decorativo funcional.",
+    "B": "Não se trata de celebrar a máquina ou de construir uma composição puramente geométrica futurista.",
+    "C": "A combinação de tronco e cadeira não é organizada como repetição de módulos construtivos.",
+    "D": "Ao alterar a função e a leitura do objeto, Leirner abre uma experiência de abstração e ressignificação artística.",
+    "E": "Embora use objetos reconhecíveis, a intenção discutida vai além de representar figurativamente uma cena cotidiana."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Nelson Leirner e a ressignificação do objeto. Ao alterar a função e a leitura do objeto, Leirner abre uma experiência de abstração e ressignificação artística."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 111,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2011/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2011/05_AMARELO_GABARITO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

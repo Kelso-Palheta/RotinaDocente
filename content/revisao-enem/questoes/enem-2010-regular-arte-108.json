@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-regular-arte-108",
+  "ano": 2010,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Impressionismo, luz e pinceladas de cor",
+  "habilidades": [],
+  "enunciado": "MONET,C. Mulher com sombrinha. 1875, 100x81cm. In: BECKETT, W. História da Pintura. São Paulo: Ática, 1997. Em busca de maior naturalismo em suas obras e fundamentando-se em novo conceito estético, Monet, Degas, Renoir e outros artistas passaram a explorar novas formas de composição artística, que resultaram no estilo denominado Impressionismo. Observadores atentos da natureza, esses artistas passaram a",
+  "imagens": [
+    {
+      "id": "enem-2010-regular-arte-108-figura-1",
+      "arquivo": "imagens/enem-2010-regular-arte-108-figura-1.png",
+      "alt": "Figura 1 da questão 108: Impressionismo, luz e pinceladas de cor.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "pagina": 10,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "retratar, em suas obras, as cores que idealizavam de acordo com o reflexo da luz solar nos objetos."
+    },
+    {
+      "id": "B",
+      "texto": "usar mais a cor preta, fazendo contornos nítidos, que melhor definiam as imagens e as cores do objeto representado."
+    },
+    {
+      "id": "C",
+      "texto": "retratar paisagens em diferentes horas do dia, recriando, em suas telas, as imagens por eles idealizadas."
+    },
+    {
+      "id": "D",
+      "texto": "usar pinceladas rápidas de cores puras e dissociadas diretamente na tela, sem misturá-las antes na paleta."
+    },
+    {
+      "id": "E",
+      "texto": "usar as sombras em tons de cinza e preto e com efeitos esfumaçados, tal como eram realizadas no Renascimento."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "Os impressionistas observam as variações luminosas da percepção, em vez de substituir o observado por cores idealizadas segundo um modelo prévio.",
+    "B": "O predomínio do preto e dos contornos nítidos contraria a pesquisa de luz, cor e atmosfera desenvolvida pelos impressionistas.",
+    "C": "Observar paisagens em diferentes horários faz parte da pesquisa, mas a alternativa erra ao atribuir à representação uma idealização das imagens.",
+    "D": "As pinceladas rápidas de cores puras e dissociadas na tela registram efeitos luminosos e favorecem sua combinação óptica pelo observador.",
+    "E": "As sombras impressionistas incorporam variações cromáticas; não se definem pelo uso de cinza e preto e pelo esfumaçado renascentista."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Impressionismo, luz e pinceladas de cor. As pinceladas rápidas de cores puras e dissociadas na tela registram efeitos luminosos e favorecem sua combinação óptica pelo observador."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo_com_gab.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

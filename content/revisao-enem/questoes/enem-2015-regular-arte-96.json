@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-96",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Break e cultura hip-hop",
+  "habilidades": [],
+  "enunciado": "O rap, palavra formada pelas iniciais de rhythm and poetry (ritmo e poesia), junto com as linguagens da dança (o break dancing) e das artes plásticas (o grafite), seria difundido, para além dos guetos, com o nome de cultura hip hop. O break dancing surge como uma dança de rua. O grafite nasce de assinaturas inscritas pelos jovens com sprays nos muros, trens e estações de metrô de Nova York. As linguagens do rap, do break dancing e do grafite se tornaram os pilares da cultura hip hop. DAYRELL, J. A música entra em cena: o rap e o funk na socialização da juventude. Belo Horizonte: UFMG, 2005 (adaptado). Entre as manifestações da cultura hip hop apontadas no texto, o break se caracteriza como um tipo de dança que representa aspectos contemporâneos por meio de movimentos",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "retilíneos, como crítica aos indivíduos alienados."
+    },
+    {
+      "id": "B",
+      "texto": "improvisados, como expressão da dinâmica da vida urbana."
+    },
+    {
+      "id": "C",
+      "texto": "suaves, como sinônimo da rotina dos espaços públicos."
+    },
+    {
+      "id": "D",
+      "texto": "ritmados pela sola dos sapatos, como símbolo de protesto."
+    },
+    {
+      "id": "E",
+      "texto": "cadenciados, como contestação às rápidas mudanças culturais."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O break não é definido por um vocabulário retilíneo destinado a criticar indivíduos alienados.",
+    "B": "Improvisação e pesquisa de movimentos expressam a vitalidade e a dinâmica dos espaços urbanos.",
+    "C": "A suavidade da rotina não caracteriza a energia e a inventividade corporal associadas ao break.",
+    "D": "Bater a sola dos sapatos não define essa dança; essa descrição aproxima-se de outro repertório técnico.",
+    "E": "O movimento do break não é apresentado como rejeição às mudanças culturais rápidas das cidades."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Break e cultura hip-hop. Improvisação e pesquisa de movimentos expressam a vitalidade e a dinâmica dos espaços urbanos."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 96,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

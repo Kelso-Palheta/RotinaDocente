@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-reaplicacao-arte-116",
+  "ano": 2016,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Amílcar de Castro, construtivismo e o corte-dobra",
+  "habilidades": [
+    "Reconhecer procedimentos da escultura construtiva",
+    "Relacionar forma e material"
+  ],
+  "enunciado": "CASTRO, A. Sem título. Escultura em aço, Minas Gerais, 1990.\nDisponível em: www.institutoamilcardecastro.com.br. Acesso em: 2 ago. 2013.\n\nA escultura do artista construtivista Amílcar de Castro é representativa da arte contemporânea brasileira e tem o traço estrutural marcado por elementos como",
+  "imagens": [
+    {
+      "id": "amilcar-sem-titulo",
+      "arquivo": "imagens/enem-2016-reaplicacao-arte-116-amilcar.png",
+      "alt": "Escultura de aço de Amílcar de Castro formada por uma chapa cortada e dobrada, com um grande vazio triangular.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "pagina": 12,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "o corte e a dobra."
+    },
+    {
+      "id": "B",
+      "texto": "a força e a visualidade."
+    },
+    {
+      "id": "C",
+      "texto": "o adereço e a expressão."
+    },
+    {
+      "id": "D",
+      "texto": "o rompimento e a inércia."
+    },
+    {
+      "id": "E",
+      "texto": "a decomposição e a articulação."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Amílcar parte de chapas de aço, corta e dobra o material; o corte e a dobra são o princípio construtivo de suas esculturas.",
+    "B": "Força e visualidade são efeitos percebidos, não os procedimentos estruturais que definem a obra.",
+    "C": "Adereço e expressão não descrevem a lógica construtiva e industrial do trabalho.",
+    "D": "Rompimento e inércia não correspondem à operação de corte e dobra que organiza a peça.",
+    "E": "Decomposição e articulação são vagas; a escultura resulta de uma ação precisa sobre a chapa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Amílcar de Castro rompeu com a escultura modelada e passou a trabalhar com chapas de aço cortadas e dobradas. O gesto simples gera formas abertas, que articulam peso, vazio e espaço."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "amilcar-sem-titulo",
+      "legenda": "Amílcar de Castro, Sem título, 1990."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

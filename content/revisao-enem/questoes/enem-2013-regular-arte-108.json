@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-regular-arte-108",
+  "ano": 2013,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Quadrilha e transformação das tradições populares",
+  "habilidades": [],
+  "enunciado": "Própria dos festejos juninos, a quadrilha nasceu como dança aristocrática, oriunda dos salões franceses, depois difundida por toda a Europa. No Brasil, foi introduzida como dança de salão e, por sua vez, apropriada e adaptada pelo gosto popular. Para sua ocorrência, é importante a presença de um mestre “marcante” ou “marcador”, pois é quem determina as figurações diversas que os dançadores desenvolvem. Observa-se a constância das seguintes marcações: “Tour”, “En avant”, “Chez des dames”, “Chez des chevaliê”, “Cestinha de flor”, “Balancê”, “Caminho da roça”, “Olha a chuva”, “Garranchê”, “Passeio”, “Coroa de flores”, “Coroa de espinhos” etc. No Rio de Janeiro, em contexto urbano, apresenta transformações: surgem novas figurações, o francês aportuguesado inexiste, o uso de gravações substitui a música ao vivo, além do aspecto de competição, que sustenta os festivais de quadrilha, promovidos por órgãos de turismo. CASCUDO, L. C. Dicionário do folclore brasileiro. Rio de Janeiro: Melhoramentos, 1976. As diversas formas de dança são demonstrações da diversidade cultural do nosso país. Entre elas, a quadrilha é considerada uma dança folclórica por",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "possuir como característica principal os atributos divinos e religiosos e, por isso, identificar uma nação ou região."
+    },
+    {
+      "id": "B",
+      "texto": "abordar as tradições e costumes de determinados povos ou regiões distintas de uma mesma nação."
+    },
+    {
+      "id": "C",
+      "texto": "apresentar cunho artístico e técnicas apuradas, sendo, também, considerada dança-espetáculo."
+    },
+    {
+      "id": "D",
+      "texto": "necessitar de vestuário específico para a sua prática, o qual define seu país de origem."
+    },
+    {
+      "id": "E",
+      "texto": "acontecer em salões e festas e ser influenciada por diversos gêneros musicais."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A ligação exclusiva com o divino não define a quadrilha, que incorpora festas, costumes e transformações sociais.",
+    "B": "A dança se torna folclórica pela apropriação coletiva e pela expressão de tradições e costumes de comunidades.",
+    "C": "A técnica apurada de espetáculo não é requisito para uma manifestação ser reconhecida como folclórica.",
+    "D": "Um figurino característico não determina sozinho a origem nem o caráter folclórico de uma dança.",
+    "E": "O local da festa e a variedade musical não bastam para explicar a transmissão cultural da quadrilha."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Quadrilha e transformação das tradições populares. A dança se torna folclórica pela apropriação coletiva e pela expressão de tradições e costumes de comunidades."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2013/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

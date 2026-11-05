@@ -66,16 +66,39 @@ export function ModalAlunoPEI({
     }
   };
 
-  useEffect(() => {
+  const [contextoAnterior, setContextoAnterior] = useState({ isOpen: false, abaInicial, userId, repository });
+  if (contextoAnterior.isOpen !== isOpen || contextoAnterior.abaInicial !== abaInicial ||
+      contextoAnterior.userId !== userId || contextoAnterior.repository !== repository) {
+    const mudouConta = contextoAnterior.userId !== userId || contextoAnterior.repository !== repository;
+    setContextoAnterior({ isOpen, abaInicial, userId, repository });
+    if (mudouConta) {
+      setAlunos([]);
+      setNome("");
+      setTurmaNome("");
+      setNecessidades([]);
+      setNivelSuporte(1);
+      setHiperfoco("");
+      setObservacoes("");
+    }
     if (isOpen) {
-      carregarAlunos();
       setModoVisao(abaInicial === "importacao" ? "importacao" : "lista");
       setErro("");
       setErroImportacao("");
       setSucessoImportacao("");
       setResultadoImportacao(null);
     }
-  }, [isOpen, abaInicial]);
+  }
+
+  useEffect(() => {
+    if (!isOpen || !repository) return;
+    let ativo = true;
+    repository.listarAlunos(userId).then(lista => {
+      if (ativo) setAlunos(lista);
+    }).catch(err => {
+      if (ativo) console.warn("Erro ao listar alunos PEI:", err);
+    });
+    return () => { ativo = false; };
+  }, [isOpen, userId, repository]);
 
   const alunosVisiveis = montarListaBancoAlunos(alunos, alunosDiario);
 
@@ -403,9 +426,9 @@ export function ModalAlunoPEI({
                   Sua planilha deve conter ao menos as colunas: <strong>Nome</strong>, <strong>Turma</strong> e <strong>Deficiência</strong> (ou Necessidade).
                 </p>
                 <p className="text-[11px] text-[#4f6b63]">
-                  • <em>Exemplos aceitos:</em> "Autismo", "TEA", "TDAH", "Deficiência Intelectual", "Baixa Visão", "Surdez", "Dislexia".
+                  • <em>Exemplos aceitos:</em> &quot;Autismo&quot;, &quot;TEA&quot;, &quot;TDAH&quot;, &quot;Deficiência Intelectual&quot;, &quot;Baixa Visão&quot;, &quot;Surdez&quot;, &quot;Dislexia&quot;.
                   <br />
-                  • <em>Comorbidades:</em> Você pode colocar mais de uma deficiência separando por vírgula ou "e" (ex: <strong>Autismo e TDAH</strong>).
+                  • <em>Comorbidades:</em> Você pode colocar mais de uma deficiência separando por vírgula ou &quot;e&quot; (ex: <strong>Autismo e TDAH</strong>).
                 </p>
               </div>
 

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-ppl-arte-117",
+  "ano": 2013,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Autoria e memória na arte popular",
+  "habilidades": [],
+  "enunciado": "TEXTO I Disponível em: www.cefivasf.univasf.edu.br. Acesso em: 6 jun. 2013. TEXTO II Partindo do chão coletivo da comunidade rural ou das cidades, à medida que se impregna de um ethos urbano — seja por migração, seja pela difusão de novos conteúdos midiáticos —, irão surgindo indivíduos que, na área da visualidade, gerarão uma obra de feição original, autoral, única. O indivíduo-sujeito recorre à memória para a construção de uma biografia, a fim de criar seu projeto artístico, a sua identidade social. FROTA, L. C. Pequeno dicionário da arte do povo brasileiro (século XX). Rio de Janeiro: Aeroplano, 2005. A partir dos textos apresentados, os trabalhos que são pertinentes à criação popular caracterizam-se por",
+  "imagens": [
+    {
+      "id": "enem-2013-ppl-arte-117-esculturas",
+      "arquivo": "imagens/enem-2013-ppl-arte-117-esculturas.png",
+      "alt": "Figura original da questão 117: Autoria e memória na arte popular.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "temática nacionalista que abrange áreas regionais amplas."
+    },
+    {
+      "id": "B",
+      "texto": "produção de obras utilizando materiais e técnicas tradicionais da arte acadêmica."
+    },
+    {
+      "id": "C",
+      "texto": "ligação estrutural com a arte canônica pela exposição e recepção em museus e galerias."
+    },
+    {
+      "id": "D",
+      "texto": "abordagem peculiar da realidade e do contexto, seguindo criação pessoal particular."
+    },
+    {
+      "id": "E",
+      "texto": "criação de técnicas e temas comuns a determinado grupo ou região, gerando movimentos artísticos."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A criação popular não precisa assumir temática nacionalista ou abranger extensas regiões para ter valor autoral.",
+    "B": "O texto não exige formação acadêmica nem técnicas tradicionais da arte erudita para a produção popular.",
+    "C": "A exposição em museus não constitui o fundamento da criação popular discutida no texto.",
+    "D": "O artista reelabora sua memória e seu contexto em uma visão própria, produzindo uma identidade autoral singular.",
+    "E": "A produção não é definida pela repetição de técnicas comuns de um grupo; destaca-se a criação pessoal."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Autoria e memória na arte popular. O artista reelabora sua memória e seu contexto em uma visão própria, produzindo uma identidade autoral singular."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 117,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 117,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

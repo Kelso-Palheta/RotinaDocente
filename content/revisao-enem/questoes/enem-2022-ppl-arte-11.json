@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-ppl-arte-11",
+  "ano": 2022,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Beethoven e as novas funções sociais da música",
+  "habilidades": [],
+  "enunciado": "Dentre as músicas clássicas que tinham potencial para ganhar as ruas das grandes cidades brasileiras, uma se destacou e acabou se transformando em um recado ao inconsciente coletivo: se as notas ouvidas lá longe são a melodia Für Elise, interpretada ao piano, é um caminhão vendendo gás que se aproxima. Essa história, que torna a obra do compositor alemão Ludwig van Beethoven um meme nacional, começou quando as firmas de venda de gás porta a porta queriam uma solução para substituir o barulho das buzinas e os gritos de “Ó o gás”. Com o objetivo de diminuir a poluição sonora, a prefeitura de São Paulo promulgou a Lei n. 11 016, em 1991, que institui que “Fica proibido o uso da buzina, pelos caminhões de venda de gás engarrafado a domicílio, para anunciar a sua passagem pelas vias e logradouros”. Entregadores de empresas de distribuição de gás recorreram a chips com músicas livres de direitos autorais. No início, não era apenas Für Elise — notas de outros temas clássicos também eram ouvidas. Mas a força da bagatela beethoveniana composta em 1810 acabou se sobrepondo às demais e virou praticamente um símbolo. Disponível em: www.dw.com. Acesso em: 21 dez. 2020 (adaptado). Ludwig van Beethoven (1770-1827) é mundialmente conhecido como um dos maiores representantes da música de concerto do período romântico. A adoção de uma de suas obras mais difundidas como anúncio de venda de gás engarrafado indica a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "utilização da música erudita como forma de educar a população em geral."
+    },
+    {
+      "id": "B",
+      "texto": "manutenção da música europeia nos mais variados aspectos da cultura brasileira."
+    },
+    {
+      "id": "C",
+      "texto": "contribuição que a obra do compositor alemão tem na diminuição da poluição sonora."
+    },
+    {
+      "id": "D",
+      "texto": "modificação da função que uma obra artística pode sofrer em diferentes épocas e lugares."
+    },
+    {
+      "id": "E",
+      "texto": "articulação entre o poder público e as empresas para contornar as limitações das leis de direito autoral. - AZUL - 2a Aplicação"
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A finalidade do anúncio não é ensinar repertório de concerto à população.",
+    "B": "A circulação da música europeia é parte do contexto, mas não explica a mudança concreta de função da obra.",
+    "C": "Diminuir ruído é a motivação prática, mas a questão focaliza a recontextualização cultural da composição.",
+    "D": "Uma peça de concerto ganha função de anúncio comercial, demonstrando que usos sociais da arte mudam no tempo e no espaço.",
+    "E": "O texto menciona obras livres de direitos autorais; não uma articulação para desrespeitar ou contornar uma lei."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Beethoven e as novas funções sociais da música. Uma peça de concerto ganha função de anúncio comercial, demonstrando que usos sociais da arte mudam no tempo e no espaço."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 11,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 11,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

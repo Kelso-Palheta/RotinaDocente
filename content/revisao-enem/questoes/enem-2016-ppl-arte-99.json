@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-ppl-arte-99",
+  "ano": 2016,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Tradição, inovação e negociação no samba",
+  "habilidades": [],
+  "enunciado": "Argumento Tá legal Eu aceito o argumento Mas não me altere o samba tanto assim Olha que a rapaziada está sentindo a falta De um cavaco, de um pandeiro e de um tamborim Sem preconceito Ou mania de passado Sem querer ficar do lado De quem não quer navegar Faça como o velho marinheiro Que durante o nevoeiro Leva o barco devagar. PAULINHO DA VIOLA. Disponível em: www.paulinhodaviola.com.br. Acesso em: 6 dez. 2012. Na letra da canção, percebe-se uma interlocução. A posição do emissor é conciliatória entre as tradições do samba e os movimentos inovadores desse ritmo. A estratégia argumentativa de concessão, nesse cenário, é marcada no trecho",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "“Mas não me altere o samba tanto assim”."
+    },
+    {
+      "id": "B",
+      "texto": "“Olha que a rapaziada está sentindo a falta”."
+    },
+    {
+      "id": "C",
+      "texto": "“Sem preconceito / Ou mania de passado”."
+    },
+    {
+      "id": "D",
+      "texto": "“Sem querer ficar do lado / De quem não quer navegar”."
+    },
+    {
+      "id": "E",
+      "texto": "“Leva o barco devagar”."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O trecho admite a mudança do samba, mas delimita sua intensidade; essa negociação com o interlocutor realiza a estratégia de concessão.",
+    "B": "Apontar a falta dos instrumentos fundamenta a preferência do emissor, sem constituir o trecho concessivo pedido.",
+    "C": "A declaração de não ter preconceito afasta uma possível acusação de conservadorismo, mas não expressa o limite negociado com a inovação.",
+    "D": "Não querer ficar com quem recusa navegar reforça o argumento, mas não é o trecho concessivo selecionado no gabarito.",
+    "E": "A imagem de navegar devagar aconselha cautela na mudança; não é a concessão explícita ao interlocutor."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Tradição, inovação e negociação no samba. O trecho admite a mudança do samba, mas delimita sua intensidade; essa negociação com o interlocutor realiza a estratégia de concessão."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 99,
+      "pagina": 5,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2016/gabarito_caderno_cinza_13_2016.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-regular-arte-21",
+  "ano": 2017,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Oswaldo Goeldi e o expressionismo",
+  "habilidades": [],
+  "enunciado": "TEXTO I GOELDI, O. Sem título. Bico de pena, 29,4 x 24 cm. Coleção Ary Ferreira Macedo, circa 1940. Disponível em: https://revistacontemporartes.blogspot.com.br. Acesso em: 10 dez. 2012. TEXTO II Na sua produção, Goeldi buscou refletir seu caminho pessoal e político, sua melancolia e paixão sobre os intensos aspectos mais latentes em sua obra, como: cidades, peixes, urubus, caveiras, abandono, solidão, drama e medo. ZULIETTI, L. F. Goeldi: da melancolia ao inevitável. Revista de Arte, Mídia e Política. Acesso em: 24 abr. 2017 (adaptado). O gravador Oswaldo Goeldi recebeu fortes influências de um movimento artístico europeu do início do século XX, que apresenta as características reveladas nos traços da obra de",
+  "imagens": [
+    {
+      "id": "enem-2017-regular-arte-21-figura-1",
+      "arquivo": "imagens/enem-2017-regular-arte-21-figura-1.png",
+      "alt": "Oswaldo Goeldi, Sem título: gravura em preto e branco com figuras humanas e construções ao fundo.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2017-regular-arte-21-figura-2",
+      "arquivo": "imagens/enem-2017-regular-arte-21-figura-2.png",
+      "alt": "Alternativa A: Alfred Kubin, representante do Expressionismo — Sonho e desarranjo.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2017-regular-arte-21-figura-3",
+      "arquivo": "imagens/enem-2017-regular-arte-21-figura-3.png",
+      "alt": "Alternativa B: Henri Matisse, representante do Fauvismo — Bailarina deitada.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2017-regular-arte-21-figura-4",
+      "arquivo": "imagens/enem-2017-regular-arte-21-figura-4.png",
+      "alt": "Alternativa C: Diego Rivera, representante do Muralismo — Mineiro.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2017-regular-arte-21-figura-5",
+      "arquivo": "imagens/enem-2017-regular-arte-21-figura-5.png",
+      "alt": "Alternativa D: Pablo Picasso, representante do Cubismo — Retrato de Igor Stravinsky.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    },
+    {
+      "id": "enem-2017-regular-arte-21-figura-6",
+      "arquivo": "imagens/enem-2017-regular-arte-21-figura-6.png",
+      "alt": "Alternativa E: René Magritte, representante do Surrealismo — Os amantes.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Alfred Kubin, representante do Expressionismo — Sonho e desarranjo."
+    },
+    {
+      "id": "B",
+      "texto": "Henri Matisse, representante do Fauvismo — Bailarina deitada."
+    },
+    {
+      "id": "C",
+      "texto": "Diego Rivera, representante do Muralismo — Mineiro."
+    },
+    {
+      "id": "D",
+      "texto": "Pablo Picasso, representante do Cubismo — Retrato de Igor Stravinsky."
+    },
+    {
+      "id": "E",
+      "texto": "René Magritte, representante do Surrealismo — Os amantes."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A deformação expressiva e a atmosfera de angústia de Alfred Kubin aproximam-se do drama e da melancolia de Goeldi.",
+    "B": "O fauvismo de Matisse privilegia a autonomia da cor e não é a aproximação central com os traços dramáticos apresentados.",
+    "C": "O muralismo de Rivera tem outro projeto histórico e formal; não é a matriz europeia expressionista buscada.",
+    "D": "A síntese gráfica cubista de Picasso não explica a atmosfera emocional e os contrastes dramáticos destacados.",
+    "E": "O surrealismo de Magritte explora o enigma e o onírico; a correspondência solicitada é com a expressividade angustiada."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Oswaldo Goeldi e o expressionismo. A deformação expressiva e a atmosfera de angústia de Alfred Kubin aproximam-se do drama e da melancolia de Goeldi."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 21,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

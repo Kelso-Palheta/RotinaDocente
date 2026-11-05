@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-regular-arte-38",
+  "ano": 2022,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "El Greco e a distorção maneirista",
+  "habilidades": [],
+  "enunciado": "TEXTO I EL GRECO. Laocoonte. Óleo sobre tela, 1,37cm x 1,72cm. National Gallery of Art, Washington, Estados Unidos, circa 1610-1614. Disponível em: https://images.nga.gov. Acesso em: 28 jun. 2019 (adaptado). TEXTO II Essa impressionante obra apresenta o sacerdote Laocoonte sendo punido pelos deuses por tentar alertar os troianos da ameaça do Cavalo de Troia, que escondia um grupo de soldados gregos. Enviadas pelos deuses, serpentes marinhas são vistas matando Laocoonte e seus dois filhos como forma de punição. KAY, A. In: FARTHING, S. (Org.). Tudo sobre arte. Rio de Janeiro: Sextante, 2011 (adaptado). Produzida no início do século XVII, a obra maneirista distingue-se pela",
+  "imagens": [
+    {
+      "id": "enem-2022-regular-arte-38-figura-1",
+      "arquivo": "imagens/enem-2022-regular-arte-38-figura-1.png",
+      "alt": "Pintura com figuras humanas e animais em paisagem, organizada por gestos e cores contrastantes.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "pagina": 17,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "representação da nudez masculina."
+    },
+    {
+      "id": "B",
+      "texto": "distorção ao representar a figura humana."
+    },
+    {
+      "id": "C",
+      "texto": "evocação de um fato da cultura clássica grega."
+    },
+    {
+      "id": "D",
+      "texto": "presença do tema da morte como punição da família."
+    },
+    {
+      "id": "E",
+      "texto": "utilização da perspectiva para integrar os diferentes planos."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A nudez masculina já aparece em tradições anteriores e não distingue sozinha a obra maneirista.",
+    "B": "O alongamento e a distorção expressiva dos corpos diferenciam a construção maneirista da figura humana.",
+    "C": "O tema clássico também foi trabalhado em outros períodos e não define a particularidade formal da pintura.",
+    "D": "O episódio mitológico de morte não é um recurso estilístico exclusivo do maneirismo.",
+    "E": "O uso de profundidade e planos ocorre em outras tradições; a questão destaca a representação distorcida dos corpos."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "El Greco e a distorção maneirista. O alongamento e a distorção expressiva dos corpos diferenciam a construção maneirista da figura humana."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 38,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

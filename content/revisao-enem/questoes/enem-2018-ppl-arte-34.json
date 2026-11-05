@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-34",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Mestre Ataíde e a identidade na pintura sacra",
+  "habilidades": [],
+  "enunciado": "TEXTO I ATAÍDE, M. C. Coroação de Nossa Senhora de Porciúncula. Detalhe da pintura do forro da nave da Igreja de São Francisco de Assis de Ouro Preto. 1801-12. Disponível em: http://enciclopedia.itaucultural.org.br. Acesso em: 30 out. 2015. TEXTO II Manuel da Costa Ataíde (Mariana, MG, 1762-1830), assim como os demais artistas do seu tempo, recorria a bíblias e a missais impressos na Europa como ponto de partida para a seleção iconográfica das suas composições, que então recriava com inventiva liberdade. Se Mário de Andrade houvesse conseguido a oportunidade de acesso aos meios de aproximação ótica da pintura dos forros de Manuel da Costa Ataíde, imaginamos como não teria vibrado com o mulatismo das figuras do mestre marianense, ratificando, ao lado de Antônio Francisco Lisboa, o Aleijadinho, a sua percepção pioneira de um surto de racialidade brasileira em nossa terra, em pleno século XVIII. FROTA, L. C. Ataíde: vida e obra de Manuel da Costa Ataíde. Rio de Janeiro: Nova Fronteira, 1982. O Texto II destaca a inovação na representação artística setecentista, expressa no Texto I pela",
+  "imagens": [
+    {
+      "id": "enem-2018-ppl-arte-34-figura-1",
+      "arquivo": "imagens/enem-2018-ppl-arte-34-figura-1.png",
+      "alt": "Pintura com mulher, criança e figuras aladas em composição religiosa e alegórica.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 15,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "reprodução de episódios bíblicos."
+    },
+    {
+      "id": "B",
+      "texto": "retratação de elementos europeus."
+    },
+    {
+      "id": "C",
+      "texto": "valorização do sincretismo religioso."
+    },
+    {
+      "id": "D",
+      "texto": "recuperação do antropocentrismo clássico."
+    },
+    {
+      "id": "E",
+      "texto": "incorporação de características identitárias."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A referência bíblica integra o repertório tradicional; não é o aspecto inovador destacado pelo texto.",
+    "B": "O artista utiliza modelos europeus como ponto de partida, mas a inovação está em sua transformação local.",
+    "C": "A questão enfatiza as feições das figuras, não a combinação explícita de diferentes sistemas religiosos.",
+    "D": "Não se trata de recuperar a centralidade humana do classicismo como fundamento da composição.",
+    "E": "As características das figuras incorporam referências identitárias locais na recriação da iconografia religiosa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Mestre Ataíde e a identidade na pintura sacra. As características das figuras incorporam referências identitárias locais na recriação da iconografia religiosa."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 34,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 34,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

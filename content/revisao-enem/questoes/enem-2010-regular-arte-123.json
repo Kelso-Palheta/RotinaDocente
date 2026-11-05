@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-regular-arte-123",
+  "ano": 2010,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Salvador Dalí, surrealismo e imagens oníricas",
+  "habilidades": [],
+  "enunciado": "“Todas as manhãs quando acordo, experimento um prazer supremo: o de ser Salvador Dalí.” NÉRET, G. Salvador Dalí. Taschen, 1996. Assim escreveu o pintor dos “relógios moles” e das “girafas em chamas” em 1931. Esse artista excêntrico deu apoio ao general Franco durante a Guerra Civil Espanhola e, por esse motivo, foi afastado do movimento surrealista por seu líder, André Breton. Dessa forma, Dalí criou seu próprio estilo, baseado na interpretação dos sonhos e nos estudos de Sigmund Freud, denominado “método de interpretação paranoico”. Esse método era constituído por textos visuais que demonstram imagens",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "do fantástico, impregnado de civismo pelo governo espanhol, em que a busca pela emoção e pela dramaticidade desenvolveram um estilo incomparável."
+    },
+    {
+      "id": "B",
+      "texto": "do onírico, que misturava sonho com realidade e interagia refletindo a unidade entre o consciente e o inconsciente como um universo único ou pessoal."
+    },
+    {
+      "id": "C",
+      "texto": "da linha inflexível da razão, dando vazão a uma forma de produção despojada no traço, na temática e nas formas vinculadas ao real."
+    },
+    {
+      "id": "D",
+      "texto": "do reflexo que, apesar do termo “paranoico”, possui sobriedade e elegância advindas de uma técnica de cores discretas e desenhos precisos."
+    },
+    {
+      "id": "E",
+      "texto": "da expressão e intensidade entre o consciente e a liberdade, declarando o amor pela forma de conduzir o enredo histórico dos personagens retratados."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A referência política ao governo espanhol não define o método de interpretação paranoico nem a construção das imagens de Dalí.",
+    "B": "O método articula sonho e realidade, aproximando consciente e inconsciente em imagens oníricas de um universo pessoal.",
+    "C": "A interpretação paranoica não se limita à razão inflexível nem a formas estritamente vinculadas ao real observável.",
+    "D": "O sentido do método não decorre de sobriedade cromática e elegância: sua investigação se volta às associações entre percepção e inconsciente.",
+    "E": "A alternativa substitui a dimensão onírica por uma declaração sobre personagens históricos que não explica a poética descrita no enunciado."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Salvador Dalí, surrealismo e imagens oníricas. O método articula sonho e realidade, aproximando consciente e inconsciente em imagens oníricas de um universo pessoal."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 123,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/dia2_caderno5_amarelo_com_gab.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

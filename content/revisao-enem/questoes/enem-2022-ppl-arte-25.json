@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-ppl-arte-25",
+  "ano": 2022,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Modernismo e diversidade como identidade nacional",
+  "habilidades": [],
+  "enunciado": "A partir dos anos 1970, a diversidade étnica e cultural ganha maior reconhecimento com movimentos culturais, tais como o “Tropicalismo”, os “Afrobahianos”, as inserções de referências religiosas afro-brasileiras na Bossa Nova e o “Teatro do Oprimido”. Tudo isso foi antecipado pelo Movimento de Cultura Popular, fundado por Paulo Freire nos anos de 1960. MEDEIROS, B. T. F. Quilombos, políticas patrimoniais e negociações. In: BARRIO, A. E.; MOTTA, A.; GOMES, M. H. (Org.). Inovação cultural, patrimônio e educação. Disponível em: http://campus.usal.es. Acesso em: 4 set. 2017 (adaptado). Essa ideia nacionalista surgiu dos sonhos de Mário de Andrade e da Semana de Arte Moderna de 1922, que visava o(a)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "incorporação ao patrimônio nacional das culturas negra e portuguesa."
+    },
+    {
+      "id": "B",
+      "texto": "representação das realidades social e econômica do início do século."
+    },
+    {
+      "id": "C",
+      "texto": "reflexo da igualdade mestiça nos processos de patrimonialização."
+    },
+    {
+      "id": "D",
+      "texto": "ideal da diversidade cultural como categoria identitária nacional."
+    },
+    {
+      "id": "E",
+      "texto": "constituição da materialidade e da multiplicidade socioculturais. - AZUL - 2a Aplicação 11"
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O projeto destacado não restringe o patrimônio às matrizes negra e portuguesa, excluindo outras experiências culturais.",
+    "B": "Representar condições sociais é um aspecto possível, mas a passagem enfatiza o reconhecimento da pluralidade cultural.",
+    "C": "O reconhecimento da diversidade não é reduzido à tese de uma igualdade mestiça já realizada.",
+    "D": "O projeto nacional passa a reconhecer a diversidade de matrizes culturais como componente da identidade brasileira.",
+    "E": "A passagem inclui manifestações imateriais, não se restringindo à constituição material da cultura."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Modernismo e diversidade como identidade nacional. O projeto nacional passa a reconhecer a diversidade de matrizes culturais como componente da identidade brasileira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 25,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 25,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

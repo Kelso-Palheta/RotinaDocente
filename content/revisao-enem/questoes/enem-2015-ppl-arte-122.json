@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-ppl-arte-122",
+  "ano": 2015,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Rap, ritmo e relato poético",
+  "habilidades": [],
+  "enunciado": "O rap constitui-se em uma expressão artística por meio da qual os MCs relatam poeticamente a condição social em que vivem e retratam suas experiências cotidianas. SOUZA, J.; FIALHO, V. M.; ARALDI, J. Hip hop: da rua para a escola. Porto Alegre: Sulina, 2008. O “relato poético” é uma característica fundamental desse gênero musical, em que o",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "MC canta de forma melodiosa as letras, que retratam a complexa realidade em que se encontra."
+    },
+    {
+      "id": "B",
+      "texto": "rap se limita a usar sons eletrônicos nas músicas, que seriam responsáveis por retratar a realidade da periferia."
+    },
+    {
+      "id": "C",
+      "texto": "rap se caracteriza pela proximidade das notas na melodia, em que a letra é mais recitada do que cantada, como em uma poesia."
+    },
+    {
+      "id": "D",
+      "texto": "MC canta enquanto outros músicos o acompanham com instrumentos, tais como o contrabaixo elétrico e o teclado."
+    },
+    {
+      "id": "E",
+      "texto": "MC canta poemas amplamente conhecidos, fundamentando sua atuação na memorização de suas letras."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O rap não se define pelo canto melodioso convencional; privilegia a enunciação ritmada do texto.",
+    "B": "Sons eletrônicos podem integrar o acompanhamento, mas não substituem o papel narrativo e poético da palavra.",
+    "C": "A proximidade das alturas e a dicção ritmada aproximam a emissão vocal da recitação poética.",
+    "D": "O acompanhamento por baixo e teclado é possível, mas não constitui a característica fundamental solicitada.",
+    "E": "As letras podem ser autorais e contextualizadas; o gênero não exige apenas poemas conhecidos memorizados."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Rap, ritmo e relato poético. A proximidade das alturas e a dicção ritmada aproximam a emissão vocal da recitação poética."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 122,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 122,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

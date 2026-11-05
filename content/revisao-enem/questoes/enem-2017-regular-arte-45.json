@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-regular-arte-45",
+  "ano": 2017,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Rauschenberg, combines e objetos cotidianos",
+  "habilidades": [],
+  "enunciado": "TEXTO I TEXTO II No verão de 1954, o artista Robert Rauschenberg (n.1925) criou o termo combine para se referir a suas novas obras que possuíam aspectos tanto da pintura como da escultura. Em 1958, Cama foi selecionada para ser incluída em uma exposição de jovens artistas americanos e italianos no Festival dos Dois Mundos em Spoleto, na Itália. Os responsáveis pelo festival, entretanto, se recusaram a expor a obra e a removeram para um depósito. Embora o mundo da arte debatesse a inovação de se pendurar uma cama numa parede, Rauschenberg considerava sua obra “um dos quadros mais acolhedores que já pintei, mas sempre tive medo de que alguém quisesse se enfiar nela”. RAUSCHENBERG, R. Cama. Óleo e lápis em travesseiro, colcha e folha em suporte de madeira. DEMPSEY, A. Estilos, escolas e movimentos: guia enciclopédico da arte moderna. 191,1 x 80 x 20,3 cm. Museu de Arte Moderna de Nova York, 1995. São Paulo: Cosac & Naify, 2003. Disponível em: www.moma.org. Acesso em: 8 jun. 2017. A obra de Rauschenberg chocou o público na época em que foi feita, e recebeu forte influência de um movimento artístico que se caracterizava pela",
+  "imagens": [
+    {
+      "id": "enem-2017-regular-arte-45-figura-1",
+      "arquivo": "imagens/enem-2017-regular-arte-45-figura-1.png",
+      "alt": "Totem de criações de Leandro: objetos, placas e inscrições empilhados em estrutura vertical.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 18,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "dissolução das tonalidades e dos contornos, revelando uma produção rápida."
+    },
+    {
+      "id": "B",
+      "texto": "exploração insólita de elementos do cotidiano, dialogando com os ready-mades."
+    },
+    {
+      "id": "C",
+      "texto": "repetição exaustiva de elementos visuais, levando à simplificação máxima da composição."
+    },
+    {
+      "id": "D",
+      "texto": "incorporação das transformações tecnológicas, valorizando o dinamismo da vida moderna."
+    },
+    {
+      "id": "E",
+      "texto": "geometrização das formas, diluindo os detalhes sem se preocupar com a fidelidade ao real."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A dissolução de contornos e a execução rápida não explicam a incorporação física de uma cama à obra.",
+    "B": "O deslocamento insólito de objetos cotidianos dialoga com a ruptura instaurada pelos ready-mades.",
+    "C": "A cama não resulta de repetição exaustiva de módulos nem de redução minimalista dos elementos.",
+    "D": "A máquina e a velocidade não constituem a referência central da obra apresentada.",
+    "E": "A composição não se organiza principalmente pela decomposição geométrica de figuras reais."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Rauschenberg, combines e objetos cotidianos. O deslocamento insólito de objetos cotidianos dialoga com a ruptura instaurada pelos ready-mades."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

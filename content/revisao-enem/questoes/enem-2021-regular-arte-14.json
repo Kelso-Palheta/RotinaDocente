@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-regular-arte-14",
+  "ano": 2021,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Instalação subaquática, refugiados e memória",
+  "habilidades": [],
+  "enunciado": "A crise dos refugiados imortalizada para sempre no fundo do mar\n\nTAYLOR, J. C. A balsa de Lampedusa. Instalação. Museu Atlântico, Lanzarote, Canárias, 2016 (detalhe). A balsa de Lampedusa, nome da obra do artista britânico Jason de Caires Taylor, é uma das instalações criadas por ele para compor o acervo do primeiro museu submarino da Europa, o Museu Atlântico, localizado em Lanzarote, uma das ilhas do arquipélago das Canárias. Lampedusa é o nome da ilha italiana onde a grande maioria dos refugiados que saem da África ou de países como Síria, Líbano e Iraque tenta chegar para conseguir asilo no continente europeu. As esculturas do Museu Atlântico ficam a 14 metros de profundidade nas águas cristalinas de Lanzarote. Na balsa, estão dez pessoas. Todas têm no rosto a expressão do abandono. Entre elas, há algumas crianças. Uma delas, uma menina debruçada sobre a beira do bote, olha sem esperança o horizonte. A imagem é tão forte que dispensa qualquer palavra. Exatamente o papel da arte. Disponível em: http://conexaoplaneta.com.br. Acesso em: 22 jun. 2019 (adaptado). Além de apresentar ao público a obra A balsa de Lampedusa, essa reportagem cumpre, paralelamente, a função de chamar a atenção para",
+  "imagens": [
+    {
+      "id": "enem-2021-regular-arte-14-figura-1",
+      "arquivo": "imagens/enem-2021-regular-arte-14-figura-1.png",
+      "alt": "A balsa de Lampedusa, de Jason deCaires Taylor: esculturas humanas agrupadas em embarcação submersa.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "pagina": 9,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "a ilha de Lanzarote, localizada no arquipélago das Canárias, com vocação para o turismo."
+    },
+    {
+      "id": "B",
+      "texto": "as muitas vidas perdidas nas travessias marítimas em embarcações precárias ao longo dos séculos."
+    },
+    {
+      "id": "C",
+      "texto": "a inovação relativa à construção de um museu no fundo do mar, que só pode ser visitado por mergulhadores."
+    },
+    {
+      "id": "D",
+      "texto": "a construção do museu submarino como um memorial para as centenas de imigrantes mortos nas travessias pelo mar."
+    },
+    {
+      "id": "E",
+      "texto": "a arte como perpetuadora de episódios marcantes da humanidade que têm de ser relembrados para que não tornem a acontecer."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A localização turística contextualiza o museu, mas não representa o principal alerta humanitário produzido pela obra e pela reportagem.",
+    "B": "O relato focaliza a crise contemporânea dos refugiados, sem propor um levantamento genérico de naufrágios ao longo dos séculos.",
+    "C": "A novidade do museu submarino é uma informação do relato, mas não explica a função de memória e denúncia da instalação.",
+    "D": "A reportagem não afirma que todo o museu foi construído como um memorial exclusivo aos mortos nas travessias migratórias.",
+    "E": "A obra torna visível o sofrimento dos refugiados e preserva a memória de episódios humanitários para provocar reflexão e evitar sua repetição."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Instalação subaquática, refugiados e memória. A obra torna visível o sofrimento dos refugiados e preserva a memória de episódios humanitários para provocar reflexão e evitar sua repetição."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 14,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-reaplicacao-arte-98",
+  "ano": 2014,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Dadaísmo e contestação da racionalidade",
+  "habilidades": [],
+  "enunciado": "ERNEST, M. O gigante acéfalo. Disponível em: www.historiadaarte.com.br. Acesso em: 26 jan. 2012. A perplexidade causada pela catástrofe da Primeira Guerra Mundial fez surgir um movimento de vanguarda denominado Dadaísmo, que rejeitava os valores tradicionais e rompia com a estética clássica. A imagem da obra O gigante acéfalo",
+  "imagens": [
+    {
+      "id": "enem-2014-reaplicacao-arte-98-figura-1",
+      "arquivo": "imagens/enem-2014-reaplicacao-arte-98-figura-1.png",
+      "alt": "Objeto surrealista em espaço interior, com formas sobrepostas dentro de uma estrutura circular.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "explora elementos sensoriais para explicar a racionalidade do pós-guerra."
+    },
+    {
+      "id": "B",
+      "texto": "recria a realidade para combater os padrões estéticos da época."
+    },
+    {
+      "id": "C",
+      "texto": "organiza as formas geométricas para inovar as artes visuais."
+    },
+    {
+      "id": "D",
+      "texto": "representa as experiências individuais de exaltação."
+    },
+    {
+      "id": "E",
+      "texto": "utiliza a sensibilidade para retratar o drama humano."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O dadaísmo contesta a confiança na racionalidade que conviveu com a guerra; não pretende explicá-la de modo sensorial ordenado.",
+    "B": "A recombinação de elementos produz estranhamento e questiona os padrões estéticos herdados do mundo que levou à guerra.",
+    "C": "A organização geométrica não é a característica principal da montagem dadaísta apresentada.",
+    "D": "A obra não se organiza como exaltação individual; instaura uma crítica aos valores e às convenções culturais.",
+    "E": "O procedimento central não é um retrato sentimental do sofrimento, mas a ruptura e a recriação crítica da realidade."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Dadaísmo e contestação da racionalidade. A recombinação de elementos produz estranhamento e questiona os padrões estéticos herdados do mundo que levou à guerra."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 98,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_GB_terceira_aplicacao_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

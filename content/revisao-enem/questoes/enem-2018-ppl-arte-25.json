@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-25",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Arte naïf e exposição de informações",
+  "habilidades": [],
+  "enunciado": "Cores do Brasil Ganhou nova versão, revista e ampliada, o livro lançado em 1988 pelo galerista Jacques Ardies, cuja proposta é ser publicação informativa sobre nomes do “movimento arte naïf do Brasil”, como define o autor. Trata-se de um caminho estético fundamental na arte brasileira, assegura Ardies. O termo em francês foi adotado por designar internacionalmente a produção que no Brasil é chamada de arte popular ou primitivismo, esclarece Ardies. O organizador do livro explica que a obra não tem a pretensão de ser um dicionário. “Falta muita gente. São muitos artistas”, observa. A nova edição veio da vontade de atualizar informações publicadas há 26 anos. Ela incluiu artistas em atividade atualmente e veteranos que ficaram de fora do primeiro livro. A arte naïf no Brasil 2 traz 79 autores de várias regiões do Brasil. WALTER SEBASTIÃO. Estado de Minas, 17 jan. 2015 (adaptado). O fragmento do texto jornalístico aborda o lançamento de um livro sobre arte naïf no Brasil. Na organização desse trecho predomina o uso da sequência",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "injuntiva, sugerida pelo destaque dado à fala do organizador do livro."
+    },
+    {
+      "id": "B",
+      "texto": "argumentativa, caracterizada pelo uso de adjetivos sobre o livro."
+    },
+    {
+      "id": "C",
+      "texto": "narrativa, construída pelo uso de discurso direto e indireto."
+    },
+    {
+      "id": "D",
+      "texto": "descritiva, formada com base em dados editoriais da obra."
+    },
+    {
+      "id": "E",
+      "texto": "expositiva, composta por informações sobre a arte naïf."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O texto não apresenta instruções que orientem o leitor a executar uma ação.",
+    "B": "As avaliações pontuais não transformam o fragmento numa defesa organizada de uma tese polêmica.",
+    "C": "As falas citadas acrescentam informações e não formam uma sequência narrativa de acontecimentos.",
+    "D": "Os dados da publicação aparecem a serviço de apresentar o tema; não se restringem a uma descrição material do livro.",
+    "E": "O trecho apresenta informações e esclarecimentos sobre a publicação e sobre a arte naïf brasileira."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Arte naïf e exposição de informações. O trecho apresenta informações e esclarecimentos sobre a publicação e sobre a arte naïf brasileira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 25,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 25,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

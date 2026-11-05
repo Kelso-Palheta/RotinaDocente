@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-regular-arte-111",
+  "ano": 2014,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Lygia Clark e a participação do espectador",
+  "habilidades": [],
+  "enunciado": "CLARK, L. Bicho de bolso. Placas de metal, 1966. O objeto escultórico produzido por Lygia Clark, representante do Neoconcretismo, exemplifica o início de uma vertente importante na arte contemporânea, que amplia as funções da arte. Tendo como referência a obra Bicho de bolso, identifica-se essa vertente pelo(a)",
+  "imagens": [
+    {
+      "id": "enem-2014-regular-arte-111-bicho-bolso",
+      "arquivo": "imagens/enem-2014-regular-arte-111-bicho-bolso.png",
+      "alt": "Figura original da questão 111: Lygia Clark e a participação do espectador.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "pagina": 11,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "participação efetiva do espectador na obra, o que determina a proximidade entre arte e vida."
+    },
+    {
+      "id": "B",
+      "texto": "percepção do uso de objetos cotidianos para a confecção da obra de arte, aproximando arte e realidade."
+    },
+    {
+      "id": "C",
+      "texto": "reconhecimento do uso de técnicas artesanais na arte, o que determina a consolidação de valores culturais."
+    },
+    {
+      "id": "D",
+      "texto": "reflexão sobre a captação artística de imagens com meios óticos, revelando o desenvolvimento de uma linguagem própria."
+    },
+    {
+      "id": "E",
+      "texto": "entendimento sobre o uso de métodos de produção em série para a confecção da obra de arte, o que atualiza as linguagens artísticas."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A manipulação da obra pelo espectador aproxima experiência artística e vida, tornando-o participante da proposição.",
+    "B": "O emprego de objetos cotidianos não é o eixo de Bicho de bolso; importa a relação ativa estabelecida com a obra.",
+    "C": "A peça não se define como preservação de uma técnica artesanal tradicional ou de valores culturais consolidados.",
+    "D": "Não se trata de captar imagens por instrumentos ópticos; o suporte exige relação corporal com uma estrutura manipulável.",
+    "E": "A relevância da obra não deriva da produção em série, mas da experiência singular de participação."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Lygia Clark e a participação do espectador. A manipulação da obra pelo espectador aproxima experiência artística e vida, tornando-o participante da proposição."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 111,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2014/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

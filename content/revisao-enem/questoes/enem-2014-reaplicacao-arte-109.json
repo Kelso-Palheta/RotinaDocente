@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-reaplicacao-arte-109",
+  "ano": 2014,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Capoeira, resistência e marginalização",
+  "habilidades": [],
+  "enunciado": "As origens da capoeira remontam ao Brasil escravocrata e ao tráfico negreiro africano. O confronto dessas ações e contextos tornou possível o florescimento dessa prática corporal. O negro na condição de escravo nunca se submeteu totalmente à violência do branco, quer seja física ou simbólica, criando suas próprias estratégias de resistência. Evidentemente, a capoeira enfrentou uma série de preconceitos e rejeições até o seu recente reconhecimento como patrimônio histórico nacional pelo Instituto do Patrimônio Histórico e Artístico Nacional. PELEGRINI. T. A contribuição da capoeira para a formação do professor de Educação Física: fundamentos teóricos e possibilidades de intervenção. Disponível em: www.efdeportes.com. Acesso em: 2 mar. 2012 (fragmento). Até o seu recente reconhecimento como patrimônio cultural nacional, a trajetória social da Capoeira, como expressão de resistência da população negra no Brasil, foi marcada",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "pelo massivo apoio e incentivo do Estado e de suas instituições oficiais, através de diversas políticas públicas direcionadas para a diminuição das desigualdades sociais."
+    },
+    {
+      "id": "B",
+      "texto": "pela predominância do espontaneísmo e do improviso sobre os elementos de ataque e defesa, reduzindo o seu impacto como luta de resistência da população negra."
+    },
+    {
+      "id": "C",
+      "texto": "pela presença de instituições e organizações oficiais encarregadas de ensinar sua prática e que foram importantes para o reconhecimento social da população negra no Brasil."
+    },
+    {
+      "id": "D",
+      "texto": "pela compreensão de sua prática associada à vadiagem e à desordem, que contribuíram para sua marginalização, especialmente, até a terceira década do século XX."
+    },
+    {
+      "id": "E",
+      "texto": "pela existência de uma estrutura normativa que possibilitou o estabelecimento de regras e códigos próprios, ampliando seus significados libertários e contestatórios."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O reconhecimento institucional foi tardio; a trajetória descrita não foi marcada por apoio estatal contínuo.",
+    "B": "A prática preservou estratégias de luta e resistência; não perdeu essa dimensão em nome de mero improviso.",
+    "C": "A formação da capoeira não dependeu inicialmente de instituições oficiais responsáveis por seu ensino.",
+    "D": "A associação à vadiagem e à desordem contribuiu historicamente para a perseguição e a marginalização da capoeira.",
+    "E": "A alternativa desloca o foco para uma estrutura normativa; o texto enfatiza preconceito e rejeição social anteriores ao reconhecimento."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Capoeira, resistência e marginalização. A associação à vadiagem e à desordem contribuiu historicamente para a perseguição e a marginalização da capoeira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 109,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_terceira_aplicacao_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_GB_terceira_aplicacao_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

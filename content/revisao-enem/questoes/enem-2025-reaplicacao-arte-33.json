@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-arte-33",
+  "ano": 2025,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Resenha e comparação de cinebiografias",
+  "habilidades": [],
+  "enunciado": "Elvis, de Baz Luhrmann, e Priscilla, de Sofia Coppola, foram duas cinebiografias de Elvis Presley recentemente lançadas, e somente uma delas era adequada para o rei. Elvis é uma cinebiografia musical que acompanha a verdadeira história de Elvis Presley (Austin Butler) desde seus primeiros dias nos empobrecidos Mississippi e Memphis até sua glamorosa década final em Las Vegas. Atormentado pela dor causada pela morte de sua mãe, ele busca conforto em seu casamento com Priscilla, mas no centro de seu mito está a controvérsia em torno do Coronel Tom Parker (Tom Hanks), que transforma seu talento em uma mercadoria e deixa o rei em espiral, em uma crise existencial. Embora o filme Priscilla mude o livro de Priscilla Presley, Elvis & Eu, ele ainda honra seu material original ao seguir uma jovem Priscilla (Cailee Spaeny) enquanto ela inicia um relacionamento romântico complexo e complicado com Elvis Presley (Jacob Elordi), que é retratado como um marido terno e um abusador monstruoso em igual medida. Enquanto o tributo bombástico de Luhrmann a Elvis homenageia o ícone, Priscilla atesta a falibilidade do homem por trás da lenda. Ambos os filmes pintam uma imagem holística de Elvis Presley, mas apenas um será lembrado como um encapsulamento definitivo de sua essência. Disponível em: https://lojamundogeek.com.br. Acesso em: 21 jan. 2024 (adaptado). Esse texto é uma resenha, pois cumpre o propósito de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "homenagear um ícone do rock and roll."
+    },
+    {
+      "id": "B",
+      "texto": "informar sobre lançamentos cinematográficos."
+    },
+    {
+      "id": "C",
+      "texto": "discorrer sobre os gêneros cinebiografia e musical."
+    },
+    {
+      "id": "D",
+      "texto": "apontar discrepâncias que distanciam filmes e vida real."
+    },
+    {
+      "id": "E",
+      "texto": "contrastar filmes que versam sobre um mesmo assunto."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "Um dos filmes homenageia Elvis, mas a resenha compara duas abordagens da mesma personalidade.",
+    "B": "As informações sobre os filmes sustentam uma apreciação comparativa, indo além de noticiar lançamentos.",
+    "C": "A discussão não é uma exposição geral das regras de dois gêneros cinematográficos.",
+    "D": "As diferenças não são avaliadas somente como falhas diante da vida real; integram perspectivas narrativas distintas.",
+    "E": "O texto apresenta e contrasta as escolhas das duas obras que abordam Elvis e seu entorno."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Resenha e comparação de cinebiografias. O texto apresenta e contrasta as escolhas das duas obras que abordam Elvis e seu entorno."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 33,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

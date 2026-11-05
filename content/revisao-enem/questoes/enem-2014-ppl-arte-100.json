@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-ppl-arte-100",
+  "ano": 2014,
+  "aplicacoes": [
+    "ppl"
+  ],
+  "tema": "Ateliê renascentista e colaboração na pintura",
+  "habilidades": [],
+  "enunciado": "Giocondas gêmeas A existência de uma segunda pintura da Mona Lisa — a Gioconda, de Leonardo da Vinci — foi confirmada pelo Museu do Prado, em Madri, em fevereiro. O quadro era conhecido desde o século XVIII, mas tido como uma reprodução tardia do original. Um trabalho de restauração revelou que seu fundo de cor negra na verdade recobria a reprodução de uma típica paisagem da Toscana, como a pintada por Da Vinci. Radiografias mostraram que a tela é irmã gêmea do original, provavelmente pintada por discípulos do mestre, sob supervisão de Da Vinci, no seu ateliê de Florença, entre 1503 e 1506. Os dois quadros serão, agora, expostos no Louvre. Há, entretanto, diferenças: a florentina Lisa Gherardini (Mona Lisa), aparentemente na meia-idade, parece mais moça na nova tela. O manto sobre o ombro esquerdo do quadro original surge como um véu transparente, e o decote aparece com mais nitidez. A descoberta reforça a tese de estudiosos, como o inglês Martin Kemp, de que assistentes de Da Vinci ajudaram na composição de telas importantes do mestre. Revista Planeta, ano 40, ed. 474, mar. 2012. Para cumprir sua função social, o gênero notícia precisa divulgar informações novas. No texto Giocondas gêmeas, além de ser confirmada a existência de uma tela gêmea de Mona Lisa e de serem destacadas as diferenças entre elas, o valor informativo do texto está centrado na",
+  "imagens": [
+    {
+      "id": "enem-2014-ppl-arte-100-figura-1",
+      "arquivo": "imagens/enem-2014-ppl-arte-100-figura-1.png",
+      "alt": "Duas versões da Mona Lisa lado a lado, com alteração visível do rosto na segunda imagem.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_PV_D2_CD6.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "afirmação de que a Gioconda genuína estava na fase da meia-idade."
+    },
+    {
+      "id": "B",
+      "texto": "revelação da identidade da mulher pintada por Da Vinci, a florentina Lisa Gherardini."
+    },
+    {
+      "id": "C",
+      "texto": "consideração de que as produções artísticas de Da Vinci datam do período renascentista."
+    },
+    {
+      "id": "D",
+      "texto": "descrição do fato de que a tela original mostra um manto sobre o ombro esquerdo da personagem."
+    },
+    {
+      "id": "E",
+      "texto": "confirmação da hipótese de que Da Vinci teve assistentes que o auxiliaram em algumas de suas obras."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A idade aparente da modelo é uma diferença mencionada, mas não constitui a principal descoberta sobre a produção das telas.",
+    "B": "O nome de Lisa Gherardini já identifica a personagem; a notícia não centra sua novidade na revelação dessa identidade.",
+    "C": "A localização de Leonardo no Renascimento é conhecida e não constitui a informação nova anunciada.",
+    "D": "O manto é um detalhe comparativo; não explica o valor central da descoberta para o conhecimento do ateliê.",
+    "E": "A análise da segunda tela reforça a participação de assistentes na produção de obras atribuídas a Leonardo."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Ateliê renascentista e colaboração na pintura. A análise da segunda tela reforça a participação de assistentes na produção de obras atribuídas a Leonardo."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 100,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_PV_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PPL_GB_D2_CD6.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-118",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Marina Abramovic e a performance como encontro",
+  "habilidades": [
+    "Interpretar performance contemporânea",
+    "Relacionar artista e público"
+  ],
+  "enunciado": "Na exposição “A Artista Está Presente”, no MoMA, em Nova Iorque, a performer Marina Abramovic fez uma retrospectiva de sua carreira. No meio desta, protagonizou uma performance marcante. Em 2010, de 14 de março a 31 de maio, seis dias por semana, num total de 736 horas, ela repetia a mesma postura. Sentada numa sala, recebia os visitantes, um a um, e trocava com cada um deles um longo olhar sem palavras. Ao redor, o público assistia a essas cenas recorrentes.\n\nZANIN, L. Marina Abramovic, ou a força do olhar. Disponível em: http://blogs.estadao.com.br. Acesso em: 4 nov. 2013.\n\nO texto apresenta uma obra da artista Marina Abramovic, cuja performance se alinha a tendências contemporâneas e se caracteriza pela",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "inovação de uma proposta de arte relacional que adentra um museu."
+    },
+    {
+      "id": "B",
+      "texto": "abordagem educacional estabelecida na relação da artista com o público."
+    },
+    {
+      "id": "C",
+      "texto": "redistribuição do espaço do museu, que integra diversas linguagens artísticas."
+    },
+    {
+      "id": "D",
+      "texto": "negociação colaborativa de sentidos entre a artista e a pessoa com quem interage."
+    },
+    {
+      "id": "E",
+      "texto": "aproximação entre artista e público, o que rompe com a elitização dessa forma de arte."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A arte relacional já existia e não é novidade pelo simples fato de entrar no museu; o foco é o encontro silencioso.",
+    "B": "A performance não tem proposta educacional; ela cria uma situação de presença e troca.",
+    "C": "O espaço do museu é usado, mas não há redistribuição ou integração de linguagens como traço principal.",
+    "D": "O olhar sustentado, sem palavras, constrói um sentido compartilhado entre a artista e cada visitante; a obra acontece nessa negociação.",
+    "E": "A aproximação existe, mas não se pode afirmar que a performance rompe com a elitização; ela ocorre dentro de um museu."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Na performance, o corpo e a presença do artista são a obra. Abramovic permanece sentada e olha nos olhos de cada visitante, criando uma experiência única e recíproca. O público não assiste de longe: participa do encontro."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 118,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

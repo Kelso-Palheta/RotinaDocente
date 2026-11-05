@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-regular-arte-101",
+  "ano": 2016,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte pública e experiência estética cotidiana",
+  "habilidades": [],
+  "enunciado": "TOZZI, C. Colcha de retalhos. Mosaico figurativo. Estação de Metrô Sé. Disponível em: www.arteforadomuseu.com.br. Acesso em: 8 mar. 2013. Colcha de retalhos representa a essência do mural e convida o público a",
+  "imagens": [
+    {
+      "id": "enem-2016-regular-arte-101-figura-1",
+      "arquivo": "imagens/enem-2016-regular-arte-101-figura-1.png",
+      "alt": "Mural de Claudio Tozzi no metrô, integrado à circulação cotidiana de passageiros.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "pagina": 7,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "apreciar a estética do cotidiano."
+    },
+    {
+      "id": "B",
+      "texto": "interagir com os elementos da composição."
+    },
+    {
+      "id": "C",
+      "texto": "refletir sobre elementos do inconsciente do artista."
+    },
+    {
+      "id": "D",
+      "texto": "reconhecer a estética clássica das formas."
+    },
+    {
+      "id": "E",
+      "texto": "contemplar a obra por meio da movimentação física."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O mural instalado no metrô insere a experiência estética no trajeto cotidiano e convida o público a apreciar arte fora dos espaços expositivos tradicionais.",
+    "B": "A obra pode provocar interpretações, mas a questão não descreve um mecanismo que permita ao passageiro alterar materialmente sua composição.",
+    "C": "A referência ao inconsciente do artista não explica a relação entre o mural e o cotidiano de quem circula pelo metrô.",
+    "D": "O trabalho de Tozzi não se limita a reproduzir formas clássicas: sua linguagem se articula ao espaço e à experiência urbana contemporânea.",
+    "E": "O deslocamento dos passageiros não constitui, por si, uma proposta de exercício físico ou de participação corporal na composição do mural."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Arte pública e experiência estética cotidiana. O mural instalado no metrô insere a experiência estética no trajeto cotidiano e convida o público a apreciar arte fora dos espaços expositivos tradicionais."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 101,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-20",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Duchamp e o ready-made",
+  "habilidades": [],
+  "enunciado": "TEXTO I DUCHAMP, M. Roda de bicicleta. Aço e madeira, 1,3 m x 64 cm x 42 cm, 1913. Museu de Arte Moderna de Nova York. DUCHAMP, M. Roda de bicicleta. Barcelona: Polígrafa, 1995. TEXTO II Ao ser questionado sobre seu processo de criação de ready-mades, Marcel Duchamp afirmou: — Isto dependia do objeto; em geral, era preciso tomar cuidado com o seu look. É muito difícil escolher um objeto porque depois de quinze dias você começa a gostar dele ou a detestá-lo. É preciso chegar a qualquer coisa com uma indiferença tal que você não tenha nenhuma emoção estética. A escolha do ready-made é sempre baseada na indiferença visual e, ao mesmo tempo, numa ausência total de bom ou mau gosto. CABANNE, P. Marcel Duchamp: engenheiro do tempo perdido. São Paulo: Perspectiva, 1987 (adaptado). Relacionando o texto e a imagem da obra, entende-se que o artista Marcel Duchamp, ao criar os ready-mades, inaugurou um modo de fazer arte que consiste em",
+  "imagens": [
+    {
+      "id": "enem-2017-ppl-arte-20-figura-1",
+      "arquivo": "imagens/enem-2017-ppl-arte-20-figura-1.png",
+      "alt": "Roda de bicicleta, de Marcel Duchamp: roda instalada verticalmente sobre um banco.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "pagina": 9,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "designar ao artista de vanguarda a tarefa de ser o artífice da arte do século XX."
+    },
+    {
+      "id": "B",
+      "texto": "considerar a forma dos objetos como elemento essencial da obra de arte."
+    },
+    {
+      "id": "C",
+      "texto": "revitalizar de maneira radical o conceito clássico do belo na arte."
+    },
+    {
+      "id": "D",
+      "texto": "criticar os princípios que determinam o que é uma obra de arte."
+    },
+    {
+      "id": "E",
+      "texto": "atribuir aos objetos industriais o status de obra de arte."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O processo desloca o valor do fazer manual exclusivo; o artista não precisa fabricar artesanalmente cada objeto.",
+    "B": "Duchamp afasta o julgamento baseado somente na aparência visual e na forma agradável do objeto.",
+    "C": "A indiferença ao bom ou mau gosto contesta o belo clássico, em vez de simplesmente revitalizá-lo.",
+    "D": "A indiferença ao belo e ao gosto desloca a criação para o questionamento dos critérios que legitimam um objeto como arte.",
+    "E": "O uso de objetos industriais participa do procedimento, mas a fala de Duchamp destaca a crítica aos critérios estéticos que definem o estatuto artístico."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Duchamp e o ready-made. A indiferença ao belo e ao gosto desloca a criação para o questionamento dos critérios que legitimam um objeto como arte."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 20,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 32,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

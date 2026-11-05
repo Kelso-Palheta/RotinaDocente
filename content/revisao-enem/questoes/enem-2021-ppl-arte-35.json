@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-ppl-arte-35",
+  "ano": 2021,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Raoul Hausmann e a sátira dadaísta",
+  "habilidades": [],
+  "enunciado": "HAUSMANN, R. O crítico de arte. Litografia e fotocolagem em papel, 32 cm x 25,5 cm. Tate Collection, Londres, 1919. Disponível em: https://medium.com. Acesso em: 19 jun. 2019. Produzida em 1919, a obra O crítico de arte, de Hausmann, utiliza procedimentos de composição que revelam a",
+  "imagens": [
+    {
+      "id": "enem-2021-ppl-arte-35-figura-1",
+      "arquivo": "imagens/enem-2021-ppl-arte-35-figura-1.png",
+      "alt": "Colagem de Raoul Hausmann com retrato, letras e fragmentos impressos sobrepostos.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 16,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "visão satírica do artista em relação às convenções da arte burguesa."
+    },
+    {
+      "id": "B",
+      "texto": "necessidade de reconhecimento social de uma nova estética."
+    },
+    {
+      "id": "C",
+      "texto": "valorização da vanguarda artística pelo mercado de arte."
+    },
+    {
+      "id": "D",
+      "texto": "beleza da arte em meio às turbulências do pós-guerra."
+    },
+    {
+      "id": "E",
+      "texto": "fragilidade da formação acadêmica dos novos artistas."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A combinação fragmentada e irônica das imagens questiona convenções e autoridades do mundo burguês da arte.",
+    "B": "A composição não se limita a pedir aceitação social para uma nova estética; ela produz uma crítica satírica.",
+    "C": "A obra não celebra a absorção da vanguarda pelo mercado de arte.",
+    "D": "O uso de fotocolagem contesta a convenção do belo; não pretende apenas exaltá-lo após a guerra.",
+    "E": "O alvo crítico não é a suposta incapacidade acadêmica dos novos artistas, mas as convenções artísticas estabelecidas."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Raoul Hausmann e a sátira dadaísta. A combinação fragmentada e irônica das imagens questiona convenções e autoridades do mundo burguês da arte."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 35,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 35,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

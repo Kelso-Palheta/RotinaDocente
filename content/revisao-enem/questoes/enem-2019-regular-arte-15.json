@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-regular-arte-15",
+  "ano": 2019,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Acervos digitais e acesso às obras",
+  "habilidades": [],
+  "enunciado": "O Instituto de Arte de Chicago disponibilizou para visualização on-line, compartilhamento ou download (sob licença Creative Commons), 44 mil imagens de obras de arte em altíssima resolução, além de livros, estudos e pesquisas sobre a história da arte. Para o historiador da arte, Bendor Grosvenor, o sucesso das coleções on-line de acesso aberto, além de democratizar a arte, vem ajudando a formar um novo público museológico. Grosvenor acredita que quanto mais pessoas forem expostas à arte on-line, mais visitas pessoais acontecerão aos museus. A coleção está disponível em seis categorias: paisagens urbanas, impressionismo, essenciais, arte africana, moda e animais. Também é possível pesquisar pelo nome da obra, estilo, autor ou período. Para navegar pela imagem em alta definição, basta clicar sobre ela e utilizar a ferramenta de zoom. Para fazer o download, disponível para obras de domínio público, é preciso utilizar a seta localizada do lado inferior direito da imagem. Disponível em: www.revistabula.com. Acesso em: 5 dez. 2018 (adaptado). A função da linguagem que predomina nesse texto se caracteriza por",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "evidenciar a subjetividade da reportagem com base na fala do historiador de arte."
+    },
+    {
+      "id": "B",
+      "texto": "convencer o leitor a fazer o acesso on-line, levando-o a conhecer as obras de arte."
+    },
+    {
+      "id": "C",
+      "texto": "informar sobre o acesso às imagens por meio da descrição do modo como acessá-las."
+    },
+    {
+      "id": "D",
+      "texto": "estabelecer interlocução com o leitor, orientando-o a fazer o download das obras de arte."
+    },
+    {
+      "id": "E",
+      "texto": "enaltecer a arte, buscando popularizá-la por meio da possibilidade de visualização on-line."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A opinião do historiador é uma informação citada, mas o texto não se organiza predominantemente pela subjetividade do repórter.",
+    "B": "O acesso é valorizado, porém o fragmento privilegia a exposição de dados e a explicação do funcionamento do acervo.",
+    "C": "O texto informa a disponibilização das imagens e descreve os meios de pesquisa, ampliação e obtenção dos arquivos.",
+    "D": "A orientação prática não se reduz à criação de contato com o leitor; integra uma exposição de informações sobre o serviço.",
+    "E": "A democratização é mencionada, mas a função predominante não é elogiar a arte, e sim informar sobre o acesso."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Acervos digitais e acesso às obras. O texto informa a disponibilização das imagens e descreve os meios de pesquisa, ampliação e obtenção dos arquivos."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 15,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

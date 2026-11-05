@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-regular-arte-114",
+  "ano": 2012,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Idealização e equilíbrio no Renascimento",
+  "habilidades": [],
+  "enunciado": "LXXVIII (Camões, 1525?-1580) Leda serenidade deleitosa, Que representa em terra um paraíso; Entre rubis e perlas doce riso; Debaixo de ouro e neve cor-de-rosa; Presença moderada e graciosa, Onde ensinando estão despejo e siso Que se pode por arte e por aviso, Como por natureza, ser fermosa; Fala de quem a morte e a vida pende, Rara, suave; enfim, Senhora, vossa; Repouso nela alegre e comedido: Estas as armas são com que me rende E me cativa Amor; mas não que possa Despojar-me da glória de rendido. CAMÕES, L. Obra completa. Rio de Janeiro: Nova Aguilar, 2008. SANZIO, R. (1483-1520) A mulher com o unicórnio. Roma, Galleria Borghese. Disponível em: www.arquipelagos.pt. Acesso em: 29 fev. 2012. A pintura e o poema, embora sendo produtos de duas linguagens artísticas diferentes, participaram do mesmo contexto social e cultural de produção pelo fato de ambos",
+  "imagens": [
+    {
+      "id": "enem-2012-regular-arte-114-figura-1",
+      "arquivo": "imagens/enem-2012-regular-arte-114-figura-1.png",
+      "alt": "Figura 1 da questão 114: Idealização e equilíbrio no Renascimento.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "apresentarem um retrato realista, evidenciado pelo unicórnio presente na pintura e pelos adjetivos usados no poema."
+    },
+    {
+      "id": "B",
+      "texto": "valorizarem o excesso de enfeites na apresentação pessoal e na variação de atitudes da mulher, evidenciadas pelos adjetivos do poema."
+    },
+    {
+      "id": "C",
+      "texto": "apresentarem um retrato ideal de mulher marcado pela sobriedade e o equilíbrio, evidenciados pela postura, expressão e vestimenta da moça e os adjetivos usados no poema."
+    },
+    {
+      "id": "D",
+      "texto": "desprezarem o conceito medieval da idealização da mulher como base da produção artística, evidenciado pelos adjetivos usados no poema."
+    },
+    {
+      "id": "E",
+      "texto": "apresentarem um retrato ideal de mulher marcado pela emotividade e o conflito interior, evidenciados pela expressão da moça e pelos adjetivos do poema."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O unicórnio não configura realismo documental, e os elogios do poema constroem uma figura idealizada.",
+    "B": "As obras destacam moderação e equilíbrio, não excesso de adereços ou instabilidade das atitudes.",
+    "C": "Postura, expressão, vestimenta e adjetivação constroem uma figura feminina ideal marcada por sobriedade e equilíbrio.",
+    "D": "A idealização feminina não é simplesmente rejeitada; ela é reelaborada conforme o contexto cultural renascentista.",
+    "E": "A figura é apresentada com serenidade e comedimento, e não pelo conflito emotivo interior como elemento dominante."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Idealização e equilíbrio no Renascimento. Postura, expressão, vestimenta e adjetivação constroem uma figura feminina ideal marcada por sobriedade e equilíbrio."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 114,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2012/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-22",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Jaime Prades, memória e responsabilidade ambiental",
+  "habilidades": [],
+  "enunciado": "Inspiração no lixo O paulistano Jaime Prades, um dos precursores do grafite e da arte urbana, chegou ao lixo por sua intensa relação com as ruas de São Paulo. “A partir da década de 1980, passei a perceber o desastre que é a ecologia urbana. Quando a gente fala em questão ambiental, sempre se refere à natureza, mas a crise ambiental urbana é forte”, diz Prades. Inspirado pela obra de Frans Krajcberg, há quatro anos Jaime Prades decidiu construir uma árvore gigante no Parque do Ibirapuera ou em outro local público, feita com sobras de madeira garimpadas em caçambas. “Elas são como os intestinos da cidade, são vísceras expostas”, conta Prades. “Percebi que cada pedaço de madeira carregava a memória da árvore de onde ela veio. Percebi que não estava só reciclando, e sim resgatando”. Sua árvore gigante ainda não vingou, mas a ideia evoluiu. Agora, ele pretende criar uma plataforma na internet para estimular outros artistas a fazer o mesmo. “Teríamos uma floresta virtual planetária, na qual se colocariam essas questões de forma poética, criando uma discussão enriquecedora.” VIEIRA, A. National Geographic Brasil, n. 65-A, 2015. O texto tematiza algumas transformações das funções da arte na atualidade. No trabalho citado, do artista Jaime Prades, considera-se a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "reflexão sobre a responsabilidade ambiental do homem."
+    },
+    {
+      "id": "B",
+      "texto": "valorização da poética em detrimento do conteúdo."
+    },
+    {
+      "id": "C",
+      "texto": "preocupação com o belo encontrado na natureza."
+    },
+    {
+      "id": "D",
+      "texto": "percepção da obra como suporte da memória."
+    },
+    {
+      "id": "E",
+      "texto": "reutilização do lixo como forma de consumo."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O resgate de madeiras descartadas e a discussão poética da ecologia urbana estimulam reflexão sobre responsabilidade ambiental.",
+    "B": "A poética é o modo de abordar a questão; ela não elimina nem diminui o conteúdo ambiental.",
+    "C": "O projeto não se limita a contemplar a beleza natural: problematiza o descarte e a cidade.",
+    "D": "A memória da árvore participa da obra, mas a proposta a articula a uma questão ambiental coletiva mais ampla.",
+    "E": "Reutilizar restos não é apresentado como estímulo a consumir mais; a ação questiona a relação com o ambiente urbano."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Jaime Prades, memória e responsabilidade ambiental. O resgate de madeiras descartadas e a discussão poética da ecologia urbana estimulam reflexão sobre responsabilidade ambiental."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 22,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 37,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

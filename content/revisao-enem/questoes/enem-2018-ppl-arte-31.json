@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-31",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Fotografia, pintura e percepção do movimento",
+  "habilidades": [],
+  "enunciado": "TEXTO I MUYBRIDGE, E. Cavalo em movimento. Fotografia. Universidade do Texas, Austin, cerca de 1886. Disponível em: www.utexasaustin.edu. Acesso em: 31 ago. 2016 (adaptado). TEXTO II GÉRICAULT, T. Corrida de cavalos ou O Derby de 1821 em Epson. Óleo sobre tela, 92 x 123 cm. Museu do Louvre, Paris. Disponível em: www.louvre.fr. Acesso em: 31 ago. 2016. TEXTO III A arte pode estar, às vezes, muito mais preparada do que a ciência para captar o devir e a fluidez do mundo, pois o artista não quer manipular, mas sim “habitar” as coisas. O famoso artista francês Rodin, no seu livro L’Art (A Arte, 1911), comenta que a técnica de fotografia em série, mostrando todos os momentos do galope de um cavalo em diversos quadros, apesar de seu grande realismo, não é capaz de capturar o movimento. O corpo do animal é fotografado em diferentes posições, mas ele não parece estar galopando: “na imagem científica [fotográfica], o tempo é suspenso bruscamente”. Para Rodin, um pintor é capaz, em única cena, de nos transmitir a experiência de ver um cavalo de corrida, e isso porque ele representa o animal em um movimento ambíguo, em que os membros traseiros e dianteiros parecem estar em instantes diferentes. Rodin diz que essa exposição talvez seja logicamente inconcebível, mas é paradoxalmente muito mais adequada à maneira como o movimento se dá: “o artista é verdadeiro e a fotografia mentirosa, pois na realidade o tempo não para”. FEITOSA, C. Explicando a filosofia com arte. Rio de Janeiro: Ediouro, 2004. Observando-se as imagens (Textos I e II), o paradoxo apontado por Rodin (Texto III) procede e cria uma maneira original de perceber a relação entre a arte e a técnica, porque o(a)",
+  "imagens": [
+    {
+      "id": "enem-2018-ppl-arte-31-figura-1",
+      "arquivo": "imagens/enem-2018-ppl-arte-31-figura-1.png",
+      "alt": "Figura 1 da questão 31: Fotografia, pintura e percepção do movimento.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 14,
+      "revisada": false
+    },
+    {
+      "id": "enem-2018-ppl-arte-31-figura-2",
+      "arquivo": "imagens/enem-2018-ppl-arte-31-figura-2.png",
+      "alt": "Figura 2 da questão 31: Fotografia, pintura e percepção do movimento.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 14,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "fotografia é realista na captação da sensação do movimento."
+    },
+    {
+      "id": "B",
+      "texto": "pintura explora os sentimentos do artista e não tem um caráter científico."
+    },
+    {
+      "id": "C",
+      "texto": "fotógrafo faz um estudo sobre os movimentos e consegue captar a essência da sua representação."
+    },
+    {
+      "id": "D",
+      "texto": "pintor representa de forma equivocada as patas dos cavalos, confundindo nossa noção de realidade."
+    },
+    {
+      "id": "E",
+      "texto": "pintura inverte a lógica comumente aceita de que a fotografia faz um registro objetivo e fidedigno da realidade."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "Para Rodin, o instante fotográfico suspenso não transmite necessariamente a experiência de continuidade do movimento.",
+    "B": "A oposição não se resume a sentimento contra ciência: o problema é como representar a passagem do tempo.",
+    "C": "O estudo registra posições reais, mas o texto questiona sua capacidade de apresentar a experiência do galope.",
+    "D": "A combinação de instantes na pintura é justamente o recurso que a torna expressiva, não um simples erro a descartar.",
+    "E": "A pintura permite questionar a ideia de que a fotografia, por ser objetiva, seria sempre a representação mais fiel da realidade."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Fotografia, pintura e percepção do movimento. A pintura permite questionar a ideia de que a fotografia, por ser objetiva, seria sempre a representação mais fiel da realidade."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 31,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 31,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

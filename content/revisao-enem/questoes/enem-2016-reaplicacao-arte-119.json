@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-reaplicacao-arte-119",
+  "ano": 2016,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Brinquedos cantados e desenvolvimento integral",
+  "habilidades": [],
+  "enunciado": "Brinquedos cantados Os brinquedos cantados são atividades diretamente relacionadas com o ato de cantar e ao conjunto dessas canções, a que chamamos de cancioneiro folclórico infantil. É difícil determinar sua origem. Parece que essas canções sempre existiram, sempre encantaram o povo e embalaram as criancinhas. A maioria parece ter chegado com os colonizadores portugueses, sofrendo influência ameríndia e africana, devido à colonização e posteriormente ao tráfico de escravos para o Brasil. Analisando as letras de alguns brinquedos cantados, podemos observar que elas desenvolvem várias habilidades motoras, como: motricidade ampla, ritmo, equilíbrio, direcionalidade, lateralidade, percepção espaço-temporal, tônus muscular, entre outras. E no cognitivo, as letras e coreografias ajudam a criança a desenvolver a atenção, a imaginação e a criatividade. ZOBOLI, F.; FURTUOSO, M. S.; TELLES, C. O brinquedo cantado na escola: uma ferramenta no processo de aprendizagem. Disponível em: www.efdeportes.com. Acesso em: 14 dez. 2012 (adaptado). O brinquedo cantado é um importante componente da cultura corporal brasileira, sendo vivenciado com frequência por muitas crianças. Identifica-se o seu valor para a tradição cultural no(a)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "ampliação dada à força motora das crianças devido ao uso da música e das danças."
+    },
+    {
+      "id": "B",
+      "texto": "condição educativa fundamentada no uso de jogos sem regras previamente estabelecidas."
+    },
+    {
+      "id": "C",
+      "texto": "histórico indeterminado dessa forma de brincadeira representativa do cancioneiro folclórico."
+    },
+    {
+      "id": "D",
+      "texto": "uso de técnicas, facilmente adotadas por qualquer criança, que intensificam a motricidade esportiva."
+    },
+    {
+      "id": "E",
+      "texto": "possibilidade de contribuição para o desenvolvimento integral do indivíduo."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A brincadeira não se restringe ao fortalecimento motor: envolve atenção, imaginação e comunicação.",
+    "B": "As atividades podem ter regras transmitidas culturalmente; a ausência de regras não fundamenta seu valor.",
+    "C": "A origem imprecisa não explica o valor educativo e cultural das práticas descritas.",
+    "D": "A finalidade não é aperfeiçoar técnica esportiva; os movimentos se articulam ao canto e à experiência lúdica.",
+    "E": "O canto, o ritmo, o movimento e a interação contribuem conjuntamente para dimensões motoras, cognitivas e culturais."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Brinquedos cantados e desenvolvimento integral. O canto, o ritmo, o movimento e a interação contribuem conjuntamente para dimensões motoras, cognitivas e culturais."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 05 — Linguagens — 2º dia",
+      "numeroQuestao": 119,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-16",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Tarsila e a modernização do espaço",
+  "habilidades": [],
+  "enunciado": "AMARAL, T. EFCB. Óleo sobre tela. 56 cm x 65 cm, 1924. Disponível em: www.wikiart.org. Acesso em: 11 fev. 2015. Uma das funções da obra de arte é representar o contexto sociocultural ao qual ela pertence. Produzida na primeira metade do século XX, a Estrada de Ferro Central do Brasil evidencia o processo de modernização pela",
+  "imagens": [
+    {
+      "id": "enem-2018-ppl-arte-16-figura-1",
+      "arquivo": "imagens/enem-2018-ppl-arte-16-figura-1.png",
+      "alt": "Figura 1 da questão 16: Tarsila e a modernização do espaço.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 9,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "verticalização do espaço."
+    },
+    {
+      "id": "B",
+      "texto": "desconstrução da forma."
+    },
+    {
+      "id": "C",
+      "texto": "sobreposição de elementos."
+    },
+    {
+      "id": "D",
+      "texto": "valorização da natureza."
+    },
+    {
+      "id": "E",
+      "texto": "abstração do tema."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Elementos verticais aparecem na paisagem, mas não explicam sozinhos a organização do conjunto que representa a modernização.",
+    "B": "A estilização das formas participa da linguagem modernista, mas não indica sozinha a modernização do contexto social.",
+    "C": "A sobreposição de estruturas e elementos da infraestrutura articula, num mesmo espaço, os sinais da modernização urbana e ferroviária.",
+    "D": "A valorização de natureza intocada não explica o tema ferroviário e urbano da pintura.",
+    "E": "O tema permanece reconhecível: não se trata de uma abstração que apague a referência à ferrovia."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Tarsila e a modernização do espaço. A sobreposição de estruturas e elementos da infraestrutura articula, num mesmo espaço, os sinais da modernização urbana e ferroviária."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 16,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 16,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

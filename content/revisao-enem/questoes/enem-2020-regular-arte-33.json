@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-regular-arte-33",
+  "ano": 2020,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Lambe-lambe e circulação da poesia urbana",
+  "habilidades": [],
+  "enunciado": "TEXTO I Poesia em cartaz O caminho habitual para o trabalho, aquele em que a gente já nem repara direito, pode ficar mais belo com um poema. O projeto #UmLambePorDia nasceu desta intenção: trazer mais cor e alegria para a cidade por meio de cartazes coloridos ao estilo lambe-lambe. Quem teve a ideia foi o escritor Leonardo Beltrão, em Belo Horizonte. “Em meio a olhares cada vez mais viciados, acabamos nos esquecendo da beleza envolvida em cada esquina e no próprio poder transformador da palavra”. Assim, a cada dia um cartaz é colocado por aí, para nos lembrar de reparar na cidade, na vida que corre ao redor e também em nós mesmos. TEXTO II Disponível em: www.vidasimples.uol.com.br. Acesso em: 6 dez. 2017 (adaptado). Considerando-se a função que os cartazes colados em postes normalmente exercem nas ruas das cidades grandes, esse texto evidencia a",
+  "imagens": [
+    {
+      "id": "enem-2020-regular-arte-33-figura-1",
+      "arquivo": "imagens/enem-2020-regular-arte-33-figura-1.png",
+      "alt": "Fotografia de inscrição urbana: Ontem, fui dormir com saudades de mim e hoje, subitamente, voltei.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "disseminação da arte poética em um veículo não convencional."
+    },
+    {
+      "id": "B",
+      "texto": "manutenção da expectativa das pessoas ao andarem pelas ruas."
+    },
+    {
+      "id": "C",
+      "texto": "necessidade de exposição de poemas pequenos em diferentes suportes."
+    },
+    {
+      "id": "D",
+      "texto": "característica corriqueira do suporte lambe-lambe, muito comum nas ruas."
+    },
+    {
+      "id": "E",
+      "texto": "exposição da beleza escondida das esquinas da cidade de Belo Horizonte."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A palavra poética ocupa um suporte urbano habitualmente usado para avisos e anúncios, ampliando sua circulação.",
+    "B": "O projeto pretende interromper o olhar acostumado e provocar novas percepções, não manter a expectativa usual.",
+    "C": "O texto apresenta uma possibilidade artística, não uma obrigação de expor somente poemas pequenos.",
+    "D": "O uso comum do lambe-lambe é o ponto de partida para seu deslocamento em direção à poesia.",
+    "E": "A proposta inclui o olhar para a cidade, mas não se resume a revelar belas esquinas de Belo Horizonte."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Lambe-lambe e circulação da poesia urbana. A palavra poética ocupa um suporte urbano habitualmente usado para avisos e anúncios, ampliando sua circulação."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 33,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

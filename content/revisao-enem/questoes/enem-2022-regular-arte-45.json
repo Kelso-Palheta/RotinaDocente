@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2022-regular-arte-45",
+  "ano": 2022,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Manguebeat e a integração de matrizes musicais",
+  "habilidades": [],
+  "enunciado": "O Recife fervilhava no começo da década de 1990, e os artistas trabalhavam para resgatar o prestígio da cultura pernambucana. Era preciso se inspirar, literalmente, nas raízes sobre as quais a cidade se construiu. Foi aí que, em 1992, com a publicação de um manifesto escrito pelo músico e jornalista Fred Zero Quatro, da banda Mundo Livre S/A, nasceu o manguebeat. O nome vem de “mangue”, vegetação típica da região, e “beat”, para representar as batidas e as influências musicais que o movimento abraçaria a partir dali. Era a hora e a vez de os caranguejos — aos quais os músicos recifenses gostavam de se comparar — mostrarem as caras: o maracatu e suas alfaias se misturaram com as batidas do hip-hop, as guitarras do rock, elementos eletrônicos e o sotaque recifense de Chico Science. A busca pelo novo rendeu uma perspectiva diferente do Brasil ao olhar para o Recife. A cidade deixou de ser o lugar apenas do frevo e do carnaval, transformando-se na ebulição musical que continua a acontecer mesmo após os 25 anos do lançamento do primeiro disco da Nação Zumbi, Da lama ao caos. FORCIONI, G. et al. O mangue está de volta. Revista Esquinas, n. 87, set. 2019 (adaptado). Chico Science foi fundamental para a renovação da música pernambucana, fato que se deu pela",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "utilização de aparelhos musicais eletrônicos em lugar dos instrumentos tradicionais."
+    },
+    {
+      "id": "B",
+      "texto": "ocupação de espaços da natureza local para a produção de eventos musicais memoráveis."
+    },
+    {
+      "id": "C",
+      "texto": "substituição de antigas práticas musicais, como o frevo, por melodias e harmonias inovadoras."
+    },
+    {
+      "id": "D",
+      "texto": "recuperação de composições tradicionais folclóricas e sua apresentação em grandes festivais."
+    },
+    {
+      "id": "E",
+      "texto": "integração de referenciais culturais de diferentes origens, criando uma nova combinação estética. - AZUL - 1a Aplicação 19"
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O manguebeat conserva e articula instrumentos tradicionais; não os elimina em favor de aparelhos eletrônicos.",
+    "B": "A referência ao mangue é simbólica e territorial; a inovação não se define por realizar eventos dentro da vegetação.",
+    "C": "O movimento não apaga o frevo e as práticas anteriores; dialoga com tradições e outras referências.",
+    "D": "A recuperação de composições tradicionais não explica a nova combinação de maracatu, rock, hip-hop e eletrônica.",
+    "E": "A aproximação de matrizes locais e globais produz uma combinação estética nova e ligada à identidade recifense."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Manguebeat e a integração de matrizes musicais. A aproximação de matrizes locais e globais produz uma combinação estética nova e ligada à identidade recifense."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2022_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

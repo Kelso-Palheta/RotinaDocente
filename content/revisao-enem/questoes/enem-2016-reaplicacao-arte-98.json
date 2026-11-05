@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-reaplicacao-arte-98",
+  "ano": 2016,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Futurismo, velocidade e vida moderna",
+  "habilidades": [
+    "Identificar vanguardas europeias",
+    "Relacionar obra e ideário futurista"
+  ],
+  "enunciado": "TEXTO I\n\nSEVERINI, G. A hieroglífica dinâmica do Bal Tabarin. Óleo sobre tela, 161,6 x 156,2 cm. Museu de Arte Moderna, Nova Iorque, 1912.\nDisponível em: www.moma.org. Acesso em: 18 maio 2013.\n\nTEXTO II\n\nA existência dos homens criadores modernos é muito mais condensada e mais complicada do que a das pessoas dos séculos precedentes. A coisa representada, por imagem, fica menos fixa, o objeto em si mesmo se expõe menos do que antes. Uma paisagem rasgada por um automóvel, ou por um trem, perde em valor descritivo, mas ganha em valor sintético. O homem moderno registra cem vezes mais impressões do que o artista do século XVIII.\n\nLEGÉR, F. Funções da pintura. São Paulo: Nobel, 1989.\n\nA vanguarda europeia, evidenciada pela obra e pelo texto, expressa os ideais e a estética do",
+  "imagens": [
+    {
+      "id": "severini-bal-tabarin",
+      "arquivo": "imagens/enem-2016-reaplicacao-arte-98-severini.png",
+      "alt": "Pintura futurista de Gino Severini com formas fragmentadas, cores intensas e sobreposição de figuras em movimento.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "pagina": 6,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "Cubismo, que questionava o uso da perspectiva por meio da fragmentação geométrica."
+    },
+    {
+      "id": "B",
+      "texto": "Expressionismo alemão, que criticava a arte acadêmica, usando a deformação das figuras."
+    },
+    {
+      "id": "C",
+      "texto": "Dadaísmo, que rejeitava a instituição artística, propondo a antiarte."
+    },
+    {
+      "id": "D",
+      "texto": "Futurismo, que propunha uma nova estética, baseada nos valores da vida moderna."
+    },
+    {
+      "id": "E",
+      "texto": "Neoplasticismo, que buscava o equilíbrio plástico, com utilização da direção horizontal e vertical."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O Cubismo fragmenta a perspectiva, mas a obra celebra o movimento, a dança e a velocidade, temas centrais do Futurismo.",
+    "B": "O Expressionismo usa a deformação para expressar emoção subjetiva; aqui há exaltação da vida urbana e da multiplicidade de impressões.",
+    "C": "O Dadaísmo recusa a arte institucionalizada; a pintura de Severini ainda constrói uma composição vibrante, não uma antiarte.",
+    "D": "A obra e o texto valorizam a velocidade, a cidade, a dança e a multiplicidade de estímulos, ideais que o Futurismo transformou em programa estético.",
+    "E": "O Neoplasticismo busca ordem e equilíbrio com linhas retas e cores puras, o oposto da composição agitada de Severini."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O Futurismo, lançado por Marinetti em 1909, exaltava a velocidade, a máquina, a cidade e a vida moderna. Severini, um de seus integrantes, traduz esse ideário em pinturas com fragmentos, movimento e sobreposição de planos."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "severini-bal-tabarin",
+      "legenda": "Gino Severini, A hieroglífica dinâmica do Bal Tabarin, 1912."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 98,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

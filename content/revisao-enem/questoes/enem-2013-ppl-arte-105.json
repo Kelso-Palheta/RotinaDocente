@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-ppl-arte-105",
+  "ano": 2013,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Sérgio Rodrigues e o design moderno brasileiro",
+  "habilidades": [],
+  "enunciado": "Tronos Lucio, Beto e Oscar: a cadeira e as poltronas de Sérgio Rodrigues, de linhas inspiradas na simplicidade brasiliense. Foto: Acervo Sérgio Rodrigues. A revolução estética brasiliense empurrou os designers de móveis dos anos 1950 e início dos 60 para o novo. Induzidos a abandonar o gosto rebuscado pelo colonial, a trocar Ouro Preto por Brasília, eles criaram um mobiliário contemporâneo que ainda hoje vemos nas lojas e nas salas de espera de consultórios e escritórios. Colada no uso de madeiras nobres, como o jacarandá e a peroba, e em materiais de revestimento como o couro e a palhinha, desenvolveu-se uma tendência feita de linhas retas e curvas suaves, nos moldes da capital no Cerrado. Disponível em: http://veja.abril.com.br. Acesso em: 29 jul. 2010 (adaptado). A reportagem e a fotografia apresentam os móveis elaborados pelo artista Sérgio Rodrigues, com um estilo que norteou o pensamento de uma geração, desafiando a arte a",
+  "imagens": [
+    {
+      "id": "enem-2013-ppl-arte-105-tronos",
+      "arquivo": "imagens/enem-2013-ppl-arte-105-tronos.png",
+      "alt": "Figura original da questão 105: Sérgio Rodrigues e o design moderno brasileiro.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "pagina": 9,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "evidenciar um novo conceito estético por meio de formas e texturas inovadoras."
+    },
+    {
+      "id": "B",
+      "texto": "adaptar os móveis de Brasília aos modelos das escolas europeias do início do século XX."
+    },
+    {
+      "id": "C",
+      "texto": "elaborar a decoração dos palácios da nova capital do Brasil com conceitos de linha e perspectiva."
+    },
+    {
+      "id": "D",
+      "texto": "projetar para os palácios e edifícios da nova capital do Brasil a beleza do mobiliário típico de Minas Gerais."
+    },
+    {
+      "id": "E",
+      "texto": "criar o mobiliário para a capital do país com base no luxo e na riqueza dos edifícios públicos brasileiros."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "As formas sintéticas e as novas relações de materiais e texturas expressam a renovação estética do mobiliário.",
+    "B": "O texto destaca a experiência modernista de Brasília; não a submissão a modelos europeus do início do século.",
+    "C": "O mobiliário não se explica por decorar exclusivamente os palácios nem por uma técnica de perspectiva.",
+    "D": "O movimento abandona o gosto colonial associado a Ouro Preto, em vez de reproduzir o mobiliário mineiro.",
+    "E": "A proposta enfatiza linhas simples e materiais, não o luxo dos prédios públicos como princípio criativo."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Sérgio Rodrigues e o design moderno brasileiro. As formas sintéticas e as novas relações de materiais e texturas expressam a renovação estética do mobiliário."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 105,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 105,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/2013_PV_reaplicacao_PPL_D1_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2013/gabarito_enem_ppl_2013_dia2_cinza.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

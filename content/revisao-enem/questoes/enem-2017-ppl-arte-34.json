@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-34",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Quadrilha e vocabulário do movimento",
+  "habilidades": [],
+  "enunciado": "É dia de festa na roça. Fogueira posicionada, caipiras arrumados, barraquinhas com quitutes suculentos e bandeirinhas de todas as cores enfeitando o salão. Mas o ponto mais esperado de toda a festa é sempre a quadrilha, embalada por música típica e linguajar próprio. Anarriê, alavantú, balancê de damas e tantos outros termos agitados pelo puxador da quadrilha deixam a festa de São João, comemorada em todo o Brasil, ainda mais completa. Embora os festejos juninos sejam uma herança da colonização portuguesa no Brasil, grande parte das tradições da quadrilha tem origem francesa. E muita gente dança sem saber. As influências estrangeiras são muitas nas festas dos três santos do mês de junho (Santo Antônio, no dia 13, e São Pedro, no dia 29, completam o grupo). O “changê de damas” nada mais é do que a troca de damas na dança, do francês “changer”. O “alavantú”, quando os casais se aproximam e se cumprimentam, também é francês, e vem de “en avant tous”. Assim também acontece com o “balancê”, que também vem de bailar em francês. SOARES, L. Disponível em: http://gazetaonline.globo.com. Acesso em: 30 jun. 2015 (adaptado). Ao discorrer sobre a festa de São João e a quadrilha como manifestações da cultura corporal, o texto privilegia a descrição de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "movimentos realizados durante a coreografia da dança."
+    },
+    {
+      "id": "B",
+      "texto": "personagens presentes nos festejos de São João."
+    },
+    {
+      "id": "C",
+      "texto": "vestimentas utilizadas pelos participantes."
+    },
+    {
+      "id": "D",
+      "texto": "ritmos existentes na dança da quadrilha."
+    },
+    {
+      "id": "E",
+      "texto": "folguedos constituintes do evento."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Os termos explicados nomeiam aproximações, cumprimentos e trocas de pares realizados durante a coreografia.",
+    "B": "O texto menciona festeiros e santos, mas sua explicação se concentra nas ações conduzidas pelo marcador.",
+    "C": "Roupas e enfeites compõem a ambientação, sem constituir o foco das expressões analisadas.",
+    "D": "As expressões descritas indicam movimentos, não uma classificação dos ritmos musicais da quadrilha.",
+    "E": "O texto não faz um inventário dos folguedos da festa; explica comandos de uma dança específica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Quadrilha e vocabulário do movimento. Os termos explicados nomeiam aproximações, cumprimentos e trocas de pares realizados durante a coreografia."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 34,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 19,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

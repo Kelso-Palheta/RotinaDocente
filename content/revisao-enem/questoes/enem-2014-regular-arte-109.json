@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2014-regular-arte-109",
+  "ano": 2014,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Cordel, xilogravura e identidade cultural",
+  "habilidades": [],
+  "enunciado": "Cordel resiste à tecnologia gráfica O Cariri mantém uma das mais ricas tradições da cultura popular. É a literatura de cordel, que atravessa os séculos sem ser destruída pela avalanche de modernidade que invade o sertão lírico e telúrico. Na contramão do progresso, que informatizou a indústria gráfica, a Lira Nordestina, de Juazeiro do Norte, e a Academia dos Cordelistas do Crato conservam, em suas oficinas, velhas máquinas para impressão dos seus cordéis. A chapa para impressão do cordel é feita à mão, letra por letra, um trabalho artesanal que dura cerca de uma hora para confecção de uma página. Em seguida, a chapa é levada para a impressora, também manual, para imprimir. A manutenção desse sistema antigo de impressão faz parte da filosofia do trabalho. A outra etapa é a confecção da xilogravura para a capa do cordel. As xilogravuras são ilustrações populares obtidas por gravuras talhadas em madeira. A origem da xilogravura nordestina até hoje é ignorada. Acredita-se que os missionários portugueses tenham ensinado sua técnica aos índios, como uma atividade extra-catequese, partindo do princípio religioso que defende a necessidade de ocupar as mãos para que a mente não fique livre, sujeita aos maus pensamentos, ao pecado. A xilogravura antecedeu ao clichê, placa fotomecanicamente gravada em relevo sobre metal, usualmente zinco, que era utilizada nos jornais impressos em rotoplanas. VICELMO, A. Disponível em: www.onordeste.com. Acesso em: 24 fev. 2013 (adaptado). A estratégia gráfica constituída pela união entre as técnicas da impressão manual e da confecção da xilogravura na produção de folhetos de cordel",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "realça a importância da xilogravura sobre o clichê."
+    },
+    {
+      "id": "B",
+      "texto": "oportuniza a renovação dessa arte na modernidade."
+    },
+    {
+      "id": "C",
+      "texto": "demonstra a utilidade desses textos para a catequese."
+    },
+    {
+      "id": "D",
+      "texto": "revela a necessidade da busca das origens dessa literatura."
+    },
+    {
+      "id": "E",
+      "texto": "auxilia na manutenção da essência identitária dessa tradição popular."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O texto não promove uma competição entre a xilogravura e o clichê; descreve práticas de preservação cultural.",
+    "B": "A permanência de técnicas antigas é destacada como continuidade de uma tradição, não como inovação tecnológica.",
+    "C": "A hipótese de origem catequética da gravura não define a função atual dos folhetos descritos.",
+    "D": "O efeito da combinação gráfica é preservar a tradição; não depende de descobrir definitivamente sua origem.",
+    "E": "A impressão artesanal e a xilogravura mantêm características materiais reconhecíveis da identidade do cordel."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Cordel, xilogravura e identidade cultural. A impressão artesanal e a xilogravura mantêm características materiais reconhecíveis da identidade do cordel."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 109,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2014/2014_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2014/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

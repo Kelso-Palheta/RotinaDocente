@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-regular-arte-116",
+  "ano": 2015,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Máscaras africanas e a síntese das formas nas vanguardas",
+  "habilidades": [
+    "Relacionar arte africana e vanguardas europeias",
+    "Reconhecer a síntese formal"
+  ],
+  "enunciado": "Máscara senufo, Mali. Madeira e fibra vegetal. Acervo do MAE/USP.\n\nAs formas plásticas nas produções africanas conduziram artistas modernos do início do século XX, como Pablo Picasso, a algumas proposições artísticas denominadas vanguardas. A máscara remete à",
+  "imagens": [
+    {
+      "id": "mascara-senufo",
+      "arquivo": "imagens/enem-2015-regular-arte-116-mascara-senufo.png",
+      "alt": "Máscara senufo de madeira e fibra vegetal, com traços alongados e superfície escura.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "pagina": 13,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "preservação da proporção."
+    },
+    {
+      "id": "B",
+      "texto": "idealização do movimento."
+    },
+    {
+      "id": "C",
+      "texto": "estruturação assimétrica."
+    },
+    {
+      "id": "D",
+      "texto": "sintetização das formas."
+    },
+    {
+      "id": "E",
+      "texto": "valorização estética."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "As máscaras africanas frequentemente alteram proporções para criar expressividade; não buscam a proporção naturalista.",
+    "B": "A máscara é estática; não há idealização de movimento.",
+    "C": "A assimetria pode aparecer, mas não é o principal ensinamento formal que as vanguardas extraíram da arte africana.",
+    "D": "A máscara reduz e condensa traços do rosto, sintetizando formas; essa simplificação inspirou o Cubismo e outras vanguardas.",
+    "E": "Valorização estética é genérica e não explica a operação formal que interessou a Picasso."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A arte africana foi uma referência decisiva para as vanguardas do início do século XX. A máscara senufo combina geometrização, simplificação e expressividade, mostrando que a forma não precisa imitar a aparência natural."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "mascara-senufo",
+      "legenda": "Máscara senufo, Mali. Madeira e fibra vegetal. Acervo do MAE/USP."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2015/CADERNO_5_AMARELO_DOMINGO.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

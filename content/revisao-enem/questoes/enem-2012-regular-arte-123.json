@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-regular-arte-123",
+  "ano": 2012,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Picasso e a ruptura cubista",
+  "habilidades": [],
+  "enunciado": "Picasso, P. Les Demoiselles d’Avignon. Nova York, 1907. ARGAN, G. C. Arte moderna: do Iluminismo aos movimentos contemporâneos. São Paulo: Companhia das Letras, 1992. O quadro Les Demoiselles d’Avignon (1907), de Pablo Picasso, representa o rompimento com a estética clássica e a revolução da arte no início do século XX. Essa nova tendência se caracteriza pela",
+  "imagens": [
+    {
+      "id": "enem-2012-regular-arte-123-demoiselles",
+      "arquivo": "imagens/enem-2012-regular-arte-123-demoiselles.png",
+      "alt": "Figura original da questão 123: Picasso e a ruptura cubista.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "pagina": 16,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "pintura de modelos em planos irregulares."
+    },
+    {
+      "id": "B",
+      "texto": "mulher como temática central da obra."
+    },
+    {
+      "id": "C",
+      "texto": "cena representada por vários modelos."
+    },
+    {
+      "id": "D",
+      "texto": "oposição entre tons claros e escuros."
+    },
+    {
+      "id": "E",
+      "texto": "nudez explorada como objeto de arte."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A decomposição dos corpos em planos irregulares rompe a perspectiva e a organização clássica da figura.",
+    "B": "A presença de mulheres é um tema antigo na pintura; não define a inovação formal de Les Demoiselles d’Avignon.",
+    "C": "Retratar várias modelos não constitui, por si só, a ruptura inaugurada pelo cubismo.",
+    "D": "O contraste claro-escuro já existia em tradições anteriores; não é a característica decisiva destacada.",
+    "E": "A nudez também integra a pintura clássica, portanto não explica a revolução formal da obra."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Picasso e a ruptura cubista. A decomposição dos corpos em planos irregulares rompe a perspectiva e a organização clássica da figura."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 123,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2012/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

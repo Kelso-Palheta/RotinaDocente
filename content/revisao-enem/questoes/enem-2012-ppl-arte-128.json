@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-ppl-arte-128",
+  "ano": 2012,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Teatro intercultural e linguagem dos gestos",
+  "habilidades": [],
+  "enunciado": "A escolha de uma forma teatral implica a escolha de um tipo de teatralidade, de um estatuto de ficção com relação à realidade. A teatralidade dispõe de meios específicos para transmitir uma cultura-fonte a um público-alvo; é sob esta única condição que temos o direito de falar em interculturalidade teatral. PAVIS, P. O teatro no cruzamento de culturas. São Paulo: Perspectiva, 2008. A partir do texto, o meio especificamente cênico utilizado para transmitir uma cultura estrangeira implica",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "buscar nos gestos, compreender e explicitar conceitos ou comportamentos."
+    },
+    {
+      "id": "B",
+      "texto": "procurar na filosofia a tradução verdadeira daquela cultura."
+    },
+    {
+      "id": "C",
+      "texto": "apresentar o videodocumentário sobre a culturafonte durante o espetáculo."
+    },
+    {
+      "id": "D",
+      "texto": "eliminar a distância temporal ou espacial entre o espetáculo e a cultura-fonte."
+    },
+    {
+      "id": "E",
+      "texto": "empregar um elenco constituído de atores provenientes da cultura-fonte."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O gesto cênico permite tornar compreensíveis conceitos e comportamentos de outra cultura por meio de recursos próprios da representação teatral.",
+    "B": "O contato intercultural não exige uma tradução filosófica definitiva: a cena constrói sentidos compartilháveis com o público.",
+    "C": "O uso de documentário em vídeo é possível, mas não define o recurso especificamente cênico apresentado na questão.",
+    "D": "A representação não elimina as distâncias históricas e geográficas; trabalha artisticamente com elas na relação entre culturas.",
+    "E": "A presença de atores da cultura de origem não é condição necessária para representar e comunicar seus comportamentos em cena."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Teatro intercultural e linguagem dos gestos. O gesto cênico permite tornar compreensíveis conceitos e comportamentos de outra cultura por meio de recursos próprios da representação teatral."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 128,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 128,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

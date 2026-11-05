@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-regular-arte-11",
+  "ano": 2018,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Body art e o corpo como suporte",
+  "habilidades": [],
+  "enunciado": "TEXTO I ALMEIDA, H. Dentro de mim, 2000. Fotografia p/b. 132 cm x 88 cm. Faculdade de Belas-Artes da Universidade de Lisboa. TEXTO II A body art põe o corpo tão em evidência e o submete a experimentações tão variadas, que sua influência estende-se aos dias de hoje. Se na arte atual as possibilidades de investigação do corpo parecem ilimitadas – pode-se escolher entre representar, apresentar, ou ainda apenas evocar o corpo – isso ocorre graças ao legado dos artistas pioneiros. SILVA, P. R. Corpo na arte, body art, body modification: fronteiras. II Encontro de História da Arte: IFCH-Unicamp, 2006 (adaptado). Nos textos, a concepção de body art está relacionada à intenção de",
+  "imagens": [
+    {
+      "id": "enem-2018-regular-arte-11-figura-1",
+      "arquivo": "imagens/enem-2018-regular-arte-11-figura-1.png",
+      "alt": "Dentro de mim, de José Leonilson: braços estendidos, objetos e inscrições sobre fundo claro.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "pagina": 6,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "estabelecer limites entre o corpo e a composição."
+    },
+    {
+      "id": "B",
+      "texto": "fazer do corpo um suporte privilegiado de expressão."
+    },
+    {
+      "id": "C",
+      "texto": "discutir políticas e ideologias sobre o corpo como arte."
+    },
+    {
+      "id": "D",
+      "texto": "compreender a autonomia do corpo no contexto da obra."
+    },
+    {
+      "id": "E",
+      "texto": "destacar o corpo do artista em contato com o expectador."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A body art amplia as relações entre corpo e composição, em vez de estabelecer limites rígidos entre ambos.",
+    "B": "O corpo torna-se suporte e meio privilegiado de investigação e expressão artística.",
+    "C": "Questões políticas podem ser tematizadas, mas não constituem a definição apresentada nos dois textos.",
+    "D": "O corpo não aparece como entidade autônoma separada da obra; integra o próprio processo artístico.",
+    "E": "A proximidade com o espectador pode ocorrer, mas não define sozinha as experiências de body art descritas."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Body art e o corpo como suporte. O corpo torna-se suporte e meio privilegiado de investigação e expressão artística."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 11,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_AZUL.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

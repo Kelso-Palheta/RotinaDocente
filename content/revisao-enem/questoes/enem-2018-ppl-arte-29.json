@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-29",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Instalação e liberdade da arte contemporânea",
+  "habilidades": [],
+  "enunciado": "TEXTO I ERNESTO NETO. Dancing on the Cutting Edge. Instalação interativa, 2004. Disponível em: http://dailyserving.com. Acesso em: 29 nov. 2013. TEXTO II Os artistas, liberados do peso da história, ficavam livres para fazer arte da maneira que desejassem ou mesmo sem nenhuma finalidade. Essa é a marca da arte contemporânea, e não é para menos que, em contraste com o Modernismo, não existe essa coisa de estilo contemporâneo. DANTO, A. Após o fim da arte: a arte contemporânea e os limites da história. São Paulo: Odysseus, 2006. A obra de Ernesto Neto revela a liberdade de criação abordada no texto ao",
+  "imagens": [
+    {
+      "id": "enem-2018-ppl-arte-29-figura-1",
+      "arquivo": "imagens/enem-2018-ppl-arte-29-figura-1.png",
+      "alt": "Instalação com tecidos translúcidos suspensos, cordas e volumes que ocupam a sala.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 13,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "destacar o papel da arte na valorização da sustentabilidade."
+    },
+    {
+      "id": "B",
+      "texto": "romper com a estrutura dos referenciais estéticos contemporâneos."
+    },
+    {
+      "id": "C",
+      "texto": "envolver o espectador ao promover sua interação com a obra."
+    },
+    {
+      "id": "D",
+      "texto": "reproduzir no espaço da galeria um fragmento da realidade."
+    },
+    {
+      "id": "E",
+      "texto": "utilizar a linearidade de estilos artísticos anteriores."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O texto não apresenta a sustentabilidade como princípio central da instalação de Ernesto Neto.",
+    "B": "A pluralidade da arte contemporânea não implica uma estrutura estética única que a obra deva romper.",
+    "C": "A instalação envolve o público numa experiência de interação, ultrapassando a contemplação de um objeto isolado.",
+    "D": "A proposição não se reduz a reproduzir literalmente um fragmento da vida real dentro da galeria.",
+    "E": "O texto rejeita uma sucessão linear de estilos como regra obrigatória da criação contemporânea."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Instalação e liberdade da arte contemporânea. A instalação envolve o público numa experiência de interação, ultrapassando a contemplação de um objeto isolado."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 29,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 29,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

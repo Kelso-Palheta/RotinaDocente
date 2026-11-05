@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-regular-arte-123",
+  "ano": 2016,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Teatro de rua e ocupação do espaço público",
+  "habilidades": [
+    "Reconhecer características do teatro de rua",
+    "Relacionar linguagem cênica e espaço"
+  ],
+  "enunciado": "GUTO MUNIZ. Espetáculo Julieta, Grupo Galpão. Romeu e Julieta.\n\nA principal razão pela qual se infere que o espetáculo retratado na fotografia é uma manifestação do teatro de rua é o fato de",
+  "imagens": [
+    {
+      "id": "teatro-rua-julieta",
+      "arquivo": "imagens/enem-2016-regular-arte-123-teatro-rua.png",
+      "alt": "Cena do espetáculo Julieta, do Grupo Galpão, em uma praça, com atores caracterizados e público ao redor.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "pagina": 13,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "dispensar o edifício teatral para a sua realização."
+    },
+    {
+      "id": "B",
+      "texto": "utilizar figurinos com adereços cômicos."
+    },
+    {
+      "id": "C",
+      "texto": "empregar elementos circenses na atuação."
+    },
+    {
+      "id": "D",
+      "texto": "excluir o uso de cenário na ambientação."
+    },
+    {
+      "id": "E",
+      "texto": "negar o uso de iluminação artificial."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O teatro de rua se define por acontecer em espaço público, sem depender de um edifício teatral; a praça e a plateia ao redor confirmam isso.",
+    "B": "Figurinos cômicos podem existir em qualquer montagem e não são o critério que caracteriza o teatro de rua.",
+    "C": "Elementos circenses são recursos possíveis, mas não definem a manifestação como teatro de rua.",
+    "D": "O teatro de rua pode usar cenários e adereços; a ausência de cenário não é o que o define.",
+    "E": "A iluminação artificial também pode ser usada na rua; negá-la não é condição para esse tipo de teatro."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O teatro de rua ocupa praças, calçadas e outros espaços públicos. A relação com o público muda: não há a separação rígida da caixa italiana, e a cidade se torna parte da cena."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "teatro-rua-julieta",
+      "legenda": "Grupo Galpão, espetáculo Julieta, Romeu e Julieta. Foto: Guto Muniz."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 123,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/2016_PV_impresso_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

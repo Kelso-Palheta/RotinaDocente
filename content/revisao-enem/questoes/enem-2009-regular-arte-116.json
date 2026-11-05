@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2009-regular-arte-116",
+  "ano": 2009,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Dança, ancestralidade e identidade Xavante",
+  "habilidades": [],
+  "enunciado": "A dança é importante para o índio preparar o corpo e a garganta e significa energia para o corpo, que fica robusto. Na aldeia, para preparo físico, dançamos desde cinco horas da manhã até seis horas da tarde, passa-se o dia inteiro dançando quando os padrinhos planejam a dança dos adolescentes. O padrinho é como um professor, um preparador físico dos adolescentes. Por exemplo, o padrinho sonha com um determinado canto e planeja para todos entoarem. Todos os tipos de dança vêm dos primeiros xavantes: Wamarĩdzadadzeiwawẽ, Butséwawẽ, Tseretomodzatsewawẽ, que foram descobrindo através da sabedoria como iria ser a cultura Xavante. Até hoje existe essa cultura, essa celebração. Quando o adolescente fura a orelha é obrigatório ele dançar toda a noite, tem de acordar meia-noite para dançar e cantar, é obrigatório, eles vão chamando um ao outro com um grito especial. WÉRÉ' É TSI'RÓBÓ, E. A dança e o canto-celebração da existência xavante. VIS-Revista do Programa de Pós-Graduação em Arte da UnB. V. 5, n. 2, dez. 2006. A partir das informações sobre a dança Xavante, concluise que o valor da diversidade artística e da tradição cultural apresentados originam-se da",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "iniciativa individual do indígena para a prática da dança e do canto."
+    },
+    {
+      "id": "B",
+      "texto": "excelente forma física apresentada pelo povo Xavante."
+    },
+    {
+      "id": "C",
+      "texto": "multiculturalidade presente na sua manifestação cênica."
+    },
+    {
+      "id": "D",
+      "texto": "inexistência de um planejamento da estética da dança, caracterizada pelo ineditismo."
+    },
+    {
+      "id": "E",
+      "texto": "preservação de uma identidade entre a gestualidade ancestral e a novidade dos cantos a serem entoados."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A prática descrita é coletiva e orientada por padrinhos; não resulta apenas de iniciativa individual.",
+    "B": "O preparo físico é uma função da dança, mas não explica sozinho seu valor como tradição artística.",
+    "C": "O relato enfatiza a continuidade da cultura Xavante, não uma mistura de várias culturas na mesma dança.",
+    "D": "Os padrinhos planejam os cantos e a celebração; a prática não se caracteriza pela ausência de organização.",
+    "E": "Os gestos transmitidos pelos ancestrais se renovam com cantos sonhados e planejados, preservando a identidade cultural."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Dança, ancestralidade e identidade Xavante. Os gestos transmitidos pelos ancestrais se renovam com cantos sonhados e planejados, preservando a identidade cultural."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 116,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2009/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2009/gabarito_dia2.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

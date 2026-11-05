@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2016-reaplicacao-arte-112",
+  "ano": 2016,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Décollage, cultura de massa e Pop Art",
+  "habilidades": [
+    "Reconhecer procedimentos artísticos dos anos 1960",
+    "Interpretar a apropriação de imagens midiáticas"
+  ],
+  "enunciado": "ROTELLA, M. Marilyn, 1962.\nDisponível em: www.nyu.edu. Acesso em: 30 maio 2016.\n\nA técnica da décollage, utilizada pelo artista Mimmo Rotella em sua obra Marilyn, é um procedimento artístico representativo da década de 1960 por",
+  "imagens": [
+    {
+      "id": "rotella-marilyn",
+      "arquivo": "imagens/enem-2016-reaplicacao-arte-112-rotella.png",
+      "alt": "Obra de Mimmo Rotella com a imagem de Marilyn Monroe formada por cartazes rasgados e sobrepostos.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "pagina": 11,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "visar a conservação das representações e dos registros visuais."
+    },
+    {
+      "id": "B",
+      "texto": "basear-se na reciclagem de material gráfico, contribuindo para a sustentabilidade."
+    },
+    {
+      "id": "C",
+      "texto": "encobrir o passado, abrindo caminho para novas formas plásticas, pela releitura."
+    },
+    {
+      "id": "D",
+      "texto": "fazer conviver campos de expressão diferentes e integrar novos significados."
+    },
+    {
+      "id": "E",
+      "texto": "abolir o trabalho manual do artista na confecção das imagens recontextualizadas."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A décollage não conserva a imagem publicitária: ela rasga, sobrepõe e desloca os fragmentos.",
+    "B": "A preocupação ecológica não explica a operação; o artista usa o descarte urbano como matéria expressiva.",
+    "C": "O procedimento não encobre o passado; ele expõe as camadas e os restos da cultura de massa.",
+    "D": "Rotella mistura fragmentos de cartazes, fotografia e pintura, fazendo conviver linguagens e produzindo novos sentidos.",
+    "E": "O trabalho manual é central: o artista rasga, cola e compõe os pedaços, não os elimina."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A décollage é o inverso da colagem: em vez de acrescentar recortes, o artista retira camadas de cartazes sobrepostos. Rotella transforma o lixo urbano e a imagem de Marilyn em matéria de arte, aproximando-se da Pop Art."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "rotella-marilyn",
+      "legenda": "Mimmo Rotella, Marilyn, 1962."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 Amarelo — 2º dia",
+      "numeroQuestao": 112,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2016/P2_05_AMARELO_LC_MT_2016_REG.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2016/GAB_ENEM_2016_DIA_2_05_AMARELO_2.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

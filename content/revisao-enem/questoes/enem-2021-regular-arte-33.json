@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-regular-arte-33",
+  "ano": 2021,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Quadrinhos, processo artístico e função do prefácio",
+  "habilidades": [],
+  "enunciado": "LEMOS, A. Artistas brasileiras. Belo Horizonte: Miguilim, 2018. O que assegura o reconhecimento desse texto em quadrinhos como prefácio é o(a)",
+  "imagens": [
+    {
+      "id": "enem-2021-regular-arte-33-figura-1",
+      "arquivo": "imagens/enem-2021-regular-arte-33-figura-1.png",
+      "alt": "Prefácio em quadrinhos de Aline Lemos sobre pesquisa, roteiro, desenho, edição digital e encontro com o leitor.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "pagina": 16,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "função de apresentação do livro."
+    },
+    {
+      "id": "B",
+      "texto": "apelo emocional apoiado nas imagens."
+    },
+    {
+      "id": "C",
+      "texto": "descrição do processo criativo da autora."
+    },
+    {
+      "id": "D",
+      "texto": "referência à mescla dos trabalhos manual e digital."
+    },
+    {
+      "id": "E",
+      "texto": "uso de elementos gráficos voltados para o público-alvo."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O texto apresenta ao leitor o livro e sua elaboração, cumprindo a função introdutória que permite reconhecê-lo como prefácio.",
+    "B": "O apelo emocional das imagens pode aproximar o leitor, mas não é o critério que define a função de um prefácio.",
+    "C": "Descrever o processo criativo é um recurso desta apresentação; esse assunto isolado também poderia aparecer em outros gêneros.",
+    "D": "A mescla entre trabalho manual e digital informa como a obra foi produzida, mas não determina por si a classificação do texto como prefácio.",
+    "E": "Elementos gráficos podem ser usados em diversos gêneros; a classificação depende da função de apresentação do livro."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Quadrinhos, processo artístico e função do prefácio. O texto apresenta ao leitor o livro e sua elaboração, cumprindo a função introdutória que permite reconhecê-lo como prefácio."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 33,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

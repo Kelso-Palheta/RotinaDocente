@@ -1,10 +1,33 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import { useRouter } from 'next/navigation';
 import { validarLoginAluno } from '@/lib/firebase-aluno';
 import { INSTRUCAO_ACESSO, EXEMPLO_ACESSO, NOTA_COLISAO } from '@/dominio/aluno/instrucaoAcesso';
 import { GraduationCap, ArrowLeft, ArrowRight, BookOpen, PenTool, CheckCircle2, User } from 'lucide-react';
+
+function observarSessaoAluno(avisar) {
+  window.addEventListener('storage', avisar);
+  return () => window.removeEventListener('storage', avisar);
+}
+function lerSessaoAluno() {
+  try {
+    const base = sessionStorage.getItem('aluno_base');
+    const vinculos = sessionStorage.getItem('aluno_vinculos');
+    return base && vinculos ? JSON.stringify([base, vinculos]) : '';
+  } catch { return ''; }
+}
+function interpretarSessaoAluno(snapshot) {
+  try {
+    const [base, vinculos] = JSON.parse(snapshot);
+    const aluno = JSON.parse(base);
+    const lista = JSON.parse(vinculos);
+    return aluno && typeof aluno === 'object' && !Array.isArray(aluno) && Array.isArray(lista) &&
+      lista.every(v => v && typeof v === 'object' && !Array.isArray(v))
+      ? { aluno, lista } : null;
+  } catch { return null; }
+}
+const sessaoAlunoServidor = () => '';
 
 export default function AlunoLoginPage() {
   const [login, setLogin] = useState('');
@@ -14,22 +37,23 @@ export default function AlunoLoginPage() {
   const [alunoBase, setAlunoBase] = useState(null);
   const router = useRouter();
 
-  // Carrega do sessionStorage se estiver voltando das notas
+  // A restauração acompanha o armazenamento externo e respeita a hidratação.
+  const snapshot = useSyncExternalStore(observarSessaoAluno, lerSessaoAluno, sessaoAlunoServidor);
+  const [snapshotAnterior, setSnapshotAnterior] = useState('');
+  if (snapshotAnterior !== snapshot) {
+    setSnapshotAnterior(snapshot);
+    const restaurada = interpretarSessaoAluno(snapshot);
+    setAlunoBase(restaurada?.aluno ?? null);
+    setVinculos(restaurada?.lista ?? null);
+  }
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedBase = sessionStorage.getItem('aluno_base');
-      const storedVinculos = sessionStorage.getItem('aluno_vinculos');
-      if (storedBase && storedVinculos) {
-        try {
-          setAlunoBase(JSON.parse(storedBase));
-          setVinculos(JSON.parse(storedVinculos));
-        } catch (e) {
-          sessionStorage.removeItem('aluno_base');
-          sessionStorage.removeItem('aluno_vinculos');
-        }
-      }
+    if (snapshot && !interpretarSessaoAluno(snapshot)) {
+      try {
+        sessionStorage.removeItem('aluno_base');
+        sessionStorage.removeItem('aluno_vinculos');
+      } catch { /* Armazenamento indisponível não impede novo login. */ }
     }
-  }, []);
+  }, [snapshot]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

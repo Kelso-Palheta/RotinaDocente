@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2010-ppl-arte-108",
+  "ano": 2010,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Commedia dell’arte e humanismo",
+  "habilidades": [],
+  "enunciado": "O Arlequim, o Pierrô, a Brighella ou a Colombina são personagens típicos de grupos teatrais da Commedia dell’art, que, há anos, encontram-se presentes em marchinhas e fantasias de carnaval. Esses grupos teatrais seguiam, de cidade em cidade, com faces e disfarces, fazendo suas críticas, declarando seu amor por todas as belas jovens e, ao final da apresentação, despediam-se do público com músicas e poesias. A intenção desses atores era expressar sua mensagem voltada para a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "crença na dignidade do clero e na divisão entre o mundo real e o espiritual."
+    },
+    {
+      "id": "B",
+      "texto": "ideologia de luta social que coloca o homem no centro do processo histórico."
+    },
+    {
+      "id": "C",
+      "texto": "crença na espiritualidade e na busca incansável pela justiça social dos feudos."
+    },
+    {
+      "id": "D",
+      "texto": "ideia de anarquia expressa pelos trovadores iluministas do início do século XVI."
+    },
+    {
+      "id": "E",
+      "texto": "ideologia humanista com cenas centradas no homem, na mulher e no cotidiano."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A representação do cotidiano na Commedia dell’arte não tinha como eixo defender a dignidade do clero.",
+    "B": "As cenas centradas nas relações humanas não são apresentadas como uma teoria de luta social e processo histórico.",
+    "C": "O texto descreve companhias e personagens cômicos, não uma busca espiritual por justiça nos feudos.",
+    "D": "Iluminismo e trovadorismo pertencem a outros contextos; essa combinação não caracteriza o teatro descrito.",
+    "E": "Personagens, amores e crítica do cotidiano colocam as experiências humanas no centro da encenação."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Commedia dell’arte e humanismo. Personagens, amores e crítica do cotidiano colocam as experiências humanas no centro da encenação."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 108,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/2010_PV_reaplicacao_PPL_D2_CD5.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2010/AMARELO_quinta-feira_GAB.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

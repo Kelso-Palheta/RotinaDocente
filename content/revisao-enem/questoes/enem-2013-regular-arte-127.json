@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2013-regular-arte-127",
+  "ano": 2013,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Paulo Nazareth: identidade, território e mercado de arte",
+  "habilidades": [],
+  "enunciado": "(Tradução da placa: “Não me esqueçam quando eu for um nome importante.”) NAZARETH, P. Mercado de Artes / Mercado de Bananas. Miami Art Basel, EUA, 2011. Disponível em: www.40forever.com.br. Acesso em: 31 jul. 2012. A contemporaneidade identificada na performance / instalação do artista mineiro Paulo Nazareth reside principalmente na forma como ele",
+  "imagens": [
+    {
+      "id": "enem-2013-regular-arte-127-nazareth",
+      "arquivo": "imagens/enem-2013-regular-arte-127-nazareth.png",
+      "alt": "Figura original da questão 127: Paulo Nazareth: identidade, território e mercado de arte.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "pagina": 16,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "resgata conhecidas referências do modernismo mineiro."
+    },
+    {
+      "id": "B",
+      "texto": "utiliza técnicas e suportes tradicionais na construção das formas."
+    },
+    {
+      "id": "C",
+      "texto": "articula questões de identidade, território e códigos de linguagens."
+    },
+    {
+      "id": "D",
+      "texto": "imita o papel das celebridades no mundo contemporâneo."
+    },
+    {
+      "id": "E",
+      "texto": "camufla o aspecto plástico e a composição visual de sua montagem."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A montagem não se limita a recuperar formas ou temas do modernismo mineiro; dialoga com circuitos contemporâneos.",
+    "B": "A performance e a instalação ampliam os suportes tradicionais, envolvendo presença, objetos e circulação de sentidos.",
+    "C": "A articulação entre identidade, território, circulação e códigos de linguagem caracteriza a proposta contemporânea.",
+    "D": "A placa e a montagem problematizam reconhecimento e circulação; não são mera imitação de celebridades.",
+    "E": "A composição visual é parte da proposição; o artista não pretende esconder seu aspecto plástico."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Paulo Nazareth: identidade, território e mercado de arte. A articulação entre identidade, território, circulação e códigos de linguagem caracteriza a proposta contemporânea."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 5 — Linguagens — 2º dia",
+      "numeroQuestao": 127,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2013/dia2_caderno5_amarelo.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2013/dia2_amarelo.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

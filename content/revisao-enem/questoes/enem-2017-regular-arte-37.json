@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-regular-arte-37",
+  "ano": 2017,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Ernesto Neto e a instalação participativa",
+  "habilidades": [],
+  "enunciado": "ERNESTO NETO. Dengo. 2010. MAM-SP, 2010. Disponível em: http://espacohumus.com. Acesso em: 25 abr. 2017. A instalação Dengo transformou a sala do MAM-SP em um ambiente singular, explorando como principal característica artística a",
+  "imagens": [
+    {
+      "id": "enem-2017-regular-arte-37-figura-1",
+      "arquivo": "imagens/enem-2017-regular-arte-37-figura-1.png",
+      "alt": "Instalação Dengo, de Ernesto Neto: estruturas têxteis suspensas envolvem o espaço de circulação dos visitantes.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "pagina": 16,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "participação do público na interação lúdica com a obra."
+    },
+    {
+      "id": "B",
+      "texto": "distribuição de obstáculos no espaço da exposição."
+    },
+    {
+      "id": "C",
+      "texto": "representação simbólica de objetos oníricos."
+    },
+    {
+      "id": "D",
+      "texto": "interpretação subjetiva da lei da gravidade."
+    },
+    {
+      "id": "E",
+      "texto": "valorização de técnicas de artesanato."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Dengo propõe uma experiência lúdica e corporal em que o público participa da construção de sentidos.",
+    "B": "As formas no espaço não são apenas obstáculos; elas convidam à aproximação e à interação.",
+    "C": "A questão não reduz a instalação a uma representação de objetos de sonho ou do inconsciente.",
+    "D": "O comportamento dos materiais não transforma a obra numa explicação subjetiva de uma lei física.",
+    "E": "O uso de técnicas associadas ao artesanato não é o aspecto principal da experiência participativa destacada."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Ernesto Neto e a instalação participativa. Dengo propõe uma experiência lúdica e corporal em que o público participa da construção de sentidos."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 37,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/cad_1_gabarito_azul_5112017.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

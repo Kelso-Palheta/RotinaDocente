@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-ppl-arte-13",
+  "ano": 2023,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Leão do Norte e as manifestações dançadas",
+  "habilidades": [],
+  "enunciado": "Leão do Norte Sou o coração do folclore nordestino Eu sou Mateus e Bastião do boi-bumbá Sou o boneco do Mestre Vitalino Dançando uma ciranda em Itamaracá Eu sou um verso de Carlos Pena Filho Num frevo de Capiba Ao som da Orquestra Armorial Sou Capibaribe Num livro de João Cabral Sou mamulengo de São Bento do Una Vindo no baque solto de maracatu Eu sou um auto de Ariano Suassuna\nNo meio da Feira de Caruaru Sou Frei Caneca do Pastoril do Faceta Levando a Flor da Lira Pra Nova Jerusalém Sou Luiz Gonzaga E eu sou mangue também Eu sou mameluco, sou de Casa Forte Sou de Pernambuco, sou o Leão do Norte LENINE; PINHEIRO, P. C. Leão do Norte. In: LENINE. Olho de peixe. São Paulo, 1993 (fragmento). A letra da canção expressa a diversidade de danças, sendo uma delas demonstrada no trecho:",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "“Eu sou mameluco, sou de Casa Forte”."
+    },
+    {
+      "id": "B",
+      "texto": "“Sou de Pernambuco, sou o Leão do Norte”."
+    },
+    {
+      "id": "C",
+      "texto": "“Sou Luiz Gonzaga / E eu sou mangue também”."
+    },
+    {
+      "id": "D",
+      "texto": "“Eu sou um auto de Ariano Suassuna / No meio da Feira de Caruaru”."
+    },
+    {
+      "id": "E",
+      "texto": "“Eu sou Mateus e Bastião do boi-bumbá / Sou o boneco do Mestre Vitalino”."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O verso informa pertencimento e identidade; não nomeia uma manifestação de dança.",
+    "B": "A afirmação de origem pernambucana não descreve, por si, uma prática coreográfica.",
+    "C": "As referências ao músico e ao mangue articulam identidade musical, mas não nomeiam a dança solicitada.",
+    "D": "Um auto é uma forma dramática; o trecho citado não é a referência de dança selecionada na questão.",
+    "E": "Mateus e Bastião remetem ao boi-bumbá, manifestação que articula dança, personagens, música e dramatização."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Leão do Norte e as manifestações dançadas. Mateus e Bastião remetem ao boi-bumbá, manifestação que articula dança, personagens, música e dramatização."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 13,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 13,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

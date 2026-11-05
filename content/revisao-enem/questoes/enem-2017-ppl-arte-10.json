@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2017-ppl-arte-10",
+  "ano": 2017,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Realismo socialista e idealização do trabalho",
+  "habilidades": [],
+  "enunciado": "MÚKHINA, V. Operário e mulher kolkosiana. Aço inoxidável, 24,5 m. Moscou, 1937. Disponível em: http://laphotodujour.hautetfort.com. Acesso em: 7 maio 2013. Essa escultura foi produzida durante o período da ditadura stalinista, na ex-União Soviética, e representa o(a)",
+  "imagens": [
+    {
+      "id": "enem-2017-ppl-arte-10-figura-1",
+      "arquivo": "imagens/enem-2017-ppl-arte-10-figura-1.png",
+      "alt": "Escultura Operário e mulher kolkosiana: duas figuras avançam juntas com ferramentas erguidas.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "pagina": 6,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "luta do proletariado soviético para sua emancipação do sistema vigente."
+    },
+    {
+      "id": "B",
+      "texto": "trabalhador soviético retratado de acordo com a realidade do período."
+    },
+    {
+      "id": "C",
+      "texto": "exaltação idealizada da capacidade de trabalho do povo soviético."
+    },
+    {
+      "id": "D",
+      "texto": "união de operários e camponeses soviéticos pela volta do regime czarista."
+    },
+    {
+      "id": "E",
+      "texto": "sofrimento de trabalhadores soviéticos pela opressão do regime stalinista."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A escultura não apresenta uma insurreição contra o regime vigente; participa de sua representação oficial.",
+    "B": "A figuração idealizada não funciona como registro documental neutro das condições reais dos trabalhadores.",
+    "C": "A escala e os gestos heroicos exaltam uma imagem ideal do trabalho e do povo soviético.",
+    "D": "O conjunto não defende a restauração do czarismo, regime anterior combatido pela experiência soviética.",
+    "E": "A linguagem heroica da obra não se concentra na denúncia do sofrimento sob a ditadura."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Realismo socialista e idealização do trabalho. A escala e os gestos heroicos exaltam uma imagem ideal do trabalho e do povo soviético."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 3 — Linguagens — 1º dia",
+      "numeroQuestao": 10,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/2017_PV_reaplicacao_PPL_D1_CD3.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2017/gabaritos/GAB_ENEM_2017_2_APL_DIA_1_Branco_cad_3.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 azul — Linguagens — 1º dia",
+      "numeroQuestao": 27,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2017/P2_01_azul.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2017/gab_enem2017_2_dia1_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

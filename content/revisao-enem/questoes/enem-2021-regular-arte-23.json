@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2021-regular-arte-23",
+  "ano": 2021,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "A morte do cisne e o encontro de repertórios",
+  "habilidades": [],
+  "enunciado": "O solo A morte do cisne, criado em 1905 pelo russo Mikhail Fokine a partir da música do compositor francês Camille Saint-Saens, retrata o último voo de um cisne antes de morrer. Na versão original, uma bailarina com figurino impecavelmente branco e na ponta dos pés interpreta toda a agonia da ave se debatendo até desfalecer. Em 2012, John Lennon da Silva, de 20 anos, morador do bairro de São Mateus, na Zona Leste de São Paulo, elaborou um novo jeito de dançar a coreografia imortalizada pela bailarina Anna Pavlova. No lugar de um colã e das sapatilhas, vestiu calça jeans, camiseta e tênis. Em vez de balé, trouxe o estilo popping da street dance. Sua apresentação inovadora de A morte do cisne, que foi ao ar no programa Se ela dança, eu danço, virou hit no YouTube. Disponível em: www.correiobraziliense.com.br. Acesso em: 18 jun. 2019 (adaptado). A forma original de John Lennon da Silva reinterpretar a coreografia de A morte do cisne demonstra que",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "a composição da coreografia foi influenciada pela escolha do figurino."
+    },
+    {
+      "id": "B",
+      "texto": "a criação artística é beneficiada pelo encontro de modelos oriundos de diferentes realidades socioculturais."
+    },
+    {
+      "id": "C",
+      "texto": "a variação entre os modos de dançar uma mesma música evidencia a hierarquia que marca manifestações artísticas."
+    },
+    {
+      "id": "D",
+      "texto": "a formação erudita, à qual o dançarino não teve acesso, resulta em artistas que só conhecem a estética da arte popular."
+    },
+    {
+      "id": "E",
+      "texto": "a interpretação, por homens, de coreografias originalmente concebidas para mulheres exige uma adaptação complexa."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O figurino participa da releitura, mas não explica sozinho o diálogo entre balé e street dance.",
+    "B": "A aproximação entre repertórios socioculturais diferentes pode produzir novas soluções expressivas na criação artística.",
+    "C": "A existência de versões diferentes não estabelece uma hierarquia obrigatória entre manifestações.",
+    "D": "A formação de um artista pode reunir repertórios diversos; a falta de ensino erudito formal não o isola de outras estéticas.",
+    "E": "A inovação não é explicada pela dificuldade de um homem executar uma coreografia associada a uma bailarina."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A morte do cisne e o encontro de repertórios. A aproximação entre repertórios socioculturais diferentes pode produzir novas soluções expressivas na criação artística."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 23,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2021_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

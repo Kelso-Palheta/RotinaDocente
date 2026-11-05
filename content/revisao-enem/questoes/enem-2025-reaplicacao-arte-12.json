@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-arte-12",
+  "ano": 2025,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Carta aberta e divulgação de uma turnê",
+  "habilidades": [],
+  "enunciado": "Carta aberta para os fãs do Caetano Veloso Já começo dizendo que sou um de vocês. Tenho as obras do Caetano como trilha sonora de diversos momentos e fases da minha vida e posso afirmar que esse catálogo também faz parte da minha formação como artista e como pessoa. Por conta disso, ou apesar disso, me vejo hoje com o privilégio de poder chamar meu ídolo de “meu amigo” e (re)apresentar pro mundo parte desse extenso e rico repertório, agora, em forma de samba. Nosso álbum, Xande canta Caetano, a partir de agora, se apresenta como uma turnê, e eu venho humildemente convidar cada um de vocês a assistir de perto a essa homenagem ao nosso grande ídolo. Vejo vocês Brasil afora. Com carinho e respeito, Xande de Pilares. Disponível em: www.facebook.com. Acesso em: 4 maio 2024 (adaptado).",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "crítica."
+    },
+    {
+      "id": "B",
+      "texto": "literária."
+    },
+    {
+      "id": "C",
+      "texto": "jornalística."
+    },
+    {
+      "id": "D",
+      "texto": "promocional."
+    },
+    {
+      "id": "E",
+      "texto": "reivindicatória."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A carta manifesta admiração e faz um convite; não se organiza como crítica à obra de Caetano.",
+    "B": "O emprego de uma carta não transforma a mensagem de divulgação em obra literária como finalidade principal.",
+    "C": "O autor fala como artista que convida seus fãs, e não como jornalista que reporta um acontecimento.",
+    "D": "O convite para assistir à turnê amplia a carta para a finalidade de promover os shows e o álbum.",
+    "E": "A mensagem não apresenta uma demanda ou reivindicação dirigida a uma autoridade."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Carta aberta e divulgação de uma turnê. O convite para assistir à turnê amplia a carta para a finalidade de promover os shows e o álbum."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 12,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

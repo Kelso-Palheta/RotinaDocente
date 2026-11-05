@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2015-ppl-arte-130",
+  "ano": 2015,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Dança moderna e criação pessoal",
+  "habilidades": [],
+  "enunciado": "A dança moderna propõe em primeiro lugar o conhecimento de si e o autodomínio. Minha proposta é esta: através do conhecimento e do autodomínio chego à forma, à minha forma — e não o contrário. É uma inversão que muda toda a estética, toda a razão do movimento. A técnica na dança tem apenas uma finalidade: preparar o corpo para responder à exigência do espírito artístico. VIANNA, K.; CARVALHO, M. A. A dança. São Paulo: Siciliano, 1990. Na abordagem dos autores, a técnica, o autodomínio e o conhecimento do bailarino estão a serviço da",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "padronização do movimento da dança."
+    },
+    {
+      "id": "B",
+      "texto": "subordinação do corpo a um padrão."
+    },
+    {
+      "id": "C",
+      "texto": "concretização da criação pessoal."
+    },
+    {
+      "id": "D",
+      "texto": "ideia preconcebida de forma."
+    },
+    {
+      "id": "E",
+      "texto": "busca pela igualdade entre os bailarinos."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O autoconhecimento não tem como finalidade tornar todos os movimentos padronizados.",
+    "B": "O corpo é preparado para uma exigência expressiva própria; não é subordinado a um molde externo único.",
+    "C": "Técnica, autodomínio e conhecimento do corpo permitem concretizar a forma singular buscada pelo artista.",
+    "D": "A forma não deve vir pronta antes da experiência: essa inversão é justamente questionada pelo texto.",
+    "E": "O domínio técnico não busca eliminar as diferenças expressivas existentes entre os bailarinos."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Dança moderna e criação pessoal. Técnica, autodomínio e conhecimento do corpo permitem concretizar a forma singular buscada pelo artista."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 130,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 2º dia",
+      "numeroQuestao": 130,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2015/2015_PV_reaplicacao_PPL_D2_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2015/GAB_ENEM2015_2aAPLICACAO_DIA2_CADERNO_13.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

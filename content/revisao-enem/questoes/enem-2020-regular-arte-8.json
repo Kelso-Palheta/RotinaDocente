@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2020-regular-arte-8",
+  "ano": 2020,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Slam do Corpo e poesia em Libras",
+  "habilidades": [],
+  "enunciado": "Slam do Corpo é um encontro pensado para surdos e ouvintes, existente desde 2014, em São Paulo. Uma iniciativa pioneira do grupo Corposinalizante, criado em 2008. (Antes de seguirmos, vale a explicação: o termo slam vem do inglês e significa — numa nova acepção para o verbo geralmente utilizado para dizer “bater com força” — a “poesia falada nos ritmos das palavras e da cidade”). Nos saraus, o primeiro objetivo foi o de botar os poemas em Libras na roda, colocar os surdos para circular e entender esse encontro entre a poesia e a língua de sinais, compreender o encontro dessas duas línguas. Poemas de autoria própria, três minutos, um microfone. Sem figurino, nem adereços, nem acompanhamento musical. O que vale é modular a voz e o corpo, um trabalho artesanal de tornar a palavra “visível”, numa arena cujo objetivo maior é o de emocionar a plateia, tirar o público da passividade, seja pelo humor, horror, caos, doçura e outras tantas sensações. NOVELLI, G. Poesia incorporada. Revista Continente, n. 189, set. 2016 (adaptado). Na prática artística mencionada no texto, o corpo assume papel de destaque ao articular diferentes linguagens com o intuito de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "imprimir ritmo e visibilidade à expressão poética."
+    },
+    {
+      "id": "B",
+      "texto": "redefinir o espaço de circulação da poesia urbana."
+    },
+    {
+      "id": "C",
+      "texto": "estimular produções autorais de usuários de Libras."
+    },
+    {
+      "id": "D",
+      "texto": "traduzir expressões verbais para a língua de sinais."
+    },
+    {
+      "id": "E",
+      "texto": "proporcionar performances estéticas de pessoas surdas."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A articulação da voz, dos gestos e do ritmo torna a expressão poética visível e sensível no encontro entre surdos e ouvintes.",
+    "B": "O espaço urbano é uma referência do slam, mas a questão pergunta pela função expressiva do corpo.",
+    "C": "A autoria dos participantes é importante, mas não explica por si a articulação corporal entre linguagens.",
+    "D": "Não se trata apenas de traduzir palavras: o corpo também produz ritmo, presença e expressão poética.",
+    "E": "A proposta reúne surdos e ouvintes; não se restringe a um grupo de intérpretes surdos."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Slam do Corpo e poesia em Libras. A articulação da voz, dos gestos e do ritmo torna a expressão poética visível e sensível no encontro entre surdos e ouvintes."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 — Linguagens — 1º dia",
+      "numeroQuestao": 8,
+      "pagina": 7,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

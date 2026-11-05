@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2012-ppl-arte-113",
+  "ano": 2012,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Futebol e apropriação na Pop Art brasileira",
+  "habilidades": [],
+  "enunciado": "O futebol na Pop Arte brasileira LEIRNER, N. Futebol. FONSECA, M. O. Nelson Leirner: 2011-1961 = 50 anos. GERCHMAN, R. Superhomens. ALENCAR, V. P. Cultura popular e crítica. As imagens representam, respectivamente, as obras Futebol, do artista plástico Nelson Leirner; e Superhomens, de Rubens Gerchman. São obras representativas de um movimento denominado Pop Art, que ecoou no Brasil na década de 1960, no qual artistas se apropriaram de imagens da vida diária e da cultura de massa, tornandoas objetos de arte. A partir de uma perspectiva ampliada e crítica sobre o esporte, interpretada como um elemento da cultura corporal de movimento, as imagens",
+  "imagens": [
+    {
+      "id": "enem-2012-ppl-arte-113-futebol",
+      "arquivo": "imagens/enem-2012-ppl-arte-113-futebol.png",
+      "alt": "Figura original da questão 113: Futebol e apropriação na Pop Art brasileira.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "pagina": 12,
+      "revisada": false
+    },
+    {
+      "id": "enem-2012-ppl-arte-113-superhomens",
+      "arquivo": "imagens/enem-2012-ppl-arte-113-superhomens.png",
+      "alt": "Figura original da questão 113: Futebol e apropriação na Pop Art brasileira.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "banalizam o esporte ao misturar o futebol e a pintura em um mesmo campo."
+    },
+    {
+      "id": "B",
+      "texto": "deixam transparecer a preferência de ambos os artistas pelo futebol enquanto esporte."
+    },
+    {
+      "id": "C",
+      "texto": "permitem refletir sobre como as artes visuais se apropriaram do futebol como uma tradição nacional."
+    },
+    {
+      "id": "D",
+      "texto": "fazem uma reflexão crítica sobre o futebol e a violência como temas circulantes na sociedade."
+    },
+    {
+      "id": "E",
+      "texto": "destacam a importância do esporte como atividade física de lazer para a sociedade."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Levar o futebol ao campo das artes visuais amplia sua leitura cultural; não significa banalizar o esporte.",
+    "B": "A escolha do tema não comprova preferência esportiva pessoal dos dois artistas.",
+    "C": "A apropriação de imagens do futebol permite pensar sua presença como tradição na cultura visual brasileira.",
+    "D": "A violência não é o eixo comum demonstrado nas duas obras; a questão enfatiza a apropriação cultural do futebol.",
+    "E": "As obras não funcionam como defesa dos benefícios físicos do esporte; problematizam sua dimensão simbólica e cultural."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Futebol e apropriação na Pop Art brasileira. A apropriação de imagens do futebol permite pensar sua presença como tradição na cultura visual brasileira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 113,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 6 — Linguagens — 2º dia",
+      "numeroQuestao": 113,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2012/2012_PV_reaplicacao_PPL_D2_CD6.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2012/p2_dia2_cinza_2012.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}

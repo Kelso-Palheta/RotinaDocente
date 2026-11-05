@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2018-ppl-arte-27",
+  "ano": 2018,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Lina Kim: instalação e questionamento da razão",
+  "habilidades": [],
+  "enunciado": "KIM, L. Cry me a river. Instalação com camisas de força, pia, baldes, torneira, espelho, lâmpada, 2001. CANTON, K. As nuances da cidade. Bravo!, n. 54, mar. 2002. A imagem reproduz a instalação da paulista Lina Kim, apresentada na 25a Bienal de São Paulo em março de 2002. Nessa obra, a artista se utiliza de elementos dispostos num determinado ambiente para propor que o observador reconheça o(a)",
+  "imagens": [
+    {
+      "id": "enem-2018-ppl-arte-27-figura-1",
+      "arquivo": "imagens/enem-2018-ppl-arte-27-figura-1.png",
+      "alt": "Instalação de Lina Kim com objetos cotidianos, roupas de contenção e recipientes dispostos no chão.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "pagina": 12,
+      "revisada": false
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "recusa à representação dos problemas sociais."
+    },
+    {
+      "id": "B",
+      "texto": "questionamento do que seja razão."
+    },
+    {
+      "id": "C",
+      "texto": "esgotamento das estéticas recentes."
+    },
+    {
+      "id": "D",
+      "texto": "processo de racionalização inerente à arte contemporânea."
+    },
+    {
+      "id": "E",
+      "texto": "ruptura estética com movimentos passados."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "Os objetos associados ao confinamento e à higiene não mostram recusa em tratar problemas sociais; sua justaposição provoca reflexão crítica.",
+    "B": "A combinação desconcertante de objetos e referências ao controle do corpo questiona os limites e os sentidos atribuídos à razão.",
+    "C": "A instalação não declara o esgotamento de toda estética recente; propõe uma experiência específica com materiais e sentidos em tensão.",
+    "D": "A montagem não apresenta a racionalização como essência obrigatória de toda arte, mas problematiza os discursos que a legitimam.",
+    "E": "O emprego de objetos cotidianos não implica apagar o passado artístico; a instalação dialoga criticamente com convenções e instituições."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Lina Kim: instalação e questionamento da razão. A combinação desconcertante de objetos e referências ao controle do corpo questiona os limites e os sentidos atribuídos à razão."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 27,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 13 — Linguagens — 1º dia",
+      "numeroQuestao": 27,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2018/2018_PV_reaplicacao_PPL_D1_CD13.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2018/GAB_ENEM_2018_DIA_1_P2_Azul.pdf",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": false,
+    "gabarito": true,
+    "imagens": false,
+    "explicacoes": false
+  }
+}
