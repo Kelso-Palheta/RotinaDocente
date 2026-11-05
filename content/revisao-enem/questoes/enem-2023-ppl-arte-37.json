@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-ppl-arte-37",
+  "ano": 2023,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Kandinsky, ponto e linha na arte abstrata",
+  "habilidades": [
+    "Reconhecer elementos fundamentais da linguagem visual",
+    "Relacionar teoria e produção abstrata"
+  ],
+  "enunciado": "KANDINSKY, W. Sem título (desenho para o Diagrama 17). Nanquim sobre papel, 28,4 cm x 36 cm. Museu de Arte Mount Holyoke College, South Hadley, 1925.\n\nDisponível em: https://artmuseum.mtholyoke.edu/object/untitled-drawing-diagram-17.\n\nO artista Wassily Kandinsky apresenta, em sua produção, aspectos formais relacionados aos elementos fundamentais da linguagem visual, que comprovam que a linha é criada a partir do(a)",
+  "imagens": [
+    {
+      "id": "kandinsky-diagrama-17",
+      "arquivo": "imagens/enem-2023-ppl-arte-37-kandinsky.png",
+      "alt": "Desenho abstrato de Kandinsky com linhas curvas e retas, círculos, pontos e formas geométricas sobre papel claro.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 16,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "movimento do ponto."
+    },
+    {
+      "id": "B",
+      "texto": "criação da textura sobre o plano."
+    },
+    {
+      "id": "C",
+      "texto": "cor aplicada sobre a superfície."
+    },
+    {
+      "id": "D",
+      "texto": "mancha na relação formal."
+    },
+    {
+      "id": "E",
+      "texto": "plano visual sobre o volume."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Na teoria de Kandinsky, o ponto é o elemento primordial; ao se deslocar, ele gera a linha. O desenho mostra linhas como trajetórias do ponto no plano.",
+    "B": "A textura é um elemento visual, mas não é a origem da linha na concepção do artista.",
+    "C": "A cor pode acompanhar a linha, porém não é o que a cria.",
+    "D": "A mancha é outro elemento visual; a linha, para Kandinsky, nasce do movimento do ponto.",
+    "E": "O volume e o plano não explicam a origem da linha; a questão trata dos elementos básicos da linguagem visual."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Kandinsky sistematizou ponto, linha e plano como elementos da linguagem visual. A linha é um ponto que se move e deixa um rastro; o desenho abstrato torna visível esse percurso."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "kandinsky-diagrama-17",
+      "legenda": "Kandinsky, Sem título (desenho para o Diagrama 17), 1925."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 37,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 37,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

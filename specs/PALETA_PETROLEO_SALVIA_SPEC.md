@@ -1,5 +1,7 @@
 # Paleta geral — petróleo e sálvia
 
+Exceção posterior expressa (04/11/2026): telas do novo aulão Revisão ao Vivo adotam identidade vibrante própria, conforme `REVISAO_VISUAL_VIBRANTE_SPEC.md`. Autorização não muda cores de notas nem os demais módulos. Não altera automaticamente testes globais; qualquer conflito deve ser revisado explicitamente.
+
 Data: 04/11/2026. Escolha e escopo aprovados pelo usuário. Fonte de design: `docs/plans/2026-11-04-paleta-petroleo-salvia-design.md`.
 
 ## Aceite

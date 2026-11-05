@@ -158,6 +158,8 @@ Capacidade: cenários progressivos 50, 100, 200, 500 e superiores somente enquan
 
 ## 7. Portões de entrega
 
+Complemento RV-REV-02: preparação rejeita IDs de turma inexistentes, duplicatas de turma/questão, `apta` diferente de booleano true e duração fracionária sem arredondar silenciosamente. Conferência exige ID/enunciado preenchidos, fontes HTTPS oficiais sem credenciais/porta alternativa e ambas as referências prova/gabarito; confirmação deve ser booleano true. Bloco de imagem exige referência resolvível. Links inválidos não são apresentados como oficiais. Aplicação regional D3 de 2025 em Belém/Ananindeua/Marituba pertence a regular com edição regional identificada; não é reaplicação D5. IDs existentes são opacos e permanecem estáveis apesar da correção de metadados.
+
 Complemento de revisão (RV-REV-01): imagens podem chegar como registro `{id, arquivo, alt}` e blocos de conteúdo como `{tipo:'imagem', imagemId, legenda}`; resolver a referência pela coleção de imagens da questão sem inventar URL. Cronômetro usa tempo monotônico decorrido, não número de callbacks, e nova sincronização reinicia a medição mesmo após zero. Estado de conexão ausente bloqueia ações. Interface não inventa bônus/pontos no feedback. Aplicações que compartilham uma prova aparecem em ambos os filtros sem duplicar questão; ausência de caderno separado não significa modalidade não aplicável. Provas de Linguagens anteriores a 2017 são do segundo dia; inventário de Arte não deve apresentar o primeiro dia como fonte suficiente.
 
 1. Interface controlada e inventário podem avançar paralelamente com este contrato; mudanças no contrato retornam à coordenação.

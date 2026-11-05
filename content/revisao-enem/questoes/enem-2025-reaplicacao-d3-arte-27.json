@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d3-arte-27",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Gravura, arte social e circulação no Brasil e no México",
+  "habilidades": [
+    "Comparar produções artísticas e contextos sociais",
+    "Interpretar a função social da gravura"
+  ],
+  "enunciado": "Na experiência mexicana, a gravura se destacava como meio para ilustrar panfletos e material para mobilizar e informar os trabalhadores rurais e urbanos, de acordo com a luta iniciada na Revolução Mexicana. Inexistindo no Brasil uma “revolução em marcha”, as gravuras, realizadas pelos Clubes de Gravura, limitavam-se a representar os temas rural e/ou urbano, focalizando o trabalhador e seu ambiente de trabalho, assim como suas lutas reivindicatórias. Além disso, as gravuras circulavam apenas entre os associados do clube e não amplamente, como no caso mexicano, em que eram distribuídas pela cidade e pelo campo.\n\nAMARAL, A. Arte para quê?: a preocupação social na arte brasileira, 1930-1970. São Paulo: Studio Nobel, 2003 (adaptado).\n\nEm relação à produção mexicana, as obras que circulavam pelos Clubes de Gravura no Brasil caracterizam uma produção que",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "se assemelha na temática, mas se distancia na função social."
+    },
+    {
+      "id": "B",
+      "texto": "reflete a realidade do campo, com vistas a contrapor à vida na cidade."
+    },
+    {
+      "id": "C",
+      "texto": "faz referência à vivência do trabalhador, para mobilizar a classe campesina."
+    },
+    {
+      "id": "D",
+      "texto": "ganha popularidade, uma vez que difunde uma técnica advinda de outro país."
+    },
+    {
+      "id": "E",
+      "texto": "se concentra em tiragens limitadas, a fim de garantir uma circulação acessível."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Assim como a mexicana, a gravura brasileira representa o trabalhador e suas lutas; porém, circula apenas entre associados, sem a função de mobilização ampla.",
+    "B": "A produção brasileira trata do rural e do urbano, mas não se define pela oposição entre campo e cidade.",
+    "C": "A mobilização da classe campesina caracteriza a experiência mexicana, não os Clubes de Gravura brasileiros.",
+    "D": "A técnica estrangeira não garante popularidade; no Brasil, a circulação era restrita aos associados.",
+    "E": "As tiragens limitadas não tinham a finalidade de tornar a arte acessível; ao contrário, restringiam o alcance."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A comparação proposta pelo texto é entre tema e circulação. No Brasil, os Clubes de Gravura compartilhavam o interesse pelo trabalhador, mas a produção ficava restrita ao grupo, sem o alcance mobilizador da gravura mexicana."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — Aplicação especial Belém/Ananindeua/Marituba (D3)",
+      "numeroQuestao": 27,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  },
+  "edicao": "belem-ananindeua-marituba"
+}

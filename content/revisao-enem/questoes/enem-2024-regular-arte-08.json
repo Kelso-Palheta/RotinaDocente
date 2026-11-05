@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-08",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Cavaquinho, ukulele e transformação cultural de instrumentos",
+  "habilidades": [
+    "Relacionar instrumentos musicais e processos culturais",
+    "Interpretar adaptação de práticas musicais"
+  ],
+  "enunciado": "É fundamentalmente no Minho, norte de Portugal, que o cavaquinho aparece como instrumento tipicamente popular, ligado às formas essenciais da música característica dessa província. O cavaquinho minhoto tem escala rasa com o tampo, o que facilita a prática do “rasqueado”. O cavaquinho chega ao Brasil diretamente de Portugal, e o modelo brasileiro é maior do que a sua versão portuguesa, com uma caixa de ressonância mais funda. Semelhante ao cavaquinho minhoto, o machete, ou machetinho madeirense, é um pequeno cordófono de corda dedilhada, que faz parte da grande e diversificada família das violas de mão portuguesas. O ukulele tem a sua origem no século XIX, tendo como ancestrais o braguinha (ou machete) e o rajão, instrumentos levados pelos madeirenses quando eles emigraram para o Havaí.\n\nOLIVEIRA, E. V. Cavaquinhos e família. Disponível em: https://casadaguitarra.pt. Acesso em: 18 nov. 2021 (adaptado).\n\nO conjunto dessas práticas musicais demonstra que os instrumentos mencionados no texto",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "refletem a dependência da utilização de matéria-prima europeia."
+    },
+    {
+      "id": "B",
+      "texto": "adaptam suas características a cada cultura, assumindo nova identidade."
+    },
+    {
+      "id": "C",
+      "texto": "comprovam a hegemonia portuguesa na invenção de cordófonos dedilhados."
+    },
+    {
+      "id": "D",
+      "texto": "ilustram processos de dominação cultural, evidenciando situações de choque cultural."
+    },
+    {
+      "id": "E",
+      "texto": "mantêm nomenclatura própria para garantir a fidelidade às formas originais de confecção."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O texto trata da circulação e transformação dos instrumentos, não da dependência de matéria-prima europeia.",
+    "B": "O cavaquinho muda de tamanho e caixa de ressonância no Brasil, e o machete dá origem ao ukulele no Havaí: os instrumentos se adaptam à cultura local e ganham nova identidade.",
+    "C": "A origem portuguesa é apontada, mas o texto mostra justamente que os instrumentos se transformam em outros lugares; não há defesa de hegemonia.",
+    "D": "As práticas são descritas como circulação e adaptação, não como choque ou dominação cultural.",
+    "E": "Os nomes também variam (cavaquinho, machete, ukulele), o que contraria a ideia de fidelidade à nomenclatura original."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Instrumentos musicais viajam com as pessoas e se transformam. O cavaquinho português ganha outra forma no Brasil; o machete ajuda a originar o ukulele no Havaí. A cultura não copia o objeto: adapta-o e lhe dá novo sentido."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 8,
+      "pagina": 5,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

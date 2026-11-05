@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d3-arte-15",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Tirinha, inteligência artificial e trabalho criativo",
+  "habilidades": [
+    "Interpretar crítica social em tirinha",
+    "Relacionar imagem, texto e contexto tecnológico"
+  ],
+  "enunciado": "LAERTE. Disponível em: https://x.com/LaerteCoutinho. Acesso em: 16 set. 2024.\n\nNessa tirinha, a crítica ao uso da Inteligência Artificial na elaboração do gênero discurso se dá em razão da",
+  "imagens": [
+    {
+      "id": "tirinha-laerte-ia",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-15-laerte.png",
+      "alt": "Tirinha de Laerte em dois quadros: no primeiro, uma pessoa cercada de livros; no segundo, uma pessoa diante do computador com a indicação de tópico, demanda e tom para gerar um discurso.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "pagina": 9,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "diminuição do trabalho criativo."
+    },
+    {
+      "id": "B",
+      "texto": "ausência de fontes de consultas."
+    },
+    {
+      "id": "C",
+      "texto": "imposição do registro em suporte digital."
+    },
+    {
+      "id": "D",
+      "texto": "mudança das características formais desse gênero."
+    },
+    {
+      "id": "E",
+      "texto": "simplificação do texto gerado pelas novas tecnologias."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A tirinha mostra a IA produzindo um discurso a partir de comandos prontos, o que reduz o esforço de criação e elaboração própria do estudante.",
+    "B": "As fontes não estão ausentes: o primeiro quadro mostra livros e pesquisa, justamente o que a IA substitui.",
+    "C": "A crítica não é ao suporte digital, mas ao uso da ferramenta para encurtar o trabalho intelectual.",
+    "D": "O gênero discurso não muda de forma; o que se critica é a automação da escrita.",
+    "E": "A questão não é simplificar o texto, mas eliminar o processo criativo e autoral."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A tirinha contrasta a pesquisa e a elaboração (livros, esforço) com a produção automática de um discurso por IA. A crítica recai sobre a redução do trabalho criativo e autoral."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "tirinha-laerte-ia",
+      "legenda": "Laerte, tirinha sobre IA e produção de discurso."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — Aplicação especial Belém/Ananindeua/Marituba (D3)",
+      "numeroQuestao": 15,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  },
+  "edicao": "belem-ananindeua-marituba"
+}

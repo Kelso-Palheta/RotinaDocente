@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-regular-arte-15",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Retrato, memória e afirmação de identidade na arte brasileira",
+  "habilidades": [
+    "Relacionar obra e contexto histórico-social",
+    "Interpretar a função social do retrato"
+  ],
+  "enunciado": "O retrato como gênero da pintura ocidental ficou vinculado às elites, tornando invisíveis as populações que não faziam parte do círculo dominante. Num país de tradição escravocrata e colonizado por europeus como o Brasil, pouquíssimas pessoas negras e indígenas foram retratadas em pintura, e menos ainda identificadas com seus nomes nos retratos. Daí a importância, para a história da arte e para a história brasileira, dos retratos de Dalton Paula.\n\nDisponível em: www.masp.org.br. Acesso em: 5 maio 2024 (adaptado).\n\nAo dar protagonismo a Zeferina e a João de Deus Nascimento, o artista Dalton Paula evidencia que a(s)",
+  "imagens": [
+    {
+      "id": "retrato-zeferina",
+      "arquivo": "imagens/enem-2025-regular-arte-15-zeferina.png",
+      "alt": "Retrato pintado de Zeferina, mulher negra, sobre fundo verde-azulado, com blusa escura e detalhe claro no decote.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "pagina": 9,
+      "revisada": true
+    },
+    {
+      "id": "retrato-joao-de-deus",
+      "arquivo": "imagens/enem-2025-regular-arte-15-joao-de-deus.png",
+      "alt": "Retrato pintado de João de Deus Nascimento, homem negro de terno escuro e camisa branca, sobre fundo verde.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "pagina": 9,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "arte pode promover formas de afirmação de identidade social."
+    },
+    {
+      "id": "B",
+      "texto": "comunidades periféricas passam a adquirir o gênero retrato."
+    },
+    {
+      "id": "C",
+      "texto": "personagens retratadas simbolizam a sociedade brasileira."
+    },
+    {
+      "id": "D",
+      "texto": "pintura funciona como instrumento de ascensão social."
+    },
+    {
+      "id": "E",
+      "texto": "imagens tradicionais preservam memórias afetivas."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Ao retratar e nomear pessoas negras historicamente invisibilizadas, Dalton Paula afirma identidades sociais e corrige parte dessa exclusão na história da arte.",
+    "B": "O gênero retrato já existia e circulava entre elites; a obra não faz comunidades periféricas \"adquirirem\" o gênero, mas questiona quem era retratado.",
+    "C": "Os dois retratos são indivíduos singulares, não uma alegoria que represente toda a sociedade brasileira.",
+    "D": "A pintura não é apresentada como meio de ascensão social; o texto destaca a exclusão das pessoas negras e indígenas do retrato.",
+    "E": "O texto fala de visibilidade e identificação histórica, não de memórias afetivas familiares preservadas por imagens tradicionais."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O retrato foi historicamente um privilégio das elites. Dalton Paula retoma esse gênero para dar rosto e nome a pessoas negras que a pintura brasileira deixou de fora, articulando arte, memória e afirmação identitária."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "retrato-zeferina",
+      "legenda": "Dalton Paula, Zeferina, 2018."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "retrato-joao-de-deus",
+      "legenda": "Dalton Paula, João de Deus Nascimento, 2018."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 15,
+      "pagina": 9,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

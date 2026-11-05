@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-ppl-arte-20",
+  "ano": 2023,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Rosana Paulino, Bastidores e a condição da mulher negra",
+  "habilidades": [
+    "Interpretar obra contemporânea e contexto social",
+    "Relacionar materialidade e crítica"
+  ],
+  "enunciado": "PAULINO, R. Bastidores (detalhe). Gravura sobre tecido em suporte de madeira para bordado, 1997.\n\nDisponível em: www.galeriavirgilio.com.br. Acesso em: 29 out. 2010.\n\nSob a perspectiva em que o artista deve trabalhar com as coisas que o tocam profundamente, a singularidade da obra Bastidores, produzida com objetos do cotidiano e de pouco valor material, mostra a boca, que expressa uma",
+  "imagens": [
+    {
+      "id": "bastidores",
+      "arquivo": "imagens/enem-2023-ppl-arte-20-bastidores.png",
+      "alt": "Obra circular de Rosana Paulino com uma fotografia de rosto feminino negro ao centro, envolvida por linhas e costuras, sobre fundo escuro.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "situação religiosa afro-brasileira que envolve grande parte da população."
+    },
+    {
+      "id": "B",
+      "texto": "condição particular da artista, deslocada de um contexto sociocultural."
+    },
+    {
+      "id": "C",
+      "texto": "situação histórica em que as mulheres ainda bordavam em bastidores."
+    },
+    {
+      "id": "D",
+      "texto": "condição vivida por parte das mulheres afro-brasileiras trabalhadoras."
+    },
+    {
+      "id": "E",
+      "texto": "situação que se sugere, mas que não se aplica, a parcelas da população."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A obra não representa uma situação religiosa afro-brasileira; o bastidor e a boca costurada remetem a silenciamento e trabalho.",
+    "B": "A condição da artista não é deslocada do contexto sociocultural: a obra justamente articula experiência pessoal e história coletiva.",
+    "C": "O bastidor não é apenas um dado histórico do bordado; ele se torna símbolo da condição de mulheres negras trabalhadoras.",
+    "D": "A boca costurada e o bastidor, objetos do cotidiano, remetem ao silenciamento e à exploração do trabalho de mulheres afro-brasileiras.",
+    "E": "A situação representada não é hipotética: ela diz respeito a parcelas reais da população, ainda que a obra use linguagem simbólica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Rosana Paulino usa o bastidor, objeto doméstico ligado ao trabalho feminino, para falar de silenciamento. A boca costurada não é literal: é imagem da condição histórica de mulheres negras trabalhadoras."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "bastidores",
+      "legenda": "Rosana Paulino, Bastidores (detalhe), 1997."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 20,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 20,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

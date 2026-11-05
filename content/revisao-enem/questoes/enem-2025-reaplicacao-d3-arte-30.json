@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d3-arte-30",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte indígena, grafismos e intercâmbio cultural no norte amazônico",
+  "habilidades": [
+    "Reconhecer a circulação de padrões gráficos",
+    "Interpretar arte indígena para além do objeto isolado"
+  ],
+  "enunciado": "Em Tiriyó, imenu quer dizer “desenho” ou “pintura”, mas também “jenipapo” (menu), planta que fornece uma das principais matérias-primas utilizadas na produção de tintas e corantes. Imenu diz respeito aos desenhos de formas geométricas que se aplicam sobre os mais variados suportes: da pele ao papel, passando pelos artefatos. A isso que os Tiriyó definem como imenu, em sua própria língua, os Kaxuyana chamam de imenuru.\n\nObservando as artes gráficas dos povos da região que vai do Amapá ao norte do Pará, é possível observar que muitos dos padrões que compõem o repertório tiriyó são recorrentes entre os Kaxuyana, os Wayana, os Aparai e os Wajãpi. Também encontramos padrões semelhantes entre os Waiwa e outros grupos do norte amazônico.\n\nGRUPIONE, D. F. Arte visual dos povos Tiriyó e Kaxuyana: padrões de uma estética ameríndia. São Paulo: Iepé, 2009 (adaptado).\n\nEntre os grupos indígenas do norte amazônico, as recorrências nas criações gráficas revelam a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "dinâmica cultural no intercâmbio de padrões visuais."
+    },
+    {
+      "id": "B",
+      "texto": "criação de técnicas gráficas como concorrência na produção da arte."
+    },
+    {
+      "id": "C",
+      "texto": "incorporação de desenhos figurativos na produção de novos artefatos."
+    },
+    {
+      "id": "D",
+      "texto": "relação de poder de um grupo sobre outro por meio do domínio de grafismos."
+    },
+    {
+      "id": "E",
+      "texto": "acumulação de repertório gráfico como forma de prestígio entre as etnias dessa região."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A recorrência de padrões entre povos diferentes indica circulação, troca e transformação de repertórios visuais, isto é, dinâmica cultural.",
+    "B": "O texto não fala de competição entre grupos pela criação de técnicas gráficas.",
+    "C": "Os padrões descritos são geométricos, não desenhos figurativos incorporados a novos artefatos.",
+    "D": "A semelhança entre grafismos não é explicada como domínio de um grupo sobre outro.",
+    "E": "O texto não associa a recorrência dos padrões a acúmulo de prestígio entre etnias."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Quando padrões gráficos aparecem em vários povos da mesma região, isso sugere redes de troca, parentesco e circulação de saberes. A arte indígena se constitui, assim, em relação, e não em conjuntos isolados."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — Aplicação especial Belém/Ananindeua/Marituba (D3)",
+      "numeroQuestao": 30,
+      "pagina": 14,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  },
+  "edicao": "belem-ananindeua-marituba"
+}

@@ -1,0 +1,12 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/.codex/tmp/rotina-revisao2-validacao/frontend
+
+
+ Test Files  269 passed (269)
+      Tests  1254 passed (1254)
+   Start at  23:38:39
+   Duration  166.36s (transform 10.10s, setup 34.53s, import 72.97s, tests 58.06s, environment 101.39s)

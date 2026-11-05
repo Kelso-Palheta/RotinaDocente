@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-ppl-arte-40",
+  "ano": 2019,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Instrumentos africanos, diáspora e musicalidade brasileira",
+  "habilidades": [
+    "Reconhecer permanências da cultura africana",
+    "Relacionar instrumentos e processos históricos"
+  ],
+  "enunciado": "TEXTO I\n\nFotografia em preto e branco de músico da cultura lupa (norte de Angola) tocando uma kalimba ou lamelofone.\n\nINTERNATIONAL Library of African Music, Angola. Disponível em: http://keywordsuggest.org. Acesso em: 18 ago. 2017.\n\nTEXTO II\n\nManifestação carnavalesca registrada por Debret (1826): escravos vestidos como europeus, em cortejo musical, à época do Império.\n\nDEBRET, J.-B. Disponível em: http://koyre.ehess.fr. Acesso em: 18 ago. 2017.\n\nO instrumento feito de lâminas metálicas e cabaça é comum a manifestações musicais na África e no Brasil. Nos textos, apesar de figurarem em contextos geográficos separados pelo Oceano Atlântico e terem cerca de um século de distanciamento temporal, a semelhança do instrumento demonstra a",
+  "imagens": [
+    {
+      "id": "kalimba-lupa",
+      "arquivo": "imagens/enem-2019-ppl-arte-40-kalimba.png",
+      "alt": "Fotografia em preto e branco de um músico angolano tocando uma kalimba, instrumento com lâminas metálicas sobre uma cabaça.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 18,
+      "revisada": true
+    },
+    {
+      "id": "cortejo-debret",
+      "arquivo": "imagens/enem-2019-ppl-arte-40-cortejo.png",
+      "alt": "Gravura de Debret mostrando um cortejo musical de pessoas negras vestidas com roupas europeias, tocando instrumentos.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 18,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "vinculação desses instrumentos com a cultura dos negros escravizados."
+    },
+    {
+      "id": "B",
+      "texto": "influência da cultura africana na construção da musicalidade brasileira."
+    },
+    {
+      "id": "C",
+      "texto": "condição de colônia europeia comum ao Brasil e grande parte da África."
+    },
+    {
+      "id": "D",
+      "texto": "escassez de variedade de instrumentos musicais relacionados à cultura africana."
+    },
+    {
+      "id": "E",
+      "texto": "importância de registros artísticos na difusão e manutenção de uma tradição musical."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A vinculação com a cultura dos escravizados existe, mas a pergunta pede o que a semelhança do instrumento demonstra: a presença africana na música brasileira.",
+    "B": "A kalimba africana e os instrumentos do cortejo de Debret mostram que a musicalidade brasileira foi construída também pela herança africana.",
+    "C": "A condição de colônia não explica a semelhança do instrumento; a resposta está na circulação cultural da diáspora.",
+    "D": "A comparação não indica escassez de instrumentos, mas continuidade e variedade de tradições.",
+    "E": "Os registros artísticos documentam a tradição, mas a semelhança do instrumento aponta para a influência cultural africana, não apenas para o valor do registro."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A kalimba atravessou o Atlântico na memória e na prática de povos africanos escravizados. Sua presença em manifestações brasileiras é evidência da influência africana na formação da musicalidade do país."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "kalimba-lupa",
+      "legenda": "Músico da cultura lupa tocando kalimba (Angola)."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "cortejo-debret",
+      "legenda": "Debret, cortejo musical no Brasil imperial, 1826."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 40,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 40,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

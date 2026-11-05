@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d3-arte-42",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Fotografia, cotidiano e composição em Cartier-Bresson",
+  "habilidades": [
+    "Interpretar composição fotográfica",
+    "Relacionar fotografia e experiência urbana"
+  ],
+  "enunciado": "CARTIER-BRESSON, H. Atrás da estação de Saint-Lazare. Fotografia em preto e branco (lente 35 mm), 44,8 × 29,8 cm. Paris, 1932.\n\nDisponível em: http://100photos.time.com. Acesso em: 19 jun. 2019.\n\nNessa fotografia, há um diálogo visual entre diversos elementos da cena. Com esse tipo de composição, Henri Cartier-Bresson revolucionou a fotografia do século XX ao",
+  "imagens": [
+    {
+      "id": "cartier-bresson",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-42-cartier-bresson.png",
+      "alt": "Fotografia em preto e branco de um homem saltando sobre uma poça d’água atrás da estação Saint-Lazare; ao fundo, cartazes e a arquitetura da estação.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "pagina": 18,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "priorizar o reflexo de imagens do cotidiano na construção da simetria."
+    },
+    {
+      "id": "B",
+      "texto": "transformar paisagens e pessoas comuns em composições artísticas."
+    },
+    {
+      "id": "C",
+      "texto": "abandonar o estúdio como espaço de trabalho artístico."
+    },
+    {
+      "id": "D",
+      "texto": "visibilizar populações marginalizadas das cidades."
+    },
+    {
+      "id": "E",
+      "texto": "registrar corpos e objetos em movimento."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A foto não se organiza pela simetria nem pelo reflexo como prioridade; o reflexo na poça integra a composição, mas não a define.",
+    "B": "Cartier-Bresson flagra uma cena banal — um homem saltando uma poça — e a organiza como composição rigorosa, transformando o cotidiano em arte.",
+    "C": "O abandono do estúdio é uma consequência do trabalho de rua, não a revolução formal que a questão destaca.",
+    "D": "A imagem não tem como objetivo principal dar visibilidade a populações marginalizadas.",
+    "E": "O movimento é um elemento da cena, mas a inovação está na composição do instante e na transformação estética do cotidiano."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Cartier-Bresson fotografa o instante decisivo: um gesto comum, capturado no momento exato em que forma, reflexo, arquitetura e movimento se organizam. O cotidiano deixa de ser registro e passa a ser composição artística."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "cartier-bresson",
+      "legenda": "Henri Cartier-Bresson, Atrás da estação de Saint-Lazare, 1932."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — Aplicação especial Belém/Ananindeua/Marituba (D3)",
+      "numeroQuestao": 42,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  },
+  "edicao": "belem-ananindeua-marituba"
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-regular-arte-40",
+  "ano": 2019,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Futurismo, velocidade e ruptura com a tradição",
+  "habilidades": [
+    "Reconhecer princípios estéticos das vanguardas",
+    "Interpretar manifiestos artísticos"
+  ],
+  "enunciado": "1. Nós queremos cantar o amor ao perigo, o hábito da energia e da temeridade.\n\n2. A coragem, a audácia, a rebelião serão elementos essenciais de nossa poesia.\n\n3. A literatura exaltou até hoje a imobilidade pensativa, o êxtase, o sono. Nós queremos exaltar o movimento agressivo, a insônia febril, o passo de corrida, o salto mortal, o bofetão e o soco.\n\n4. Nós afirmamos que a magnificência do mundo enriqueceu-se de uma beleza nova: a beleza da velocidade. Um automóvel de corrida com seu cofre enfeitado com tubos grossos, semelhantes a serpentes de hálito explosivo... um automóvel rugidor, que parece correr sobre a metralha, é mais bonito que a Vitória de Samotrácia.\n\n5. Nós queremos entoar hinos ao homem que segura o volante, cuja haste ideal atravessa a Terra, lançada também numa corrida sobre o circuito da sua órbita.\n\n6. É preciso que o poeta prodigalize com ardor, fausto e munificência, para aumentar o entusiástico fervor dos elementos primordiais.\n\nMARINETTI, F. T. Manifesto futurista. In: TELES, G. M. Vanguardas europeias e Modernismo brasileiro. Petrópolis: Vozes, 1985.\n\nO documento de Marinetti, de 1909, propõe os referenciais estéticos do Futurismo, que valorizam a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "composição estática."
+    },
+    {
+      "id": "B",
+      "texto": "inovação tecnológica."
+    },
+    {
+      "id": "C",
+      "texto": "suspensão do tempo."
+    },
+    {
+      "id": "D",
+      "texto": "retomada do helenismo."
+    },
+    {
+      "id": "E",
+      "texto": "manutenção das tradições."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O manifesto rejeita a imobilidade e exalta o movimento, a velocidade e a ação.",
+    "B": "Marinetti celebra o automóvel, a velocidade e a técnica, colocando a inovação tecnológica no centro da estética futurista.",
+    "C": "O Futurismo quer intensificar o tempo, não suspendê-lo; a velocidade é exaltada como beleza nova.",
+    "D": "A referência à Vitória de Samotrácia serve para afirmar que o automóvel é mais belo, não para retomar o helenismo.",
+    "E": "O manifesto rompe com tradições acadêmicas e propõe uma arte nova, ligada à máquina e ao presente."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O Futurismo faz da velocidade, da máquina e da ruptura com o passado seus valores centrais. O automóvel de corrida vale mais que a escultura grega: é a beleza tecnológica que passa a orientar a arte."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 40,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

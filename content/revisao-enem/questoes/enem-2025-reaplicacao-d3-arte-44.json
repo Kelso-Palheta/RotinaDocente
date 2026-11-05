@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d3-arte-44",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Iberê Camargo, memória e invenção formal",
+  "habilidades": [
+    "Relacionar memória e processo criativo",
+    "Interpretar transformações da figura na arte moderna"
+  ],
+  "enunciado": "TEXTO I\n\nEm casa, Iberê menino traçava a memória da infância. A mãe, concentrada no coser das roupas, mal escutava o lápis de ponta grossa riscar a vida por baixo da mesa. Os carretéis sem linhas ficavam ali, amontoados de solidão. Quando perdiam sua razão de ser para a realidade da mãe, eles desenrolavam longos fios no ar do olhar menino de Iberê.\n\nNEVES, A.; DIAS, C. Iberê Camargo: menino. São Paulo: DCL, 2007 (adaptado).\n\nTEXTO II\n\nCAMARGO, I. Carretéis 4. Serigrafia, 13,4 × 23,4 cm. Fundação Iberê Camargo, Porto Alegre, 1959.\n\nDisponível em: www.bolsadearte.com. Acesso em: 15 out. 2024.\n\nA multiplicidade das formas, presente em Carretéis 4, de Iberê Camargo, sugere que",
+  "imagens": [
+    {
+      "id": "carreteis-ibere",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-44-carreteis.png",
+      "alt": "Serigrafia de Iberê Camargo com carretéis de linhas em branco, vermelho e azul sobre fundo verde, formando uma composição geométrica.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "pagina": 19,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "objeto, memória e lúdico são traduzidos como fonte criativa em formas simplificadas."
+    },
+    {
+      "id": "B",
+      "texto": "linhas, forma e infância são elementos criativos determinantes entre os artistas modernos."
+    },
+    {
+      "id": "C",
+      "texto": "formas abstratas e geométricas são típicas da arte contemporânea, com base na subjetividade do artista."
+    },
+    {
+      "id": "D",
+      "texto": "figuras na arte moderna são representadas com formas simples e livres, como as pinturas realizadas por crianças."
+    },
+    {
+      "id": "E",
+      "texto": "memória, mãe e tecido são os elementos principais de inspiração do filho artista, como reprodução do ofício materno."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Os carretéis da infância, ligados à mãe e à memória, são transformados em formas simplificadas e geométricas, mostrando objeto, memória e lúdico como fonte criativa.",
+    "B": "A alternativa generaliza indevidamente: o texto trata de Iberê Camargo, não de todos os artistas modernos.",
+    "C": "A obra dialoga com a geometria, mas não é apresentada como típica da arte contemporânea nem se reduz à subjetividade do artista.",
+    "D": "As formas não imitam pinturas infantis; são elaborações geométricas a partir dos carretéis.",
+    "E": "A mãe e o tecido aparecem como memória afetiva, não como reprodução do ofício materno."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Iberê Camargo retoma os carretéis da infância e os transforma em formas geométricas. A memória pessoal não é ilustrada literalmente: ela se converte em invenção formal, articulando afeto, objeto e linguagem visual."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "carreteis-ibere",
+      "legenda": "Iberê Camargo, Carretéis 4, 1959."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — Aplicação especial Belém/Ananindeua/Marituba (D3)",
+      "numeroQuestao": 44,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  },
+  "edicao": "belem-ananindeua-marituba"
+}

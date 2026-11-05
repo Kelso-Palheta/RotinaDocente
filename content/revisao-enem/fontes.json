@@ -309,31 +309,45 @@
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
       "questaoIds": [
+        "enem-2019-regular-arte-12",
+        "enem-2019-regular-arte-13",
+        "enem-2019-regular-arte-25",
         "enem-2019-regular-arte-31",
-        "enem-2019-regular-arte-36"
+        "enem-2019-regular-arte-36",
+        "enem-2019-regular-arte-40"
       ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Amostra de 2 questões de Arte catalogadas e conferidas; não implica cobertura integral da aplicação."
+      "observacoes": "Seis questões de Arte catalogadas; amostra ampliada em 04/11/2026 com Q12, Q13, Q25 e Q40. Não implica cobertura integral da aplicação."
     },
     {
       "ano": 2019,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
-      "questaoIds": [],
+      "questaoIds": [
+        "enem-2019-ppl-arte-12",
+        "enem-2019-ppl-arte-27",
+        "enem-2019-ppl-arte-40",
+        "enem-2019-ppl-arte-55"
+      ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "observacoes": "Quatro questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2019; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
     },
     {
       "ano": 2019,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
-      "questaoIds": [],
+      "questaoIds": [
+        "enem-2019-ppl-arte-12",
+        "enem-2019-ppl-arte-27",
+        "enem-2019-ppl-arte-40",
+        "enem-2019-ppl-arte-55"
+      ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "observacoes": "Quatro questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2019; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
     },
     {
       "ano": 2020,
@@ -434,30 +448,46 @@
       "questaoIds": [
         "enem-2023-regular-arte-33",
         "enem-2023-regular-arte-34",
-        "enem-2023-regular-arte-36"
+        "enem-2023-regular-arte-36",
+        "enem-2023-regular-arte-37",
+        "enem-2023-regular-arte-38"
       ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Amostra de 3 questões de Arte catalogadas e conferidas; não implica cobertura integral da aplicação."
+      "observacoes": "Cinco questões de Arte catalogadas; amostra ampliada em 04/11/2026 com Q37 (arte e redes) e Q38 (rap indígena). Não implica cobertura integral da aplicação."
     },
     {
       "ano": 2023,
       "aplicacao": "ppl",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
+      "questaoIds": [
+        "enem-2023-ppl-arte-07",
+        "enem-2023-ppl-arte-20",
+        "enem-2023-ppl-arte-21",
+        "enem-2023-ppl-arte-22",
+        "enem-2023-ppl-arte-26",
+        "enem-2023-ppl-arte-37"
+      ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do PPL localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "observacoes": "Seis questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2023; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
     },
     {
       "ano": 2023,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
-      "questaoIds": [],
+      "questaoIds": [
+        "enem-2023-ppl-arte-07",
+        "enem-2023-ppl-arte-20",
+        "enem-2023-ppl-arte-21",
+        "enem-2023-ppl-arte-22",
+        "enem-2023-ppl-arte-26",
+        "enem-2023-ppl-arte-37"
+      ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Fonte compartilhada Reaplicação/PPL, conforme página oficial. Questões têm identidade única e referências às duas modalidades; catalogação parcial."
+      "observacoes": "Seis questões de Arte catalogadas na fonte compartilhada Reaplicação/PPL de 2023; identidade única e referências às duas modalidades. Explicações seguem em rascunho."
     },
     {
       "ano": 2024,
@@ -466,14 +496,16 @@
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
       "questaoIds": [
+        "enem-2024-regular-arte-08",
         "enem-2024-regular-arte-16",
         "enem-2024-regular-arte-21",
         "enem-2024-regular-arte-25",
         "enem-2024-regular-arte-30",
-        "enem-2024-regular-arte-36"
+        "enem-2024-regular-arte-36",
+        "enem-2024-regular-arte-43"
       ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Amostra de 5 questões de Arte catalogadas e conferidas; não implica cobertura integral da aplicação."
+      "observacoes": "Sete questões de Arte catalogadas; amostra ampliada em 04/11/2026 com Q08 (instrumentos musicais) e Q43 (fotografia). Não implica cobertura integral da aplicação."
     },
     {
       "ano": 2024,
@@ -512,12 +544,24 @@
     {
       "ano": 2025,
       "aplicacao": "regular",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
-      "questaoIds": [],
+      "questaoIds": [
+        "enem-2025-regular-arte-15",
+        "enem-2025-regular-arte-22",
+        "enem-2025-regular-arte-23",
+        "enem-2025-regular-arte-41",
+        "enem-2025-regular-arte-45",
+        "enem-2025-reaplicacao-d3-arte-03",
+        "enem-2025-reaplicacao-d3-arte-15",
+        "enem-2025-reaplicacao-d3-arte-27",
+        "enem-2025-reaplicacao-d3-arte-30",
+        "enem-2025-reaplicacao-d3-arte-42",
+        "enem-2025-reaplicacao-d3-arte-44"
+      ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Prova e gabarito do 1º dia localizados na página oficial. Nenhuma questão de Arte catalogada nesta entrega."
+      "observacoes": "Onze questões catalogadas: cinco da aplicação regular nacional D1 e seis da edição regional regular D3 (Belém/Ananindeua/Marituba), conforme classificação oficial INEP. Fontes específicas constam de cada questão; revisão docente e completude pendentes."
     },
     {
       "ano": 2025,
@@ -532,12 +576,16 @@
     {
       "ano": 2025,
       "aplicacao": "reaplicacao",
-      "status": "localizada",
+      "status": "catalogada",
       "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
       "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
-      "questaoIds": [],
+      "questaoIds": [
+        "enem-2025-reaplicacao-d5-arte-09",
+        "enem-2025-reaplicacao-d5-arte-20",
+        "enem-2025-reaplicacao-d5-arte-42"
+      ],
       "consultadoEm": "2026-11-04",
-      "observacoes": "Reaplicação nacional de 2025 (D5) localizada. A aplicação especial de Belém/Ananindeua/Marituba (D3) foi identificada como referência secundária, mas não foi duplicada como modalidade. D3: https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf ; gabarito D3: https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf"
+      "observacoes": "Três questões catalogadas da reaplicação nacional D5. A edição regional D3 é regular e está no inventário regular; IDs das questões preservados apesar do prefixo legado. Explicações e cobertura integral pendentes."
     }
   ]
 }

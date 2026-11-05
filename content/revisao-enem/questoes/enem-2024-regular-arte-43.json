@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-43",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Fotografia, acaso e experimentação na câmera pinhole",
+  "habilidades": [
+    "Interpretar processo criativo e materialidade fotográfica",
+    "Relacionar acaso e produção artística"
+  ],
+  "enunciado": "TEXTO I\n\nA fotografia de Regina Valkenborgh apresenta 2 953 arcos de luz cruzando o céu e registra o nascer e o pôr do sol ao longo de oito anos. Em 2012, essa estudante da Universidade de Hertfordshire colocou uma folha de papel fotográfico em uma lata com um pequeno orifício, criando assim uma câmera pinhole de baixa tecnologia. Porém, a lata foi esquecida em um telescópio no observatório da universidade. Esse projeto esquecido acabou revelando a foto do pôr do sol de maior exposição já tirada.\n\nSANTOS, A. Disponível em: https://socientifica.com.br. Acesso em: 13 nov. 2021 (adaptado).\n\nTEXTO II\n\nRepresentação de 2 953 arcos de luz cruzando o céu, registrando o nascer e o pôr do sol ao longo de oito anos\n\nVALKENBORGH, R. Fotografia. Reino Unido: Universidade Hertfordshire (2012-2020). Disponível em: www.thisiscolossal.com. Acesso em: 1 nov. 2022.\n\nO experimento realizado por Regina Valkenborgh resultou no entendimento de que a",
+  "imagens": [
+    {
+      "id": "valkenborgh",
+      "arquivo": "imagens/enem-2024-regular-arte-43-valkenborgh.png",
+      "alt": "Fotografia de longa exposição com milhares de arcos de luz branca e amarelada cruzando o céu escuro, formando uma teia luminosa sobre a paisagem.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "pagina": 18,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "técnica fotográfica alternativa limita o registro de imagens."
+    },
+    {
+      "id": "B",
+      "texto": "apreciação da natureza depende de registro fotográfico."
+    },
+    {
+      "id": "C",
+      "texto": "criatividade artística decorre do conhecimento científico."
+    },
+    {
+      "id": "D",
+      "texto": "câmera de criação caseira tem valor tecnológico."
+    },
+    {
+      "id": "E",
+      "texto": "produção artística pode ser resultado do acaso."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A técnica alternativa não limitou o registro: produziu uma imagem de longa exposição inédita, com milhares de arcos de luz.",
+    "B": "A foto não afirma que a apreciação da natureza dependa de registro fotográfico; o foco é o experimento e seu resultado.",
+    "C": "O conhecimento científico faz parte do processo, mas o texto destaca o esquecimento da lata e o resultado inesperado, não uma relação necessária entre ciência e criatividade.",
+    "D": "O valor tecnológico da câmera caseira não é a conclusão do texto; a ênfase recai sobre o acaso do experimento.",
+    "E": "A lata foi esquecida por anos no telescópio, e o acidente produziu a foto de maior exposição já feita, mostrando o acaso como dimensão da criação artística."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A câmera pinhole foi montada como experimento, mas o esquecimento da lata no observatório permitiu um registro de oito anos. O caso mostra que o acaso e o tempo podem se tornar materiais do processo criativo."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "valkenborgh",
+      "legenda": "Regina Valkenborgh, fotografia de longa exposição (2012-2020)."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 43,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

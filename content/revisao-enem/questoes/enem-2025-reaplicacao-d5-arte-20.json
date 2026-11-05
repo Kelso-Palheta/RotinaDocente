@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d5-arte-20",
+  "ano": 2025,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Porcelana, cópia e repertório cultural do artista",
+  "habilidades": [
+    "Interpretar apropriação e transformação de modelos",
+    "Relacionar objeto artístico e contexto de produção"
+  ],
+  "enunciado": "TEXTO I\n\nAntes do século 19, época em que as fábricas de porcelana europeias conseguiam produzir bens baratos e de alta qualidade, as gravuras e cerâmicas daquele continente, principalmente estatuetas de figuras humanas, animais e pássaros, eram levadas à China, para serem copiadas e transformadas em serviços de mesa e enfeites em porcelana. Esses itens eram produzidos especialmente para encomendas ocidentais e não eram usados na China. Muitos destinavam-se a ornar prateleiras e nichos especialmente instalados em elegantes casas europeias, criando “salas chinesas” ou enfeitando gabinetes.\n\nTEXTO II\n\nGravura de vestuário, séc. XVIII. Estátua em porcelana de moça judia nos moldes de gravura de vestuário, séc. XVIII.\n\nHARRIS-HALL, J. China: uma história em objetos. São Paulo: Sesc-SP, 2018 (adaptado).\n\nOs traços orientais do rosto da estátua indicam a",
+  "imagens": [
+    {
+      "id": "gravura-vestuario",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-20-gravura.png",
+      "alt": "Gravura europeia do século XVIII com duas figuras vestindo roupas de época, usada como modelo para a porcelana.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "pagina": 10,
+      "revisada": true
+    },
+    {
+      "id": "porcelana-moca",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-20-porcelana.png",
+      "alt": "Estátua de porcelana de uma jovem com traços orientais, vestindo roupas europeias do século XVIII.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "pagina": 10,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "nova referência estética da Europa, interessada por objetos de decoração tipicamente chineses."
+    },
+    {
+      "id": "B",
+      "texto": "demanda por novos tipos de adereços para decorar as casas da burguesia ascendente."
+    },
+    {
+      "id": "C",
+      "texto": "tendência do artista em incorporar seu repertório estético-cultural em sua produção."
+    },
+    {
+      "id": "D",
+      "texto": "admiração dos europeus por representações faciais da cultura chinesa."
+    },
+    {
+      "id": "E",
+      "texto": "dificuldade de transposição dos detalhes da gravura para a escultura."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A Europa encomendava objetos, mas os traços orientais não mostram uma nova referência estética europeia; mostram a intervenção do artista chinês.",
+    "B": "A demanda europeia explica a encomenda, porém não justifica especificamente os traços orientais do rosto esculpido.",
+    "C": "Ao copiar uma gravura europeia, o artista chinês imprime no rosto da estátua traços de seu próprio repertório cultural, modificando o modelo.",
+    "D": "Não se trata de admiração europeia por rostos chineses: a estátua foi feita para o gosto ocidental, mas ganhou feições orientais na execução.",
+    "E": "A obra demonstra justamente que houve transposição dos detalhes; os traços orientais não indicam dificuldade técnica."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A porcelana chinesa feita para encomendas europeias copiava gravuras ocidentais, mas não as reproduzia de modo neutro. O artista local imprimia seu repertório na modelagem, e os traços orientais revelam essa mediação cultural."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "gravura-vestuario",
+      "legenda": "Gravura de vestuário europeia do século XVIII."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "porcelana-moca",
+      "legenda": "Estátua em porcelana de moça judia, século XVIII."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação nacional (D5)",
+      "numeroQuestao": 20,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

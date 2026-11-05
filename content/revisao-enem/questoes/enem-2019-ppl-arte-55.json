@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-ppl-arte-55",
+  "ano": 2019,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Frevo, patrimônio imaterial e sentidos coletivos",
+  "habilidades": [
+    "Interpretar patrimônio cultural imaterial",
+    "Relacionar manifestação popular e identidade"
+  ],
+  "enunciado": "O frevo é uma forma de expressão musical, coreográfica e poética, enraizada no Recife e em Olinda, no estado de Pernambuco. O frevo é formado pela grande mescla de gêneros musicais, danças, capoeira e artesanato. É uma das mais ricas expressões da inventividade e capacidade de realização popular na cultura brasileira. Possui a capacidade de promover a criatividade humana e também o respeito à diversidade cultural. No ano de 2012, a Unesco proclamou o frevo como Patrimônio Imaterial da Humanidade.\n\nPORTAL BRASIL. Disponível em: www.brasil.gov.br. Acesso em: 10 fev. 2013.\n\nA característica da manifestação cultural descrita que justifica a sua condição de Patrimônio Imaterial da Humanidade é a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "conversão dos festejos em produto da elite."
+    },
+    {
+      "id": "B",
+      "texto": "expressão de sentidos construídos coletivamente."
+    },
+    {
+      "id": "C",
+      "texto": "dominação ideológica de um grupo étnico sobre outros."
+    },
+    {
+      "id": "D",
+      "texto": "disseminação turística internacional dos eventos festivos."
+    },
+    {
+      "id": "E",
+      "texto": "identificação de simbologias presentes nos monumentos artísticos."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O frevo é expressão popular, não produto exclusivo da elite; sua conversão em mercadoria não é o que justifica o título.",
+    "B": "O frevo é reconhecido por ser uma expressão coletiva que mistura música, dança, capoeira e artesanato, construindo sentidos compartilhados pela comunidade.",
+    "C": "O texto destaca diversidade e criatividade popular, não dominação de um grupo sobre outro.",
+    "D": "A projeção turística pode decorrer do título, mas não é a característica que o justifica.",
+    "E": "O frevo é patrimônio imaterial, ligado a práticas e saberes vivos, não a monumentos artísticos."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Patrimônio imaterial designa práticas, saberes e expressões transmitidos coletivamente. O frevo se enquadra nessa definição porque é vivido pela comunidade, que recria sua música, dança e coreografia a cada Carnaval."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 55,
+      "pagina": 23,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 55,
+      "pagina": 23,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

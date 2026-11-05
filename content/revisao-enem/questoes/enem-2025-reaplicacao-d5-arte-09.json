@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d5-arte-09",
+  "ano": 2025,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Escultura pública, integração urbana e democratização da arte",
+  "habilidades": [
+    "Interpretar obra de arte no espaço público",
+    "Relacionar escala, material e experiência estética"
+  ],
+  "enunciado": "OHTAKE, T. Escultura em homenagem aos 100 anos da imigração japonesa. Aço-carbono, 15 × 20 m. Parque Municipal Roberto Mário Santini, Santos, 2008.\n\nDisponível em: https://casacor.abril.com.br. Acesso em: 26 dez. 2024.\n\nTomie Ohtake é uma artista nipo-brasileira reconhecida por suas esculturas monumentais. Essa obra, exposta na orla de Santos, em São Paulo, caracteriza-se pela",
+  "imagens": [
+    {
+      "id": "escultura-ohtake",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-09-ohtake.png",
+      "alt": "Escultura monumental vermelha de formas curvas e vazadas, instalada na orla de Santos, com o mar e prédios ao fundo.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "pagina": 6,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "recuperação da função original de espaços museológicos."
+    },
+    {
+      "id": "B",
+      "texto": "sobreposição ao conjunto arquitetônico da cidade de Santos."
+    },
+    {
+      "id": "C",
+      "texto": "representação de aspectos da vida marinha de forma figurativa."
+    },
+    {
+      "id": "D",
+      "texto": "retomada da estética concretista para retratar a paisagem natural."
+    },
+    {
+      "id": "E",
+      "texto": "democratização da arte por meio de sua integração com o espaço urbano."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "A escultura não recupera a função de museus; ela ocupa a orla e se integra ao cotidiano da cidade.",
+    "B": "A obra não se sobrepõe à arquitetura: dialoga com a paisagem e com o espaço público, sem dominar o conjunto urbano.",
+    "C": "As formas são abstratas e curvas, não uma representação figurativa da vida marinha.",
+    "D": "Ainda que retome procedimentos construtivos, a obra não tem como objetivo retratar a paisagem natural de modo concretista.",
+    "E": "Ao instalar uma escultura monumental em espaço aberto e acessível, a obra amplia o contato do público com a arte e democratiza sua experiência."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A escultura de Tomie Ohtake sai do museu e ocupa a orla de Santos. Sua escala, seu recorte vazado e sua presença na paisagem transformam o espaço urbano em lugar de experiência estética coletiva."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "escultura-ohtake",
+      "legenda": "Tomie Ohtake, escultura em homenagem aos 100 anos da imigração japonesa, Santos."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação nacional (D5)",
+      "numeroQuestao": 9,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

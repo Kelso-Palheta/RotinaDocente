@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d5-arte-42",
+  "ano": 2025,
+  "aplicacoes": [
+    "reaplicacao"
+  ],
+  "tema": "Zabé da Loca, pífano e transmissão de saber musical",
+  "habilidades": [
+    "Reconhecer práticas de transmissão cultural",
+    "Relacionar trajetória artística e patrimônio imaterial"
+  ],
+  "enunciado": "TEXTO I\n\nZabé da Loca tinha a leveza do sopro e a força do vento. Nasceu Isabel Marques da Silva, em 1925. As adversidades da vida, a pobreza e a miséria a obrigaram a viver por mais de 20 anos numa gruta, numa loca, como é dito em sua terra, a Paraíba. Virou Zabé da Loca, para abreviar. Não era muito de conversa, mas dava seu recado nas notas fortes de um pífano, instrumento tipicamente nordestino que a acompanhava desde os 6 anos de idade. Gravou disco, ganhou prêmios e até uma casa na cidade onde viveu, Monteiro, a 300 quilômetros da capital, João Pessoa. Incansável, criou em sua cidade um projeto no qual ensinou 80 crianças do sertão paraibano a espalharem melodias com a pequena flauta.\n\nCORREIA FILHO, J. Sopro de resistência. Página 22, n. 50, mar. 2011. São Paulo: FGV (adaptado).\n\nTEXTO II\n\nFoto: Reprodução/TV Globo/Arquivo\n\nDisponível em: www.g1.globo.com. Acesso em: 30 out. 2025 (adaptado).\n\nZabé da Loca tornou-se uma referência artística e educacional para a cultura brasileira, o que é evidenciado pela",
+  "imagens": [
+    {
+      "id": "zabe-da-loca",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-42-zabe.png",
+      "alt": "Fotografia de Zabé da Loca, mulher idosa com lenço vermelho na cabeça, tocando um pífano.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "pagina": 18,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "transferência de conhecimento musical autodidata para o ensino de instrumento de sopro."
+    },
+    {
+      "id": "B",
+      "texto": "valorização dos saberes formais na arte de tocar pífano na produção musical da artista."
+    },
+    {
+      "id": "C",
+      "texto": "salvaguarda do repertório da música formal por meio de um instrumento de sopro."
+    },
+    {
+      "id": "D",
+      "texto": "sistematização de uma proposta educacional de ensino de instrumento musical."
+    },
+    {
+      "id": "E",
+      "texto": "visibilidade alcançada ao se mudar para a cidade de Monteiro, na Paraíba."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Zabé aprendeu sozinha e criou um projeto para ensinar 80 crianças a tocar pífano, transmitindo um saber musical autodidata.",
+    "B": "Sua prática é autodidata e ligada à tradição oral, não à valorização de saberes formais.",
+    "C": "O pífano e o repertório de Zabé pertencem à música popular nordestina, não à música formal.",
+    "D": "Ela criou um projeto de ensino, mas o texto não descreve uma proposta educacional sistematizada; o destaque é a transmissão do saber.",
+    "E": "A visibilidade artística decorre de sua trajetória e gravações, não da mudança para Monteiro."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Zabé da Loca transformou uma prática autodidata em ação formativa: ensinou crianças do sertão a tocar pífano. O reconhecimento como referência artística e educacional está ligado a essa transmissão de saber."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "zabe-da-loca",
+      "legenda": "Zabé da Loca tocando pífano."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação nacional (D5)",
+      "numeroQuestao": 42,
+      "pagina": 18,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D5_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D5_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

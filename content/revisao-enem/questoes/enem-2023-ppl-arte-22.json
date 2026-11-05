@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-ppl-arte-22",
+  "ano": 2023,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Basquiat, arte urbana e diálogo com a tradição brasileira",
+  "habilidades": [
+    "Relacionar características da obra de Basquiat à produção brasileira",
+    "Reconhecer hibridismos na arte contemporânea"
+  ],
+  "enunciado": "Basquiat representa uma das classes da sociedade americana às quais as barreiras sociais impedem, geralmente, o acesso à arte. Os seus quadros, objetos pictóricos e desenhos apresentam-se cheios de sinais, transcrições de textos e elementos figurativos, encadeados em ritmos pictóricos de uma precisão empolgante — um misto de pintura gráfica, símbolos populares americanos, gírias de rua e alusões a obras de arte famosas.\n\nHONNEF, K. Arte contemporânea. São Paulo: 1994 (adaptado).\n\nAs características pictóricas das obras de Basquiat apresentadas no texto aproximam-se das que encontramos no Brasil no",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "conjunto de azulejos da arte barroca."
+    },
+    {
+      "id": "B",
+      "texto": "óleo sobre tela A Batalha do Riachuelo, do artista Victor Meirelles."
+    },
+    {
+      "id": "C",
+      "texto": "painel de pastilhas do mural de rua Imprensa, do artista modernista Di Cavalcanti, localizado na cidade de São Paulo."
+    },
+    {
+      "id": "D",
+      "texto": "óleo sobre tela intitulado Abaporu, da artista modernista Tarsila do Amaral, em São Paulo."
+    },
+    {
+      "id": "E",
+      "texto": "óleo sobre tela do artista modernista Alfredo Volpi."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Os azulejos barrocos são decorativos e ligados à arquitetura religiosa, sem a mistura de sinais, textos e cultura de rua de Basquiat.",
+    "B": "A pintura acadêmica de Victor Meirelles é figurativa e histórica, distante da linguagem gráfica e urbana de Basquiat.",
+    "C": "O mural Imprensa, de Di Cavalcanti, combina arte moderna, cultura popular e espaço urbano, aproximando-se da mistura de sinais e referências de Basquiat.",
+    "D": "Abaporu é uma pintura modernista de formas sintéticas, sem a profusão de textos e símbolos urbanos.",
+    "E": "Volpi trabalha com geometria e cor, não com a colagem de signos, gírias e citações da cultura de massa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Basquiat mistura pintura, escrita, símbolos populares e citações da história da arte. No Brasil, o mural urbano de Di Cavalcanti compartilha essa vocação de levar arte para a rua e misturar linguagens."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 22,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 22,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

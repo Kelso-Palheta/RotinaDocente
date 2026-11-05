@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-38",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Rap indígena, cultura urbana e afirmação de causas originárias",
+  "habilidades": [
+    "Reconhecer hibridismos entre culturas",
+    "Interpretar manifestações artísticas contemporâneas"
+  ],
+  "enunciado": "O mais antigo grupo de rap indígena do país, Brô MCs, surgiu em 2009, na aldeia Jaguapiru, em Dourados, Mato Grosso do Sul. Os integrantes conheceram o rap pelo rádio, ouvindo um programa que apresentava cantores e grupos brasileiros desse gênero musical. O Brô MCs conseguiu influenciar outros a fazerem rap e a lutarem pelas causas indígenas. Um dos nomes do movimento, Kunumí MC, é um jovem de 16 anos, da aldeia Krukutu, em São Paulo. O adolescente enxerga o rap como uma cultura da defesa e começou a fazer rimas quando percebeu que a poesia, pela qual sempre se interessou, podia virar música. Nas letras que cria, inspiradas tanto pelo rap quanto pelos ritmos indígenas, tenta incluir sempre assuntos aos quais acha importante dar voz, principalmente, a questão da demarcação de terras.\n\nDisponível em: www.correiobraziliense.com.br. Acesso em: 13 nov. 2021 (adaptado).\n\nO movimento rap dos povos originários do Brasil revela o(a)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "fusão de manifestações artísticas urbanas contemporâneas com a cultura indígena."
+    },
+    {
+      "id": "B",
+      "texto": "contraposição das temáticas socioambientais indígenas às questões urbanas."
+    },
+    {
+      "id": "C",
+      "texto": "rejeição da indústria radiofônica às músicas indígenas."
+    },
+    {
+      "id": "D",
+      "texto": "distanciamento da realidade social indígena."
+    },
+    {
+      "id": "E",
+      "texto": "estímulo ao estudo da poesia indígena."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O rap, manifestação urbana contemporânea, é apropriado por jovens indígenas e se mistura a ritmos e causas originárias, produzindo uma fusão cultural.",
+    "B": "O texto não opõe temáticas indígenas às urbanas; o rap indígena articula as duas dimensões.",
+    "C": "A indústria radiofônica é citada como meio pelo qual os integrantes conheceram o rap, não como instância de rejeição.",
+    "D": "As letras tratam de demarcação de terras e causas indígenas, portanto aproximam-se da realidade social desses povos.",
+    "E": "O movimento estimula a criação poética e musical, mas não é apresentado como estímulo ao estudo acadêmico da poesia indígena."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O rap indígena mostra a cultura indígena em movimento: jovens se apropriam de uma linguagem urbana e a recolocam a serviço de suas causas. O resultado não é cópia nem perda de identidade, mas fusão criativa."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 38,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-regular-arte-23",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte contemporânea, colonialidade e violência na obra de Adriana Varejão",
+  "habilidades": [
+    "Relacionar procedimentos estéticos e contexto histórico",
+    "Interpretar a materialidade como argumento crítico"
+  ],
+  "enunciado": "TEXTO I\n\nOs trabalhos da exposição Adriana Varejão: suturas, fissuras, ruínas colocam em pauta o exame da história visual, das tradições iconográficas europeias e do fazer artístico ocidental. O corte, a rachadura, o talho e a fissura são elementos de narrativas recorrentes nos trabalhos da artista desde 1992. As produções recentes incluem pinturas tridimensionais de grande escala das séries Ruínas de charque e Línguas.\n\nDisponível em: https://pinacoteca.org.br. Acesso em: 10 jan. 2025 (adaptado).\n\nTEXTO II\n\nVAREJÃO, A. Azulejaria em carne viva. Óleo sobre tela, poliuretano, madeira e alumínio, 160 × 200 × 25 cm. 1999.\n\nDisponível em: www.adrianavarejao.net. Acesso em: 10 jan. 2025.\n\nA utilização de recursos visuais como suturas, cortes e ruínas por Adriana Varejão, na obra Azulejaria em carne viva, remete à(s)",
+  "imagens": [
+    {
+      "id": "azulejaria-carne-viva",
+      "arquivo": "imagens/enem-2025-regular-arte-23-azulejaria.png",
+      "alt": "Obra de Adriana Varejão com azulejos brancos e azuis cobrindo a parede; uma grande abertura irregular revela uma massa vermelha que lembra carne.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "pagina": 11,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "sobreposição da cultura brasileira à arte portuguesa."
+    },
+    {
+      "id": "B",
+      "texto": "manutenção da representação realista na arte brasileira."
+    },
+    {
+      "id": "C",
+      "texto": "violências desencadeadas pelo processo colonial brasileiro."
+    },
+    {
+      "id": "D",
+      "texto": "desigualdades nos incentivos à produção artística brasileira."
+    },
+    {
+      "id": "E",
+      "texto": "negligência na conservação do patrimônio arquitetônico luso-brasileiro."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "Não se trata de sobrepor uma cultura a outra: o azulejo português é cortado e ferido, expondo a violência da colonização.",
+    "B": "A obra rompe com a representação realista ao combinar azulejo, relevo e matéria orgânica; não a mantém.",
+    "C": "O azulejo, símbolo da tradição portuguesa, é rasgado e mostra uma carne vermelha, metaforizando a violência e as feridas do processo colonial.",
+    "D": "O texto e a obra não abordam financiamento ou desigualdade de incentivos à produção artística.",
+    "E": "A obra não denuncia abandono de patrimônio arquitetônico; usa o azulejo como linguagem para tratar da história colonial."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Adriana Varejão usa o azulejo — marca da presença portuguesa no Brasil — como pele que se abre e sangra. A sutura, o corte e a ruína tornam visível a violência histórica da colonização, transformando a superfície decorativa em ferida."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "azulejaria-carne-viva",
+      "legenda": "Adriana Varejão, Azulejaria em carne viva, 1999."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 23,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

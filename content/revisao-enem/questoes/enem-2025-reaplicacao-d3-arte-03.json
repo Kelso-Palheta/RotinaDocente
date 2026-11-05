@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-reaplicacao-d3-arte-03",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Cartum, ironia e crítica à imediatismo na educação",
+  "habilidades": [
+    "Interpretar recursos de humor e ironia",
+    "Relacionar texto verbal e imagem em cartum"
+  ],
+  "enunciado": "GLASBERGEN. Disponível em: www.glasbergen.com. Acesso em: 2 out. 2015 (adaptado).\n\nEsse cartum, que ilustra uma situação escolar, busca",
+  "imagens": [
+    {
+      "id": "cartum-glasbergen",
+      "arquivo": "imagens/enem-2025-reaplicacao-arte-03-glasbergen.png",
+      "alt": "Cartum com uma criança e uma professora diante de um quadro-negro; a criança diz que a educação levará 13 anos para ser instalada, comparando a escola a um software obsoleto.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "pagina": 2,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "revelar a imaturidade emocional dos estudantes."
+    },
+    {
+      "id": "B",
+      "texto": "criticar o imediatismo da sociedade contemporânea."
+    },
+    {
+      "id": "C",
+      "texto": "apontar a hierarquização das relações educacionais."
+    },
+    {
+      "id": "D",
+      "texto": "denunciar o sucateamento dos recursos tecnológicos."
+    },
+    {
+      "id": "E",
+      "texto": "evidenciar a desatualização dos métodos pedagógicos."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O cartum não trata de imaturidade infantil; a fala é uma analogia crítica feita pela criança.",
+    "B": "A comparação da educação a um software que demora 13 anos para instalar ironiza a expectativa de resultados imediatos e a velocidade da sociedade contemporânea.",
+    "C": "Não há crítica à hierarquia entre professora e aluna; o alvo é a lógica da instantaneidade.",
+    "D": "O cartum não denuncia falta de recursos tecnológicos, e sim usa a linguagem da tecnologia para criticar a impaciência.",
+    "E": "A crítica não é à desatualização dos métodos, mas à cobrança de rapidez aplicada à formação educacional."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O humor do cartum nasce da comparação entre educação e instalação de software. Ao tratar o aprendizado como algo que deveria ser rápido e automático, a imagem critica o imediatismo da sociedade contemporânea."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "cartum-glasbergen",
+      "legenda": "Cartum de Glasbergen sobre a escola."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — Aplicação especial Belém/Ananindeua/Marituba (D3)",
+      "numeroQuestao": 3,
+      "pagina": 2,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D3_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D3_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  },
+  "edicao": "belem-ananindeua-marituba"
+}

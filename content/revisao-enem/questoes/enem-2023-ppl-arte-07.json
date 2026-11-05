@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-ppl-arte-07",
+  "ano": 2023,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Jon Lord, fusão entre rock e música erudita",
+  "habilidades": [
+    "Relacionar gêneros musicais e fronteiras estéticas",
+    "Interpretar trajetória artística"
+  ],
+  "enunciado": "Jon Lord, fundador do Deep Purple, era um caso raro na música. Depois de uma carreira bem-sucedida como tecladista de duas das maiores bandas de rock do planeta, aposentou-se em 2002 para compor peças eruditas. Para ele, clássico e popular eram apenas aspectos de uma mesma entidade, a boa música. O caminho era quase natural. Tendo aprendido a tocar os clássicos no piano, Lord apaixonou-se pelo rock ao ouvir Buddy Holly e começou a tocar em combos de jazz, rhythm’n’blues e depois rock. Em 1969, aos 27 anos, ele compôs, com a ajuda do maestro Malcolm Arnold, um Concerto para grupo e orquestra, temperando a estrutura de uma peça erudita com a eletricidade agressiva da fase mais criativa do Deep Purple, a mesma equipe que comporia Smoke on the Water em 1972.\n\nSOARES, M. Jon Lord foi um pioneiro na fusão entre rock e erudito. Disponível em: www1.folha.uol.com.br. Acesso em: 16 nov. 2021 (adaptado).\n\nA circulação do tecladista Jon Lord (1941-2012) entre gêneros aparentemente distantes como o rock e a música erudita foi possível porque ele",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "conheceu muitos países e culturas ao longo das constantes viagens em turnê."
+    },
+    {
+      "id": "B",
+      "texto": "superou eventuais barreiras estéticas ao se abrir para novos estilos musicais."
+    },
+    {
+      "id": "C",
+      "texto": "aventurou-se em novas estéticas musicais após a aposentadoria da banda."
+    },
+    {
+      "id": "D",
+      "texto": "reconheceu a limitação de possibilidades de composição da música popular."
+    },
+    {
+      "id": "E",
+      "texto": "adaptou-se a um repertório musical mais amplo diante do sucesso do grupo."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "As turnês não são apresentadas como causa da fusão; o texto destaca a formação e a abertura musical de Lord.",
+    "B": "Ele aprendeu clássicos no piano, passou pelo jazz e pelo rhythm’n’blues e incorporou a eletricidade do rock à estrutura erudita, superando fronteiras estéticas.",
+    "C": "A fusão começou antes da aposentadoria: o Concerto para grupo e orquestra é de 1969, e Lord se aposentou em 2002.",
+    "D": "Lord não via limitação na música popular; ao contrário, defendia que clássico e popular são aspectos da boa música.",
+    "E": "O texto não atribui a fusão ao sucesso do grupo, mas à trajetória e à concepção musical do artista."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Jon Lord não tratava rock e erudito como mundos incompatíveis. Sua formação clássica e a experiência com jazz e rhythm’n’blues permitiram que ele aproximasse linguagens e criasse uma fusão estética."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 7,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 7,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

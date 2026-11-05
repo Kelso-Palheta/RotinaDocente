@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-regular-arte-13",
+  "ano": 2019,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Teatro moderno, vanguarda e resistência social",
+  "habilidades": [
+    "Interpretar Ironia em texto teatral",
+    "Relacionar vanguarda artística e contexto brasileiro"
+  ],
+  "enunciado": "HELOÍSA: Faz versos?\n\nPINOTE: Sendo preciso... Quadrinhas... Acrósticos... Sonetos... Reclames.\n\nHELOÍSA: Futuristas?\n\nPINOTE: Não senhora! Eu já fui futurista. Cheguei a acreditar na independência... Mas foi uma tragédia! Começaram a me tratar de maluco. A me olhar de esguelha. A não me receber mais. As crianças choravam em casa. Tenho três filhos. No jornal também não pagavam, devido à crise. Precisei viver de bicos. Ah! Reneguei tudo. Arranjei aquele instrumento (Mostra a faca) e fiquei passadista.\n\nANDRADE, O. O rei da vela. São Paulo: Globo, 2003.\n\nO fragmento da peça teatral de Oswald de Andrade ironiza a reação da sociedade brasileira dos anos 1930 diante de determinada vanguarda europeia. Nessa visão, atribui-se ao público leitor uma postura",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "preconceituosa, ao evitar formas poéticas simplificadas."
+    },
+    {
+      "id": "B",
+      "texto": "conservadora, ao optar por modelos consagrados."
+    },
+    {
+      "id": "C",
+      "texto": "preciosista, ao preferir modelos literários eruditos."
+    },
+    {
+      "id": "D",
+      "texto": "nacionalista, ao negar modelos estrangeiros."
+    },
+    {
+      "id": "E",
+      "texto": "eclética, ao aceitar diversos estilos poéticos."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "O público não evita formas simplificadas: ele rejeita a novidade futurista e prefere o que já está consagrado.",
+    "B": "Pinote abandona o futurismo e volta ao passadismo para ser aceito; a peça ironiza um público conservador, que rejeita a vanguarda e escolhe modelos consagrados.",
+    "C": "A recusa não é por erudição, pois o futurismo também era uma vanguarda letrada; o critério é o conservadorismo diante do novo.",
+    "D": "A rejeição não se dá por nacionalismo: o alvo é a vanguarda europeia, mas a postura do público é de acomodação ao gosto estabelecido.",
+    "E": "O público não é eclético; ele rejeita o futurismo e força o artista a voltar ao passado."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O trecho de O rei da vela satiriza o destino social das vanguardas no Brasil. O artista futurista é tratado como louco e precisa retomar a arte passadista para sobreviver, revelando o conservadorismo do público."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 13,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

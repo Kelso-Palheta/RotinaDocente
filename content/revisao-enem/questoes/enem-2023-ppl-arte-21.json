@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-ppl-arte-21",
+  "ano": 2023,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Vik Muniz, Arcimboldo e o diálogo com a tradição",
+  "habilidades": [
+    "Comparar obras de épocas diferentes",
+    "Interpretar procedimentos de citação e paródia"
+  ],
+  "enunciado": "TEXTO I\n\nVIK MUNIZ. Segundo Warhol: dupla Mona Lisa. Fotografia da composição, realizada com geleia e pasta de amendoim. MAC Lima, Peru, 1999.\n\nDisponível em: www.artnet.com. Acesso em: 1 nov. 2022.\n\nTEXTO II\n\nARCIMBOLDO, G. Vertumnus (Imperador Rodolfo II). Óleo sobre painel de madeira, 70 x 57 cm. Castelo Skokloster, Suécia, circa 1590.\n\nDisponível em: www.aventurasnahistoria.uol.com.br. Acesso em: 16 fev. 2023.\n\nProduzidas com mais de 400 anos de diferença, as obras de Vik Muniz e Giuseppe Arcimboldo têm em comum a referência a alimentos. Contudo, enquanto na obra de Arcimboldo os alimentos fazem parte de um jogo de representação, em Muniz, são empregados como matéria-prima, sinalizando uma",
+  "imagens": [
+    {
+      "id": "muniz-mona-lisa",
+      "arquivo": "imagens/enem-2023-ppl-arte-21-muniz.png",
+      "alt": "Obra de Vik Muniz com duas versões da Mona Lisa lado a lado, formadas por materiais comestíveis em tons de marrom e dourado.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 11,
+      "revisada": true
+    },
+    {
+      "id": "arcimboldo-vertumnus",
+      "arquivo": "imagens/enem-2023-ppl-arte-21-arcimboldo.png",
+      "alt": "Pintura de Arcimboldo em que o rosto de Vertumnus é composto por frutas, flores e vegetais.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 11,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "composição minimalista em contraposição aos excessos do Barroco."
+    },
+    {
+      "id": "B",
+      "texto": "forma de questionar a importância do cânone na pintura de Leonardo Da Vinci."
+    },
+    {
+      "id": "C",
+      "texto": "provocação sobre as mudanças de hábitos alimentares com o passar dos séculos."
+    },
+    {
+      "id": "D",
+      "texto": "intenção parodística, estabelecendo um diálogo entre a Pop Art e a tradição."
+    },
+    {
+      "id": "E",
+      "texto": "reafirmação da estética renascentista revisitada pela contemporaneidade."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A obra de Muniz não é minimalista; ela usa excesso de material e citação para construir a imagem.",
+    "B": "Muniz não questiona a importância de Leonardo: ele apropria-se da Mona Lisa para dialogar com a história da arte.",
+    "C": "A referência aos alimentos não trata de mudanças de hábitos alimentares, mas de procedimento artístico e citação.",
+    "D": "Muniz retoma a Mona Lisa com materiais inusitados e a obra de Arcimboldo com humor, numa paródia que aproxima Pop Art e tradição.",
+    "E": "A obra não reafirma a estética renascentista; ela a revisita criticamente por meio da paródia e da cultura de massa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Vik Muniz cita a Mona Lisa e Arcimboldo para brincar com a história da arte. A paródia não é desrespeito: é um modo contemporâneo de dialogar com a tradição, típico da Pop Art."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "muniz-mona-lisa",
+      "legenda": "Vik Muniz, Segundo Warhol: dupla Mona Lisa, 1999."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "arcimboldo-vertumnus",
+      "legenda": "Giuseppe Arcimboldo, Vertumnus, c. 1590."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 21,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 21,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

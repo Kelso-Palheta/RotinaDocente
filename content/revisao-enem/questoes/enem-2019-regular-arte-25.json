@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-regular-arte-25",
+  "ano": 2019,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Carnaval, samba-enredo e diálogo entre culturas musicais",
+  "habilidades": [
+    "Interpretar manifestações da cultura popular",
+    "Relacionar samba e música nordestina"
+  ],
+  "enunciado": "Com o enredo que homenageou o centenário do Rei do Baião, Luiz Gonzaga, a Unidos da Tijuca foi coroada no Carnaval 2012.\n\nA penúltima escola a entrar na Sapucaí, na segunda noite de desfiles, mergulhou no universo do cantor e compositor brasileiro e trouxe a cultura nordestina com criatividade para a Avenida, com o enredo O dia em que toda a realeza desembarcou na Avenida para coroar o Rei Luiz do Sertão.\n\nDisponível em: www.cultura.rj.gov.br. Acesso em: 15 maio 2012 (adaptado).\n\nA notícia relata um evento cultural que marca a",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "primazia do samba sobre a música nordestina."
+    },
+    {
+      "id": "B",
+      "texto": "inter-relação entre dois gêneros musicais brasileiros."
+    },
+    {
+      "id": "C",
+      "texto": "valorização das origens oligárquicas da cultura nordestina."
+    },
+    {
+      "id": "D",
+      "texto": "proposta de resgate de antigos gêneros musicais brasileiros."
+    },
+    {
+      "id": "E",
+      "texto": "criatividade em compor um samba-enredo em homenagem a uma pessoa."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A escola não afirma a primazia do samba sobre a música nordestina; ela aproxima as duas tradições.",
+    "B": "O samba-enredo da Unidos da Tijuca homenageia Luiz Gonzaga e incorpora a cultura nordestina, evidenciando a inter-relação entre samba e baião.",
+    "C": "A homenagem valoriza a cultura popular nordestina, não origens oligárquicas.",
+    "D": "Não se trata de resgatar gêneros antigos, mas de celebrar um artista e sua cultura no Carnaval.",
+    "E": "A criatividade do samba-enredo existe, mas a alternativa reduz o evento à homenagem a uma pessoa, deixando de lado o encontro entre gêneros."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O desfile da Unidos da Tijuca coloca o samba-enredo em diálogo com o baião de Luiz Gonzaga. Mais do que homenagear um artista, o Carnaval se torna espaço de encontro entre tradições musicais brasileiras."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 25,
+      "pagina": 12,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

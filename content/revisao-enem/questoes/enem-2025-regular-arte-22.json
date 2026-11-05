@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-regular-arte-22",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte popular, entalhe em madeira e ressignificação da matéria-prima",
+  "habilidades": [
+    "Interpretar a relação entre material e forma na arte popular",
+    "Reconhecer processos de criação artesanal"
+  ],
+  "enunciado": "TEXTO I\n\nA Ilha do Ferro, situada a 18 km do município de Pão de Açúcar, não é uma ilha, como o nome indica. A história do povoado é semelhante à de inúmeros outros que encontramos às margens do Rio São Francisco, entre Alagoas e Sergipe. O que torna diferente o lugar é sua gente. Hoje, dezenas de artistas populares povoam a Ilha do Ferro, trabalhando principalmente com o entalhe em madeira. Onde pessoas comuns enxergariam apenas troncos e galhos retorcidos, eles vislumbram bancos, bonecos, pássaros, cobras e bailarinas. “Às vezes, você passa por um pedaço de madeira uma vez e não vê nada, passa cinco vezes por ele e não vê nada”, conta um dos artistas, “mas, na décima vez, você consegue enxergar alguma forma nesse pedaço de madeira e transformá-lo em arte”.\n\nDisponível em: www.imaterial.art.br. Acesso em: 5 fev. 2025 (adaptado).\n\nTEXTO II\n\nFARIAS, Y. Bailarino entalhado em gravetos de madeira. Artesanato em madeira, 20 × 13 × 51 cm. Ilha do Ferro (AL).\n\nDisponível em: www.nidelins.com.br. Acesso em: 5 fev. 2025.\n\nA originalidade do trabalho dos artistas da Ilha do Ferro se dá pela",
+  "imagens": [
+    {
+      "id": "bailarino-ilha-do-ferro",
+      "arquivo": "imagens/enem-2025-regular-arte-22-bailarino.png",
+      "alt": "Conjunto de pequenas esculturas de bailarinos entalhadas em gravetos, com corpos finos e coloridos sobre bases de madeira.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "pagina": 11,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "reutilização de materiais para redução do impacto ambiental."
+    },
+    {
+      "id": "B",
+      "texto": "ressignificação da matéria-prima atribuindo-lhe nova função."
+    },
+    {
+      "id": "C",
+      "texto": "reprodução em madeira de modelos artísticos canônicos."
+    },
+    {
+      "id": "D",
+      "texto": "representação de práticas corporais da comunidade."
+    },
+    {
+      "id": "E",
+      "texto": "replicação seriada para distribuição em larga escala."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A reutilização de galhos aparece, mas o texto não trata de consciência ambiental nem de redução de impacto; o foco é o olhar que transforma a madeira.",
+    "B": "Os artistas veem formas em troncos e galhos retorcidos e os transformam em bancos, bonecos e bailarinos, atribuindo nova função e sentido à matéria-prima.",
+    "C": "As figuras nascem da forma encontrada no próprio graveto, não da cópia de modelos canônicos da história da arte.",
+    "D": "As esculturas podem remeter a bailarinos, mas o texto não afirma que representem práticas corporais da comunidade.",
+    "E": "O trabalho é artesanal e singular; não há produção em série ou distribuição em larga escala."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Na arte popular da Ilha do Ferro, o entalhe parte da forma já presente no galho. O artista não impõe um modelo externo: ele reconhece uma figura na madeira e a liberta pelo corte, ressignificando o material."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "bailarino-ilha-do-ferro",
+      "legenda": "Y. Farias, Bailarino entalhado em gravetos de madeira."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 22,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

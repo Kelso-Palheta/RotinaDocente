@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2025-regular-arte-45",
+  "ano": 2025,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Ilustração, palavra intraduzível e função do texto verbal",
+  "habilidades": [
+    "Interpretar a relação entre texto verbal e imagem",
+    "Reconhecer funções da linguagem em produções visuais"
+  ],
+  "enunciado": "A artista Marija Tiurina criou uma série chamada Palavras intraduzíveis, com diversas ilustrações detalhadas que transmitem o sentido desses vocábulos, que nenhuma palavra única em outras línguas pode descrever.\n\nROMANZOTI, N. 9 desenhos que ilustram palavras sem tradução para o português. Disponível em: https://hypescience.com. Acesso em: 10 jun. 2019 (adaptado).\n\nO uso do texto verbal nesse desenho assume a função de",
+  "imagens": [
+    {
+      "id": "palavra-gutra",
+      "arquivo": "imagens/enem-2025-regular-arte-45-gutra.png",
+      "alt": "Ilustração de duas mãos em formato de concha segurando água, com uma pequena figura dentro; ao lado, a palavra árabe Gutra e a explicação de seu significado.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "pagina": 19,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "descrever de forma técnica a ilustração."
+    },
+    {
+      "id": "B",
+      "texto": "destacar os múltiplos sentidos do verbete."
+    },
+    {
+      "id": "C",
+      "texto": "explicar o significado da expressão ilustrada."
+    },
+    {
+      "id": "D",
+      "texto": "apresentar termos equivalentes em outras línguas."
+    },
+    {
+      "id": "E",
+      "texto": "apontar para a dificuldade de compreensão do termo."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "O texto não descreve tecnicamente a ilustração; ele traduz o sentido da palavra representada.",
+    "B": "A série trata de palavras intraduzíveis, mas o texto verbal não lista vários sentidos do verbete: explicita um significado.",
+    "C": "A palavra estrangeira e a frase explicativa tornam compreensível o sentido da expressão que a imagem representa.",
+    "D": "O texto não oferece termos equivalentes em outras línguas; justamente afirma que não há palavra única para traduzi-la.",
+    "E": "A explicação não aponta dificuldade de compreensão: ela resolve essa dificuldade ao dizer o que a expressão significa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A ilustração representa o sentido de uma palavra intraduzível, e o texto verbal funciona como legenda explicativa: ele nomeia a expressão e esclarece seu significado para o leitor."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "palavra-gutra",
+      "legenda": "Marija Tiurina, ilustração da série Palavras intraduzíveis."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul — 1º dia",
+      "numeroQuestao": 45,
+      "pagina": 19,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2025_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

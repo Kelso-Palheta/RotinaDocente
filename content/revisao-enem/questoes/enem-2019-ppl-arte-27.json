@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-ppl-arte-27",
+  "ano": 2019,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Mercado de arte contemporânea e produção de novidade",
+  "habilidades": [
+    "Interpretar crítica ao funcionamento do mercado de arte",
+    "Relacionar arte contemporânea e consumo"
+  ],
+  "enunciado": "Para que a passagem da produção ininterrupta de novidade a seu consumo seja feita continuamente, há necessidade de mecanismos, de engrenagens.\n\nUma espécie de grande máquina industrial, incitante, tentacular, entra em ação. Mas bem depressa a simples lei da oferta e da procura segundo as necessidades não vale mais: é preciso excitar a demanda, excitar o acontecimento, provocá-lo, espicaçá-lo, fabricá-lo, pois a modernidade se alimenta disso.\n\nCAUQUELIN, A. Arte contemporânea: uma introdução. São Paulo: Martins Fontes, 2005 (adaptado).\n\nNo contexto da arte contemporânea, o texto da autora Anne Cauquelin reflete ações que explicitam",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "métodos utilizados pelo mercado de arte."
+    },
+    {
+      "id": "B",
+      "texto": "investimentos realizados por mecenas."
+    },
+    {
+      "id": "C",
+      "texto": "interesses do consumidor de arte."
+    },
+    {
+      "id": "D",
+      "texto": "práticas cotidianas do artista."
+    },
+    {
+      "id": "E",
+      "texto": "fomentos públicos à cultura."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O texto descreve a máquina que produz e estimula o consumo de novidades, ou seja, os métodos do mercado de arte para criar demanda.",
+    "B": "Mecenato é patrocínio, não a engrenagem de produção e consumo de novidade descrita.",
+    "C": "O texto não parte dos interesses do consumidor: mostra como a demanda é excitada e fabricada pelo mercado.",
+    "D": "A ênfase está nos mecanismos de circulação e consumo, não nas práticas cotidianas do artista.",
+    "E": "Não se trata de fomento público, mas de uma lógica comercial de produção de novidade."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Anne Cauquelin descreve o mercado de arte como uma máquina que não apenas responde à procura, mas fabrica novidades e excita o desejo de consumo. A arte contemporânea passa a operar nessa engrenagem de produção e circulação."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 27,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 27,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/ppl/2019/gabaritos/gabarito_1_dia_caderno_1_azul_2_aplicacao.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}
