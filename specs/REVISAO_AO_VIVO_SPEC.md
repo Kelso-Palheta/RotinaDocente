@@ -166,3 +166,11 @@ Complemento de revisão (RV-REV-01): imagens podem chegar como registro `{id, ar
 2. Transporte, pontuação e integração passam por decisão registrada antes do respectivo código.
 3. Testes novos RED → GREEN; não editar/apagar testes existentes para passar. Agentes entregam sem commit/push/deploy, deixando diff e relatório para revisão.
 4. Integração só publica após revisão própria, suíte, lint das alterações, build e ensaio ponta a ponta. Não declarar acervo completo nem capacidade sem relatório correspondente.
+
+## 8. Integração autorizada — 05/11/2026
+
+Executar `docs/plans/2026-11-05-revisao-integracao-design.md` e plano correspondente. SSE autenticado sobre Firestore Admin é a escolha para o deploy atual, com conexões renováveis de 240s e `maxDuration=300`. Respostas não escrevem estado comum e não geram fanout para todos os alunos. Revisões docentes isoladas por UID e hash da fonte em coleção nova exclusiva do servidor. Comandos incluem revisão/rodada esperadas; transações revalidam vínculo/prazo e tornam recibo/pontos idempotentes. Acerto vale 1.000 pontos, sem bônus de velocidade, empates com mesma posição. Teto inicial proposto: 100 alunos elegíveis, sujeito ao ensaio isolado e relatório, sem alegação de homologação em produção/rede escolar. Ranking discente limitado a top 10 e sua posição.
+
+Entradas reais: `/revisao`, `/revisao/sala/[codigo]`, `/revisao/projecao/[codigo]` e `/aluno/revisao`, com atalhos no Hub e Portal. Os nove módulos/entitlements prévios permanecem intactos; novo módulo exige identidade docente válida. Sem Firebase Blaze, serviço adicional ou dependência npm nova. Edição docente limitada a texto, alternativas, explicações e conteúdo; preservar identidade/fontes/imagens oficiais e não simular revisão humana.
+
+A impressão de revisão inclui os bytes do JSON e de todas as imagens declaradas. Sala antiga não pode servir imagem de fonte divergente; falhar de forma segura e orientar nova conferência/sala. Imagens anunciadas no DTO permanecem autorizáveis após a finalização. O empacotamento deve incluir somente o acervo privado necessário, excluir credenciais/arquivos locais e não inserir questões completas no JavaScript do navegador. Guia operacional: `docs/guias/revisao-ao-vivo.md`.

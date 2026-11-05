@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
+import { AcessoRevisao } from '@/components/revisao/AcessoRevisao';
 import { DevolutivasAluno } from '@/components/aluno/DevolutivasAluno';
 import { montarHistoricoFeedback, rotuloPeriodo } from '@/dominio/atividades/correcaoManual';
 import { BimestreCard } from '@/components/aluno/BimestreCard';
@@ -238,6 +239,8 @@ export default function AlunoNotasPage() {
   return (
     <div className="min-h-screen bg-[#f3f7f5] font-sans selection:bg-[#0f766e] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
+        <AcessoRevisao aluno />
+
         {/* Header de Navegação */}
         <div className="flex items-center justify-between mb-6">
           <button 

@@ -1,6 +1,11 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ['firebase-admin'],
+  outputFileTracingRoot: path.resolve(fileURLToPath(new URL('..', import.meta.url))),
+  outputFileTracingIncludes: { '/api/revisao/*': ['../content/revisao-enem/**/*'] },
   async headers() {
     return [
       {

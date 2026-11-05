@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
+import { AcessoRevisao } from "@/components/revisao/AcessoRevisao";
 import { PLATFORM_MODULES } from "@/config/modules";
 import { temAcessoAoModulo } from "@/utils/hasModule";
 import { PLANOS_CONFIG } from "@/config/planos";
@@ -240,6 +241,8 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
+        <AcessoRevisao />
 
         {/* Seção de Módulos */}
         <div>

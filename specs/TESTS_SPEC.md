@@ -486,3 +486,15 @@ RV-REV-03: testes independentes `RevisaoVisualIndependente.test.jsx` e `revisao_
 - LINT-04: banco PEI preserva o rascunho manual ao fechar/reabrir; respostas atrasadas de outra conta ou repositório não substituem os alunos atuais.
 - LINT-05: inicialização do perfil aguarda dados externos, encerra carregamento em falha e ignora respostas após desmontagem/logout/troca de sessão; nenhuma alteração na política de planos, permissões ou notas.
 - LINT-06: restauração dos vínculos do aluno e detecção de voz respeitam hidratação; conteúdo inválido no armazenamento não quebra a página.
+
+### Revisão ao Vivo — integração (RV-INT, 05/11/2026)
+
+- RV-INT-01: transições válidas, revisão e rodada esperadas, prazo servidor, empate sem bônus.
+- RV-INT-02: professor proprietário; aluno com cookie, vínculo/cadastro atual e roster; revogação e CSRF negados.
+- RV-INT-03: nenhuma questão futura/gabarito antecipado/identidade sensível nos DTOs; catálogo/imagens privados, caminhos inválidos negados.
+- RV-INT-04: recibo idempotente e resposta imutável; rajadas não duplicam pontos; resposta tardia e contexto antigo sem efeito.
+- RV-INT-05: SSE libera listeners/timers no cancelamento, reconecta e retoma recibo; controlador invalida requisições antigas e retry preserva alternativa.
+- RV-INT-06: revisão docente vinculada ao hash, quatro confirmações, dados corrigidos congelados; rascunhos não são elegíveis.
+- RV-INT-07: acesso pelo Hub/Portal, fluxos completos e projeção; ensaio isolado progressivo em duas instâncias com métricas e limites explícitos.
+
+RV-INT-03/06 complementares: `revisao_imagem_congelada.test.js` e `revisao_http_imagem_congelada.test.js` reproduzem RED antes da proteção de hash/fase final; `revisao_fluxo_http.test.js` combina autenticação/sessão HMAC, serviço, handler e recibo SSE no fluxo pedagógico completo. Inspeção do manifesto NFT de produção deve confirmar acervo integral privado e ausência de `.env`, chave administrativa, arquivos de documentação/configuração e acervo nos chunks clientes. Ensaio real Firestore isolado: adaptador, capacidade/idempotência e níveis progressivos de 25/50/100 participantes, sem escritas de produção.
