@@ -69,7 +69,7 @@ beforeEach(() => {
   m.docs.length = 0;
 });
 
-const faixaDecorativa = (doc) => doc.__faixas.find((faixa) => faixa.cor?.join(',') === '15,118,110');
+const faixaDecorativa = (doc) => doc.__faixas.find((faixa) => faixa.cor?.join(',') === '99,21,217');
 
 const limites = (chamada) => {
   if (chamada.opcoes?.align === 'right') return [chamada.x - chamada.largura, chamada.x];

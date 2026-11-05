@@ -60,20 +60,20 @@ export function BotaoLeitorVoz({ texto, rate = 1.0, label = 'Ouvir', className =
       onClick={handleToggle}
       className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
         isPlaying
-          ? 'bg-[#F3F8F5] text-[#0B5F59] border border-[#D5E3DC] animate-pulse'
-          : 'bg-[#f3f7f5] text-[#123c3a] border border-[#d5e3dc] hover:bg-[#f3f7f5] hover:border-[#a9c9bc]'
+          ? 'bg-[#F3EDFF] text-[#5411B8] border border-[#E2D9F7] animate-pulse'
+          : 'bg-[#f3edff] text-[#25104a] border border-[#e2d9f7] hover:bg-[#f3edff] hover:border-[#a9c9bc]'
       } ${className}`}
       title={isPlaying ? 'Parar leitura por voz' : 'Ouvir texto em voz alta com sintetizador acessível'}
       aria-label={isPlaying ? 'Parar leitura por voz' : 'Ouvir texto em voz alta'}
     >
       {isPlaying ? (
         <>
-          <Square size={13} className="text-[#0F766E] fill-[#0F766E]" />
+          <Square size={13} className="text-[#6315D9] fill-[#6315D9]" />
           <span>Parar</span>
         </>
       ) : (
         <>
-          <Volume2 size={13} className="text-[#0f766e]" />
+          <Volume2 size={13} className="text-[#6315d9]" />
           <span>{label}</span>
         </>
       )}

@@ -118,10 +118,10 @@ const limitesHorizontais = (chamada) => {
 };
 
 const fundoCabecalho = (doc) =>
-  doc.__faixas.find((f) => f.pagina === 1 && f.cor?.join(',') === '18,60,58' && f.x === 0 && f.y === 0);
+  doc.__faixas.find((f) => f.pagina === 1 && f.cor?.join(',') === '37,16,74' && f.x === 0 && f.y === 0);
 
 const faixaDecorativa = (doc) =>
-  doc.__faixas.find((f) => f.pagina === 1 && f.cor?.join(',') === '15,118,110' && f.x === 0);
+  doc.__faixas.find((f) => f.pagina === 1 && f.cor?.join(',') === '99,21,217' && f.x === 0);
 
 const primeiroCabecalhoTabela = (doc, pagina = 1) =>
   doc.__faixas.find((f) => f.pagina === pagina && f.cor?.join(',') === '243,247,245' && f.style === 'F');

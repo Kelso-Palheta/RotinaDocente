@@ -147,76 +147,76 @@ export default function AlunoLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f7f5] flex items-center justify-center p-4 font-sans selection:bg-[#0f766e] selection:text-white relative overflow-hidden">
+    <div className="min-h-screen bg-[#f3edff] flex items-center justify-center p-4 font-sans selection:bg-[#6315d9] selection:text-white relative overflow-hidden">
       {/* Elementos decorativos sutis */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#0f766e]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#123c3a]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#6315d9]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#25104a]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md bg-white border border-[#d5e3dc] rounded-3xl shadow-xl p-8 z-10">
+      <div className="w-full max-w-md bg-white border border-[#e2d9f7] rounded-3xl shadow-xl p-8 z-10">
         {/* Topo / Voltar */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => router.push('/')}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4f6b63] hover:text-[#123c3a] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5b4b86] hover:text-[#25104a] transition-colors"
           >
             <ArrowLeft size={14} /> Voltar ao Início
           </button>
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#0f766e] bg-[#f3f8f5] border border-[#daebe5] px-2 py-0.5 rounded-full">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#6315d9] bg-[#f3edff] border border-[#e7dbfd] px-2 py-0.5 rounded-full">
             Área do Estudante
           </span>
         </div>
 
         {/* Logo e Cabeçalho */}
         <div className="text-center mb-6">
-          <div className="w-14 h-14 mx-auto mb-3.5 rounded-2xl bg-[#123c3a] border-2 border-[#0f766e]/20 flex items-center justify-center text-white shadow-md shadow-[#123c3a]/10">
-            <GraduationCap size={28} className="text-[#0f766e]" />
+          <div className="w-14 h-14 mx-auto mb-3.5 rounded-2xl bg-[#25104a] border-2 border-[#6315d9]/20 flex items-center justify-center text-white shadow-md shadow-[#25104a]/10">
+            <GraduationCap size={28} className="text-[#6315d9]" />
           </div>
-          <h1 className="font-head text-2xl font-extrabold text-[#123c3a] tracking-tight">
+          <h1 className="font-head text-2xl font-extrabold text-[#25104a] tracking-tight">
             Portal do Aluno
           </h1>
-          <p className="text-xs text-[#4f6b63] mt-1">
+          <p className="text-xs text-[#5b4b86] mt-1">
             Consulte seu boletim, redações corrigidas e atividades
           </p>
         </div>
 
         {vinculos ? (
           <div className="space-y-4">
-            <div className="text-left bg-[#f3f7f5] border border-[#d5e3dc] p-4 rounded-2xl">
-              <span className="text-[10px] text-[#4f6b63] font-bold uppercase tracking-wider block">
+            <div className="text-left bg-[#f3edff] border border-[#e2d9f7] p-4 rounded-2xl">
+              <span className="text-[10px] text-[#5b4b86] font-bold uppercase tracking-wider block">
                 Aluno(a) Identificado(a)
               </span>
-              <p className="text-sm font-extrabold text-[#123c3a] mt-0.5 flex items-center gap-1.5">
-                <User size={14} className="text-[#0f766e]" />
+              <p className="text-sm font-extrabold text-[#25104a] mt-0.5 flex items-center gap-1.5">
+                <User size={14} className="text-[#6315d9]" />
                 {alunoBase?.nome}
               </p>
             </div>
 
-            <p className="text-xs font-bold text-[#4f6b63] uppercase tracking-wider mb-2 text-left font-head">
+            <p className="text-xs font-bold text-[#5b4b86] uppercase tracking-wider mb-2 text-left font-head">
               Selecione o Professor / Turma:
             </p>
 
             <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
               {vinculos.map((v) => (
-                <div key={v.id || v.professorUid} className="p-4 bg-white border border-[#d5e3dc] hover:border-[#0f766e]/40 rounded-2xl shadow-2xs transition-all flex flex-col gap-3">
+                <div key={v.id || v.professorUid} className="p-4 bg-white border border-[#e2d9f7] hover:border-[#6315d9]/40 rounded-2xl shadow-2xs transition-all flex flex-col gap-3">
                   <div>
-                    <p className="font-extrabold text-[#123c3a] text-sm truncate font-head">
+                    <p className="font-extrabold text-[#25104a] text-sm truncate font-head">
                       Professor(a) {v.nomeProfessor}
                     </p>
-                    <p className="text-xs text-[#4f6b63] mt-0.5 font-medium">
+                    <p className="text-xs text-[#5b4b86] mt-0.5 font-medium">
                       Turma: {v.turmaNome || v.turmaId}
                     </p>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleSelectVinculo(v, false)}
-                      className="flex-1 bg-[#123c3a] hover:bg-[#0a2a27] text-white text-xs font-bold py-2 px-3 rounded-xl transition-all text-center flex items-center justify-center gap-1 shadow-2xs"
+                      className="flex-1 bg-[#25104a] hover:bg-[#180a30] text-white text-xs font-bold py-2 px-3 rounded-xl transition-all text-center flex items-center justify-center gap-1 shadow-2xs"
                     >
                       <BookOpen size={13} />
                       <span>Ver Notas</span>
                     </button>
                     <button
                       onClick={() => handleSelectVinculo(v, true)}
-                      className="flex-1 bg-[#f3f8f5] hover:bg-[#daebe5] text-[#0b5f59] border border-[#daebe5] text-xs font-bold py-2 px-3 rounded-xl transition-all text-center flex items-center justify-center gap-1"
+                      className="flex-1 bg-[#f3edff] hover:bg-[#e7dbfd] text-[#5411b8] border border-[#e7dbfd] text-xs font-bold py-2 px-3 rounded-xl transition-all text-center flex items-center justify-center gap-1"
                     >
                       <PenTool size={13} />
                       <span>Redação</span>
@@ -236,7 +236,7 @@ export default function AlunoLoginPage() {
                   sessionStorage.removeItem('aluno_login');
                 }
               }} 
-              className="w-full text-center mt-3 text-xs text-[#4f6b63] hover:text-[#123c3a] underline font-semibold"
+              className="w-full text-center mt-3 text-xs text-[#5b4b86] hover:text-[#25104a] underline font-semibold"
             >
               Entrar com outro usuário
             </button>
@@ -244,7 +244,7 @@ export default function AlunoLoginPage() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-[#4f6b63] uppercase tracking-wider mb-1.5 text-left font-head">
+              <label className="block text-xs font-bold text-[#5b4b86] uppercase tracking-wider mb-1.5 text-left font-head">
                 Código de Acesso do Aluno
               </label>
               <input
@@ -252,13 +252,13 @@ export default function AlunoLoginPage() {
                 value={login}
                 onChange={(e) => { setLogin(e.target.value); setErro(''); }}
                 placeholder="Ex: maria1503 (1º nome + DDMM)"
-                className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-2xl px-4 py-3.5 text-sm text-[#123c3a] placeholder-[#566f65] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all font-mono font-bold"
+                className="w-full bg-[#f3edff] border border-[#e2d9f7] rounded-2xl px-4 py-3.5 text-sm text-[#25104a] placeholder-[#6e5f94] outline-none focus:bg-white focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all font-mono font-bold"
                 autoFocus
                 disabled={loading}
               />
-              <p className="text-[11px] text-[#4f6b63] mt-2 text-left leading-relaxed">
+              <p className="text-[11px] text-[#5b4b86] mt-2 text-left leading-relaxed">
                 {INSTRUCAO_ACESSO}<br />
-                Exemplo: <span className="font-mono text-[#123c3a] font-bold">{EXEMPLO_ACESSO}</span><br />
+                Exemplo: <span className="font-mono text-[#25104a] font-bold">{EXEMPLO_ACESSO}</span><br />
                 {NOTA_COLISAO}
               </p>
             </div>

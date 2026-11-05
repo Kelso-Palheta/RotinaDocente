@@ -8,44 +8,44 @@
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Modo Claro (Padrão Rotina Docente) */
-  --bg-app: #f3f7f5;
+  --bg-app: #f3edff;
   --bg-surface: #ffffff;
-  --bg-surface-subtle: #f3f7f5;
+  --bg-surface-subtle: #f3edff;
   --bg-card: #ffffff;
-  --bg-card-hover: #f3f7f5;
+  --bg-card-hover: #f3edff;
   
-  --border-color: #d5e3dc;
-  --border-subtle: #f3f7f5;
-  --border-focus: #0f766e;
+  --border-color: #e2d9f7;
+  --border-subtle: #f3edff;
+  --border-focus: #6315d9;
 
-  --text-primary: #123c3a;
-  --text-secondary: #4F6B63;
-  --text-muted: #4f6b63;
+  --text-primary: #25104a;
+  --text-secondary: #5B4B86;
+  --text-muted: #5b4b86;
   --text-inverse: #ffffff;
 
   /* Cores de Destaque da Marca (Landing Page) */
-  --primary: #0f766e;
-  --primary-hover: #0b5f59;
-  --primary-light: #f3f8f5;
-  --primary-border: #daebe5;
+  --primary: #6315d9;
+  --primary-hover: #5411b8;
+  --primary-light: #f3edff;
+  --primary-border: #e7dbfd;
 
-  --navy: #123c3a;
-  --navy-light: #f3f7f5;
-  --navy-border: #d5e3dc;
+  --navy: #25104a;
+  --navy-light: #f3edff;
+  --navy-border: #e2d9f7;
 
-  --danger: #0F766E;
-  --danger-hover: #0B5F59;
-  --danger-light: #F3F8F5;
+  --danger: #6315D9;
+  --danger-hover: #5411B8;
+  --danger-light: #F3EDFF;
 
-  --success: #0F766E;
-  --warning: #0F766E;
-  --info: #0F766E;
+  --success: #6315D9;
+  --warning: #6315D9;
+  --info: #6315D9;
 
   /* Sombras Suaves */
-  --shadow-sm: 0 1px 2px 0 rgba(18, 60, 58, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(18, 60, 58, 0.07), 0 2px 4px -2px rgba(18, 60, 58, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(18, 60, 58, 0.08), 0 4px 6px -4px rgba(18, 60, 58, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(18, 60, 58, 0.1), 0 8px 10px -6px rgba(18, 60, 58, 0.08);
+  --shadow-sm: 0 1px 2px 0 rgba(37, 16, 74, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(37, 16, 74, 0.07), 0 2px 4px -2px rgba(37, 16, 74, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(37, 16, 74, 0.08), 0 4px 6px -4px rgba(37, 16, 74, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(37, 16, 74, 0.1), 0 8px 10px -6px rgba(37, 16, 74, 0.08);
 
   /* Dimensões e Raios */
   --radius-sm: 6px;
@@ -58,26 +58,26 @@
 /* Modo Escuro */
 [data-theme="dark"] {
   --bg-app: #082421;
-  --bg-surface: #123c3a;
+  --bg-surface: #25104a;
   --bg-surface-subtle: #163f3c;
-  --bg-card: #123c3a;
+  --bg-card: #25104a;
   --bg-card-hover: #1e4f4b;
 
   --border-color: #2a5450;
   --border-subtle: #1a4541;
-  --border-focus: #0f766e;
+  --border-focus: #6315d9;
 
-  --text-primary: #F3F8F5;
-  --text-secondary: #D5E3DC;
-  --text-muted: #B7D3C8;
+  --text-primary: #F3EDFF;
+  --text-secondary: #E2D9F7;
+  --text-muted: #B9A6EF;
   --text-inverse: #ffffff;
 
-  --primary: #0f766e;
-  --primary-hover: #0f766e;
-  --primary-light: rgba(15, 118, 110, 0.18);
-  --primary-border: rgba(15, 118, 110, 0.35);
+  --primary: #6315d9;
+  --primary-hover: #6315d9;
+  --primary-light: rgba(99, 21, 217, 0.18);
+  --primary-border: rgba(99, 21, 217, 0.35);
 
-  --danger-light: rgba(15, 118, 110, 0.15);
+  --danger-light: rgba(99, 21, 217, 0.15);
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
@@ -177,7 +177,7 @@ h1, h2, h3, h4, .brand-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.32);
+  box-shadow: 0 2px 8px rgba(99, 21, 217, 0.32);
 }
 
 .brand-title {
@@ -311,12 +311,12 @@ h1, h2, h3, h4, .brand-title {
 .btn-primary {
   background-color: var(--primary);
   color: var(--text-inverse);
-  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.28);
+  box-shadow: 0 2px 8px rgba(99, 21, 217, 0.28);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.38);
+  box-shadow: 0 4px 12px rgba(99, 21, 217, 0.38);
   transform: translateY(-1px);
 }
 
@@ -366,7 +366,7 @@ h1, h2, h3, h4, .brand-title {
   background-color: var(--danger);
   color: white;
   border: 1px solid var(--danger);
-  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
+  box-shadow: 0 2px 6px rgba(99, 21, 217, 0.25);
 }
 
 .btn-danger-solid:hover {
@@ -511,11 +511,11 @@ h1, h2, h3, h4, .brand-title {
   flex-shrink: 0;
 }
 
-.bg-indigo-soft { background-color: rgba(15, 118, 110, 0.12); color: #0f766e; }
-.bg-brand-soft { background-color: rgba(15, 118, 110, 0.12); color: #0f766e; }
-.bg-emerald-soft { background-color: rgba(15, 118, 110, 0.12); color: #0B5F59; }
-.bg-amber-soft { background-color: rgba(15, 118, 110, 0.12); color: #0B5F59; }
-.bg-danger-soft { background-color: rgba(15, 118, 110, 0.12); color: #0B5F59; }
+.bg-indigo-soft { background-color: rgba(99, 21, 217, 0.12); color: #6315d9; }
+.bg-brand-soft { background-color: rgba(99, 21, 217, 0.12); color: #6315d9; }
+.bg-emerald-soft { background-color: rgba(99, 21, 217, 0.12); color: #5411B8; }
+.bg-amber-soft { background-color: rgba(99, 21, 217, 0.12); color: #5411B8; }
+.bg-danger-soft { background-color: rgba(99, 21, 217, 0.12); color: #5411B8; }
 
 .stat-content {
   display: flex;
@@ -691,7 +691,7 @@ h1, h2, h3, h4, .brand-title {
 
 /* Linha de Intervalo / Recreio */
 .row-break td {
-  background-color: rgba(15, 118, 110, 0.06);
+  background-color: rgba(99, 21, 217, 0.06);
   border-bottom: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
   padding: 0.2rem 0.5rem;
@@ -704,7 +704,7 @@ h1, h2, h3, h4, .brand-title {
   gap: 0.4rem;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #0B5F59;
+  color: #5411B8;
 }
 
 /* Célula Comum de Aula */
@@ -807,7 +807,7 @@ h1, h2, h3, h4, .brand-title {
 .badge-room {
   display: inline-flex;
   align-items: center;
-  background-color: rgba(15, 118, 110, 0.08);
+  background-color: rgba(99, 21, 217, 0.08);
   color: var(--primary);
   font-size: 0.65rem;
   font-weight: 600;
@@ -850,19 +850,19 @@ h1, h2, h3, h4, .brand-title {
 }
 
 .slot-break-cell {
-  background-color: rgba(15, 118, 110, 0.06);
+  background-color: rgba(99, 21, 217, 0.06);
   border-bottom: 1px solid var(--border-color);
   padding: 0.2rem 0.5rem;
   text-align: center;
   font-size: 0.72rem;
   font-weight: 600;
-  color: #0B5F59;
+  color: #5411B8;
 }
 
 .schedule-table tbody td.slot-cell.is-current-class {
   outline: 2px solid var(--primary);
   outline-offset: -2px;
-  box-shadow: inset 0 0 8px rgba(15, 118, 110, 0.2);
+  box-shadow: inset 0 0 8px rgba(99, 21, 217, 0.2);
 }
 
 /* Slot Vazio (Placeholder) */
@@ -1019,7 +1019,7 @@ h1, h2, h3, h4, .brand-title {
 .app-dialog-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(18, 60, 58, 0.65);
+  background-color: rgba(37, 16, 74, 0.65);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   z-index: 9999;
@@ -1070,7 +1070,7 @@ dialog.app-dialog[open] {
 }
 
 .app-dialog::backdrop {
-  background-color: rgba(18, 60, 58, 0.65);
+  background-color: rgba(37, 16, 74, 0.65);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -1387,8 +1387,8 @@ dialog.app-dialog[open] {
 }
 
 .slot-item-row.is-break {
-  background-color: rgba(15, 118, 110, 0.08);
-  border-color: rgba(15, 118, 110, 0.25);
+  background-color: rgba(99, 21, 217, 0.08);
+  border-color: rgba(99, 21, 217, 0.25);
 }
 
 .slot-item-row input,
@@ -1498,7 +1498,7 @@ dialog.app-dialog[open] {
 .import-dropzone:hover,
 .import-dropzone.dragover {
   border-color: var(--primary);
-  background-color: rgba(15, 118, 110, 0.2);
+  background-color: rgba(99, 21, 217, 0.2);
   transform: scale(1.01);
 }
 
@@ -1557,7 +1557,7 @@ dialog.app-dialog[open] {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  background-color: #123C3A;
+  background-color: #25104A;
   color: #ffffff;
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-md);

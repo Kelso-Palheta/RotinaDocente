@@ -265,7 +265,7 @@ export function CopiarRecuperacaoModal({
   if (carregando && !erroOrigem) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
-        <p role="status" className="bg-white rounded-2xl border border-[#D5E3DC] px-5 py-4 text-sm text-[#4f6b63]">
+        <p role="status" className="bg-white rounded-2xl border border-[#E2D9F7] px-5 py-4 text-sm text-[#5b4b86]">
           Carregando destinos...
         </p>
       </div>
@@ -292,32 +292,32 @@ export function CopiarRecuperacaoModal({
         aria-label="Copiar recuperação para outra turma"
         tabIndex={-1}
         onKeyDown={aoTeclar}
-        className="w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-white rounded-2xl shadow-lg border border-[#d5e3dc]"
+        className="w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-white rounded-2xl shadow-lg border border-[#e2d9f7]"
       >
-        <header className="sticky top-0 z-10 bg-white border-b border-[#d5e3dc] px-5 py-4 flex items-start justify-between gap-3">
+        <header className="sticky top-0 z-10 bg-white border-b border-[#e2d9f7] px-5 py-4 flex items-start justify-between gap-3">
           <div>
-            <h2 className="text-lg font-bold text-[#123c3a]">Copiar recuperação para outra turma</h2>
-            <p className="text-xs text-[#4f6b63]">A origem fica intacta. A cópia nasce como uma atividade nova no conjunto de destino.</p>
+            <h2 className="text-lg font-bold text-[#25104a]">Copiar recuperação para outra turma</h2>
+            <p className="text-xs text-[#5b4b86]">A origem fica intacta. A cópia nasce como uma atividade nova no conjunto de destino.</p>
           </div>
-          <button type="button" autoFocus onClick={fechar} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#f3f7f5] text-[#123c3a]">Fechar</button>
+          <button type="button" autoFocus onClick={fechar} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#f3edff] text-[#25104a]">Fechar</button>
         </header>
 
         <div className="p-5 space-y-4">
-          {erroOrigem && <p role="alert" className="bg-[#F3F8F5] text-[#123C3A] rounded-xl p-3 text-sm">{erroOrigem.message}</p>}
-          {erro && <p role="alert" className="bg-[#F3F8F5] text-[#123C3A] rounded-xl p-3 text-sm">{erro}</p>}
+          {erroOrigem && <p role="alert" className="bg-[#F3EDFF] text-[#25104A] rounded-xl p-3 text-sm">{erroOrigem.message}</p>}
+          {erro && <p role="alert" className="bg-[#F3EDFF] text-[#25104A] rounded-xl p-3 text-sm">{erro}</p>}
 
           {!erroOrigem && (
-            <div className="border border-[#d5e3dc] rounded-xl p-3 text-sm">
-              <p className="text-[10px] uppercase tracking-wide font-semibold text-[#4f6b63]">Origem</p>
-              <p className="font-semibold text-[#123c3a]">{origem.titulo}</p>
-              <p className="text-xs text-[#4f6b63]">Vale até {pontos(origem.notaMaxima)} pontos · {origem.semestre}º semestre</p>
+            <div className="border border-[#e2d9f7] rounded-xl p-3 text-sm">
+              <p className="text-[10px] uppercase tracking-wide font-semibold text-[#5b4b86]">Origem</p>
+              <p className="font-semibold text-[#25104a]">{origem.titulo}</p>
+              <p className="text-xs text-[#5b4b86]">Vale até {pontos(origem.notaMaxima)} pontos · {origem.semestre}º semestre</p>
             </div>
           )}
 
           {!erroOrigem && !criando && (
             <>
               {!carregando && !avaliacao.elegiveis.length && (
-                <div className="text-sm text-[#4f6b63] bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-3">
+                <div className="text-sm text-[#5b4b86] bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-3">
                   <p>Nenhum conjunto elegível para esta cópia. Crie um conjunto para outra turma ou ajuste o conjunto existente.</p>
                   {motivosIndisponiveis.length > 0 && (
                     <ul className="list-disc pl-5 mt-2 space-y-0.5 text-xs">
@@ -332,7 +332,7 @@ export function CopiarRecuperacaoModal({
               {!!avaliacao.elegiveis.length && (
                 <div className="space-y-3">
                   {avaliacao.elegiveis.length > 1 && (
-                    <label className="block text-xs font-semibold text-[#123c3a]">
+                    <label className="block text-xs font-semibold text-[#25104a]">
                       Conjunto de destino
                       <select
                         aria-label="Conjunto de destino"
@@ -350,17 +350,17 @@ export function CopiarRecuperacaoModal({
                   )}
 
                   {selecionado && (
-                    <div className="border border-[#d5e3dc] rounded-xl p-3 space-y-1">
-                      <p className="text-[10px] uppercase tracking-wide font-semibold text-[#4f6b63]">Destino</p>
-                      <p className="font-semibold text-[#123c3a]">{turmaSelecionada?.nome || selecionado.conjunto.turmaId}</p>
-                      <p className="text-xs text-[#4f6b63]">{selecionado.conjunto.semestre}º semestre · ano {selecionado.conjunto.anoLetivo} · {destinatariosNomes.join(', ')}</p>
-                      <p className={restante === 0 ? 'text-xs text-[#0B5F59]' : 'text-xs text-[#0B5F59]'}>Restam {pontos(restante)} pontos no conjunto de destino.</p>
-                      {!selecionado.cabe && <p className="text-xs font-semibold text-[#123C3A]">Reduza a pontuação das questões na revisão para caber nos {pontos(restante)} pontos disponíveis.</p>}
-                      {fechaDez && <p className="text-xs font-semibold text-[#123C3A]">Esta cópia fechará 10 pontos e o conjunto será liberado para os alunos destinatários.</p>}
+                    <div className="border border-[#e2d9f7] rounded-xl p-3 space-y-1">
+                      <p className="text-[10px] uppercase tracking-wide font-semibold text-[#5b4b86]">Destino</p>
+                      <p className="font-semibold text-[#25104a]">{turmaSelecionada?.nome || selecionado.conjunto.turmaId}</p>
+                      <p className="text-xs text-[#5b4b86]">{selecionado.conjunto.semestre}º semestre · ano {selecionado.conjunto.anoLetivo} · {destinatariosNomes.join(', ')}</p>
+                      <p className={restante === 0 ? 'text-xs text-[#5411B8]' : 'text-xs text-[#5411B8]'}>Restam {pontos(restante)} pontos no conjunto de destino.</p>
+                      {!selecionado.cabe && <p className="text-xs font-semibold text-[#25104A]">Reduza a pontuação das questões na revisão para caber nos {pontos(restante)} pontos disponíveis.</p>}
+                      {fechaDez && <p className="text-xs font-semibold text-[#25104A]">Esta cópia fechará 10 pontos e o conjunto será liberado para os alunos destinatários.</p>}
                     </div>
                   )}
 
-                  <label className="block text-xs font-semibold text-[#123c3a]">
+                  <label className="block text-xs font-semibold text-[#25104a]">
                     Novo prazo
                     <input
                       type="text"
@@ -369,20 +369,20 @@ export function CopiarRecuperacaoModal({
                       placeholder="dd/mm/aaaa hh:mm"
                       className="mt-1 w-full border rounded-lg p-2 text-sm font-normal"
                     />
-                    <span className="block mt-1 text-[11px] font-normal text-[#4f6b63]">Confirme o prazo para o novo público antes de revisar o conteúdo.</span>
+                    <span className="block mt-1 text-[11px] font-normal text-[#5b4b86]">Confirme o prazo para o novo público antes de revisar o conteúdo.</span>
                   </label>
 
                   <button
                     type="button"
                     onClick={revisar}
-                    className="w-full px-4 py-2 rounded-xl bg-[#0f766e] text-white text-sm font-semibold"
+                    className="w-full px-4 py-2 rounded-xl bg-[#6315d9] text-white text-sm font-semibold"
                   >
                     Revisar conteúdo e prazo
                   </button>
                 </div>
               )}
 
-              <button type="button" onClick={() => setCriando(true)} className="w-full px-4 py-2 rounded-xl border border-[#d5e3dc] text-[#123c3a] text-sm font-semibold">
+              <button type="button" onClick={() => setCriando(true)} className="w-full px-4 py-2 rounded-xl border border-[#e2d9f7] text-[#25104a] text-sm font-semibold">
                 Criar novo conjunto
               </button>
             </>

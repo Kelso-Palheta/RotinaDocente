@@ -141,7 +141,7 @@ export function ReferenciaVisual({ onSelecionar, disabled = false }) {
       </p>
       {lendo && <p role="status">Preparando referência…</p>}
       {erro && (
-        <p role="alert" className="text-[#0B5F59]">
+        <p role="alert" className="text-[#5411B8]">
           {erro}
         </p>
       )}

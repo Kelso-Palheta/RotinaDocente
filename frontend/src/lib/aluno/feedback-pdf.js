@@ -7,7 +7,7 @@ export function adicionarHistoricoFeedbackPDF(doc, historico = []) {
   let y;
   const novaPagina = () => {
     doc.addPage();
-    doc.setFillColor(18, 60, 58);
+    doc.setFillColor(37, 16, 74);
     doc.rect(0, 0, width, 18, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);

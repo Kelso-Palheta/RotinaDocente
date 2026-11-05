@@ -13,7 +13,7 @@ export const generatePDF=(content,studentName='Estudante',studentClass='N/A',ess
     for(const line of lines){if(y>height-22){doc.addPage();y=22;}doc.text(line,margin,y);y+=gap;}
     y+=2;
   };
-  escrever('Relatório de Correção ENEM',{size:20,bold:true,color:[18,60,58],gap:8});
+  escrever('Relatório de Correção ENEM',{size:20,bold:true,color:[37, 16, 74],gap:8});
   escrever(`Aluno(a): ${studentName}`,{bold:true});escrever(`Turma: ${studentClass}`);escrever(`Tema: ${essayTheme}`);
   const data=dataRedacao(metadata);
   escrever(`Correção: ${data.getTime()>0?data.toLocaleDateString('pt-BR'):'Data original não informada'}`);
@@ -21,12 +21,12 @@ export const generatePDF=(content,studentName='Estudante',studentClass='N/A',ess
   if(metadata.anoLetivo)escrever(`Ano letivo: ${metadata.anoLetivo} · ${metadata.bimestre || '?'}º bimestre`,{size:8});
   y+=4;
   const notas=normalizarNotasHistorico({...metadata,scoreData});
-  if(metadata.modo==='parcial') escrever('Avaliação parcial — sem total ENEM comparável.',{bold:true,color:[18,60,58]});
-  else if(notas) escrever(`NOTA FINAL: ${notas.total} / 1000`,{size:15,bold:true,color:[15,118,110],gap:7});
+  if(metadata.modo==='parcial') escrever('Avaliação parcial — sem total ENEM comparável.',{bold:true,color:[37, 16, 74]});
+  else if(notas) escrever(`NOTA FINAL: ${notas.total} / 1000`,{size:15,bold:true,color:[15, 118, 110],gap:7});
   else escrever('Conferir notas — avaliação completa válida indisponível.',{bold:true,color:[160,70,15]});
   if(Array.isArray(scoreData)) escrever(scoreData.map(item=>`${item.subject}: ${Number.isFinite(item.A)?item.A:'Não avaliada'}/200`).join('   '),{size:10});
   if(metadata.anulada) escrever(`Anulação: ${metadata.motivoAnulacao || 'Motivo não informado'}`,{bold:true});
-  y+=4;escrever('ANÁLISE PEDAGÓGICA',{size:12,bold:true,color:[18,60,58],gap:6});
+  y+=4;escrever('ANÁLISE PEDAGÓGICA',{size:12,bold:true,color:[37, 16, 74],gap:6});
   const clean=cleanFeedbackText(String(content || '')).replace(/\*\*(.*?)\*\*/g,'$1').replace(/^#{1,6}\s*/gm,'').replace(/\|/g,' ').replace(/[^\x00-\x7FÀ-ɏḀ-ỿ\n]/g,'');
   for(const paragraph of clean.split('\n')) escrever(paragraph || ' ',{size:10,gap:5});
   const count=doc.internal.getNumberOfPages();

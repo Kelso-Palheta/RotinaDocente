@@ -22,7 +22,7 @@ it('REV-H81-01: emissão do boletim deve ficar acima da faixa decorativa, sem co
   generateBoletimPDF({ nomeAluno: 'Aluno Exemplo', turmaNome: 'Turma de teste', bimTotais: [5,5,5,5] });
   const doc = m.docs.at(-1);
   const emissao = doc.__textos.find(t => t.texto.startsWith('EMISSÃO:'));
-  const faixa = doc.__faixas.find(f => f.cor?.join(',') === '15,118,110');
+  const faixa = doc.__faixas.find(f => f.cor?.join(',') === '99,21,217');
   expect(emissao.y + 1).toBeLessThan(faixa.y);
 });
 it('REV-H81-02: identificação longa cabe na margem com a fonte efetivamente usada na escrita', async () => {

@@ -49,8 +49,8 @@ function Toast({ message, onClose }) {
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-bounce"
       style={{ animationDuration: "0.4s" }}
     >
-      <div className="flex items-center gap-3 px-5 py-3 rounded-2xl text-sm font-semibold shadow-2xl bg-[#123c3a] text-white border border-white/10">
-        <Lock size={16} className="text-[#B7D3C8]" />
+      <div className="flex items-center gap-3 px-5 py-3 rounded-2xl text-sm font-semibold shadow-2xl bg-[#25104a] text-white border border-white/10">
+        <Lock size={16} className="text-[#B9A6EF]" />
         <span>{message}</span>
         <button onClick={onClose} className="ml-2 opacity-60 hover:opacity-100 transition-opacity">
           <X size={16} />
@@ -86,13 +86,13 @@ export default function Dashboard() {
   const provAtivo = config?.provider ? AIProviders[config.provider] : null;
 
   return (
-    <div className="min-h-screen bg-[#f3f7f5] text-[#123c3a] font-sans flex flex-col selection:bg-[#0f766e] selection:text-white">
+    <div className="min-h-screen bg-[#f3edff] text-[#25104a] font-sans flex flex-col selection:bg-[#6315d9] selection:text-white">
       {/* Header Superior Navy */}
-      <header className="bg-[#123c3a] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
+      <header className="bg-[#25104a] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           {/* Logo Rotina Docente */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#0f766e] flex items-center justify-center text-white shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-[#6315d9] flex items-center justify-center text-white shadow-md">
               <svg
                 width="22"
                 height="22"
@@ -109,10 +109,10 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="font-head text-xl font-extrabold tracking-tight text-white leading-none">
-                Rotina<span className="text-[#B7D3C8]">Docente</span>
+                Rotina<span className="text-[#B9A6EF]">Docente</span>
               </h1>
               <p className="text-xs text-white/60 mt-1 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0F766E]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#6315D9]"></span>
                 Olá, {perfil?.nome || "Professor(a)"}
               </p>
             </div>
@@ -125,8 +125,8 @@ export default function Dashboard() {
               onClick={() => setShowAIModal(true)}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
                 temChave
-                  ? "bg-[#0F766E]/15 text-[#B7D3C8] border border-[#0F766E]/30 hover:bg-[#0F766E]/25"
-                  : "bg-[#0f766e] text-white hover:bg-[#0b5f59] shadow-md hover:shadow-lg animate-pulse"
+                  ? "bg-[#6315D9]/15 text-[#B9A6EF] border border-[#6315D9]/30 hover:bg-[#6315D9]/25"
+                  : "bg-[#6315d9] text-white hover:bg-[#5411b8] shadow-md hover:shadow-lg animate-pulse"
               }`}
               title="Configurar Chave de Inteligência Artificial"
             >
@@ -143,12 +143,12 @@ export default function Dashboard() {
               onClick={() => setShowProfile(true)}
               className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-white/15 transition-all"
             >
-              <User size={15} className="text-[#B7D3C8]" />
+              <User size={15} className="text-[#B9A6EF]" />
               <span className="hidden sm:inline">Perfil</span>
             </button>
             <button
               onClick={logout}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-[#0b5f59] hover:border-[#0b5f59] transition-all"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-[#5411b8] hover:border-[#5411b8] transition-all"
             >
               <LogOut size={15} />
               <span className="hidden sm:inline">Sair</span>
@@ -160,9 +160,9 @@ export default function Dashboard() {
       {/* Conteúdo Principal do Hub */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8 space-y-8">
         {/* Banner de Boas-Vindas com Status de IA & Plano */}
-        <div className="bg-gradient-to-r from-[#123c3a] via-[#1a4844] to-[#123c3a] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#123c3a]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="bg-gradient-to-r from-[#25104a] via-[#1a4844] to-[#25104a] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#25104a]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-3 relative z-10 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#0f766e] text-white">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#6315d9] text-white">
               <Sparkles size={12} />
               <span>Painel do Docente</span>
             </div>
@@ -176,7 +176,7 @@ export default function Dashboard() {
             {/* Aviso de Chave BYOK */}
             <div className="pt-1">
               {temChave ? (
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0F766E]/15 border border-[#0F766E]/30 text-xs text-[#B7D3C8] font-semibold">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#6315D9]/15 border border-[#6315D9]/30 text-xs text-[#B9A6EF] font-semibold">
                   <CheckCircle2 size={14} />
                   <span>
                     Chave própria conectada: <strong className="text-white">{provAtivo?.nome}</strong> ({config?.getMaskedKey()})
@@ -189,14 +189,14 @@ export default function Dashboard() {
                   </button>
                 </div>
               ) : (
-                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0f766e]/20 border border-[#0f766e]/40 text-xs text-white font-semibold">
-                  <AlertCircle size={15} className="text-[#B7D3C8]" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#6315d9]/20 border border-[#6315d9]/40 text-xs text-white font-semibold">
+                  <AlertCircle size={15} className="text-[#B9A6EF]" />
                   <span>
                     Nenhuma chave de IA conectada.
                   </span>
                   <button
                     onClick={() => setShowAIModal(true)}
-                    className="ml-2 px-2.5 py-1 rounded-lg bg-[#0f766e] hover:bg-[#0b5f59] text-white font-extrabold text-[11px] shadow-sm transition-all cursor-pointer"
+                    className="ml-2 px-2.5 py-1 rounded-lg bg-[#6315d9] hover:bg-[#5411b8] text-white font-extrabold text-[11px] shadow-sm transition-all cursor-pointer"
                   >
                     Conectar agora
                   </button>
@@ -211,7 +211,7 @@ export default function Dashboard() {
                 <span className="text-[11px] text-white/60 font-bold uppercase tracking-wider">
                   Plano Ativo
                 </span>
-                <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-[#0f766e]/20 text-[#B7D3C8] border border-[#0f766e]/30">
+                <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-[#6315d9]/20 text-[#B9A6EF] border border-[#6315d9]/30">
                   {planoInfo.tag}
                 </span>
               </div>
@@ -226,13 +226,13 @@ export default function Dashboard() {
 
                 <div className="text-[11px] text-white/60">
                   {temChave ? (
-                    <span className="flex items-center gap-1 text-[#B7D3C8]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0F766E]"></span>
+                    <span className="flex items-center gap-1 text-[#B9A6EF]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#6315D9]"></span>
                       Operando com cota própria
                     </span>
                   ) : (
-                    <span className="flex items-center gap-1 text-[#B7D3C8]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0F766E]"></span>
+                    <span className="flex items-center gap-1 text-[#B9A6EF]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#6315D9]"></span>
                       Requer chave para recursos IA
                     </span>
                   )}
@@ -247,11 +247,11 @@ export default function Dashboard() {
         {/* Seção de Módulos */}
         <div>
           <div className="flex items-center justify-between mb-5">
-            <h3 className="font-head text-base font-bold text-[#123c3a] uppercase tracking-wider flex items-center gap-2">
-              <span className="w-2 h-4 bg-[#0f766e] rounded-full"></span>
+            <h3 className="font-head text-base font-bold text-[#25104a] uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2 h-4 bg-[#6315d9] rounded-full"></span>
               Ferramentas Disponíveis
             </h3>
-            <span className="text-xs font-semibold text-[#4f6b63]">
+            <span className="text-xs font-semibold text-[#5b4b86]">
               {PLATFORM_MODULES.length} módulos ativos
             </span>
           </div>
@@ -266,31 +266,31 @@ export default function Dashboard() {
                   key={mod.id}
                   type="button"
                   onClick={() => handleCardClick(mod)}
-                  className={`p-6 rounded-3xl text-left bg-white border border-[#d5e3dc] shadow-sm transition-all duration-300 relative group flex flex-col justify-between min-h-[200px] ${
+                  className={`p-6 rounded-3xl text-left bg-white border border-[#e2d9f7] shadow-sm transition-all duration-300 relative group flex flex-col justify-between min-h-[200px] ${
                     temAcesso
-                      ? "hover:shadow-xl hover:border-[#0f766e]/40 hover:-translate-y-1 cursor-pointer"
-                      : "opacity-50 cursor-not-allowed bg-[#f3f7f5]"
+                      ? "hover:shadow-xl hover:border-[#6315d9]/40 hover:-translate-y-1 cursor-pointer"
+                      : "opacity-50 cursor-not-allowed bg-[#f3edff]"
                   }`}
                 >
                   {/* Badge de Cadeado */}
                   {!temAcesso && (
-                    <div className="absolute top-4 right-4 p-2 rounded-xl bg-[#f3f7f5] text-[#4f6b63]">
+                    <div className="absolute top-4 right-4 p-2 rounded-xl bg-[#f3edff] text-[#5b4b86]">
                       <Lock size={16} />
                     </div>
                   )}
 
                   <div className="space-y-4">
                     {/* Ícone com Fundo Rosa Suave */}
-                    <div className="w-12 h-12 rounded-2xl bg-[#f3f8f5] border border-[#daebe5] text-[#0f766e] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                    <div className="w-12 h-12 rounded-2xl bg-[#f3edff] border border-[#e7dbfd] text-[#6315d9] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
                       <Icon size={24} />
                     </div>
 
                     {/* Título e Descrição */}
                     <div>
-                      <h4 className="font-head font-bold text-lg text-[#123c3a] group-hover:text-[#0f766e] transition-colors">
+                      <h4 className="font-head font-bold text-lg text-[#25104a] group-hover:text-[#6315d9] transition-colors">
                         {mod.nome}
                       </h4>
-                      <p className="text-xs text-[#4f6b63] mt-1.5 leading-relaxed">
+                      <p className="text-xs text-[#5b4b86] mt-1.5 leading-relaxed">
                         {mod.descricao}
                       </p>
                     </div>
@@ -298,7 +298,7 @@ export default function Dashboard() {
 
                   {/* Ação Inferior */}
                   {temAcesso && (
-                    <div className="pt-4 border-t border-[#d5e3dc]/60 flex items-center justify-between text-xs font-bold text-[#0f766e]">
+                    <div className="pt-4 border-t border-[#e2d9f7]/60 flex items-center justify-between text-xs font-bold text-[#6315d9]">
                       <span>Abrir ferramenta</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </div>

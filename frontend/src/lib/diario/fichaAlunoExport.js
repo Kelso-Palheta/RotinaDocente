@@ -52,11 +52,11 @@ export async function generateFichaAluno360PDF({
   const faixaY = emissaoY + 4;
   const alturaCabecalho = Math.max(36, faixaY + 1.5);
 
-  doc.setFillColor(18, 60, 58); // #123c3a
+  doc.setFillColor(37, 16, 74); // #25104a
   doc.rect(0, 0, pageWidth, alturaCabecalho, 'F');
 
   // Linha rosa de destaque
-  doc.setFillColor(15, 118, 110); // #0f766e
+  doc.setFillColor(99, 21, 217); // #6315d9
   doc.rect(0, faixaY, pageWidth, 1.5, 'F');
 
   doc.setFont('helvetica', 'bold');
@@ -104,7 +104,7 @@ export async function generateFichaAluno360PDF({
       texto: `ESTUDANTE: ${ficha.aluno.nome.toUpperCase()}`,
       fonte: 'bold',
       tamanho: 9.5,
-      cor: [18, 60, 58],
+      cor: [37, 16, 74],
     },
     {
       texto: `TURMA: ${ficha.turma.nome}`,

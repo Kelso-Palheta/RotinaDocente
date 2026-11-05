@@ -15,7 +15,7 @@ export default function Home() {
         className="flex min-h-screen items-center justify-center bg-white"
       >
         <div
-          className="w-9 h-9 rounded-full border-3 animate-spin border-[#0f766e] border-t-transparent"
+          className="w-9 h-9 rounded-full border-3 animate-spin border-[#6315d9] border-t-transparent"
         />
       </div>
     );

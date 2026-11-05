@@ -26,7 +26,7 @@ export const AGENTES_CONFIG = [
     name: 'Agente EM',
     segmento: 'Ensino Médio — 1º ao 3º EM',
     descricao: 'Especialista em ENEM, vestibulares, habilidades BNCC-EM e competências de Redação (C1–C5).',
-    cor: '#0f766e',
+    cor: '#6315d9',
     corTexto: '#ffffff',
     promptChips: [
       'Como estruturar uma proposta de intervenção (C5) nota 200?',
@@ -41,7 +41,7 @@ export const AGENTES_CONFIG = [
     name: 'Agente EF2',
     segmento: 'Ensino Fundamental II — 6º ao 9º ano',
     descricao: 'Especialista em descritores SAEB, habilidades BNCC-EF2 e avaliações diagnósticas estaduais.',
-    cor: '#123c3a',
+    cor: '#25104a',
     corTexto: '#ffffff',
     promptChips: [
       'Quais descritores do SAEB de Matemática são mais cobrados no 9º ano?',

@@ -51,7 +51,7 @@ import {
 
 export default function AdaptacoesPage() {
   const {user}=useAuth();
-  if(!user)return <div className="p-8 text-[#123c3a]">Faça login para abrir suas atividades adaptadas.</div>;
+  if(!user)return <div className="p-8 text-[#25104a]">Faça login para abrir suas atividades adaptadas.</div>;
   return <AdaptacoesDaConta key={user.uid}/>;
 }
 function AdaptacoesDaConta() {
@@ -600,27 +600,27 @@ function AdaptacoesDaConta() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f7f5] text-[#123c3a]">
+    <div className="min-h-screen bg-[#f3edff] text-[#25104a]">
       {/* Barra Superior / Header */}
-      <header className="bg-white border-b border-[#d5e3dc] sticky top-0 z-40 print:hidden">
+      <header className="bg-white border-b border-[#e2d9f7] sticky top-0 z-40 print:hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="p-2 rounded-xl border border-[#d5e3dc] hover:border-[#0f766e]/40 hover:bg-[#f3f8f5] text-[#4f6b63] hover:text-[#0b5f59] transition-colors"
+              className="p-2 rounded-xl border border-[#e2d9f7] hover:border-[#6315d9]/40 hover:bg-[#f3edff] text-[#5b4b86] hover:text-[#5411b8] transition-colors"
               title="Voltar ao Painel Principal"
             >
               <ArrowLeft size={18} />
             </Link>
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-[#f3f8f5] border border-[#daebe5] text-[#0f766e] flex items-center justify-center shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-[#f3edff] border border-[#e7dbfd] text-[#6315d9] flex items-center justify-center shadow-xs">
                 <HeartHandshake size={20} />
               </div>
               <div>
-                <h1 className="text-sm sm:text-base font-bold text-[#123c3a] leading-tight">
+                <h1 className="text-sm sm:text-base font-bold text-[#25104a] leading-tight">
                   Atividades Adaptadas & Educação Inclusiva
                 </h1>
-                <p className="text-[11px] text-[#4f6b63]">
+                <p className="text-[11px] text-[#5b4b86]">
                   Desenho Universal para a Aprendizagem (DUA) • LBI nº 13.146/2015
                 </p>
               </div>
@@ -633,10 +633,10 @@ function AdaptacoesDaConta() {
               id="btn-abrir-banco-atividades"
               type="button"
               onClick={() => setModalBancoAberto(true)}
-              className="px-3.5 py-1.5 rounded-xl border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-white hover:bg-[#f3f8f5] text-xs font-bold text-[#123c3a] hover:text-[#0b5f59] transition-all flex items-center gap-1.5 shadow-2xs"
+              className="px-3.5 py-1.5 rounded-xl border border-[#e2d9f7] hover:border-[#6315d9]/40 bg-white hover:bg-[#f3edff] text-xs font-bold text-[#25104a] hover:text-[#5411b8] transition-all flex items-center gap-1.5 shadow-2xs"
               title="Acessar o Banco de Atividades salvas e reaproveitar para novos alunos"
             >
-              <FolderOpen size={15} className="text-[#0f766e]" />
+              <FolderOpen size={15} className="text-[#6315d9]" />
               <span className="hidden sm:inline">Banco de</span> Atividades
             </button>
 
@@ -645,7 +645,7 @@ function AdaptacoesDaConta() {
               id="btn-abrir-banco-pei"
               type="button"
               onClick={() => handleAbrirBancoPEI()}
-              className="px-3.5 py-1.5 rounded-xl border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-white hover:bg-[#f3f8f5] text-xs font-bold text-[#123c3a] hover:text-[#0b5f59] transition-all flex items-center gap-1.5 shadow-2xs"
+              className="px-3.5 py-1.5 rounded-xl border border-[#e2d9f7] hover:border-[#6315d9]/40 bg-white hover:bg-[#f3edff] text-xs font-bold text-[#25104a] hover:text-[#5411b8] transition-all flex items-center gap-1.5 shadow-2xs"
             >
               <Users size={15} />
               <span className="hidden sm:inline">Banco de Alunos</span> PEI
@@ -658,8 +658,8 @@ function AdaptacoesDaConta() {
               onClick={() => setModalIAAberto(true)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 ${
                 temChave
-                  ? "bg-[#F3F8F5] border-[#D5E3DC] text-[#0B5F59] hover:bg-[#DAEBE5]"
-                  : "bg-[#F3F8F5] border-[#D5E3DC] text-[#123C3A] hover:bg-[#DAEBE5]"
+                  ? "bg-[#F3EDFF] border-[#E2D9F7] text-[#5411B8] hover:bg-[#E7DBFD]"
+                  : "bg-[#F3EDFF] border-[#E2D9F7] text-[#25104A] hover:bg-[#E7DBFD]"
               }`}
             >
               <Cpu size={14} />
@@ -672,17 +672,17 @@ function AdaptacoesDaConta() {
       </header>
 
       {/* Barra de Abas Principais (RN-42) */}
-      <div className="bg-white border-b border-[#d5e3dc] sticky top-16 z-30 print:hidden shadow-2xs">
+      <div className="bg-white border-b border-[#e2d9f7] sticky top-16 z-30 print:hidden shadow-2xs">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2 py-2.5 overflow-x-auto">
-          <div className="flex items-center gap-1.5 p-1 bg-[#f3f8f5] border border-[#d5e3dc] rounded-2xl">
+          <div className="flex items-center gap-1.5 p-1 bg-[#f3edff] border border-[#e2d9f7] rounded-2xl">
             <button
               type="button"
               id="tab-nav-gerador"
               onClick={() => setAbaPrincipal("gerador")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                 abaPrincipal === "gerador"
-                  ? "bg-white text-[#0f766e] shadow-xs"
-                  : "text-[#4f6b63] hover:text-[#123c3a]"
+                  ? "bg-white text-[#6315d9] shadow-xs"
+                  : "text-[#5b4b86] hover:text-[#25104a]"
               }`}
             >
               <Sparkles size={15} />
@@ -695,13 +695,13 @@ function AdaptacoesDaConta() {
               onClick={() => setAbaPrincipal("banco_questoes")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                 abaPrincipal === "banco_questoes"
-                  ? "bg-white text-[#123C3A] shadow-xs"
-                  : "text-[#4f6b63] hover:text-[#123c3a]"
+                  ? "bg-white text-[#25104A] shadow-xs"
+                  : "text-[#5b4b86] hover:text-[#25104a]"
               }`}
             >
               <BookOpen size={15} />
               Banco de Questões
-              <span className="ml-1 px-1.5 py-0.5 rounded-md bg-[#DAEBE5] text-[#123C3A] text-[10px] font-black">
+              <span className="ml-1 px-1.5 py-0.5 rounded-md bg-[#E7DBFD] text-[#25104A] text-[10px] font-black">
                 {questoesBanco.length}
               </span>
             </button>
@@ -712,13 +712,13 @@ function AdaptacoesDaConta() {
               onClick={() => setAbaPrincipal("montador_provas")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                 abaPrincipal === "montador_provas"
-                  ? "bg-white text-[#0B5F59] shadow-xs"
-                  : "text-[#4f6b63] hover:text-[#123c3a]"
+                  ? "bg-white text-[#5411B8] shadow-xs"
+                  : "text-[#5b4b86] hover:text-[#25104a]"
               }`}
             >
               <FileText size={15} />
               Montador de Provas
-              <span className="ml-1 px-1.5 py-0.5 rounded-md bg-[#DAEBE5] text-[#123C3A] text-[10px] font-black">
+              <span className="ml-1 px-1.5 py-0.5 rounded-md bg-[#E7DBFD] text-[#25104A] text-[10px] font-black">
                 {(provaEmConstrucao.questoes || []).length}
               </span>
             </button>
@@ -728,7 +728,7 @@ function AdaptacoesDaConta() {
             <button
               type="button"
               onClick={() => setAbaPrincipal("montador_provas")}
-              className="text-xs font-bold text-[#0B5F59] bg-[#F3F8F5] hover:bg-[#DAEBE5] border border-[#D5E3DC] px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shrink-0"
+              className="text-xs font-bold text-[#5411B8] bg-[#F3EDFF] hover:bg-[#E7DBFD] border border-[#E2D9F7] px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shrink-0"
             >
               <span>Ver Prova em Montagem ({provaEmConstrucao.questoes.length})</span>
               <ArrowRight size={13} />
@@ -739,7 +739,7 @@ function AdaptacoesDaConta() {
 
       {/* Conteúdo Principal */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        {avisoRascunho&&<div className="mb-4 text-xs p-3 rounded-xl border bg-[#F3F8F5] print:hidden" role="status">{avisoRascunho}{resultado&&<button type="button" className="ml-3 underline font-bold" onClick={()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(resultado,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='rascunho-atividade-adaptada.json';link.click();URL.revokeObjectURL(url);}}>Baixar rascunho</button>}</div>}
+        {avisoRascunho&&<div className="mb-4 text-xs p-3 rounded-xl border bg-[#F3EDFF] print:hidden" role="status">{avisoRascunho}{resultado&&<button type="button" className="ml-3 underline font-bold" onClick={()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(resultado,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='rascunho-atividade-adaptada.json';link.click();URL.revokeObjectURL(url);}}>Baixar rascunho</button>}</div>}
 
         {abaPrincipal === "banco_questoes" && (
           <PainelBancoQuestoes
@@ -777,11 +777,11 @@ function AdaptacoesDaConta() {
                   id="btn-nova-adaptacao"
                   type="button"
                   onClick={() => setResultado(null)}
-                  className="px-4 py-2 border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-white text-[#123c3a] rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-2xs"
+                  className="px-4 py-2 border border-[#e2d9f7] hover:border-[#6315d9]/40 bg-white text-[#25104a] rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-2xs"
                 >
                   ← Fazer Nova Adaptação / Voltar ao Formulário
                 </button>
-                <span className="text-xs font-semibold text-[#4f6b63]">
+                <span className="text-xs font-semibold text-[#5b4b86]">
                   Adaptação gerada com sucesso via DUA
                 </span>
               </div>
@@ -803,7 +803,7 @@ function AdaptacoesDaConta() {
           ) : (
           <div className="space-y-8">
             {/* Banner Institucional DUA */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#123c3a] to-[#1b4d48] text-white shadow-md relative overflow-hidden">
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#25104a] to-[#3a1a73] text-white shadow-md relative overflow-hidden">
               <div className="relative z-10 max-w-2xl space-y-2">
                 <span className="px-3 py-1 rounded-full bg-white/10 text-white/90 text-[11px] font-bold uppercase tracking-wider backdrop-blur-xs">
                   Inclusão Sem Rebaixamento Curricular (RN-31)
@@ -811,7 +811,7 @@ function AdaptacoesDaConta() {
                 <h2 className="text-xl sm:text-2xl font-black leading-snug">
                   Crie atividades que potencializam as habilidades de cada estudante
                 </h2>
-                <p className="text-xs sm:text-sm text-[#B7D3C8] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#B9A6EF] leading-relaxed">
                   O Desenho Universal para a Aprendizagem (DUA) adapta o formato de apresentação, os meios de expressão e os estímulos de engajamento, mantendo intacto o rigor conceitual exigido pela BNCC.
                 </p>
               </div>
@@ -822,7 +822,7 @@ function AdaptacoesDaConta() {
 
             {/* Mensagem de Erro se houver */}
             {erro && (
-              <div className="p-4 bg-[#F3F8F5] border border-[#D5E3DC] text-[#0B5F59] text-xs rounded-2xl flex items-center gap-2.5 font-medium shadow-2xs animate-fadeIn">
+              <div className="p-4 bg-[#F3EDFF] border border-[#E2D9F7] text-[#5411B8] text-xs rounded-2xl flex items-center gap-2.5 font-medium shadow-2xs animate-fadeIn">
                 <AlertCircle size={18} className="flex-shrink-0" />
                 <span>{erro}</span>
               </div>
@@ -830,28 +830,28 @@ function AdaptacoesDaConta() {
 
             <form onSubmit={handleGerar} className="space-y-8">
               {/* Card 1: Modo de Entrada (Adaptar existente vs Criar do zero) */}
-              <div className="p-6 bg-white border border-[#d5e3dc] rounded-3xl shadow-2xs space-y-5">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#d5e3dc]">
+              <div className="p-6 bg-white border border-[#e2d9f7] rounded-3xl shadow-2xs space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#e2d9f7]">
                   <div>
-                    <h3 className="text-base font-bold text-[#123c3a] flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#0f766e]"></span>
+                    <h3 className="text-base font-bold text-[#25104a] flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#6315d9]"></span>
                       1. Conteúdo da Atividade
                     </h3>
-                    <p className="text-xs text-[#4f6b63]">
+                    <p className="text-xs text-[#5b4b86]">
                       Escolha se deseja transformar uma atividade já existente ou criar uma nova do zero
                     </p>
                   </div>
 
                   {/* Tabs de Modo */}
-                  <div className="flex bg-[#f3f7f5] p-1 rounded-2xl border border-[#d5e3dc]">
+                  <div className="flex bg-[#f3edff] p-1 rounded-2xl border border-[#e2d9f7]">
                     <button
                       id="tab-modo-adaptar"
                       type="button"
                       onClick={() => setModo("adaptar")}
                       className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                         modo === "adaptar"
-                          ? "bg-white text-[#0b5f59] shadow-xs"
-                          : "text-[#4f6b63] hover:text-[#123c3a]"
+                          ? "bg-white text-[#5411b8] shadow-xs"
+                          : "text-[#5b4b86] hover:text-[#25104a]"
                       }`}
                     >
                       <FileEdit size={14} />
@@ -863,8 +863,8 @@ function AdaptacoesDaConta() {
                       onClick={() => setModo("criar")}
                       className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                         modo === "criar"
-                          ? "bg-white text-[#0b5f59] shadow-xs"
-                          : "text-[#4f6b63] hover:text-[#123c3a]"
+                          ? "bg-white text-[#5411b8] shadow-xs"
+                          : "text-[#5b4b86] hover:text-[#25104a]"
                       }`}
                     >
                       <Wand2 size={14} />
@@ -876,7 +876,7 @@ function AdaptacoesDaConta() {
                 {/* Campos Gerais: Disciplina e Ano */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   <div>
-                    <label className="text-xs font-bold text-[#123c3a] block mb-1">
+                    <label className="text-xs font-bold text-[#25104a] block mb-1">
                       Disciplina *
                     </label>
                     <input
@@ -885,12 +885,12 @@ function AdaptacoesDaConta() {
                       value={disciplina}
                       onChange={(e) => setDisciplina(e.target.value)}
                       placeholder="Ex: Ciências, História, Matemática..."
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3.5 py-2 text-xs text-[#123c3a] outline-none transition-all"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-xl px-3.5 py-2 text-xs text-[#25104a] outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-[#123c3a] block mb-1">
+                    <label className="text-xs font-bold text-[#25104a] block mb-1">
                       Ano / Série Escolar *
                     </label>
                     <input
@@ -899,12 +899,12 @@ function AdaptacoesDaConta() {
                       value={anoEscolar}
                       onChange={(e) => setAnoEscolar(e.target.value)}
                       placeholder="Ex: 6º Ano, 1º Ano EM..."
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3.5 py-2 text-xs text-[#123c3a] outline-none transition-all"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-xl px-3.5 py-2 text-xs text-[#25104a] outline-none transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-[#123c3a] block mb-1">
+                    <label className="text-xs font-bold text-[#25104a] block mb-1">
                       Habilidade BNCC (Opcional)
                     </label>
                     <input
@@ -912,7 +912,7 @@ function AdaptacoesDaConta() {
                       value={habilidadeBNCC}
                       onChange={(e) => setHabilidadeBNCC(e.target.value)}
                       placeholder="Ex: EF07CI07, EM13LP01..."
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3.5 py-2 text-xs text-[#123c3a] outline-none transition-all"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-xl px-3.5 py-2 text-xs text-[#25104a] outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -921,7 +921,7 @@ function AdaptacoesDaConta() {
                 {modo === "adaptar" ? (
                   <div>
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                      <label className="text-xs font-bold text-[#123c3a] block">
+                      <label className="text-xs font-bold text-[#25104a] block">
                         Cole ou anexe a atividade original (textos, enunciados, questões): *
                       </label>
 
@@ -934,10 +934,10 @@ function AdaptacoesDaConta() {
                             if (!turmasDiario) carregarTurmasDiario();
                             setModalImportarAtividadeTurmaAberto(true);
                           }}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#f3f7f5] text-[#123c3a] hover:bg-[#f3f8f5] hover:text-[#0b5f59] border border-[#d5e3dc] hover:border-[#daebe5] transition-all cursor-pointer shadow-2xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#f3edff] text-[#25104a] hover:bg-[#f3edff] hover:text-[#5411b8] border border-[#e2d9f7] hover:border-[#e7dbfd] transition-all cursor-pointer shadow-2xs"
                           title="Importar questões de uma atividade já cadastrada na turma"
                         >
-                          <FolderOpen size={13} className="text-[#4f6b63]" />
+                          <FolderOpen size={13} className="text-[#5b4b86]" />
                           Puxar da Turma
                         </button>
 
@@ -958,12 +958,12 @@ function AdaptacoesDaConta() {
                           id="btn-anexar-documento"
                           onClick={() => fileInputRef.current?.click()}
                           disabled={extraindoArquivo}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#f3f8f5] text-[#0b5f59] hover:bg-[#daebe5] border border-[#daebe5] transition-all cursor-pointer disabled:opacity-50 shadow-2xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#f3edff] text-[#5411b8] hover:bg-[#e7dbfd] border border-[#e7dbfd] transition-all cursor-pointer disabled:opacity-50 shadow-2xs"
                           title="Importar prova ou lista a partir de PDF, Word ou imagem"
                         >
                           {extraindoArquivo ? (
                             <>
-                              <Loader2 size={13} className="animate-spin text-[#0b5f59]" />
+                              <Loader2 size={13} className="animate-spin text-[#5411b8]" />
                               Extraindo texto...
                             </>
                           ) : (
@@ -977,15 +977,15 @@ function AdaptacoesDaConta() {
                     </div>
 
                     {atividadeTurmaImportadaAviso && (
-                      <div className="mb-3 p-3 rounded-2xl bg-[#F3F8F5] border border-[#D5E3DC] text-[#123C3A] text-xs flex items-center justify-between gap-2 animate-fadeIn">
+                      <div className="mb-3 p-3 rounded-2xl bg-[#F3EDFF] border border-[#E2D9F7] text-[#25104A] text-xs flex items-center justify-between gap-2 animate-fadeIn">
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 size={16} className="text-[#0F766E] shrink-0" />
+                          <CheckCircle2 size={16} className="text-[#6315D9] shrink-0" />
                           <span>{atividadeTurmaImportadaAviso}</span>
                         </div>
                         <button
                           type="button"
                           onClick={() => setAtividadeTurmaImportadaAviso("")}
-                          className="text-[#0F766E] hover:text-[#123C3A] p-1"
+                          className="text-[#6315D9] hover:text-[#25104A] p-1"
                         >
                           <X size={14} />
                         </button>
@@ -994,23 +994,23 @@ function AdaptacoesDaConta() {
 
                     {/* Card de Documento Anexado com Sucesso */}
                     {arquivoAnexado && (
-                      <div className="mb-3 p-3.5 rounded-2xl bg-gradient-to-r from-[#F3F8F5]/90 to-[#F3F8F5]/70 border border-[#D5E3DC]/80 flex items-center justify-between gap-3 shadow-2xs animate-fadeIn">
+                      <div className="mb-3 p-3.5 rounded-2xl bg-gradient-to-r from-[#F3EDFF]/90 to-[#F3EDFF]/70 border border-[#E2D9F7]/80 flex items-center justify-between gap-3 shadow-2xs animate-fadeIn">
                         <div className="flex items-center gap-3 min-w-0">
                           <div
                             className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs font-black shadow-xs flex-shrink-0 ${
                               arquivoAnexado.tipo === "pdf"
-                                ? "bg-[#0F766E] text-white"
+                                ? "bg-[#6315D9] text-white"
                                 : arquivoAnexado.tipo === "docx" || arquivoAnexado.tipo === "doc"
-                                ? "bg-[#0F766E] text-white"
-                                : "bg-[#0F766E] text-white"
+                                ? "bg-[#6315D9] text-white"
+                                : "bg-[#6315D9] text-white"
                             }`}
                           >
                             {arquivoAnexado.tipo.toUpperCase()}
                           </div>
                           <div className="min-w-0">
-                            <p className="text-xs font-bold text-[#123c3a] truncate flex items-center gap-1.5">
+                            <p className="text-xs font-bold text-[#25104a] truncate flex items-center gap-1.5">
                               <span>{arquivoAnexado.nome}</span>
-                              <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#DAEBE5] text-[#123C3A]">
+                              <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#E7DBFD] text-[#25104A]">
                                 Extraído com sucesso
                               </span>
                             </p>
@@ -1024,14 +1024,14 @@ function AdaptacoesDaConta() {
                           <button
                             type="button"
                             onClick={() => fileInputRef.current?.click()}
-                            className="text-[11px] font-semibold text-[#0B5F59] hover:text-[#123C3A] underline px-2 py-1 rounded hover:bg-[#DAEBE5]/50 transition-colors"
+                            className="text-[11px] font-semibold text-[#5411B8] hover:text-[#25104A] underline px-2 py-1 rounded hover:bg-[#E7DBFD]/50 transition-colors"
                           >
                             Trocar
                           </button>
                           <button
                             type="button"
                             onClick={handleRemoverArquivo}
-                            className="p-1.5 rounded-xl hover:bg-white text-slate-400 hover:text-[#0F766E] transition-colors"
+                            className="p-1.5 rounded-xl hover:bg-white text-slate-400 hover:text-[#6315D9] transition-colors"
                             title="Remover anexo e limpar texto"
                           >
                             <X size={15} />
@@ -1042,8 +1042,8 @@ function AdaptacoesDaConta() {
 
                     {/* Feedback de Carregamento / Extração */}
                     {extraindoArquivo && (
-                      <div className="mb-3 p-3 rounded-2xl bg-[#F3F8F5] border border-[#D5E3DC] text-[#123C3A] text-xs flex items-center gap-2.5 animate-pulse">
-                        <Loader2 size={16} className="animate-spin text-[#0F766E] flex-shrink-0" />
+                      <div className="mb-3 p-3 rounded-2xl bg-[#F3EDFF] border border-[#E2D9F7] text-[#25104A] text-xs flex items-center gap-2.5 animate-pulse">
+                        <Loader2 size={16} className="animate-spin text-[#6315D9] flex-shrink-0" />
                         <span className="font-medium">
                           Processando documento e extraindo questões (PDF/Word/imagem)... Aguarde um instante.
                         </span>
@@ -1068,12 +1068,12 @@ function AdaptacoesDaConta() {
                         onClick={() => fileInputRef.current?.click()}
                         className={`mb-3 p-4 rounded-2xl border-2 border-dashed text-center transition-all cursor-pointer ${
                           dragAtivo
-                            ? "border-[#0f766e] bg-[#f3f8f5]"
-                            : "border-[#d5e3dc] bg-[#f3f8f5] hover:bg-[#f3f7f5] hover:border-[#a9c9bc]"
+                            ? "border-[#6315d9] bg-[#f3edff]"
+                            : "border-[#e2d9f7] bg-[#f3edff] hover:bg-[#f3edff] hover:border-[#a9c9bc]"
                         }`}
                       >
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-[#4f6b63]">
-                          <Upload size={16} className="text-[#0f766e]" />
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-[#5b4b86]">
+                          <Upload size={16} className="text-[#6315d9]" />
                           <span>
                             Arraste uma prova/lista em <strong>PDF</strong> ou <strong>Word (.docx)</strong> ou <strong>imagem</strong> aqui, ou clique para anexar
                           </span>
@@ -1088,10 +1088,10 @@ function AdaptacoesDaConta() {
                       value={conteudoBase}
                       onChange={(e) => setConteudoBase(e.target.value)}
                       placeholder="Cole aqui o enunciado original da prova, lista de exercícios ou texto didático, ou anexe seu arquivo PDF, Word ou imagem no botão acima..."
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-2xl p-4 text-xs sm:text-sm text-[#123c3a] outline-none resize-y transition-all leading-relaxed"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-2xl p-4 text-xs sm:text-sm text-[#25104a] outline-none resize-y transition-all leading-relaxed"
                     />
 
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-[#4f6b63] mt-1.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-[#5b4b86] mt-1.5">
                       <span>
                         {conteudoBase.trim()
                           ? `${conteudoBase.length.toLocaleString()} caracteres no editor • Você pode revisar ou editar o texto antes de enviar para a IA.`
@@ -1104,7 +1104,7 @@ function AdaptacoesDaConta() {
                             setConteudoBase("");
                             setArquivoAnexado(null);
                           }}
-                          className="text-[#0b5f59] hover:underline self-start sm:self-auto"
+                          className="text-[#5411b8] hover:underline self-start sm:self-auto"
                         >
                           Limpar campo
                         </button>
@@ -1114,7 +1114,7 @@ function AdaptacoesDaConta() {
                 ) : (
 
                   <div>
-                    <label className="text-xs font-bold text-[#123c3a] block mb-1">
+                    <label className="text-xs font-bold text-[#25104a] block mb-1">
                       Tema / Conteúdo Central da Atividade *
                     </label>
                     <textarea
@@ -1124,19 +1124,19 @@ function AdaptacoesDaConta() {
                       value={tema}
                       onChange={(e) => setTema(e.target.value)}
                       placeholder="Ex: Fontes renováveis de energia, Revolução Industrial, Operações com frações no cotidiano..."
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-2xl p-4 text-xs sm:text-sm text-[#123c3a] outline-none resize-none transition-all leading-relaxed"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-2xl p-4 text-xs sm:text-sm text-[#25104a] outline-none resize-none transition-all leading-relaxed"
                     />
                   </div>
                 )}
 
                 {/* Composição da Prova / Quantidade de Questões (RN-37) */}
-                <div className="pt-4 border-t border-[#d5e3dc] space-y-4">
+                <div className="pt-4 border-t border-[#e2d9f7] space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <label className="text-xs font-bold text-[#123c3a] flex items-center gap-2">
-                      <ListOrdered size={16} className="text-[#0f766e]" />
+                    <label className="text-xs font-bold text-[#25104a] flex items-center gap-2">
+                      <ListOrdered size={16} className="text-[#6315d9]" />
                       Quantidade de Questões da Atividade / Prova Completa (RN-37)
                     </label>
-                    <span className="text-[11px] text-[#4f6b63]">
+                    <span className="text-[11px] text-[#5b4b86]">
                       Monte listas de exercícios ou avaliações completas
                     </span>
                   </div>
@@ -1144,23 +1144,23 @@ function AdaptacoesDaConta() {
                   {modo === "adaptar" ? (
                     <div className="space-y-3">
                       <div className="flex flex-wrap items-center gap-3">
-                        <label className="flex items-center gap-2 text-xs font-semibold text-[#123c3a] cursor-pointer">
+                        <label className="flex items-center gap-2 text-xs font-semibold text-[#25104a] cursor-pointer">
                           <input
                             type="radio"
                             name="adaptar_qtd"
                             checked={adaptarTodasQuestoes}
                             onChange={() => setAdaptarTodasQuestoes(true)}
-                            className="text-[#0f766e] focus:ring-[#0f766e]"
+                            className="text-[#6315d9] focus:ring-[#6315d9]"
                           />
                           <span>Adaptar todas as questões do conteúdo original</span>
                         </label>
-                        <label className="flex items-center gap-2 text-xs font-semibold text-[#123c3a] cursor-pointer">
+                        <label className="flex items-center gap-2 text-xs font-semibold text-[#25104a] cursor-pointer">
                           <input
                             type="radio"
                             name="adaptar_qtd"
                             checked={!adaptarTodasQuestoes}
                             onChange={() => setAdaptarTodasQuestoes(false)}
-                            className="text-[#0f766e] focus:ring-[#0f766e]"
+                            className="text-[#6315d9] focus:ring-[#6315d9]"
                           />
                           <span>Definir quantidade específica de questões</span>
                         </label>
@@ -1175,8 +1175,8 @@ function AdaptacoesDaConta() {
                               onClick={() => setQuantidadeQuestoes(num)}
                               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                                 quantidadeQuestoes === num
-                                  ? "bg-[#0f766e] text-white shadow-xs"
-                                  : "bg-[#f3f7f5] border border-[#d5e3dc] text-[#4f6b63] hover:text-[#123c3a]"
+                                  ? "bg-[#6315d9] text-white shadow-xs"
+                                  : "bg-[#f3edff] border border-[#e2d9f7] text-[#5b4b86] hover:text-[#25104a]"
                               }`}
                             >
                               {num} {num === 1 ? "questão" : "questões"}
@@ -1188,7 +1188,7 @@ function AdaptacoesDaConta() {
                             max="15"
                             value={quantidadeQuestoes}
                             onChange={(e) => setQuantidadeQuestoes(Number(e.target.value) || 1)}
-                            className="w-16 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-2 py-1.5 text-xs font-bold text-center text-[#123c3a] outline-none"
+                            className="w-16 bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-2 py-1.5 text-xs font-bold text-center text-[#25104a] outline-none"
                           />
                         </div>
                       )}
@@ -1202,22 +1202,22 @@ function AdaptacoesDaConta() {
                           onClick={() => setQuantidadeQuestoes(num)}
                           className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                             quantidadeQuestoes === num
-                              ? "bg-[#0f766e] text-white shadow-xs"
-                              : "bg-[#f3f7f5] border border-[#d5e3dc] text-[#4f6b63] hover:text-[#123c3a]"
+                              ? "bg-[#6315d9] text-white shadow-xs"
+                              : "bg-[#f3edff] border border-[#e2d9f7] text-[#5b4b86] hover:text-[#25104a]"
                           }`}
                         >
                           {num} {num === 1 ? "questão" : "questões"}
                         </button>
                       ))}
                       <div className="flex items-center gap-1.5 ml-1">
-                        <span className="text-[11px] text-[#4f6b63]">Outro:</span>
+                        <span className="text-[11px] text-[#5b4b86]">Outro:</span>
                         <input
                           type="number"
                           min="1"
                           max="15"
                           value={quantidadeQuestoes}
                           onChange={(e) => setQuantidadeQuestoes(Number(e.target.value) || 1)}
-                          className="w-16 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-2 py-1.5 text-xs font-bold text-center text-[#123c3a] outline-none"
+                          className="w-16 bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-2 py-1.5 text-xs font-bold text-center text-[#25104a] outline-none"
                         />
                       </div>
                     </div>
@@ -1225,7 +1225,7 @@ function AdaptacoesDaConta() {
 
                   {/* Formatos / Tipos de Questões Aceitos */}
                   <div className="space-y-2 pt-2">
-                    <label className="text-xs font-bold text-[#123c3a] block">
+                    <label className="text-xs font-bold text-[#25104a] block">
                       Formatos Pedagógicos Priorizados (Ação & Expressão DUA):
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
@@ -1243,20 +1243,20 @@ function AdaptacoesDaConta() {
                             onClick={() => handleToggleTipoQuestao(tipo.id)}
                             className={`p-2.5 rounded-xl border text-left transition-all flex items-start gap-2 ${
                               ativo
-                                ? "bg-[#f3f8f5] border-[#0f766e]/40 text-[#123c3a]"
-                                : "bg-[#f3f7f5] border-[#d5e3dc] text-[#4f6b63] hover:border-[#B7D3C8]"
+                                ? "bg-[#f3edff] border-[#6315d9]/40 text-[#25104a]"
+                                : "bg-[#f3edff] border-[#e2d9f7] text-[#5b4b86] hover:border-[#B9A6EF]"
                             }`}
                           >
                             <div
                               className={`w-4 h-4 rounded-md border mt-0.5 flex items-center justify-center flex-shrink-0 transition-colors ${
-                                ativo ? "bg-[#0f766e] border-[#0f766e] text-white" : "border-[#d5e3dc] bg-white"
+                                ativo ? "bg-[#6315d9] border-[#6315d9] text-white" : "border-[#e2d9f7] bg-white"
                               }`}
                             >
                               {ativo && <CheckCircle2 size={12} />}
                             </div>
                             <div className="space-y-0.5">
                               <span className="text-xs font-bold block leading-tight">{tipo.label}</span>
-                              <span className="text-[10px] text-[#4f6b63] block leading-tight">{tipo.desc}</span>
+                              <span className="text-[10px] text-[#5b4b86] block leading-tight">{tipo.desc}</span>
                             </div>
                           </button>
                         );
@@ -1267,40 +1267,40 @@ function AdaptacoesDaConta() {
               </div>
 
               {/* Card 2: Perfil do Estudante & Seletor de Necessidades DUA */}
-              <div className="p-6 bg-white border border-[#d5e3dc] rounded-3xl shadow-2xs space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#d5e3dc]">
+              <div className="p-6 bg-white border border-[#e2d9f7] rounded-3xl shadow-2xs space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#e2d9f7]">
                   <div>
-                    <h3 className="text-base font-bold text-[#123c3a] flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#0f766e]"></span>
+                    <h3 className="text-base font-bold text-[#25104a] flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#6315d9]"></span>
                       2. Perfil Inclusivo & Necessidades Específicas
                     </h3>
-                    <p className="text-xs text-[#4f6b63]">
+                    <p className="text-xs text-[#5b4b86]">
                       Selecione um estudante cadastrado ou monte a combinação de categorias desejada
                     </p>
                   </div>
 
                   {estudantePEI ? (
-                    <div className="flex items-center gap-2 bg-[#f3f8f5] border border-[#daebe5] px-3 py-1.5 rounded-xl">
-                      <span className="text-xs font-bold text-[#0b5f59]">
+                    <div className="flex items-center gap-2 bg-[#f3edff] border border-[#e7dbfd] px-3 py-1.5 rounded-xl">
+                      <span className="text-xs font-bold text-[#5411b8]">
                         PEI: {estudantePEI.nome}
                       </span>
                       <button
                         type="button"
                         onClick={handleLimparAlunoPEI}
-                        className="text-[11px] text-[#4f6b63] hover:text-[#0F766E] underline font-semibold ml-1"
+                        className="text-[11px] text-[#5b4b86] hover:text-[#6315D9] underline font-semibold ml-1"
                       >
                         Desvincular
                       </button>
                     </div>
                   ) : estudanteDiario ? (
-                    <div className="flex items-center gap-2 bg-[#f3f8f5] border border-[#daebe5] px-3 py-1.5 rounded-xl">
-                      <span className="text-xs font-bold text-[#0b5f59]">
+                    <div className="flex items-center gap-2 bg-[#f3edff] border border-[#e7dbfd] px-3 py-1.5 rounded-xl">
+                      <span className="text-xs font-bold text-[#5411b8]">
                         Diário: {estudanteDiario.nome}
                       </span>
                       <button
                         type="button"
                         onClick={handleLimparAlunoPEI}
-                        className="text-[11px] text-[#4f6b63] hover:text-[#0F766E] underline font-semibold ml-1"
+                        className="text-[11px] text-[#5b4b86] hover:text-[#6315D9] underline font-semibold ml-1"
                       >
                         Desvincular
                       </button>
@@ -1311,29 +1311,29 @@ function AdaptacoesDaConta() {
                         type="button"
                         id="btn-importar-alunos-card2"
                         onClick={() => handleAbrirBancoPEI("importacao")}
-                        className="px-3 py-1.5 border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-[#f3f7f5] hover:bg-white rounded-xl text-xs font-bold text-[#123c3a] transition-colors flex items-center gap-1.5 shadow-2xs"
+                        className="px-3 py-1.5 border border-[#e2d9f7] hover:border-[#6315d9]/40 bg-[#f3edff] hover:bg-white rounded-xl text-xs font-bold text-[#25104a] transition-colors flex items-center gap-1.5 shadow-2xs"
                         title="Fazer upload de planilha Excel ou CSV com nome dos alunos, turma e deficiências"
                       >
-                        <FileSpreadsheet size={14} className="text-[#0f766e]" />
+                        <FileSpreadsheet size={14} className="text-[#6315d9]" />
                         Importar Lista (Excel/CSV)
                       </button>
                       <button
                         type="button"
                         id="btn-carregar-banco-pei-card2"
                         onClick={() => handleAbrirBancoPEI("lista")}
-                        className="px-3 py-1.5 border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-[#f3f7f5] hover:bg-white rounded-xl text-xs font-bold text-[#123c3a] transition-colors flex items-center gap-1.5 shadow-2xs"
+                        className="px-3 py-1.5 border border-[#e2d9f7] hover:border-[#6315d9]/40 bg-[#f3edff] hover:bg-white rounded-xl text-xs font-bold text-[#25104a] transition-colors flex items-center gap-1.5 shadow-2xs"
                       >
-                        <Users size={14} className="text-[#0f766e]" />
+                        <Users size={14} className="text-[#6315d9]" />
                         Carregar do Banco PEI
                       </button>
                       <button
                         type="button"
                         id="btn-carregar-diario-card2"
                         onClick={handleAbrirDiario}
-                        className="px-3 py-1.5 border border-[#d5e3dc] hover:border-[#0f766e]/40 bg-[#f3f7f5] hover:bg-white rounded-xl text-xs font-bold text-[#123c3a] transition-colors flex items-center gap-1.5 shadow-2xs"
+                        className="px-3 py-1.5 border border-[#e2d9f7] hover:border-[#6315d9]/40 bg-[#f3edff] hover:bg-white rounded-xl text-xs font-bold text-[#25104a] transition-colors flex items-center gap-1.5 shadow-2xs"
                         title="Carregar o perfil inclusivo de um aluno já cadastrado no Diário Pedagógico (RN-46)"
                       >
-                        <BookOpen size={14} className="text-[#0f766e]" />
+                        <BookOpen size={14} className="text-[#6315d9]" />
                         Carregar do Diário
                       </button>
                     </div>
@@ -1344,7 +1344,7 @@ function AdaptacoesDaConta() {
                 {/* Nome do Estudante (opcional / pseudônimo) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-bold text-[#123c3a] block mb-1">
+                    <label className="text-xs font-bold text-[#25104a] block mb-1">
                       Identificação do Estudante (Nome ou Iniciais LGPD)
                     </label>
                     <input
@@ -1353,11 +1353,11 @@ function AdaptacoesDaConta() {
                       value={nomeAluno}
                       onChange={(e) => setNomeAluno(e.target.value)}
                       placeholder="Ex: Lucas S. (ou deixe em branco para Estudante)"
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3.5 py-2 text-xs text-[#123c3a] outline-none transition-all"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-xl px-3.5 py-2 text-xs text-[#25104a] outline-none transition-all"
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-[#123c3a] block mb-1">
+                    <label className="text-xs font-bold text-[#25104a] block mb-1">
                       Observação Pedagógica Pontual (Opcional)
                     </label>
                     <input
@@ -1365,7 +1365,7 @@ function AdaptacoesDaConta() {
                       value={observacoes}
                       onChange={(e) => setObservacoes(e.target.value)}
                       placeholder="Ex: Apresenta sensibilidade a ruídos, prefere apoio visual..."
-                      className="w-full bg-[#f3f7f5] border border-[#d5e3dc] focus:bg-white focus:border-[#0f766e] rounded-xl px-3.5 py-2 text-xs text-[#123c3a] outline-none transition-all"
+                      className="w-full bg-[#f3edff] border border-[#e2d9f7] focus:bg-white focus:border-[#6315d9] rounded-xl px-3.5 py-2 text-xs text-[#25104a] outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -1382,12 +1382,12 @@ function AdaptacoesDaConta() {
               </div>
 
               {/* Botão de Disparo */}
-              <div className="p-6 bg-white border border-[#d5e3dc] rounded-3xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-xs text-[#4f6b63] flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-[#0F766E] flex-shrink-0" />
+              <div className="p-6 bg-white border border-[#e2d9f7] rounded-3xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-xs text-[#5b4b86] flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-[#6315D9] flex-shrink-0" />
                   <span>
                     A atividade virá acompanhada automaticamente do{" "}
-                    <strong className="text-[#123c3a]">Guia de Mediação Docente</strong> para sua condução.
+                    <strong className="text-[#25104a]">Guia de Mediação Docente</strong> para sua condução.
                   </span>
                 </div>
 
@@ -1395,7 +1395,7 @@ function AdaptacoesDaConta() {
                   id="btn-submeter-geracao"
                   type="submit"
                   disabled={gerando||extraindoArquivo}
-                  className="w-full sm:w-auto px-8 py-3.5 bg-[#0f766e] hover:bg-[#0b5f59] disabled:bg-[#0f766e]/60 text-white rounded-2xl font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto px-8 py-3.5 bg-[#6315d9] hover:bg-[#5411b8] disabled:bg-[#6315d9]/60 text-white rounded-2xl font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {gerando ? (
                     <>
@@ -1429,39 +1429,39 @@ function AdaptacoesDaConta() {
       {/* Seletor "Carregar do Diário" (RN-46) */}
       {modalDiarioAberto && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123c3a]/40 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#25104a]/40 backdrop-blur-sm"
           onClick={() => setModalDiarioAberto(false)}
           role="dialog"
           aria-modal="true"
           aria-label="Carregar aluno do Diário Pedagógico"
         >
           <div
-            className="bg-white rounded-2xl border border-[#d5e3dc] shadow-xl p-5 w-full max-w-lg max-h-[80vh] flex flex-col"
+            className="bg-white rounded-2xl border border-[#e2d9f7] shadow-xl p-5 w-full max-w-lg max-h-[80vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-1">
-              <h3 className="text-sm font-extrabold text-[#123c3a]">Carregar do Diário</h3>
+              <h3 className="text-sm font-extrabold text-[#25104a]">Carregar do Diário</h3>
               <button
                 type="button"
                 onClick={() => setModalDiarioAberto(false)}
                 aria-label="Fechar seletor do Diário"
-                className="text-[#4f6b63] hover:text-[#0b5f59] p-1 transition-colors"
+                className="text-[#5b4b86] hover:text-[#5411b8] p-1 transition-colors"
               >
                 <X size={16} />
               </button>
             </div>
-            <p className="text-[11px] text-[#4f6b63] mb-4 leading-relaxed">
+            <p className="text-[11px] text-[#5b4b86] mb-4 leading-relaxed">
               Selecione a turma e o aluno: necessidades, nível de suporte, âncora de engajamento e
               observações serão preenchidos automaticamente (RN-46).
             </p>
 
             {carregandoDiario ? (
-              <div className="flex items-center gap-2 text-xs text-[#4f6b63] py-6 justify-center">
+              <div className="flex items-center gap-2 text-xs text-[#5b4b86] py-6 justify-center">
                 <Loader2 size={14} className="animate-spin" /> Carregando turmas do Diário...
               </div>
             ) : erroDiario ? (
               <div className="py-6 text-center space-y-3">
-                <p className="text-xs text-[#0b5f59] font-semibold">{erroDiario}</p>
+                <p className="text-xs text-[#5411b8] font-semibold">{erroDiario}</p>
                 <button
                   type="button"
                   onClick={carregarTurmasDiario}
@@ -1471,14 +1471,14 @@ function AdaptacoesDaConta() {
                 </button>
               </div>
             ) : !turmasDiario || turmasDiario.length === 0 ? (
-              <p className="text-xs text-[#4f6b63] py-6 text-center">
+              <p className="text-xs text-[#5b4b86] py-6 text-center">
                 Nenhuma turma cadastrada no Diário.
               </p>
             ) : (
               <>
                 <label
                   htmlFor="select-turma-diario"
-                  className="block text-[11px] font-semibold text-[#566F65] uppercase tracking-wider mb-1"
+                  className="block text-[11px] font-semibold text-[#6E5F94] uppercase tracking-wider mb-1"
                 >
                   Turma
                 </label>
@@ -1486,7 +1486,7 @@ function AdaptacoesDaConta() {
                   id="select-turma-diario"
                   value={turmaDiarioId}
                   onChange={(e) => setTurmaDiarioId(e.target.value)}
-                  className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs text-[#123c3a] outline-none focus:border-[#0f766e] focus:ring-2 focus:ring-[#0f766e]/25 transition-all mb-3"
+                  className="w-full bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-3 py-2 text-xs text-[#25104a] outline-none focus:border-[#6315d9] focus:ring-2 focus:ring-[#6315d9]/25 transition-all mb-3"
                 >
                   {turmasDiario.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -1508,25 +1508,25 @@ function AdaptacoesDaConta() {
                   return (
                     <div className="space-y-2">
                       {/* Filtro de AEE / Necessidades Específicas / CID (RN-61) */}
-                      <div className="flex items-center justify-between px-3 py-2 bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl">
-                        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-[#123c3a] select-none">
+                      <div className="flex items-center justify-between px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-[#25104a] select-none">
                           <input
                             type="checkbox"
                             id="checkbox-filtro-necessidades"
                             checked={apenasAlunosComNecessidades}
                             onChange={(e) => setApenasAlunosComNecessidades(e.target.checked)}
-                            className="rounded border-[#d5e3dc] text-[#0f766e] focus:ring-[#0f766e]"
+                            className="rounded border-[#e2d9f7] text-[#6315d9] focus:ring-[#6315d9]"
                           />
                           <span>Mostrar apenas alunos com necessidades / CID</span>
                         </label>
-                        <span className="text-[10px] font-semibold text-[#4f6b63]">
+                        <span className="text-[10px] font-semibold text-[#5b4b86]">
                           {opcoesFiltradas.length} aluno(s)
                         </span>
                       </div>
 
                       {opcoesFiltradas.length === 0 ? (
-                        <div className="py-6 px-4 text-center space-y-2 bg-[#f3f7f5] rounded-2xl border border-dashed border-[#d5e3dc]">
-                          <p className="text-xs font-bold text-[#123c3a]">
+                        <div className="py-6 px-4 text-center space-y-2 bg-[#f3edff] rounded-2xl border border-dashed border-[#e2d9f7]">
+                          <p className="text-xs font-bold text-[#25104a]">
                             {apenasAlunosComNecessidades
                               ? "Nenhum aluno com necessidades ou CID cadastrado nesta turma."
                               : "Nenhum aluno nesta turma."}
@@ -1535,7 +1535,7 @@ function AdaptacoesDaConta() {
                             <button
                               type="button"
                               onClick={() => setApenasAlunosComNecessidades(false)}
-                              className="text-xs text-[#0b5f59] hover:underline font-bold"
+                              className="text-xs text-[#5411b8] hover:underline font-bold"
                             >
                               Ver todos os {opcoesTurma.length} alunos da turma
                             </button>
@@ -1548,10 +1548,10 @@ function AdaptacoesDaConta() {
                               <button
                                 type="button"
                                 onClick={() => handleSelecionarAlunoDiario(o)}
-                                className="w-full text-left px-3.5 py-2.5 rounded-xl border border-[#d5e3dc] hover:border-[#0f766e] hover:bg-[#f3f8f5] transition-all text-xs font-bold text-[#123c3a] flex items-center justify-between gap-3 group"
+                                className="w-full text-left px-3.5 py-2.5 rounded-xl border border-[#e2d9f7] hover:border-[#6315d9] hover:bg-[#f3edff] transition-all text-xs font-bold text-[#25104a] flex items-center justify-between gap-3 group"
                               >
                                 <div className="space-y-1 min-w-0">
-                                  <span className="group-hover:text-[#0b5f59] transition-colors truncate block">
+                                  <span className="group-hover:text-[#5411b8] transition-colors truncate block">
                                     {o.aluno.nome}
                                   </span>
                                   {Array.isArray(o.aluno.necessidades) && o.aluno.necessidades.length > 0 && (
@@ -1560,7 +1560,7 @@ function AdaptacoesDaConta() {
                                     </div>
                                   )}
                                 </div>
-                                <span className="text-[10px] font-medium text-[#4f6b63] shrink-0">
+                                <span className="text-[10px] font-medium text-[#5b4b86] shrink-0">
                                   {Array.isArray(o.aluno.necessidades) && o.aluno.necessidades.length > 0
                                     ? `${o.aluno.necessidades.length} necessidade(s)`
                                     : "perfil regular"}

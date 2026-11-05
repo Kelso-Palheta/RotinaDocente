@@ -76,7 +76,7 @@ export default function DialogoChat({ titulo, onClose, children }) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem',
-        background: 'rgba(18, 60, 58, 0.45)',
+        background: 'rgba(37, 16, 74, 0.45)',
         backdropFilter: 'blur(3px)',
         WebkitBackdropFilter: 'blur(3px)',
       }}
@@ -98,7 +98,7 @@ export default function DialogoChat({ titulo, onClose, children }) {
           borderRadius: '1.25rem',
           border: '1px solid var(--border)',
           background: '#ffffff',
-          boxShadow: '0 24px 60px rgba(18, 60, 58, 0.28)',
+          boxShadow: '0 24px 60px rgba(37, 16, 74, 0.28)',
           padding: '1.25rem',
           color: 'var(--navy)',
           fontFamily: 'var(--font-body)',

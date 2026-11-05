@@ -28,9 +28,9 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
   let y;
   const novaPagina = () => {
     if (y !== undefined) doc.addPage();
-    doc.setFillColor(18, 60, 58);
+    doc.setFillColor(37, 16, 74);
     doc.rect(0, 0, largura, 25, 'F');
-    doc.setFillColor(15, 118, 110);
+    doc.setFillColor(99, 21, 217);
     doc.rect(0, 25, largura, 1.5, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
@@ -41,7 +41,7 @@ export const generateCalendarioPDF = async (dados = [], nomeTurma = 'Turma', pro
     doc.text('Rotina Docente', margem, 20);
     y = 36;
   };
-  const escrever = (texto, { negrito = false, cor = [18, 60, 58], tamanho = 10 } = {}) => {
+  const escrever = (texto, { negrito = false, cor = [37, 16, 74], tamanho = 10 } = {}) => {
     if (!texto) return;
     doc.setFont('helvetica', negrito ? 'bold' : 'normal');
     doc.setFontSize(tamanho);

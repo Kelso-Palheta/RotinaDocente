@@ -62,29 +62,29 @@ export const TurmaView = ({
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Header */}
-      <section aria-label="Cabeçalho da turma" className="shrink-0 border-b border-[#d5e3dc] bg-white px-3 py-2.5 sm:px-6 sm:py-3">
+      <section aria-label="Cabeçalho da turma" className="shrink-0 border-b border-[#e2d9f7] bg-white px-3 py-2.5 sm:px-6 sm:py-3">
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-              <h1 className="text-lg sm:text-2xl font-extrabold text-[#123c3a] tracking-tight font-head">Turma {turma.nome}</h1>
-              <span className="text-xs text-[#4f6b63] font-mono font-semibold">({turma.alunos.length} alunos)</span>
+              <h1 className="text-lg sm:text-2xl font-extrabold text-[#25104a] tracking-tight font-head">Turma {turma.nome}</h1>
+              <span className="text-xs text-[#5b4b86] font-mono font-semibold">({turma.alunos.length} alunos)</span>
               {view === 'bimestre' && (
-                <span className="px-2.5 py-0.5 bg-[#f3f8f5] border border-[#daebe5] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#0b5f59]">{bimestre}º Bimestre</span>
+                <span className="px-2.5 py-0.5 bg-[#f3edff] border border-[#e7dbfd] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#5411b8]">{bimestre}º Bimestre</span>
               )}
               {view === 'anual' && (
-                <span className="px-2.5 py-0.5 bg-[#f3f8f5] border border-[#daebe5] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#0b5f59]">Mapa Anual</span>
+                <span className="px-2.5 py-0.5 bg-[#f3edff] border border-[#e7dbfd] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#5411b8]">Mapa Anual</span>
               )}
               {view === 'frequencia' && (
-                <span className="px-2.5 py-0.5 bg-[#F3F8F5] border border-[#D5E3DC] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#0B5F59]">Frequência Escolar & LDB</span>
+                <span className="px-2.5 py-0.5 bg-[#F3EDFF] border border-[#E2D9F7] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#5411B8]">Frequência Escolar & LDB</span>
               )}
               {view === 'ocorrencias' && (
-                <span className="px-2.5 py-0.5 bg-[#F3F8F5] border border-[#D5E3DC] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#123C3A]">Diário de Bordo & Ocorrências</span>
+                <span className="px-2.5 py-0.5 bg-[#F3EDFF] border border-[#E2D9F7] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#25104A]">Diário de Bordo & Ocorrências</span>
               )}
             </div>
-            <nav aria-label="Áreas da turma" className="flex min-w-0 flex-wrap items-center bg-[#f3f7f5] p-1 rounded-xl border border-[#d5e3dc] shadow-2xs">
+            <nav aria-label="Áreas da turma" className="flex min-w-0 flex-wrap items-center bg-[#f3edff] p-1 rounded-xl border border-[#e2d9f7] shadow-2xs">
               <button 
                 onClick={() => confirmarTrocaContexto() && setView('bimestre')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  view === 'bimestre' ? 'bg-[#123c3a] text-white shadow-2xs' : 'text-[#4f6b63] hover:text-[#123c3a]'
+                  view === 'bimestre' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
                 }`}
               >
                 Notas
@@ -92,7 +92,7 @@ export const TurmaView = ({
               <button 
                 onClick={() => confirmarTrocaContexto() && setView('frequencia')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  view === 'frequencia' ? 'bg-[#123c3a] text-white shadow-2xs' : 'text-[#4f6b63] hover:text-[#123c3a]'
+                  view === 'frequencia' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
                 }`}
               >
                 Frequência
@@ -100,7 +100,7 @@ export const TurmaView = ({
               <button 
                 onClick={() => confirmarTrocaContexto() && setView('ocorrencias')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  view === 'ocorrencias' ? 'bg-[#123c3a] text-white shadow-2xs' : 'text-[#4f6b63] hover:text-[#123c3a]'
+                  view === 'ocorrencias' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
                 }`}
               >
                 Ocorrências
@@ -108,7 +108,7 @@ export const TurmaView = ({
               <button 
                 onClick={() => confirmarTrocaContexto() && setView('anual')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  view === 'anual' ? 'bg-[#123c3a] text-white shadow-2xs' : 'text-[#4f6b63] hover:text-[#123c3a]'
+                  view === 'anual' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
                 }`}
               >
                 Resumo anual
@@ -121,7 +121,7 @@ export const TurmaView = ({
                 <StatChip label="Excelentes" value={stats.excelentes} color="border-green-200 text-green-700 bg-green-50" />
                 <StatChip label="Aprovados" value={stats.aprovados} color="border-blue-200 text-blue-700 bg-blue-50" />
                 <StatChip label="Abaixo da média" value={stats.abaixo} color="border-[#fecaca] text-[#991b1b] bg-[#fef2f2]" />
-                {stats.semNota > 0 && <StatChip label="Sem nota" value={stats.semNota} color="border-[#d5e3dc] text-[#4f6b63] bg-[#f3f7f5]" />}
+                {stats.semNota > 0 && <StatChip label="Sem nota" value={stats.semNota} color="border-[#e2d9f7] text-[#5b4b86] bg-[#f3edff]" />}
               </dl>
             )}
           <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
@@ -133,7 +133,7 @@ export const TurmaView = ({
               className="btn-brand-ghost px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 shadow-2xs"
               title="Baixar Caderneta Oficial em PDF"
             >
-              <Download size={13} className="text-[#0f766e]" />
+              <Download size={13} className="text-[#6315d9]" />
               <span>Caderneta anual PDF</span>
             </button>
 
@@ -142,7 +142,7 @@ export const TurmaView = ({
               className="btn-brand-ghost px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 shadow-2xs"
               title="Exportar notas em planilha Excel/CSV"
             >
-              <FileSpreadsheet size={13} className="text-[#0F766E]" />
+              <FileSpreadsheet size={13} className="text-[#6315D9]" />
               <span>CSV anual</span>
             </button>
 
@@ -166,7 +166,7 @@ export const TurmaView = ({
                 onClick={() => {
                   if (window.confirm(`Tem certeza que deseja remover a turma ${turma.nome}?`)) onRemoveTurma(turma.id);
                 }}
-                className="p-2 bg-[#F3F8F5] hover:bg-[#DAEBE5] text-[#0B5F59] border border-[#D5E3DC] rounded-xl transition-all"
+                className="p-2 bg-[#F3EDFF] hover:bg-[#E7DBFD] text-[#5411B8] border border-[#E2D9F7] rounded-xl transition-all"
                 title="Remover turma"
               >
                 <Trash2 size={14} />
@@ -185,29 +185,29 @@ export const TurmaView = ({
             <p className="text-slate-400">Nenhum aluno cadastrado nesta turma.</p>
             {!showAddManual ? (
               <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
-                <button onClick={() => setShowImport(true)} className="px-5 py-2.5 bg-[#0F766E] hover:bg-[#0B5F59] rounded-xl text-white text-sm font-medium transition-all">
+                <button onClick={() => setShowImport(true)} className="px-5 py-2.5 bg-[#6315D9] hover:bg-[#5411B8] rounded-xl text-white text-sm font-medium transition-all">
                   Importar lista de alunos
                 </button>
-                <button onClick={() => setShowAddManual(true)} className="px-5 py-2.5 bg-white hover:bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-[#35594D] text-sm font-medium transition-all">
+                <button onClick={() => setShowAddManual(true)} className="px-5 py-2.5 bg-white hover:bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl text-[#4A3B7C] text-sm font-medium transition-all">
                   Cadastrar manualmente
                 </button>
               </div>
             ) : (
-              <div className="w-full bg-white border border-[#D5E3DC] rounded-2xl p-5 shadow-sm mt-2 flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-[#0B2B2A] text-left">Cadastrar Aluno</h3>
+              <div className="w-full bg-white border border-[#E2D9F7] rounded-2xl p-5 shadow-sm mt-2 flex flex-col gap-3">
+                <h3 className="text-sm font-semibold text-[#160932] text-left">Cadastrar Aluno</h3>
                 <div className="flex flex-col gap-2">
                   <input
                     value={manualNome}
                     onChange={(e) => setManualNome(e.target.value)}
                     placeholder="Nome completo do aluno"
-                    className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3.5 py-2 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all"
+                    className="w-full bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl px-3.5 py-2 text-sm text-[#25104A] placeholder-[#6E5F94] outline-none focus:bg-white focus:ring-1 focus:ring-[#6315D9]/50 transition-all"
                   />
                   <input
                     value={manualData}
                     onChange={(e) => setManualData(e.target.value.replace(/\D/g, '').slice(0, 4))}
                     placeholder="Data de nascimento (ddMM)"
                     maxLength={4}
-                    className="w-full bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl px-3.5 py-2 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0F766E]/50 transition-all font-mono text-center"
+                    className="w-full bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl px-3.5 py-2 text-sm text-[#25104A] placeholder-[#6E5F94] outline-none focus:bg-white focus:ring-1 focus:ring-[#6315D9]/50 transition-all font-mono text-center"
                   />
                   <SeletorNecessidadesDiario
                     selecionadas={manualNec}
@@ -235,7 +235,7 @@ export const TurmaView = ({
                       setManualHiperfoco('');
                       setManualObservacoes('');
                     }}
-                    className="px-4 py-2 bg-[#F3F7F5] hover:bg-[#D5E3DC] rounded-xl text-[#35594D] text-xs font-medium transition-all"
+                    className="px-4 py-2 bg-[#F3EDFF] hover:bg-[#E2D9F7] rounded-xl text-[#4A3B7C] text-xs font-medium transition-all"
                   >
                     Cancelar
                   </button>
@@ -260,7 +260,7 @@ export const TurmaView = ({
                       setShowAddManual(false);
                     }}
                     disabled={!manualNome.trim()}
-                    className="px-4 py-2 bg-[#0F766E] hover:bg-[#0B5F59] disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-white text-xs font-medium transition-all"
+                    className="px-4 py-2 bg-[#6315D9] hover:bg-[#5411B8] disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-white text-xs font-medium transition-all"
                   >
                     Adicionar
                   </button>

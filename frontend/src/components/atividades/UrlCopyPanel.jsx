@@ -46,27 +46,27 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg border border-[#D5E3DC] max-h-[80vh] flex flex-col animate-card-in">
-        <div className="p-5 border-b border-[#D5E3DC] flex items-center justify-between">
-          <h3 className="text-lg font-bold text-[#123C3A]">Links da Atividade</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-[#123C3A] text-xl leading-none">&times;</button>
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg border border-[#E2D9F7] max-h-[80vh] flex flex-col animate-card-in">
+        <div className="p-5 border-b border-[#E2D9F7] flex items-center justify-between">
+          <h3 className="text-lg font-bold text-[#25104A]">Links da Atividade</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-[#25104A] text-xl leading-none">&times;</button>
         </div>
 
-        <p className="px-5 pt-3 text-xs text-[#4F6B63]">Links antigos exigem login no Portal do Aluno. Cada link pertence somente ao aluno e à turma indicados.</p>
+        <p className="px-5 pt-3 text-xs text-[#5B4B86]">Links antigos exigem login no Portal do Aluno. Cada link pertence somente ao aluno e à turma indicados.</p>
         <div className="flex-1 overflow-y-auto p-5 space-y-2">
           {Object.entries(alunosInfo).length === 0 && (
             <p className="text-sm text-slate-400 text-center py-8">Carregando alunos...</p>
           )}
           {Object.entries(alunosInfo).map(([alunoId, info]) => (
-            <div key={alunoId} className="flex items-center gap-2 p-2 hover:bg-[#F3F8F5] rounded-lg transition-colors">
-              <span className="flex-1 text-sm text-[#123C3A] truncate">{info.nome}</span>
+            <div key={alunoId} className="flex items-center gap-2 p-2 hover:bg-[#F3EDFF] rounded-lg transition-colors">
+              <span className="flex-1 text-sm text-[#25104A] truncate">{info.nome}</span>
               <button
                 disabled={!info.token}
                 onClick={() => copyUrl(alunoId, info.token)}
                 className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all flex-shrink-0 ${
                   copiedId === alunoId
-                    ? 'bg-[#F3F8F5] text-[#0F766E] border border-[#D5E3DC]'
-                    : 'bg-[#F3F8F5] hover:bg-[#F3F8F5] text-slate-400 hover:text-[#0F766E] border border-[#D5E3DC]'
+                    ? 'bg-[#F3EDFF] text-[#6315D9] border border-[#E2D9F7]'
+                    : 'bg-[#F3EDFF] hover:bg-[#F3EDFF] text-slate-400 hover:text-[#6315D9] border border-[#E2D9F7]'
                 }`}
               >
                 {!info.token ? 'Acesso pendente' : copiedId === alunoId ? 'Copiado!' : 'Copiar'}
@@ -75,10 +75,10 @@ export const UrlCopyPanel = ({ activityId, alunosInfo, onClose }) => {
           ))}
         </div>
 
-        <div className="p-4 border-t border-[#D5E3DC]">
+        <div className="p-4 border-t border-[#E2D9F7]">
           <button
             onClick={copyAll}
-            className="w-full py-3 bg-[#0F766E] hover:bg-[#0B5F59] rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary"
+            className="w-full py-3 bg-[#6315D9] hover:bg-[#5411B8] rounded-xl text-white text-sm font-semibold transition-all btn-3d-primary"
             disabled={!Object.values(alunosInfo).some(info => info.token)}
           >
             Copiar Todas as URLs

@@ -28,7 +28,7 @@ export function DialogoAnalytics({ rotulo, onFechar, children }) {
           onFechar();
         }
       }}
-      className="fixed inset-0 m-auto p-5 bg-white border rounded-xl max-w-3xl w-[calc(100%_-_2rem)] max-h-[90vh] overflow-auto backdrop:bg-[#123C3A]/40"
+      className="fixed inset-0 m-auto p-5 bg-white border rounded-xl max-w-3xl w-[calc(100%_-_2rem)] max-h-[90vh] overflow-auto backdrop:bg-[#25104A]/40"
     >
       {children}
     </dialog>

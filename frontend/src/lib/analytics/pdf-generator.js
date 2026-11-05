@@ -24,7 +24,7 @@ export async function generateAnalyticsPDF({
     doc.text(`Analytics | ${dados.rotulo} | ${ano}`, 14, y);
     y += 9;
   };
-  const escrever = (texto, { cor = [18, 60, 58], negrito = false } = {}) => {
+  const escrever = (texto, { cor = [37, 16, 74], negrito = false } = {}) => {
     doc.setFont('helvetica', negrito ? 'bold' : 'normal');
     doc.setFontSize(10);
     doc.setTextColor(...cor);

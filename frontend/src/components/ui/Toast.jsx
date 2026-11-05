@@ -12,17 +12,17 @@ const ICONS = {
 };
 
 const STYLES = {
-  success: 'bg-[#0B2B2A]/90 border-[#0F766E]/30 text-[#DAEBE5]',
-  error: 'bg-[#0B2B2A]/90 border-[#0F766E]/30 text-[#DAEBE5]',
-  warning: 'bg-[#0B2B2A]/90 border-[#0F766E]/30 text-[#DAEBE5]',
-  info: 'bg-[#0B2B2A]/90 border-[#0F766E]/30 text-[#DAEBE5]',
+  success: 'bg-[#160932]/90 border-[#6315D9]/30 text-[#E7DBFD]',
+  error: 'bg-[#160932]/90 border-[#6315D9]/30 text-[#E7DBFD]',
+  warning: 'bg-[#160932]/90 border-[#6315D9]/30 text-[#E7DBFD]',
+  info: 'bg-[#160932]/90 border-[#6315D9]/30 text-[#E7DBFD]',
 };
 
 const ICON_STYLES = {
-  success: 'text-[#0F766E]',
-  error: 'text-[#0F766E]',
-  warning: 'text-[#0F766E]',
-  info: 'text-[#0F766E]',
+  success: 'text-[#6315D9]',
+  error: 'text-[#6315D9]',
+  warning: 'text-[#6315D9]',
+  info: 'text-[#6315D9]',
 };
 
 export default function Toast({ message, type = 'info', onClose, duration = 4000 }) {

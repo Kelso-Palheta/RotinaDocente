@@ -21,12 +21,12 @@ export const CamposPerfilInclusivo = ({
   idPrefix = 'perfil',
 }) => {
   const inputClass =
-    'w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-3 py-2 text-xs text-[#123c3a] placeholder-[#566f65] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/25 focus:border-[#0f766e] transition-all';
+    'w-full bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-3 py-2 text-xs text-[#25104a] placeholder-[#6e5f94] outline-none focus:bg-white focus:ring-2 focus:ring-[#6315d9]/25 focus:border-[#6315d9] transition-all';
 
   return (
     <div className="flex flex-col gap-2.5">
       <div>
-        <span className="block text-[11px] font-semibold text-[#566F65] uppercase tracking-wider mb-1">
+        <span className="block text-[11px] font-semibold text-[#6E5F94] uppercase tracking-wider mb-1">
           Nível de Suporte Necessário
         </span>
         <div role="radiogroup" aria-label="Nível de suporte necessário" className="grid grid-cols-3 gap-1.5">
@@ -41,8 +41,8 @@ export const CamposPerfilInclusivo = ({
                 onClick={() => onChangeNivel?.(nivel.valor)}
                 className={`rounded-xl border px-2 py-1.5 text-left transition-all ${
                   ativo
-                    ? 'border-[#0f766e] bg-[#f3f8f5] text-[#0b5f59]'
-                    : 'border-[#d5e3dc] bg-white text-[#4f6b63] hover:border-[#0f766e]/40'
+                    ? 'border-[#6315d9] bg-[#f3edff] text-[#5411b8]'
+                    : 'border-[#e2d9f7] bg-white text-[#5b4b86] hover:border-[#6315d9]/40'
                 }`}
               >
                 <span className="block text-[11px] font-bold leading-tight">{nivel.rotulo}</span>
@@ -54,7 +54,7 @@ export const CamposPerfilInclusivo = ({
       </div>
 
       <div>
-        <label htmlFor={`${idPrefix}-hiperfoco`} className="block text-[11px] font-semibold text-[#566F65] uppercase tracking-wider mb-1">
+        <label htmlFor={`${idPrefix}-hiperfoco`} className="block text-[11px] font-semibold text-[#6E5F94] uppercase tracking-wider mb-1">
           Âncora de Engajamento / Hiperfoco (Opcional)
         </label>
         <input
@@ -68,7 +68,7 @@ export const CamposPerfilInclusivo = ({
       </div>
 
       <div>
-        <label htmlFor={`${idPrefix}-observacoes`} className="block text-[11px] font-semibold text-[#566F65] uppercase tracking-wider mb-1">
+        <label htmlFor={`${idPrefix}-observacoes`} className="block text-[11px] font-semibold text-[#6E5F94] uppercase tracking-wider mb-1">
           Observação Pedagógica Pontual (Opcional)
         </label>
         <input

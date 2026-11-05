@@ -17,14 +17,14 @@ import { ArrowLeft, PenTool, Sparkles, Download, CheckCircle2, AlertCircle, Cloc
 const statusAtividade = (entrega, encerrada) => {
   if (!entrega) {
     return encerrada
-      ? { label: 'Encerrada', cls: 'text-[#4f6b63] bg-[#f3f7f5] border-[#d5e3dc]' }
-      : { label: 'Pendente', cls: 'text-[#0f766e] bg-[#f3f8f5] border-[#daebe5]' };
+      ? { label: 'Encerrada', cls: 'text-[#5b4b86] bg-[#f3edff] border-[#e2d9f7]' }
+      : { label: 'Pendente', cls: 'text-[#6315d9] bg-[#f3edff] border-[#e7dbfd]' };
   }
   if (entrega.status === 'corrigido' || entrega.status === 'revisado')
     return { label: 'Corrigida', cls: 'text-[#166534] bg-[#f0fdf4] border-[#bbf7d0]' };
   if (entrega.status === 'entregue')
-    return { label: 'Aguardando Correção', cls: 'text-[#0B5F59] bg-[#fff7ed] border-[#fed7aa]' };
-  return { label: entrega.status, cls: 'text-[#4f6b63] bg-[#f3f7f5] border-[#d5e3dc]' };
+    return { label: 'Aguardando Correção', cls: 'text-[#5411B8] bg-[#fff7ed] border-[#fed7aa]' };
+  return { label: entrega.status, cls: 'text-[#5b4b86] bg-[#f3edff] border-[#e2d9f7]' };
 };
 
 const AtividadeCard = ({ atividade, entrega, token }) => {
@@ -35,24 +35,24 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
   const podeClicar = token && (!entrega ? !encerrada : entrega.status === 'corrigido' || entrega.status === 'revisado');
 
   return (
-    <div className="bg-white border border-[#d5e3dc] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs hover:shadow-xs transition-all">
+    <div className="bg-white border border-[#e2d9f7] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs hover:shadow-xs transition-all">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1 flex-wrap">
           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${cls}`}>{label}</span>
-          <span className="text-[10px] text-[#4f6b63] font-semibold">{rotuloPeriodo(atividade)}</span>
+          <span className="text-[10px] text-[#5b4b86] font-semibold">{rotuloPeriodo(atividade)}</span>
           {atividade.tipoAtividade === 'adaptada' && (
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F3F8F5] text-[#123C3A] border border-[#D5E3DC]">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F3EDFF] text-[#25104A] border border-[#E2D9F7]">
               ✨ Acessível DUA
             </span>
           )}
         </div>
-        <p className="text-sm font-extrabold text-[#123c3a] truncate font-head">{atividade.titulo}</p>
-        <p className="text-xs text-[#4f6b63] mt-0.5 flex items-center gap-1">
-          <Clock size={12} className="text-[#566f65]" />
+        <p className="text-sm font-extrabold text-[#25104a] truncate font-head">{atividade.titulo}</p>
+        <p className="text-xs text-[#5b4b86] mt-0.5 flex items-center gap-1">
+          <Clock size={12} className="text-[#6e5f94]" />
           Prazo: {formatarDataEntrega(atividade.dataEntrega)}
         </p>
         {nota != null && (
-          <p className="text-xs font-mono font-bold text-[#0f766e] mt-1.5">
+          <p className="text-xs font-mono font-bold text-[#6315d9] mt-1.5">
             Nota: {nota.toFixed(2).replace('.', ',')} / {(atividade.notaMaxima ?? 10).toFixed(1).replace('.', ',')} pts
           </p>
         )}
@@ -63,7 +63,7 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
           className={`shrink-0 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs ${
             !entrega
               ? 'btn-brand-primary'
-              : 'bg-white border border-[#d5e3dc] hover:border-[#123c3a] text-[#123c3a]'
+              : 'bg-white border border-[#e2d9f7] hover:border-[#25104a] text-[#25104a]'
           }`}
         >
           {!entrega ? 'Responder' : 'Ver Feedback'}
@@ -74,7 +74,7 @@ const AtividadeCard = ({ atividade, entrega, token }) => {
 };
 
 const AvisoSecao = ({ children, onRetry, tentando, rotulo = 'Tentar novamente' }) => (
-  <div role="alert" className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4 mb-4">
+  <div role="alert" className="bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-4 mb-4">
     <p className="text-xs">{children}</p>
     <button className="underline mt-2 text-xs" onClick={onRetry} disabled={tentando}>
       {tentando ? 'Tentando carregar novamente...' : rotulo}
@@ -182,10 +182,10 @@ export default function AlunoNotasPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f3f7f5] flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-[#f3edff] flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#123c3a] border-2 border-[#0f766e] animate-spin" />
-          <span className="text-xs font-bold text-[#4f6b63]">Carregando suas notas...</span>
+          <div className="w-10 h-10 rounded-2xl bg-[#25104a] border-2 border-[#6315d9] animate-spin" />
+          <span className="text-xs font-bold text-[#5b4b86]">Carregando suas notas...</span>
         </div>
       </div>
     );
@@ -193,13 +193,13 @@ export default function AlunoNotasPage() {
 
   if (erro && !dados) {
     return (
-      <div className="min-h-screen bg-[#f3f7f5] flex items-center justify-center p-4 font-sans">
-        <div className="text-center max-w-sm bg-white border border-[#d5e3dc] p-8 rounded-3xl shadow-lg">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#f3f8f5] border border-[#daebe5] flex items-center justify-center text-[#0f766e]">
+      <div className="min-h-screen bg-[#f3edff] flex items-center justify-center p-4 font-sans">
+        <div className="text-center max-w-sm bg-white border border-[#e2d9f7] p-8 rounded-3xl shadow-lg">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#f3edff] border border-[#e7dbfd] flex items-center justify-center text-[#6315d9]">
             <AlertCircle size={28} />
           </div>
-          <h1 className="text-lg font-extrabold text-[#123c3a] mb-2 font-head">Não foi possível carregar</h1>
-          <p className="text-xs text-[#4f6b63] mb-6">{erro}</p>
+          <h1 className="text-lg font-extrabold text-[#25104a] mb-2 font-head">Não foi possível carregar</h1>
+          <p className="text-xs text-[#5b4b86] mb-6">{erro}</p>
           <button onClick={handleLogout} className="btn-brand-primary px-5 py-2.5 text-xs font-bold">
             Voltar ao Login
           </button>
@@ -237,7 +237,7 @@ export default function AlunoNotasPage() {
   const abaAtual = abaMap[abaAtv] || [];
 
   return (
-    <div className="min-h-screen bg-[#f3f7f5] font-sans selection:bg-[#0f766e] selection:text-white">
+    <div className="min-h-screen bg-[#f3edff] font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
         <AcessoRevisao aluno />
 
@@ -245,7 +245,7 @@ export default function AlunoNotasPage() {
         <div className="flex items-center justify-between mb-6">
           <button 
             onClick={() => router.push('/aluno')} 
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#123c3a] hover:bg-white border border-[#d5e3dc] bg-white/70 shadow-2xs transition-all"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#25104a] hover:bg-white border border-[#e2d9f7] bg-white/70 shadow-2xs transition-all"
           >
             <ArrowLeft size={14} /> Voltar ao Portal
           </button>
@@ -266,12 +266,12 @@ export default function AlunoNotasPage() {
               className="btn-brand-ghost px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 shadow-2xs"
               title="Baixar Boletim em PDF"
             >
-              <Download size={14} className="text-[#0f766e]" />
+              <Download size={14} className="text-[#6315d9]" />
               <span>Baixar Boletim</span>
             </button>
             <button 
               onClick={handleLogout} 
-              className="p-1.5 text-[#566f65] hover:text-[#0b5f59] hover:bg-[#f3f8f5] rounded-xl transition-all"
+              className="p-1.5 text-[#6e5f94] hover:text-[#5411b8] hover:bg-[#f3edff] rounded-xl transition-all"
               title="Sair da conta"
             >
               <LogOut size={16} />
@@ -280,26 +280,26 @@ export default function AlunoNotasPage() {
         </div>
 
         {/* Card do Estudante */}
-        <div className="bg-white border border-[#d5e3dc] rounded-3xl p-6 mb-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="bg-white border border-[#e2d9f7] rounded-3xl p-6 mb-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-[#123c3a] text-white flex items-center justify-center shadow-md">
-              <User size={22} className="text-[#0f766e]" />
+            <div className="w-12 h-12 rounded-2xl bg-[#25104a] text-white flex items-center justify-center shadow-md">
+              <User size={22} className="text-[#6315d9]" />
             </div>
             <div>
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#4f6b63] block">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#5b4b86] block">
                 Boletim de Desempenho
               </span>
-              <h1 className="font-head text-xl font-extrabold text-[#123c3a] leading-tight">
+              <h1 className="font-head text-xl font-extrabold text-[#25104a] leading-tight">
                 {nome}
               </h1>
-              <p className="text-xs text-[#4f6b63] mt-0.5">
-                Turma: <span className="font-semibold text-[#123c3a]">{turmaId}</span>
+              <p className="text-xs text-[#5b4b86] mt-0.5">
+                Turma: <span className="font-semibold text-[#25104a]">{turmaId}</span>
               </p>
             </div>
           </div>
 
-          <div aria-label="Situação anual" className="p-3 rounded-2xl bg-[#f3f7f5]">
-            <span className="text-[11px] font-bold text-[#4f6b63] block">Situação anual</span>
+          <div aria-label="Situação anual" className="p-3 rounded-2xl bg-[#f3edff]">
+            <span className="text-[11px] font-bold text-[#5b4b86] block">Situação anual</span>
             <span className={`text-sm font-extrabold ${coresSituacao[statusFinal]}`}>{ROTULOS_APROVACAO[statusFinal]}</span>
           </div>
         </div>
@@ -312,7 +312,7 @@ export default function AlunoNotasPage() {
         {falhas.redacoes && <AvisoSecao onRetry={recarregarSecoes} tentando={recarregando} rotulo="Tentar carregar redações novamente">Não foi possível carregar as redações. Isso não significa que seu histórico esteja vazio.</AvisoSecao>}
         {redacoes.length > 0 && <section className="space-y-3 mb-8" aria-label="Redações publicadas">
           <h2 className="font-bold text-lg">Minhas redações</h2>
-          {redacoes.map(r=><article key={r.id} className="bg-white border border-[#d5e3dc] rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
+          {redacoes.map(r=><article key={r.id} className="bg-white border border-[#e2d9f7] rounded-2xl p-4 flex flex-wrap justify-between items-center gap-3">
             <div><h3 className="font-bold">{r.essayTheme}</h3><p className="text-sm">{r.bimestre}º bimestre · {r.anoLetivo || 'Ano não informado'}</p><p className="text-sm">{r.totalScore==null?'Avaliação parcial — sem nota total':`Nota Final: ${r.totalScore} / 1000`} · {r.revisadoEm?'Revisada pelo professor':(r.metodoCorrecao || r.tipoCorrecao)==='manual'?'Correção manual':'Devolutiva pedagógica'}</p></div>
             <button className="btn-brand-primary rounded-xl px-4 py-2" onClick={()=>{sessionStorage.setItem('redacao_aluno',JSON.stringify({professorUid:dados.professorUid}));router.push(`/redacao/aluno/${r.id}`);}}>Ver relatório</button>
           </article>)}
@@ -321,13 +321,13 @@ export default function AlunoNotasPage() {
 
         {/* Grid dos 4 Bimestres */}
         <div className="mb-8">
-          <h2 className="text-xs font-extrabold uppercase tracking-wider text-[#4f6b63] mb-3 font-head">
+          <h2 className="text-xs font-extrabold uppercase tracking-wider text-[#5b4b86] mb-3 font-head">
             Notas por Bimestre
           </h2>
           {(!turma.bimestres || Object.keys(turma.bimestres).length === 0) ? (
             !redacao && (falhas.notas
-              ? <p className="text-xs text-[#0B5F59] bg-[#F3F8F5] p-6 rounded-2xl border border-[#D5E3DC] text-center">Não foi possível confirmar suas notas agora. Use o botão de nova tentativa acima.</p>
-              : <p className="text-xs text-[#566f65] bg-white p-6 rounded-2xl border border-dashed border-[#d5e3dc] text-center">Nenhuma nota publicada ainda.</p>)
+              ? <p className="text-xs text-[#5411B8] bg-[#F3EDFF] p-6 rounded-2xl border border-[#E2D9F7] text-center">Não foi possível confirmar suas notas agora. Use o botão de nova tentativa acima.</p>
+              : <p className="text-xs text-[#6e5f94] bg-white p-6 rounded-2xl border border-dashed border-[#e2d9f7] text-center">Nenhuma nota publicada ainda.</p>)
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[1, 2, 3, 4].map((b) => (
@@ -338,22 +338,22 @@ export default function AlunoNotasPage() {
         </div>
 
         {/* Resumo Anual */}
-        <div className="bg-white border border-[#d5e3dc] rounded-3xl p-5 mb-8 shadow-sm">
-          <h3 className="text-xs font-extrabold text-[#123c3a] uppercase tracking-wider mb-4 font-head">Resumo Semestral e Anual</h3>
+        <div className="bg-white border border-[#e2d9f7] rounded-3xl p-5 mb-8 shadow-sm">
+          <h3 className="text-xs font-extrabold text-[#25104a] uppercase tracking-wider mb-4 font-head">Resumo Semestral e Anual</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {[S1, S2].map((semestre, i) => (
-              <div key={i} aria-label={`Situação do ${i + 1}º semestre`} className="p-3 bg-[#f3f7f5] rounded-2xl border border-[#d5e3dc]">
-                <span className="text-[10px] font-bold text-[#4f6b63] uppercase tracking-wider block">{i + 1}º Semestre</span>
+              <div key={i} aria-label={`Situação do ${i + 1}º semestre`} className="p-3 bg-[#f3edff] rounded-2xl border border-[#e2d9f7]">
+                <span className="text-[10px] font-bold text-[#5b4b86] uppercase tracking-wider block">{i + 1}º Semestre</span>
                 <p className={`text-lg font-extrabold font-mono tabular-nums ${coresSituacao[semestre.status]}`}>{fmt(semestre.total)}</p>
                 <p className={`text-xs font-bold ${coresSituacao[semestre.status]}`}>{ROTULOS_APROVACAO[semestre.status]}</p>
-                <span className="text-[11px] text-[#4f6b63]">Meta mínima: 25,00 pontos</span>
+                <span className="text-[11px] text-[#5b4b86]">Meta mínima: 25,00 pontos</span>
               </div>
             ))}
           </div>
-          <div className="border-t border-[#d5e3dc] pt-4 flex justify-between items-baseline">
+          <div className="border-t border-[#e2d9f7] pt-4 flex justify-between items-baseline">
             <div>
-              <span className="text-xs font-bold text-[#123c3a] block">Pontuação Total Anual</span>
-              <span className="text-[11px] text-[#4f6b63]">Meta mínima: 50,00 pontos</span>
+              <span className="text-xs font-bold text-[#25104a] block">Pontuação Total Anual</span>
+              <span className="text-[11px] text-[#5b4b86]">Meta mínima: 50,00 pontos</span>
             </div>
             <span className={`text-2xl font-extrabold font-mono tabular-nums ${coresSituacao[statusFinal]}`}>
               {totalAnual !== null ? fmt(totalAnual) : '—'}
@@ -366,12 +366,12 @@ export default function AlunoNotasPage() {
         {/* Atividades Online */}
         {atividades.length > 0 && (
           <div>
-            <h2 className="text-xs font-extrabold text-[#4f6b63] uppercase tracking-wider mb-3 font-head">
+            <h2 className="text-xs font-extrabold text-[#5b4b86] uppercase tracking-wider mb-3 font-head">
               Atividades e Tarefas
             </h2>
 
             {/* Abas */}
-            <div className="flex gap-1.5 mb-4 bg-white border border-[#d5e3dc] rounded-2xl p-1 shadow-2xs">
+            <div className="flex gap-1.5 mb-4 bg-white border border-[#e2d9f7] rounded-2xl p-1 shadow-2xs">
               {[
                 { key: 'pendentes', label: 'Pendentes', count: pendentes.length },
                 { key: 'realizadas', label: 'Realizadas', count: realizadas.length },
@@ -382,14 +382,14 @@ export default function AlunoNotasPage() {
                   onClick={() => setAbaAtv(key)}
                   className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${
                     abaAtv === key 
-                      ? 'bg-[#123c3a] text-white shadow-2xs'
-                      : 'text-[#4f6b63] hover:text-[#123c3a]'
+                      ? 'bg-[#25104a] text-white shadow-2xs'
+                      : 'text-[#5b4b86] hover:text-[#25104a]'
                   }`}
                 >
                   <span>{label}</span>
                   {count > 0 && (
                     <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-extrabold ${
-                      abaAtv === key ? 'bg-[#0f766e] text-white' : 'bg-[#f3f7f5] text-[#4f6b63]'
+                      abaAtv === key ? 'bg-[#6315d9] text-white' : 'bg-[#f3edff] text-[#5b4b86]'
                     }`}>
                       {count}
                     </span>
@@ -400,7 +400,7 @@ export default function AlunoNotasPage() {
 
             <div className="space-y-3">
               {abaAtual.length === 0 ? (
-                <p className="text-xs text-[#566f65] text-center py-8 bg-white border border-dashed border-[#d5e3dc] rounded-2xl">
+                <p className="text-xs text-[#6e5f94] text-center py-8 bg-white border border-dashed border-[#e2d9f7] rounded-2xl">
                   {falhas.atividades || falhas.entregas ? 'Não foi possível confirmar todas as atividades desta categoria. Tente novamente.' : 'Nenhuma atividade nesta categoria.'}
                 </p>
               ) : (

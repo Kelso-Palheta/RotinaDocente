@@ -21,7 +21,7 @@ const listSourceFiles = (dir) => {
 const read = (f) => readFileSync(f, 'utf8');
 const allFiles = [...listSourceFiles(REDACAO_DIR), RENDERER];
 
-describe('IT-13 (RN-50): Padrão visual petróleo e sálvia do módulo de redação', () => {
+describe('IT-13 (RN-50): Padrão visual Arte em jogo do módulo de redação', () => {
   it('nenhum arquivo do módulo usa a paleta off-brand violeta/índigo/roxo', () => {
     const offenders = allFiles
       .map((f) => ({ file: f.split('/').slice(-2).join('/'), hits: read(f).match(OFF_BRAND) || [] }))
@@ -29,22 +29,22 @@ describe('IT-13 (RN-50): Padrão visual petróleo e sálvia do módulo de redaç
     expect(offenders).toEqual([]);
   });
 
-  it('a tela de correção usa os tokens de marca (petróleo #0f766e, verde-petróleo #123c3a, btn-brand)', () => {
+  it('a tela de correção usa os tokens de marca (roxo de marca #6315d9, roxo profundo #25104a, btn-brand)', () => {
     const src = read(join(REDACAO_DIR, 'page.js'));
-    expect(src).toMatch(/#0f766e/);
-    expect(src).toMatch(/#123c3a/);
+    expect(src).toMatch(/#6315d9/);
+    expect(src).toMatch(/#25104a/);
     expect(src).toMatch(/btn-brand-/);
   });
 
-  it('o renderizador de feedback usa acento petróleo no lugar do violeta', () => {
+  it('o renderizador de feedback usa acento roxo de marca no lugar do violeta', () => {
     const src = read(RENDERER);
-    expect(src).toMatch(/#0f766e/);
+    expect(src).toMatch(/#6315d9/);
     expect(src).not.toMatch(OFF_BRAND);
   });
 
   it('a visão do resultado pelo aluno usa os tokens de marca', () => {
     const src = read(join(REDACAO_DIR, 'aluno', '[id]', 'page.js'));
-    expect(src).toMatch(/#0f766e/);
+    expect(src).toMatch(/#6315d9/);
     expect(src).not.toMatch(OFF_BRAND);
   });
 });

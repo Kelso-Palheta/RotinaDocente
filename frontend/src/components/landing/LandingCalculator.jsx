@@ -15,19 +15,19 @@ export function LandingCalculator({ onOpenAuth }) {
   const finsDeSemanaLivres = (horasEconomizadas / 12).toFixed(1);
 
   return (
-    <section id="calculadora" className="py-24 bg-[#f3f7f5]/50 relative">
+    <section id="calculadora" className="py-24 bg-[#f3edff]/50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-[#d5e3dc] shadow-xl relative overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-[#e2d9f7] shadow-xl relative overflow-hidden">
           {/* Badge decorativo */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#f3f8f5] border border-[#daebe5] text-[#0b5f59] text-xs font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-[#0f766e]" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#f3edff] border border-[#e7dbfd] text-[#5411b8] text-xs font-bold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#6315d9]" />
               CALCULADORA DE TEMPO RECUPERADO
             </div>
-            <h2 className="font-head text-3xl sm:text-4xl font-extrabold text-[#123c3a] tracking-tight">
+            <h2 className="font-head text-3xl sm:text-4xl font-extrabold text-[#25104a] tracking-tight">
               Quanto tempo você vai ganhar de volta?
             </h2>
-<p className="mt-2 text-sm sm:text-base text-[#4f6b63]">
+<p className="mt-2 text-sm sm:text-base text-[#5b4b86]">
                Arraste o seletor abaixo e veja o impacto real do Rotina Docente na sua qualidade de vida.
              </p>
           </div>
@@ -35,10 +35,10 @@ export function LandingCalculator({ onOpenAuth }) {
           {/* Slider Interativo */}
           <div className="space-y-6 max-w-xl mx-auto mb-10">
             <div className="flex justify-between items-center">
-              <label className="font-head font-bold text-sm sm:text-base text-[#123c3a]">
+              <label className="font-head font-bold text-sm sm:text-base text-[#25104a]">
                 Quantas turmas você leciona?
               </label>
-              <span className="font-head font-extrabold text-2xl text-[#0f766e] bg-[#f3f8f5] px-4 py-1 rounded-xl border border-[#daebe5]">
+              <span className="font-head font-extrabold text-2xl text-[#6315d9] bg-[#f3edff] px-4 py-1 rounded-xl border border-[#e7dbfd]">
                 {turmas} {turmas === 1 ? "turma" : "turmas"}
               </span>
             </div>
@@ -49,9 +49,9 @@ export function LandingCalculator({ onOpenAuth }) {
               max="15"
               value={turmas}
               onChange={(e) => setTurmas(Number(e.target.value))}
-              className="w-full h-3 bg-[#d5e3dc] rounded-lg appearance-none cursor-pointer accent-[#0f766e]"
+              className="w-full h-3 bg-[#e2d9f7] rounded-lg appearance-none cursor-pointer accent-[#6315d9]"
             />
-            <div className="flex justify-between text-xs font-bold text-[#566f65]">
+            <div className="flex justify-between text-xs font-bold text-[#6e5f94]">
               <span>1 turma</span>
               <span>5 turmas</span>
               <span>10 turmas</span>
@@ -61,38 +61,38 @@ export function LandingCalculator({ onOpenAuth }) {
 
           {/* Resultados Comparativos */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center mb-10">
-            <div className="p-6 rounded-2xl bg-[#f3f7f5] border border-[#d5e3dc]">
-              <div className="w-10 h-10 rounded-xl bg-[#f3f7f5] text-[#4f6b63] flex items-center justify-center mx-auto mb-3">
+            <div className="p-6 rounded-2xl bg-[#f3edff] border border-[#e2d9f7]">
+              <div className="w-10 h-10 rounded-xl bg-[#f3edff] text-[#5b4b86] flex items-center justify-center mx-auto mb-3">
                 <Clock className="w-5 h-5" />
               </div>
-              <div className="font-head text-3xl sm:text-4xl font-extrabold text-[#123c3a]">
+              <div className="font-head text-3xl sm:text-4xl font-extrabold text-[#25104a]">
                 {horasEconomizadas}h
               </div>
-              <div className="text-xs sm:text-sm font-semibold text-[#4f6b63] mt-1">
+              <div className="text-xs sm:text-sm font-semibold text-[#5b4b86] mt-1">
                 Poupadas todo mês
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#f3f8f5] border border-[#daebe5] shadow-xs">
-              <div className="w-10 h-10 rounded-xl bg-[#daebe5] text-[#0b5f59] flex items-center justify-center mx-auto mb-3">
-                <Coffee className="w-5 h-5 text-[#0f766e]" />
+            <div className="p-6 rounded-2xl bg-[#f3edff] border border-[#e7dbfd] shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-[#e7dbfd] text-[#5411b8] flex items-center justify-center mx-auto mb-3">
+                <Coffee className="w-5 h-5 text-[#6315d9]" />
               </div>
-              <div className="font-head text-3xl sm:text-4xl font-extrabold text-[#0b5f59]">
+              <div className="font-head text-3xl sm:text-4xl font-extrabold text-[#5411b8]">
                 {finsDeSemanaLivres}
               </div>
-              <div className="text-xs sm:text-sm font-bold text-[#0b5f59] mt-1">
+              <div className="text-xs sm:text-sm font-bold text-[#5411b8] mt-1">
                 Finais de semana 100% livres
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#f3f7f5] border border-[#d5e3dc]">
-              <div className="w-10 h-10 rounded-xl bg-[#f3f7f5] text-[#0F766E] flex items-center justify-center mx-auto mb-3">
+            <div className="p-6 rounded-2xl bg-[#f3edff] border border-[#e2d9f7]">
+              <div className="w-10 h-10 rounded-xl bg-[#f3edff] text-[#6315D9] flex items-center justify-center mx-auto mb-3">
                 <Heart className="w-5 h-5" />
               </div>
-              <div className="font-head text-3xl sm:text-4xl font-extrabold text-[#0F766E]">
+              <div className="font-head text-3xl sm:text-4xl font-extrabold text-[#6315D9]">
                 95%
               </div>
-              <div className="text-xs sm:text-sm font-semibold text-[#4f6b63] mt-1">
+              <div className="text-xs sm:text-sm font-semibold text-[#5b4b86] mt-1">
                 Menos estresse burocrático
               </div>
             </div>
@@ -107,7 +107,7 @@ export function LandingCalculator({ onOpenAuth }) {
               <span>Resgatar Minhas {horasEconomizadas} Horas Grátis</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1.5" />
             </button>
-            <p className="text-xs text-[#566f65] mt-3">
+            <p className="text-xs text-[#6e5f94] mt-3">
               Comece agora mesmo com 15 créditos mensais sem cadastrar cartão.
             </p>
           </div>

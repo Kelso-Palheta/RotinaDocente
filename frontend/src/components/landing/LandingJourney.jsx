@@ -78,17 +78,17 @@ export function LandingJourney({ onOpenAuth }) {
   ];
 
   return (
-    <section id="jornada" className="py-24 bg-[#123c3a] text-white relative overflow-hidden">
+    <section id="jornada" className="py-24 bg-[#25104a] text-white relative overflow-hidden">
       {/* Glow radial sutil */}
-      <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-[#0f766e]/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
+      <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-[#6315d9]/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header da Seção */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#0f766e] mb-3">
-            <span className="w-6 h-0.5 bg-[#0f766e]"></span>
+          <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#6315d9] mb-3">
+            <span className="w-6 h-0.5 bg-[#6315d9]"></span>
             COMO FUNCIONA O HUB
-            <span className="w-6 h-0.5 bg-[#0f766e]"></span>
+            <span className="w-6 h-0.5 bg-[#6315d9]"></span>
           </div>
           <h2 className="font-head text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
             Do planejamento à nota final: tudo em um só lugar.
@@ -110,7 +110,7 @@ export function LandingJourney({ onOpenAuth }) {
                   onClick={() => setActiveStep(idx)}
                   className={`p-5 rounded-2xl cursor-pointer transition-all duration-300 border text-left ${
                     isActive
-                      ? "bg-white/10 border-[#0f766e] shadow-lg shadow-[#0f766e]/10"
+                      ? "bg-white/10 border-[#6315d9] shadow-lg shadow-[#6315d9]/10"
                       : "bg-white/5 border-white/10 hover:bg-white/[0.08] hover:border-white/20 opacity-70 hover:opacity-100"
                   }`}
                 >
@@ -118,7 +118,7 @@ export function LandingJourney({ onOpenAuth }) {
                     <div
                       className={`w-9 h-9 rounded-xl flex items-center justify-center font-head font-extrabold text-sm transition-colors ${
                         isActive
-                          ? "bg-[#0f766e] text-white"
+                          ? "bg-[#6315d9] text-white"
                           : "bg-white/10 text-white/60"
                       }`}
                     >
@@ -143,15 +143,15 @@ export function LandingJourney({ onOpenAuth }) {
 
           {/* Coluna Direita: Stage Visual Mockup */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-2xl shadow-2xl border border-[#d5e3dc] overflow-hidden text-[#123c3a]">
+            <div className="bg-white rounded-2xl shadow-2xl border border-[#e2d9f7] overflow-hidden text-[#25104a]">
               {/* Barra do macOS */}
-              <div className="flex items-center justify-between px-4 py-3 bg-[#f3f7f5] border-b border-[#d5e3dc]">
+              <div className="flex items-center justify-between px-4 py-3 bg-[#f3edff] border-b border-[#e2d9f7]">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-[#0F766E]" />
-                  <span className="w-3 h-3 rounded-full bg-[#B7D3C8]" />
-                  <span className="w-3 h-3 rounded-full bg-[#DAEBE5]" />
+                  <span className="w-3 h-3 rounded-full bg-[#6315D9]" />
+                  <span className="w-3 h-3 rounded-full bg-[#B9A6EF]" />
+                  <span className="w-3 h-3 rounded-full bg-[#E7DBFD]" />
                 </div>
-                <div className="px-3 py-1 bg-white border border-[#d5e3dc] rounded-md text-[11px] font-bold text-[#0f766e]">
+                <div className="px-3 py-1 bg-white border border-[#e2d9f7] rounded-md text-[11px] font-bold text-[#6315d9]">
                   {steps[activeStep].badge}
                 </div>
                 <div className="w-10" />
@@ -160,11 +160,11 @@ export function LandingJourney({ onOpenAuth }) {
               {/* Conteúdo Dinâmico da Etapa */}
               <div className="p-6 space-y-4 min-h-[380px] flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-[#d5e3dc] mb-4">
-                    <h3 className="font-head font-bold text-lg text-[#123c3a]">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#e2d9f7] mb-4">
+                    <h3 className="font-head font-bold text-lg text-[#25104a]">
                       {steps[activeStep].mockupData.title}
                     </h3>
-                    <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-[#f3f8f5] text-[#0b5f59] border border-[#daebe5]">
+                    <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-[#f3edff] text-[#5411b8] border border-[#e7dbfd]">
                       {steps[activeStep].mockupData.headerPill}
                     </span>
                   </div>
@@ -173,12 +173,12 @@ export function LandingJourney({ onOpenAuth }) {
                   {activeStep === 0 && (
                     <div className="space-y-2.5 text-xs animate-card-in">
                       {steps[0].mockupData.items.map((it, i) => (
-                        <div key={i} className="p-3 rounded-xl bg-[#f3f7f5] border border-[#d5e3dc] flex items-center justify-between">
+                        <div key={i} className="p-3 rounded-xl bg-[#f3edff] border border-[#e2d9f7] flex items-center justify-between">
                           <div>
-                            <span className="font-bold text-[#123c3a] block">{it.day}</span>
-                            <span className="text-[11px] text-[#4f6b63]">{it.time}</span>
+                            <span className="font-bold text-[#25104a] block">{it.day}</span>
+                            <span className="text-[11px] text-[#5b4b86]">{it.time}</span>
                           </div>
-                          <span className="font-semibold text-[#0f766e] bg-[#f3f8f5] px-2.5 py-1 rounded-md border border-[#daebe5]">
+                          <span className="font-semibold text-[#6315d9] bg-[#f3edff] px-2.5 py-1 rounded-md border border-[#e7dbfd]">
                             {it.topic}
                           </span>
                         </div>
@@ -189,9 +189,9 @@ export function LandingJourney({ onOpenAuth }) {
                   {activeStep === 1 && (
                     <div className="space-y-2.5 text-xs animate-card-in">
                       {steps[1].mockupData.items.map((it, i) => (
-                        <div key={i} className="p-3 rounded-xl bg-[#f3f7f5] border border-[#d5e3dc]">
-                          <span className="font-bold text-[#0f766e] block mb-0.5">{it.q}</span>
-                          <span className="text-[#123c3a]">{it.detail}</span>
+                        <div key={i} className="p-3 rounded-xl bg-[#f3edff] border border-[#e2d9f7]">
+                          <span className="font-bold text-[#6315d9] block mb-0.5">{it.q}</span>
+                          <span className="text-[#25104a]">{it.detail}</span>
                         </div>
                       ))}
                     </div>
@@ -200,12 +200,12 @@ export function LandingJourney({ onOpenAuth }) {
                   {activeStep === 2 && (
                     <div className="space-y-2 text-xs animate-card-in">
                       {steps[2].mockupData.items.map((it, i) => (
-                        <div key={i} className="p-2.5 rounded-xl bg-[#f3f7f5] border border-[#d5e3dc] flex justify-between items-center">
+                        <div key={i} className="p-2.5 rounded-xl bg-[#f3edff] border border-[#e2d9f7] flex justify-between items-center">
                           <div>
-                            <span className="font-bold text-[#123c3a] block">{it.comp}</span>
-                            <span className="text-[11px] text-[#4f6b63]">{it.obs}</span>
+                            <span className="font-bold text-[#25104a] block">{it.comp}</span>
+                            <span className="text-[11px] text-[#5b4b86]">{it.obs}</span>
                           </div>
-                          <span className="font-extrabold text-[#0F766E] bg-[#f3f7f5] px-2.5 py-1 rounded-md">
+                          <span className="font-extrabold text-[#6315D9] bg-[#f3edff] px-2.5 py-1 rounded-md">
                             {it.score}
                           </span>
                         </div>
@@ -215,18 +215,18 @@ export function LandingJourney({ onOpenAuth }) {
 
                   {activeStep === 3 && (
                     <div className="space-y-2 text-xs animate-card-in">
-                      <div className="grid grid-cols-5 font-bold text-[#4f6b63] px-2 pb-1 border-b border-[#d5e3dc] text-[11px]">
+                      <div className="grid grid-cols-5 font-bold text-[#5b4b86] px-2 pb-1 border-b border-[#e2d9f7] text-[11px]">
                         <span className="col-span-2">Aluno</span>
                         <span>N1</span>
                         <span>N2</span>
                         <span className="text-right">Média</span>
                       </div>
                       {steps[3].mockupData.items.map((it, i) => (
-                        <div key={i} className="grid grid-cols-5 items-center p-2 rounded-lg bg-[#f3f7f5] border border-[#d5e3dc] text-xs">
-                          <span className="col-span-2 font-bold text-[#123c3a]">{it.student}</span>
-                          <span className="text-[#4f6b63]">{it.n1}</span>
-                          <span className="text-[#4f6b63]">{it.n2}</span>
-                          <span className="text-right font-extrabold text-[#0f766e]">{it.final}</span>
+                        <div key={i} className="grid grid-cols-5 items-center p-2 rounded-lg bg-[#f3edff] border border-[#e2d9f7] text-xs">
+                          <span className="col-span-2 font-bold text-[#25104a]">{it.student}</span>
+                          <span className="text-[#5b4b86]">{it.n1}</span>
+                          <span className="text-[#5b4b86]">{it.n2}</span>
+                          <span className="text-right font-extrabold text-[#6315d9]">{it.final}</span>
                         </div>
                       ))}
                     </div>
@@ -234,8 +234,8 @@ export function LandingJourney({ onOpenAuth }) {
                 </div>
 
                 {/* Highlight inferior */}
-                <div className="pt-4 border-t border-[#d5e3dc] flex items-center justify-between text-xs">
-                  <span className="text-[#4f6b63] font-medium">{steps[activeStep].mockupData.highlight}</span>
+                <div className="pt-4 border-t border-[#e2d9f7] flex items-center justify-between text-xs">
+                  <span className="text-[#5b4b86] font-medium">{steps[activeStep].mockupData.highlight}</span>
                   <button
                     onClick={() => onOpenAuth("cadastro")}
                     className="btn-brand-primary py-2 px-4 text-xs flex items-center gap-1.5"

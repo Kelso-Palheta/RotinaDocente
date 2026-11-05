@@ -13,39 +13,39 @@ export function MetricCard({
 }) {
   const colorStyles = {
     blue: {
-      bg: 'rgba(15, 118, 110, 0.08)',
-      border: 'rgba(15, 118, 110, 0.2)',
-      iconBg: 'rgba(15, 118, 110, 0.15)',
-      iconColor: '#0F766E',
-      accent: '#0B5F59',
+      bg: 'rgba(99, 21, 217, 0.08)',
+      border: 'rgba(99, 21, 217, 0.2)',
+      iconBg: 'rgba(99, 21, 217, 0.15)',
+      iconColor: '#6315D9',
+      accent: '#5411B8',
     },
     emerald: {
-      bg: 'rgba(15, 118, 110, 0.08)',
-      border: 'rgba(15, 118, 110, 0.2)',
-      iconBg: 'rgba(15, 118, 110, 0.15)',
-      iconColor: '#0F766E',
-      accent: '#0B5F59',
+      bg: 'rgba(99, 21, 217, 0.08)',
+      border: 'rgba(99, 21, 217, 0.2)',
+      iconBg: 'rgba(99, 21, 217, 0.15)',
+      iconColor: '#6315D9',
+      accent: '#5411B8',
     },
     amber: {
-      bg: 'rgba(15, 118, 110, 0.08)',
-      border: 'rgba(15, 118, 110, 0.2)',
-      iconBg: 'rgba(15, 118, 110, 0.15)',
-      iconColor: '#0F766E',
-      accent: '#0B5F59',
+      bg: 'rgba(99, 21, 217, 0.08)',
+      border: 'rgba(99, 21, 217, 0.2)',
+      iconBg: 'rgba(99, 21, 217, 0.15)',
+      iconColor: '#6315D9',
+      accent: '#5411B8',
     },
     rose: {
-      bg: 'rgba(15, 118, 110, 0.08)',
-      border: 'rgba(15, 118, 110, 0.2)',
-      iconBg: 'rgba(15, 118, 110, 0.15)',
-      iconColor: '#0f766e',
-      accent: '#0f766e',
+      bg: 'rgba(99, 21, 217, 0.08)',
+      border: 'rgba(99, 21, 217, 0.2)',
+      iconBg: 'rgba(99, 21, 217, 0.15)',
+      iconColor: '#6315d9',
+      accent: '#6315d9',
     },
     purple: {
-      bg: 'rgba(15, 118, 110, 0.08)',
-      border: 'rgba(15, 118, 110, 0.2)',
-      iconBg: 'rgba(15, 118, 110, 0.15)',
-      iconColor: '#0f766e',
-      accent: '#0f766e',
+      bg: 'rgba(99, 21, 217, 0.08)',
+      border: 'rgba(99, 21, 217, 0.2)',
+      iconBg: 'rgba(99, 21, 217, 0.15)',
+      iconColor: '#6315d9',
+      accent: '#6315d9',
     },
   };
 
@@ -64,21 +64,21 @@ export function MetricCard({
     >
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <p className="text-xs font-semibold tracking-wider uppercase text-[#566F65]">
+          <p className="text-xs font-semibold tracking-wider uppercase text-[#6E5F94]">
             {title}
           </p>
           <div className="flex items-baseline gap-2">
-            <h3 className="text-3xl font-extrabold text-[#123c3a] tracking-tight">
+            <h3 className="text-3xl font-extrabold text-[#25104a] tracking-tight">
               {value}
             </h3>
             {trend && (
-              <span className="text-xs font-bold text-[#4F6B63] bg-white/70 px-2 py-0.5 rounded-full border border-[#D5E3DC]">
+              <span className="text-xs font-bold text-[#5B4B86] bg-white/70 px-2 py-0.5 rounded-full border border-[#E2D9F7]">
                 {trend}
               </span>
             )}
           </div>
           {subtitle && (
-            <p className="text-xs text-[#566F65] font-medium">{subtitle}</p>
+            <p className="text-xs text-[#6E5F94] font-medium">{subtitle}</p>
           )}
         </div>
 

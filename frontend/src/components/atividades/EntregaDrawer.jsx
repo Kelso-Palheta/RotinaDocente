@@ -15,41 +15,41 @@ export const EntregaDrawer = ({ entrega, atividade, alunoNome, onManual, onCorri
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
       <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={onClose} />
-      <section role="dialog" aria-modal="true" aria-label={`Correção de ${alunoNome}`} className="relative w-full max-w-xl bg-white border-l border-[#d5e3dc] h-full overflow-y-auto">
-        <header className="p-5 border-b border-[#d5e3dc] flex items-center justify-between sticky top-0 bg-white z-10">
-          <div><h3 className="font-semibold text-[#123c3a]">{alunoNome}</h3>{entrega.submittedAt?.toDate && <p className="text-xs text-[#4f6b63]">{entrega.submittedAt.toDate().toLocaleString('pt-BR')}</p>}</div>
-          <button type="button" aria-label="Fechar correção" onClick={onClose} className="text-xl text-[#4f6b63]">×</button>
+      <section role="dialog" aria-modal="true" aria-label={`Correção de ${alunoNome}`} className="relative w-full max-w-xl bg-white border-l border-[#e2d9f7] h-full overflow-y-auto">
+        <header className="p-5 border-b border-[#e2d9f7] flex items-center justify-between sticky top-0 bg-white z-10">
+          <div><h3 className="font-semibold text-[#25104a]">{alunoNome}</h3>{entrega.submittedAt?.toDate && <p className="text-xs text-[#5b4b86]">{entrega.submittedAt.toDate().toLocaleString('pt-BR')}</p>}</div>
+          <button type="button" aria-label="Fechar correção" onClick={onClose} className="text-xl text-[#5b4b86]">×</button>
         </header>
         <div className="p-5 space-y-5">
-          <div className="bg-[#f3f7f5] rounded-xl p-4 border border-[#d5e3dc]">
-            <p className="text-xs font-semibold text-[#123c3a]">Nota da atividade</p>
-            <p className="text-2xl font-bold font-mono text-[#123c3a]">{fmt(notaAtual)} <span className="text-sm">/ {fmt(atividade?.notaMaxima ?? 10)}</span></p>
-            {entrega.notaIA != null && <p className="text-xs text-[#4f6b63]">Nota IA anterior: {fmt(entrega.notaIA)}</p>}
-            {entrega.tipoCorrecao === 'manual' || entrega.status === 'revisado' ? <p className="text-xs text-[#4f6b63]">Correção manual do professor</p> : entrega.modeloIA && <p className="text-xs text-[#4f6b63]">Modelo: {entrega.modeloIA}</p>}
+          <div className="bg-[#f3edff] rounded-xl p-4 border border-[#e2d9f7]">
+            <p className="text-xs font-semibold text-[#25104a]">Nota da atividade</p>
+            <p className="text-2xl font-bold font-mono text-[#25104a]">{fmt(notaAtual)} <span className="text-sm">/ {fmt(atividade?.notaMaxima ?? 10)}</span></p>
+            {entrega.notaIA != null && <p className="text-xs text-[#5b4b86]">Nota IA anterior: {fmt(entrega.notaIA)}</p>}
+            {entrega.tipoCorrecao === 'manual' || entrega.status === 'revisado' ? <p className="text-xs text-[#5b4b86]">Correção manual do professor</p> : entrega.modeloIA && <p className="text-xs text-[#5b4b86]">Modelo: {entrega.modeloIA}</p>}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <button type="button" disabled={corrigindo || manual} onClick={corrigirIA} className="btn-brand-primary px-3 py-2.5 text-sm">{corrigindo ? 'Corrigindo…' : 'Corrigir com IA'}</button>
             <button type="button" disabled={corrigindo} onClick={() => setManual(true)} className="btn-brand-navy px-3 py-2.5 text-sm">Corrigir manualmente</button>
           </div>
-          {!questoes.length && entrega.avisosCorrecao?.length > 0 && <p role="status" className="text-xs text-[#123C3A] bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg p-3">{entrega.avisosCorrecao.join(" ")}</p>}
-          {erro && <p role="alert" className="text-sm text-[#0B5F59]">{erro}</p>}
+          {!questoes.length && entrega.avisosCorrecao?.length > 0 && <p role="status" className="text-xs text-[#25104A] bg-[#F3EDFF] border border-[#E2D9F7] rounded-lg p-3">{entrega.avisosCorrecao.join(" ")}</p>}
+          {erro && <p role="alert" className="text-sm text-[#5411B8]">{erro}</p>}
           {manual && <CorrecaoManualForm atividade={atividade} entrega={entrega} onCancel={() => setManual(false)} onSave={async dados => {
             await onManual(dados);
             setManual(false);
           }} />}
           {questoes.length ? <div className="space-y-3">{questoes.map((q, i) => {
             const res = entrega.resultados?.[q.id];
-            return <article key={q.id} className="rounded-xl border border-[#d5e3dc] p-4 space-y-2">
-              <h4 className="text-sm font-bold text-[#123c3a]">Questão {i + 1}</h4>
-              <p className="text-sm text-[#123c3a] whitespace-pre-wrap">{q.enunciado}</p>
-              <p className="text-xs text-[#4f6b63] whitespace-pre-wrap">Resposta: {entrega.respostas?.[q.id]?.resposta || '(sem resposta)'}</p>
-              {q.alternativas?.find(a => a.id === entrega.respostas?.[q.id]?.resposta)?.texto && <p className="text-xs text-[#4f6b63]">Alternativa marcada: {q.alternativas.find(a => a.id === entrega.respostas?.[q.id]?.resposta).texto}</p>}
-              {res ? <><p className="font-mono text-sm text-[#123c3a]">{fmt(res.notaObtida)} / {fmt(res.notaMaxima)}</p><p className="text-sm text-[#4f6b63] whitespace-pre-wrap">{res.feedback}</p></> : <p className="text-xs text-[#4f6b63]">Ainda não corrigida</p>}
-              {res?.avisoCorrecao && <p role="status" className="text-xs font-semibold text-[#123C3A] bg-[#F3F8F5] border border-[#D5E3DC] rounded-lg px-2 py-1.5">{res.avisoCorrecao}</p>}
+            return <article key={q.id} className="rounded-xl border border-[#e2d9f7] p-4 space-y-2">
+              <h4 className="text-sm font-bold text-[#25104a]">Questão {i + 1}</h4>
+              <p className="text-sm text-[#25104a] whitespace-pre-wrap">{q.enunciado}</p>
+              <p className="text-xs text-[#5b4b86] whitespace-pre-wrap">Resposta: {entrega.respostas?.[q.id]?.resposta || '(sem resposta)'}</p>
+              {q.alternativas?.find(a => a.id === entrega.respostas?.[q.id]?.resposta)?.texto && <p className="text-xs text-[#5b4b86]">Alternativa marcada: {q.alternativas.find(a => a.id === entrega.respostas?.[q.id]?.resposta).texto}</p>}
+              {res ? <><p className="font-mono text-sm text-[#25104a]">{fmt(res.notaObtida)} / {fmt(res.notaMaxima)}</p><p className="text-sm text-[#5b4b86] whitespace-pre-wrap">{res.feedback}</p></> : <p className="text-xs text-[#5b4b86]">Ainda não corrigida</p>}
+              {res?.avisoCorrecao && <p role="status" className="text-xs font-semibold text-[#25104A] bg-[#F3EDFF] border border-[#E2D9F7] rounded-lg px-2 py-1.5">{res.avisoCorrecao}</p>}
             </article>;
-          })}</div> : <div className="rounded-xl border border-[#d5e3dc] p-4"><h4 className="font-semibold text-[#123c3a]">Resposta</h4><p className="text-sm text-[#4f6b63] whitespace-pre-wrap">{entrega.respostaTexto || '(sem resposta textual)'}</p></div>}
-          {!questoes.length && entrega.criterios?.length > 0 && <div className="rounded-xl border border-[#d5e3dc] p-4"><h4 className="font-semibold text-[#123c3a]">Critérios</h4>{entrega.criterios.map((criterio, index) => <p key={index} className="text-sm text-[#4f6b63]">{criterio.nome}: {criterio.pontos_obtidos} / {criterio.pontos_maximos}</p>)}</div>}
-          {entrega.feedback && <div className="rounded-xl border border-[#d5e3dc] p-4"><h4 className="font-semibold text-[#123c3a]">Feedback da atividade</h4><p className="text-sm text-[#4f6b63] whitespace-pre-wrap">{entrega.feedback}</p></div>}
+          })}</div> : <div className="rounded-xl border border-[#e2d9f7] p-4"><h4 className="font-semibold text-[#25104a]">Resposta</h4><p className="text-sm text-[#5b4b86] whitespace-pre-wrap">{entrega.respostaTexto || '(sem resposta textual)'}</p></div>}
+          {!questoes.length && entrega.criterios?.length > 0 && <div className="rounded-xl border border-[#e2d9f7] p-4"><h4 className="font-semibold text-[#25104a]">Critérios</h4>{entrega.criterios.map((criterio, index) => <p key={index} className="text-sm text-[#5b4b86]">{criterio.nome}: {criterio.pontos_obtidos} / {criterio.pontos_maximos}</p>)}</div>}
+          {entrega.feedback && <div className="rounded-xl border border-[#e2d9f7] p-4"><h4 className="font-semibold text-[#25104a]">Feedback da atividade</h4><p className="text-sm text-[#5b4b86] whitespace-pre-wrap">{entrega.feedback}</p></div>}
         </div>
       </section>
     </div>

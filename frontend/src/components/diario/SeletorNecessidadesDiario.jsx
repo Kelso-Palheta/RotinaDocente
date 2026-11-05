@@ -16,7 +16,7 @@ export const BadgeNecessidades = ({ necessidades = [] }) => {
           <span
             key={id}
             title={cat?.nome || id}
-            className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-wide bg-[#f3f8f5] border border-[#daebe5] text-[#0b5f59] leading-none whitespace-nowrap"
+            className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-wide bg-[#f3edff] border border-[#e7dbfd] text-[#5411b8] leading-none whitespace-nowrap"
           >
             {cat?.tag || id}
           </span>
@@ -36,10 +36,10 @@ export const SeletorNecessidadesDiario = ({ selecionadas = [], onToggle, idPrefi
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
-        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#4f6b63]">
+        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#5b4b86]">
           Necessidades / PCD (opcional)
         </span>
-        <span className="text-[10px] font-semibold text-[#566f65]">
+        <span className="text-[10px] font-semibold text-[#6e5f94]">
           {selecionadas.length === 0 ? 'nenhuma' : `${selecionadas.length} selecionada(s)`}
         </span>
       </div>
@@ -56,8 +56,8 @@ export const SeletorNecessidadesDiario = ({ selecionadas = [], onToggle, idPrefi
               title={cat.nome}
               className={`px-2.5 py-1 rounded-full text-[11px] font-bold border transition-all ${
                 selecionada
-                  ? 'bg-[#f3f8f5] border-[#0f766e] text-[#0b5f59] shadow-xs'
-                  : 'bg-[#f3f7f5] border-[#d5e3dc] text-[#4f6b63] hover:border-[#0f766e]/40 hover:text-[#123c3a]'
+                  ? 'bg-[#f3edff] border-[#6315d9] text-[#5411b8] shadow-xs'
+                  : 'bg-[#f3edff] border-[#e2d9f7] text-[#5b4b86] hover:border-[#6315d9]/40 hover:text-[#25104a]'
               }`}
             >
               {cat.tag}

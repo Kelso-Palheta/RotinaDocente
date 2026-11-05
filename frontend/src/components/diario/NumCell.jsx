@@ -41,18 +41,18 @@ export const NumCell = ({ value, min = 0, max = 10, onChange, disabled = false, 
     }
   }, [editing]);
 
-  if (disabled) return <span className="font-mono text-sm text-[#566F65] px-2">{displayVal}</span>;
+  if (disabled) return <span className="font-mono text-sm text-[#6E5F94] px-2">{displayVal}</span>;
   return <div className="relative">
     {editing ? <input ref={ref} type="text" inputMode="decimal" aria-label={label} aria-invalid={!!erro} value={draft}
       onChange={e => { setDraft(e.target.value); setErro(''); }} onBlur={() => commit()}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); commit(e.shiftKey ? -1 : 1); }
         if (e.key === 'Escape') { e.preventDefault(); encerrando.current = true; cancelar.current = true; setEditing(false); setErro(''); }
-      }} className="w-full border border-[#0F766E] rounded-lg px-2 py-0.5 font-mono text-sm text-[#123C3A] text-center" style={{ minWidth: 56 }} /> :
+      }} className="w-full border border-[#6315D9] rounded-lg px-2 py-0.5 font-mono text-sm text-[#25104A] text-center" style={{ minWidth: 56 }} /> :
       <button ref={buttonRef} type="button" data-nota-cell aria-label={`${label}: ${displayVal}`} onClick={() => {
         encerrando.current = false;
         setDraft(value !== null && value !== undefined && value !== '' ? String(value).replace('.', ',') : ''); setEditing(true);
-      }} title="Clique para editar; Enter/Tab avança, Esc cancela" className={`w-full px-2 py-1 font-mono text-sm rounded-lg border border-dashed tabular-nums ${value === null || value === undefined || value === '' ? 'border-[#B7D3C8]/40 text-slate-400' : 'border-transparent text-[#123C3A] font-medium'} hover:bg-[#F3F7F5]/50 text-center cursor-text`}>{displayVal}</button>}
+      }} title="Clique para editar; Enter/Tab avança, Esc cancela" className={`w-full px-2 py-1 font-mono text-sm rounded-lg border border-dashed tabular-nums ${value === null || value === undefined || value === '' ? 'border-[#B9A6EF]/40 text-slate-400' : 'border-transparent text-[#25104A] font-medium'} hover:bg-[#F3EDFF]/50 text-center cursor-text`}>{displayVal}</button>}
     {erro && <span role="alert" className="block text-xs text-red-700">{erro}</span>}
   </div>;
 };

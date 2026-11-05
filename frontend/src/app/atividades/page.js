@@ -179,21 +179,21 @@ export default function AtividadesPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white px-4">
         <div className="w-full max-w-md space-y-4">
-          <div role="alert" className="rounded-xl border border-[#D5E3DC] bg-[#F3F8F5] p-4 text-sm text-[#0B5F59]">
+          <div role="alert" className="rounded-xl border border-[#E2D9F7] bg-[#F3EDFF] p-4 text-sm text-[#5411B8]">
             {erroLogout}
           </div>
           <div className="flex flex-wrap justify-end gap-2">
             <button
               type="button"
               onClick={irParaHub}
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3f7f5] hover:bg-[#d5e3dc] text-[#123c3a] border border-[#d5e3dc] transition-all"
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3edff] hover:bg-[#e2d9f7] text-[#25104a] border border-[#e2d9f7] transition-all"
             >
               Ir para o Hub
             </button>
             <button
               type="button"
               onClick={handleLogout}
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0f766e] hover:bg-[#0b5f59] text-white transition-all"
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#6315d9] hover:bg-[#5411b8] text-white transition-all"
             >
               Tentar novamente
             </button>
@@ -207,8 +207,8 @@ export default function AtividadesPage() {
     return (
       <div className="flex h-screen items-center justify-center bg-white">
         <div className="text-center">
-          <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#0f766e] border-t-transparent animate-spin" />
-          <p className="text-sm text-[#4f6b63]">Carregando...</p>
+          <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#6315d9] border-t-transparent animate-spin" />
+          <p className="text-sm text-[#5b4b86]">Carregando...</p>
         </div>
       </div>
     );
@@ -219,8 +219,8 @@ export default function AtividadesPage() {
       return (
         <div className="flex h-screen items-center justify-center bg-white" role="status">
           <div className="text-center">
-            <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#0f766e] border-t-transparent animate-spin" />
-            <p className="text-sm text-[#4f6b63]">Encerrando sessão…</p>
+            <div className="w-10 h-10 mx-auto mb-4 rounded-full border-3 border-[#6315d9] border-t-transparent animate-spin" />
+            <p className="text-sm text-[#5b4b86]">Encerrando sessão…</p>
           </div>
         </div>
       );
@@ -242,13 +242,13 @@ export default function AtividadesPage() {
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-[#123C3A]/50 backdrop-blur-sm z-30 md:hidden"
+          className="fixed inset-0 bg-[#25104A]/50 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar - Off-canvas on mobile */}
-      <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full bg-white border-r border-[#d5e3dc]`}>
+      <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full bg-white border-r border-[#e2d9f7]`}>
         <Sidebar
           turmas={listaContexto}
           backupTurmas={turmas}
@@ -273,19 +273,19 @@ export default function AtividadesPage() {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <div data-testid="acoes-topo" className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#d5e3dc] bg-white flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <div data-testid="acoes-topo" className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#e2d9f7] bg-white flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
               aria-label="Abrir menu"
-              className="md:hidden p-2 -ml-2 rounded-xl text-[#566F65] hover:bg-[#F3F7F5] transition-colors"
+              className="md:hidden p-2 -ml-2 rounded-xl text-[#6E5F94] hover:bg-[#F3EDFF] transition-colors"
             >
               <Menu size={20} />
             </button>
             <button
               onClick={() => confirmarTrocaContexto() && router.push('/')}
               aria-label="Hub"
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3f7f5] hover:bg-[#d5e3dc] text-[#123c3a] border border-[#d5e3dc] transition-all shadow-2xs whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3edff] hover:bg-[#e2d9f7] text-[#25104a] border border-[#e2d9f7] transition-all shadow-2xs whitespace-nowrap"
             >
               <ArrowLeft size={16} />
               <span className="hidden sm:inline">Hub</span>
@@ -296,18 +296,18 @@ export default function AtividadesPage() {
             <button
               onClick={() => confirmarTrocaContexto() && router.push('/adaptacoes')}
               aria-label="Versão Adaptada (DUA)"
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-white hover:bg-[#f3f8f5] text-[#0b5f59] border border-[#daebe5] transition-all shadow-2xs whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-white hover:bg-[#f3edff] text-[#5411b8] border border-[#e7dbfd] transition-all shadow-2xs whitespace-nowrap"
               title="Criar ou Adaptar Atividades Inclusivas (DUA/PEI)"
             >
-              <HeartHandshake size={16} className="text-[#0f766e]" />
+              <HeartHandshake size={16} className="text-[#6315d9]" />
               <span className="hidden sm:inline">Versão Adaptada</span>
-              <span className="text-[10px] font-black uppercase bg-[#0f766e] text-white px-1.5 py-0.5 rounded-md">DUA</span>
+              <span className="text-[10px] font-black uppercase bg-[#6315d9] text-white px-1.5 py-0.5 rounded-md">DUA</span>
             </button>
 
             <div className="relative" ref={alunoDropdownRef}>
               <button
                 onClick={() => setShowAlunoDropdown(!showAlunoDropdown)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3f8f5] hover:bg-[#daebe5] text-[#0f766e] border border-[#daebe5] transition-all shadow-2xs"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3edff] hover:bg-[#e7dbfd] text-[#6315d9] border border-[#e7dbfd] transition-all shadow-2xs"
               >
                 <GraduationCap size={16} />
                 Portal do Aluno
@@ -315,7 +315,7 @@ export default function AtividadesPage() {
               </button>
 
               {showAlunoDropdown && (
-                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-[#d5e3dc] rounded-xl shadow-lg z-40 overflow-hidden animate-card-in">
+                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-[#e2d9f7] rounded-xl shadow-lg z-40 overflow-hidden animate-card-in">
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(`${window.location.origin}/aluno`);
@@ -323,17 +323,17 @@ export default function AtividadesPage() {
                       setTimeout(() => setAlunoLinkCopied(false), 2000);
                       setShowAlunoDropdown(false);
                     }}
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#123c3a] hover:bg-[#f3f7f5] transition-colors"
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#25104a] hover:bg-[#f3edff] transition-colors"
                   >
                     {alunoLinkCopied ? <Check size={15} className="text-[#16a34a]" /> : <Copy size={15} />}
                     {alunoLinkCopied ? 'Copiado!' : 'Copiar link'}
                   </button>
-                  <div className="border-t border-[#F3F7F5]" />
+                  <div className="border-t border-[#F3EDFF]" />
                   <a
                     href="/aluno"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#123c3a] hover:bg-[#f3f7f5] transition-colors"
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#25104a] hover:bg-[#f3edff] transition-colors"
                   >
                     <ExternalLink size={15} />
                     Abrir em nova aba
@@ -346,8 +346,8 @@ export default function AtividadesPage() {
               onClick={() => confirmarTrocaContexto() && setViewMode('recuperacao')}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
                 ${viewMode === 'recuperacao'
-                  ? 'bg-[#123c3a] text-white shadow-xs'
-                  : 'bg-[#F3F8F5] text-[#566F65] hover:bg-[#F3F7F5] border border-[#D5E3DC]'}`}
+                  ? 'bg-[#25104a] text-white shadow-xs'
+                  : 'bg-[#F3EDFF] text-[#6E5F94] hover:bg-[#F3EDFF] border border-[#E2D9F7]'}`}
             >
               <GraduationCap size={13} />
               Recuperação semestral
@@ -357,8 +357,8 @@ export default function AtividadesPage() {
               onClick={() => confirmarTrocaContexto() && setViewMode('todas')}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all
                 ${viewMode === 'todas'
-                  ? 'bg-[#0f766e] text-white shadow-xs'
-                  : 'bg-[#F3F8F5] text-[#566F65] hover:bg-[#F3F7F5] border border-[#D5E3DC]'}`}
+                  ? 'bg-[#6315d9] text-white shadow-xs'
+                  : 'bg-[#F3EDFF] text-[#6E5F94] hover:bg-[#F3EDFF] border border-[#E2D9F7]'}`}
             >
               <Layers size={13} />
               Todas as atividades
@@ -376,9 +376,9 @@ export default function AtividadesPage() {
           <label><input type="checkbox" checked={arquivadas} onChange={e => { if (!confirmarTrocaContexto()) return; setArquivadas(e.target.checked); setTurmaSelecionada(null); }} /> Ver turmas arquivadas (consulta)</label>
           <a href="/diario" className="underline font-bold">Conferir e publicar notas no Diário</a>
         </section>
-        {(erroSalvamentoSaida || persistencia.erro) && <div role="alert" className="p-3 bg-[#F3F8F5] text-sm">{erroSalvamentoSaida || persistencia.erro} <button onClick={() => (erroSalvamentoSaida ? tentarSalvarESair() : executar(persistencia.tentarNovamente))} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
+        {(erroSalvamentoSaida || persistencia.erro) && <div role="alert" className="p-3 bg-[#F3EDFF] text-sm">{erroSalvamentoSaida || persistencia.erro} <button onClick={() => (erroSalvamentoSaida ? tentarSalvarESair() : executar(persistencia.tentarNovamente))} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
         {/* Content */}
-        <div className="flex-1 overflow-auto p-6 bg-[#f3f7f5]">
+        <div className="flex-1 overflow-auto p-6 bg-[#f3edff]">
           {!persistencia.podeEditar ? <p>Edição bloqueada até concluir carregamento ou revisar conflito. Seu rascunho foi preservado.</p> : viewMode === 'recuperacao' ? (
             <RecuperacaoSemestral
               user={user}
@@ -389,7 +389,7 @@ export default function AtividadesPage() {
               recarregar={recarregar}
             />
           ) : <fieldset disabled={arquivadas} className="min-w-0">
-          {arquivadas && <p className="mb-3 text-[#123C3A] text-sm">Turmas arquivadas: consulte notas e histórico no Diário.</p>}
+          {arquivadas && <p className="mb-3 text-[#25104A] text-sm">Turmas arquivadas: consulte notas e histórico no Diário.</p>}
           {viewMode === 'todas' ? (
             <TodasAtividades
               key={`${user.uid}:${ano}:${arquivadas}`}
@@ -403,13 +403,13 @@ export default function AtividadesPage() {
           ) : turmaAtual ? (
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="px-2.5 py-0.5 bg-[#f3f8f5] border border-[#daebe5] rounded-full text-[10px] font-bold uppercase tracking-wider text-[#0f766e]">
+                <span className="px-2.5 py-0.5 bg-[#f3edff] border border-[#e7dbfd] rounded-full text-[10px] font-bold uppercase tracking-wider text-[#6315d9]">
                   {bimestre}º Bimestre
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-[#123c3a] tracking-tight mb-6">
+              <h1 className="text-2xl font-bold text-[#25104a] tracking-tight mb-6">
                 Turma {turmaAtual.nome}
-                <span className="text-xs text-[#4f6b63] font-mono ml-2">({turmaAtual.alunos.length} alunos)</span>
+                <span className="text-xs text-[#5b4b86] font-mono ml-2">({turmaAtual.alunos.length} alunos)</span>
               </h1>
               <AtividadesList
                 key={`${user.uid}:${turmaAtual.id}:${bimestre}`}
@@ -427,7 +427,7 @@ export default function AtividadesPage() {
             <div className="flex-1 flex items-center justify-center h-full">
               <div className="text-center">
                 <div className="text-6xl mb-4 opacity-20">📝</div>
-                <p className="text-[#194D46] font-semibold text-lg">Selecione uma turma</p>
+                <p className="text-[#25104A] font-semibold text-lg">Selecione uma turma</p>
                 <p className="text-sm mt-1 text-slate-400">Escolha uma turma na barra lateral ou use Todas as atividades.</p>
               </div>
             </div>

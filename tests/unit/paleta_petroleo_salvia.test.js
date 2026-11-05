@@ -8,19 +8,19 @@ const SRC = path.join(RAIZ, 'frontend/src');
 const CSS = path.join(SRC, 'app/globals.css');
 
 const TOKENS_APROVADOS = {
-  '--pink': '#0f766e',
-  '--pink-dark': '#0b5f59',
-  '--navy': '#123c3a',
-  '--ink': '#123c3a',
-  '--foreground': '#123c3a',
-  '--background': '#ffffff',
-  '--bg-soft': '#f3f7f5',
-  '--pink-light': '#daebe5',
-  '--pink-soft': '#f3f8f5',
-  '--gray': '#4f6b63',
-  '--gray-light': '#566f65',
-  '--border': '#d5e3dc',
-  '--primary': '#0f766e',
+  '--pink': '#6315d9',
+  '--pink-dark': '#5411b8',
+  '--navy': '#25104a',
+  '--ink': '#25104a',
+  '--foreground': '#25104a',
+  '--background': '#fffdf7',
+  '--bg-soft': '#f3edff',
+  '--pink-light': '#e7dbfd',
+  '--pink-soft': '#f3edff',
+  '--gray': '#5b4b86',
+  '--gray-light': '#6e5f94',
+  '--border': '#e2d9f7',
+  '--primary': '#6315d9',
   '--primary-foreground': '#ffffff',
   '--white': '#ffffff',
 };
@@ -109,7 +109,7 @@ function arquivosFonte(diretorio) {
   return arquivos;
 }
 
-describe('PV-01/PV-02 — contrato de tokens da identidade petróleo e sálvia', () => {
+describe('PV-01/PV-02 — contrato de tokens da identidade Arte em jogo', () => {
   it('declara os papéis aprovados nos tokens centrais', () => {
     const tokens = lerTokens();
     for (const [nome, valor] of Object.entries(TOKENS_APROVADOS)) {
@@ -118,11 +118,11 @@ describe('PV-01/PV-02 — contrato de tokens da identidade petróleo e sálvia',
   });
 
   it.each([
-    ['#ffffff', '#0f766e'],
-    ['#ffffff', '#0b5f59'],
-    ['#123c3a', '#f3f7f5'],
-    ['#4f6b63', '#f3f7f5'],
-    ['#566f65', '#f3f7f5'],
+    ['#ffffff', '#6315d9'],
+    ['#ffffff', '#5411b8'],
+    ['#25104a', '#f3edff'],
+    ['#5b4b86', '#f3edff'],
+    ['#6e5f94', '#f3edff'],
   ])('contraste de %s sobre %s atinge 4,5:1', (texto, fundo) => {
     expect(contraste(texto, fundo)).toBeGreaterThanOrEqual(4.5);
   });

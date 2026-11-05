@@ -1,31 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #123c3a;
+  --background: #fffdf7;
+  --foreground: #25104a;
 
-  /* Rotina Docente Brand Tokens — petróleo e sálvia */
-  --navy: #123c3a;
-  --pink: #0f766e;
-  --pink-dark: #0b5f59;
-  --pink-light: #daebe5;
-  --pink-soft: #f3f8f5;
-  --green-light: #f3f7f5;
-  --ink: #123c3a;
-  --gray: #4f6b63;
-  --gray-light: #566f65;
-  --bg-soft: #f3f7f5;
-  --border: #d5e3dc;
+  /* Rotina Docente Brand Tokens — "Arte em jogo" (roxo festival)
+     Paleta: specs/PALETA_ARTE_EM_JOGO_SPEC.md. Nomes herdados do legado por
+     compatibilidade; os valores mudam, a estrutura e os usos permanecem. */
+  --navy: #25104a;
+  --pink: #6315d9;
+  --pink-dark: #5411b8;
+  --pink-light: #e7dbfd;
+  --pink-soft: #f3edff;
+  --green-light: #f3edff;
+  --ink: #25104a;
+  --gray: #5b4b86;
+  --gray-light: #6e5f94;
+  --bg-soft: #f3edff;
+  --border: #e2d9f7;
   --white: #ffffff;
 
+  /* Tokens expostos da paleta aprovada */
+  --roxo: #6315d9;
+  --roxo-profundo: #25104a;
+  --lavanda: #b9a6ef;
+  --surface: #fffdf7;
+  --surface-soft: #f3edff;
+  --accent-ciano: #00ddeb;
+  --accent-amarelo: #ffe500;
+  --accent-rosa: #ff2d93;
+  --accent-lima: #b9ef00;
+
   /* Primary Brand Colors (Edu Hub) */
-  --primary: #0f766e;
+  --primary: #6315d9;
   --primary-foreground: #ffffff;
 
   /* Glassmorphism Tokens */
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(213, 227, 220, 0.8);
-  --glass-shadow: 0 8px 30px rgba(18, 60, 58, 0.08);
+  --glass-bg: rgba(255, 253, 247, 0.85);
+  --glass-border: rgba(226, 217, 247, 0.8);
+  --glass-shadow: 0 8px 30px rgba(37, 16, 74, 0.08);
 
   --font-head: var(--font-manrope), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
@@ -61,12 +74,12 @@ h1, h2, h3, h4, .font-head {
   font-family: var(--font-head);
   font-weight: 700;
   border-radius: 100px;
-  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.28);
+  box-shadow: 0 8px 24px rgba(99, 21, 217, 0.28);
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .btn-brand-primary:hover {
   background: var(--pink-dark);
-  box-shadow: 0 12px 30px rgba(15, 118, 110, 0.38);
+  box-shadow: 0 12px 30px rgba(99, 21, 217, 0.38);
   transform: translateY(-1px);
 }
 
@@ -81,7 +94,7 @@ h1, h2, h3, h4, .font-head {
 }
 .btn-brand-ghost:hover {
   border-color: var(--navy);
-  background: rgba(18, 60, 58, 0.03);
+  background: rgba(37, 16, 74, 0.03);
 }
 
 .btn-brand-navy {
@@ -93,7 +106,7 @@ h1, h2, h3, h4, .font-head {
   transition: all 0.25s ease;
 }
 .btn-brand-navy:hover {
-  background: #0a2a27;
+  background: #180a30;
   transform: translateY(-1px);
 }
 

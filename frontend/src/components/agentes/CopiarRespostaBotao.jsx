@@ -72,7 +72,7 @@ export default function CopiarRespostaBotao({ conteudo }) {
         }}
         onMouseEnter={(evento) => {
           evento.currentTarget.style.color = 'var(--navy)';
-          evento.currentTarget.style.background = 'rgba(18, 60, 58, 0.06)';
+          evento.currentTarget.style.background = 'rgba(37, 16, 74, 0.06)';
         }}
         onMouseLeave={(evento) => {
           evento.currentTarget.style.color = 'var(--gray)';
@@ -89,7 +89,7 @@ export default function CopiarRespostaBotao({ conteudo }) {
           aria-live="polite"
           style={{
             minWidth: 0,
-            color: '#0B5F59',
+            color: '#5411B8',
             fontSize: '0.7rem',
             fontWeight: 600,
             overflowWrap: 'anywhere',
@@ -104,7 +104,7 @@ export default function CopiarRespostaBotao({ conteudo }) {
           role="alert"
           style={{
             minWidth: 0,
-            color: '#0B5F59',
+            color: '#5411B8',
             fontSize: '0.7rem',
             fontWeight: 600,
             lineHeight: 1.4,

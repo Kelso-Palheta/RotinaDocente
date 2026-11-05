@@ -64,32 +64,32 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#123c3a]/70 backdrop-blur-md animate-card-in">
-      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#d5e3dc] overflow-hidden">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#25104a]/70 backdrop-blur-md animate-card-in">
+      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-[#e2d9f7] overflow-hidden">
         {/* Header decorativo */}
-        <div className="p-6 pb-4 bg-gradient-to-b from-[#f3f8f5] to-white border-b border-[#daebe5]/60 relative">
+        <div className="p-6 pb-4 bg-gradient-to-b from-[#f3edff] to-white border-b border-[#e7dbfd]/60 relative">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#123c3a]/5 transition-colors"
+            className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-[#5b4b86] hover:text-[#25104a] hover:bg-[#25104a]/5 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#daebe5] text-[#0b5f59]">
-              <Sparkles className="w-3.5 h-3.5 text-[#0f766e]" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#e7dbfd] text-[#5411b8]">
+              <Sparkles className="w-3.5 h-3.5 text-[#6315d9]" />
               {modo === "cadastro" ? "15 Créditos Grátis" : "Hub Educacional"}
             </span>
           </div>
 
-<h3 className="font-head text-2xl font-extrabold text-[#123c3a]">
+<h3 className="font-head text-2xl font-extrabold text-[#25104a]">
              {modo === "cadastro"
                ? "Crie sua conta no Rotina Docente"
                : modo === "login"
                ? "Bem-vindo de volta ao Rotina Docente"
                : "Recuperar sua senha"}
            </h3>
-          <p className="text-xs text-[#4f6b63] mt-1">
+          <p className="text-xs text-[#5b4b86] mt-1">
             {modo === "cadastro"
               ? "Sem necessidade de cartão de crédito. Comece a usar em menos de 1 minuto."
               : modo === "login"
@@ -105,7 +105,7 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl font-semibold text-sm text-[#123c3a] bg-white border border-[#d5e3dc] shadow-sm hover:bg-[#f3f7f5]/50 hover:border-[#4f6b63]/30 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
+                className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl font-semibold text-sm text-[#25104a] bg-white border border-[#e2d9f7] shadow-sm hover:bg-[#f3edff]/50 hover:border-[#5b4b86]/30 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
@@ -117,9 +117,9 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
               </button>
 
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-px bg-[#d5e3dc]" />
-                <span className="text-xs font-semibold text-[#566f65] uppercase tracking-wider">ou com email</span>
-                <div className="flex-1 h-px bg-[#d5e3dc]" />
+                <div className="flex-1 h-px bg-[#e2d9f7]" />
+                <span className="text-xs font-semibold text-[#6e5f94] uppercase tracking-wider">ou com email</span>
+                <div className="flex-1 h-px bg-[#e2d9f7]" />
               </div>
             </>
           )}
@@ -128,7 +128,7 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
           <form onSubmit={handleSubmit} className="space-y-3.5">
             {modo === "cadastro" && (
               <div>
-                <label className="block text-xs font-bold text-[#123c3a] mb-1">
+                <label className="block text-xs font-bold text-[#25104a] mb-1">
                   Seu nome completo
                 </label>
                 <input
@@ -137,13 +137,13 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
                   onChange={(e) => setNome(e.target.value)}
                   placeholder="Ex: Profa. Mariana Silva"
                   required
-                  className="w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#d5e3dc] bg-[#f3f7f5]/30 text-[#123c3a] placeholder-[#566f65] focus:outline-none focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#e2d9f7] bg-[#f3edff]/30 text-[#25104a] placeholder-[#6e5f94] focus:outline-none focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-bold text-[#123c3a] mb-1">
+              <label className="block text-xs font-bold text-[#25104a] mb-1">
                 Email institucional ou pessoal
               </label>
               <input
@@ -152,21 +152,21 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu.email@escola.com.br"
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#d5e3dc] bg-[#f3f7f5]/30 text-[#123c3a] placeholder-[#566f65] focus:outline-none focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#e2d9f7] bg-[#f3edff]/30 text-[#25104a] placeholder-[#6e5f94] focus:outline-none focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
               />
             </div>
 
             {modo !== "recuperar" && (
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-bold text-[#123c3a]">
+                  <label className="block text-xs font-bold text-[#25104a]">
                     Senha
                   </label>
                   {modo === "login" && (
                     <button
                       type="button"
                       onClick={() => { setModo("recuperar"); setErro(""); setSucesso(""); }}
-                      className="text-xs font-semibold text-[#0f766e] hover:underline"
+                      className="text-xs font-semibold text-[#6315d9] hover:underline"
                     >
                       Esqueceu a senha?
                     </button>
@@ -179,20 +179,20 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
                   placeholder="••••••••"
                   required={modo !== "recuperar"}
                   minLength={6}
-                  className="w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#d5e3dc] bg-[#f3f7f5]/30 text-[#123c3a] placeholder-[#566f65] focus:outline-none focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-xl text-sm border border-[#e2d9f7] bg-[#f3edff]/30 text-[#25104a] placeholder-[#6e5f94] focus:outline-none focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
                 />
               </div>
             )}
 
             {erro && (
-              <p className="text-xs text-[#0b5f59] font-medium bg-[#f3f8f5] border border-[#daebe5] px-3 py-2 rounded-xl">
+              <p className="text-xs text-[#5411b8] font-medium bg-[#f3edff] border border-[#e7dbfd] px-3 py-2 rounded-xl">
                 {erro}
               </p>
             )}
 
             {sucesso && (
-              <div className="flex items-start gap-2 text-xs text-[#123c3a] font-medium bg-[#f3f7f5] border border-[#d5e3dc] px-3 py-2.5 rounded-xl">
-                <CheckCircle2 className="w-4 h-4 text-[#0F766E] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-2 text-xs text-[#25104a] font-medium bg-[#f3edff] border border-[#e2d9f7] px-3 py-2.5 rounded-xl">
+                <CheckCircle2 className="w-4 h-4 text-[#6315D9] shrink-0 mt-0.5" />
                 <span>{sucesso}</span>
               </div>
             )}
@@ -220,12 +220,12 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
           </form>
 
           {/* Toggle Modo */}
-          <div className="pt-2 text-center text-xs text-[#4f6b63]">
+          <div className="pt-2 text-center text-xs text-[#5b4b86]">
             {modo === "recuperar" ? (
               <button
                 type="button"
                 onClick={() => { setModo("login"); setErro(""); setSucesso(""); }}
-                className="font-bold text-[#0f766e] hover:underline"
+                className="font-bold text-[#6315d9] hover:underline"
               >
                 ← Voltar para o Login
               </button>
@@ -239,7 +239,7 @@ export function AuthModal({ isOpen, onClose, initialMode = "cadastro" }) {
                     setErro("");
                     setSucesso("");
                   }}
-                  className="font-bold text-[#0f766e] hover:underline"
+                  className="font-bold text-[#6315d9] hover:underline"
                 >
                   {modo === "login" ? "Cadastre-se grátis" : "Fazer login"}
                 </button>

@@ -33,21 +33,21 @@ export const ErroView = ({ tipo, dataEntrega }) => {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-2xl mx-auto px-4 py-4">
-        <a href={voltaUrl()} className="inline-flex items-center gap-1 text-xs text-[#0F766E] hover:text-[#4F6B63] font-medium transition-colors">
+        <a href={voltaUrl()} className="inline-flex items-center gap-1 text-xs text-[#6315D9] hover:text-[#5B4B86] font-medium transition-colors">
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           Voltar
         </a>
       </div>
       <div className="flex items-center justify-center p-4 -mt-4">
         <div className="text-center max-w-sm animate-card-in">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#F3F8F5] border border-[#DAEBE5] flex items-center justify-center">
-            <svg className="w-8 h-8 text-[#0F766E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#F3EDFF] border border-[#E7DBFD] flex items-center justify-center">
+            <svg className="w-8 h-8 text-[#6315D9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
           </div>
-          <h1 className="text-lg font-bold text-[#123C3A] mb-2">{msg.titulo}</h1>
+          <h1 className="text-lg font-bold text-[#25104A] mb-2">{msg.titulo}</h1>
           <p className="text-sm text-slate-400">{msg.texto}</p>
           {tipo === 'login_necessario' && <a href="/aluno" className="btn-brand-primary inline-block px-4 py-2 mt-4">Entrar no Portal</a>}
         </div>

@@ -449,6 +449,21 @@ Contrato: `PALETA_PETROLEO_SALVIA_SPEC.md`. Novos arquivos `paleta_petroleo_salv
 
 Com autorização expressa do usuário, apenas valores/nomes ligados às cores de marca foram atualizados em `padrao_visual_redacao.test.js`, `relatorios_pdf_cabecalho.test.js`, `relatorios_pdf_revisao.test.js`; asserções de notas, dados, fontes, margens e paginação preservadas. Suíte publicável e evidências em `docs/analises/2026-11-04-paleta-petroleo-salvia.md`. Logout local RN-83 não integra esta aprovação.
 
+## Paleta "Arte em jogo" (roxo festival) — AJ-01..03 (05/11/2026)
+
+Contrato: `PALETA_ARTE_EM_JOGO_SPEC.md` (substituição da paleta petróleo/sálvia para todo o site). Novo
+arquivo `tests/unit/paleta_arte_em_jogo.test.js`: **AJ-01** contrato de tokens em
+`frontend/src/app/globals.css` (roxo #6315D9, profundo #25104A, fundo #FFFDF7, suave #F3EDFF,
+bordas #E2D9F7, textos #5B4B86/#6E5F94 e destaques ciano/amarelo/rosa/lima);
+**AJ-02** ausência dos hexes puros da marca petróleo em produção, com exclusões declaradas
+(módulo Revisão, paleta de disciplinas do Horário, cores de nota e rosas de desempenho);
+**AJ-03** preservação literal das cores de nota (`coresNota.js`, `analise.js`, `#f60c49`) e
+cálculo independente de contraste WCAG para os pares de texto da nova paleta. RED executado
+antes da implementação. Na revisão, com autorização expressa, foram ajustadas apenas as
+expectativas de cores da marca e as exceções precisas para a nota final da redação e a
+média ativa. Verificações de notas, dados, fontes, margens e paginação permanecem.
+
+
 ## Hub — sequência dos módulos (04/11/2026)
 
 `HUB-ORDEM-01`, contrato em `HUB_ORDEM_SPEC.md`: `tests/unit/hub_ordem_modulos.test.js` garante a sequência pedida de todos os nove módulos no catálogo que o Dashboard renderiza, incluindo os bloqueados. IDs, nomes oficiais, ícones, descrições, caminhos, acesso, estrutura e cores permanecem.

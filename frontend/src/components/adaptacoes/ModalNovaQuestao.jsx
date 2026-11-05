@@ -130,18 +130,18 @@ export function ModalNovaQuestao({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
-      <div className="bg-white rounded-3xl w-full max-w-3xl shadow-2xl border border-[#d5e3dc] overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-3xl w-full max-w-3xl shadow-2xl border border-[#e2d9f7] overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
         {/* Cabeçalho */}
-        <div className="flex items-center justify-between p-6 border-b border-[#d5e3dc] bg-linear-to-r from-[#F3F8F5]/50 via-white to-[#F3F8F5]/50">
+        <div className="flex items-center justify-between p-6 border-b border-[#e2d9f7] bg-linear-to-r from-[#F3EDFF]/50 via-white to-[#F3EDFF]/50">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-linear-to-br from-[#0f766e] to-[#0b5f59] flex items-center justify-center text-white shadow-md shadow-[#0f766e]/20">
+            <div className="w-10 h-10 rounded-2xl bg-linear-to-br from-[#6315d9] to-[#5411b8] flex items-center justify-center text-white shadow-md shadow-[#6315d9]/20">
               <Sparkles size={20} />
             </div>
             <div>
-              <h2 className="text-lg font-black text-[#123c3a]">
+              <h2 className="text-lg font-black text-[#25104a]">
                 {questaoParaEditar ? "Editar Questão Adaptada" : "Cadastrar Nova Questão"}
               </h2>
-              <p className="text-xs text-[#4f6b63]">
+              <p className="text-xs text-[#5b4b86]">
                 Item atômico com adaptações DUA para o Banco de Questões
               </p>
             </div>
@@ -149,7 +149,7 @@ export function ModalNovaQuestao({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-xl text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f8f5] transition-colors"
+            className="p-2 rounded-xl text-[#5b4b86] hover:text-[#25104a] hover:bg-[#f3edff] transition-colors"
           >
             <X size={20} />
           </button>
@@ -158,7 +158,7 @@ export function ModalNovaQuestao({
         {/* Formulário */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
           {erro && (
-            <div className="p-3.5 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-xs font-semibold text-[#0B5F59]">
+            <div className="p-3.5 bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl text-xs font-semibold text-[#5411B8]">
               {erro}
             </div>
           )}
@@ -166,13 +166,13 @@ export function ModalNovaQuestao({
           {/* Dados Contextuais: Disciplina, Ano, BNCC */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#123c3a] mb-1">
+              <label className="block text-xs font-bold text-[#25104a] mb-1">
                 Disciplina
               </label>
               <select
                 value={disciplina}
                 onChange={(e) => setDisciplina(e.target.value)}
-                className="w-full px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+                className="w-full px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
               >
                 <option value="Língua Portuguesa">Língua Portuguesa</option>
                 <option value="Matemática">Matemática</option>
@@ -189,13 +189,13 @@ export function ModalNovaQuestao({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#123c3a] mb-1">
+              <label className="block text-xs font-bold text-[#25104a] mb-1">
                 Ano Escolar
               </label>
               <select
                 value={anoEscolar}
                 onChange={(e) => setAnoEscolar(e.target.value)}
-                className="w-full px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+                className="w-full px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
               >
                 <option value="6º Ano">6º Ano</option>
                 <option value="7º Ano">7º Ano</option>
@@ -208,7 +208,7 @@ export function ModalNovaQuestao({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#123c3a] mb-1">
+              <label className="block text-xs font-bold text-[#25104a] mb-1">
                 Habilidade BNCC / Tema
               </label>
               <input
@@ -219,14 +219,14 @@ export function ModalNovaQuestao({
                   setHabilidadeBNCC(e.target.value);
                   setTema(e.target.value);
                 }}
-                className="w-full px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+                className="w-full px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
               />
             </div>
           </div>
 
           {/* Tipo de Questão */}
           <div>
-            <label className="block text-xs font-bold text-[#123c3a] mb-1">
+            <label className="block text-xs font-bold text-[#25104a] mb-1">
               Tipo de Questão
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -242,8 +242,8 @@ export function ModalNovaQuestao({
                   onClick={() => setTipo(item.id)}
                   className={`p-2.5 rounded-xl border text-xs font-bold text-center transition-all ${
                     tipo === item.id
-                      ? "bg-[#F3F8F5] border-[#0f766e] text-[#0f766e] shadow-xs"
-                      : "bg-[#f3f8f5] border-[#d5e3dc] text-[#4f6b63] hover:text-[#123c3a]"
+                      ? "bg-[#F3EDFF] border-[#6315d9] text-[#6315d9] shadow-xs"
+                      : "bg-[#f3edff] border-[#e2d9f7] text-[#5b4b86] hover:text-[#25104a]"
                   }`}
                 >
                   {item.label}
@@ -254,15 +254,15 @@ export function ModalNovaQuestao({
 
           {/* Enunciado */}
           <div>
-            <label className="block text-xs font-bold text-[#123c3a] mb-1">
-              Enunciado da Questão <span className="text-[#0f766e]">*</span>
+            <label className="block text-xs font-bold text-[#25104a] mb-1">
+              Enunciado da Questão <span className="text-[#6315d9]">*</span>
             </label>
             <textarea
               rows={3}
               placeholder="Digite o enunciado adaptado com linguagem direta e clara..."
               value={enunciado}
               onChange={(e) => setEnunciado(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+              className="w-full px-3.5 py-2.5 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
             />
           </div>
 
@@ -270,13 +270,13 @@ export function ModalNovaQuestao({
           {tipo === "multipla_escolha" && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-[#123c3a]">
+                <label className="text-xs font-bold text-[#25104a]">
                   Alternativas (com opções enxutas e claras)
                 </label>
                 <button
                   type="button"
                   onClick={handleAdicionarAlternativa}
-                  className="text-xs font-bold text-[#0f766e] hover:text-[#0b5f59] flex items-center gap-1"
+                  className="text-xs font-bold text-[#6315d9] hover:text-[#5411b8] flex items-center gap-1"
                 >
                   <Plus size={14} /> Adicionar Opção
                 </button>
@@ -286,7 +286,7 @@ export function ModalNovaQuestao({
                   const letra = String.fromCharCode(65 + idx);
                   return (
                     <div key={idx} className="flex items-center gap-2">
-                      <span className="w-6 text-xs font-black text-[#4f6b63] text-center">
+                      <span className="w-6 text-xs font-black text-[#5b4b86] text-center">
                         ({letra})
                       </span>
                       <input
@@ -294,13 +294,13 @@ export function ModalNovaQuestao({
                         placeholder={`Texto da alternativa ${letra}`}
                         value={alt}
                         onChange={(e) => handleAlterarAlternativa(idx, e.target.value)}
-                        className="flex-1 px-3 py-1.5 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+                        className="flex-1 px-3 py-1.5 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
                       />
                       {alternativas.length > 2 && (
                         <button
                           type="button"
                           onClick={() => handleRemoverAlternativa(idx)}
-                          className="p-1.5 text-gray-400 hover:text-[#0F766E] rounded-lg transition-colors"
+                          className="p-1.5 text-gray-400 hover:text-[#6315D9] rounded-lg transition-colors"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -315,7 +315,7 @@ export function ModalNovaQuestao({
           {/* Gabarito e Apoio Visual */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#123c3a] mb-1">
+              <label className="block text-xs font-bold text-[#25104a] mb-1">
                 Gabarito / Resposta Esperada
               </label>
               <input
@@ -323,11 +323,11 @@ export function ModalNovaQuestao({
                 placeholder="Ex: (B) ou Resposta correta sintetizada"
                 value={gabarito}
                 onChange={(e) => setGabarito(e.target.value)}
-                className="w-full px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+                className="w-full px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#123c3a] mb-1">
+              <label className="block text-xs font-bold text-[#25104a] mb-1">
                 Apoio Visual / Audiodescrição
               </label>
               <input
@@ -335,14 +335,14 @@ export function ModalNovaQuestao({
                 placeholder="Ex: Ilustração de uma planta com raízes identificadas"
                 value={apoioVisualDescricao}
                 onChange={(e) => setApoioVisualDescricao(e.target.value)}
-                className="w-full px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+                className="w-full px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
               />
             </div>
           </div>
 
           {/* Scaffolding / Dica Mediadora */}
           <div>
-            <label className="block text-xs font-bold text-[#123c3a] mb-1">
+            <label className="block text-xs font-bold text-[#25104a] mb-1">
               Scaffolding / Dica de Apoio Docente
             </label>
             <input
@@ -350,13 +350,13 @@ export function ModalNovaQuestao({
               placeholder="Ex: Chame atenção para a primeira coluna antes de relacionar os conceitos"
               value={scaffolding}
               onChange={(e) => setScaffolding(e.target.value)}
-              className="w-full px-3 py-2 bg-[#f3f8f5] border border-[#d5e3dc] rounded-xl text-xs font-medium text-[#123c3a] focus:outline-hidden focus:border-[#0f766e]"
+              className="w-full px-3 py-2 bg-[#f3edff] border border-[#e2d9f7] rounded-xl text-xs font-medium text-[#25104a] focus:outline-hidden focus:border-[#6315d9]"
             />
           </div>
 
           {/* Necessidades DUA atendidas */}
           <div>
-            <label className="block text-xs font-bold text-[#123c3a] mb-1.5">
+            <label className="block text-xs font-bold text-[#25104a] mb-1.5">
               Necessidades Específicas / Adaptações DUA que esta questão atende:
             </label>
             <div className="flex flex-wrap gap-1.5">
@@ -369,8 +369,8 @@ export function ModalNovaQuestao({
                     onClick={() => handleToggleNecessidade(cat.id)}
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all border ${
                       ativo
-                        ? "bg-[#123c3a] border-[#123c3a] text-white shadow-xs"
-                        : "bg-[#f3f8f5] border-[#d5e3dc] text-[#4f6b63] hover:border-[#566F65]"
+                        ? "bg-[#25104a] border-[#25104a] text-white shadow-xs"
+                        : "bg-[#f3edff] border-[#e2d9f7] text-[#5b4b86] hover:border-[#6E5F94]"
                     }`}
                   >
                     {cat.nome}
@@ -381,17 +381,17 @@ export function ModalNovaQuestao({
           </div>
 
           {/* Rodapé com botões de ação */}
-          <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-[#d5e3dc]">
+          <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-[#e2d9f7]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-[#4f6b63] hover:text-[#123c3a] rounded-xl transition-colors"
+              className="px-4 py-2 text-xs font-bold text-[#5b4b86] hover:text-[#25104a] rounded-xl transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-5 py-2.5 bg-linear-to-r from-[#0f766e] to-[#0b5f59] text-white text-xs font-black rounded-xl shadow-md shadow-[#0f766e]/20 hover:opacity-95 transition-opacity"
+              className="px-5 py-2.5 bg-linear-to-r from-[#6315d9] to-[#5411b8] text-white text-xs font-black rounded-xl shadow-md shadow-[#6315d9]/20 hover:opacity-95 transition-opacity"
             >
               {questaoParaEditar ? "Salvar Alterações" : "Salvar no Banco"}
             </button>

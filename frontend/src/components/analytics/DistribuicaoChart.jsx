@@ -14,13 +14,13 @@ function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-[#123c3a] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
+      <div className="bg-[#25104a] text-white p-3 rounded-xl shadow-xl border border-white/10 text-xs space-y-1">
         <p className="font-bold text-sm text-white">{data.faixaCompleta}</p>
         <p className="text-white font-semibold">
           Quantidade: <span className="text-emerald-400">{data.quantidade}</span>{' '}
           {data.quantidade === 1 ? 'aluno' : 'alunos'}
         </p>
-        <p className="text-[#B7D3C8]">Percentual: {data.percentual}% do total avaliado</p>
+        <p className="text-[#B9A6EF]">Percentual: {data.percentual}% do total avaliado</p>
       </div>
     );
   }
@@ -73,14 +73,14 @@ export function DistribuicaoChart({
   const temDados = total > 0;
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-[#D5E3DC]/80 shadow-sm flex flex-col">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-[#E2D9F7]/80 shadow-sm flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
         <div>
-          <h4 className="text-base font-bold text-[#123c3a]">Distribuição por Faixas de Nota</h4>
-          <p className="text-xs text-[#566F65] font-medium">Classificação pedagógica dos alunos avaliados</p>
+          <h4 className="text-base font-bold text-[#25104a]">Distribuição por Faixas de Nota</h4>
+          <p className="text-xs text-[#6E5F94] font-medium">Classificação pedagógica dos alunos avaliados</p>
         </div>
         {temDados && (
-          <span className="text-xs font-bold px-2.5 py-1 bg-[#F3F7F5] text-[#35594D] rounded-full border border-[#D5E3DC]">
+          <span className="text-xs font-bold px-2.5 py-1 bg-[#F3EDFF] text-[#4A3B7C] rounded-full border border-[#E2D9F7]">
             {total} {total === 1 ? 'aluno' : 'alunos'}
           </span>
         )}
@@ -98,7 +98,7 @@ export function DistribuicaoChart({
       </details>
       {!temDados ? (
         <div className="h-64 flex flex-col items-center justify-center text-slate-400 text-sm gap-2">
-          <div className="w-10 h-10 rounded-full bg-[#F3F7F5] flex items-center justify-center text-slate-400">
+          <div className="w-10 h-10 rounded-full bg-[#F3EDFF] flex items-center justify-center text-slate-400">
             📊
           </div>
           <span>Sem registros de notas no período selecionado</span>
@@ -107,16 +107,16 @@ export function DistribuicaoChart({
         <div className="w-full h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#D5E3DC" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2D9F7" vertical={false} />
               <XAxis
                 dataKey="faixa"
                 interval={0}
-                stroke="#566F65"
+                stroke="#6E5F94"
                 fontSize={11}
                 tickLine={false}
-                axisLine={{ stroke: '#D5E3DC' }}
+                axisLine={{ stroke: '#E2D9F7' }}
               />
-              <YAxis allowDecimals={false} stroke="#566F65" fontSize={12} tickLine={false} axisLine={false} />
+              <YAxis allowDecimals={false} stroke="#6E5F94" fontSize={12} tickLine={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="quantidade" radius={[8, 8, 0, 0]} maxBarSize={48}>
                 {data.map((entry) => (

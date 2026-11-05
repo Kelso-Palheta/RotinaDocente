@@ -87,8 +87,8 @@ function MessageBubble({ msg, agente, indice }) {
             fontSize: '0.875rem',
             lineHeight: 1.65,
             boxShadow: isUser
-              ? '0 4px 12px rgba(18,60,58,0.18)'
-              : '0 2px 8px rgba(18,60,58,0.08)',
+              ? '0 4px 12px rgba(37, 16, 74,0.18)'
+              : '0 2px 8px rgba(37, 16, 74,0.08)',
             border: isUser ? 'none' : '1px solid var(--border)',
             whiteSpace: 'pre-wrap',
             wordBreak: 'break-word',
@@ -264,7 +264,7 @@ export default function ChatWindow({ agente, onBack }) {
               cursor: 'pointer',
               transition: 'all 0.2s ease',
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#0F766E'; e.currentTarget.style.color = '#0F766E'; }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#6315D9'; e.currentTarget.style.color = '#6315D9'; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--gray)'; }}
           >
             <Trash2 size={13} />
@@ -300,9 +300,9 @@ export default function ChatWindow({ agente, onBack }) {
               marginBottom: '0.75rem',
               padding: '0.625rem 0.75rem',
               borderRadius: '0.75rem',
-              background: '#F3F8F5',
-              border: '1px solid #D5E3DC',
-              color: '#4F6B63',
+              background: '#F3EDFF',
+              border: '1px solid #E2D9F7',
+              color: '#5B4B86',
               fontSize: '0.75rem',
               lineHeight: 1.5,
               overflowWrap: 'anywhere',
@@ -324,7 +324,7 @@ export default function ChatWindow({ agente, onBack }) {
                 border: 'none',
                 borderRadius: '0.375rem',
                 background: 'transparent',
-                color: '#566F65',
+                color: '#6E5F94',
                 cursor: 'pointer',
               }}
             >
@@ -376,7 +376,7 @@ export default function ChatWindow({ agente, onBack }) {
               background: 'rgba(255,255,255,0.95)',
               border: '1px solid var(--border)',
               borderRadius: '1.25rem 1.25rem 1.25rem 0.25rem',
-              boxShadow: '0 2px 8px rgba(18,60,58,0.08)',
+              boxShadow: '0 2px 8px rgba(37, 16, 74,0.08)',
             }}>
               <TypingDots cor={agente.cor} />
             </div>
@@ -396,9 +396,9 @@ export default function ChatWindow({ agente, onBack }) {
               margin: '0.5rem 0',
               padding: '0.625rem 0.875rem',
               borderRadius: '0.75rem',
-              background: '#F3F8F5',
-              border: '1px solid #B7D3C8',
-              color: '#0B5F59',
+              background: '#F3EDFF',
+              border: '1px solid #B9A6EF',
+              color: '#5411B8',
               fontSize: '0.78rem',
               overflowWrap: 'anywhere',
             }}
@@ -412,9 +412,9 @@ export default function ChatWindow({ agente, onBack }) {
                   flexShrink: 0,
                   padding: '0.25rem 0.625rem',
                   borderRadius: '0.5rem',
-                  border: '1px solid #B7D3C8',
+                  border: '1px solid #B9A6EF',
                   background: '#ffffff',
-                  color: '#0B5F59',
+                  color: '#5411B8',
                   fontSize: '0.75rem',
                   fontWeight: 600,
                   cursor: 'pointer',

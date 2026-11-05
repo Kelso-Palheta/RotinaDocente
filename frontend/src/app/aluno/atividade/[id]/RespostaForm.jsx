@@ -17,17 +17,17 @@ function DicaScaffolding({ dica }) {
       <button
         type="button"
         onClick={() => setAberta(!aberta)}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#F3F8F5] text-[#123C3A] border border-[#D5E3DC] hover:bg-[#DAEBE5] transition-all"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#F3EDFF] text-[#25104A] border border-[#E2D9F7] hover:bg-[#E7DBFD] transition-all"
       >
-        <Lightbulb size={13} className="text-[#0F766E]" />
+        <Lightbulb size={13} className="text-[#6315D9]" />
         <span>{aberta ? 'Ocultar dica pedagógica' : '💡 Precisa de uma dica de apoio?'}</span>
         {aberta ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
       </button>
 
       {aberta && (
-        <div className="mt-2 p-3 bg-[#F3F8F5]/60 border border-[#D5E3DC] rounded-xl text-xs text-[#123C3A] leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-in fade-in duration-200">
+        <div className="mt-2 p-3 bg-[#F3EDFF]/60 border border-[#E2D9F7] rounded-xl text-xs text-[#25104A] leading-relaxed flex flex-col sm:flex-row sm:items-center justify-between gap-2 animate-in fade-in duration-200">
           <div>
-            <strong className="font-bold text-[#0B2B2A]">Dica: </strong>
+            <strong className="font-bold text-[#160932]">Dica: </strong>
             <span>{dica}</span>
           </div>
           <BotaoLeitorVoz texto={dica} label="Ouvir dica" className="self-start sm:self-auto" />
@@ -39,10 +39,10 @@ function DicaScaffolding({ dica }) {
 
 function QuestaoDiscursiva({ numero, questao, resposta, onChange }) {
   return (
-    <div className="mb-6 p-4 rounded-2xl bg-white border border-[#d5e3dc] shadow-2xs">
+    <div className="mb-6 p-4 rounded-2xl bg-white border border-[#e2d9f7] shadow-2xs">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
-        <span className="w-6 h-6 rounded-full bg-[#123c3a] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{numero}</span>
-        <span className="text-[10px] font-extrabold text-[#4f6b63] uppercase tracking-wider">Discursiva</span>
+        <span className="w-6 h-6 rounded-full bg-[#25104a] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{numero}</span>
+        <span className="text-[10px] font-extrabold text-[#5b4b86] uppercase tracking-wider">Discursiva</span>
         <BotaoLeitorVoz
           texto={questao.enunciado}
           label="Ouvir Enunciado"
@@ -50,10 +50,10 @@ function QuestaoDiscursiva({ numero, questao, resposta, onChange }) {
         <span className="text-xs text-slate-400 font-mono font-semibold ml-auto">{questao.notaMaxima?.toFixed(1)?.replace('.', ',') || '0,0'} pts</span>
       </div>
 
-      <p className="text-sm text-[#123C3A] leading-relaxed mb-3 whitespace-pre-wrap">{questao.enunciado}</p>
+      <p className="text-sm text-[#25104A] leading-relaxed mb-3 whitespace-pre-wrap">{questao.enunciado}</p>
 
       {questao.apoioVisualDescricao && (
-        <div className="bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl p-2.5 mb-3 text-xs text-[#123c3a] flex items-center justify-between gap-2">
+        <div className="bg-[#f3edff] border border-[#e2d9f7] rounded-xl p-2.5 mb-3 text-xs text-[#25104a] flex items-center justify-between gap-2">
           <span>👁 <strong>Apoio visual:</strong> {questao.apoioVisualDescricao}</span>
           <BotaoLeitorVoz texto={questao.apoioVisualDescricao} label="Ouvir apoio" />
         </div>
@@ -62,7 +62,7 @@ function QuestaoDiscursiva({ numero, questao, resposta, onChange }) {
       {questao.imagens?.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-3">
           {questao.imagens.map((img, i) => (
-            <img key={i} src={img.url || img.base64} alt={questao.apoioVisualDescricao || `Imagem ${i + 1}`} className="max-h-48 rounded-lg border border-[#D5E3DC] object-contain" />
+            <img key={i} src={img.url || img.base64} alt={questao.apoioVisualDescricao || `Imagem ${i + 1}`} className="max-h-48 rounded-lg border border-[#E2D9F7] object-contain" />
           ))}
         </div>
       )}
@@ -75,7 +75,7 @@ function QuestaoDiscursiva({ numero, questao, resposta, onChange }) {
         placeholder="Escreva sua resposta aqui..."
         rows={5}
         maxLength={5000}
-        className="w-full bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl px-4 py-3 text-sm text-[#123C3A] placeholder-[#566F65] outline-none focus:bg-white focus:ring-1 focus:ring-[#0f766e] transition-all resize-y mt-2"
+        className="w-full bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-4 py-3 text-sm text-[#25104A] placeholder-[#6E5F94] outline-none focus:bg-white focus:ring-1 focus:ring-[#6315d9] transition-all resize-y mt-2"
       />
       <div className="flex justify-end mt-1">
         <span className="text-xs text-slate-400 font-mono">{resposta.length}/5000</span>
@@ -86,10 +86,10 @@ function QuestaoDiscursiva({ numero, questao, resposta, onChange }) {
 
 function QuestaoObjetiva({ numero, questao, resposta, onChange }) {
   return (
-    <div className="mb-6 p-4 rounded-2xl bg-white border border-[#d5e3dc] shadow-2xs">
+    <div className="mb-6 p-4 rounded-2xl bg-white border border-[#e2d9f7] shadow-2xs">
       <div className="flex items-center gap-2 mb-3 flex-wrap">
-        <span className="w-6 h-6 rounded-full bg-[#123c3a] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{numero}</span>
-        <span className="text-[10px] font-extrabold text-[#4f6b63] uppercase tracking-wider">Objetiva</span>
+        <span className="w-6 h-6 rounded-full bg-[#25104a] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{numero}</span>
+        <span className="text-[10px] font-extrabold text-[#5b4b86] uppercase tracking-wider">Objetiva</span>
         <BotaoLeitorVoz
           texto={questao.enunciado}
           label="Ouvir Enunciado"
@@ -97,10 +97,10 @@ function QuestaoObjetiva({ numero, questao, resposta, onChange }) {
         <span className="text-xs text-slate-400 font-mono font-semibold ml-auto">{questao.notaMaxima?.toFixed(1)?.replace('.', ',') || '0,0'} pts</span>
       </div>
 
-      <p className="text-sm text-[#123C3A] leading-relaxed mb-3 whitespace-pre-wrap">{questao.enunciado}</p>
+      <p className="text-sm text-[#25104A] leading-relaxed mb-3 whitespace-pre-wrap">{questao.enunciado}</p>
 
       {questao.apoioVisualDescricao && (
-        <div className="bg-[#f3f7f5] border border-[#d5e3dc] rounded-xl p-2.5 mb-3 text-xs text-[#123c3a] flex items-center justify-between gap-2">
+        <div className="bg-[#f3edff] border border-[#e2d9f7] rounded-xl p-2.5 mb-3 text-xs text-[#25104a] flex items-center justify-between gap-2">
           <span>👁 <strong>Apoio visual:</strong> {questao.apoioVisualDescricao}</span>
           <BotaoLeitorVoz texto={questao.apoioVisualDescricao} label="Ouvir apoio" />
         </div>
@@ -109,7 +109,7 @@ function QuestaoObjetiva({ numero, questao, resposta, onChange }) {
       {questao.imagens?.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-3">
           {questao.imagens.map((img, i) => (
-            <img key={i} src={img.url || img.base64} alt={questao.apoioVisualDescricao || `Imagem ${i + 1}`} className="max-h-48 rounded-lg border border-[#D5E3DC] object-contain" />
+            <img key={i} src={img.url || img.base64} alt={questao.apoioVisualDescricao || `Imagem ${i + 1}`} className="max-h-48 rounded-lg border border-[#E2D9F7] object-contain" />
           ))}
         </div>
       )}
@@ -122,8 +122,8 @@ function QuestaoObjetiva({ numero, questao, resposta, onChange }) {
             key={alt.id}
             className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
               resposta === alt.id
-                ? 'bg-[#f3f8f5] border-[#0f766e]'
-                : 'bg-white border-[#D5E3DC] hover:border-[#0f766e]/40 hover:bg-[#f3f7f5]'
+                ? 'bg-[#f3edff] border-[#6315d9]'
+                : 'bg-white border-[#E2D9F7] hover:border-[#6315d9]/40 hover:bg-[#f3edff]'
             }`}
           >
             <input
@@ -132,10 +132,10 @@ function QuestaoObjetiva({ numero, questao, resposta, onChange }) {
               value={alt.id}
               checked={resposta === alt.id}
               onChange={() => onChange(alt.id)}
-              className="mt-0.5 w-4 h-4 accent-[#0f766e] flex-shrink-0"
+              className="mt-0.5 w-4 h-4 accent-[#6315d9] flex-shrink-0"
             />
-            <span className="text-sm text-[#123C3A]">
-              <span className="font-bold text-[#0f766e] mr-1">{alt.id})</span>
+            <span className="text-sm text-[#25104A]">
+              <span className="font-bold text-[#6315d9] mr-1">{alt.id})</span>
               {alt.texto}
             </span>
           </label>
@@ -147,9 +147,9 @@ function QuestaoObjetiva({ numero, questao, resposta, onChange }) {
 
 function TextoApoio({ texto }) {
   return (
-    <div className="mb-5 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4">
+    <div className="mb-5 bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-4">
       <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Texto de apoio</p>
-      <div className="prose prose-sm max-w-none text-[#35594D]"
+      <div className="prose prose-sm max-w-none text-[#4A3B7C]"
         dangerouslySetInnerHTML={{ __html: safeSanitize(texto.html) }} />
     </div>
   );
@@ -210,7 +210,7 @@ export const RespostaForm = ({ atividade, onSubmit, loading, textos = [] }) => {
       <button
         type="submit"
         disabled={!podeEnviar}
-        className="w-full py-3 bg-[#0F766E] hover:bg-[#0B5F59] disabled:bg-[#D5E3DC] disabled:text-slate-400 disabled:cursor-not-allowed rounded-xl text-white text-sm font-semibold transition-all"
+        className="w-full py-3 bg-[#6315D9] hover:bg-[#5411B8] disabled:bg-[#E2D9F7] disabled:text-slate-400 disabled:cursor-not-allowed rounded-xl text-white text-sm font-semibold transition-all"
       >
         {loading
           ? <span className="flex items-center justify-center gap-2"><svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Enviando...</span>

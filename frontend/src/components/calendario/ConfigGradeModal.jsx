@@ -138,32 +138,32 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
   return (
     <div role="dialog" aria-modal="true" aria-label="Configurar horários" className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#F3F7F5] bg-[#F3F8F5]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#F3EDFF] bg-[#F3EDFF]">
           <div>
-            <h2 className="text-lg font-bold text-[#194D46]">
+            <h2 className="text-lg font-bold text-[#25104A]">
               Configurar Grade Horária
             </h2>
             {turmaSelecionada && (
-              <span className="block text-xs font-semibold text-[#0F766E] mt-0.5">
+              <span className="block text-xs font-semibold text-[#6315D9] mt-0.5">
                 Turma: {turmaSelecionada.name || turmaSelecionada.nome}
               </span>
             )}
           </div>
-          <button disabled={salvando} aria-label="Fechar" onClick={onClose} className="text-gray-400 hover:text-[#4F6B63] transition-colors">
+          <button disabled={salvando} aria-label="Fechar" onClick={onClose} className="text-gray-400 hover:text-[#5B4B86] transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto" onChange={invalidarPreview}>
           {/* Card de Importação Direta do Meu Horário */}
-          <div className="bg-gradient-to-r from-[#F3F8F5] to-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-4 shadow-sm">
+          <div className="bg-gradient-to-r from-[#F3EDFF] to-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-4 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <h4 className="text-xs font-bold text-[#123C3A] uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-[#0F766E]" />
+                <h4 className="text-xs font-bold text-[#25104A] uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-[#6315D9]" />
                   Importar do Meu Horário
                 </h4>
-                <p className="text-xs text-[#123C3A] mt-0.5">
+                <p className="text-xs text-[#25104A] mt-0.5">
                   Puxa automaticamente dias, horários e quantidade de aulas desta turma já cadastrados no Meu Horário.
                 </p>
               </div>
@@ -171,7 +171,7 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
                 type="button"
                 onClick={() => handlePuxarMeuHorario()}
                 disabled={carregandoMeuHorario}
-                className="px-4 py-2 bg-[#0F766E] hover:bg-[#0B5F59] text-white rounded-lg text-xs font-bold whitespace-nowrap shadow transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
+                className="px-4 py-2 bg-[#6315D9] hover:bg-[#5411B8] text-white rounded-lg text-xs font-bold whitespace-nowrap shadow transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
               >
                 <CalendarSync className="w-4 h-4" />
                 {carregandoMeuHorario ? 'Puxando...' : 'Puxar do Meu Horário'}
@@ -180,16 +180,16 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
 
             {/* Feedback da Importação */}
             {feedbackMeuHorario && (
-              <div className="mt-3 pt-3 border-t border-[#D5E3DC]/60">
+              <div className="mt-3 pt-3 border-t border-[#E2D9F7]/60">
                 {feedbackMeuHorario.tipo === 'sucesso' && (
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0B5F59] bg-[#F3F8F5] px-3 py-2 rounded-lg border border-[#D5E3DC]">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#5411B8] bg-[#F3EDFF] px-3 py-2 rounded-lg border border-[#E2D9F7]">
                     <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
                     <span>{feedbackMeuHorario.msg}</span>
                   </div>
                 )}
 
                 {feedbackMeuHorario.tipo === 'erro' && (
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#0B5F59] bg-[#F3F8F5] px-3 py-2 rounded-lg border border-[#D5E3DC]">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#5411B8] bg-[#F3EDFF] px-3 py-2 rounded-lg border border-[#E2D9F7]">
                     <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     <span>{feedbackMeuHorario.msg} <a href="/meuhorario" className="underline">Abrir Meu Horário Escolar</a></span>
                   </div>
@@ -197,14 +197,14 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
 
                 {feedbackMeuHorario.tipo === 'aviso' && (
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-[#123C3A] bg-[#F3F8F5] px-3 py-2 rounded-lg border border-[#D5E3DC]">
+                    <div className="flex items-center gap-2 text-xs text-[#25104A] bg-[#F3EDFF] px-3 py-2 rounded-lg border border-[#E2D9F7]">
                       <AlertCircle className="w-4 h-4 flex-shrink-0" />
                       <span>{feedbackMeuHorario.msg}</span>
                     </div>
 
                     {turmasMeuHorario.length > 0 && (
                       <div className="flex items-center gap-2 pt-1">
-                        <label htmlFor="turma-origem-horario" className="text-xs font-semibold text-[#35594D]">Turma de origem</label>
+                        <label htmlFor="turma-origem-horario" className="text-xs font-semibold text-[#4A3B7C]">Turma de origem</label>
                         <select
                           id="turma-origem-horario"
                           disabled={carregandoMeuHorario}
@@ -212,7 +212,7 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
                           onChange={(e) => {
                             if (e.target.value) handlePuxarMeuHorario(e.target.value);
                           }}
-                          className="text-xs border border-[#B7D3C8] rounded-lg px-2.5 py-1.5 bg-white text-[#194D46] outline-none focus:ring-1 focus:ring-[#0F766E] font-medium"
+                          className="text-xs border border-[#B9A6EF] rounded-lg px-2.5 py-1.5 bg-white text-[#25104A] outline-none focus:ring-1 focus:ring-[#6315D9] font-medium"
                         >
                           <option value="" disabled>Escolha uma turma do Meu Horário...</option>
                           {turmasMeuHorario.map((t) => (
@@ -229,47 +229,47 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
 
           {/* Período Letivo */}
           <div>
-            <h3 className="text-sm font-semibold text-[#35594D] mb-3 uppercase tracking-wider">Período Letivo</h3>
+            <h3 className="text-sm font-semibold text-[#4A3B7C] mb-3 uppercase tracking-wider">Período Letivo</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="grade-inicio" className="block text-xs text-[#566F65] mb-1">Data de Início</label>
+                <label htmlFor="grade-inicio" className="block text-xs text-[#6E5F94] mb-1">Data de Início</label>
                 <input
                   id="grade-inicio" type="date"
                   value={dataInicio}
                   onChange={e => setDataInicio(e.target.value)}
-                  className="w-full border-[#B7D3C8] rounded-md shadow-sm text-sm text-[#123C3A] focus:ring-[#0F766E] focus:border-[#0F766E]"
+                  className="w-full border-[#B9A6EF] rounded-md shadow-sm text-sm text-[#25104A] focus:ring-[#6315D9] focus:border-[#6315D9]"
                 />
               </div>
               <div>
-                <label htmlFor="grade-fim" className="block text-xs text-[#566F65] mb-1">Data de Término</label>
+                <label htmlFor="grade-fim" className="block text-xs text-[#6E5F94] mb-1">Data de Término</label>
                 <input
                   id="grade-fim" type="date"
                   value={dataFim}
                   onChange={e => setDataFim(e.target.value)}
-                  className="w-full border-[#B7D3C8] rounded-md shadow-sm text-sm text-[#123C3A] focus:ring-[#0F766E] focus:border-[#0F766E]"
+                  className="w-full border-[#B9A6EF] rounded-md shadow-sm text-sm text-[#25104A] focus:ring-[#6315D9] focus:border-[#6315D9]"
                 />
               </div>
             </div>
-            <label className="block text-xs text-[#566F65] mt-4">Aplicar alterações a partir de
-              <input type="date" value={aplicarDesde} min={dataInicio} max={dataFim} onChange={e => setAplicarDesde(e.target.value)} className="block border rounded p-2 text-[#123C3A]" />
+            <label className="block text-xs text-[#6E5F94] mt-4">Aplicar alterações a partir de
+              <input type="date" value={aplicarDesde} min={dataInicio} max={dataFim} onChange={e => setAplicarDesde(e.target.value)} className="block border rounded p-2 text-[#25104A]" />
             </label>
-            <p className="text-xs text-[#566F65] mt-2">Ano letivo: {anoLetivo}. Revise o período antes de confirmar.</p>
+            <p className="text-xs text-[#6E5F94] mt-2">Ano letivo: {anoLetivo}. Revise o período antes de confirmar.</p>
           </div>
 
-          <hr className="border-[#F3F7F5]" />
+          <hr className="border-[#F3EDFF]" />
 
           {/* Adicionar Dia Manualmente */}
           <div>
-            <h3 className="text-sm font-semibold text-[#35594D] mb-3 uppercase tracking-wider">Rotina Semanal de Aulas</h3>
+            <h3 className="text-sm font-semibold text-[#4A3B7C] mb-3 uppercase tracking-wider">Rotina Semanal de Aulas</h3>
 
-            <div className="bg-[#F3F8F5] p-4 rounded-lg border border-[#DAEBE5] mb-4">
+            <div className="bg-[#F3EDFF] p-4 rounded-lg border border-[#E7DBFD] mb-4">
               <div className="grid grid-cols-5 gap-3 items-end">
                 <div className="col-span-2">
-                  <label className="block text-xs text-[#123C3A] mb-1 font-medium">Dia da Semana</label>
+                  <label className="block text-xs text-[#25104A] mb-1 font-medium">Dia da Semana</label>
                   <select
                     value={novoDia}
                     onChange={e => setNovoDia(e.target.value)}
-                    className="w-full border-[#D5E3DC] rounded-md text-sm text-[#123C3A] focus:ring-[#0F766E] focus:border-[#0F766E] bg-white"
+                    className="w-full border-[#E2D9F7] rounded-md text-sm text-[#25104A] focus:ring-[#6315D9] focus:border-[#6315D9] bg-white"
                   >
                     {diasNomes.map((nome, i) => (
                       <option key={i} value={i}>{nome}</option>
@@ -277,22 +277,22 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs text-[#123C3A] mb-1 font-medium">Início</label>
-                  <input type="time" value={novoInicio} onChange={e => setNovoInicio(e.target.value)} className="w-full border-[#D5E3DC] rounded-md text-sm text-[#123C3A] focus:ring-[#0F766E] bg-white" />
+                  <label className="block text-xs text-[#25104A] mb-1 font-medium">Início</label>
+                  <input type="time" value={novoInicio} onChange={e => setNovoInicio(e.target.value)} className="w-full border-[#E2D9F7] rounded-md text-sm text-[#25104A] focus:ring-[#6315D9] bg-white" />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#123C3A] mb-1 font-medium">Fim</label>
-                  <input type="time" value={novoFim} onChange={e => setNovoFim(e.target.value)} className="w-full border-[#D5E3DC] rounded-md text-sm text-[#123C3A] focus:ring-[#0F766E] bg-white" />
+                  <label className="block text-xs text-[#25104A] mb-1 font-medium">Fim</label>
+                  <input type="time" value={novoFim} onChange={e => setNovoFim(e.target.value)} className="w-full border-[#E2D9F7] rounded-md text-sm text-[#25104A] focus:ring-[#6315D9] bg-white" />
                 </div>
                 <div>
-                  <label className="block text-xs text-[#123C3A] mb-1 font-medium">Qtd Aulas</label>
-                  <input type="number" min="1" max="10" value={novaQtd} onChange={e => setNovaQtd(e.target.value)} className="w-full border-[#D5E3DC] rounded-md text-sm text-[#123C3A] focus:ring-[#0F766E] bg-white" />
+                  <label className="block text-xs text-[#25104A] mb-1 font-medium">Qtd Aulas</label>
+                  <input type="number" min="1" max="10" value={novaQtd} onChange={e => setNovaQtd(e.target.value)} className="w-full border-[#E2D9F7] rounded-md text-sm text-[#25104A] focus:ring-[#6315D9] bg-white" />
                 </div>
               </div>
               <button
                 type="button"
                 onClick={handleAddDia}
-                className="mt-3 flex items-center justify-center w-full py-2 bg-[#DAEBE5] text-[#123C3A] rounded-md text-sm font-medium hover:bg-[#D5E3DC] transition-colors"
+                className="mt-3 flex items-center justify-center w-full py-2 bg-[#E7DBFD] text-[#25104A] rounded-md text-sm font-medium hover:bg-[#E2D9F7] transition-colors"
               >
                 <Plus className="w-4 h-4 mr-1" /> Adicionar à Grade Manualmente
               </button>
@@ -302,16 +302,16 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
             {diasSemana.length > 0 ? (
               <div className="space-y-2">
                 {diasSemana.map((dia, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-white border border-[#D5E3DC] rounded-md shadow-sm">
+                  <div key={index} className="flex items-center justify-between p-3 bg-white border border-[#E2D9F7] rounded-md shadow-sm">
                     <div>
-                      <span className="font-semibold text-[#194D46]">{diasNomes[dia.diaSemana]}</span>
-                      <span className="text-[#566F65] text-sm ml-2">{dia.horarioInicio} às {dia.horarioFim}</span>
+                      <span className="font-semibold text-[#25104A]">{diasNomes[dia.diaSemana]}</span>
+                      <span className="text-[#6E5F94] text-sm ml-2">{dia.horarioInicio} às {dia.horarioFim}</span>
                     </div>
                     <div className="flex items-center space-x-4">
-                      <span className="text-xs bg-[#F3F7F5] px-2 py-1 rounded text-[#4F6B63] font-medium">
+                      <span className="text-xs bg-[#F3EDFF] px-2 py-1 rounded text-[#5B4B86] font-medium">
                         {dia.quantidadeAulas} aula(s)
                       </span>
-                      <button onClick={() => handleRemoveDia(index)} className="text-[#0F766E] hover:text-[#0F766E]" title="Remover dia">
+                      <button onClick={() => handleRemoveDia(index)} className="text-[#6315D9] hover:text-[#6315D9]" title="Remover dia">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -319,26 +319,26 @@ function ConfigGradeEditor({ onClose, onSave, turmaSelecionada, initialGrade, on
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-[#566F65] text-center py-4">Nenhum dia configurado na grade ainda. Clique em &quot;Puxar do Meu Horário&quot; ou adicione acima.</p>
+              <p className="text-sm text-[#6E5F94] text-center py-4">Nenhum dia configurado na grade ainda. Clique em &quot;Puxar do Meu Horário&quot; ou adicione acima.</p>
             )}
           </div>
         </div>
 
-        {erro && <p role="alert" className="px-6 py-3 text-[#0B5F59]">{erro}</p>}
-        {preview && <div className="px-6 py-4 bg-[#F3F8F5] text-sm text-[#194D46]">
+        {erro && <p role="alert" className="px-6 py-3 text-[#5411B8]">{erro}</p>}
+        {preview && <div className="px-6 py-4 bg-[#F3EDFF] text-sm text-[#25104A]">
           <h3 className="font-bold">Prévia da atualização</h3>
           <p>{preview.dados.diasSemana.length} bloco(s) semanal(is), de {preview.dados.aplicarDesde} até {preview.dados.dataFimPeriodo}.</p>
           <p>{preview.resumo?.criadas || 0} aulas criadas · {preview.resumo?.preservadas || 0} preservadas · {preview.resumo?.alteradas || 0} alteradas · {preview.resumo?.removidas || 0} removidas.</p>
-          {preview.conflitos?.map((conflito,i)=><p key={i} className="text-[#0B5F59]">{conflito}</p>)}
+          {preview.conflitos?.map((conflito,i)=><p key={i} className="text-[#5411B8]">{conflito}</p>)}
         </div>}
-        <div className="flex items-center justify-end px-6 py-4 border-t border-[#F3F7F5] bg-[#F3F8F5] space-x-3">
-          <button disabled={salvando} onClick={onClose} className="px-4 py-2 text-sm font-medium text-[#4F6B63] hover:text-[#194D46]">
+        <div className="flex items-center justify-end px-6 py-4 border-t border-[#F3EDFF] bg-[#F3EDFF] space-x-3">
+          <button disabled={salvando} onClick={onClose} className="px-4 py-2 text-sm font-medium text-[#5B4B86] hover:text-[#25104A]">
             Cancelar
           </button>
           <button
             onClick={preview ? handleSave : handlePreview}
             disabled={salvando || carregandoMeuHorario || Boolean(preview?.conflitos?.length)}
-            className="px-6 py-2 bg-[#0F766E] text-white rounded-md text-sm font-medium shadow-sm hover:bg-[#0B5F59] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F766E]"
+            className="px-6 py-2 bg-[#6315D9] text-white rounded-md text-sm font-medium shadow-sm hover:bg-[#5411B8] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6315D9]"
           >
             {salvando ? 'Aguarde...' : preview ? 'Confirmar atualização' : 'Revisar alterações'}
           </button>

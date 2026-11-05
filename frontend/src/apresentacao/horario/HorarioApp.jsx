@@ -544,8 +544,8 @@ export default function HorarioApp() {
 
   if (loading || contaCarregada !== contaAtual) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F3F8F5]">
-        <div className="w-10 h-10 rounded-full border-4 border-[#0F766E] border-t-transparent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#F3EDFF]">
+        <div className="w-10 h-10 rounded-full border-4 border-[#6315D9] border-t-transparent animate-spin" />
       </div>
     );
   }
@@ -792,7 +792,7 @@ export default function HorarioApp() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <main className="main-container">
-        {conflitoNuvem && <section role="alert" className="no-print p-4 mb-4 rounded-lg border border-[#B7D3C8] bg-[#F3F8F5] text-sm">
+        {conflitoNuvem && <section role="alert" className="no-print p-4 mb-4 rounded-lg border border-[#B9A6EF] bg-[#F3EDFF] text-sm">
           <p>Seu rascunho pendente foi preservado. A nuvem tem outra versão; confira antes de reenviar.</p>
           <button type="button" className="underline" onClick={() => setVerNuvem(v => !v)}>Conferir versão da nuvem</button>
           {verNuvem && <div className="mt-2"><p>{conflitoNuvem.teacherName} · {conflitoNuvem.schoolName}</p><ul>{Object.entries(conflitoNuvem.schedule || {}).map(([id,aula]) => <li key={id}>{id}: {aula.subject} · {aula.grade} · {aula.room}</li>)}</ul><p>Esta conferência não substitui seu rascunho.</p></div>}
@@ -1150,7 +1150,7 @@ export default function HorarioApp() {
                         <Link
                           href={`/diario?turma=${encodeURIComponent(formGrade)}`}
                           className="btn"
-                          style={{ backgroundColor: "#f3f7f5", color: "#123c3a", border: "1px solid #d5e3dc" }}
+                          style={{ backgroundColor: "#f3edff", color: "#25104a", border: "1px solid #e2d9f7" }}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
@@ -1224,7 +1224,7 @@ export default function HorarioApp() {
                 <div className="slots-list-container">
                   {tempSlots.map((s, idx) => (
                     <div key={s.id} className="slot-config-row" style={{ display: "grid", gridTemplateColumns: "100px 1fr 100px 100px 60px", gap: "0.5rem", alignItems: "center", padding: "0.5rem 0", borderBottom: "1px solid var(--border-subtle)" }}>
-                      <span className={`badge-type ${s.isBreak ? "badge-break" : "badge-class"}`} style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem", borderRadius: "4px", background: s.isBreak ? "#F3F8F5" : "#daebe5", color: s.isBreak ? "#0B5F59" : "#123c3a" }}>
+                      <span className={`badge-type ${s.isBreak ? "badge-break" : "badge-class"}`} style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem", borderRadius: "4px", background: s.isBreak ? "#F3EDFF" : "#E7DBFD", color: s.isBreak ? "#5411B8" : "#25104A" }}>
                         {s.isBreak ? "☕ Intervalo" : "📖 Aula"}
                       </span>
                       <input
@@ -1633,7 +1633,7 @@ export default function HorarioApp() {
       {/* TOAST FLUTUANTE */}
       {toastMsg && (
         <div
-          className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-xl bg-[#123C3A] text-white font-medium text-sm flex items-center gap-2"
+          className="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-xl bg-[#25104A] text-white font-medium text-sm flex items-center gap-2"
           role="status"
         >
           <span>✓</span>

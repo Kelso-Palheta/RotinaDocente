@@ -62,8 +62,8 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
   let y = 36;
 
   const cabecalhoPagina = () => {
-    doc.setFillColor(18, 60, 58); doc.rect(0, 0, largura, 29, 'F');
-    doc.setFillColor(15, 118, 110); doc.rect(0, 29, largura, 1, 'F');
+    doc.setFillColor(37, 16, 74); doc.rect(0, 0, largura, 29, 'F');
+    doc.setFillColor(99, 21, 217); doc.rect(0, 29, largura, 1, 'F');
     doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(15);
     doc.text('Rotina Docente - Relatório de notas', margem, 12);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
@@ -129,7 +129,7 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
         let x = margem + colunas[0].largura;
         colunas.slice(1).forEach(coluna => {
           const valor = coluna.campo === 'simulado' ? notas.simulado : coluna.campo === 'soma' ? somaAtividades : coluna.campo === 'total' ? total : notas[coluna.campo];
-          const cor = coluna.campo === 'total' ? CORES[faixaNotaBimestral(valor, dados.config)] : [18, 60, 58];
+          const cor = coluna.campo === 'total' ? CORES[faixaNotaBimestral(valor, dados.config)] : [37, 16, 74];
           doc.setTextColor(...cor); doc.setFont('helvetica', coluna.campo === 'total' ? 'bold' : 'normal');
           doc.text(valor == null || valor === '' ? '-' : fmt(valor), x + coluna.largura / 2, y + 4.5, { align: 'center' });
           x += coluna.largura;

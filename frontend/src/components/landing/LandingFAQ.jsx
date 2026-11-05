@@ -42,18 +42,18 @@ export function LandingFAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 bg-white border-t border-[#d5e3dc]">
+    <section id="faq" className="py-24 bg-white border-t border-[#e2d9f7]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#0f766e] mb-3">
-            <span className="w-6 h-0.5 bg-[#0f766e]"></span>
+          <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#6315d9] mb-3">
+            <span className="w-6 h-0.5 bg-[#6315d9]"></span>
             TIRE SUAS DÚVIDAS
-            <span className="w-6 h-0.5 bg-[#0f766e]"></span>
+            <span className="w-6 h-0.5 bg-[#6315d9]"></span>
           </div>
-          <h2 className="font-head text-3xl sm:text-4xl font-extrabold text-[#123c3a] tracking-tight">
+          <h2 className="font-head text-3xl sm:text-4xl font-extrabold text-[#25104a] tracking-tight">
             Perguntas Frequentes
           </h2>
-          <p className="mt-3 text-base text-[#4f6b63]">
+          <p className="mt-3 text-base text-[#5b4b86]">
             Tudo o que você precisa saber para começar a transformar sua rotina docente hoje.
           </p>
         </div>
@@ -65,16 +65,16 @@ export function LandingFAQ() {
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-[#d5e3dc] bg-[#f3f7f5] overflow-hidden transition-all duration-200"
+                className="rounded-2xl border border-[#e2d9f7] bg-[#f3edff] overflow-hidden transition-all duration-200"
               >
                 <button
                   onClick={() => toggleFAQ(idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 font-head font-bold text-base sm:text-lg text-[#123c3a] hover:text-[#0f766e] transition-colors"
+                  className="w-full p-6 text-left flex items-center justify-between gap-4 font-head font-bold text-base sm:text-lg text-[#25104a] hover:text-[#6315d9] transition-colors"
                 >
                   <span>{faq.q}</span>
                   <div
-                    className={`w-8 h-8 rounded-full bg-white border border-[#d5e3dc] flex items-center justify-center text-[#123c3a] shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 text-[#0f766e] border-[#0f766e]" : ""
+                    className={`w-8 h-8 rounded-full bg-white border border-[#e2d9f7] flex items-center justify-center text-[#25104a] shrink-0 transition-transform duration-300 ${
+                      isOpen ? "rotate-180 text-[#6315d9] border-[#6315d9]" : ""
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -82,7 +82,7 @@ export function LandingFAQ() {
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 text-sm sm:text-base text-[#4f6b63] leading-relaxed border-t border-[#d5e3dc]/60 pt-4 bg-white animate-card-in">
+                  <div className="px-6 pb-6 text-sm sm:text-base text-[#5b4b86] leading-relaxed border-t border-[#e2d9f7]/60 pt-4 bg-white animate-card-in">
                     {faq.a}
                   </div>
                 )}

@@ -39,18 +39,18 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
 
   return (
     <div role="dialog" aria-modal="true" aria-label="Conteúdo" className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-[#D5E3DC] animate-in zoom-in-95 duration-200 flex flex-col">
+      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-[#E2D9F7] animate-in zoom-in-95 duration-200 flex flex-col">
         {/* Header */}
-        <div className="bg-[#123c3a] text-white p-5 flex items-center justify-between">
+        <div className="bg-[#25104a] text-white p-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#0F766E]/20 border border-[#0F766E]/30 flex items-center justify-center text-[#0F766E]">
+            <div className="w-9 h-9 rounded-xl bg-[#6315D9]/20 border border-[#6315D9]/30 flex items-center justify-center text-[#6315D9]">
               <BookOpen size={18} />
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
                 {isEdicao ? 'Editar conteúdo' : 'Novo conteúdo'}
               </h3>
-              <p className="text-[11px] text-[#B7D3C8]">
+              <p className="text-[11px] text-[#B9A6EF]">
                 {isEdicao ? 'Atualize as informações do conteúdo' : 'Adicione manualmente ao planejamento'}
               </p>
             </div>
@@ -58,7 +58,7 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
           <button
             disabled={ocupado}
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-[#B7D3C8] hover:text-white transition-colors"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-[#B9A6EF] hover:text-white transition-colors"
           >
             <X size={16} />
           </button>
@@ -68,7 +68,7 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <fieldset disabled={ocupado} className="space-y-4">
           <div>
-            <label htmlFor="conteudo-titulo" className="text-xs font-bold uppercase tracking-wider text-[#4F6B63] mb-1 block">
+            <label htmlFor="conteudo-titulo" className="text-xs font-bold uppercase tracking-wider text-[#5B4B86] mb-1 block">
               Título do conteúdo
             </label>
             <input
@@ -77,12 +77,12 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
               placeholder="Ex: Introdução à Função Quadrática"
-              className="w-full p-2.5 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-xs font-bold text-[#123c3a] outline-none focus:border-[#0F766E] focus:bg-white transition-all"
+              className="w-full p-2.5 bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl text-xs font-bold text-[#25104a] outline-none focus:border-[#6315D9] focus:bg-white transition-all"
             />
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#4F6B63] mb-1 block">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#5B4B86] mb-1 block">
               Descrição / Habilidades BNCC (Opcional)
             </label>
             <textarea
@@ -91,12 +91,12 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="Ex: Habilidade EM13MAT101 - Vértice da parábola e raízes reais"
               rows={3}
-              className="w-full p-2.5 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-xs text-[#35594D] outline-none focus:border-[#0F766E] focus:bg-white transition-all resize-none"
+              className="w-full p-2.5 bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl text-xs text-[#4A3B7C] outline-none focus:border-[#6315D9] focus:bg-white transition-all resize-none"
             />
           </div>
 
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#4F6B63] mb-1 block">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#5B4B86] mb-1 block">
               Duração estimada (tempos)
             </label>
             <input
@@ -105,17 +105,17 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
               max={100}
               value={duracao}
               onChange={(e) => setDuracao(e.target.value)}
-              className="w-24 p-2 bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl text-xs font-bold text-[#123c3a] outline-none focus:border-[#0F766E]"
+              className="w-24 p-2 bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl text-xs font-bold text-[#25104a] outline-none focus:border-[#6315D9]"
             />
           </div>
 
           {/* Footer */}
-          <div className="pt-3 border-t border-[#F3F7F5] flex items-center justify-between">
+          <div className="pt-3 border-t border-[#F3EDFF] flex items-center justify-between">
             {isEdicao && onExcluir ? (
               <button
                 type="button"
                 onClick={excluir}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-[#0F766E] hover:bg-[#F3F8F5] transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-[#6315D9] hover:bg-[#F3EDFF] transition-colors"
               >
                 <Trash2 size={14} />
                 Excluir
@@ -127,13 +127,13 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
                 type="button"
                 disabled={ocupado}
             onClick={onClose}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-[#4F6B63] hover:bg-[#F3F7F5] transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-[#5B4B86] hover:bg-[#F3EDFF] transition-colors"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#2563eb] hover:bg-[#0B5F59] text-white text-xs font-bold shadow-md transition-all"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#2563eb] hover:bg-[#5411B8] text-white text-xs font-bold shadow-md transition-all"
               >
                 <Check size={14} />
                 {ocupado ? 'Aguarde...' : isEdicao ? 'Salvar alterações' : 'Adicionar conteúdo'}
@@ -141,7 +141,7 @@ function ConteudoEditor({ onClose, topicoEmEdicao = null, onSalvar, onExcluir })
             </div>
           </div>
           </fieldset>
-          {erro && <p role="alert" className="text-sm text-[#0B5F59]">{erro}</p>}
+          {erro && <p role="alert" className="text-sm text-[#5411B8]">{erro}</p>}
         </form>
       </div>
     </div>

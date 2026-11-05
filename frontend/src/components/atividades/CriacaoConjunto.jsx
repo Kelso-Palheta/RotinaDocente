@@ -43,18 +43,18 @@ export function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
   };
 
   return (
-    <form onSubmit={enviar} className="bg-white border border-[#d5e3dc] rounded-2xl p-5 space-y-4">
-      <h3 className="font-bold text-[#123c3a]">Novo conjunto de recuperação semestral</h3>
+    <form onSubmit={enviar} className="bg-white border border-[#e2d9f7] rounded-2xl p-5 space-y-4">
+      <h3 className="font-bold text-[#25104a]">Novo conjunto de recuperação semestral</h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <label className="text-xs font-semibold text-[#123c3a]">Turma
+        <label className="text-xs font-semibold text-[#25104a]">Turma
           <select aria-label="Turma da recuperação" value={turmaId} onChange={e => trocarTurma(e.target.value)} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
             {turmasDisponiveis.map(t => <option key={t.id} value={t.id}>{t.nome}</option>)}
           </select>
         </label>
-        <label className="text-xs font-semibold text-[#123c3a]">Ano letivo
-          <input aria-label="Ano letivo da recuperação" value={anoLetivo} readOnly title="O ano é o da turma selecionada" className="mt-1 w-full border rounded-lg p-2 text-sm font-normal bg-[#F3F8F5] text-[#4f6b63]" />
+        <label className="text-xs font-semibold text-[#25104a]">Ano letivo
+          <input aria-label="Ano letivo da recuperação" value={anoLetivo} readOnly title="O ano é o da turma selecionada" className="mt-1 w-full border rounded-lg p-2 text-sm font-normal bg-[#F3EDFF] text-[#5b4b86]" />
         </label>
-        <label className="text-xs font-semibold text-[#123c3a]">Semestre
+        <label className="text-xs font-semibold text-[#25104a]">Semestre
           <select aria-label="Semestre da recuperação" value={semestre} onChange={e => setSemestre(e.target.value)} className="mt-1 w-full border rounded-lg p-2 text-sm font-normal">
             <option value="1">1º semestre</option>
             <option value="2">2º semestre</option>
@@ -63,23 +63,23 @@ export function CriacaoConjunto({ turmas, ano, onCancelar, onCriar }) {
       </div>
 
       <fieldset>
-        <legend className="text-xs font-semibold text-[#123c3a] mb-2">Alunos em recuperação ({destinatarios.length})</legend>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 max-h-48 overflow-auto border border-[#d5e3dc] rounded-xl p-2">
+        <legend className="text-xs font-semibold text-[#25104a] mb-2">Alunos em recuperação ({destinatarios.length})</legend>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 max-h-48 overflow-auto border border-[#e2d9f7] rounded-xl p-2">
           {(turma?.alunos || []).map(aluno => (
-            <label key={aluno.id} className="flex items-center gap-2 text-sm px-2 py-1 rounded hover:bg-[#F3F8F5]">
+            <label key={aluno.id} className="flex items-center gap-2 text-sm px-2 py-1 rounded hover:bg-[#F3EDFF]">
               <input type="checkbox" checked={destinatarios.includes(aluno.id)} onChange={() => alternar(aluno.id)} />
               {aluno.nome}
             </label>
           ))}
-          {!turma?.alunos?.length && <p className="text-xs text-[#566F65] p-2">Turma sem alunos.</p>}
+          {!turma?.alunos?.length && <p className="text-xs text-[#6E5F94] p-2">Turma sem alunos.</p>}
         </div>
       </fieldset>
 
-      <p className="text-xs text-[#4f6b63]">O conjunto nasce vazio. Você distribui os 10 pontos entre uma ou várias atividades depois. Nenhum aluno é matriculado automaticamente na recuperação.</p>
-      {erro && <p role="alert" className="text-sm text-[#0B5F59] bg-[#F3F8F5] rounded p-2">{erro}</p>}
+      <p className="text-xs text-[#5b4b86]">O conjunto nasce vazio. Você distribui os 10 pontos entre uma ou várias atividades depois. Nenhum aluno é matriculado automaticamente na recuperação.</p>
+      {erro && <p role="alert" className="text-sm text-[#5411B8] bg-[#F3EDFF] rounded p-2">{erro}</p>}
       <div className="flex gap-2">
-        <button type="button" onClick={onCancelar} className="flex-1 py-2 bg-[#F3F8F5] border rounded-xl text-sm">Cancelar</button>
-        <button type="submit" disabled={salvando || !turmaId || !destinatarios.length} className="flex-1 py-2 bg-[#0f766e] text-white rounded-xl text-sm font-semibold disabled:bg-[#D5E3DC]">
+        <button type="button" onClick={onCancelar} className="flex-1 py-2 bg-[#F3EDFF] border rounded-xl text-sm">Cancelar</button>
+        <button type="submit" disabled={salvando || !turmaId || !destinatarios.length} className="flex-1 py-2 bg-[#6315d9] text-white rounded-xl text-sm font-semibold disabled:bg-[#E2D9F7]">
           {salvando ? 'Criando...' : 'Criar conjunto'}
         </button>
       </div>

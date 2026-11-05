@@ -40,11 +40,11 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   const alturaFaixa = 1.5;
   const alturaCabecalho = faixaY + alturaFaixa;
 
-  doc.setFillColor(18, 60, 58); // #123c3a
+  doc.setFillColor(37, 16, 74); // #25104a
   doc.rect(0, 0, pageWidth, alturaCabecalho, "F");
 
   // Faixa decorativa
-  doc.setFillColor(15, 118, 110); // #0f766e
+  doc.setFillColor(99, 21, 217); // #6315d9
   doc.rect(0, faixaY, pageWidth, alturaFaixa, "F");
 
   doc.setFont("helvetica", "bold");

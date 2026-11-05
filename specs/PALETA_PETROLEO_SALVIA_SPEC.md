@@ -1,5 +1,14 @@
 # Paleta geral — petróleo e sálvia
 
+> **Superssão (05/11/2026):** a decisão posterior do usuário aplica a paleta "Arte em jogo"
+> (roxo festival: #6315D9 / #25104A / #FFFDF7 / #F3EDFF / acentos #00DDEB, #FFE500, #FF2D93,
+> #B9EF00) a **todo o site**, substituindo a identidade petróleo/sálvia desta especificação.
+> Contrato atual: `PALETA_ARTE_EM_JOGO_SPEC.md`. Esta página permanece como histórico e como
+> fonte das preservações (cores de nota RN-18, disciplinas, imagens, terceiros) e das
+> exigências de contraste/auditáveis que seguem herdadas. Testes que exigem os hexes
+> petróleo/sálvia (`paleta_petroleo_salvia.test.js`, `padrao_visual_redacao.test.js`,
+> `paleta_superficies_escuras.test.js`) ficam entregues para revisão explícita do usuário.
+
 Exceção posterior expressa (04/11/2026): telas do novo aulão Revisão ao Vivo adotam identidade vibrante própria, conforme `REVISAO_VISUAL_VIBRANTE_SPEC.md`. Autorização não muda cores de notas nem os demais módulos. Não altera automaticamente testes globais; qualquer conflito deve ser revisado explicitamente.
 
 Data: 04/11/2026. Escolha e escopo aprovados pelo usuário. Fonte de design: `docs/plans/2026-11-04-paleta-petroleo-salvia-design.md`.

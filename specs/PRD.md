@@ -154,6 +154,11 @@ No Gerador de Atividades → Recuperação semestral, permitir reaproveitar o co
 
 Toda a interface própria adota a paleta aprovada em `PALETA_PETROLEO_SALVIA_SPEC.md`: fundos, navegação, títulos, botões, formulários, estados, diálogos e decoração de exportações. A estrutura, fontes, dimensões, responsividade, comportamento, dados e cores de classificação das notas permanecem. Imagens didáticas, alto contraste educacional, cores personalizadas e marcas de terceiros não sofrem migração. A autorização posterior permite ajustar somente expectativas literais de cor em três testes anteriores.
 
+> **Atualização (05/11/2026):** decisão do usuário migrar o site inteiro para a paleta
+> **"Arte em jogo"** (roxo festival), registrada em `PALETA_ARTE_EM_JOGO_SPEC.md`. A
+> petróleo/sálvia segue como histórico; cores de notas, gráficos de desempenho, estados
+> semânticos, paleta de disciplinas, imagens e módulo Revisão ao Vivo permanecem preservados.
+
 ## RN-83 — Sair da página de Atividades encerra a sessão
 
 Na barra lateral de Atividades, **Sair** deve chamar o `logout` existente do contexto de autenticação, preservando a proteção de alterações não salvas (tanto de formulários/notas inválidas quanto do estado canônico `persistencia.estado`). Durante `salvando`, aguarda a conclusão segura do salvamento antes de encerrar; em `pendente`, `falha` ou `conflito`, exige decisão explícita de descarte (cuja recusa mantém sessão e conteúdo). Se o salvamento anterior ao logout falhar, mantém a sessão ativa e distingue o erro de salvamento da falha de logout. O redirecionamento ao Hub só ocorre após o encerramento concluir; em caso de falha, a página mostra erro acessível, permite tentar novamente e não finge sucesso. A limpeza de tokens e storages continua exclusiva do contexto. Implementação restrita à `frontend/src/app/atividades/page.js`, com testes novos e sem alteração dos testes existentes.

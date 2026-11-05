@@ -40,8 +40,8 @@ function DistribuicaoEditor({ onClose, topicos = [], aulas = [], dataInicioPadra
   };
 
   return <div role="dialog" aria-modal="true" aria-label="Distribuir conteúdos" className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-    <div className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white text-[#123c3a] shadow-xl">
-      <header className="flex items-center justify-between bg-[#123c3a] p-5 text-white"><h2 className="flex items-center gap-2 font-bold"><Sparkles size={20} /> Distribuir conteúdos</h2><button type="button" disabled={ocupado} aria-label="Fechar" onClick={onClose} className="rounded-lg p-2"><X size={18} /></button></header>
+    <div className="flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white text-[#25104a] shadow-xl">
+      <header className="flex items-center justify-between bg-[#25104a] p-5 text-white"><h2 className="flex items-center gap-2 font-bold"><Sparkles size={20} /> Distribuir conteúdos</h2><button type="button" disabled={ocupado} aria-label="Fechar" onClick={onClose} className="rounded-lg p-2"><X size={18} /></button></header>
       <div className="space-y-5 overflow-y-auto p-5">
         <fieldset disabled={ocupado} className="space-y-4" onChange={invalidar}>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -50,23 +50,23 @@ function DistribuicaoEditor({ onClose, topicos = [], aulas = [], dataInicioPadra
           </div>
           <div className="flex flex-wrap gap-2"><button type="button" onClick={() => { setDataInicio(hoje); invalidar(); }} className="rounded-lg border px-3 py-2 text-xs">A partir de hoje</button><button type="button" onClick={() => { setDataInicio(primeiraData); invalidar(); }} className="rounded-lg border px-3 py-2 text-xs">Primeira aula da turma</button></div>
           <fieldset className="space-y-2"><legend className="mb-2 text-sm font-bold">Como distribuir?</legend>
-            <label className="flex items-start gap-2 rounded-lg border p-3"><input type="radio" name="modo-distribuir" value="apenas_vagas" checked={modo === 'apenas_vagas'} onChange={e => setModo(e.target.value)} /><span><span className="block text-sm font-semibold">Preencher aulas vazias</span><span className="text-xs text-[#566F65]">Mantém os conteúdos já agendados.</span></span></label>
-            <label className="flex items-start gap-2 rounded-lg border p-3"><input type="radio" name="modo-distribuir" value="substituir" checked={modo === 'substituir'} onChange={e => setModo(e.target.value)} /><span><span className="block text-sm font-semibold">Reorganizar aulas futuras</span><span className="text-xs text-[#566F65]">Redistribui os conteúdos nas aulas agendadas do período escolhido.</span></span></label>
+            <label className="flex items-start gap-2 rounded-lg border p-3"><input type="radio" name="modo-distribuir" value="apenas_vagas" checked={modo === 'apenas_vagas'} onChange={e => setModo(e.target.value)} /><span><span className="block text-sm font-semibold">Preencher aulas vazias</span><span className="text-xs text-[#6E5F94]">Mantém os conteúdos já agendados.</span></span></label>
+            <label className="flex items-start gap-2 rounded-lg border p-3"><input type="radio" name="modo-distribuir" value="substituir" checked={modo === 'substituir'} onChange={e => setModo(e.target.value)} /><span><span className="block text-sm font-semibold">Reorganizar aulas futuras</span><span className="text-xs text-[#6E5F94]">Redistribui os conteúdos nas aulas agendadas do período escolhido.</span></span></label>
           </fieldset>
         </fieldset>
-        <p className="rounded-lg bg-[#F3F8F5] p-3 text-xs text-[#123C3A]">Preserva aulas anteriores à data escolhida, aulas concluídas e parciais. Dias sem aula permanecem bloqueados.</p>
+        <p className="rounded-lg bg-[#F3EDFF] p-3 text-xs text-[#25104A]">Preserva aulas anteriores à data escolhida, aulas concluídas e parciais. Dias sem aula permanecem bloqueados.</p>
         {preview && <section aria-label="Prévia da distribuição" className="space-y-3">
           <h3 className="font-bold">Prévia da distribuição</h3>
           <p className="text-sm">{preview.resumo.alteradas} aula(s) alterada(s) · {preview.resumo.preservadas} preservada(s) · {preview.pendentes.length} conteúdo(s) sem vaga.</p>
-          {preview.pendentes.length > 0 && <div className="rounded-lg border border-[#D5E3DC] bg-[#F3F8F5] p-3 text-sm text-[#123C3A]"><p className="font-bold">Permanecerão pendentes</p><ul className="mt-1 list-inside list-disc">{preview.pendentes.map((t, i) => <li key={t.id || i}>{t.topicoTitulo || t.titulo}: {t.duracaoRestante || t.duracaoAlocadaAulas || 1} tempo(s) sem vaga</li>)}</ul></div>}
+          {preview.pendentes.length > 0 && <div className="rounded-lg border border-[#E2D9F7] bg-[#F3EDFF] p-3 text-sm text-[#25104A]"><p className="font-bold">Permanecerão pendentes</p><ul className="mt-1 list-inside list-disc">{preview.pendentes.map((t, i) => <li key={t.id || i}>{t.topicoTitulo || t.titulo}: {t.duracaoRestante || t.duracaoAlocadaAulas || 1} tempo(s) sem vaga</li>)}</ul></div>}
           <div className="space-y-2">{preview.aulas.filter(a => a.dataAgendada >= dataInicio && a.dataAgendada <= fim).map(a => {
             const anterior = aulas.find(x => x.id === a.id) || {};
-            return <details key={a.id} className="rounded-lg border p-3 text-sm"><summary className="cursor-pointer font-semibold">{a.dataAgendada} · {a.horarioInicio || 'Sem horário'} · {rotulos(a)}</summary><p className="mt-2 text-[#4F6B63]">Antes: {rotulos(anterior)}</p><p className="mt-1">Depois: {rotulos(a)}</p><p className="mt-1 text-xs text-[#566F65]">Estado da aula: {a.status || 'AGENDADA'}</p></details>;
+            return <details key={a.id} className="rounded-lg border p-3 text-sm"><summary className="cursor-pointer font-semibold">{a.dataAgendada} · {a.horarioInicio || 'Sem horário'} · {rotulos(a)}</summary><p className="mt-2 text-[#5B4B86]">Antes: {rotulos(anterior)}</p><p className="mt-1">Depois: {rotulos(a)}</p><p className="mt-1 text-xs text-[#6E5F94]">Estado da aula: {a.status || 'AGENDADA'}</p></details>;
           })}</div>
         </section>}
-        {erro && <p role="alert" className="rounded-lg bg-[#F3F8F5] p-3 text-sm text-[#0B5F59]">{erro}</p>}
+        {erro && <p role="alert" className="rounded-lg bg-[#F3EDFF] p-3 text-sm text-[#5411B8]">{erro}</p>}
       </div>
-      <footer className="flex justify-end gap-3 border-t p-4"><button type="button" disabled={ocupado} onClick={onClose} className="rounded-xl border px-4 py-2 text-sm">Cancelar</button><button type="button" disabled={ocupado || !topicos.length || (preview && !preview.resumo.alteradas)} onClick={preview ? confirmar : revisar} className="rounded-xl bg-[#0f766e] px-4 py-2 text-sm font-bold text-white disabled:opacity-40">{ocupado ? 'Salvando...' : preview ? 'Confirmar distribuição' : 'Revisar distribuição'}</button></footer>
+      <footer className="flex justify-end gap-3 border-t p-4"><button type="button" disabled={ocupado} onClick={onClose} className="rounded-xl border px-4 py-2 text-sm">Cancelar</button><button type="button" disabled={ocupado || !topicos.length || (preview && !preview.resumo.alteradas)} onClick={preview ? confirmar : revisar} className="rounded-xl bg-[#6315d9] px-4 py-2 text-sm font-bold text-white disabled:opacity-40">{ocupado ? 'Salvando...' : preview ? 'Confirmar distribuição' : 'Revisar distribuição'}</button></footer>
     </div>
   </div>;
 }

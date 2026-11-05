@@ -114,10 +114,10 @@ export default function AtividadeContent() {
 
   if (estado === 'carregando') {
     return (
-      <div className="min-h-screen bg-[#f3f7f5] flex items-center justify-center font-sans">
+      <div className="min-h-screen bg-[#f3edff] flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#123c3a] border-2 border-[#0f766e] animate-spin" />
-          <span className="text-xs font-bold text-[#4f6b63]">Carregando atividade...</span>
+          <div className="w-10 h-10 rounded-2xl bg-[#25104a] border-2 border-[#6315d9] animate-spin" />
+          <span className="text-xs font-bold text-[#5b4b86]">Carregando atividade...</span>
         </div>
       </div>
     );
@@ -133,27 +133,27 @@ export default function AtividadeContent() {
   const prazoStr = prazo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   return (
-    <div className="min-h-screen bg-[#f3f7f5] font-sans selection:bg-[#0f766e] selection:text-white">
+    <div className="min-h-screen bg-[#f3edff] font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
         {/* Header */}
-        <div className="bg-white border border-[#d5e3dc] rounded-3xl p-6 mb-6 shadow-sm">
+        <div className="bg-white border border-[#e2d9f7] rounded-3xl p-6 mb-6 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-xl bg-[#123c3a] text-white flex items-center justify-center text-xs font-extrabold shadow-xs">
+              <div className="w-7 h-7 rounded-xl bg-[#25104a] text-white flex items-center justify-center text-xs font-extrabold shadow-xs">
                 G
               </div>
-              <span className="text-xs text-[#4f6b63] font-bold">Rotina Docente</span>
+              <span className="text-xs text-[#5b4b86] font-bold">Rotina Docente</span>
             </div>
             <a 
               href={typeof window !== 'undefined' && sessionStorage.getItem('aluno_login') ? '/aluno/notas' : '/aluno'} 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#123c3a] hover:bg-[#f3f7f5] border border-[#d5e3dc] bg-white transition-all shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#25104a] hover:bg-[#f3edff] border border-[#e2d9f7] bg-white transition-all shadow-2xs"
             >
               Voltar ao Boletim
             </a>
           </div>
-          <h1 className="font-head text-xl sm:text-2xl font-extrabold text-[#123c3a] leading-tight">{atividade?.titulo}</h1>
-          {alunoInfo?.nome && <p className="text-xs font-semibold text-[#4f6b63] mt-1">Estudante: <span className="text-[#123c3a]">{alunoInfo.nome}</span></p>}
-          <p className="text-[11px] text-[#566f65] mt-0.5">Prazo de entrega: {prazoStr}</p>
+          <h1 className="font-head text-xl sm:text-2xl font-extrabold text-[#25104a] leading-tight">{atividade?.titulo}</h1>
+          {alunoInfo?.nome && <p className="text-xs font-semibold text-[#5b4b86] mt-1">Estudante: <span className="text-[#25104a]">{alunoInfo.nome}</span></p>}
+          <p className="text-[11px] text-[#6e5f94] mt-0.5">Prazo de entrega: {prazoStr}</p>
         </div>
 
         {estado === 'form' && (() => {

@@ -62,16 +62,16 @@ export function ImportarSimuladoModal({ turma, bimestre, onConfirm, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
-      <section role="dialog" aria-modal="true" aria-labelledby="importar-simulado-titulo" className="w-full max-w-4xl max-h-[90vh] flex flex-col bg-white rounded-2xl border border-[#d5e3dc] shadow-xl">
-        <header className="p-5 border-b border-[#d5e3dc]">
-          <h2 id="importar-simulado-titulo" className="text-lg font-bold text-[#123c3a]">Importar notas do Simulado</h2>
-          <p className="text-sm text-[#4f6b63] mt-1">Turma {turma.nome} · {bimestre}º bimestre · Escala: 0 a {fmt(max)}</p>
-          <p className="text-xs text-[#4f6b63] mt-2">Somente campos vazios serão preenchidos. Notas existentes, atividades e outros bimestres serão preservados.</p>
+      <section role="dialog" aria-modal="true" aria-labelledby="importar-simulado-titulo" className="w-full max-w-4xl max-h-[90vh] flex flex-col bg-white rounded-2xl border border-[#e2d9f7] shadow-xl">
+        <header className="p-5 border-b border-[#e2d9f7]">
+          <h2 id="importar-simulado-titulo" className="text-lg font-bold text-[#25104a]">Importar notas do Simulado</h2>
+          <p className="text-sm text-[#5b4b86] mt-1">Turma {turma.nome} · {bimestre}º bimestre · Escala: 0 a {fmt(max)}</p>
+          <p className="text-xs text-[#5b4b86] mt-2">Somente campos vazios serão preenchidos. Notas existentes, atividades e outros bimestres serão preservados.</p>
         </header>
         <div className="p-5 overflow-auto space-y-4">
           <div className="flex flex-wrap items-end gap-3">
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[#123c3a] mb-2">Arquivos com notas do simulado</p>
+              <p className="text-sm font-semibold text-[#25104a] mb-2">Arquivos com notas do simulado</p>
               <input ref={arquivoInput} type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp" disabled={lendo || aplicando}
                 aria-label="Arquivos com notas do simulado" className="hidden"
                 onChange={event => { setArquivos(Array.from(event.target.files || [])); setRegistros([]); setErro(''); }} />
@@ -80,7 +80,7 @@ export function ImportarSimuladoModal({ turma, bimestre, onConfirm, onClose }) {
                 <Upload size={16} aria-hidden="true" />
                 Selecionar arquivo
               </button>
-              <div aria-live="polite" className="mt-2 text-xs text-[#4f6b63]">
+              <div aria-live="polite" className="mt-2 text-xs text-[#5b4b86]">
                 {arquivos.length ? (
                   <ul aria-label="Arquivos selecionados" className="space-y-1">{arquivos.map((arquivo, i) => <li key={i} className="break-all">{arquivo.name}</li>)}</ul>
                 ) : 'Nenhum arquivo selecionado.'}
@@ -90,29 +90,29 @@ export function ImportarSimuladoModal({ turma, bimestre, onConfirm, onClose }) {
               {lendo ? 'Lendo documentos…' : 'Ler arquivos'}
             </button>
           </div>
-          <p className="text-xs text-[#4f6b63]">PDF até 15MB; imagem até 7MB. Até 10 páginas escaneadas por PDF. A leitura usa sua chave de IA conectada.</p>
-          {erro && <p role="alert" className="text-sm text-[#0B5F59] bg-[#F3F8F5] p-3 rounded-lg">{erro}</p>}
+          <p className="text-xs text-[#5b4b86]">PDF até 15MB; imagem até 7MB. Até 10 páginas escaneadas por PDF. A leitura usa sua chave de IA conectada.</p>
+          {erro && <p role="alert" className="text-sm text-[#5411B8] bg-[#F3EDFF] p-3 rounded-lg">{erro}</p>}
           {!!registros.length && (
             <>
-              <p className="text-sm font-semibold text-[#123c3a]">Confira os nomes e as notas. {prontas.length} de {linhas.length} registro(s) pronto(s) para importar.</p>
+              <p className="text-sm font-semibold text-[#25104a]">Confira os nomes e as notas. {prontas.length} de {linhas.length} registro(s) pronto(s) para importar.</p>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
-                  <thead><tr className="text-[#4f6b63] border-b border-[#d5e3dc]"><th className="p-2">Nome no documento</th><th className="p-2">Aluno na turma</th><th className="p-2">Nota</th><th className="p-2">Situação</th></tr></thead>
+                  <thead><tr className="text-[#5b4b86] border-b border-[#e2d9f7]"><th className="p-2">Nome no documento</th><th className="p-2">Aluno na turma</th><th className="p-2">Nota</th><th className="p-2">Situação</th></tr></thead>
                   <tbody>{linhas.map((linha, i) => (
-                    <tr key={i} className="border-b border-[#d5e3dc]">
-                      <td className="p-2"><input aria-label={`Nome extraído ${i + 1}`} value={registros[i].nome} disabled={aplicando} onChange={event => revisar(i, 'nome', event.target.value)} className="w-full min-w-40 p-1 border border-[#d5e3dc] rounded text-[#123c3a]" /></td>
-                      <td className="p-2 text-[#123c3a]">{linha.alunoNome || '—'}</td>
-                      <td className="p-2"><input aria-label={`Nota extraída ${i + 1}`} inputMode="decimal" value={['string', 'number'].includes(typeof registros[i].nota) ? registros[i].nota : ''} disabled={aplicando} onChange={event => revisar(i, 'nota', event.target.value)} className="w-20 p-1 border border-[#d5e3dc] rounded font-mono text-[#123c3a]" /></td>
-                      <td className={`p-2 text-xs ${linha.situacao === 'pronto' ? 'text-[#0B5F59]' : 'text-[#0B5F59]'}`}>{SITUACOES[linha.situacao]}{linha.situacao === 'nota_existente' && ` (${fmt(linha.notaAtual)})`}</td>
+                    <tr key={i} className="border-b border-[#e2d9f7]">
+                      <td className="p-2"><input aria-label={`Nome extraído ${i + 1}`} value={registros[i].nome} disabled={aplicando} onChange={event => revisar(i, 'nome', event.target.value)} className="w-full min-w-40 p-1 border border-[#e2d9f7] rounded text-[#25104a]" /></td>
+                      <td className="p-2 text-[#25104a]">{linha.alunoNome || '—'}</td>
+                      <td className="p-2"><input aria-label={`Nota extraída ${i + 1}`} inputMode="decimal" value={['string', 'number'].includes(typeof registros[i].nota) ? registros[i].nota : ''} disabled={aplicando} onChange={event => revisar(i, 'nota', event.target.value)} className="w-20 p-1 border border-[#e2d9f7] rounded font-mono text-[#25104a]" /></td>
+                      <td className={`p-2 text-xs ${linha.situacao === 'pronto' ? 'text-[#5411B8]' : 'text-[#5411B8]'}`}>{SITUACOES[linha.situacao]}{linha.situacao === 'nota_existente' && ` (${fmt(linha.notaAtual)})`}</td>
                     </tr>
                   ))}</tbody>
                 </table>
               </div>
-              <p className="text-xs text-[#4f6b63]">Nomes incompletos, repetidos ou não encontrados não serão associados automaticamente. Revise apenas o que puder confirmar no documento.</p>
+              <p className="text-xs text-[#5b4b86]">Nomes incompletos, repetidos ou não encontrados não serão associados automaticamente. Revise apenas o que puder confirmar no documento.</p>
             </>
           )}
         </div>
-        <footer className="p-4 border-t border-[#d5e3dc] flex justify-end gap-3">
+        <footer className="p-4 border-t border-[#e2d9f7] flex justify-end gap-3">
           <button type="button" className="btn-brand-ghost px-4 py-2 text-sm" disabled={aplicando} onClick={onClose}>Cancelar</button>
           {!!registros.length && <button type="button" className="btn-brand-primary px-4 py-2 text-sm" disabled={!prontas.length || lendo || aplicando} onClick={aplicar}>{aplicando ? 'Aplicando…' : `Aplicar ${prontas.length} nota${prontas.length === 1 ? '' : 's'} ao Simulado`}</button>}
         </footer>

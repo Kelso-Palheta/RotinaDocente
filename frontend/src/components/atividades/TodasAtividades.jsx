@@ -9,9 +9,9 @@ import { rotuloPeriodo } from '@/dominio/atividades/correcaoManual';
 
 const StatusBadge = ({ status }) => {
   const map = {
-    ativa: 'bg-[#F3F8F5] text-[#0F766E] border-[#D5E3DC]',
-    encerrada: 'bg-[#F3F8F5] text-[#566F65] border-[#D5E3DC]',
-    rascunho: 'bg-[#F3F8F5] text-[#0F766E] border-[#D5E3DC]'
+    ativa: 'bg-[#F3EDFF] text-[#6315D9] border-[#E2D9F7]',
+    encerrada: 'bg-[#F3EDFF] text-[#6E5F94] border-[#E2D9F7]',
+    rascunho: 'bg-[#F3EDFF] text-[#6315D9] border-[#E2D9F7]'
   };
   const labels = { ativa: 'Ativa', encerrada: 'Encerrada', rascunho: 'Rascunho' };
   return (
@@ -99,11 +99,11 @@ export const TodasAtividades = ({
 
   return (
     <div>
-      {useAtividadesHook.erro && <p role="alert" className="bg-[#F3F8F5] p-3 text-sm">{useAtividadesHook.erro} <button onClick={() => loadAllAtividades()} className="underline">Tentar carregar novamente</button></p>}
-      {resumoSync && <p role="status" className="bg-[#F3F8F5] p-3 text-sm mb-3">{resumoSync}</p>}
+      {useAtividadesHook.erro && <p role="alert" className="bg-[#F3EDFF] p-3 text-sm">{useAtividadesHook.erro} <button onClick={() => loadAllAtividades()} className="underline">Tentar carregar novamente</button></p>}
+      {resumoSync && <p role="status" className="bg-[#F3EDFF] p-3 text-sm mb-3">{resumoSync}</p>}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h3 className="text-sm font-semibold text-[#123C3A] uppercase tracking-wider">Todas as atividades</h3>
+          <h3 className="text-sm font-semibold text-[#25104A] uppercase tracking-wider">Todas as atividades</h3>
           <span className="text-xs text-slate-400 font-mono">({filtradas.length})</span>
         </div>
         <div className="flex gap-2">
@@ -121,13 +121,13 @@ export const TodasAtividades = ({
                 setResumoSync('Falha ao sincronizar: ' + err.message);
               } finally { setEnviando(false); }
             }}
-            className="px-3 py-1.5 bg-[#0F766E] hover:bg-[#0F766E] rounded-lg text-white text-xs font-semibold transition-all"
+            className="px-3 py-1.5 bg-[#6315D9] hover:bg-[#6315D9] rounded-lg text-white text-xs font-semibold transition-all"
           >
             {temFiltro ? 'Sincronizar notas filtradas' : 'Sincronizar todas as notas'}
           </button>
           <button
             onClick={() => setShowForm(true)}
-            className="px-3 py-1.5 bg-[#0F766E] hover:bg-[#0B5F59] rounded-lg text-white text-xs font-semibold transition-all btn-3d-primary"
+            className="px-3 py-1.5 bg-[#6315D9] hover:bg-[#5411B8] rounded-lg text-white text-xs font-semibold transition-all btn-3d-primary"
           >
             + Nova Atividade
           </button>
@@ -139,7 +139,7 @@ export const TodasAtividades = ({
           aria-label="Filtrar atividades por turma"
           value={filtroTurma}
           onChange={(e) => setFiltroTurma(e.target.value)}
-          className="bg-white border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#35594D] outline-none focus:ring-1 focus:ring-[#0F766E]/50 shadow-sm"
+          className="bg-white border border-[#E2D9F7] rounded-lg px-3 py-1.5 text-xs text-[#4A3B7C] outline-none focus:ring-1 focus:ring-[#6315D9]/50 shadow-sm"
         >
           <option value="todas">Todas as turmas</option>
           {turmas.map((t) => (
@@ -151,7 +151,7 @@ export const TodasAtividades = ({
           aria-label="Filtrar atividades por bimestre"
           value={filtroBimestre}
           onChange={(e) => setFiltroBimestre(e.target.value)}
-          className="bg-white border border-[#D5E3DC] rounded-lg px-3 py-1.5 text-xs text-[#35594D] outline-none focus:ring-1 focus:ring-[#0F766E]/50 shadow-sm"
+          className="bg-white border border-[#E2D9F7] rounded-lg px-3 py-1.5 text-xs text-[#4A3B7C] outline-none focus:ring-1 focus:ring-[#6315D9]/50 shadow-sm"
         >
           <option value="todos">Todos os bimestres</option>
           {[1, 2, 3, 4].map((b) => (
@@ -163,7 +163,7 @@ export const TodasAtividades = ({
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 bg-[#F3F7F5] rounded-xl animate-pulse" />
+            <div key={i} className="h-20 bg-[#F3EDFF] rounded-xl animate-pulse" />
           ))}
         </div>
       ) : filtradas.length === 0 ? (
@@ -184,21 +184,21 @@ export const TodasAtividades = ({
               <button
                 key={atv.id}
                 onClick={() => setPainelAtividade(atv)}
-                className="w-full text-left bg-white border border-[#D5E3DC] rounded-xl p-4 hover:border-[#B7D3C8] shadow-sm hover:shadow-md transition-all duration-300 group"
+                className="w-full text-left bg-white border border-[#E2D9F7] rounded-xl p-4 hover:border-[#B9A6EF] shadow-sm hover:shadow-md transition-all duration-300 group"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h4 className="font-semibold text-[#194D46] text-sm truncate">{atv.titulo}</h4>
+                      <h4 className="font-semibold text-[#25104A] text-sm truncate">{atv.titulo}</h4>
                       <StatusBadge status={encerrada ? 'encerrada' : atv.status || 'ativa'} />
-                      <span className="text-[10px] text-[#566F65] bg-[#F3F7F5] px-1.5 py-0.5 rounded border border-[#D5E3DC]">
+                      <span className="text-[10px] text-[#6E5F94] bg-[#F3EDFF] px-1.5 py-0.5 rounded border border-[#E2D9F7]">
                         {rotuloPeriodo(atv)}
                       </span>
                     </div>
-                    <p className="text-xs text-[#566F65] mt-1">
+                    <p className="text-xs text-[#6E5F94] mt-1">
                       Nota máx: {atv.notaMaxima?.toFixed?.(1)?.replace?.('.', ',') || atv.notaMaxima} &middot; Entrega: {prazo.toLocaleDateString('pt-BR')}
                       {entregasCounts[atv.id] != null && (
-                        <span className={`ml-2 font-semibold ${entregasCounts[atv.id].pendentes > 0 ? 'text-[#0F766E]' : 'text-[#0F766E]'}`}>
+                        <span className={`ml-2 font-semibold ${entregasCounts[atv.id].pendentes > 0 ? 'text-[#6315D9]' : 'text-[#6315D9]'}`}>
                           ({entregasCounts[atv.id].total} entrega{entregasCounts[atv.id].total !== 1 ? 's' : ''}
                           {entregasCounts[atv.id].pendentes > 0 ? `, ${entregasCounts[atv.id].pendentes} pendente${entregasCounts[atv.id].pendentes !== 1 ? 's' : ''}` : ''})
                         </span>
@@ -208,19 +208,19 @@ export const TodasAtividades = ({
                       {atv.turmaIds?.map((tid) => {
                         const t = turmas.find(tu => tu.id === tid);
                         return t ? (
-                          <span key={tid} className="px-1.5 py-0.5 bg-[#F3F8F5] text-[#123C3A] border border-[#DAEBE5] rounded text-[10px] font-medium">
+                          <span key={tid} className="px-1.5 py-0.5 bg-[#F3EDFF] text-[#25104A] border border-[#E7DBFD] rounded text-[10px] font-medium">
                             {t.nome}
                           </span>
                         ) : null;
                       })}
                       {atv.questoes && (
-                        <span className="px-1.5 py-0.5 bg-[#F3F8F5] text-[#0B5F59] border border-[#DAEBE5] rounded text-[10px] font-medium">
+                        <span className="px-1.5 py-0.5 bg-[#F3EDFF] text-[#5411B8] border border-[#E7DBFD] rounded text-[10px] font-medium">
                           {atv.questoes.length} questão{atv.questoes.length !== 1 ? 'ões' : ''}
                         </span>
                       )}
                     </div>
                   </div>
-                  <svg className="w-5 h-5 text-[#B7D3C8] group-hover:text-[#0F766E] flex-shrink-0 mt-1 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="w-5 h-5 text-[#B9A6EF] group-hover:text-[#6315D9] flex-shrink-0 mt-1 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </div>

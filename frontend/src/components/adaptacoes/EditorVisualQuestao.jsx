@@ -226,15 +226,15 @@ export function EditorVisualQuestao({
   return (
     <section
       aria-label={`Imagem da questão ${q.numero || q.id}`}
-      className="my-4 rounded-2xl border border-[#D5E3DC] bg-[#F3F8F5] p-3 sm:p-4 space-y-3 print:border-0 print:bg-white"
+      className="my-4 rounded-2xl border border-[#E2D9F7] bg-[#F3EDFF] p-3 sm:p-4 space-y-3 print:border-0 print:bg-white"
     >
       <div className="flex flex-wrap items-center justify-between gap-2 print:hidden">
         <strong className="text-sm">Imagem da questão</strong>
         <span
           className={
             imagemAprovada(q)
-              ? "text-[#123C3A] font-bold text-xs"
-              : "text-[#123C3A] font-bold text-xs"
+              ? "text-[#25104A] font-bold text-xs"
+              : "text-[#25104A] font-bold text-xs"
           }
         >
           {imagemAprovada(q) ? "Versão aprovada" : "Pendente de revisão"}
@@ -259,7 +259,7 @@ export function EditorVisualQuestao({
               Resultado atual
             </figcaption>
             {falhou ? (
-              <p role="alert" className="text-[#0B5F59]">
+              <p role="alert" className="text-[#5411B8]">
                 Imagem indisponível. Substitua ou restaure outra versão.
               </p>
             ) : (
@@ -477,7 +477,7 @@ export function EditorVisualQuestao({
               className="block w-full border rounded-lg p-2 mt-1"
             />
           </label>
-          <p className="text-xs text-[#4F6B63]">
+          <p className="text-xs text-[#5B4B86]">
             Descreva o que a figura realmente mostra. Confira se a descrição
             permite avaliar a mesma habilidade sem antecipar a resposta.
           </p>
@@ -509,7 +509,7 @@ export function EditorVisualQuestao({
           <button
             type="button"
             onClick={produzir}
-            className="px-3 py-2 rounded-lg bg-[#0B5F59] text-white text-xs font-bold"
+            className="px-3 py-2 rounded-lg bg-[#5411B8] text-white text-xs font-bold"
           >
             Produzir imagem
           </button>
@@ -549,7 +549,7 @@ export function EditorVisualQuestao({
                 <p>Conferência auxiliar: {q.visual.verificacao.parecer}</p>
                 <p>{q.visual.verificacao.descricaoObservada}</p>
                 {(q.visual.verificacao.problemas || []).map((p, i) => (
-                  <p key={i} className="text-[#0B5F59]">
+                  <p key={i} className="text-[#5411B8]">
                     • {typeof p === "string" ? p : JSON.stringify(p)}
                   </p>
                 ))}
@@ -593,7 +593,7 @@ export function EditorVisualQuestao({
               type="button"
               onClick={aprovar}
               disabled={ocupado || falhou || !conferido}
-              className="px-3 py-2 rounded-lg bg-[#123C3A] text-white text-xs font-bold"
+              className="px-3 py-2 rounded-lg bg-[#25104A] text-white text-xs font-bold"
             >
               Aprovar esta versão
             </button>
@@ -618,7 +618,7 @@ export function EditorVisualQuestao({
           </details>
         )}
         {erro && (
-          <p role="alert" className="text-xs text-[#0B5F59]">
+          <p role="alert" className="text-xs text-[#5411B8]">
             {erro}
           </p>
         )}

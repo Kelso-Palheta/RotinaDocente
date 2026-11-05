@@ -16,10 +16,10 @@ import { db } from '@/lib/firebase';
 import { getDocs, collection } from 'firebase/firestore';
 
 const statusColors = {
-  entregue: 'bg-[#F3F8F5] text-[#0F766E] border-[#D5E3DC]',
-  corrigido: 'bg-[#F3F8F5] text-[#0F766E] border-[#D5E3DC]',
-  erro_correcao: 'bg-[#F3F8F5] text-[#0F766E] border-[#D5E3DC]',
-  revisado: 'bg-[#F3F8F5] text-[#0F766E] border-[#D5E3DC]'
+  entregue: 'bg-[#F3EDFF] text-[#6315D9] border-[#E2D9F7]',
+  corrigido: 'bg-[#F3EDFF] text-[#6315D9] border-[#E2D9F7]',
+  erro_correcao: 'bg-[#F3EDFF] text-[#6315D9] border-[#E2D9F7]',
+  revisado: 'bg-[#F3EDFF] text-[#6315D9] border-[#E2D9F7]'
 };
 
 const statusLabels = {
@@ -30,7 +30,7 @@ const statusLabels = {
 };
 
 const StatusBadge = ({ status }) => (
-  <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${statusColors[status] || 'bg-[#F3F8F5] text-[#566F65] border-[#D5E3DC]'}`}>
+  <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${statusColors[status] || 'bg-[#F3EDFF] text-[#6E5F94] border-[#E2D9F7]'}`}>
     {statusLabels[status] || status}
   </span>
 );
@@ -251,16 +251,16 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
     <div>
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <button onClick={onBack} className="text-slate-400 hover:text-[#123C3A] transition-colors p-1">
+        <button onClick={onBack} className="text-slate-400 hover:text-[#25104A] transition-colors p-1">
           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
         <div className="flex-1">
-          <h3 className="text-sm font-semibold text-[#123C3A]">{atividade.titulo}</h3>
+          <h3 className="text-sm font-semibold text-[#25104A]">{atividade.titulo}</h3>
           <p className="text-xs text-slate-400">
             {currentTurmaId && (
-              <span className="text-[#0F766E] font-medium">{turmas.find(t => t.id === currentTurmaId)?.nome || currentTurmaId} &middot; </span>
+              <span className="text-[#6315D9] font-medium">{turmas.find(t => t.id === currentTurmaId)?.nome || currentTurmaId} &middot; </span>
             )}
             {corrigidas}/{entregas.length} corrigidas &middot; {pendentes} pendentes
           </p>
@@ -271,7 +271,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
             <select
               value={nivelCorrecao}
               onChange={(e) => setNivelCorrecao(e.target.value)}
-              className="px-2 py-1.5 bg-white border border-[#D5E3DC] rounded-lg text-[10px] font-semibold text-[#123C3A] outline-none focus:ring-1 focus:ring-[#0F766E]/50"
+              className="px-2 py-1.5 bg-white border border-[#E2D9F7] rounded-lg text-[10px] font-semibold text-[#25104A] outline-none focus:ring-1 focus:ring-[#6315D9]/50"
               title="Profundidade da correção"
             >
               <option value="superficial">Superficial</option>
@@ -283,39 +283,39 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
             <button
               onClick={handleCorrigirTodas}
               disabled={Boolean(lote) || Boolean(corrigindo)}
-              className="px-3 py-1.5 bg-[#0F766E] hover:bg-[#0F766E] rounded-lg text-white text-xs font-semibold transition-all"
+              className="px-3 py-1.5 bg-[#6315D9] hover:bg-[#6315D9] rounded-lg text-white text-xs font-semibold transition-all"
             >
               Corrigir Todas ({pendentes})
             </button>
           )}
           <button
             onClick={() => setShowEdit(true)}
-            className="px-3 py-1.5 bg-[#F3F8F5] hover:bg-[#D5E3DC] border border-[#D5E3DC] rounded-lg text-xs text-[#123C3A] font-medium transition-all"
+            className="px-3 py-1.5 bg-[#F3EDFF] hover:bg-[#E2D9F7] border border-[#E2D9F7] rounded-lg text-xs text-[#25104A] font-medium transition-all"
           >
             Editar
           </button>
           <button
             onClick={() => setShowUrls(true)}
-            className="px-3 py-1.5 bg-[#F3F8F5] hover:bg-[#D5E3DC] border border-[#D5E3DC] rounded-lg text-xs text-[#123C3A] font-medium transition-all"
+            className="px-3 py-1.5 bg-[#F3EDFF] hover:bg-[#E2D9F7] border border-[#E2D9F7] rounded-lg text-xs text-[#25104A] font-medium transition-all"
           >
             URLs
           </button>
           <button
             onClick={() => onDelete(atividade.id)}
-            className="px-3 py-1.5 bg-[#F3F8F5] hover:bg-[#DAEBE5] border border-[#D5E3DC] rounded-lg text-xs text-[#0F766E] font-medium transition-all"
+            className="px-3 py-1.5 bg-[#F3EDFF] hover:bg-[#E7DBFD] border border-[#E2D9F7] rounded-lg text-xs text-[#6315D9] font-medium transition-all"
           >
             Arquivar
           </button>
         </div>
       </div>
 
-      {(erroEntregas || erroAcao) && <p role="alert" className="bg-[#F3F8F5] text-[#123C3A] rounded p-3 text-sm mb-3">{erroEntregas || erroAcao}</p>}
-      {mensagem && <p role="status" className="bg-[#F3F8F5] text-[#123C3A] rounded p-3 text-sm mb-3">{mensagem}</p>}
+      {(erroEntregas || erroAcao) && <p role="alert" className="bg-[#F3EDFF] text-[#25104A] rounded p-3 text-sm mb-3">{erroEntregas || erroAcao}</p>}
+      {mensagem && <p role="status" className="bg-[#F3EDFF] text-[#25104A] rounded p-3 text-sm mb-3">{mensagem}</p>}
       {lote && <p role="status" className="p-2 text-sm">Corrigindo lote: {lote.feitas}/{lote.total}. Aguarde a conclusão.</p>}
       {similaridades.length > 0 && (
-        <div role="status" className="bg-[#F3F8F5] text-[#123C3A] rounded p-3 text-sm mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div role="status" className="bg-[#F3EDFF] text-[#25104A] rounded p-3 text-sm mb-3 flex flex-wrap items-center justify-between gap-2">
           <span>Alerta de similaridade: {similaridades.length} {similaridades.length === 1 ? 'grupo' : 'grupos'} para revisão humana. As notas foram mantidas.</span>
-          <button type="button" onClick={() => setMostrarSimilaridade(true)} className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#DAEBE5] hover:bg-[#D5E3DC] border border-[#B7D3C8]">
+          <button type="button" onClick={() => setMostrarSimilaridade(true)} className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#E7DBFD] hover:bg-[#E2D9F7] border border-[#B9A6EF]">
             Ver {similaridades.length === 1 ? 'grupo' : 'grupos'}
           </button>
         </div>
@@ -330,8 +330,8 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
             onClick={() => setFiltroStatus(s)}
             className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wider transition-all
               ${filtroStatus === s
-                ? 'bg-[#0F766E] text-white'
-                : 'bg-[#F3F8F5] text-slate-400 hover:bg-[#D5E3DC] border border-[#D5E3DC]'}`}
+                ? 'bg-[#6315D9] text-white'
+                : 'bg-[#F3EDFF] text-slate-400 hover:bg-[#E2D9F7] border border-[#E2D9F7]'}`}
           >
             {s === 'todos' ? 'Todos' : statusLabels[s] || s}
           </button>
@@ -339,11 +339,11 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
       </div>
 
       {/* Tabela */}
-      <div className="bg-white border border-[#D5E3DC] rounded-xl overflow-hidden">
+      <div className="bg-white border border-[#E2D9F7] rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#D5E3DC] bg-[#F3F8F5]">
+              <tr className="border-b border-[#E2D9F7] bg-[#F3EDFF]">
                 <th className="text-left px-4 py-2.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">Aluno</th>
                 <th className="text-left px-4 py-2.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
                 <th className="text-left px-4 py-2.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">Nota</th>
@@ -377,7 +377,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                     lastTurmaId = info.turmaId;
                     const turmaNome = turmas.find(t => t.id === info.turmaId)?.nome || info.turmaId;
                     rows.push(
-                      <tr key={`h-${info.turmaId}`} className="bg-[#F3F8F5] border-b border-[#D5E3DC]">
+                      <tr key={`h-${info.turmaId}`} className="bg-[#F3EDFF] border-b border-[#E2D9F7]">
                         <td colSpan={5} className="px-4 py-1.5">
                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                             Turma {turmaNome}
@@ -389,9 +389,9 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                   const entrega = entregasFiltradas.find(e => e.alunoId === alunoId && e.turmaId === info.turmaId);
                   const nota = entrega?.notaRevisada ?? entrega?.notaFinal;
                   rows.push(
-                    <tr key={chave} className="border-b border-[#D5E3DC] hover:bg-[#F3F8F5] transition-colors">
+                    <tr key={chave} className="border-b border-[#E2D9F7] hover:bg-[#F3EDFF] transition-colors">
                       <td className="px-4 py-3">
-                        <span className="font-medium text-[#123C3A] text-sm">{info.nome}</span>
+                        <span className="font-medium text-[#25104A] text-sm">{info.nome}</span>
                       </td>
                       <td className="px-4 py-3">
                         {entrega ? <StatusBadge status={entrega.status} /> : (
@@ -400,7 +400,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                       </td>
                       <td className="px-4 py-3">
                         {nota != null ? (
-                          <span className="font-mono text-sm text-[#123C3A] tabular-nums">
+                          <span className="font-mono text-sm text-[#25104A] tabular-nums">
                             {nota.toFixed(2).replace('.', ',')}
                             <span className="text-slate-400 text-xs">/{atividade.notaMaxima.toFixed(1).replace('.', ',')}</span>
                           </span>
@@ -419,7 +419,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                             <button
                               onClick={() => handleCorrigir(entrega.id)}
                               disabled={corrigindo === entrega.id}
-                              className="px-2 py-1 bg-[#F3F8F5] hover:bg-[#DAEBE5] hover:text-[#0B5F59] text-[#0F766E] rounded text-[10px] font-semibold transition-all disabled:opacity-50"
+                              className="px-2 py-1 bg-[#F3EDFF] hover:bg-[#E7DBFD] hover:text-[#5411B8] text-[#6315D9] rounded text-[10px] font-semibold transition-all disabled:opacity-50"
                             >
                               {corrigindo === entrega.id ? 'Corrigindo...' : 'Corrigir com IA'}
                             </button>
@@ -427,7 +427,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                           {entrega?.status === 'erro_correcao' && (
                             <button
                               onClick={() => handleCorrigir(entrega.id)}
-                              className="px-2 py-1 bg-[#F3F8F5] hover:bg-[#DAEBE5] text-[#0F766E] rounded text-[10px] font-semibold transition-all"
+                              className="px-2 py-1 bg-[#F3EDFF] hover:bg-[#E7DBFD] text-[#6315D9] rounded text-[10px] font-semibold transition-all"
                             >
                               Corrigir com IA
                             </button>
@@ -436,7 +436,7 @@ export const AtividadePainel = ({ atividade: atividadeInicial, currentTurmaId, o
                           {entrega && (
                             <button
                               onClick={() => { setModoDrawer('visualizar'); setSelectedEntrega(entrega); }}
-                              className="px-2 py-1 bg-[#F3F8F5] hover:bg-[#D5E3DC] text-[#123C3A] rounded text-[10px] font-medium transition-all"
+                              className="px-2 py-1 bg-[#F3EDFF] hover:bg-[#E2D9F7] text-[#25104A] rounded text-[10px] font-medium transition-all"
                             >
                               Ver
                             </button>

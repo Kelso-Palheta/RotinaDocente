@@ -55,19 +55,19 @@ export function FeriadosModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#123C3A]/60 backdrop-blur-sm animate-in fade-in duration-200 font-sans">
-      <div className="bg-white rounded-3xl shadow-2xl border border-[#d5e3dc] w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#25104A]/60 backdrop-blur-sm animate-in fade-in duration-200 font-sans">
+      <div className="bg-white rounded-3xl shadow-2xl border border-[#e2d9f7] w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header do Modal */}
-        <div className="px-6 py-5 border-b border-[#d5e3dc] bg-[#f3f7f5] flex items-center justify-between">
+        <div className="px-6 py-5 border-b border-[#e2d9f7] bg-[#f3edff] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#f3f8f5] border border-[#daebe5] text-[#0f766e] flex items-center justify-center shadow-2xs">
+            <div className="w-9 h-9 rounded-xl bg-[#f3edff] border border-[#e7dbfd] text-[#6315d9] flex items-center justify-center shadow-2xs">
               <Calendar size={18} />
             </div>
             <div>
-              <h2 className="font-head text-base font-extrabold text-[#123c3a] leading-tight">
+              <h2 className="font-head text-base font-extrabold text-[#25104a] leading-tight">
                 Feriados e Recessos Escolares
               </h2>
-              <p className="text-xs text-[#4f6b63]">
+              <p className="text-xs text-[#5b4b86]">
                 Cadastre dias sem aula ou um intervalo de recesso.
               </p>
             </div>
@@ -75,7 +75,7 @@ export function FeriadosModal({
           <button 
             onClick={onClose}
             disabled={processando}
-            className="p-1.5 rounded-xl text-[#4f6b63] hover:text-[#123c3a] hover:bg-[#f3f7f5] transition-all"
+            className="p-1.5 rounded-xl text-[#5b4b86] hover:text-[#25104a] hover:bg-[#f3edff] transition-all"
           >
             <X size={18} />
           </button>
@@ -84,12 +84,12 @@ export function FeriadosModal({
         {/* Corpo do Modal */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1">
           {/* Botão de Ação Rápida: Importar Feriados Nacionais */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-[#f3f8f5] to-[#f3f7f5] border border-[#daebe5] flex items-center justify-between gap-4">
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-[#f3edff] to-[#f3edff] border border-[#e7dbfd] flex items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold text-[#123c3a] block">
+              <span className="text-xs font-bold text-[#25104a] block">
                 Feriados Nacionais do Brasil
               </span>
-              <span className="text-[11px] text-[#4f6b63] block mt-0.5">
+              <span className="text-[11px] text-[#5b4b86] block mt-0.5">
                 Carregar datas oficiais (Tiradentes, 7 de Setembro, Finados...)
               </span>
             </div>
@@ -106,7 +106,7 @@ export function FeriadosModal({
           {/* Formulário de Adicionar Feriado Manual */}
           <form onSubmit={handleAdd} className="space-y-3" noValidate>
             <fieldset disabled={processando} className="space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#4f6b63] block font-head">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5b4b86] block font-head">
               Adicionar Feriado / Recesso
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -116,7 +116,7 @@ export function FeriadosModal({
                 min={`${anoLetivo}-01-01`} max={`${anoLetivo}-12-31`}
                 value={data}
                 onChange={(e) => setData(e.target.value)}
-                className="px-3 py-2 text-xs rounded-xl border border-[#d5e3dc] bg-[#f3f7f5] text-[#123c3a] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
+                className="px-3 py-2 text-xs rounded-xl border border-[#e2d9f7] bg-[#f3edff] text-[#25104a] outline-none focus:bg-white focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
                 required
               />
               <input
@@ -125,7 +125,7 @@ export function FeriadosModal({
                 min={data || `${anoLetivo}-01-01`} max={`${anoLetivo}-12-31`}
                 value={dataFim}
                 onChange={e => setDataFim(e.target.value)}
-                className="px-3 py-2 text-xs rounded-xl border border-[#d5e3dc] bg-[#f3f7f5] text-[#123c3a]"
+                className="px-3 py-2 text-xs rounded-xl border border-[#e2d9f7] bg-[#f3edff] text-[#25104a]"
               />
               <input
                 aria-label="Descrição"
@@ -133,34 +133,34 @@ export function FeriadosModal({
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="Ex: Feriado Municipal / Semana de Provas"
-                className="sm:col-span-2 px-3 py-2 text-xs rounded-xl border border-[#d5e3dc] bg-[#f3f7f5] text-[#123c3a] placeholder-[#566f65] outline-none focus:bg-white focus:ring-2 focus:ring-[#0f766e]/30 focus:border-[#0f766e] transition-all"
+                className="sm:col-span-2 px-3 py-2 text-xs rounded-xl border border-[#e2d9f7] bg-[#f3edff] text-[#25104a] placeholder-[#6e5f94] outline-none focus:bg-white focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-2 bg-[#123c3a] hover:bg-[#0a2a27] text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs"
+              className="w-full py-2 bg-[#25104a] hover:bg-[#180a30] text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs"
             >
               <Plus size={14} />
               <span>{processando ? 'Salvando...' : 'Cadastrar e remanejar aulas'}</span>
             </button>
             </fieldset>
           </form>
-          {erro && <p role="alert" className="text-xs text-[#0b5f59] font-semibold">{erro}</p>}
+          {erro && <p role="alert" className="text-xs text-[#5411b8] font-semibold">{erro}</p>}
 
           {/* Lista de Feriados Cadastrados */}
           <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#4f6b63] block font-head">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5b4b86] block font-head">
               Datas Registradas ({feriados.length})
             </span>
 
             {feriados.length === 0 ? (
-              <div className="p-6 text-center border border-dashed border-[#d5e3dc] rounded-2xl text-xs text-[#566f65]">
+              <div className="p-6 text-center border border-dashed border-[#e2d9f7] rounded-2xl text-xs text-[#6e5f94]">
                 Nenhum feriado ou recesso registrado nesta turma.
               </div>
             ) : (
-              <div className="divide-y divide-[#d5e3dc] border border-[#d5e3dc] rounded-2xl overflow-hidden bg-white max-h-48 overflow-y-auto">
+              <div className="divide-y divide-[#e2d9f7] border border-[#e2d9f7] rounded-2xl overflow-hidden bg-white max-h-48 overflow-y-auto">
                 {feriados.map((f, idx) => {
                   let dataFormatada = f.data;
                   try {
@@ -168,12 +168,12 @@ export function FeriadosModal({
                   } catch {}
 
                   return (
-                    <div key={idx} className="p-3 flex items-center justify-between hover:bg-[#f3f7f5] transition-colors">
+                    <div key={idx} className="p-3 flex items-center justify-between hover:bg-[#f3edff] transition-colors">
                       <div>
-                        <span className="text-xs font-bold text-[#123c3a] block">
+                        <span className="text-xs font-bold text-[#25104a] block">
                           {f.nome}
                         </span>
-                        <span className="text-[10px] text-[#4f6b63] font-medium">
+                        <span className="text-[10px] text-[#5b4b86] font-medium">
                           {dataFormatada}{f.dataFim && f.dataFim !== f.data ? ` até ${format(parseISO(f.dataFim), "dd/MM/yyyy")}` : ''}
                         </span>
                       </div>
@@ -181,7 +181,7 @@ export function FeriadosModal({
                         onClick={() => remover(f)}
                         disabled={processando}
                         aria-label={`Remover ${f.nome}`}
-                        className="p-1.5 text-[#566f65] hover:text-[#0b5f59] hover:bg-[#f3f8f5] rounded-lg transition-all"
+                        className="p-1.5 text-[#6e5f94] hover:text-[#5411b8] hover:bg-[#f3edff] rounded-lg transition-all"
                         title="Remover feriado"
                       >
                         <Trash2 size={14} />
@@ -195,7 +195,7 @@ export function FeriadosModal({
         </div>
 
         {/* Footer do Modal */}
-        <div className="px-6 py-4 border-t border-[#d5e3dc] bg-[#f3f7f5] flex justify-end">
+        <div className="px-6 py-4 border-t border-[#e2d9f7] bg-[#f3edff] flex justify-end">
           <button
             onClick={onClose}
             disabled={processando}

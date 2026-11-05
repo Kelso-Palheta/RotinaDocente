@@ -29,7 +29,7 @@ export const LABELS_TIPO = {
   },
   alinhamento_familia: {
     label: 'Alinhamento com a Família',
-    badgeClass: 'bg-[#F3F8F5] text-[#123C3A] border-[#D5E3DC]',
+    badgeClass: 'bg-[#F3EDFF] text-[#25104A] border-[#E2D9F7]',
     icon: '👪',
   },
 };

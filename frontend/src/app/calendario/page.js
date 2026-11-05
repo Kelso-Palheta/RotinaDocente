@@ -20,17 +20,17 @@ import {planejarDistribuicao,remanejarSeguro,planejarFeriados,reconciliarGrade,l
 
 const historico=a=>[...conteudos(a),...(a.historicoConteudos||[])];
 const hoje=()=>format(new Date(),'yyyy-MM-dd');
-const caixa='rounded-2xl border border-[#d5e3dc] bg-white p-4 space-y-3';
-const botao='rounded-xl border border-[#d5e3dc] px-4 py-2 text-sm font-bold text-[#123c3a] hover:bg-[#f3f7f5] disabled:opacity-50';
+const caixa='rounded-2xl border border-[#e2d9f7] bg-white p-4 space-y-3';
+const botao='rounded-xl border border-[#e2d9f7] px-4 py-2 text-sm font-bold text-[#25104a] hover:bg-[#f3edff] disabled:opacity-50';
 
 function Previa({previa,onCancel,onApply,salvando}){
   const [erro,setErro]=useState('');
-  return <div className="fixed inset-0 z-[80] bg-[#123c3a]/50 flex items-center justify-center p-4"><section role="dialog" aria-modal="true" aria-label="Revisar alterações" className="bg-white rounded-2xl p-5 w-full max-w-2xl max-h-[90vh] overflow-auto space-y-4">
-    <h2 className="font-bold text-lg text-[#123c3a]">{previa.titulo}</h2>
+  return <div className="fixed inset-0 z-[80] bg-[#25104a]/50 flex items-center justify-center p-4"><section role="dialog" aria-modal="true" aria-label="Revisar alterações" className="bg-white rounded-2xl p-5 w-full max-w-2xl max-h-[90vh] overflow-auto space-y-4">
+    <h2 className="font-bold text-lg text-[#25104a]">{previa.titulo}</h2>
     <p className="text-sm">{previa.alteradas.length} aulas alteradas · {previa.preservadas} preservadas · {previa.pendentes?.length||0} conteúdos sem vaga.</p>
-    {!!previa.pendentes?.length&&<div className="bg-[#F3F8F5] p-3 rounded-xl"><p className="font-bold">Ficarão pendentes para reposição:</p>{previa.pendentes.map((t,i)=><p key={i}>{t.topicoTitulo||t.titulo} ({t.duracaoRestante||t.duracaoAlocadaAulas||1} tempo(s))</p>)}</div>}
+    {!!previa.pendentes?.length&&<div className="bg-[#F3EDFF] p-3 rounded-xl"><p className="font-bold">Ficarão pendentes para reposição:</p>{previa.pendentes.map((t,i)=><p key={i}>{t.topicoTitulo||t.titulo} ({t.duracaoRestante||t.duracaoAlocadaAulas||1} tempo(s))</p>)}</div>}
     <div className="space-y-2 text-sm">{previa.alteradas.map(a=><div key={a.id} className="border-b py-2"><p className="font-bold">{a.dataAgendada} · {a.horarioInicio} · {a.status}</p><p>Antes: {conteudos(previa.antes.find(x=>x.id===a.id)||{}).map(t=>t.topicoTitulo||t.titulo).join(' / ')||'Sem conteúdo'}</p><p>Depois: {conteudos(a).map(t=>t.topicoTitulo||t.titulo).join(' / ')||'Sem conteúdo'}{a.conteudoEncaminhado?' (registro histórico)':''}</p></div>)}</div>
-    {erro&&<p role="alert" className="text-[#0B5F59]">{erro}</p>}
+    {erro&&<p role="alert" className="text-[#5411B8]">{erro}</p>}
     <div className="flex gap-2 justify-end"><button className={botao} disabled={salvando} onClick={onCancel}>Voltar</button><button className="btn-brand-primary px-4 py-2" disabled={salvando} onClick={async()=>{setErro('');try{await onApply();}catch(e){setErro(e.message);}}}>{salvando?'Salvando…':'Confirmar alterações'}</button></div>
   </section></div>;
 }
@@ -134,8 +134,8 @@ export default function CalendarioPage(){
     });
   };
   const contexto=`${turmaId}:${ano}`;
-  return <div className="min-h-screen bg-[#f3f7f5] text-[#123c3a]">
-    <header className="bg-white border-b border-[#d5e3dc] p-4 space-y-4">
+  return <div className="min-h-screen bg-[#f3edff] text-[#25104a]">
+    <header className="bg-white border-b border-[#e2d9f7] p-4 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3"><div><button className="text-sm font-bold" onClick={()=>router.push('/')}>← Hub</button><h1 className="text-xl font-extrabold">Calendário Pedagógico</h1></div><button className={botao} disabled={!aulasVisiveis.length||cal.salvando} onClick={()=>generateCalendarioPDF({turma,grade,aulas:aulasVisiveis,feriados,professorNome:user?.displayName||user?.email,anoLetivo:ano,dataInicio:inicio,dataFim:fim,planejamento})}>Baixar PDF do período</button></div>
       <fieldset disabled={cal.salvando||Boolean(previa)} className="flex flex-wrap gap-3 text-sm">
         <label>Turma<select aria-label="Turma" className="block border rounded-lg p-2" value={turmaId} onChange={e=>{trocarContexto();setTurmaId(e.target.value);}}>{!turmas.length&&<option value="">Nenhuma turma cadastrada</option>}{turmas.map(t=><option key={t.id} value={t.id}>{t.nome}</option>)}</select></label>
@@ -144,12 +144,12 @@ export default function CalendarioPage(){
         <label>Fim<input aria-label="Fim do período" className="block border rounded-lg p-2" type="date" min={inicio} max={`${ano}-12-31`} value={fim} onChange={e=>{if(e.target.value && e.target.value.startsWith(`${ano}-`)&&e.target.value>=inicio)setPeriodo({inicio,fim:e.target.value});}}/></label>
         <button className={botao} onClick={()=>{setPeriodo(null);setDataAtual(new Date(ano,0,1));}}>Ano completo</button>
       </fieldset>
-      <p className="text-xs text-[#4f6b63]">Escolha as datas do bimestre ou período da sua escola. Alterações respeitam a turma e o ano selecionados.</p>
-      <nav className="flex flex-wrap gap-2" aria-label="Áreas do calendário">{['Calendário','Conteúdos','Configurações'].map(nome=><button key={nome} aria-pressed={area===nome} className={`${botao} ${area===nome?'bg-[#123c3a] !text-white':''}`} onClick={()=>setArea(nome)}>{nome}</button>)}</nav>
+      <p className="text-xs text-[#5b4b86]">Escolha as datas do bimestre ou período da sua escola. Alterações respeitam a turma e o ano selecionados.</p>
+      <nav className="flex flex-wrap gap-2" aria-label="Áreas do calendário">{['Calendário','Conteúdos','Configurações'].map(nome=><button key={nome} aria-pressed={area===nome} className={`${botao} ${area===nome?'bg-[#25104a] !text-white':''}`} onClick={()=>setArea(nome)}>{nome}</button>)}</nav>
     </header>
     <main className="max-w-[1600px] mx-auto p-3 sm:p-6 space-y-4">
-      {(erro||cal.error)&&<div role="alert" className="bg-[#F3F8F5] border border-[#D5E3DC] rounded-xl p-3">{erro||cal.error}<button className={botao} onClick={()=>{setErro('');cal.recarregar();}}>Atualizar dados</button></div>}
-      {mensagem&&<p role="status" className="bg-[#F3F8F5] rounded-xl p-3">{mensagem}</p>}
+      {(erro||cal.error)&&<div role="alert" className="bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-3">{erro||cal.error}<button className={botao} onClick={()=>{setErro('');cal.recarregar();}}>Atualizar dados</button></div>}
+      {mensagem&&<p role="status" className="bg-[#F3EDFF] rounded-xl p-3">{mensagem}</p>}
       {cal.loading||authLoading?<p>Carregando calendário…</p>:!turma?<p>Cadastre uma turma no Diário Pedagógico para começar.</p>:!estado?<p>Não foi possível carregar os dados. Use Atualizar dados.</p>:<>
         {area==='Calendário'&&<>
           {!grade&&!aulas.length&&<section className={caixa}><h2 className="font-bold">Comece pelos horários da turma</h2><p>1. Confirme os horários · 2. Cadastre dias sem aula · 3. Revise os conteúdos · 4. Distribua com prévia.</p><button className={botao} onClick={()=>{setArea('Configurações');setModal('grade');}}>Puxar do Meu Horário Escolar ou cadastrar</button></section>}
