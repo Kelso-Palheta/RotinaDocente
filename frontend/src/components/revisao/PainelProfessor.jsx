@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BadgeConexao, BlocoConteudo, LETRAS_ALTERNATIVAS } from './revisaoUtils';
+import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
 
 export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
   const sala = estado?.sala || {};
@@ -23,33 +24,37 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
   const ehUltimaRodada = (rodada?.numero || 1) >= (rodada?.total || 1);
 
   return (
-    <div className="w-full min-h-screen bg-[#0c2423] text-slate-100 p-4 md:p-6 lg:p-8 font-sans">
+    <div
+      data-tema="vibrante"
+      className={`w-full min-h-screen text-[#FFFDF7] p-4 md:p-6 lg:p-8 font-sans ${temaStyles.palco}`}
+      style={{ backgroundColor: '#25104A' }}
+    >
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Cabeçalho do Painel Docente */}
-        <header className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-4 md:p-6 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1">
+        <header className="bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-3xl p-5 md:p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
+          <div className="space-y-1.5">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="bg-teal-900/80 text-teal-200 text-xs font-semibold px-2.5 py-0.5 rounded border border-teal-700/50 uppercase tracking-wider">
+              <span className="bg-[#6334E3] text-[#FFFDF7] text-xs font-black px-3 py-1 rounded-full border border-[#00DDEB]/50 uppercase tracking-widest">
                 Painel do Professor
               </span>
               <BadgeConexao conexao={conexao} />
               {rodada?.numero && rodada?.total && (
-                <span className="text-xs text-teal-300/80 font-medium">
+                <span className="text-xs text-[#FFE14D] font-extrabold bg-[#FFE14D]/20 px-3 py-0.5 rounded-full border border-[#FFE14D]/40">
                   Rodada {rodada.numero} de {rodada.total}
                 </span>
               )}
             </div>
-            <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black text-[#FFFDF7] tracking-tight">
               {sala.titulo || 'Revisão ao Vivo'}
             </h1>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="bg-[#0b2b29] border border-teal-700/60 rounded-lg px-4 py-2 text-center">
-              <span className="text-[10px] uppercase font-semibold text-teal-300/70 tracking-widest block">
+            <div className="bg-[#25104A]/90 border-2 border-[#00DDEB] rounded-2xl px-5 py-2.5 text-center shadow-lg">
+              <span className="text-[10px] uppercase font-black text-[#00DDEB] tracking-widest block">
                 Código da Sala
               </span>
-              <span className="text-2xl font-mono font-extrabold text-teal-300 tracking-wider">
+              <span className="text-2xl font-mono font-black text-[#FFE14D] tracking-wider">
                 {sala.codigo || '------'}
               </span>
             </div>
@@ -60,23 +65,23 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
         {erro && (
           <div
             role="alert"
-            className="p-4 rounded-lg bg-rose-950/80 border border-rose-700/80 text-rose-200 text-sm flex items-start gap-3 shadow-md"
+            className="p-4 rounded-2xl bg-rose-950/90 border-2 border-[#FF4F9B] text-[#FFFDF7] text-sm flex items-start gap-3 shadow-lg"
           >
-            <span className="font-bold text-rose-400">Erro:</span>
-            <p className="flex-1">{erro}</p>
+            <span className="font-black text-[#FF4F9B]">Erro:</span>
+            <p className="flex-1 font-medium">{erro}</p>
           </div>
         )}
 
         {/* Corpo Principal por Fase */}
         <main className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Coluna de Controle e Ações */}
-          <section className="lg:col-span-1 bg-[#123c3a] border border-teal-800/40 rounded-xl p-5 space-y-5 shadow-lg flex flex-col justify-between">
+          <section className="lg:col-span-1 bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 space-y-6 shadow-xl flex flex-col justify-between backdrop-blur-md">
             <div className="space-y-4">
-              <div className="border-b border-teal-800/40 pb-3">
-                <span className="text-xs text-teal-300/70 uppercase tracking-wider font-semibold">
+              <div className="border-b border-[#6334E3]/40 pb-3">
+                <span className="text-xs text-[#00DDEB] uppercase tracking-widest font-black">
                   Fase Atual
                 </span>
-                <h2 className="text-lg font-bold text-teal-200 capitalize mt-0.5">
+                <h2 className="text-xl font-black text-[#FFE14D] capitalize mt-0.5">
                   {fase === 'espera' && 'Aguardando Início'}
                   {fase === 'conteudo' && 'Apresentação de Conteúdo'}
                   {fase === 'pergunta' && 'Pergunta em Andamento'}
@@ -94,7 +99,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('mostrar_conteudo')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-teal-600 hover:bg-teal-500 active:bg-teal-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Mostrar Conteúdo
                   </button>
@@ -105,7 +110,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('abrir_pergunta')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#B7F247] hover:bg-[#D0F87E] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Abrir Pergunta
                   </button>
@@ -116,7 +121,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('encerrar_pergunta')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#FFE14D] hover:bg-[#FFF085] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Encerrar Pergunta
                   </button>
@@ -127,7 +132,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('mostrar_feedback')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-teal-600 hover:bg-teal-500 active:bg-teal-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Mostrar Feedback
                   </button>
@@ -138,7 +143,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('mostrar_ranking')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-teal-600 hover:bg-teal-500 active:bg-teal-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#FF8A3D] hover:bg-[#FFAA70] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Mostrar Ranking
                   </button>
@@ -149,7 +154,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('proxima_rodada')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-teal-600 hover:bg-teal-500 active:bg-teal-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Próxima Rodada
                   </button>
@@ -160,14 +165,14 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     type="button"
                     disabled={acaoBloqueada}
                     onClick={() => onAcao('finalizar')}
-                    className="w-full py-3 px-4 rounded-lg font-semibold bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md focus-visible:ring-2 focus-visible:ring-rose-300 focus-visible:outline-none"
+                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#FF4F9B] hover:bg-[#FF80B6] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
                     Finalizar Aulão
                   </button>
                 )}
 
                 {fase === 'finalizada' && (
-                  <div className="p-3 text-center rounded-lg bg-teal-950/60 border border-teal-800/40 text-teal-300 text-sm font-medium">
+                  <div className="p-4 text-center rounded-2xl bg-[#B7F247]/20 border-2 border-[#B7F247] text-[#B7F247] text-sm font-black shadow-md">
                     Aulão Concluído com Sucesso!
                   </div>
                 )}
@@ -176,28 +181,38 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
 
             {/* Informações de Participação */}
             {['pergunta', 'encerrada', 'feedback'].includes(fase) && (
-              <div className="pt-4 border-t border-teal-800/40 space-y-4">
+              <div className="pt-4 border-t border-[#6334E3]/40 space-y-4">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-teal-300/70 font-medium">Respostas Recebidas:</span>
-                  <span className="font-bold text-white text-base">
+                  <span className="text-[#00DDEB] font-extrabold uppercase text-xs tracking-wider">
+                    Respostas Recebidas:
+                  </span>
+                  <span className="font-black text-[#FFFDF7] text-base">
                     {participacao.respondidos} / {participacao.total}
                   </span>
                 </div>
 
                 {/* Distribuição A–E com contagens numéricas */}
-                <div className="space-y-1.5">
-                  <span className="text-xs text-teal-300/70 uppercase font-semibold block">
+                <div className="space-y-2">
+                  <span className="text-xs text-[#FFFDF7]/80 uppercase font-bold block">
                     Distribuição de Respostas:
                   </span>
                   <div className="grid grid-cols-5 gap-1.5 text-center">
                     {LETRAS_ALTERNATIVAS.map((letra) => {
                       const qtd = participacao?.distribuicao?.[letra] ?? 0;
+                      const cor = CORES_ALTERNATIVAS[letra] || {
+                        bg: '#FFE14D',
+                        text: '#25104A',
+                      };
                       return (
                         <div
                           key={letra}
-                          className="bg-[#0c2423] border border-teal-800/50 rounded p-1.5"
+                          style={{ backgroundColor: cor.bg }}
+                          className="rounded-xl p-2 shadow"
                         >
-                          <span className="text-xs font-bold text-teal-300 block">
+                          <span
+                            style={{ color: cor.text }}
+                            className="text-xs font-black block"
+                          >
                             {letra}: {qtd}
                           </span>
                         </div>
@@ -213,12 +228,12 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
           <section className="lg:col-span-2 space-y-6">
             {/* Bloco de Conteúdo */}
             {fase === 'conteudo' && (
-              <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-6 shadow-lg space-y-4">
-                <div className="border-b border-teal-800/40 pb-2">
-                  <span className="text-xs text-teal-300/70 uppercase tracking-wider font-semibold">
+              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl space-y-4 backdrop-blur-md">
+                <div className="border-b border-[#6334E3]/40 pb-2">
+                  <span className="text-xs text-[#00DDEB] uppercase tracking-widest font-black">
                     Conteúdo Preparatório
                   </span>
-                  <h3 className="text-lg font-bold text-white mt-1">
+                  <h3 className="text-xl font-black text-[#FFFDF7] mt-1">
                     {questao.tema || 'Tema da Rodada'}
                   </h3>
                 </div>
@@ -227,7 +242,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     <BlocoConteudo key={idx} bloco={bloco} imagens={questao.imagens || []} />
                   ))}
                   {(!rodada.conteudo || rodada.conteudo.length === 0) && (
-                    <p className="text-slate-400 italic text-sm">
+                    <p className="text-[#FFFDF7]/70 italic text-sm">
                       Nenhum texto preparatório nesta rodada.
                     </p>
                   )}
@@ -237,19 +252,19 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
 
             {/* Bloco da Pergunta e Alternativas */}
             {['pergunta', 'encerrada', 'feedback'].includes(fase) && (
-              <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-6 shadow-lg space-y-5">
-                <div className="flex justify-between items-start gap-4 border-b border-teal-800/40 pb-3">
+              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl space-y-5 backdrop-blur-md">
+                <div className="flex justify-between items-start gap-4 border-b border-[#6334E3]/40 pb-3">
                   <div>
-                    <span className="text-xs text-teal-300/70 uppercase tracking-wider font-semibold">
+                    <span className="text-xs text-[#00DDEB] uppercase tracking-widest font-black">
                       Questão {rodada.numero} {questao.ano ? `• ENEM ${questao.ano}` : ''}
                     </span>
-                    <h3 className="text-lg font-bold text-white mt-0.5">
+                    <h3 className="text-xl font-black text-[#FFFDF7] mt-0.5">
                       {questao.tema || 'Questão'}
                     </h3>
                   </div>
                 </div>
 
-                <p className="text-slate-100 text-base leading-relaxed">
+                <p className="text-[#FFFDF7] text-base leading-relaxed font-medium">
                   {questao.enunciado}
                 </p>
 
@@ -262,31 +277,37 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                 )}
 
                 {/* Alternativas */}
-                <div className="space-y-2.5 pt-2">
+                <div className="space-y-3 pt-2">
                   {(questao.alternativas || []).map((alt) => {
                     const ehGabarito = fase === 'feedback' && feedback?.gabarito === alt.id;
+                    const corBadge = CORES_ALTERNATIVAS[alt.id] || {
+                      bg: '#FFE14D',
+                      text: '#25104A',
+                    };
                     return (
                       <div
                         key={alt.id}
-                        className={`p-3 rounded-lg border text-sm transition ${
+                        className={`p-3.5 rounded-2xl border-2 text-sm transition ${
                           ehGabarito
-                            ? 'bg-emerald-950/80 border-emerald-500/80 text-emerald-100 font-medium'
-                            : 'bg-[#0c2423] border-teal-800/40 text-slate-200'
+                            ? 'bg-[#B7F247]/20 border-[#B7F247] text-[#FFFDF7] font-semibold shadow-lg'
+                            : 'bg-[#25104A]/90 border-[#6334E3]/40 text-[#FFFDF7]'
                         }`}
                       >
-                        <div className="flex items-start gap-2.5">
+                        <div className="flex items-start gap-3">
                           <span
-                            className={`px-2 py-0.5 rounded text-xs font-bold ${
-                              ehGabarito ? 'bg-emerald-500 text-emerald-950' : 'bg-teal-800/60 text-teal-200'
-                            }`}
+                            style={{
+                              backgroundColor: ehGabarito ? '#B7F247' : corBadge.bg,
+                              color: '#25104A',
+                            }}
+                            className="px-2.5 py-1 rounded-lg text-xs font-black shadow"
                           >
                             {alt.id}
                           </span>
-                          <span className="flex-1">{alt.texto}</span>
+                          <span className="flex-1 font-medium">{alt.texto}</span>
                         </div>
 
                         {fase === 'feedback' && feedback?.explicacoes?.[alt.id] && (
-                          <p className="mt-2 text-xs text-slate-300 pl-7 border-t border-teal-900/40 pt-1.5">
+                          <p className="mt-2 text-xs text-[#FFFDF7]/80 pl-9 border-t border-[#6334E3]/30 pt-2 leading-relaxed">
                             {feedback.explicacoes[alt.id]}
                           </p>
                         )}
@@ -296,7 +317,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                 </div>
 
                 {fase === 'feedback' && feedback?.gabarito && (
-                  <div className="p-3 bg-emerald-950/70 border border-emerald-600/70 rounded-lg text-emerald-200 text-sm font-semibold flex items-center gap-2">
+                  <div className="p-3.5 bg-[#B7F247]/20 border-2 border-[#B7F247] rounded-xl text-[#B7F247] text-sm font-black flex items-center gap-2 shadow-md">
                     <span>Gabarito Oficial: Alternativa {feedback.gabarito}</span>
                   </div>
                 )}
@@ -305,30 +326,30 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
 
             {/* Bloco de Respondentes (RV-04: lista delimitada, nomes sem alternativa) */}
             {['pergunta', 'encerrada', 'feedback'].includes(fase) && (
-              <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-5 shadow-lg space-y-3">
-                <div className="flex justify-between items-center border-b border-teal-800/40 pb-2">
-                  <h4 className="text-sm font-bold text-white tracking-wide">
+              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl space-y-3.5 backdrop-blur-md">
+                <div className="flex justify-between items-center border-b border-[#6334E3]/40 pb-2">
+                  <h4 className="text-sm font-black text-[#FFFDF7] tracking-wider uppercase">
                     Estudantes que Responderam ({participacao.respondentes?.length || 0})
                   </h4>
-                  <span className="text-xs text-teal-300/70">
+                  <span className="text-xs text-[#00DDEB] font-bold">
                     Nomes anônimos quanto à alternativa escolhida
                   </span>
                 </div>
 
                 <div
                   data-testid="lista-respondentes"
-                  className="max-h-52 overflow-y-auto pr-1 space-y-1.5 text-xs text-slate-200"
+                  className="max-h-52 overflow-y-auto pr-1 space-y-1.5 text-xs text-[#FFFDF7]"
                 >
                   {(participacao.respondentes || []).map((resp, idx) => (
                     <div
                       key={resp.id || resp.alunoId || idx}
-                      className="px-2.5 py-1.5 bg-[#0c2423] rounded border border-teal-900/40 truncate"
+                      className="px-3 py-1.5 bg-[#25104A]/90 rounded-xl border border-[#6334E3]/50 truncate font-semibold"
                     >
                       {resp.nomeExibicao || resp.nome}
                     </div>
                   ))}
                   {(!participacao.respondentes || participacao.respondentes.length === 0) && (
-                    <p className="text-slate-400 italic text-xs py-2">
+                    <p className="text-[#FFFDF7]/60 italic text-xs py-2">
                       Aguardando primeiras respostas dos estudantes...
                     </p>
                   )}
@@ -338,34 +359,34 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
 
             {/* Bloco de Ranking */}
             {['ranking', 'finalizada'].includes(fase) && (
-              <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-6 shadow-lg space-y-4">
-                <div className="border-b border-teal-800/40 pb-2">
-                  <h3 className="text-lg font-bold text-white">
+              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl space-y-4 backdrop-blur-md">
+                <div className="border-b border-[#6334E3]/40 pb-2">
+                  <h3 className="text-xl font-black text-[#FFE14D]">
                     Classificação Atual
                   </h3>
                 </div>
 
                 <div className="max-h-96 overflow-y-auto space-y-2 pr-1">
-                  {ranking.map((item) => (
+                  {ranking.map((item, idx) => (
                     <div
-                      key={item.participanteId}
-                      className="flex items-center justify-between p-3 bg-[#0c2423] border border-teal-800/40 rounded-lg text-sm"
+                      key={item.participanteId || idx}
+                      className="flex items-center justify-between p-3.5 bg-[#25104A] border-2 border-[#6334E3]/40 rounded-xl text-sm"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-7 h-7 rounded-full bg-teal-800/60 font-bold text-teal-200 text-xs flex items-center justify-center">
-                          {item.posicao}º
+                        <span className="w-7 h-7 rounded-lg bg-[#6334E3] font-black text-[#FFFDF7] text-xs flex items-center justify-center">
+                          {item.posicao || idx + 1}º
                         </span>
-                        <span className="font-medium text-slate-100 truncate max-w-xs md:max-w-md">
+                        <span className="font-bold text-[#FFFDF7] truncate max-w-xs md:max-w-md">
                           {item.nomeExibicao}
                         </span>
                       </div>
-                      <span className="font-mono font-bold text-teal-300">
+                      <span className="font-mono font-black text-[#FFE14D]">
                         {item.pontos} pts
                       </span>
                     </div>
                   ))}
                   {ranking.length === 0 && (
-                    <p className="text-slate-400 italic text-sm py-4 text-center">
+                    <p className="text-[#FFFDF7]/60 italic text-sm py-4 text-center">
                       Nenhuma pontuação registrada até o momento.
                     </p>
                   )}
@@ -374,11 +395,11 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
             )}
 
             {fase === 'espera' && (
-              <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-8 text-center shadow-lg space-y-3">
-                <h3 className="text-xl font-bold text-white">
+              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-8 text-center shadow-xl space-y-4 backdrop-blur-md">
+                <h3 className="text-2xl font-black text-[#FFFDF7]">
                   Aulão em Espera
                 </h3>
-                <p className="text-slate-300 text-sm max-w-md mx-auto">
+                <p className="text-[#FFFDF7]/90 text-sm max-w-md mx-auto leading-relaxed">
                   Compartilhe o código de acesso com os estudantes. Quando a turma estiver pronta, clique em &ldquo;Mostrar Conteúdo&rdquo; para iniciar.
                 </p>
               </div>

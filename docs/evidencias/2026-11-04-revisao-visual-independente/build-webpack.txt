@@ -1,0 +1,75 @@
+
+> simuladoapp-edu@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.2.9 (webpack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+⚠ Compiled with warnings in 13.2s
+
+./src/lib/firebase.js
+The generated code contains 'async/await' because this module is using "topLevelAwait".
+However, your target environment does not appear to support 'async/await'.
+As a result, the code may not run as expected or may cause runtime errors.
+
+Import trace for requested module:
+./src/lib/firebase.js
+./src/lib/auth-context.js
+
+✓ Compiled successfully in 33.8s
+  Running TypeScript ...
+  Finished TypeScript in 91ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/37) ...
+  Generating static pages using 7 workers (9/37)
+  Generating static pages using 7 workers (18/37)
+  Generating static pages using 7 workers (27/37)
+✓ Generating static pages using 7 workers (37/37) in 1086ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /adaptacoes
+├ ○ /agentes
+├ ○ /agentes/linguagens
+├ ○ /aluno
+├ ƒ /aluno/atividade/[id]
+├ ○ /aluno/notas
+├ ○ /analytics
+├ ƒ /api/adaptacoes/extrair-documento
+├ ƒ /api/adaptacoes/gerar
+├ ƒ /api/adaptacoes/imagem
+├ ƒ /api/adaptacoes/imagem-fallback
+├ ƒ /api/adaptacoes/verificar-imagem
+├ ƒ /api/agentes
+├ ƒ /api/ai/test
+├ ƒ /api/aluno/atividade/[id]
+├ ƒ /api/aluno/boletim
+├ ƒ /api/aluno/entregar
+├ ƒ /api/aluno/login
+├ ƒ /api/aluno/logout
+├ ƒ /api/aluno/redacao/[id]
+├ ƒ /api/aluno/sessao
+├ ƒ /api/calendario/importar
+├ ƒ /api/corrigir
+├ ƒ /api/extrair
+├ ƒ /api/integracao/simulado
+├ ƒ /api/maritaca
+├ ƒ /api/publicar-notas
+├ ○ /atividades
+├ ○ /calendario
+├ ○ /diario
+├ ○ /horario
+├ ○ /meuhorario
+├ ○ /redacao
+├ ○ /redacao/aluno
+├ ƒ /redacao/aluno/[id]
+├ ○ /redacao/criterios
+└ ○ /redacao/desempenho
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

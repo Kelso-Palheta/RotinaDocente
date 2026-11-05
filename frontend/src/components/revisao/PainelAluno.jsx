@@ -3,6 +3,7 @@
 import React from 'react';
 import { useCronometroRevisao } from './useCronometroRevisao';
 import { BadgeConexao, BlocoConteudo, formatarTempo } from './revisaoUtils';
+import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
 
 export function PainelAluno({
   estado,
@@ -39,19 +40,23 @@ export function PainelAluno({
   );
 
   return (
-    <div className="w-full min-h-screen bg-[#0c2423] text-slate-100 flex flex-col font-sans p-3 sm:p-4 md:p-6 max-w-2xl mx-auto">
+    <div
+      data-tema="vibrante"
+      className={`w-full min-h-screen text-[#FFFDF7] flex flex-col font-sans p-3 sm:p-4 md:p-6 max-w-2xl mx-auto ${temaStyles.palco}`}
+      style={{ backgroundColor: '#25104A' }}
+    >
       {/* Topo do Aluno: Sala, Rodada e Conexão */}
-      <header className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-3.5 mb-4 shadow-md flex items-center justify-between gap-3">
+      <header className="bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-2xl p-3.5 mb-4 shadow-xl flex items-center justify-between gap-3 backdrop-blur-md">
         <div className="min-w-0">
-          <span className="text-[10px] uppercase font-bold text-teal-300 tracking-wider block truncate">
-            {sala.titulo || 'Revisão ENEM'}
+          <span className="text-[10px] uppercase font-extrabold text-[#00DDEB] tracking-wider block truncate">
+            {sala.titulo || 'Festival ENEM Arte'}
           </span>
           <div className="flex items-center gap-2 mt-0.5">
-            <span className="font-mono text-sm font-extrabold text-white">
+            <span className="font-mono text-sm font-black text-[#FFE14D] tracking-wide">
               {sala.codigo || '------'}
             </span>
             {rodada?.numero && rodada?.total && (
-              <span className="text-xs text-teal-300/80 font-medium">
+              <span className="text-xs text-[#FFFDF7]/80 font-bold">
                 • {rodada.numero}/{rodada.total}
               </span>
             )}
@@ -69,7 +74,7 @@ export function PainelAluno({
           {estaDesconectado && (
             <div
               role="alert"
-              className="p-3 bg-amber-950/80 border border-amber-700/80 rounded-lg text-amber-200 text-xs flex items-center gap-2"
+              className="p-3 bg-amber-950/90 border-2 border-[#FFE14D] rounded-xl text-[#FFE14D] text-xs flex items-center gap-2 shadow-lg"
             >
               <span className="font-bold">Aviso:</span>
               <span>Sem conexão com o servidor. Aguarde para responder.</span>
@@ -79,10 +84,10 @@ export function PainelAluno({
           {(erro || envioFalha) && (
             <div
               role="alert"
-              className="p-3 bg-rose-950/80 border border-rose-700/80 rounded-lg text-rose-200 text-xs flex flex-col gap-2 shadow-sm"
+              className="p-3.5 bg-rose-950/90 border-2 border-[#FF4F9B] rounded-xl text-[#FFFDF7] text-xs flex flex-col gap-2 shadow-lg"
             >
               <div className="flex items-start gap-2">
-                <span className="font-bold text-rose-400">Erro:</span>
+                <span className="font-bold text-[#FF4F9B]">Erro:</span>
                 <p className="flex-1">
                   {erro || 'Ocorreu uma falha no envio da resposta.'}
                 </p>
@@ -90,14 +95,14 @@ export function PainelAluno({
 
               {envioFalha && envio?.alternativa && (
                 <div className="flex items-center justify-between pt-1 border-t border-rose-900/60">
-                  <span className="font-semibold text-rose-300 text-xs">
+                  <span className="font-semibold text-[#FF4F9B] text-xs">
                     Sua escolha: Alternativa {envio.alternativa}
                   </span>
                   <button
                     type="button"
                     onClick={onTentarNovamente}
                     disabled={ocupado || estaDesconectado}
-                    className="px-3 py-1 bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white font-semibold rounded text-xs transition disabled:opacity-50"
+                    className="px-3.5 py-1.5 bg-[#FF4F9B] hover:bg-[#FF80B6] active:scale-95 text-[#25104A] font-extrabold rounded-lg text-xs transition disabled:opacity-50 shadow"
                   >
                     Tentar novamente
                   </button>
@@ -109,32 +114,39 @@ export function PainelAluno({
       )}
 
       {/* Conteúdo Principal por Fase */}
-      <main className="flex-1 flex flex-col justify-between space-y-4">
+      <main key={`${sala.id || ""}:${rodada.id || ""}:${fase}`} className={`${temaStyles.animacaoEntrada} flex-1 flex flex-col justify-between space-y-4`}>
         {/* FASE: ESPERA */}
         {fase === 'espera' && (
-          <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-6 text-center my-auto space-y-4 shadow-lg">
-            <div className="w-12 h-12 rounded-full bg-teal-800/50 text-teal-300 flex items-center justify-center mx-auto text-xl font-bold">
-              ✓
+          <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/70 rounded-3xl p-8 text-center my-auto space-y-5 shadow-2xl backdrop-blur-md">
+            <div className="w-16 h-16 rounded-2xl bg-[#FFE14D] text-[#25104A] flex items-center justify-center mx-auto text-2xl font-black shadow-lg transform rotate-3">
+              ★
             </div>
-            <h2 className="text-xl font-bold text-white">
+            <h2 className="text-2xl font-black text-[#FFFDF7] tracking-tight">
               Você está na sala!
             </h2>
-            <p className="text-slate-300 text-sm">
+            <p className="text-[#FFFDF7]/90 text-sm max-w-sm mx-auto leading-relaxed">
               Aguardando o professor iniciar a revisão. Preste atenção na projeção!
             </p>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00DDEB]/20 border border-[#00DDEB]/50 text-[#00DDEB] text-xs font-bold">
+              <span className="w-2 h-2 rounded-full bg-[#00DDEB] animate-ping" />
+              Sintonizado no Aulão
+            </div>
           </div>
         )}
 
         {/* FASE: CONTEUDO */}
         {fase === 'conteudo' && (
-          <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-5 space-y-4 shadow-lg">
-            <div className="border-b border-teal-800/40 pb-2">
-              <span className="text-xs text-teal-300 uppercase tracking-wider font-bold">
-                Conteúdo de Apoio
-              </span>
-              <h2 className="text-lg font-bold text-white mt-0.5">
-                {questao.tema || 'Tópico da Rodada'}
-              </h2>
+          <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-2xl p-5 space-y-4 shadow-xl backdrop-blur-md">
+            <div className="border-b border-[#6334E3]/40 pb-2 flex items-center justify-between">
+              <div>
+                <span className="text-xs text-[#00DDEB] uppercase tracking-widest font-black">
+                  Conteúdo de Apoio
+                </span>
+                <h2 className="text-lg font-extrabold text-[#FFFDF7] mt-0.5">
+                  {questao.tema || 'Tópico da Rodada'}
+                </h2>
+              </div>
+              <span className="text-xl">🎨</span>
             </div>
 
             <div className="space-y-4">
@@ -149,20 +161,22 @@ export function PainelAluno({
         {fase === 'pergunta' && (
           <div className="space-y-4">
             {/* Barra de Cronômetro e Enunciado */}
-            <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-4 shadow-md space-y-3">
-              <div className="flex justify-between items-center border-b border-teal-800/40 pb-2">
-                <span className="text-xs text-teal-300 font-bold uppercase tracking-wider">
+            <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-2xl p-4 md:p-5 shadow-xl space-y-3.5 backdrop-blur-md">
+              <div className="flex justify-between items-center border-b border-[#6334E3]/40 pb-2.5">
+                <span className="text-xs text-[#FFE14D] font-extrabold uppercase tracking-wider bg-[#FFE14D]/20 px-2.5 py-0.5 rounded-md border border-[#FFE14D]/40">
                   Questão {rodada.numero}
                 </span>
 
                 {/* Timer Visual (aria-hidden para não poluir leitores de tela a cada segundo) */}
-                <div className="flex items-center gap-1.5">
-                  <span className="text-xs text-slate-400 font-medium">Tempo:</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-[#FFFDF7]/70 font-semibold">Tempo:</span>
                   <span
                     data-testid="timer-visual-segundos"
                     aria-hidden="true"
-                    className={`font-mono text-sm font-bold ${
-                      segundosRestantes <= 10 ? 'text-rose-400 animate-pulse' : 'text-teal-300'
+                    className={`font-mono text-base font-black px-2.5 py-0.5 rounded-md ${
+                      segundosRestantes <= 10
+                        ? 'bg-[#FF4F9B] text-[#25104A] animate-pulse'
+                        : 'bg-[#00DDEB]/20 text-[#00DDEB] border border-[#00DDEB]/50'
                     }`}
                   >
                     {formatarTempo(segundosRestantes)}
@@ -170,7 +184,7 @@ export function PainelAluno({
                 </div>
               </div>
 
-              <p className="text-sm md:text-base text-slate-100 font-medium leading-relaxed">
+              <p className="text-sm md:text-base text-[#FFFDF7] font-medium leading-relaxed">
                 {questao.enunciado}
               </p>
 
@@ -184,7 +198,7 @@ export function PainelAluno({
             </div>
 
             {tempoEsgotado && (
-              <p role="status" className="text-sm text-amber-200">
+              <p role="status" className="text-sm text-[#FFE14D] font-bold bg-[#FFE14D]/10 p-3 rounded-xl border border-[#FFE14D]/40 text-center">
                 Tempo encerrado. Aguarde a explicação do professor.
               </p>
             )}
@@ -193,9 +207,9 @@ export function PainelAluno({
             {envioAtivo && (
               <div
                 role="status"
-                className="p-3 bg-teal-950/80 border border-teal-700/80 rounded-lg text-teal-200 text-xs flex items-center justify-center gap-2 font-medium"
+                className="p-3 bg-[#6334E3]/50 border-2 border-[#00DDEB] rounded-xl text-[#00DDEB] text-xs flex items-center justify-center gap-2 font-bold shadow-md"
               >
-                <span className="w-3 h-3 border-2 border-teal-300 border-t-transparent rounded-full animate-spin" />
+                <span className="w-3.5 h-3.5 border-2 border-[#00DDEB] border-t-transparent rounded-full animate-spin" />
                 <span>Enviando resposta...</span>
               </div>
             )}
@@ -203,16 +217,21 @@ export function PainelAluno({
             {envioConfirmado && (
               <div
                 role="status"
-                className="p-3 bg-emerald-950/80 border border-emerald-600/80 rounded-lg text-emerald-200 text-xs text-center font-bold flex items-center justify-center gap-2 shadow-sm"
+                className={`p-3 bg-[#6334E3]/40 border-2 border-[#00DDEB] rounded-xl text-[#00DDEB] text-xs text-center font-extrabold flex items-center justify-center gap-2 shadow-lg ${temaStyles.confirmadoAnimado}`}
               >
                 <span>✓ Resposta confirmada: Alternativa {envio.alternativa}</span>
               </div>
             )}
 
-            {/* Lista de Alternativas (Botões acessíveis com min-h de 44px) */}
-            <div className="space-y-2.5">
+            {/* Lista de Alternativas (Botões acessíveis com min-h de 48px) */}
+            <div className="space-y-3">
               {(questao.alternativas || []).map((alt) => {
                 const foiSelecionada = envio?.alternativa === alt.id;
+                const corBadge = CORES_ALTERNATIVAS[alt.id] || {
+                  bg: '#FFE14D',
+                  text: '#25104A',
+                };
+
                 return (
                   <button
                     key={alt.id}
@@ -220,25 +239,26 @@ export function PainelAluno({
                     disabled={alternativasBloqueadas}
                     onClick={() => onResponder && onResponder(alt.id)}
                     aria-pressed={foiSelecionada}
-                    className={`w-full min-h-[48px] p-3 rounded-xl border text-left text-sm transition flex items-start gap-3 focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:outline-none ${
+                    className={`w-full min-h-[50px] p-3.5 rounded-2xl border-2 text-left text-sm transition-all flex items-start gap-3.5 focus-visible:ring-4 focus-visible:ring-[#00DDEB] focus-visible:outline-none ${
                       foiSelecionada && envioConfirmado
-                        ? 'bg-emerald-950/90 border-emerald-500 text-emerald-100 font-semibold shadow'
+                        ? 'bg-[#6334E3]/70 border-[#00DDEB] text-[#FFFDF7] font-bold shadow-xl scale-[1.01]'
                         : foiSelecionada && envioAtivo
-                        ? 'bg-teal-950/90 border-teal-500 text-teal-100 font-semibold'
-                        : 'bg-[#123c3a] hover:bg-[#154644] border-teal-800/50 text-slate-200 active:scale-[0.99]'
+                        ? 'bg-[#6334E3]/60 border-[#FFE14D] text-[#FFFDF7] font-bold'
+                        : 'bg-[#25104A]/90 hover:bg-[#6334E3]/40 border-[#6334E3]/50 text-[#FFFDF7] active:scale-[0.99] shadow-md'
                     } disabled:opacity-60 disabled:cursor-not-allowed`}
                   >
                     <span
+                      data-testid={`badge-alternativa-${alt.id}`}
                       aria-hidden="true"
-                      className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 ${
-                        foiSelecionada
-                          ? 'bg-teal-400 text-teal-950 font-black'
-                          : 'bg-teal-900/60 text-teal-200'
-                      }`}
+                      style={{
+                        backgroundColor: corBadge.bg,
+                        color: corBadge.text,
+                      }}
+                      className="w-8 h-8 rounded-xl text-sm font-black flex items-center justify-center shrink-0 shadow-md"
                     >
                       {alt.id}
                     </span>
-                    <span className="pt-0.5 leading-snug flex-1">
+                    <span className="pt-1 leading-snug flex-1 font-medium">
                       {alt.id}) {alt.texto}
                     </span>
                   </button>
@@ -250,14 +270,14 @@ export function PainelAluno({
 
         {/* FASE: ENCERRADA */}
         {fase === 'encerrada' && (
-          <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-6 text-center space-y-3 shadow-lg my-auto">
-            <span className="text-xs uppercase font-bold text-amber-400 tracking-wider">
+          <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/70 rounded-3xl p-6 text-center space-y-4 shadow-2xl my-auto backdrop-blur-md">
+            <span className="text-xs uppercase font-extrabold text-[#FFE14D] tracking-widest bg-[#FFE14D]/20 px-3 py-1 rounded-full border border-[#FFE14D]/40 inline-block">
               Tempo Encerrado
             </span>
-            <h2 className="text-xl font-bold text-white">
+            <h2 className="text-2xl font-black text-[#FFFDF7]">
               Pergunta Encerrada
             </h2>
-            <p className="text-slate-300 text-sm">
+            <p className="text-[#FFFDF7]/90 text-sm leading-relaxed max-w-sm mx-auto">
               {envioConfirmado
                 ? `Você respondeu Alternativa ${envio.alternativa}. Aguarde a explicação e a revelação do gabarito!`
                 : 'Aguarde o professor exibir o gabarito e os comentários.'}
@@ -267,21 +287,23 @@ export function PainelAluno({
 
         {/* FASE: FEEDBACK */}
         {fase === 'feedback' && (
-          <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-5 space-y-4 shadow-lg">
-            <div className="border-b border-teal-800/40 pb-3">
-              <span className="text-xs text-teal-300 font-bold uppercase tracking-wider">
-                Correção • Questão {rodada.numero}
+          <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/70 rounded-2xl p-5 space-y-4 shadow-2xl backdrop-blur-md">
+            <div className="border-b border-[#6334E3]/40 pb-3">
+              <span className="text-xs text-[#00DDEB] font-extrabold uppercase tracking-widest block">
+                Correção Pedagógica • Questão {rodada.numero}
               </span>
-              <h2 className="text-lg font-bold text-white mt-1">
+              <h2 className="text-xl font-black text-[#FFFDF7] mt-1">
                 Gabarito Oficial: Alternativa {feedback?.gabarito || '—'}
               </h2>
 
               {envioConfirmado && feedback?.gabarito && (
-                <div className="mt-2 text-xs font-bold">
+                <div className="mt-2.5 text-xs font-extrabold">
                   {envio.alternativa === feedback.gabarito ? (
-                    <span className="text-emerald-400">✓ Você acertou!</span>
+                    <span className="text-[#B7F247] bg-[#B7F247]/20 px-3 py-1 rounded-lg border border-[#B7F247]/50 inline-block">
+                      ✓ Você acertou!
+                    </span>
                   ) : (
-                    <span className="text-rose-400">
+                    <span className="text-[#25104A] bg-[#FF4F9B] px-3 py-1 rounded-lg border border-[#FF4F9B]/50 inline-block">
                       ✗ Você marcou Alternativa {envio.alternativa}.
                     </span>
                   )}
@@ -290,37 +312,43 @@ export function PainelAluno({
             </div>
 
             {/* Comentários das Alternativas */}
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {(questao.alternativas || []).map((alt) => {
                 const ehGabarito = feedback?.gabarito === alt.id;
                 const explicacao = feedback?.explicacoes?.[alt.id];
+                const corBadge = CORES_ALTERNATIVAS[alt.id] || {
+                  bg: '#FFE14D',
+                  text: '#25104A',
+                };
 
                 return (
                   <div
                     key={alt.id}
-                    className={`p-3 rounded-lg border text-xs leading-relaxed ${
+                    className={`p-3.5 rounded-2xl border-2 transition ${
                       ehGabarito
-                        ? 'bg-emerald-950/80 border-emerald-500/80 text-emerald-100 font-medium'
-                        : 'bg-[#0c2423] border-teal-800/40 text-slate-300'
+                        ? 'bg-[#B7F247]/20 border-[#B7F247] text-[#FFFDF7]'
+                        : 'bg-[#25104A]/80 border-[#6334E3]/40 text-[#FFFDF7]/90'
                     }`}
                   >
-                    <div className="flex items-start gap-2">
+                    <div className="flex items-start gap-3">
                       <span
-                        className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                          ehGabarito
-                            ? 'bg-emerald-500 text-emerald-950 font-black'
-                            : 'bg-teal-900/60 text-teal-200'
-                        }`}
+                        style={{
+                          backgroundColor: ehGabarito ? '#B7F247' : corBadge.bg,
+                          color: '#25104A',
+                        }}
+                        className="w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 shadow"
                       >
                         {alt.id}
                       </span>
-                      <span className="font-semibold">{alt.texto}</span>
+                      <div className="flex-1 space-y-1.5">
+                        <p className="text-sm font-semibold">{alt.texto}</p>
+                        {explicacao && (
+                          <p className="text-xs text-[#FFFDF7]/80 pt-1 border-t border-[#6334E3]/30 leading-relaxed">
+                            {explicacao}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    {explicacao && (
-                      <p className="mt-1.5 pl-6 text-slate-300 border-t border-teal-900/30 pt-1">
-                        {explicacao}
-                      </p>
-                    )}
                   </div>
                 );
               })}
@@ -328,43 +356,53 @@ export function PainelAluno({
           </div>
         )}
 
-        {/* FASE: RANKING & FINALIZADA */}
-        {(fase === 'ranking' || fase === 'finalizada') && (
-          <div className="bg-[#123c3a] border border-teal-800/40 rounded-xl p-5 space-y-4 shadow-lg">
-            <div className="border-b border-teal-800/40 pb-2 text-center">
-              <span className="text-xs text-teal-300 font-bold uppercase tracking-wider">
-                {fase === 'finalizada' ? 'Resultado Final' : 'Classificação'}
+        {/* FASE: RANKING / FINALIZADA */}
+        {['ranking', 'finalizada'].includes(fase) && (
+          <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/70 rounded-3xl p-6 text-center space-y-5 shadow-2xl my-auto backdrop-blur-md">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-widest text-[#FFE14D] bg-[#FFE14D]/20 px-3 py-1 rounded-full border border-[#FFE14D]/40">
+                Classificação
               </span>
-              <h2 className="text-lg font-bold text-white mt-0.5">
-                {fase === 'finalizada' ? 'Aulão Finalizado' : 'Quadro de Pontuação'}
+              <h2 className="text-2xl font-black text-[#FFFDF7] mt-2">
+                Quadro de Pontuação
               </h2>
             </div>
 
-            <div className="space-y-2 max-h-80 overflow-y-auto pr-1 text-sm">
-              {ranking.map((item, idx) => (
-                <div
-                  key={item.participanteId || idx}
-                  className="flex items-center justify-between p-2.5 bg-[#0c2423] border border-teal-800/40 rounded-lg"
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <span className="w-6 h-6 rounded-full bg-teal-800/60 font-bold text-teal-200 text-xs flex items-center justify-center shrink-0">
-                      {item.posicao}º
-                    </span>
-                    <span className="font-medium text-slate-100 truncate">
-                      {item.nomeExibicao}
+            {ranking && ranking.length > 0 ? (
+              <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1 text-left">
+                {ranking.map((item, idx) => (
+                  <div
+                    key={item.participanteId || idx}
+                    data-posicao={item.posicao}
+                    className={`p-3 rounded-xl border flex items-center justify-between text-xs ${
+                      item.posicao === 1
+                        ? 'bg-[#FFE14D]/20 border-[#FFE14D] text-[#FFFDF7] font-bold'
+                        : item.posicao === 2
+                        ? 'bg-[#00DDEB]/20 border-[#00DDEB] text-[#FFFDF7]'
+                        : item.posicao === 3
+                        ? 'bg-[#FF4F9B]/20 border-[#FF4F9B] text-[#FFFDF7]'
+                        : 'bg-[#25104A] border-[#6334E3]/40 text-[#FFFDF7]/80'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-6 h-6 rounded-lg bg-[#6334E3]/60 font-black text-[11px] flex items-center justify-center text-[#FFFDF7]">
+                        {item.posicao || idx + 1}º
+                      </span>
+                      <span className="truncate max-w-[140px] sm:max-w-[200px]">
+                        {item.nomeExibicao}
+                      </span>
+                    </div>
+                    <span className="font-mono font-extrabold text-[#FFE14D]">
+                      {item.pontos} pts
                     </span>
                   </div>
-                  <span className="font-mono font-bold text-teal-300 text-xs shrink-0">
-                    {item.pontos} pts
-                  </span>
-                </div>
-              ))}
-              {ranking.length === 0 && (
-                <p className="text-slate-400 italic text-center py-4 text-xs">
-                  Aguardando pontuação...
-                </p>
-              )}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[#FFFDF7]/70 italic py-4">
+                Aguardando consolidação dos resultados...
+              </p>
+            )}
           </div>
         )}
       </main>
