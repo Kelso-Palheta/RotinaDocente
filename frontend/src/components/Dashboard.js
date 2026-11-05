@@ -160,7 +160,7 @@ export default function Dashboard() {
       {/* Conteúdo Principal do Hub */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8 space-y-8">
         {/* Banner de Boas-Vindas com Status de IA & Plano */}
-        <div className="bg-gradient-to-r from-[#25104a] via-[#1a4844] to-[#25104a] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#25104a]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="arte-faixa arte-composicao arte-composicao-escura bg-gradient-to-r from-[#25104a] via-[#3a1a73] to-[#25104a] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#25104a]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-3 relative z-10 max-w-2xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#6315d9] text-white">
               <Sparkles size={12} />

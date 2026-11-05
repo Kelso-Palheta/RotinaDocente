@@ -7,7 +7,7 @@ export function LandingHero({ onOpenAuth }) {
   const [activeTab, setActiveTab] = useState("diario"); // "diario" | "redacao" | "calendario"
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-[#f3edff]/40 via-white to-white">
+    <section className="arte-composicao relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-[#f3edff]/40 via-white to-white">
       {/* Círculo radial decorativo de fundo */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-[#6315d9]/10 via-[#6315d9]/5 to-transparent rounded-full blur-3xl pointer-events-none -mr-40 -mt-20" />
       <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-[#25104a]/5 rounded-full blur-3xl pointer-events-none -ml-40" />

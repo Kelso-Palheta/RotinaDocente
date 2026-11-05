@@ -71,3 +71,22 @@ insígnia/detalhe com texto `#25104A`, nunca como texto sobre superfícies clara
 - Rigor herdado: PV-01..09 de `PALETA_PETROLEO_SALVIA_SPEC.md` continuam aplicáveis com os
   valores novos; `paleta_complemento.test.js`, `paleta_notas_preservadas.test.js` e os testes
   de contraste/visual da Revisão não podem falhar por causa desta migração.
+
+## Redesenho global — composição e identidade
+
+A paleta acima registra a migração cromática já entregue. A nova revisão amplia a composição inspirada em “Arte em jogo” para toda a interface web. Referência visual: `docs/evidencias/2026-11-04-revisao-direcao-visual/festival-arte-conceito.png`. O nome RotinaDocente identifica o site. “Arte em jogo” identifica a experiência do Aulão.
+
+- **Linguagem comum:** fundos claros quentes, faixas roxas compactas, títulos com presença, formas geométricas nas bordas e acentos de cor usados com intenção. Organizar cada página em torno da sua ação principal. Usar superfícies claras de leitura e contraste consistente para controles, estados e foco.
+- **Páginas públicas e início:** aplicar a linguagem à navegação, apresentação, acesso e entrada nos módulos. Dar destaque às ações principais, aos atalhos e às seções de conteúdo.
+- **Ferramentas docentes:** aplicar a identidade a Agentes, Adaptações, Atividades, Calendário, Diário, Horário, Meu Horário, Redação e Analytics. Usar cabeçalhos, cartões, abas, barras de ações e estados vazios compartilhados onde fizer sentido. Priorizar densidade e leitura nas tabelas, grades e gráficos.
+- **Área do aluno:** aplicar a identidade aos painéis, atividades, notas, feedback e estados de carregamento e erro. No celular, priorizar a leitura e os controles em coluna única.
+- **Revisão ao Vivo:** aplicar a composição específica de telão, painel docente e celular definida em `REVISAO_VISUAL_VIBRANTE_SPEC.md`.
+- **Preservações:** manter identidade verbal, fluxos, permissões, dados, pontuação, cores de notas e classificações, e semântica de sucesso, aviso e erro. Concentrar a decoração nas margens, cabeçalhos e áreas de destaque, com movimento reduzido respeitado.
+
+Aceite visual: comparar com a referência a página pública, o início autenticado, um módulo com tabela ou grade, uma atividade do aluno e as três telas do Aulão. Capturar os componentes reais em desktop e celular, com dados sintéticos. Inventariar todas as rotas de interface em `frontend/src/app` e conferir a aplicação do tema, foco, contraste, rolagem e ações principais. Separar a implementação em componentes comuns e adaptação dos módulos.
+
+### Cobertura completa da experiência do aluno
+
+Inventariar tudo que o aluno pode abrir pelo portal, por link direto ou a partir de outra tela. Cobrir login e seleção de turma, início, atividades (abertura, realização, envio, entrega e devolutiva), notas, boletim, relatórios, redação e revisão. Incluir telas de impressão e PDFs dos relatórios destinados ao aluno, adaptando a identidade para legibilidade em papel. Conferir também diálogos, menus e estados de carregamento, vazio, erro e conclusão. Preservar dados, permissões, pontuação e cores semânticas das notas.
+
+No aceite, registrar cada rota ou documento verificado, incluindo os que ficam fora de `/aluno`. Usar dados sintéticos e capturar o percurso da atividade até a devolutiva e a abertura de um relatório no celular.

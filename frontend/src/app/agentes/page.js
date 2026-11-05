@@ -41,7 +41,7 @@ export default function AgentesPage() {
     >
       {/* ─── Navbar ─────────────────────────────────── */}
       <div
-        className="agentes-navbar"
+        className="arte-faixa agentes-navbar"
         style={{
           display: 'flex',
           alignItems: 'center',

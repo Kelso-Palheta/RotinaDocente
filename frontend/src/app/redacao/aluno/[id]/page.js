@@ -127,14 +127,14 @@ export default function AlunoRedacaoViewPage() {
         </div>
 
         {/* Student Profile Info Card */}
-        <div className="bg-white border border-[#E2D9F7]/60 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="arte-composicao bg-white border border-[#E2D9F7]/60 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#6315d9] to-[#5411b8]" />
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#6315d9] to-[#5411b8] flex items-center justify-center text-white text-xl font-black shadow-lg shadow-[#6315d9]/15">
               {correction.studentName?.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h2 className="text-base font-bold text-[#25104A] tracking-tight">{correction.studentName}</h2>
+              <h2 className="font-head text-lg font-extrabold text-[#25104A] tracking-tight">{correction.studentName}</h2>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400 mt-1">
                 {correction.studentClass !== 'N/A' && (
                   <span className="flex items-center gap-1"><BookOpen size={12} /> Turma {correction.studentClass}</span>

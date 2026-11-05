@@ -602,7 +602,7 @@ function AdaptacoesDaConta() {
   return (
     <div className="min-h-screen bg-[#f3edff] text-[#25104a]">
       {/* Barra Superior / Header */}
-      <header className="bg-white border-b border-[#e2d9f7] sticky top-0 z-40 print:hidden">
+      <header className="arte-faixa bg-white border-b border-[#e2d9f7] sticky top-0 z-40 print:hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link

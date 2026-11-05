@@ -15,7 +15,7 @@ export const ConfirmacaoView = ({ submittedAt }) => {
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="arte-composicao min-h-screen bg-[#fffdf7]">
       <div className="max-w-2xl mx-auto px-4 py-4">
         <a href={voltaUrl()} className="inline-flex items-center gap-1 text-xs text-[#6315D9] hover:text-[#5B4B86] font-medium transition-colors">
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>

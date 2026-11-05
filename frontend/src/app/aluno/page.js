@@ -152,7 +152,7 @@ export default function AlunoLoginPage() {
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#6315d9]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#25104a]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-md bg-white border border-[#e2d9f7] rounded-3xl shadow-xl p-8 z-10">
+      <div className="arte-faixa arte-composicao w-full max-w-md bg-white border border-[#e2d9f7] rounded-3xl shadow-xl p-8 z-10">
         {/* Topo / Voltar */}
         <div className="flex items-center justify-between mb-6">
           <button

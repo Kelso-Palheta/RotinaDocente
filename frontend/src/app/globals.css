@@ -156,3 +156,25 @@ h1, h2, h3, h4, .font-head {
     animation: none;
   }
 }
+
+/* Faixa curta e formas de margem para superfícies da identidade Arte em jogo. */
+.arte-faixa {
+  border-block-start: 3px solid var(--primary);
+}
+
+.arte-composicao {
+  background-image:
+    radial-gradient(circle at 98% 0%, #ffe50044 0 2.25rem, transparent 2.3rem),
+    radial-gradient(circle at 100% 6%, #00ddeb26 0 4rem, transparent 4.05rem),
+    radial-gradient(circle at 0% 100%, #ff2d9312 0 3rem, transparent 3.05rem),
+    var(--arte-fundo, linear-gradient(135deg, #fffdf7, #f3edff));
+}
+
+.arte-composicao-escura {
+  --arte-fundo: linear-gradient(115deg, #25104a, #3a1a73 62%, #25104a);
+}
+
+@media print {
+  .arte-faixa { border-block-start: 0; }
+  .arte-composicao { background-image: none; }
+}

@@ -12,7 +12,7 @@ export const FeedbackView = ({ entrega, atividade }) => {
   return (
     <div className="animate-card-in space-y-4">
       {/* Nota geral */}
-      <div className="text-center py-4">
+      <div className="arte-faixa arte-composicao text-center py-4 rounded-2xl bg-[#fffdf7]">
         <div className="inline-flex items-baseline gap-1">
           <span className="text-4xl font-bold text-[#6315D9] tabular-nums">
             {nota != null ? nota.toFixed(2).replace('.', ',') : '—'}

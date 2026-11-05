@@ -280,7 +280,7 @@ export default function AlunoNotasPage() {
         </div>
 
         {/* Card do Estudante */}
-        <div className="bg-white border border-[#e2d9f7] rounded-3xl p-6 mb-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="arte-faixa arte-composicao bg-white border border-[#e2d9f7] rounded-3xl p-6 mb-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-2xl bg-[#25104a] text-white flex items-center justify-center shadow-md">
               <User size={22} className="text-[#6315d9]" />

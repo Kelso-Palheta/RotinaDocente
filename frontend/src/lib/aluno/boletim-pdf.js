@@ -49,9 +49,13 @@ export const generateBoletimPDF = ({
   doc.setFillColor(37, 16, 74); // #25104a
   doc.rect(0, 0, pageWidth, alturaCabecalho, "F");
 
-  // Faixa rosa SimuladoApp
+  // Faixa da identidade visual
   doc.setFillColor(99, 21, 217); // #6315d9
   doc.rect(0, faixaY, pageWidth, 2, "F");
+  doc.setFillColor(0, 221, 235);
+  doc.rect(pageWidth - 22, faixaY, 12, 2, "F");
+  doc.setFillColor(255, 229, 0);
+  doc.rect(pageWidth - 10, faixaY, 10, 2, "F");
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);

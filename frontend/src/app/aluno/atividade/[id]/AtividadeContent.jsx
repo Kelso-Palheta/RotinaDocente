@@ -1,5 +1,6 @@
 "use client";
 
+import { CabecalhoPagina } from '@/components/ui/CabecalhoPagina';
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { decodeToken } from '@/utils/diario/tokenUtils';
@@ -135,25 +136,25 @@ export default function AtividadeContent() {
   return (
     <div className="min-h-screen bg-[#f3edff] font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
-        {/* Header */}
-        <div className="bg-white border border-[#e2d9f7] rounded-3xl p-6 mb-6 shadow-sm">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-xl bg-[#25104a] text-white flex items-center justify-center text-xs font-extrabold shadow-xs">
-                G
-              </div>
-              <span className="text-xs text-[#5b4b86] font-bold">Rotina Docente</span>
-            </div>
-            <a 
-              href={typeof window !== 'undefined' && sessionStorage.getItem('aluno_login') ? '/aluno/notas' : '/aluno'} 
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#25104a] hover:bg-[#f3edff] border border-[#e2d9f7] bg-white transition-all shadow-2xs"
-            >
-              Voltar ao Boletim
-            </a>
-          </div>
-          <h1 className="font-head text-xl sm:text-2xl font-extrabold text-[#25104a] leading-tight">{atividade?.titulo}</h1>
-          {alunoInfo?.nome && <p className="text-xs font-semibold text-[#5b4b86] mt-1">Estudante: <span className="text-[#25104a]">{alunoInfo.nome}</span></p>}
-          <p className="text-[11px] text-[#6e5f94] mt-0.5">Prazo de entrega: {prazoStr}</p>
+        <div className="mb-6 overflow-hidden rounded-3xl">
+          <CabecalhoPagina
+            titulo={atividade?.titulo}
+            badge="Atividade"
+            badgeCor="ciano"
+            variante="compacto"
+            subtitulo={<>
+              {alunoInfo?.nome && <span className="block">Estudante: <strong>{alunoInfo.nome}</strong></span>}
+              <span className="block">Prazo de entrega: {prazoStr}</span>
+            </>}
+            acoes={
+              <a
+                href={typeof window !== 'undefined' && sessionStorage.getItem('aluno_login') ? '/aluno/notas' : '/aluno'}
+                className="inline-flex items-center rounded-xl border border-[#e2d9f7] bg-white px-3 py-2 text-xs font-bold text-[#25104a] hover:bg-[#f3edff] focus-visible:outline-2 focus-visible:outline-[#6315d9]"
+              >
+                Voltar ao Boletim
+              </a>
+            }
+          />
         </div>
 
         {estado === 'form' && (() => {

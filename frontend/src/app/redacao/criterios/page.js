@@ -19,7 +19,7 @@ export default function CriteriosPage() {
   return (
     <div className="min-h-screen bg-[#F3EDFF]"
       style={{ backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99, 21, 217,0.06), transparent)' }}>
-      <header className="bg-white/80 backdrop-blur-xl border-b border-[#E2D9F7]/60 px-4 sm:px-6 py-3 flex items-center gap-3 sticky top-0 z-30 overflow-x-auto no-scrollbar">
+      <header className="arte-faixa bg-white/80 backdrop-blur-xl border-b border-[#E2D9F7]/60 px-4 sm:px-6 py-3 flex items-center gap-3 sticky top-0 z-30 overflow-x-auto no-scrollbar">
         <button onClick={() => router.push('/redacao')}
           className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3edff] hover:bg-[#e7dbfd] text-[#6315d9] border border-[#6315d9]/30 hover:border-[#6315d9]/50 transition-all duration-300 shadow-sm whitespace-nowrap">
           <ArrowLeft size={16} /> <span className="hidden sm:inline">Voltar</span>

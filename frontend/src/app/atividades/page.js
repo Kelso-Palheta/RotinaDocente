@@ -273,7 +273,7 @@ export default function AtividadesPage() {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <div data-testid="acoes-topo" className="flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#e2d9f7] bg-white flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <div data-testid="acoes-topo" className="arte-faixa flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#e2d9f7] bg-white flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
