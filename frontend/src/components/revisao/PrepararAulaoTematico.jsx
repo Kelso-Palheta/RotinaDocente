@@ -40,6 +40,12 @@ export function PrepararAulaoTematico({
   onCriar,
   onAbrirConteudo,
   onAbrirRevisao,
+  textoAcao,
+  podeEditarTurmas = true,
+  modoEdicao = false,
+  codigoSala = '',
+  onRecarregar = null,
+  onCancelar = null,
 }) {
   const [filtroAno, setFiltroAno] = useState("");
   const [filtroModalidade, setFiltroModalidade] = useState("");
@@ -337,10 +343,10 @@ export function PrepararAulaoTematico({
       <header className="bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
         <div>
           <span className="text-[11px] uppercase font-black tracking-widest text-[#00DDEB] bg-[#00DDEB]/20 border border-[#00DDEB]/50 px-3 py-1 rounded-full">
-            Configuração Pedagógica Temática v2
+            {modoEdicao ? `Edição de Sala • ${codigoSala || ''}` : 'Configuração Pedagógica Temática v2'}
           </span>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#FFFDF7] mt-2 tracking-tight">
-            Preparar Aulão por Conteúdo
+            {modoEdicao ? `Editar Sala: ${codigoSala || ''}` : 'Preparar Aulão por Conteúdo'}
           </h1>
           <p className="text-xs sm:text-sm text-[#FFFDF7]/80 mt-1">
             Escolha as aulas introdutórias, defina a quantidade exata e organize
@@ -348,24 +354,47 @@ export function PrepararAulaoTematico({
           </p>
         </div>
 
-        <button
-          type="button"
-          disabled={!podeCriar}
-          onClick={() => podeCriar && onCriar && onCriar(selecao)}
-          className="px-6 py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-95 text-[#25104A] transition shadow-xl disabled:opacity-40 disabled:cursor-not-allowed"
-        >
-          Criar Aulão
-        </button>
+        <div className="flex items-center gap-3">
+          {onCancelar && (
+            <button
+              type="button"
+              disabled={ocupado}
+              onClick={onCancelar}
+              className="px-4 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider border border-[#A78BFA] text-[#FFFDF7] hover:bg-[#6334E3]/40 transition disabled:opacity-40"
+            >
+              Cancelar edição
+            </button>
+          )}
+          <button
+            type="button"
+            disabled={!podeCriar}
+            onClick={() => podeCriar && onCriar && onCriar(selecao)}
+            className="px-6 py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-95 text-[#25104A] transition shadow-xl disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {ocupado ? (modoEdicao ? 'Salvando...' : 'Criando...') : (textoAcao || 'Criar Aulão')}
+          </button>
+        </div>
       </header>
 
       {/* Alertas */}
       {(erro || erroContexto) && (
         <div
           role="alert"
-          className="p-4 rounded-2xl bg-rose-950/90 border-2 border-[#FF4F9B] text-[#FFFDF7] text-sm flex items-start gap-3 shadow-lg"
+          className="p-4 rounded-2xl bg-rose-950/90 border-2 border-[#FF4F9B] text-[#FFFDF7] text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg"
         >
-          <span className="font-black text-[#FF4F9B]">Erro:</span>
-          <p className="flex-1 font-medium">{erro || erroContexto}</p>
+          <div className="flex items-start gap-3">
+            <span className="font-black text-[#FF4F9B]">Erro:</span>
+            <p className="flex-1 font-medium">{erro || erroContexto}</p>
+          </div>
+          {onRecarregar && (
+            <button
+              type="button"
+              onClick={onRecarregar}
+              className="px-3.5 py-2 rounded-xl bg-[#FFE14D] text-[#25104A] font-black text-xs uppercase hover:bg-yellow-300 transition whitespace-nowrap"
+            >
+              Recarregar dados da sala
+            </button>
+          )}
         </div>
       )}
 
@@ -473,6 +502,11 @@ export function PrepararAulaoTematico({
             <span className="text-xs font-black uppercase text-[#00DDEB] block">
               Turmas Participantes
             </span>
+            {!podeEditarTurmas && (
+              <p className="text-xs text-[#FFE14D] font-bold bg-[#FFE14D]/10 border border-[#FFE14D]/40 p-2.5 rounded-xl">
+                Participantes já estão na sala de espera. As turmas e a lista de alunos estão congeladas.
+              </p>
+            )}
             <div className="flex flex-wrap gap-2 pt-1">
               {(turmas || []).map((t) => {
                 const checked = (selecao.turmaIds || []).includes(t.id);
@@ -480,13 +514,13 @@ export function PrepararAulaoTematico({
                   <button
                     key={t.id}
                     type="button"
-                    disabled={ocupado}
-                    onClick={() => handleToggleTurma(t.id)}
+                    disabled={ocupado || !podeEditarTurmas}
+                    onClick={() => podeEditarTurmas && handleToggleTurma(t.id)}
                     className={`px-3.5 py-1.5 rounded-xl border text-xs font-bold transition ${
                       checked
                         ? "bg-[#00DDEB] border-[#00DDEB] text-[#25104A]"
                         : "bg-[#25104A] border-[#6334E3]/60 text-[#FFFDF7]/80 hover:bg-[#6334E3]/40"
-                    }`}
+                    } disabled:opacity-40 disabled:cursor-not-allowed`}
                   >
                     {checked ? "✓ " : "+ "}
                     {t.nome}

@@ -20,6 +20,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao, onReconectar 
       <Link href="/revisao" className="rounded-lg border border-[#a78bfa] px-3 py-2">← Minhas salas</Link>
       {!projecao && <Link href={`/revisao/projecao/${encodeURIComponent(codigo)}`} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#7c3aed] px-3 py-2 font-bold">Abrir projeção ↗</Link>}
       {!projecao && <Link href="/aluno/revisao" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-[#a78bfa] px-3 py-2">Acesso dos alunos ↗</Link>}
+      {!projecao && estado?.fase === 'espera' && <Link href={`/revisao?editar=${encodeURIComponent(codigo)}`} className="rounded-lg border border-teal-400 bg-teal-800/80 hover:bg-teal-700 px-3 py-2 text-teal-100 font-bold transition">Editar sala ✎</Link>}
       <span>Código: <strong className="font-mono text-yellow-200">{codigo}</strong></span>
       {erro && <button type="button" onClick={onReconectar} className="rounded-lg border border-amber-400 px-3 py-2">Reconectar sala</button>}
     </nav>

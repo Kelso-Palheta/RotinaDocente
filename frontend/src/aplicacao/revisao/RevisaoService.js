@@ -364,6 +364,7 @@ export class RevisaoService {
                 duracaoSegundos:
                   selecao.duracaoPorQuestao[q.questao.id] ??
                   selecao.duracaoSegundos,
+                usaDuracaoPadrao: selecao.duracaoPorQuestao[q.questao.id] == null,
               }
             : {}),
         })),
@@ -397,6 +398,274 @@ export class RevisaoService {
       tx.create(`${caminho(codigo)}/publicacao/estado`, publicado);
     });
     return { sala: { id: codigo, codigo } };
+  }
+  async obterEdicao(ator, codigo) {
+    const uid = this.docente(ator);
+    codigoSala(codigo);
+    const sala = await this.store.get(caminho(codigo));
+    if (!sala) throw falha(404, "Sala não encontrada. Confira o código.");
+    if (sala.professorId !== uid)
+      throw falha(403, "Esta sala pertence a outro professor.");
+    if (sala.fase !== "espera")
+      throw falha(409, "A sala já foi iniciada e não pode mais ser editada.");
+
+    const participantes = await this.store.list(
+      `${caminho(codigo)}/participantes`,
+    );
+    const podeEditarTurmas = participantes.length === 0;
+
+    const duracaoPorQuestao = {};
+    for (const r of sala.rodadas || []) {
+      if (r.duracaoSegundos != null && !r.usaDuracaoPadrao) {
+        duracaoPorQuestao[r.questaoId] = r.duracaoSegundos;
+      }
+    }
+
+    const selecao = {
+      titulo: sala.titulo,
+      turmaIds: [...(sala.turmaIds || [])],
+      questaoIds: (sala.rodadas || []).map((r) => r.questaoId),
+      duracaoSegundos: sala.duracaoSegundos,
+      ...(sala.schemaVersion === 2
+        ? {
+            schemaVersion: 2,
+            conteudoIds: [...(sala.conteudoIds || [])],
+            quantidadeQuestoes: (sala.rodadas || []).length,
+            duracaoPorQuestao,
+          }
+        : {}),
+    };
+
+    return {
+      codigo: sala.codigo,
+      revisao: sala.revisao,
+      podeEditarTurmas,
+      totalParticipantes: participantes.length,
+      selecao,
+    };
+  }
+  async editar(ator, codigo, body) {
+    const uid = this.docente(ator);
+    codigoSala(codigo);
+    const selecao = body?.selecao;
+    const revisaoEsperada =
+      body?.revisaoEsperada ?? body?.revisao ?? body?.versaoEsperada;
+    if (revisaoEsperada == null)
+      throw falha(422, "Versão esperada da sala é obrigatória.");
+
+    if (
+      !selecao ||
+      !Array.isArray(selecao?.questaoIds) ||
+      selecao.questaoIds.length === 0 ||
+      selecao.questaoIds.length > 20 ||
+      !Array.isArray(selecao?.turmaIds) ||
+      selecao.turmaIds.length === 0 ||
+      selecao.turmaIds.length > 10
+    )
+      throw falha(422, "Selecione de uma a vinte questões e até dez turmas.");
+
+    const tematico = this.acervoTematico
+      ? await this.acervoTematico.listarCatalogoTematico()
+      : null;
+
+    let revisaoFinal = 1;
+    await this.store.transaction(async (tx) => {
+      const sala = await tx.get(caminho(codigo));
+      if (!sala) throw falha(404, "Sala não encontrada. Confira o código.");
+      if (sala.professorId !== uid)
+        throw falha(403, "Esta sala pertence a outro professor.");
+      if (sala.fase !== "espera")
+        throw falha(409, "A sala já foi iniciada e não pode mais ser editada.");
+      if (Number(sala.revisao) !== Number(revisaoEsperada))
+        throw falha(
+          409,
+          "A sala foi alterada concorrentemente. Recarregue os dados antes de salvar.",
+        );
+
+      const participantes = await tx.list(`${caminho(codigo)}/participantes`);
+      const temParticipantes = participantes.length > 0;
+      const turmasIguais =
+        Array.isArray(sala.turmaIds) &&
+        selecao.turmaIds.length === sala.turmaIds.length &&
+        selecao.turmaIds.every((id) => sala.turmaIds.includes(String(id)));
+
+      if (temParticipantes && !turmasIguais)
+        throw falha(
+          409,
+          "Não é possível alterar as turmas após a entrada de participantes.",
+        );
+
+      if (sala.schemaVersion === 2) {
+        if (!tematico) throw falha(503, "Acervo temático indisponível.");
+        validarSelecaoTematica(selecao, tematico);
+      }
+
+      const todasTurmas = await this.turmas(uid, tx);
+      const turmasSelecionadas = todasTurmas.filter((t) =>
+        selecao.turmaIds.includes(String(t.id)),
+      );
+      if (turmasSelecionadas.some((t) => t.arquivada))
+        throw falha(422, "Uma das turmas selecionadas foi arquivada.");
+      if (turmasSelecionadas.length !== selecao.turmaIds.length)
+        throw falha(422, "Turma selecionada não encontrada ou arquivada.");
+
+      const turmasAtivas = todasTurmas.filter((t) => !t.arquivada);
+      const questoes = await Promise.all(
+        selecao.questaoIds.map((id) => this.questaoDocente(uid, id, tx)),
+      );
+      const erro = validarPreparacao(
+        selecao,
+        turmasAtivas.map((t) => ({ ...t, id: String(t.id) })),
+        questoes.map((q) => ({ ...q.questao, apta: q.aprovada })),
+      );
+      if (erro) throw falha(422, erro);
+
+      let aulas = [];
+      let sequencia = [];
+      if (sala.schemaVersion === 2) {
+        aulas = await Promise.all(
+          selecao.conteudoIds.map((id) => this.conteudoDocente(uid, id, tx)),
+        );
+        if (aulas.some((a) => !a.aprovada))
+          throw falha(
+            422,
+            "Confira e aprove as aulas selecionadas antes de salvar a sala.",
+          );
+        if (
+          aulas.some(
+            (a) => Buffer.byteLength(JSON.stringify(a), "utf8") > 700000,
+          )
+        )
+          throw falha(
+            422,
+            "A aula excede o tamanho permitido. Divida o conteúdo.",
+          );
+        sequencia = aulas.flatMap((a) =>
+          a.conteudo.blocos.map((b) => ({
+            conteudoId: a.conteudo.id,
+            blocoId: b.id,
+          })),
+        );
+        if (!sequencia.length || sequencia.length > 192)
+          throw falha(422, "Divida a revisão em até 192 blocos.");
+      }
+
+      let roster = sala.roster;
+      if (!turmasIguais) {
+        roster = [
+          ...new Set(
+            turmasSelecionadas.flatMap((t) =>
+              (t.alunos || []).map((a) =>
+                this.idParticipante(String(t.id), String(a.id)),
+              ),
+            ),
+          ),
+        ];
+        if (!roster.length || roster.length > LIMITE_PARTICIPANTES)
+          throw falha(
+            422,
+            `As turmas devem conter de 1 a ${LIMITE_PARTICIPANTES} alunos no total. Divida em salas menores.`,
+          );
+      }
+
+      // Preservar conteúdos congelados que não mudaram
+      const novasRodadas = [];
+      const novosDocumentos = [];
+      const documentosRemovidos = [];
+      const rodadaIdsUsados = new Set();
+      for (let i = 0; i < selecao.questaoIds.length; i += 1) {
+        const qId = selecao.questaoIds[i];
+        const qDoc = questoes[i];
+        const existente = (sala.rodadas || []).find(
+          (r) => r.questaoId === qId && !rodadaIdsUsados.has(r.id),
+        );
+        let rodadaId = existente?.id;
+        let congelado = null;
+        if (rodadaId) {
+          congelado = await tx.get(`${caminho(codigo)}/conteudo/${rodadaId}`);
+        }
+        if (congelado && congelado.hashFonte === qDoc.hashFonte) {
+          rodadaIdsUsados.add(rodadaId);
+        } else {
+          rodadaId = this.gerarId();
+          novosDocumentos.push([`${caminho(codigo)}/conteudo/${rodadaId}`, {
+            questao: qDoc.questao,
+            hashFonte: qDoc.hashFonte,
+          }]);
+        }
+        novasRodadas.push({
+          id: rodadaId,
+          questaoId: qId,
+          ...(sala.schemaVersion === 2
+            ? {
+                duracaoSegundos:
+                  selecao.duracaoPorQuestao?.[qId] ??
+                  selecao.duracaoSegundos,
+                usaDuracaoPadrao: selecao.duracaoPorQuestao?.[qId] == null,
+              }
+            : {}),
+        });
+      }
+
+      // Limpar rodadas antigas não utilizadas
+      for (const r of sala.rodadas || []) {
+        if (!novasRodadas.some((nr) => nr.id === r.id)) {
+          documentosRemovidos.push(`${caminho(codigo)}/conteudo/${r.id}`);
+        }
+      }
+
+      // Para aulas temáticas
+      if (sala.schemaVersion === 2) {
+        for (const a of aulas) {
+          const aulaCongelada = await tx.get(
+            `${caminho(codigo)}/aulas/${a.conteudo.id}`,
+          );
+          if (!aulaCongelada || aulaCongelada.hashFonte !== a.hashFonte) {
+            novosDocumentos.push([`${caminho(codigo)}/aulas/${a.conteudo.id}`, {
+              conteudo: a.conteudo,
+              hashFonte: a.hashFonte,
+            }]);
+          }
+        }
+        for (const antigaAulaId of sala.conteudoIds || []) {
+          if (!selecao.conteudoIds.includes(antigaAulaId)) {
+            documentosRemovidos.push(`${caminho(codigo)}/aulas/${antigaAulaId}`);
+          }
+        }
+      }
+
+      const salaAtualizada = {
+        ...sala,
+        titulo: selecao.titulo.trim(),
+        turmaIds: turmasIguais ? sala.turmaIds : [...selecao.turmaIds],
+        roster,
+        duracaoSegundos: selecao.duracaoSegundos,
+        rodadas: novasRodadas,
+        revisao: sala.revisao + 1,
+        ...(sala.schemaVersion === 2
+          ? {
+              conteudoIds: [...selecao.conteudoIds],
+              sequenciaAula: sequencia,
+              indiceBloco: 0,
+            }
+          : {}),
+      };
+
+      const publicado = publicarTematico(
+        montarPublicacao(salaAtualizada, questoes[0].questao),
+        salaAtualizada,
+        null,
+      );
+
+      // O Firestore exige concluir todas as leituras antes da primeira escrita.
+      for (const [path, dados] of novosDocumentos) tx.set(path, dados);
+      for (const path of documentosRemovidos) tx.delete(path);
+      tx.set(caminho(codigo), salaAtualizada);
+      tx.set(`${caminho(codigo)}/publicacao/estado`, publicado);
+      revisaoFinal = salaAtualizada.revisao;
+    });
+
+    return { sala: { id: codigo, codigo, revisao: revisaoFinal } };
   }
   async autorizarSala(
     ator,

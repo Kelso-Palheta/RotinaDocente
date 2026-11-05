@@ -529,3 +529,18 @@ RT-VIS-02: novos `tests/contract/revisao_exemplos_atribuicao.test.js` e `tests/u
 RT-VIS-03: `tests/contract/revisao_bundle_privacidade.test.js` distingue palavras genéricas legítimas da interface de IDs reais de questões e corpos privados de aulas, inclusive strings escapadas. Substitui o falso positivo por nome de aula na checagem de pacote, sem retirar o rastreamento de arquivos locais/credenciais ou de acervo privado.
 
 RT-IMG-LOAD-01 (05/11/2026): regressão de conferência das 34 aulas deve renderizar as 38 imagens pelas URLs autorizadas, sem placeholder quando há referência válida. RT-IMG-LOAD-02: obter aula autenticada, receber cookie de mídia assinado e ler as imagens originais pela rota protegida com MIME/bytes válidos; sem cookie, negar. Reprodução motivada por capturas reais: ConferirConteudoTematico não repassava `conteudo.imagens` ao bloco.
+
+### Edição de sala do Aulão — ED-01..04 (concluído em 05/11/2026)
+
+Contrato em `REVISAO_EDICAO_SALA_SPEC.md`. Implementação e testes automatizados:
+- `tests/integration/revisao_edicao_sala.test.js`:
+  - **ED-01:** formulário com valores reais; editar e reabrir com mesmo código, link, id, dono e criação; nova configuração refletida na publicação de espera sem expor respostas nem gabarito; incremento único de revisão (`revisao: 2`).
+  - **ED-02:** proprietário apenas; aluno e outro docente rejeitados com 403; nenhum material privado exposto (sem gabarito, sem explicações, sem nomes de participantes).
+  - **ED-03:** início concorrente (409 após início da sala), versão antiga/desatualizada (409) e troca de turmas após entrada de participantes bloqueada (409); alteração de título e tempos na espera com participantes permitida.
+  - **ED-04:** rejeição com 422 para questões incompatíveis/fora do tema, tempos inválidos e turma arquivada; preservação integral de salas legadas v1 sem migração forçada e preservação do material congelado que não mudou.
+- `tests/contract/revisao_edicao_http.test.js`:
+  - Contrato HTTP de `GET /api/revisao/salas/{codigo}/edicao` e `POST /api/revisao/salas/{codigo}/edicao` com despacho seguro para `service.obterEdicao` e `service.editar`, bloqueio de acesso a alunos (403) e validação de métodos.
+- `tests/unit/components/revisao/RevisaoEdicaoSala.test.jsx`:
+  - Interface em `IntegracaoPreparacao`: botão "Editar sala" visível apenas para salas em espera, carregamento de dados com pré-preenchimento do formulário de preparação, salvamento e redirecionamento, e tratamento de conflito 409 com preservação do rascunho e botão de recarga sem sobrescrita automática.
+- **ED-05:** adicionar, manter e remover questões na mesma edição, com a restrição do Firestore de que leituras precedem escritas.
+- **ED-06:** alterar o tempo padrão preserva tempos individuais e atualiza as questões que herdam o padrão.

@@ -343,6 +343,16 @@ export function criarHandlerRevisao({
       if (grupo === "salas" && partes.length === 2 && metodo === "GET")
         return json(await service.estado(ator, id));
       if (grupo === "salas" && partes.length === 3) {
+        if (acao === "edicao") {
+          docente(ator);
+          if (metodo === "GET") {
+            return json(await service.obterEdicao(ator, id));
+          }
+          if (metodo === "POST") {
+            return json(await service.editar(ator, id, await lerBody(request)));
+          }
+          throw falha(405);
+        }
         if (acao === "eventos" && metodo === "GET") {
           await service.autorizarSala(ator, id);
           const cookie =

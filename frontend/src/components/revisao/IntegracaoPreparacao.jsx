@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PrepararAulaoTematico } from "./PrepararAulaoTematico";
@@ -34,6 +34,7 @@ export function IntegracaoPreparacao({ obterToken }) {
     duracaoPorQuestao: {},
   });
   const [revisao, setRevisao] = useState(null);
+  const [salaEmEdicao, setSalaEmEdicao] = useState(null);
   const [confirmacoes, setConfirmacoes] = useState(semConfirmacoes);
   const [aula, setAula] = useState(null);
   const [checksAula, setChecksAula] = useState({
@@ -42,6 +43,34 @@ export function IntegracaoPreparacao({ obterToken }) {
     cobertura: false,
   });
   const sessao = useRef(null);
+
+  const abrirEdicao = useCallback(async (codigo) => {
+    const atual = sessao.current;
+    if (!atual?.ativa || atual.ocupado) return;
+    atual.ocupado = true;
+    setOcupado(true);
+    setErro(null);
+    try {
+      const dados = await requisitarRevisao(
+        `/salas/${encodeURIComponent(codigo)}/edicao`,
+        { obterToken, signal: atual.controller.signal },
+      );
+      if (!atual.ativa) return;
+      setSalaEmEdicao({
+        codigo: dados.codigo,
+        revisao: dados.revisao,
+        podeEditarTurmas: dados.podeEditarTurmas,
+      });
+      setSelecao(dados.selecao);
+    } catch (e) {
+      if (atual.ativa) setErro(e.message);
+    } finally {
+      if (atual.ativa) {
+        atual.ocupado = false;
+        setOcupado(false);
+      }
+    }
+  }, [obterToken]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -56,6 +85,13 @@ export function IntegracaoPreparacao({ obterToken }) {
         if (!atual.ativa) return;
         setCatalogo(dados);
         setErro(null);
+        if (typeof window !== "undefined") {
+          const params = new URLSearchParams(window.location.search);
+          const codEditar = params.get("editar");
+          if (codEditar) {
+            abrirEdicao(codEditar);
+          }
+        }
       } catch (e) {
         if (atual.ativa) setErro(e.message);
       }
@@ -67,7 +103,7 @@ export function IntegracaoPreparacao({ obterToken }) {
       atual.ativa = false;
       controller.abort();
     };
-  }, [obterToken, tentativa]);
+  }, [obterToken, tentativa, abrirEdicao]);
 
   async function abrirConteudo(id) {
     const atual = sessao.current;
@@ -210,6 +246,89 @@ export function IntegracaoPreparacao({ obterToken }) {
         setOcupado(false);
       }
     }
+  }
+
+  async function recarregarEdicao() {
+    if (!salaEmEdicao) return;
+    const atual = sessao.current;
+    if (!atual?.ativa || atual.ocupado) return;
+    atual.ocupado = true;
+    setOcupado(true);
+    setErro(null);
+    try {
+      const dados = await requisitarRevisao(
+        `/salas/${encodeURIComponent(salaEmEdicao.codigo)}/edicao`,
+        { obterToken, signal: atual.controller.signal },
+      );
+      if (!atual.ativa) return;
+      setSalaEmEdicao({
+        codigo: dados.codigo,
+        revisao: dados.revisao,
+        podeEditarTurmas: dados.podeEditarTurmas,
+      });
+      setSelecao(dados.selecao);
+    } catch (e) {
+      if (atual.ativa) setErro(e.message);
+    } finally {
+      if (atual.ativa) {
+        atual.ocupado = false;
+        setOcupado(false);
+      }
+    }
+  }
+
+  async function submeter(valor) {
+    if (salaEmEdicao) {
+      await salvarEdicao(valor);
+    } else {
+      await criar(valor);
+    }
+  }
+
+  async function salvarEdicao(valor) {
+    const atual = sessao.current;
+    if (!atual?.ativa || atual.ocupado || !salaEmEdicao) return;
+    atual.ocupado = true;
+    setOcupado(true);
+    setErro(null);
+    try {
+      const dados = await requisitarRevisao(
+        `/salas/${encodeURIComponent(salaEmEdicao.codigo)}/edicao`,
+        {
+          obterToken,
+          signal: atual.controller.signal,
+          body: {
+            selecao: valor,
+            revisaoEsperada: salaEmEdicao.revisao,
+          },
+        },
+      );
+      if (atual.ativa)
+        router.push(`/revisao/sala/${encodeURIComponent(dados.sala.codigo)}`);
+    } catch (e) {
+      if (atual.ativa) {
+        setErro(e.message);
+      }
+    } finally {
+      if (atual.ativa) {
+        atual.ocupado = false;
+        setOcupado(false);
+      }
+    }
+  }
+
+  function cancelarEdicao() {
+    setSalaEmEdicao(null);
+    setErro(null);
+    setSelecao({
+      titulo: "Aulão de Arte — ENEM",
+      turmaIds: [],
+      questaoIds: [],
+      duracaoSegundos: 60,
+      conteudoIds: [],
+      quantidadeQuestoes: 5,
+      duracaoPorQuestao: {},
+    });
   }
 
   async function criar(valor) {
@@ -422,13 +541,27 @@ export function IntegracaoPreparacao({ obterToken }) {
             <h2 className="font-bold mb-3">Retomar uma sala</h2>
             <ul className="max-h-64 overflow-y-auto space-y-2">
               {catalogo.salas.map((s) => (
-                <li key={s.id}>
+                <li
+                  key={s.id}
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-lg bg-teal-900/50 p-3 hover:bg-teal-800 transition"
+                >
                   <Link
                     href={`/revisao/sala/${encodeURIComponent(s.codigo)}`}
-                    className="block rounded-lg bg-teal-900/50 p-3 hover:bg-teal-800"
+                    className="flex-1 font-medium hover:underline text-teal-100"
                   >
-                    {s.titulo} · {s.codigo} · {s.fase}
+                    {s.titulo} · <strong className="font-mono text-yellow-200">{s.codigo}</strong> · <span className="uppercase text-xs font-bold text-teal-300">{s.fase}</span>
                   </Link>
+                  {s.fase === "espera" && (
+                    <button
+                      type="button"
+                      data-testid={`btn-editar-sala-${s.codigo}`}
+                      disabled={ocupado}
+                      onClick={() => abrirEdicao(s.codigo)}
+                      className="px-3 py-1.5 rounded-lg border border-teal-400 bg-teal-800 hover:bg-teal-700 text-xs font-bold text-teal-100 transition disabled:opacity-50"
+                    >
+                      Editar sala
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
@@ -462,7 +595,13 @@ export function IntegracaoPreparacao({ obterToken }) {
             onAlterar={setSelecao}
             onAbrirConteudo={abrirConteudo}
             onAbrirRevisao={abrirRevisao}
-            onCriar={criar}
+            onCriar={submeter}
+            textoAcao={salaEmEdicao ? "Salvar alterações" : "Criar Aulão"}
+            modoEdicao={Boolean(salaEmEdicao)}
+            codigoSala={salaEmEdicao?.codigo || ""}
+            podeEditarTurmas={salaEmEdicao ? salaEmEdicao.podeEditarTurmas : true}
+            onRecarregar={erro && salaEmEdicao ? recarregarEdicao : null}
+            onCancelar={salaEmEdicao ? cancelarEdicao : null}
           />
         ) : (
           <PrepararAulao
@@ -472,7 +611,13 @@ export function IntegracaoPreparacao({ obterToken }) {
             erro={erro}
             onAlterar={setSelecao}
             onAbrirRevisao={abrirRevisao}
-            onCriar={criar}
+            onCriar={submeter}
+            textoAcao={salaEmEdicao ? "Salvar alterações" : "Criar Aulão"}
+            modoEdicao={Boolean(salaEmEdicao)}
+            codigoSala={salaEmEdicao?.codigo || ""}
+            podeEditarTurmas={salaEmEdicao ? salaEmEdicao.podeEditarTurmas : true}
+            onRecarregar={erro && salaEmEdicao ? recarregarEdicao : null}
+            onCancelar={salaEmEdicao ? cancelarEdicao : null}
           />
         ))}
     </main>

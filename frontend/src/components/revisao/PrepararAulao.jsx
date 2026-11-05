@@ -17,6 +17,12 @@ export function PrepararAulao({
   onAlterar,
   onCriar,
   onAbrirRevisao,
+  textoAcao,
+  podeEditarTurmas = true,
+  modoEdicao = false,
+  codigoSala = '',
+  onRecarregar = null,
+  onCancelar = null,
 }) {
   // Filtros locais (não descartam a seleção de questoes)
   const [filtroAno, setFiltroAno] = useState('');
@@ -124,26 +130,49 @@ export function PrepararAulao({
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-8 bg-[#081a19] text-slate-100 font-sans space-y-8">
       {/* Cabeçalho */}
-      <header className="border-b border-teal-800/40 pb-5">
-        <span className="text-xs font-bold text-teal-400 uppercase tracking-widest block mb-1">
-          Planejamento Docente • Revisão ENEM Arte
-        </span>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-white">
-          Preparar Novo Aulão ao Vivo
-        </h1>
-        <p className="text-sm text-slate-300 mt-1">
-          Configure as turmas participantes, o tempo por questão e ordene os itens revisados do acervo.
-        </p>
+      <header className="border-b border-teal-800/40 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold text-teal-400 uppercase tracking-widest block mb-1">
+            {modoEdicao ? `Edição de Sala • ${codigoSala}` : 'Planejamento Docente • Revisão ENEM Arte'}
+          </span>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white">
+            {modoEdicao ? `Editar Sala: ${codigoSala}` : 'Preparar Novo Aulão ao Vivo'}
+          </h1>
+          <p className="text-sm text-slate-300 mt-1">
+            Configure as turmas participantes, o tempo por questão e ordene os itens revisados do acervo.
+          </p>
+        </div>
+        {onCancelar && (
+          <button
+            type="button"
+            disabled={ocupado}
+            onClick={onCancelar}
+            className="px-4 py-2 rounded-xl border border-teal-600 hover:bg-teal-800/50 text-xs font-bold text-teal-200 transition"
+          >
+            Cancelar edição
+          </button>
+        )}
       </header>
 
       {/* Alerta de Erro */}
       {erro && (
         <div
           role="alert"
-          className="p-4 bg-rose-950/80 border border-rose-700/80 rounded-xl text-rose-200 text-sm flex items-start gap-3 shadow-lg"
+          className="p-4 bg-rose-950/80 border border-rose-700/80 rounded-xl text-rose-200 text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg"
         >
-          <span className="font-bold text-rose-400">Erro:</span>
-          <span>{erro}</span>
+          <div className="flex items-start gap-3">
+            <span className="font-bold text-rose-400">Erro:</span>
+            <span>{erro}</span>
+          </div>
+          {onRecarregar && (
+            <button
+              type="button"
+              onClick={onRecarregar}
+              className="px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs uppercase tracking-wider transition whitespace-nowrap"
+            >
+              Recarregar dados da sala
+            </button>
+          )}
         </div>
       )}
 
@@ -205,23 +234,28 @@ export function PrepararAulao({
             <span className="block text-xs font-semibold uppercase tracking-wider text-teal-300">
               Turmas Participantes <span className="text-rose-400">*</span>
             </span>
+            {!podeEditarTurmas && (
+              <p className="text-xs text-amber-300 font-medium bg-amber-950/40 border border-amber-600/40 p-2.5 rounded-xl">
+                Participantes já estão na sala de espera. As turmas e a lista de alunos estão congeladas.
+              </p>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {turmas.map((turma) => {
                 const checked = (selecao.turmaIds || []).includes(turma.id);
                 return (
                   <label
                     key={turma.id}
-                    className={`flex items-center gap-3 p-3.5 rounded-xl border text-sm cursor-pointer transition select-none ${
+                    className={`flex items-center gap-3 p-3.5 rounded-xl border text-sm transition select-none ${
                       checked
                         ? 'bg-teal-900/60 border-teal-500 text-teal-100 font-medium'
                         : 'bg-[#0c2423] border-teal-800/40 text-slate-300 hover:border-teal-700/60'
-                    } ${ocupado ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    } ${ocupado || !podeEditarTurmas ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <input
                       type="checkbox"
                       checked={checked}
-                      onChange={() => handleToggleTurma(turma.id)}
-                      disabled={ocupado}
+                      onChange={() => podeEditarTurmas && handleToggleTurma(turma.id)}
+                      disabled={ocupado || !podeEditarTurmas}
                       className="w-4 h-4 rounded text-teal-600 bg-slate-900 border-teal-700 focus:ring-teal-400"
                     />
                     <span>{turma.nome}</span>
@@ -512,11 +546,11 @@ export function PrepararAulao({
 
           <button
             type="submit"
-            aria-label="criar aulão"
+            aria-label={modoEdicao ? 'salvar alterações' : 'criar aulão'}
             disabled={!podeCriar}
             className="px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold text-sm tracking-wide shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition"
           >
-            {ocupado ? 'Criando Sessão...' : 'Criar Aulão'}
+            {ocupado ? (modoEdicao ? 'Salvando...' : 'Criando Sessão...') : (textoAcao || 'Criar Aulão')}
           </button>
         </footer>
       </form>
