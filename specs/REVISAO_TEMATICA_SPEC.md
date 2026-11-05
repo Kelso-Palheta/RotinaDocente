@@ -101,3 +101,11 @@ A pedido do usuário em 05/11/2026, pontuação por tempo de resposta fica adiad
 ## 9. Integração e revisão — 05/11/2026
 
 Implementação v2 acrescenta pódio acumulado das posições 1–3 depois do feedback, mantendo empates e ranking completo. Novas salas exigem modo temático no servidor; metadados adulterados não autorizam perguntas externas. A conferência mostra assuntos vinculados, sem dispensar revisão de cada pergunta. Dois vínculos recebidos foram colocados em pendência por cobertura insuficiente; relatório: `docs/analises/2026-11-05-revisao-integracao-tematica.md`. O restante permanece proposta editorial em rascunho, não homologação humana.
+
+## 10. Complementação aprovada — exemplos visuais comentados
+
+Pedido do usuário em 05/11/2026: exemplos para fixação em todas as aulas, incluindo imagens comentadas dentro da introdução. Cada conteúdo deve trazer ao menos um exemplo visual pertinente com leitura guiada; acrescentar comparações e outros exemplos quando o escopo requerer. Não considerar legenda ou figura decorativa como explicação. Explicitar o que observar, o conceito aprendido e uma pergunta de observação para mediação, preservando os gabaritos do desafio.
+
+Obras/documentação precisam de identificação, fonte direta, condição de uso verificada, legibilidade e alternativa textual; esquemas autorais são identificados como tais. Não inventar obras, autoria, licença ou contexto cultural. A entrega atual contém somente duas aulas ilustradas entre 34; complementar as outras 32, mantendo todas em rascunho para conferência. A renderização técnica já aceita imagem com comentário e não requer outro layout.
+
+Pacote: `docs/plans/2026-11-05-prompt-deepseek-exemplos-visuais.md`. Teste novo RT-VIS-01 deve verificar a presença/integridade dos recursos e comentários nas 34 aulas, sem simular a avaliação pedagógica humana e sem alterar testes existentes.

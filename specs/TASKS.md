@@ -251,3 +251,8 @@ Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 - Medir tempo exclusivamente entre abertura da rodada e primeiro recebimento aceito no servidor. Retry deve recuperar o mesmo recibo/tempo/pontos, sem recalcular bônus. Erro e resposta fora do prazo não recebem bônus.
 - Antes de implementar: definir fórmula, ordenação/empates, tratamento da latência de conexão e versionamento por sala; acrescentar testes de prazo, concorrência/idempotência, reconexão, ranking e compatibilidade de salas anteriores.
 - Regra atual preservada: 1.000 pontos por acerto, zero por erro/ausência, sem bônus de velocidade. O fluxo pedagógico e o pódio da revisão temática não dependem desta melhoria futura.
+
+## 05/11/2026 — Revisão temática: exemplos visuais em todas as aulas
+
+- [ ] RT-VIS-01: complementar as 32 aulas sem imagens e auditar as duas ilustradas; exemplos visuais pertinentes, leitura guiada e fixação, com fontes diretas/condições de uso/alt/legibilidade conferidos. Renderização já implementada; pacote de conteúdo para DeepSeek em `docs/plans/2026-11-05-prompt-deepseek-exemplos-visuais.md`.
+- [ ] Receber e revisar material/teste novo/relatório, verificar integridade e cobertura, publicar somente após validações. Manter rascunho até conferência docente. Não resolver antecipadamente questões nem ampliar para bônus por velocidade.
