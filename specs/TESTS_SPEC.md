@@ -498,3 +498,5 @@ RV-REV-03: testes independentes `RevisaoVisualIndependente.test.jsx` e `revisao_
 - RV-INT-07: acesso pelo Hub/Portal, fluxos completos e projeção; ensaio isolado progressivo em duas instâncias com métricas e limites explícitos.
 
 RV-INT-03/06 complementares: `revisao_imagem_congelada.test.js` e `revisao_http_imagem_congelada.test.js` reproduzem RED antes da proteção de hash/fase final; `revisao_fluxo_http.test.js` combina autenticação/sessão HMAC, serviço, handler e recibo SSE no fluxo pedagógico completo. Inspeção do manifesto NFT de produção deve confirmar acervo integral privado e ausência de `.env`, chave administrativa, arquivos de documentação/configuração e acervo nos chunks clientes. Ensaio real Firestore isolado: adaptador, capacidade/idempotência e níveis progressivos de 25/50/100 participantes, sem escritas de produção.
+
+RV-RUNTIME-01: carregar o SDK Firebase Auth real em processo isolado reproduz ERR_REQUIRE_ESM com require(esm) desabilitado e passa com a opção oficial habilitada. Smoke de produção deve receber 401 JSON privado para catálogo sem sessão ou token inválido, em vez de HTML 500 anterior ao handler.
