@@ -45,3 +45,28 @@ describe('RV-INT-06/07 — preparação conectada', () => {
     expect(push).not.toHaveBeenCalled();
   });
 });
+
+it('cria uma nova sala pelo formulário conectado com sequência por assunto', async () => {
+  const fetcher = vi.fn(async (url) => url.endsWith('/catalogo')
+    ? resposta({
+      turmas: [{ id: 't1', nome: '101' }],
+      trilhas: [{ id: 'arte', titulo: 'Arte' }],
+      conteudos: [{ id: 'aula-a', trilhaId: 'arte', titulo: 'Modernismo', apta: true }],
+      questoes: [{ id: q.id, tema: q.tema, apta: true, conteudoIds: ['aula-a'] }],
+      salas: [],
+    })
+    : resposta({ sala: { codigo: 'ARTE42' } }));
+  vi.stubGlobal('fetch', fetcher);
+  render(<IntegracaoPreparacao obterToken={token} />);
+  fireEvent.click(await screen.findByRole('button', { name: /101/ }));
+  fireEvent.click(screen.getByTestId('checkbox-conteudo-aula-a'));
+  fireEvent.change(screen.getByLabelText(/Meta Exata de Questões/i), { target: { value: '1' } });
+  fireEvent.click(screen.getByTestId('btn-adicionar-q-1'));
+  fireEvent.click(screen.getByRole('button', { name: 'Criar Aulão' }));
+  await waitFor(() => expect(push).toHaveBeenCalledWith('/revisao/sala/ARTE42'));
+  const [, opcoes] = fetcher.mock.calls.find(([url]) => url.endsWith('/salas'));
+  expect(JSON.parse(opcoes.body).selecao).toMatchObject({
+    modoFluxo: 'sequencia_assunto',
+    atribuicoes: { 'q-1': 'aula-a' },
+  });
+});

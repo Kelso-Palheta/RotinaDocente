@@ -111,3 +111,14 @@ Obras/documentação precisam de identificação, fonte direta, condição de us
 Pacote: `docs/plans/2026-11-05-prompt-deepseek-exemplos-visuais.md`. Teste novo RT-VIS-01 deve verificar a presença/integridade dos recursos e comentários nas 34 aulas, sem simular a avaliação pedagógica humana e sem alterar testes existentes.
 
 RT-VIS-02 — revisão das atribuições: preservar crédito, fonte direta e links HTTPS de autor/licença no DTO do bloco atual e na legenda exibida, inclusive para aluno/projeção. Domínio público da obra não implica domínio público da fotografia. Para exemplos densos, oferecer ampliação da imagem autorizada. Corrigir identificações históricas com fontes verificáveis; aula segue rascunho.
+
+## Sequência por assunto — revisão do fluxo
+
+Para novas salas, substituir a introdução global por blocos de assunto: conteúdo do assunto A → perguntas de A → conteúdo do assunto B → perguntas de B. A ordem segue a seleção dos assuntos. Manter dentro de cada assunto a ordem configurada das perguntas. Concluir a sequência somente após o último assunto.
+
+- Na preparação e na edição disponível, exibir a sequência agrupada. Para questão vinculada a mais de um assunto selecionado, usar o primeiro assunto compatível por padrão e permitir escolher outro vínculo válido. Uma questão aparece uma vez. Avisar se um assunto ficar sem perguntas e exigir ao menos uma antes de salvar.
+- No servidor, validar a atribuição de cada questão contra os vínculos aprovados, com limites e tempos existentes. Congelar a ordem e os vínculos na sala. Usar um marcador de fluxo separado para manter o comportamento das salas já criadas.
+- Na sala, o professor avança cada bloco do conteúdo. O último bloco libera a primeira pergunta daquele assunto. Depois de feedback e ranking, a ação indica “Próxima pergunta” no mesmo assunto ou “Apresentar próximo assunto” na mudança de assunto. Ao entrar no novo conteúdo, limpar o prazo anterior e só iniciar o próximo cronômetro ao abrir a pergunta. Manter o placar acumulado.
+- Professor, telão e aluno seguem a mesma fase após atualização ou reconexão. Expor somente o conteúdo ou a pergunta da fase atual, respeitando permissões e comandos concorrentes.
+
+Aceite: dois assuntos com duas perguntas cada percorrem conteúdo A → A1 → A2 → conteúdo B → B1 → B2, com feedback e ranking após cada pergunta. Cobrir questão com múltiplos vínculos sem duplicação, atribuição adulterada, assunto sem perguntas, reconexão no início de B, prazos e sala anterior.

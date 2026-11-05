@@ -249,12 +249,17 @@ export function PainelAluno({
                     disabled={alternativasBloqueadas}
                     onClick={() => onResponder && onResponder(alt.id)}
                     aria-pressed={foiSelecionada}
+                    style={{
+                      borderColor: foiSelecionada
+                        ? '#00DDEB'
+                        : corBadge.border || '#E2D9F7',
+                    }}
                     className={`w-full min-h-[50px] p-3.5 rounded-2xl border-2 text-left text-sm transition-all flex items-start gap-3.5 focus-visible:ring-4 focus-visible:ring-[#00DDEB] focus-visible:outline-none ${
                       foiSelecionada && envioConfirmado
-                        ? 'bg-[#6334E3]/70 border-[#00DDEB] text-[#FFFDF7] font-bold shadow-xl scale-[1.01]'
+                        ? 'bg-[#E7DBFD] text-[#25104A] font-bold shadow-xl ring-2 ring-[#00DDEB]'
                         : foiSelecionada && envioAtivo
-                        ? 'bg-[#6334E3]/60 border-[#FFE14D] text-[#FFFDF7] font-bold'
-                        : 'bg-[#25104A]/90 hover:bg-[#6334E3]/40 border-[#6334E3]/50 text-[#FFFDF7] active:scale-[0.99] shadow-md'
+                        ? 'bg-[#F3EDFF] text-[#25104A] font-bold'
+                        : 'bg-[#FFFDF7] hover:bg-[#F3EDFF] text-[#25104A] active:scale-[0.99] shadow-md'
                     } disabled:opacity-60 disabled:cursor-not-allowed`}
                   >
                     <span
@@ -268,7 +273,7 @@ export function PainelAluno({
                     >
                       {alt.id}
                     </span>
-                    <span className="pt-1 leading-snug flex-1 font-medium">
+                    <span className="pt-1 leading-snug flex-1 font-semibold text-[#25104A]">
                       {alt.id}) {alt.texto}
                     </span>
                   </button>

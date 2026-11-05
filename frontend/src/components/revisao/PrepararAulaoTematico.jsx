@@ -103,6 +103,35 @@ export function PrepararAulaoTematico({
     });
   }, [selecao.questaoIds, questoesMap]);
 
+  // Atribuição de questões aos assuntos selecionados
+  const atribuicoes = useMemo(() => {
+    const res = { ...(selecao.atribuicoes || {}) };
+    for (const qId of selecao.questaoIds || []) {
+      const q = questoesMap.get(qId);
+      const vinculosValidos = conteudoIdsSelecionados.filter((cid) =>
+        q?.conteudoIds?.includes(cid),
+      );
+      if (!res[qId] || !vinculosValidos.includes(res[qId])) {
+        res[qId] = vinculosValidos[0] || "";
+      }
+    }
+    return res;
+  }, [
+    selecao.atribuicoes,
+    selecao.questaoIds,
+    questoesMap,
+    conteudoIdsSelecionados,
+  ]);
+
+  const handleTrocarVinculo = (questaoId, novoConteudoId) => {
+    if (!onAlterar || ocupado) return;
+    const novasAtribuicoes = { ...atribuicoes, [questaoId]: novoConteudoId };
+    onAlterar({
+      ...selecao,
+      atribuicoes: novasAtribuicoes,
+    });
+  };
+
   // Validação dos conteúdos selecionados: todos devem ser aptos
   const conteudosInaptos = useMemo(() => {
     return conteudoIdsSelecionados
@@ -147,9 +176,15 @@ export function PrepararAulaoTematico({
 
   const turmasValidas = Boolean((selecao.turmaIds || []).length > 0);
 
+  const selecaoValidada = selecao.modoFluxo === "sequencia_assunto"
+    ? { ...selecao, atribuicoes: Object.fromEntries(
+        (selecao.questaoIds || []).map((id) => [id, atribuicoes[id]]),
+      ) }
+    : selecao;
+
   let erroContexto = null;
   try {
-    validarSelecaoTematica(selecao, {
+    validarSelecaoTematica(selecaoValidada, {
       conteudos,
       questoes: questoes.map((q) => ({
         questaoId: q.id,
@@ -368,7 +403,7 @@ export function PrepararAulaoTematico({
           <button
             type="button"
             disabled={!podeCriar}
-            onClick={() => podeCriar && onCriar && onCriar(selecao)}
+            onClick={() => podeCriar && onCriar && onCriar(selecaoValidada)}
             className="px-6 py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-95 text-[#25104A] transition shadow-xl disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {ocupado ? (modoEdicao ? 'Salvando...' : 'Criando...') : (textoAcao || 'Criar Aulão')}
@@ -694,80 +729,149 @@ export function PrepararAulaoTematico({
           </div>
         )}
 
-        {/* Lista de Selecionadas */}
-        <div className="space-y-3">
-          {questoesSelecionadas.map((q, idx) => {
-            const tempoIndividual = selecao.duracaoPorQuestao?.[q.id] ?? "";
+        {/* Lista de Selecionadas Agrupada por Assunto */}
+        <div className="space-y-4">
+          {conteudoIdsSelecionados.map((cid) => {
+            const c = conteudosMap.get(cid);
+            const questoesDoAssunto = questoesSelecionadas.filter(
+              (q) => (atribuicoes[q.id] || q.conteudoIds?.[0]) === cid,
+            );
             return (
               <div
-                key={q.id}
-                data-testid={`selecionada-${q.id}`}
-                className="p-4 rounded-2xl bg-[#25104A]/90 border border-[#6334E3]/50 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                key={cid}
+                className="rounded-2xl bg-[#6334E3]/15 border border-[#6334E3]/40 p-4 space-y-3"
               >
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-xl bg-[#6334E3] text-[#FFE14D] font-black text-sm flex items-center justify-center shrink-0">
-                    {idx + 1}º
-                  </span>
-                  <div>
-                    <span className="font-extrabold text-sm text-[#FFFDF7] block">
-                      {q.tema || "Questão"}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#6334E3]/30">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-[#00DDEB] bg-[#00DDEB]/20 border border-[#00DDEB]/40 px-2 py-0.5 rounded-md">
+                      Assunto
                     </span>
-                    <span className="text-[11px] text-[#FFFDF7]/70 font-mono">
-                      ID: {q.id} {q.ano ? `• ENEM ${q.ano}` : ""}
-                    </span>
+                    <h3 className="font-bold text-sm text-[#FFFDF7]">
+                      {c?.titulo || cid}
+                    </h3>
                   </div>
+                  {questoesDoAssunto.length === 0 ? (
+                    <span className="text-xs font-bold text-[#FF4F9B] bg-[#FF4F9B]/20 px-2.5 py-1 rounded-full border border-[#FF4F9B]/40 w-fit">
+                      ⚠️ Sem questões vinculadas
+                    </span>
+                  ) : (
+                    <span className="text-xs text-[#FFFDF7]/70 font-mono">
+                      {questoesDoAssunto.length}{" "}
+                      {questoesDoAssunto.length === 1 ? "questão" : "questões"}
+                    </span>
+                  )}
                 </div>
 
-                {/* Controles de Tempo e Reordenação */}
-                <div className="flex items-center gap-3 self-end md:self-center flex-wrap">
-                  <div className="flex items-center gap-1.5 text-xs">
-                    <span className="text-[#FFFDF7]/70">Tempo (s):</span>
-                    <input
-                      type="number"
-                      min={10}
-                      max={600}
-                      data-testid={`input-tempo-${q.id}`}
-                      placeholder={String(selecao.duracaoSegundos ?? 60)}
-                      value={tempoIndividual}
-                      disabled={ocupado}
-                      onChange={(e) =>
-                        handleDuracaoIndividualChange(q.id, e.target.value)
-                      }
-                      className="w-20 px-2 py-1.5 rounded-lg bg-[#25104A] border border-[#6334E3] text-[#FFE14D] font-mono font-bold text-xs text-center focus:border-[#00DDEB] focus:outline-none"
-                    />
-                  </div>
+                <div className="space-y-3">
+                  {questoesDoAssunto.map((q) => {
+                    const idx = questoesSelecionadas.findIndex(
+                      (item) => item.id === q.id,
+                    );
+                    const tempoIndividual =
+                      selecao.duracaoPorQuestao?.[q.id] ?? "";
+                    const vinculosCompativeis = (q.conteudoIds || []).filter(
+                      (id) => conteudoIdsSelecionados.includes(id),
+                    );
+                    return (
+                      <div
+                        key={q.id}
+                        data-testid={`selecionada-${q.id}`}
+                        className="p-4 rounded-2xl bg-[#25104A]/90 border border-[#6334E3]/50 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-8 h-8 rounded-xl bg-[#6334E3] text-[#FFE14D] font-black text-sm flex items-center justify-center shrink-0">
+                            {idx + 1}º
+                          </span>
+                          <div>
+                            <span className="font-extrabold text-sm text-[#FFFDF7] block">
+                              {q.tema || "Questão"}
+                            </span>
+                            <span className="text-[11px] text-[#FFFDF7]/70 font-mono">
+                              ID: {q.id} {q.ano ? `• ENEM ${q.ano}` : ""}
+                            </span>
+                          </div>
+                        </div>
 
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      data-testid={`btn-mover-cima-${q.id}`}
-                      disabled={ocupado || idx === 0}
-                      onClick={() => handleMoverQuestao(idx, -1)}
-                      className="w-8 h-8 rounded-lg bg-[#6334E3]/50 hover:bg-[#6334E3] text-[#FFFDF7] font-bold text-xs disabled:opacity-30"
-                    >
-                      ▲
-                    </button>
-                    <button
-                      type="button"
-                      data-testid={`btn-mover-baixo-${q.id}`}
-                      disabled={
-                        ocupado || idx === questoesSelecionadas.length - 1
-                      }
-                      onClick={() => handleMoverQuestao(idx, 1)}
-                      className="w-8 h-8 rounded-lg bg-[#6334E3]/50 hover:bg-[#6334E3] text-[#FFFDF7] font-bold text-xs disabled:opacity-30"
-                    >
-                      ▼
-                    </button>
-                    <button
-                      type="button"
-                      data-testid={`btn-remover-${q.id}`}
-                      disabled={ocupado}
-                      onClick={() => handleToggleQuestao(q.id)}
-                      className="w-8 h-8 rounded-lg bg-[#FF4F9B]/20 hover:bg-[#FF4F9B]/40 text-[#FF4F9B] border border-[#FF4F9B]/40 font-bold text-xs disabled:opacity-30"
-                    >
-                      ✕
-                    </button>
-                  </div>
+                        {/* Controles de Vínculo, Tempo e Reordenação */}
+                        <div className="flex items-center gap-3 self-end md:self-center flex-wrap">
+                          {vinculosCompativeis.length > 1 && (
+                            <div className="flex items-center gap-1.5 text-xs">
+                              <span className="text-[#00DDEB] font-bold text-[11px]">
+                                Assunto:
+                              </span>
+                              <select
+                                data-testid={`select-vinculo-${q.id}`}
+                                value={atribuicoes[q.id] || vinculosCompativeis[0]}
+                                onChange={(e) =>
+                                  handleTrocarVinculo(q.id, e.target.value)
+                                }
+                                disabled={ocupado}
+                                className="px-2 py-1.5 rounded-lg bg-[#25104A] border border-[#00DDEB]/60 text-[#00DDEB] font-bold text-xs focus:outline-none"
+                              >
+                                {vinculosCompativeis.map((vid) => {
+                                  const vinculoConteudo = conteudosMap.get(vid);
+                                  return (
+                                    <option key={vid} value={vid}>
+                                      {vinculoConteudo?.titulo || vid}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                            </div>
+                          )}
+
+                          <div className="flex items-center gap-1.5 text-xs">
+                            <span className="text-[#FFFDF7]/70">Tempo (s):</span>
+                            <input
+                              type="number"
+                              min={10}
+                              max={600}
+                              data-testid={`input-tempo-${q.id}`}
+                              placeholder={String(selecao.duracaoSegundos ?? 60)}
+                              value={tempoIndividual}
+                              disabled={ocupado}
+                              onChange={(e) =>
+                                handleDuracaoIndividualChange(q.id, e.target.value)
+                              }
+                              className="w-20 px-2 py-1.5 rounded-lg bg-[#25104A] border border-[#6334E3] text-[#FFE14D] font-mono font-bold text-xs text-center focus:border-[#00DDEB] focus:outline-none"
+                            />
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              data-testid={`btn-mover-cima-${q.id}`}
+                              disabled={ocupado || idx === 0}
+                              onClick={() => handleMoverQuestao(idx, -1)}
+                              className="w-8 h-8 rounded-lg bg-[#6334E3]/50 hover:bg-[#6334E3] text-[#FFFDF7] font-bold text-xs disabled:opacity-30"
+                            >
+                              ▲
+                            </button>
+                            <button
+                              type="button"
+                              data-testid={`btn-mover-baixo-${q.id}`}
+                              disabled={
+                                ocupado || idx === questoesSelecionadas.length - 1
+                              }
+                              onClick={() => handleMoverQuestao(idx, 1)}
+                              className="w-8 h-8 rounded-lg bg-[#6334E3]/50 hover:bg-[#6334E3] text-[#FFFDF7] font-bold text-xs disabled:opacity-30"
+                            >
+                              ▼
+                            </button>
+                            <button
+                              type="button"
+                              data-testid={`btn-remover-${q.id}`}
+                              disabled={ocupado}
+                              onClick={() => handleToggleQuestao(q.id)}
+                              className="w-8 h-8 rounded-lg bg-[#FF4F9B]/20 hover:bg-[#FF4F9B]/40 text-[#FF4F9B] border border-[#FF4F9B]/40 font-bold text-xs disabled:opacity-30"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );

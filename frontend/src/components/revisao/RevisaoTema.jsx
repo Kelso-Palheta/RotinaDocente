@@ -25,25 +25,25 @@ export const TOKENS_REVISAO_VIBRANTE = {
  */
 export const CORES_ALTERNATIVAS = {
   A: {
-    bg: '#FF4F9B', // Coral
-    text: '#25104A',
-    border: '#FF80B6',
-    label: 'Coral',
-    classeTailwind: 'bg-[#FF4F9B] text-[#25104A] border-[#FF80B6]',
-  },
-  B: {
-    bg: '#00DDEB', // Ciano
-    text: '#25104A',
-    border: '#54EEF8',
-    label: 'Ciano',
-    classeTailwind: 'bg-[#00DDEB] text-[#25104A] border-[#54EEF8]',
-  },
-  C: {
     bg: '#FFE14D', // Amarelo
     text: '#25104A',
     border: '#FFF085',
     label: 'Amarelo',
     classeTailwind: 'bg-[#FFE14D] text-[#25104A] border-[#FFF085]',
+  },
+  B: {
+    bg: '#FF4F9B', // Rosa / Coral
+    text: '#25104A',
+    border: '#FF80B6',
+    label: 'Rosa',
+    classeTailwind: 'bg-[#FF4F9B] text-[#25104A] border-[#FF80B6]',
+  },
+  C: {
+    bg: '#00DDEB', // Ciano
+    text: '#25104A',
+    border: '#54EEF8',
+    label: 'Ciano',
+    classeTailwind: 'bg-[#00DDEB] text-[#25104A] border-[#54EEF8]',
   },
   D: {
     bg: '#B7F247', // Lima

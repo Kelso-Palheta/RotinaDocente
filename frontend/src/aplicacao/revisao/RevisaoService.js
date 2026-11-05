@@ -1,5 +1,6 @@
 import {
   validarSelecaoTematica,
+  resolverAtribuicoes,
   transicaoTematica,
   publicarTematico,
 } from "@/dominio/revisao/tematico";
@@ -340,12 +341,27 @@ export class RevisaoService {
           422,
           `As turmas devem conter de 1 a ${LIMITE_PARTICIPANTES} alunos no total. Divida em salas menores.`,
         );
+
+      const atribuicoes = tematico ? resolverAtribuicoes(selecao, tematico) : {};
+      let questoesOrdenadas = questoes;
+      if (tematico && selecao.modoFluxo === "sequencia_assunto") {
+        questoesOrdenadas = [];
+        for (const cId of selecao.conteudoIds) {
+          for (const q of questoes) {
+            if (atribuicoes[q.questao.id] === cId) {
+              questoesOrdenadas.push(q);
+            }
+          }
+        }
+      }
+
       const sala = {
         id: codigo,
         codigo,
         ...(tematico
           ? {
               schemaVersion: 2,
+              ...(selecao.modoFluxo ? { modoFluxo: selecao.modoFluxo } : {}),
               conteudoIds: [...selecao.conteudoIds],
               sequenciaAula: sequencia,
               indiceBloco: 0,
@@ -356,11 +372,12 @@ export class RevisaoService {
         turmaIds: [...selecao.turmaIds],
         roster,
         duracaoSegundos: selecao.duracaoSegundos,
-        rodadas: questoes.map((q) => ({
+        rodadas: questoesOrdenadas.map((q) => ({
           id: this.gerarId(),
           questaoId: q.questao.id,
           ...(tematico
             ? {
+                conteudoId: atribuicoes[q.questao.id],
                 duracaoSegundos:
                   selecao.duracaoPorQuestao[q.questao.id] ??
                   selecao.duracaoSegundos,
@@ -378,7 +395,7 @@ export class RevisaoService {
       };
       // A publicação inicial não contém aula nem pergunta; todas as leituras precedem escritas.
       const publicado = publicarTematico(
-        montarPublicacao(sala, questoes[0].questao),
+        montarPublicacao(sala, questoesOrdenadas[0].questao),
         sala,
         null,
       );
@@ -389,7 +406,7 @@ export class RevisaoService {
           hashFonte: a.hashFonte,
         }),
       );
-      questoes.forEach((q, i) =>
+      questoesOrdenadas.forEach((q, i) =>
         tx.create(`${caminho(codigo)}/conteudo/${sala.rodadas[i].id}`, {
           questao: q.questao,
           hashFonte: q.hashFonte,
@@ -432,6 +449,12 @@ export class RevisaoService {
             conteudoIds: [...(sala.conteudoIds || [])],
             quantidadeQuestoes: (sala.rodadas || []).length,
             duracaoPorQuestao,
+            ...(sala.modoFluxo ? { modoFluxo: sala.modoFluxo } : {}),
+            atribuicoes: Object.fromEntries(
+              (sala.rodadas || [])
+                .filter((r) => r.conteudoId)
+                .map((r) => [r.questaoId, r.conteudoId]),
+            ),
           }
         : {}),
     };
@@ -497,7 +520,7 @@ export class RevisaoService {
 
       if (sala.schemaVersion === 2) {
         if (!tematico) throw falha(503, "Acervo temático indisponível.");
-        validarSelecaoTematica(selecao, tematico);
+        validarSelecaoTematica({ ...selecao, modoFluxo: sala.modoFluxo }, tematico);
       }
 
       const todasTurmas = await this.turmas(uid, tx);
@@ -569,13 +592,31 @@ export class RevisaoService {
       }
 
       // Preservar conteúdos congelados que não mudaram
+      const atribuicoes = sala.modoFluxo === "sequencia_assunto"
+        ? resolverAtribuicoes(selecao, tematico)
+        : {};
+      let questaoIdsOrdenados = selecao.questaoIds;
+      if (
+        sala.schemaVersion === 2 &&
+        sala.modoFluxo === "sequencia_assunto"
+      ) {
+        questaoIdsOrdenados = [];
+        for (const cId of selecao.conteudoIds) {
+          for (const qId of selecao.questaoIds) {
+            if (atribuicoes[qId] === cId) {
+              questaoIdsOrdenados.push(qId);
+            }
+          }
+        }
+      }
+
       const novasRodadas = [];
       const novosDocumentos = [];
       const documentosRemovidos = [];
       const rodadaIdsUsados = new Set();
-      for (let i = 0; i < selecao.questaoIds.length; i += 1) {
-        const qId = selecao.questaoIds[i];
-        const qDoc = questoes[i];
+      for (let i = 0; i < questaoIdsOrdenados.length; i += 1) {
+        const qId = questaoIdsOrdenados[i];
+        const qDoc = questoes.find((q) => q.questao.id === qId);
         const existente = (sala.rodadas || []).find(
           (r) => r.questaoId === qId && !rodadaIdsUsados.has(r.id),
         );
@@ -598,6 +639,7 @@ export class RevisaoService {
           questaoId: qId,
           ...(sala.schemaVersion === 2
             ? {
+                ...(atribuicoes[qId] ? { conteudoId: atribuicoes[qId] } : {}),
                 duracaoSegundos:
                   selecao.duracaoPorQuestao?.[qId] ??
                   selecao.duracaoSegundos,
@@ -651,8 +693,12 @@ export class RevisaoService {
           : {}),
       };
 
+      const primeiraQuestao = questoes.find(
+        (q) => q.questao.id === novasRodadas[0]?.questaoId,
+      )?.questao || questoes[0].questao;
+
       const publicado = publicarTematico(
-        montarPublicacao(salaAtualizada, questoes[0].questao),
+        montarPublicacao(salaAtualizada, primeiraQuestao),
         salaAtualizada,
         null,
       );
@@ -838,7 +884,11 @@ export class RevisaoService {
       const agora = this.agora();
       const fase = transicaoTematica(sala, body, agora);
       let indice = sala.indice;
-      if (body.acao === "proxima_rodada") indice += 1;
+      if (
+        body.acao === "proxima_rodada" ||
+        body.acao === "apresentar_proximo_assunto"
+      )
+        indice += 1;
       const congelada = await tx.get(
         `${caminho(codigo)}/conteudo/${sala.rodadas[indice].id}`,
       );
@@ -850,8 +900,18 @@ export class RevisaoService {
       if (sala.schemaVersion === 2) {
         if (body.acao === "avancar_conteudo") atual.indiceBloco += 1;
         if (body.acao === "voltar_conteudo") atual.indiceBloco -= 1;
+        if (body.acao === "apresentar_proximo_assunto") {
+          const proximoConteudoId = sala.rodadas[indice]?.conteudoId;
+          const novoIdx = sala.sequenciaAula.findIndex(
+            (b) => b.conteudoId === proximoConteudoId,
+          );
+          if (novoIdx !== -1) atual.indiceBloco = novoIdx;
+        }
       }
-      if (body.acao === "proxima_rodada") {
+      if (
+        body.acao === "proxima_rodada" ||
+        body.acao === "apresentar_proximo_assunto"
+      ) {
         atual.encerraEmMs = null;
         atual.perguntaAbertaEmMs = null;
         atual.ranking = [];

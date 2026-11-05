@@ -32,6 +32,7 @@ export function IntegracaoPreparacao({ obterToken }) {
     conteudoIds: [],
     quantidadeQuestoes: 5,
     duracaoPorQuestao: {},
+    modoFluxo: "sequencia_assunto",
   });
   const [revisao, setRevisao] = useState(null);
   const [salaEmEdicao, setSalaEmEdicao] = useState(null);
@@ -328,6 +329,7 @@ export function IntegracaoPreparacao({ obterToken }) {
       conteudoIds: [],
       quantidadeQuestoes: 5,
       duracaoPorQuestao: {},
+      modoFluxo: "sequencia_assunto",
     });
   }
 
@@ -586,7 +588,7 @@ export function IntegracaoPreparacao({ obterToken }) {
         )}
       </div>
       {catalogo &&
-        (catalogo.conteudos ? (
+        (catalogo.conteudos && (!salaEmEdicao || selecao.schemaVersion === 2) ? (
           <PrepararAulaoTematico
             {...catalogo}
             selecao={selecao}

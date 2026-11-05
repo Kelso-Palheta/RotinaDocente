@@ -124,11 +124,36 @@ export function TelaProjecao({ estado }) {
 
         {/* FASES: PERGUNTA & ENCERRADA */}
         {(fase === 'pergunta' || fase === 'encerrada') && (
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {/* Lado Esquerdo: Questão e Alternativas */}
-            <div className="min-w-0 lg:col-span-2 bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-8 shadow-2xl space-y-6 backdrop-blur-md">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Coluna Esquerda: Imagem Original (quando houver) */}
+            {questao.imagens && questao.imagens.length > 0 && (
+              <div className="min-w-0 lg:col-span-4 bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-5 shadow-2xl flex flex-col justify-between items-center backdrop-blur-md">
+                <div className="w-full space-y-3">
+                  <span className="bg-[#00DDEB]/20 text-[#00DDEB] text-[11px] font-black px-3 py-1 rounded-full border border-[#00DDEB]/50 uppercase tracking-wider inline-block">
+                    Recurso Visual
+                  </span>
+                  <div className="rounded-2xl overflow-hidden border-2 border-[#6334E3]/40 bg-[#25104A] p-2 flex flex-col items-center justify-center">
+                    {questao.imagens.map((img, idx) => (
+                      <BlocoConteudo key={idx} bloco={img} />
+                    ))}
+                  </div>
+                </div>
+                <span className="text-[11px] font-bold text-[#FFFDF7]/70 bg-[#25104A] px-3 py-1 rounded-full border border-[#6334E3]/50 mt-3">
+                  Imagem ilustrativa
+                </span>
+              </div>
+            )}
+
+            {/* Coluna Central / Principal: Enunciado e Alternativas A–E */}
+            <div
+              className={`min-w-0 ${
+                questao.imagens && questao.imagens.length > 0
+                  ? 'lg:col-span-5'
+                  : 'lg:col-span-8'
+              } bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 md:p-8 shadow-2xl space-y-5 backdrop-blur-md`}
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-2">
                   <span className="bg-[#00DDEB]/20 text-[#00DDEB] text-xs font-black px-3.5 py-1 rounded-full border border-[#00DDEB]/50 uppercase tracking-wider">
                     Questão {rodada.numero}
                   </span>
@@ -138,145 +163,141 @@ export function TelaProjecao({ estado }) {
                     </span>
                   )}
                 </div>
-                <h2 className="text-xl md:text-3xl font-extrabold text-[#FFFDF7] leading-relaxed">
+                <h2 className="text-lg md:text-2xl font-extrabold text-[#FFFDF7] leading-relaxed">
                   {questao.enunciado}
                 </h2>
               </div>
 
-              {questao.imagens && questao.imagens.length > 0 && (
-                <div className="my-4 flex flex-wrap gap-4 justify-center">
-                  {questao.imagens.map((img, idx) => (
-                    <BlocoConteudo key={idx} bloco={img} />
-                  ))}
-                </div>
-              )}
-
-              {/* Lista de Alternativas (sem gabarito nesta fase) */}
-              <div className="space-y-3 pt-2">
+              {/* Lista de Alternativas (cartões claros com badge colorido estilo Arte em Jogo) */}
+              <div className="space-y-3 pt-1">
                 {(questao.alternativas || []).map((alt) => {
                   const corBadge = CORES_ALTERNATIVAS[alt.id] || {
                     bg: '#FFE14D',
                     text: '#25104A',
+                    border: '#FFF085',
                   };
                   return (
                     <div
                       key={alt.id}
-                      className="flex items-start gap-4 p-4 rounded-2xl bg-[#25104A]/90 border-2 border-[#6334E3]/40 text-base md:text-xl text-[#FFFDF7] shadow-md"
+                      style={{ borderColor: corBadge.border || corBadge.bg }}
+                      className="flex items-start gap-3.5 p-3.5 rounded-2xl bg-[#FFFDF7] border-2 text-[#25104A] shadow-md transition"
                     >
                       <span
                         style={{
                           backgroundColor: corBadge.bg,
                           color: corBadge.text,
                         }}
-                        className="w-9 h-9 rounded-xl font-black text-lg flex items-center justify-center shrink-0 shadow"
+                        className="w-8 h-8 rounded-xl font-black text-base flex items-center justify-center shrink-0 shadow"
                       >
                         {alt.id}
                       </span>
-                      <span className="pt-1 font-medium leading-snug">{alt.texto}</span>
+                      <span className="pt-0.5 font-bold text-sm md:text-base leading-snug text-[#25104A]">
+                        {alt.texto}
+                      </span>
                     </div>
                   );
                 })}
               </div>
             </div>
 
-            {/* Lado Direito: Cronômetro, Distribuição A–E e Respondentes */}
-            <div className="min-w-0 lg:col-span-1 space-y-6">
-              {/* Timer Visual */}
+            {/* Coluna Direita: Cronômetro Circular, Distribuição A–E e Respondentes */}
+            <div
+              className={`min-w-0 ${
+                questao.imagens && questao.imagens.length > 0
+                  ? 'lg:col-span-3'
+                  : 'lg:col-span-4'
+              } space-y-5`}
+            >
+              {/* Timer Circular */}
               {fase === 'pergunta' && (
-                <div className="bg-[#6334E3]/30 border-2 border-[#6334E3] rounded-3xl p-6 text-center shadow-2xl backdrop-blur-md">
-                  <span className="text-xs text-[#00DDEB] uppercase font-black tracking-widest block mb-1">
-                    Tempo Restante
-                  </span>
-                  <div
-                    data-testid="projecao-timer"
-                    aria-hidden="true"
-                    className={`text-6xl md:text-7xl font-mono font-black tracking-tight ${
-                      segundosRestantes <= 10
-                        ? 'text-[#FF4F9B] animate-pulse drop-shadow-[0_0_20px_#FF4F9B]'
-                        : 'text-[#FFE14D] drop-shadow-[0_0_20px_#FFE14D]'
-                    }`}
-                  >
-                    {formatarTempo(segundosRestantes)}
+                <div className="bg-[#6334E3]/30 border-2 border-[#6334E3] rounded-3xl p-5 text-center shadow-2xl backdrop-blur-md">
+                  <div className="relative w-36 h-36 mx-auto rounded-full border-4 border-[#00DDEB] flex flex-col items-center justify-center bg-[#25104A] shadow-[0_0_20px_rgba(0,221,235,0.3)]">
+                    <span className="text-[10px] text-[#00DDEB] uppercase font-black tracking-widest block">
+                      Tempo
+                    </span>
+                    <div
+                      data-testid="projecao-timer"
+                      aria-hidden="true"
+                      className={`text-3xl md:text-4xl font-mono font-black tracking-tight ${
+                        segundosRestantes <= 10
+                          ? 'text-[#FF4F9B] animate-pulse drop-shadow-[0_0_15px_#FF4F9B]'
+                          : 'text-[#FFFDF7] drop-shadow-[0_0_15px_#FFE14D]'
+                      }`}
+                    >
+                      {formatarTempo(segundosRestantes)}
+                    </div>
                   </div>
                 </div>
               )}
 
               {/* Estatísticas e Distribuição A–E com valores numéricos */}
-              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-2xl space-y-4 backdrop-blur-md">
-                <div className="flex flex-wrap gap-2 justify-between items-center border-b border-[#6334E3]/40 pb-3">
-                  <span className="text-sm text-[#00DDEB] uppercase font-black">
-                    Participação
-                  </span>
-                  <span className="text-lg font-black text-[#FFFDF7]">
+              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-5 shadow-2xl space-y-4 backdrop-blur-md">
+                <div className="text-center pb-2 border-b border-[#6334E3]/40">
+                  <span className="inline-block bg-[#00DDEB]/20 text-[#00DDEB] text-xs font-black px-3.5 py-1 rounded-full border border-[#00DDEB]/40">
                     {participacao.respondidos} / {participacao.total} responderam
                   </span>
                 </div>
 
-                <div className="space-y-2.5">
-                  <span className="text-xs text-[#FFFDF7]/80 font-bold uppercase block">
-                    Distribuição das Respostas:
-                  </span>
-                  <div className="grid grid-cols-5 gap-2 text-center">
-                    {LETRAS_ALTERNATIVAS.map((letra) => {
-                      const qtd = participacao?.distribuicao?.[letra] ?? 0;
-                      const cor = CORES_ALTERNATIVAS[letra] || {
-                        bg: '#FFE14D',
-                        text: '#25104A',
-                      };
-                      return (
-                        <div
-                          key={letra}
-                          data-testid={`distribuicao-projecao-${letra}`}
-                          style={{ backgroundColor: cor.bg }}
-                          className="rounded-xl p-2.5 shadow-md flex flex-col justify-center items-center"
+                <div className="space-y-2">
+                  {LETRAS_ALTERNATIVAS.map((letra) => {
+                    const qtd = participacao?.distribuicao?.[letra] ?? 0;
+                    const pct = Math.round(
+                      (qtd / (participacao.total || 1)) * 100,
+                    );
+                    const cor = CORES_ALTERNATIVAS[letra] || {
+                      bg: '#FFE14D',
+                      text: '#25104A',
+                    };
+                    return (
+                      <div
+                        key={letra}
+                        data-testid={`distribuicao-projecao-${letra}`}
+                        className="flex items-center gap-2 text-xs"
+                      >
+                        <span
+                          style={{ backgroundColor: cor.bg, color: cor.text }}
+                          className="w-6 h-6 rounded-lg font-black text-xs flex items-center justify-center shrink-0 shadow"
                         >
-                          <span
-                            style={{ color: cor.text }}
-                            className="text-xs block font-black"
-                          >
-                            {letra}
-                          </span>
-                          <span
-                            style={{ color: cor.text }}
-                            className="text-sm md:text-base font-mono font-black block"
-                          >
-                            {letra}: {qtd}
-                          </span>
+                          {letra}
+                        </span>
+                        <div className="flex-1 h-3 bg-[#25104A] rounded-full overflow-hidden border border-[#6334E3]/40">
+                          <div
+                            style={{
+                              width: `${Math.min(100, Math.max(qtd > 0 ? 10 : 0, pct))}%`,
+                              backgroundColor: cor.bg,
+                            }}
+                            className="h-full rounded-full transition-all duration-500"
+                          />
                         </div>
-                      );
-                    })}
+                        <span className="font-mono font-black text-xs text-[#FFFDF7] w-12 text-right">
+                          {letra}: {qtd}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* RV-04: Respondentes */}
+                <div className="pt-2 border-t border-[#6334E3]/40">
+                  <div
+                    data-testid="projecao-respondentes"
+                    className="max-h-36 overflow-y-auto pr-1 flex flex-wrap gap-1.5 text-xs text-[#FFFDF7]"
+                  >
+                    {(participacao.respondentes || []).map((resp, idx) => (
+                      <span
+                        key={resp.id || resp.alunoId || idx}
+                        className="px-2.5 py-0.5 bg-[#25104A]/90 border border-[#6334E3] rounded-full font-bold truncate max-w-full text-[11px]"
+                      >
+                        {resp.nomeExibicao || resp.nome}
+                      </span>
+                    ))}
+                    {(!participacao.respondentes ||
+                      participacao.respondentes.length === 0) && (
+                      <span className="text-[#FFFDF7]/60 italic py-1 text-xs">
+                        Aguardando primeiras respostas...
+                      </span>
+                    )}
                   </div>
-                </div>
-              </div>
-
-              {/* RV-04: Lista de Respondentes (nomes mostrados SEM alternativa) */}
-              <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-2xl space-y-3 backdrop-blur-md">
-                <div className="flex flex-wrap gap-2 justify-between items-center border-b border-[#6334E3]/40 pb-2">
-                  <h3 className="text-sm font-black text-[#FFFDF7] uppercase tracking-wider">
-                    Já Responderam
-                  </h3>
-                  <span className="text-xs font-mono font-black text-[#B7F247]">
-                    {participacao.respondentes?.length || 0} alunos
-                  </span>
-                </div>
-
-                <div
-                  data-testid="projecao-respondentes"
-                  className="max-h-56 overflow-y-auto pr-1 flex flex-wrap gap-2 text-xs text-[#FFFDF7]"
-                >
-                  {(participacao.respondentes || []).map((resp, idx) => (
-                    <span
-                      key={resp.id || resp.alunoId || idx}
-                      className="px-3.5 py-1 bg-[#25104A]/90 border border-[#6334E3] rounded-full font-bold truncate max-w-full shadow-sm"
-                    >
-                      {resp.nomeExibicao || resp.nome}
-                    </span>
-                  ))}
-                  {(!participacao.respondentes || participacao.respondentes.length === 0) && (
-                    <span className="text-[#FFFDF7]/60 italic py-2">
-                      Aguardando primeiras respostas...
-                    </span>
-                  )}
                 </div>
               </div>
             </div>

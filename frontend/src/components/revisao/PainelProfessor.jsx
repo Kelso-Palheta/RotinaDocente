@@ -63,6 +63,55 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
           </div>
         </header>
 
+        {/* Fita de Etapas da Metodologia Arte em Jogo */}
+        <div className="bg-[#25104A]/90 border-2 border-[#6334E3]/60 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg backdrop-blur-md">
+          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#FFFDF7]">
+            <span className="text-[#00DDEB]">👤 Controle de Etapas</span>
+            <span className="text-[#6334E3]">|</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs font-bold overflow-x-auto py-1">
+            <span
+              className={`px-3 py-1 rounded-full transition ${
+                fase === 'conteudo'
+                  ? 'bg-[#00DDEB] text-[#25104A] font-black shadow'
+                  : 'text-[#FFFDF7]/70'
+              }`}
+            >
+              Conteúdo
+            </span>
+            <span className="text-[#6334E3]">→</span>
+            <span
+              className={`px-3 py-1 rounded-full transition ${
+                ['pergunta', 'encerrada'].includes(fase)
+                  ? 'bg-[#00DDEB] text-[#25104A] font-black shadow'
+                  : 'text-[#FFFDF7]/70'
+              }`}
+            >
+              Pergunta
+            </span>
+            <span className="text-[#6334E3]">→</span>
+            <span
+              className={`px-3 py-1 rounded-full transition ${
+                fase === 'feedback'
+                  ? 'bg-[#00DDEB] text-[#25104A] font-black shadow'
+                  : 'text-[#FFFDF7]/70'
+              }`}
+            >
+              Explicação
+            </span>
+            <span className="text-[#6334E3]">→</span>
+            <span
+              className={`px-3 py-1 rounded-full transition ${
+                ['ranking', 'finalizada'].includes(fase)
+                  ? 'bg-[#00DDEB] text-[#25104A] font-black shadow'
+                  : 'text-[#FFFDF7]/70'
+              }`}
+            >
+              Ranking
+            </span>
+          </div>
+        </div>
+
         {/* Alerta de Erro */}
         {erro && (
           <div
@@ -188,10 +237,11 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                   <button
                     type="button"
                     disabled={acaoBloqueada}
-                    onClick={() => onAcao('proxima_rodada')}
+                    onClick={() => onAcao(estado?.proximaAcao || 'proxima_rodada')}
                     className="w-full py-3.5 px-4 rounded-xl font-black bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
-                    {estado?.aula ? 'Iniciar Próxima Pergunta' : 'Próxima Rodada'}
+                    {estado?.textoProximaAcao ||
+                      (estado?.aula ? 'Iniciar Próxima Pergunta' : 'Próxima Rodada')}
                   </button>
                 )}
 
