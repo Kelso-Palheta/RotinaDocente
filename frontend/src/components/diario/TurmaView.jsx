@@ -62,13 +62,13 @@ export const TurmaView = ({
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Header */}
-      <section aria-label="Cabeçalho da turma" className="shrink-0 border-b border-[#e2d9f7] bg-white px-3 py-2.5 sm:px-6 sm:py-3">
+      <section aria-label="Cabeçalho da turma" className="arte-faixa shrink-0 border-b border-[#e2d9f7] bg-[#fffdf7] px-3 py-2.5 sm:px-6 sm:py-3">
         <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               <h1 className="text-lg sm:text-2xl font-extrabold text-[#25104a] tracking-tight font-head">Turma {turma.nome}</h1>
               <span className="text-xs text-[#5b4b86] font-mono font-semibold">({turma.alunos.length} alunos)</span>
               {view === 'bimestre' && (
-                <span className="px-2.5 py-0.5 bg-[#f3edff] border border-[#e7dbfd] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#5411b8]">{bimestre}º Bimestre</span>
+                <span className="px-2.5 py-0.5 bg-[#ffe500] border border-[#ffe500] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#25104a]">{bimestre}º Bimestre</span>
               )}
               {view === 'anual' && (
                 <span className="px-2.5 py-0.5 bg-[#f3edff] border border-[#e7dbfd] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#5411b8]">Mapa Anual</span>
@@ -82,6 +82,8 @@ export const TurmaView = ({
             </div>
             <nav aria-label="Áreas da turma" className="flex min-w-0 flex-wrap items-center bg-[#f3edff] p-1 rounded-xl border border-[#e2d9f7] shadow-2xs">
               <button 
+                type="button"
+                aria-pressed={view === 'bimestre'}
                 onClick={() => confirmarTrocaContexto() && setView('bimestre')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'bimestre' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
@@ -90,6 +92,8 @@ export const TurmaView = ({
                 Notas
               </button>
               <button 
+                type="button"
+                aria-pressed={view === 'frequencia'}
                 onClick={() => confirmarTrocaContexto() && setView('frequencia')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'frequencia' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
@@ -98,6 +102,8 @@ export const TurmaView = ({
                 Frequência
               </button>
               <button 
+                type="button"
+                aria-pressed={view === 'ocorrencias'}
                 onClick={() => confirmarTrocaContexto() && setView('ocorrencias')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'ocorrencias' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'
@@ -106,6 +112,8 @@ export const TurmaView = ({
                 Ocorrências
               </button>
               <button 
+                type="button"
+                aria-pressed={view === 'anual'}
                 onClick={() => confirmarTrocaContexto() && setView('anual')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   view === 'anual' ? 'bg-[#25104a] text-white shadow-2xs' : 'text-[#5b4b86] hover:text-[#25104a]'

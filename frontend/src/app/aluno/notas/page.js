@@ -237,12 +237,12 @@ export default function AlunoNotasPage() {
   const abaAtual = abaMap[abaAtv] || [];
 
   return (
-    <div className="min-h-screen bg-[#f3edff] font-sans selection:bg-[#6315d9] selection:text-white">
+    <div className="min-h-screen bg-[#fffdf7] font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
         <AcessoRevisao aluno />
 
         {/* Header de Navegação */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <button 
             onClick={() => router.push('/aluno')} 
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-[#25104a] hover:bg-white border border-[#e2d9f7] bg-white/70 shadow-2xs transition-all"
@@ -272,6 +272,7 @@ export default function AlunoNotasPage() {
             <button 
               onClick={handleLogout} 
               className="p-1.5 text-[#6e5f94] hover:text-[#5411b8] hover:bg-[#f3edff] rounded-xl transition-all"
+              aria-label="Sair da conta"
               title="Sair da conta"
             >
               <LogOut size={16} />
@@ -280,16 +281,16 @@ export default function AlunoNotasPage() {
         </div>
 
         {/* Card do Estudante */}
-        <div className="arte-faixa arte-composicao bg-white border border-[#e2d9f7] rounded-3xl p-6 mb-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="arte-faixa arte-composicao bg-white border border-[#e2d9f7] rounded-3xl p-4 sm:p-6 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-2xl bg-[#25104a] text-white flex items-center justify-center shadow-md">
-              <User size={22} className="text-[#6315d9]" />
+            <div className="w-11 h-11 shrink-0 rounded-xl bg-[#25104a] text-[#00ddeb] flex items-center justify-center">
+              <User size={22} />
             </div>
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#5b4b86] block">
                 Boletim de Desempenho
               </span>
-              <h1 className="font-head text-xl font-extrabold text-[#25104a] leading-tight">
+              <h1 className="font-head text-xl sm:text-2xl font-extrabold text-[#25104a] leading-tight [overflow-wrap:anywhere]">
                 {nome}
               </h1>
               <p className="text-xs text-[#5b4b86] mt-0.5">
@@ -321,7 +322,7 @@ export default function AlunoNotasPage() {
 
         {/* Grid dos 4 Bimestres */}
         <div className="mb-8">
-          <h2 className="text-xs font-extrabold uppercase tracking-wider text-[#5b4b86] mb-3 font-head">
+          <h2 className="text-lg font-extrabold text-[#25104a] mb-3 font-head">
             Notas por Bimestre
           </h2>
           {(!turma.bimestres || Object.keys(turma.bimestres).length === 0) ? (
@@ -339,7 +340,7 @@ export default function AlunoNotasPage() {
 
         {/* Resumo Anual */}
         <div className="bg-white border border-[#e2d9f7] rounded-3xl p-5 mb-8 shadow-sm">
-          <h3 className="text-xs font-extrabold text-[#25104a] uppercase tracking-wider mb-4 font-head">Resumo Semestral e Anual</h3>
+          <h2 className="text-lg font-extrabold text-[#25104a] mb-4 font-head">Resumo Semestral e Anual</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {[S1, S2].map((semestre, i) => (
               <div key={i} aria-label={`Situação do ${i + 1}º semestre`} className="p-3 bg-[#f3edff] rounded-2xl border border-[#e2d9f7]">
