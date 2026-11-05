@@ -174,3 +174,7 @@ Executar `docs/plans/2026-11-05-revisao-integracao-design.md` e plano correspond
 Entradas reais: `/revisao`, `/revisao/sala/[codigo]`, `/revisao/projecao/[codigo]` e `/aluno/revisao`, com atalhos no Hub e Portal. Os nove módulos/entitlements prévios permanecem intactos; novo módulo exige identidade docente válida. Sem Firebase Blaze, serviço adicional ou dependência npm nova. Edição docente limitada a texto, alternativas, explicações e conteúdo; preservar identidade/fontes/imagens oficiais e não simular revisão humana.
 
 A impressão de revisão inclui os bytes do JSON e de todas as imagens declaradas. Sala antiga não pode servir imagem de fonte divergente; falhar de forma segura e orientar nova conferência/sala. Imagens anunciadas no DTO permanecem autorizáveis após a finalização. O empacotamento deve incluir somente o acervo privado necessário, excluir credenciais/arquivos locais e não inserir questões completas no JavaScript do navegador. Guia operacional: `docs/guias/revisao-ao-vivo.md`.
+
+## 9. Revisão temática aprovada — 05/11/2026
+
+A extensão `REVISAO_TEMATICA_SPEC.md` define aula introdutória completa por conteúdo específico, questões exclusivamente vinculadas ao conteúdo selecionado, quantidade explícita e duração individual. Fluxo v2: sequência explicativa inteira antes do desafio, sem repetir a introdução a cada questão. Contratos legados continuam válidos; implementação e novas salas v2 pendentes. Design, plano e pacotes externos em `docs/plans/2026-11-05-revisao-tematica*` e prompts correspondentes.
