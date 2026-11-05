@@ -463,3 +463,7 @@ Contrato: `CABECALHO_CADERNETA_SPEC.md`. Novo teste: `tests/integration/cadernet
 
 
 CAB-REV-01 — revisão própria e autorização: o usuário autorizou exclusivamente corrigir a criação do relógio no teste novo para horário civil local (`new Date(2026, 10, 4, 14, 35, 0)`). Nenhuma asserção alterada. Validação após ajuste: **6/6 em UTC** e **1.176 testes/259 arquivos em America/Belem**, todos aprovados. Build/lint da implementação de produção aprovados na revisão. Detalhes: `docs/analises/2026-11-04-revisao-antigravity-caderneta.md`.
+
+## Revisão ao Vivo — RV-01..11 (04/11/2026)
+
+Contrato: `REVISAO_AO_VIVO_SPEC.md`, seção 6. Testes ainda não executados nem implementados nesta etapa de planejamento. Acervo: novo `tests/contract/revisao_acervo.test.js` (RV-01/02). UI: novos `tests/unit/components/revisao/RevisaoFluxo.test.jsx`, `RevisaoAluno.test.jsx`, `RevisaoProjecao.test.jsx` (RV-03/04/05/10). Domínio/integração/contratos: novos `tests/unit/revisao_*.test.js`, `tests/integration/revisao_service.test.js`, `revisao_concorrencia.test.js`, `tests/contract/revisao_api.test.js` (RV-06/07/08). RV-09 exige ensaio de capacidade do transporte real, não mocks; RV-11 exige regressões completas antes da publicação funcional. TDD e preservação de todos os testes existentes obrigatórios. Nenhuma capacidade, completude do acervo ou funcionamento ao vivo declarados por este plano.

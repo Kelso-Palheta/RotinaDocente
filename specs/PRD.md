@@ -157,3 +157,8 @@ Toda a interface própria adota a paleta aprovada em `PALETA_PETROLEO_SALVIA_SPE
 ## RN-83 — Sair da página de Atividades encerra a sessão
 
 Na barra lateral de Atividades, **Sair** deve chamar o `logout` existente do contexto de autenticação, preservando a proteção de alterações não salvas (tanto de formulários/notas inválidas quanto do estado canônico `persistencia.estado`). Durante `salvando`, aguarda a conclusão segura do salvamento antes de encerrar; em `pendente`, `falha` ou `conflito`, exige decisão explícita de descarte (cuja recusa mantém sessão e conteúdo). Se o salvamento anterior ao logout falhar, mantém a sessão ativa e distingue o erro de salvamento da falha de logout. O redirecionamento ao Hub só ocorre após o encerramento concluir; em caso de falha, a página mostra erro acessível, permite tentar novamente e não finge sucesso. A limpeza de tokens e storages continua exclusiva do contexto. Implementação restrita à `frontend/src/app/atividades/page.js`, com testes novos e sem alteração dos testes existentes.
+
+
+## RN-84 — Revisão ao Vivo (planejamento)
+
+Novo módulo para aulão de Arte/ENEM com login do Portal, conteúdo preparatório, perguntas temporizadas, projeção de respondentes e contagens A–E, feedback por alternativa e ranking separado das notas. Acervo inicial inclui regular, PPL e reaplicações; recorte de planejamento 2009–2025. Requisitos, contrato visual e critérios RV-01..11 em `REVISAO_AO_VIVO_SPEC.md`. Três execuções: ChatGPT (coordenação/backend/revisão), DeepSeek (acervo) e Antigravity (interfaces). Nenhuma funcionalidade ao vivo, capacidade ou completude do acervo é declarada por esta documentação.
