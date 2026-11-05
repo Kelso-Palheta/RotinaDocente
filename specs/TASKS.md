@@ -243,3 +243,11 @@ Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 - [x] Conferir diff e seis páginas renderizadas; executar suíte própria (1.176/259), lint do exportador e build, todos aprovados no fuso local.
 - [x] CAB-REV-01: proprietário autorizou somente o relógio simulado. Corrigida a fixture para horário civil local; 6/6 em UTC e suíte completa 1.176/259 em Belém. Exportador e asserções preservados.
 - [x] Entrega aprovada para publicação automática após resolver CAB-REV-01. Relatório: `docs/analises/2026-11-04-revisao-antigravity-caderneta.md`. Única mudança no teste recebido: criação do relógio, expressamente autorizada.
+
+## 05/11/2026 — Revisão ao Vivo: bônus por tempo adiado
+
+- [ ] **Próxima versão — RV-FUT-01:** avaliar e implementar pontuação por velocidade de resposta, adiada expressamente pelo usuário em 05/11/2026. Fora do incremento atual de revisão temática; não implementar nem alterar pontuação agora.
+- Diretriz proposta, ainda sujeita à validação da próxima versão: quantidade de acertos como critério principal; bônus acumulado de velocidade como desempate. Referência discutida: 1.000 pontos por acerto e até 300 de bônus, sem considerar essa fórmula aprovada ou vigente.
+- Medir tempo exclusivamente entre abertura da rodada e primeiro recebimento aceito no servidor. Retry deve recuperar o mesmo recibo/tempo/pontos, sem recalcular bônus. Erro e resposta fora do prazo não recebem bônus.
+- Antes de implementar: definir fórmula, ordenação/empates, tratamento da latência de conexão e versionamento por sala; acrescentar testes de prazo, concorrência/idempotência, reconexão, ranking e compatibilidade de salas anteriores.
+- Regra atual preservada: 1.000 pontos por acerto, zero por erro/ausência, sem bônus de velocidade. O fluxo pedagógico e o pódio da revisão temática não dependem desta melhoria futura.

@@ -93,3 +93,7 @@ Novo `BlocoAulaTematica` renderiza texto/imagem de forma acessível e contextual
 ## 7. Aceite
 
 RT-T01 cobertura explícita e integridade de todos os IDs; RT-T02 aula completa e fontes/recursos; RT-T03 contexto de tema filtra rigorosamente; RT-T04 troca de contexto remove incompatíveis com aviso; RT-T05 quantidade exata e insuficiência; RT-T06 duração individual/prazo; RT-T07 servidor rejeita adulteração e hash desatualizado; RT-T08 introdução completa antes das perguntas sem vazamento; RT-T09 sincronização/retomada de bloco e CAS; RT-T10 sala legada, Portal/Diário/notas e testes anteriores preservados; RT-T11 pacotes privados e imagens confinadas; RT-T12 conferência humana/rascunho e aprovação por conta/versão.
+
+## 8. Comentário para a próxima versão — RV-FUT-01
+
+A pedido do usuário em 05/11/2026, pontuação por tempo de resposta fica adiada. Não faz parte desta implementação. Avaliar futuramente bônus por velocidade com tempo do servidor e idempotência, priorizando quantidade de acertos e usando velocidade como desempate; fórmula e critérios finais ainda precisam de validação. Registro em `TASKS.md`, seção “Revisão ao Vivo: bônus por tempo adiado”. Até lá, continuam 1.000 pontos por acerto e nenhum bônus por tempo.
