@@ -3,6 +3,8 @@
 import React from 'react';
 import { BadgeConexao, BlocoConteudo, LETRAS_ALTERNATIVAS } from './revisaoUtils';
 import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
+import { PodioRevisao } from './PodioRevisao';
+import { BlocoAulaTematica } from './BlocoAulaTematica';
 
 export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
   const sala = estado?.sala || {};
@@ -105,7 +107,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                   </button>
                 )}
 
-                {fase === 'conteudo' && (
+                {fase === 'conteudo' && !estado?.aula && (
                   <button
                     type="button"
                     disabled={acaoBloqueada}
@@ -114,6 +116,39 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                   >
                     Abrir Pergunta
                   </button>
+                )}
+
+                {fase === 'conteudo' && estado?.aula && (
+                  <div className="space-y-2">
+                    {!estado.aula.ultimoBloco ? (
+                      <button
+                        type="button"
+                        disabled={acaoBloqueada}
+                        onClick={() => onAcao('avancar_conteudo')}
+                        className="w-full py-3.5 px-4 rounded-xl font-black bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
+                      >
+                        Avançar Bloco
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled={acaoBloqueada}
+                        onClick={() => onAcao('abrir_pergunta')}
+                        className="w-full py-3.5 px-4 rounded-xl font-black bg-[#B7F247] hover:bg-[#D0F87E] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
+                      >
+                        Concluir Aula e Abrir Pergunta
+                      </button>
+                    )}
+
+                    <button
+                      type="button"
+                      disabled={acaoBloqueada || estado.aula.indiceBloco === 0}
+                      onClick={() => onAcao('voltar_conteudo')}
+                      className="w-full py-2.5 px-4 rounded-xl font-bold bg-[#25104A] hover:bg-[#6334E3]/40 border border-[#6334E3]/60 text-[#FFFDF7] transition disabled:opacity-40 disabled:cursor-not-allowed text-xs"
+                    >
+                      ← Voltar Bloco
+                    </button>
+                  </div>
                 )}
 
                 {fase === 'pergunta' && (
@@ -156,7 +191,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                     onClick={() => onAcao('proxima_rodada')}
                     className="w-full py-3.5 px-4 rounded-xl font-black bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
                   >
-                    Próxima Rodada
+                    {estado?.aula ? 'Iniciar Próxima Pergunta' : 'Próxima Rodada'}
                   </button>
                 )}
 
@@ -227,7 +262,15 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
           {/* Coluna Central / Painel de Visualização do Conteúdo ou Questão */}
           <section className="lg:col-span-2 space-y-6">
             {/* Bloco de Conteúdo */}
-            {fase === 'conteudo' && (
+            {fase === 'conteudo' && estado?.aula && (
+              <BlocoAulaTematica
+                bloco={estado.aula.bloco}
+                aula={estado.aula}
+                imagens={estado.aula.bloco?.imagens || []}
+              />
+            )}
+
+            {fase === 'conteudo' && !estado?.aula && (
               <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl space-y-4 backdrop-blur-md">
                 <div className="border-b border-[#6334E3]/40 pb-2">
                   <span className="text-xs text-[#00DDEB] uppercase tracking-widest font-black">
@@ -367,7 +410,8 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                 </div>
 
                 <div className="max-h-96 overflow-y-auto space-y-2 pr-1">
-                  {ranking.map((item, idx) => (
+                  {estado?.schemaVersion === 2 && <PodioRevisao ranking={ranking}/>}
+              {ranking.map((item, idx) => (
                     <div
                       key={item.participanteId || idx}
                       className="flex items-center justify-between p-3.5 bg-[#25104A] border-2 border-[#6334E3]/40 rounded-xl text-sm"

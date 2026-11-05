@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "teatro-educacao",
+  "titulo": "Teatro e educação: jogos, improvisação e transformação",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "jogos",
+      "descricao": "Explicar jogos teatrais e improvisação como processos de aprendizagem e criação."
+    },
+    {
+      "id": "boal",
+      "descricao": "Relacionar Teatro do Oprimido, participação e transformação social."
+    },
+    {
+      "id": "corpo-voz",
+      "descricao": "Reconhecer o trabalho de corpo, voz e presença na formação do ator."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Teatro como prática, não apenas espetáculo",
+      "tipo": "texto",
+      "texto": "No século XX, educadores e artistas passaram a valorizar o teatro como processo de aprendizagem. Viola Spolin sistematizou jogos teatrais para desenvolver concentração, imaginação e trabalho coletivo. Augusto Boal criou o Teatro do Oprimido, que transforma o espectador em participante e usa a cena para discutir conflitos sociais. No Brasil, o teatro na escola ganhou espaço como linguagem, não como mero entretenimento ou preparação de festas.",
+      "objetivoIds": [
+        "jogos",
+        "boal"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Foco, problema e improvisação",
+      "tipo": "texto",
+      "texto": "Nos jogos teatrais, o participante recebe um problema a resolver em cena: criar uma corda imaginária, ocupar um espaço, estabelecer uma relação. O foco é o ponto de concentração que orienta a ação. A improvisação não é falta de planejamento: é criação em tempo real, com regras e escuta do outro. O erro pode ser incorporado como material. Ao analisar uma proposta de teatro-educação, pergunte que habilidade o jogo desenvolve e como o grupo negocia as soluções.",
+      "objetivoIds": [
+        "jogos",
+        "corpo-voz"
+      ]
+    },
+    {
+      "id": "exemplo-spolin",
+      "titulo": "Spolin e o jogo do cabo de guerra",
+      "tipo": "texto",
+      "texto": "No jogo do cabo de guerra, duas pessoas ou grupos puxam uma corda imaginária. O foco está em dar realidade ao objeto: a tensão dos braços, o deslocamento do corpo, a resistência do outro. Quem assiste precisa acreditar na corda. O jogo desenvolve presença e cooperação. Ao observar uma aula ou cena, note como o professor cria um problema claro e como os participantes ajustam o corpo. A aprendizagem acontece na ação, não apenas na explicação.",
+      "objetivoIds": [
+        "jogos",
+        "corpo-voz"
+      ]
+    },
+    {
+      "id": "exemplo-boal",
+      "titulo": "Teatro do Oprimido e o espectador que age",
+      "tipo": "texto",
+      "texto": "Augusto Boal propôs exercícios em que o público interrompe a cena e propõe alternativas para situações de opressão. O 'teatro-fórum' transforma a plateia em 'espect-ator'. A proposta não é dar uma resposta pronta, mas ensaiar possibilidades de ação. Ao analisar esse método, relacione-o ao contexto político brasileiro e à ideia de democracia cultural. O teatro se torna um laboratório de conflitos sociais, com cuidado para não simplificar as pessoas envolvidas.",
+      "objetivoIds": [
+        "boal",
+        "jogos"
+      ]
+    },
+    {
+      "id": "exemplo-improvisacao",
+      "titulo": "Improvisação e trabalho coletivo",
+      "tipo": "texto",
+      "texto": "Em uma improvisação, cada participante precisa ouvir, aceitar propostas e construir com o outro. Se uma pessoa domina a cena, o grupo deixa de criar junto. A regra do 'sim, e...' — aceitar a proposta e acrescentar algo — é uma ferramenta de colaboração. Ao analisar uma cena improvisada, observe quem inicia, quem responde e como o conflito se desenvolve. A qualidade não está no texto decorado, mas na escuta e na capacidade de adaptação.",
+      "objetivoIds": [
+        "jogos",
+        "corpo-voz"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que teatro-educação não é",
+      "tipo": "texto",
+      "texto": "Não é apenas montar uma peça para a festa da escola: o processo importa tanto quanto o produto. Não é terapia: embora possa ter efeitos terapêuticos, seu foco é artístico e pedagógico. Não é improviso sem regras: há foco, escuta e objetivos. E não é exclusivo de quem 'tem talento': a prática desenvolve capacidades em qualquer pessoa. Evite também transformar o Teatro do Oprimido em panfleto: a complexidade do conflito é parte do método.",
+      "objetivoIds": [
+        "jogos",
+        "boal",
+        "corpo-voz"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre teatro-educação, procure palavras como jogo, foco, improvisação, participação e coletivo. Observe se o texto valoriza o processo ou o espetáculo. Relacione a proposta ao desenvolvimento de habilidades e à crítica social. A alternativa correta costuma destacar a experiência prática e a autonomia do participante. Síntese: o teatro ensina a estar presente, ouvir e agir com o outro.",
+      "objetivoIds": [
+        "jogos",
+        "boal",
+        "corpo-voz"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Instituto Augusto Boal",
+      "url": "https://www.boal.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "SP Escola de Teatro — pedagogia do teatro",
+      "url": "https://www.spescoladeteatro.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Sesc São Paulo — teatro e educação",
+      "url": "https://www.sescsp.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

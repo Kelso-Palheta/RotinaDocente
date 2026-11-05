@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "arte-afro-brasileira",
+  "titulo": "Arte afro-brasileira: memória, resistência e invenção",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "matrizes",
+      "descricao": "Reconhecer matrizes africanas em obras afro-brasileiras."
+    },
+    {
+      "id": "resistencia",
+      "descricao": "Analisar a arte afro-brasileira como resistência e afirmação identitária."
+    },
+    {
+      "id": "suporte",
+      "descricao": "Relacionar suportes, materiais e corporalidade à memória da escravidão."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Uma arte que não cabia no museu",
+      "tipo": "texto",
+      "texto": "Durante muito tempo, a produção de artistas negros foi tratada como artesanato, folclore ou curiosidade etnográfica. A arte afro-brasileira se constitui em relação a essa exclusão, afirmando matrizes africanas e experiências da diáspora. Não se trata de um estilo único: há artistas que trabalham com pintura, escultura, instalação, costura, fotografia e performance. O campo é diverso e atravessado por debates sobre identidade, mercado e representação.",
+      "objetivoIds": [
+        "matrizes",
+        "resistencia"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Matriz, memória e rasura",
+      "tipo": "texto",
+      "texto": "Matriz africana não significa repetir formas antigas: significa reelaborar cosmologias, ritmos, cores e materiais em outro contexto. A memória da escravidão aparece como ferida, mas também como invenção e sobrevivência. Muitos artistas usam materiais ligados ao corpo e ao trabalho, como tecido, costura, barro e cabelo. Ao analisar, pergunte que história o material carrega e que gesto artístico transforma a dor em conhecimento.",
+      "objetivoIds": [
+        "matrizes",
+        "suporte"
+      ]
+    },
+    {
+      "id": "exemplo-valentim",
+      "titulo": "Rubem Valentim e o emblema",
+      "tipo": "texto",
+      "texto": "Rubem Valentim criou emblemas que combinam geometria, signos de religiões afro-brasileiras e referências ao construtivismo. Suas telas e esculturas organizam setas, círculos e cores em composições rigorosas. A obra não ilustra o candomblé: traduz sua lógica visual em uma linguagem moderna. Ao analisar, observe a simetria, a repetição e a relação entre signo e espaço. A matriz afro-brasileira é estrutura, não ornamento.",
+      "objetivoIds": [
+        "matrizes",
+        "resistencia"
+      ]
+    },
+    {
+      "id": "exemplo-paulino",
+      "titulo": "Rosana Paulino e a costura da memória",
+      "tipo": "texto",
+      "texto": "Rosana Paulino usa costura, gravura, fotografia e instalação para tratar da violência racial e da condição da mulher negra. Em 'Bastidores', a costura sobre tecido associa o trabalho doméstico à memória da escravidão. O suporte não é neutro: o tecido e a linha carregam história. Ao analisar, observe como a artista combina beleza e desconforto. A obra não pede piedade; pede reconhecimento e reflexão sobre a violência estrutural.",
+      "objetivoIds": [
+        "resistencia",
+        "suporte"
+      ]
+    },
+    {
+      "id": "exemplo-varejao",
+      "titulo": "Adriana Varejão e a ferida colonial",
+      "tipo": "texto",
+      "texto": "Adriana Varejão retoma azulejos, pinturas históricas e imagens de naufrágios para investigar a colonização. Suas obras podem mostrar carnes, rachaduras e revestimentos que se descolam, expondo a violência sob a superfície decorativa. Ao analisar, observe o contraste entre a beleza do azulejo e o conteúdo brutal. A artista não é afro-brasileira, mas sua obra participa do debate sobre colonialidade e memória. O vínculo com a aula está na crítica à violência racial e histórica.",
+      "objetivoIds": [
+        "resistencia",
+        "suporte"
+      ]
+    },
+    {
+      "id": "exemplo-carybe-didi-djanira",
+      "titulo": "Carybé, Mestre Didi e Djanira: experiência social e forma",
+      "tipo": "texto",
+      "texto": "A definição de arte afro-brasileira não se limita à origem racial do artista. Ela pode abranger produções de pessoas negras, mestiças ou brancas que elaboram experiências sociais com a cultura negra. Sob a perspectiva da multiculturalidade, o termo não descreve um estilo único, mas uma rede de relações entre vivências, materiais e referenciais estéticos. Carybé, argentino naturalizado brasileiro, mergulhou no candomblé e criou imagens de orixás que passaram a circular amplamente. Mestre Didi, iniciado no candomblé, produziu objetos e esculturas ligados à cosmologia nagô. Djanira da Motta e Silva (1914-1979) pintou trabalhadores, festas e a religiosidade popular com atenção ao cotidiano. As obras não formam um bloco homogêneo: cada artista negocia de modo próprio sua experiência e seus referenciais. Ao analisar, pergunte como a vivência social se transforma em forma, sem reduzir a obra a uma identidade fixa.",
+      "objetivoIds": [
+        "matrizes",
+        "resistencia"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a arte afro-brasileira não é",
+      "tipo": "texto",
+      "texto": "Não é um gueto temático: artistas negros produzem sobre qualquer assunto. Não é apenas arte religiosa: há paisagem, retrato, abstração e crítica social. Não é sinônimo de arte popular: há formação acadêmica e circuitos diversos. E não é uma categoria fixa: o termo é debatido por artistas e pesquisadores. Evite também exigir que a obra 'represente' toda a população negra; nenhum artista fala por todos.",
+      "objetivoIds": [
+        "matrizes",
+        "resistencia",
+        "suporte"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre arte afro-brasileira, identifique a matriz cultural, o suporte e o tema da memória ou da resistência. Observe se o texto reconhece a agência do artista ou o trata como 'folclore'. Relacione a materialidade à história social. A alternativa correta costuma articular estética e política. Síntese: a arte afro-brasileira é memória transformada em forma.",
+      "objetivoIds": [
+        "matrizes",
+        "resistencia",
+        "suporte"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Museu Afro Brasil — arte afro-brasileira",
+      "url": "https://www.museuafrobrasil.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — Rosana Paulino",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Tate — arte e diáspora africana",
+      "url": "https://www.tate.org.uk/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

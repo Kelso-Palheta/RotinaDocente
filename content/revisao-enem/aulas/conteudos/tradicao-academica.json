@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "id": "tradicao-academica",
+  "titulo": "Tradição acadêmica: Renascimento, Maneirismo, Neoclassicismo e Realismo",
+  "duracaoEstimadaMinutos": 18,
+  "objetivos": [
+    {
+      "id": "idealizacao",
+      "descricao": "Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder."
+    },
+    {
+      "id": "atelie",
+      "descricao": "Explicar a produção colaborativa no ateliê renascentista e os limites da atribuição autoral."
+    },
+    {
+      "id": "maneirismo",
+      "descricao": "Distinguir a distorção maneirista do equilíbrio e da proporção renascentistas."
+    },
+    {
+      "id": "realismo",
+      "descricao": "Comparar pintura acadêmica e realismo socialista como projetos estéticos e ideológicos."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Uma tradição feita de escolas, encomendas e regras",
+      "tipo": "texto",
+      "texto": "Entre os séculos XV e XIX, a formação do artista europeu passou por ateliês, academias e encomendas de igrejas, cortes e Estados. A perspectiva, a anatomia, a composição equilibrada e o decoro — a adequação entre tema, gesto e público — tornaram-se critérios de excelência. Essa tradição não foi um bloco único: mudou com a Contrarreforma, com o absolutismo e com a Revolução Industrial. Reconhecer seu vocabulário ajuda a entender por que tantas obras parecem 'naturais' quando, na verdade, seguem convenções históricas.",
+      "objetivoIds": [
+        "idealizacao"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Idealização, decoro e trabalho de ateliê",
+      "tipo": "texto",
+      "texto": "Idealizar não é apagar toda semelhança com o real: é selecionar, corrigir e hierarquizar traços para produzir um modelo de beleza, virtude ou poder. O corpo do rei, do santo ou do herói pode ser mais simétrico, mais alto e mais sereno do que os corpos comuns. No ateliê, o mestre assinava a obra, mas aprendizes preparavam telas, pintavam fundos, drapejados e réplicas. Por isso, atribuição e autoria são questões técnicas e históricas, não apenas um nome na etiqueta.",
+      "objetivoIds": [
+        "idealizacao",
+        "atelie"
+      ]
+    },
+    {
+      "id": "exemplo-renascimento",
+      "titulo": "Leitura guiada: um retrato ideal",
+      "tipo": "texto",
+      "texto": "Observe uma pintura renascentista de perfil: o rosto aparece de lado, a luz é difusa, o fundo pode ser uma paisagem equilibrada e as roupas exibem tecidos caros. O poeta Camões, ao descrever uma dama, fala em 'serenidade deleitosa', 'presença moderada' e 'repouso alegre e comedido'. Pintura e poesia compartilham um ideal de contenção: a beleza não está no excesso, mas na medida. Ao comparar texto e imagem, pergunte o que cada linguagem escolhe mostrar e o que silencia.",
+      "objetivoIds": [
+        "idealizacao"
+      ]
+    },
+    {
+      "id": "exemplo-atelie",
+      "titulo": "A oficina antes da assinatura",
+      "tipo": "texto",
+      "texto": "A Mona Lisa do Louvre tem uma versão no Museu do Prado que, durante muito tempo, foi tratada como cópia tardia. Estudos de restauração mostraram que ela foi produzida no mesmo período e no mesmo ateliê, com mudanças de paisagem e detalhes. Isso não diminui Leonardo: mostra que a obra renascentista nasce de um processo coletivo, com divisão de tarefas e circulação de modelos. A pergunta 'quem pintou?' ganha camadas: concepção, execução, oficina e posterior restauração.",
+      "objetivoIds": [
+        "atelie"
+      ]
+    },
+    {
+      "id": "maneirismo",
+      "titulo": "Quando a proporção começa a torcer",
+      "tipo": "texto",
+      "texto": "No Maneirismo, artistas como El Greco alongam corpos, comprimem espaços e usam cores ácidas para criar tensão espiritual. Não se trata de 'erro' de desenho, mas de uma escolha expressiva que rompe com a serenidade renascentista. Em 'Laocoonte', o corpo se contorce, as proporções se esticam e o drama ocupa a cena. Comparar uma figura maneirista com uma renascentista ajuda a perceber que a regra clássica não desaparece: ela é citada e deformada de propósito.",
+      "objetivoIds": [
+        "maneirismo"
+      ]
+    },
+    {
+      "id": "realismo",
+      "titulo": "Realismo não é espelho",
+      "tipo": "texto",
+      "texto": "No século XIX, o Realismo propôs olhar para trabalhadores, camponeses e cenas urbanas sem o filtro heroico da pintura histórica. Já o realismo socialista, no século XX, subordinou a representação do trabalho a um projeto político: o operário e a camponesa aparecem em escala monumental, com corpos ideais e gestos de vitória. Em ambos os casos, 'realismo' não significa cópia neutra da realidade. Significa escolher o que mostrar, como mostrar e para quem. A pergunta decisiva é: quem se beneficia dessa imagem do mundo?",
+      "objetivoIds": [
+        "realismo"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "Três equívocos frequentes",
+      "tipo": "texto",
+      "texto": "Primeiro: achar que toda arte acadêmica é igual; ela varia de país, período e instituição. Segundo: confundir realismo com fotografia — a pintura realista seleciona, compõe e interpreta. Terceiro: achar que idealização é 'falsificação' consciente; muitas vezes é uma concepção de beleza compartilhada por artista e público. Ao ler uma obra, substitua o julgamento rápido de 'bonita' ou 'feia' por perguntas sobre proporção, luz, pose, cenário e encomenda.",
+      "objetivoIds": [
+        "idealizacao",
+        "realismo"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura e síntese",
+      "tipo": "texto",
+      "texto": "Em questões de arte, localize o comando: o enunciado pede característica, função, contexto ou comparação? Depois observe os elementos formais citados no texto ou na imagem: linhas, luz, cor, proporção, materiais. Por fim, relacione esses elementos ao período e à intenção. A tradição acadêmica ensina que forma e poder caminham juntos: um corpo idealizado pode celebrar um rei, um santo ou um trabalhador. Guarde a síntese: academia é linguagem histórica, não sinônimo automático de qualidade ou atraso.",
+      "objetivoIds": [
+        "idealizacao",
+        "atelie",
+        "maneirismo",
+        "realismo"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Musée du Louvre — coleções e história das artes",
+      "url": "https://www.louvre.fr/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "National Gallery of Art — coleção e textos de obras",
+      "url": "https://www.nga.gov/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Metropolitan Museum of Art — Heilbrunn Timeline of Art History",
+      "url": "https://www.metmuseum.org/toah/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "id": "cubismo-futurismo",
+  "titulo": "Cubismo e futurismo: espaço partido, tempo acelerado",
+  "duracaoEstimadaMinutos": 18,
+  "objetivos": [
+    {
+      "id": "cubismo",
+      "descricao": "Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista."
+    },
+    {
+      "id": "primitivismo",
+      "descricao": "Relacionar o interesse das vanguardas por máscaras africanas e formas ibéricas à apropriação cultural."
+    },
+    {
+      "id": "futurismo",
+      "descricao": "Reconhecer no futurismo a exaltação da velocidade, da técnica e da ruptura."
+    },
+    {
+      "id": "guerra-modernidade",
+      "descricao": "Relacionar cubismo e futurismo à experiência da guerra e da vida moderna."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Uma Europa que se move mais rápido",
+      "tipo": "texto",
+      "texto": "No início do século XX, automóveis, aviões, telégrafos e metrópoles transformaram a experiência do tempo e do espaço. Cubistas e futuristas responderam a esse choque com linguagens novas. O cubismo nasceu principalmente em Paris, com Picasso e Braque; o futurismo, na Itália, com Marinetti e artistas como Boccioni e Severini. Ambos recusaram a perspectiva renascentista como única forma de organizar o mundo, mas com projetos diferentes: um investigava a percepção; o outro celebrava a ação e a técnica.",
+      "objetivoIds": [
+        "cubismo",
+        "futurismo"
+      ]
+    },
+    {
+      "id": "cubismo",
+      "titulo": "Ver o objeto por vários lados",
+      "tipo": "texto",
+      "texto": "O cubismo decompõe o objeto em planos e o apresenta a partir de pontos de vista simultâneos. Um rosto pode mostrar perfil e frente ao mesmo tempo; uma mesa pode ser vista de cima e de lado. Isso não é 'erro' de desenho, mas uma tentativa de mostrar que a visão é construída por fragmentos. A cor muitas vezes se reduz a tons terrosos para que a atenção fique na estrutura. Analisar um quadro cubista exige acompanhar as arestas, os planos e as passagens entre figura e fundo.",
+      "objetivoIds": [
+        "cubismo"
+      ]
+    },
+    {
+      "id": "primitivismo",
+      "titulo": "Máscaras, apropriação e mal-entendido",
+      "tipo": "texto",
+      "texto": "Picasso e outros artistas se interessaram por máscaras africanas e por esculturas ibéricas, mas muitas vezes as viram como 'primitivas', sem conhecer sua função ritual ou sua história. Esse interesse foi produtivo para a invenção cubista e, ao mesmo tempo, parte de uma apropriação colonial. Em 'Les Demoiselles d'Avignon', os rostos à direita remetem a máscaras. Não basta dizer que a obra 'homenageia' a África: é preciso reconhecer o deslocamento de formas e o apagamento de seus contextos.",
+      "objetivoIds": [
+        "cubismo",
+        "primitivismo"
+      ]
+    },
+    {
+      "id": "colagem",
+      "titulo": "Papel, jornal e realidade na tela",
+      "tipo": "texto",
+      "texto": "A colagem cubista introduziu pedaços de jornal, papel de parede e objetos na obra. Com isso, a pintura passou a dialogar diretamente com o mundo urbano e com a cultura impressa. Ao observar uma colagem de Picasso, perceba como o texto, a textura e a imagem se misturam. A obra não representa apenas um objeto: ela incorpora materiais do cotidiano. Essa estratégia será retomada pela Pop Art, pelo design e pela arte contemporânea.",
+      "objetivoIds": [
+        "cubismo",
+        "primitivismo"
+      ]
+    },
+    {
+      "id": "futurismo",
+      "titulo": "Velocidade, máquina e violência",
+      "tipo": "texto",
+      "texto": "O Manifesto Futurista, publicado por Marinetti em 1909, exaltava a velocidade, a máquina, a juventude e a guerra. Artistas futuristas usavam linhas de força, repetições e fragmentos para sugerir movimento. A obra não representa um instante parado: tenta captar o deslocamento e a energia. Ao ler o manifesto, observe o vocabulário agressivo e a recusa do passado. O futurismo foi estética e politicamente heterogêneo, mas sua exaltação da violência deve ser lida no contexto que levaria à Primeira Guerra.",
+      "objetivoIds": [
+        "futurismo",
+        "guerra-modernidade"
+      ]
+    },
+    {
+      "id": "guerra",
+      "titulo": "Guernica e o fim da festa moderna",
+      "tipo": "texto",
+      "texto": "A Primeira Guerra desmentiu parte do otimismo futurista. Em 1937, Picasso respondeu ao bombardeio da cidade basca de Guernica com uma tela monumental em preto, branco e cinza. A composição cubista organiza corpos dilacerados, animais e lâmpadas, criando uma imagem de dor coletiva. A obra foi feita para um pavilhão da República Espanhola e circulou como denúncia política. Comparar a violência de Guernica com a euforia futurista mostra que a mesma modernidade que celebrava a máquina também produzia destruição em massa.",
+      "objetivoIds": [
+        "cubismo",
+        "guerra-modernidade"
+      ]
+    },
+    {
+      "id": "exemplo-modigliani",
+      "titulo": "Modigliani, a máscara e o mármore cicládico",
+      "tipo": "texto",
+      "texto": "Modigliani esculpiu 'Cabeça de mulher' por volta de 1910-1911, com rostos alongados, olhos amendoados e traços sintéticos. A comparação com uma 'Cabeça de uma figura feminina' cicládica de 2700-2500 a.C., feita em mármore, mostra semelhanças de proporção e de simplificação formal. Isso não prova que o artista tenha copiado a escultura antiga: pode indicar uma recorrência de soluções visuais em culturas e épocas distantes, mediada pelo interesse moderno por arte antiga e não europeia. Ao analisar a comparação, descreva os traços concretos e evite tanto a ideia de 'influência direta' quanto a de 'coincidência sem história'. A pergunta é o que permanece e por que isso importa.",
+      "objetivoIds": [
+        "primitivismo",
+        "cubismo"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões cubistas, procure planos geométricos, rostos vistos de vários ângulos, colagem e redução de cor. Em questões futuristas, procure linhas de força, repetição, velocidade e exaltação da técnica. Leia o texto de apoio com atenção: ele costuma indicar se a obra critica ou celebra a modernidade. Desconfie de alternativas que falem apenas de 'distorção' ou 'falta de técnica'. Síntese: cubismo e futurismo são respostas distintas ao mesmo mundo em transformação.",
+      "objetivoIds": [
+        "cubismo",
+        "primitivismo",
+        "futurismo",
+        "guerra-modernidade"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "The Museum of Modern Art — cubismo",
+      "url": "https://www.moma.org/learn/moma_learning/themes/cubism/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Musée national Picasso-Paris",
+      "url": "https://www.museepicassoparis.fr/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museo Reina Sofía — Guernica",
+      "url": "https://www.museoreinasofia.es/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "forma-abstracao",
+  "titulo": "Forma e abstração: da ruptura à experiência do espaço",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "abstracao",
+      "descricao": "Distinguir abstração lírica e geométrica e reconhecer o papel de cor, linha e ritmo."
+    },
+    {
+      "id": "neoconcretismo",
+      "descricao": "Relacionar construtivismo, neoconcretismo e minimalismo a seus contextos históricos."
+    },
+    {
+      "id": "leitura-formal",
+      "descricao": "Ler obras abstratas pelos elementos formais, sem exigir figuração ou narrativa."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Quando a obra deixa de imitar o mundo",
+      "tipo": "texto",
+      "texto": "No início do século XX, artistas como Kandinsky, Mondrian e Malevich passaram a organizar a pintura com linhas, manchas e campos de cor, sem reproduzir objetos. Isso não foi um capricho: dialogava com a fotografia, com a crise das certezas visuais e com novas concepções de tempo e espaço. No Brasil, o concretismo dos anos 1950 e o neoconcretismo dos anos 1960 retomaram essa herança com signos, planos e experimentação sensorial. A abstração, portanto, é uma tradição com regras e problemas próprios, não a ausência de conteúdo.",
+      "objetivoIds": [
+        "abstracao"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Lírica, geométrica e concreta",
+      "tipo": "texto",
+      "texto": "A abstração lírica valoriza o gesto, a mancha e a cor como expressão; a geométrica trabalha com retângulos, linhas e relações matemáticas. O concretismo brasileiro aproximou arte, design e poesia, buscando precisão e racionalidade. O neoconcretismo reagiu a esse rigor, propondo obras que pedem participação, corpo e experiência. Ao observar, pergunte: a composição é simétrica ou tensa? As cores vibram ou se equilibram? A obra convida a olhar de longe, de perto ou a manipular?",
+      "objetivoIds": [
+        "abstracao",
+        "leitura-formal"
+      ]
+    },
+    {
+      "id": "exemplo-kandinsky",
+      "titulo": "Kandinsky: ponto, linha e ritmo",
+      "tipo": "texto",
+      "texto": "Em desenhos e diagramas de Kandinsky, pontos, linhas e ângulos aparecem como signos em tensão. O artista associava formas a sonoridades e emoções, mas não se deve reduzir a obra a um 'código secreto': o importante é perceber como a composição conduz o olho e cria equilíbrio instável. Observe a direção das linhas, os espaços vazios e a repetição de motivos. A pergunta não é 'o que isso representa?', mas 'que relações essa forma estabelece com as outras?'.",
+      "objetivoIds": [
+        "abstracao",
+        "leitura-formal"
+      ]
+    },
+    {
+      "id": "exemplo-brasil",
+      "titulo": "Amílcar de Castro e o corte-dobra",
+      "tipo": "texto",
+      "texto": "A escultura de Amílcar de Castro parte de chapas de aço cortadas e dobradas. O gesto é simples e radical: um corte permite que o plano se erga e ocupe o espaço. A obra não representa uma figura; ela organiza peso, vazio e percurso do espectador. Diante de uma peça assim, circule mentalmente, observe como a sombra muda com a luz e perceba que a forma não está apenas no metal, mas na relação entre metal, chão e corpo de quem olha.",
+      "objetivoIds": [
+        "neoconcretismo",
+        "leitura-formal"
+      ]
+    },
+    {
+      "id": "minimalismo",
+      "titulo": "Minimalismo: menos objetos, mais experiência",
+      "tipo": "texto",
+      "texto": "Nos anos 1960, o minimalismo de Donald Judd e outros artistas usou módulos industriais, repetição e superfícies neutras. A obra não busca expressar a subjetividade do autor; ela organiza a percepção do espaço e do tempo. A serialidade convida o espectador a comparar intervalos, tamanhos e posições. Isso não significa frieza absoluta: significa deslocar a emoção para a experiência de estar diante do objeto e perceber o próprio corpo no espaço.",
+      "objetivoIds": [
+        "neoconcretismo",
+        "leitura-formal"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a abstração não é",
+      "tipo": "texto",
+      "texto": "Primeiro equívoco: achar que abstracionismo é 'qualquer rabisco'. Há decisões de composição, escala e material. Segundo: supor que a obra abstrata não tem história; ela responde a movimentos, instituições e debates. Terceiro: procurar uma figura escondida e concluir que 'não entendi'. A leitura formal começa pela descrição do que está visível. Quarto: opor abstração e política; muitas obras abstratas participaram de projetos nacionais, institucionais e críticos.",
+      "objetivoIds": [
+        "abstracao",
+        "leitura-formal"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões com obra abstrata, descreva: formas predominantes, cores, linhas, simetria, repetição, textura e escala. Depois relacione essas escolhas ao contexto indicado no enunciado: construtivismo, neoconcretismo, minimalismo ou arte contemporânea. Desconfie de alternativas que digam que a obra 'não significa nada' ou que qualquer pessoa poderia fazê-la. A resposta costuma valorizar a experiência perceptiva e a organização deliberada dos elementos.",
+      "objetivoIds": [
+        "abstracao",
+        "neoconcretismo",
+        "leitura-formal"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — arte abstrata",
+      "url": "https://www.tate.org.uk/art/art-terms/a/abstract-art",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Museum of Modern Art — coleção",
+      "url": "https://www.moma.org/collection/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Instituto Inhotim — arte contemporânea",
+      "url": "https://www.inhotim.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

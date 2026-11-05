@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "id": "imagem-colonizacao-retrato",
+  "titulo": "Imagem, colonização e retrato: quem tem direito a ser visto",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "olhar-colonial",
+      "descricao": "Analisar como imagens europeias construíram representações coloniais de povos indígenas."
+    },
+    {
+      "id": "retrato-exclusao",
+      "descricao": "Relacionar o retrato de elite à exclusão de pessoas negras e indígenas."
+    },
+    {
+      "id": "contra-narrativa",
+      "descricao": "Reconhecer obras que contestam a violência colonial e propõem outras memórias."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Imagens que chegaram antes dos corpos",
+      "tipo": "texto",
+      "texto": "No período colonial, gravuras, pinturas e relatos de viajantes circularam pela Europa e ajudaram a formar ideias sobre os povos americanos. Muitas vezes, o artista não conhecia as pessoas que representava: combinava observação, memória e convenções europeias. Essas imagens não são fotografias neutras do passado; são interpretações que serviram a projetos de conquista, catequese e comércio. Estudá-las exige perguntar quem encomendou, quem olhou e quem foi transformado em objeto de curiosidade.",
+      "objetivoIds": [
+        "olhar-colonial"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Alteridade, estereótipo e retrato",
+      "tipo": "texto",
+      "texto": "Alteridade é a construção da diferença: o 'outro' pode ser exotizado, temido ou idealizado. O estereótipo simplifica e generaliza, apagando línguas, histórias e conflitos internos. O retrato, por sua vez, é um gênero ligado a poder: durante séculos, retratar era privilégio de reis, nobres e elites. No Brasil escravista, poucas pessoas negras e indígenas foram retratadas como indivíduos com nome e história. Essa ausência também é uma forma de violência simbólica.",
+      "objetivoIds": [
+        "olhar-colonial",
+        "retrato-exclusao"
+      ]
+    },
+    {
+      "id": "exemplo-eckhout",
+      "titulo": "Albert Eckhout e o corpo observado",
+      "tipo": "texto",
+      "texto": "As pinturas de Albert Eckhout, produzidas no contexto holandês em Pernambuco no século XVII, combinam detalhes de plantas, animais e corpos indígenas e africanos. O artista buscava exibir riqueza e domínio de um território, mas também criava tipos: o 'índio', a 'negra', o 'mestiço'. Ao analisar uma dessas telas, observe o enquadramento, a nudez, os objetos e o olhar do personagem. A questão não é apenas se o registro é fiel, mas que lugar o corpo ocupa na composição do poder colonial.",
+      "objetivoIds": [
+        "olhar-colonial"
+      ]
+    },
+    {
+      "id": "exemplo-brasil",
+      "titulo": "Portinari e a violência do descobrimento",
+      "tipo": "texto",
+      "texto": "Na pintura de Portinari sobre a chegada dos portugueses, os corpos indígenas aparecem em primeiro plano, enquanto os europeus chegam ao fundo. A composição inverte a centralidade habitual e expõe a violência da ocupação. Comparar essa imagem com uma gravura colonial ajuda a perceber deslocamentos de ponto de vista: quem é sujeito? Quem é objeto? Que gestos são visíveis? A arte moderna brasileira revisitou o descobrimento não para celebrar, mas para criticar a herança colonial.",
+      "objetivoIds": [
+        "olhar-colonial",
+        "contra-narrativa"
+      ]
+    },
+    {
+      "id": "retrato-exclusao",
+      "titulo": "O retrato como arquivo do poder",
+      "tipo": "texto",
+      "texto": "Em museus e livros didáticos, grande parte dos retratos históricos mostra imperadores, militares, escritores e senhores de escravos. Quando aparecem pessoas negras, muitas vezes são figurantes, serventes ou tipos anônimos. A pergunta 'quem não foi retratado?' revela a estrutura social. Artistas contemporâneos retomam esse vazio com retratos, fotografias e instalações que devolvem nome, rosto e memória a sujeitos historicamente invisibilizados.",
+      "objetivoIds": [
+        "retrato-exclusao",
+        "contra-narrativa"
+      ]
+    },
+    {
+      "id": "contra-narrativa",
+      "titulo": "Contra-imagens e memória",
+      "tipo": "texto",
+      "texto": "Obras de Rosana Paulino, Adriana Varejão e outros artistas revisitam a colonização sem repetir o olhar do colonizador. Elas podem usar costura, cerâmica, azulejo ou fotografia para inscrever feridas e deslocar ícones. Não se trata de 'ilustrar' a história com boas intenções: trata-se de criar imagens que incomodam e propõem outra relação com o passado. Ao ler essas obras, pergunte que materiais carregam memória e que gestos rompem a vitrine do exotismo.",
+      "objetivoIds": [
+        "contra-narrativa",
+        "retrato-exclusao"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Quando a questão trouxer uma imagem colonial, observe enquadramento, vestuário, nudez, objetos e relação entre figura e paisagem. Depois procure no texto palavras como 'olhar', 'alteridade', 'colonização', 'retrato' e 'invisibilidade'. A alternativa correta costuma problematizar a representação, não elogiar sua suposta fidelidade. Em obras contemporâneas, verifique como o material e o gesto criticam a violência histórica. Síntese: toda imagem é uma posição de olhar.",
+      "objetivoIds": [
+        "olhar-colonial",
+        "retrato-exclusao",
+        "contra-narrativa"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "The British Museum — coleção",
+      "url": "https://www.britishmuseum.org/collection",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu Afro Brasil — acervo e educação",
+      "url": "https://www.museuafrobrasil.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu do Índio — acervo etnográfico",
+      "url": "https://www.museudoindio.gov.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

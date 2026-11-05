@@ -1,3 +1,8 @@
+import {
+  validarSelecaoTematica,
+  transicaoTematica,
+  publicarTematico,
+} from "@/dominio/revisao/tematico";
 import { validarPreparacao } from "@/dominio/revisao/preparacao";
 import {
   falha,
@@ -6,7 +11,6 @@ import {
   LETRAS,
   LIMITE_PARTICIPANTES,
   faseEfetiva,
-  validarComando,
   calcularRanking,
   montarPublicacao,
   projetarEstado,
@@ -25,6 +29,7 @@ export class RevisaoService {
   constructor({
     store,
     acervo,
+    acervoTematico,
     agora = Date.now,
     gerarCodigo,
     gerarId = () => crypto.randomUUID(),
@@ -34,6 +39,7 @@ export class RevisaoService {
     Object.assign(this, {
       store,
       acervo,
+      acervoTematico,
       agora,
       gerarCodigo,
       gerarId,
@@ -77,9 +83,38 @@ export class RevisaoService {
         }),
       );
     const mapa = new Map(revisoes.map((r) => [r.id, r]));
+    const tematico = this.acervoTematico
+      ? await this.acervoTematico.listarCatalogoTematico()
+      : null;
+    const revisoesAula = tematico
+      ? await this.store.list(`revisaoDocentes/${uid}/aulas`)
+      : [];
+    const checksAula = ["conteudo", "imagens", "cobertura"];
     return {
+      ...(tematico
+        ? {
+            trilhas: tematico.trilhas,
+            conteudos: tematico.conteudos.map((a) => ({
+              ...a,
+              apta: revisoesAula.some(
+                (r) =>
+                  r.id === a.id &&
+                  r.hashFonte === a.hashFonte &&
+                  r.aprovada === true &&
+                  checksAula.every((k) => r.confirmacoes?.[k] === true),
+              ),
+            })),
+          }
+        : {}),
       questoes: fontes.map((q) => ({
         ...q,
+        ...(tematico
+          ? {
+              conteudoIds:
+                tematico.questoes.find((v) => v.questaoId === q.id)
+                  ?.conteudoIds || [],
+            }
+          : {}),
         apta:
           mapa.get(q.id)?.hashFonte === q.hashFonte &&
           mapa.get(q.id)?.aprovada === true &&
@@ -150,6 +185,90 @@ export class RevisaoService {
     });
     return this.questao(ator, id);
   }
+  async conteudoDocente(uid, id, reader = this.store) {
+    if (!this.acervoTematico) throw falha(503, "Acervo temático indisponível.");
+    const fonte = await this.acervoTematico.lerConteudoTematico(segmento(id));
+    const revisao = await reader.get(`revisaoDocentes/${uid}/aulas/${id}`);
+    const aprovada =
+      revisao?.aprovada === true &&
+      revisao.hashFonte === fonte.hashFonte &&
+      ["conteudo", "imagens", "cobertura"].every(
+        (k) => revisao.confirmacoes?.[k] === true,
+      );
+    return { ...fonte, aprovada };
+  }
+  async conteudo(ator, id) {
+    const fonte = await this.conteudoDocente(this.docente(ator), id);
+    const [mapa, metas] = await Promise.all([
+      this.acervoTematico.listarCatalogoTematico(),
+      this.acervo.listarAcervo(),
+    ]);
+    const vinculadas = new Set(
+      mapa.questoes
+        .filter((q) => q.conteudoIds.includes(id))
+        .map((q) => q.questaoId),
+    );
+    return {
+      conteudo: {
+        ...fonte.conteudo,
+        questoesVinculadas: metas
+          .filter((q) => vinculadas.has(q.id))
+          .map((q) => ({ id: q.id, tema: q.tema, ano: q.ano })),
+        status: fonte.aprovada ? "revisada" : "rascunho",
+        imagens: fonte.conteudo.imagens.map(({ arquivo, ...img }) => ({
+          ...img,
+          url: `/api/revisao/conteudos/${id}/imagens/${img.id}`,
+        })),
+      },
+      hashFonte: fonte.hashFonte,
+    };
+  }
+  async aprovarConteudo(ator, id, body) {
+    const uid = this.docente(ator),
+      fonte = await this.conteudoDocente(uid, id);
+    if (body?.hashFonte !== fonte.hashFonte)
+      throw falha(409, "A aula ou sua cobertura mudou. Reabra a conferência.");
+    if (
+      !["conteudo", "imagens", "cobertura"].every(
+        (k) => body.confirmacoes?.[k] === true,
+      )
+    )
+      throw falha(422, "Confirme os três itens da aula.");
+    await this.store.set(`revisaoDocentes/${uid}/aulas/${id}`, {
+      id,
+      hashFonte: fonte.hashFonte,
+      aprovada: true,
+      confirmacoes: { conteudo: true, imagens: true, cobertura: true },
+      aprovadaEmMs: this.agora(),
+    });
+    return this.conteudo(ator, id);
+  }
+  async publicacao(sala, questao, reader = this.store) {
+    let aula = null;
+    if (sala.schemaVersion === 2 && sala.fase === "conteudo")
+      aula = await reader.get(
+        `${caminho(sala.codigo)}/aulas/${sala.sequenciaAula[sala.indiceBloco].conteudoId}`,
+      );
+    return publicarTematico(montarPublicacao(sala, questao), sala, aula);
+  }
+  async validarImagemAulaSala(ator, codigo, id, imagemId) {
+    const { sala } = await this.autorizarSala(ator, codigo);
+    if (
+      sala.schemaVersion !== 2 ||
+      sala.fase !== "conteudo" ||
+      sala.sequenciaAula[sala.indiceBloco]?.conteudoId !== id
+    )
+      throw falha(404, "Imagem indisponível nesta fase.");
+    const aula = await this.store.get(`${caminho(codigo)}/aulas/${id}`);
+    const bloco = aula?.conteudo.blocos.find(
+      (b) => b.id === sala.sequenciaAula[sala.indiceBloco].blocoId,
+    );
+    if (bloco?.tipo !== "imagem" || bloco.imagemId !== imagemId)
+      throw falha(404, "Imagem indisponível neste bloco.");
+    const atual = await this.acervoTematico.lerConteudoTematico(id);
+    if (atual.hashFonte !== aula.hashFonte)
+      throw falha(409, "A fonte da aula mudou. Confira e crie uma nova sala.");
+  }
   async criar(ator, selecao) {
     const uid = this.docente(ator);
     if (
@@ -159,6 +278,12 @@ export class RevisaoService {
       selecao.turmaIds.length > 10
     )
       throw falha(422, "Selecione de uma a vinte questões e até dez turmas.");
+    const tematico = this.acervoTematico
+      ? await this.acervoTematico.listarCatalogoTematico()
+      : null;
+    if (tematico) validarSelecaoTematica(selecao, tematico);
+    else if (selecao?.schemaVersion === 2 || selecao?.conteudoIds)
+      throw falha(503, "Acervo temático indisponível.");
     const codigo = codigoSala(this.gerarCodigo());
     await this.store.transaction(async (tx) => {
       const existente = await tx.get(caminho(codigo));
@@ -174,6 +299,31 @@ export class RevisaoService {
         questoes.map((q) => ({ ...q.questao, apta: q.aprovada })),
       );
       if (erro) throw falha(422, erro);
+      const aulas = tematico
+        ? await Promise.all(
+            selecao.conteudoIds.map((id) => this.conteudoDocente(uid, id, tx)),
+          )
+        : [];
+      if (aulas.some((a) => !a.aprovada))
+        throw falha(
+          422,
+          "Confira e aprove as aulas selecionadas antes de criar a sala.",
+        );
+      if (
+        aulas.some((a) => Buffer.byteLength(JSON.stringify(a), "utf8") > 700000)
+      )
+        throw falha(
+          422,
+          "A aula excede o tamanho permitido. Divida o conteúdo.",
+        );
+      const sequencia = aulas.flatMap((a) =>
+        a.conteudo.blocos.map((b) => ({
+          conteudoId: a.conteudo.id,
+          blocoId: b.id,
+        })),
+      );
+      if (tematico && (!sequencia.length || sequencia.length > 192))
+        throw falha(422, "Divida a revisão em até 192 blocos.");
       const roster = [
         ...new Set(
           turmas
@@ -193,6 +343,14 @@ export class RevisaoService {
       const sala = {
         id: codigo,
         codigo,
+        ...(tematico
+          ? {
+              schemaVersion: 2,
+              conteudoIds: [...selecao.conteudoIds],
+              sequenciaAula: sequencia,
+              indiceBloco: 0,
+            }
+          : {}),
         titulo: selecao.titulo.trim(),
         professorId: uid,
         turmaIds: [...selecao.turmaIds],
@@ -201,6 +359,13 @@ export class RevisaoService {
         rodadas: questoes.map((q) => ({
           id: this.gerarId(),
           questaoId: q.questao.id,
+          ...(tematico
+            ? {
+                duracaoSegundos:
+                  selecao.duracaoPorQuestao[q.questao.id] ??
+                  selecao.duracaoSegundos,
+              }
+            : {}),
         })),
         indice: 0,
         fase: "espera",
@@ -210,17 +375,26 @@ export class RevisaoService {
         criadaEmMs: this.agora(),
         ranking: [],
       };
+      // A publicação inicial não contém aula nem pergunta; todas as leituras precedem escritas.
+      const publicado = publicarTematico(
+        montarPublicacao(sala, questoes[0].questao),
+        sala,
+        null,
+      );
       tx.create(caminho(codigo), sala);
+      aulas.forEach((a) =>
+        tx.create(`${caminho(codigo)}/aulas/${a.conteudo.id}`, {
+          conteudo: a.conteudo,
+          hashFonte: a.hashFonte,
+        }),
+      );
       questoes.forEach((q, i) =>
         tx.create(`${caminho(codigo)}/conteudo/${sala.rodadas[i].id}`, {
           questao: q.questao,
           hashFonte: q.hashFonte,
         }),
       );
-      tx.create(
-        `${caminho(codigo)}/publicacao/estado`,
-        montarPublicacao(sala, questoes[0].questao),
-      );
+      tx.create(`${caminho(codigo)}/publicacao/estado`, publicado);
     });
     return { sala: { id: codigo, codigo } };
   }
@@ -393,7 +567,7 @@ export class RevisaoService {
     await this.store.transaction(async (tx) => {
       const { sala } = await this.autorizarSala(ator, codigo, tx);
       const agora = this.agora();
-      const fase = validarComando(sala, body, agora);
+      const fase = transicaoTematica(sala, body, agora);
       let indice = sala.indice;
       if (body.acao === "proxima_rodada") indice += 1;
       const congelada = await tx.get(
@@ -404,6 +578,10 @@ export class RevisaoService {
         ? await tx.list(`${caminho(codigo)}/participantes`)
         : [];
       const atual = { ...sala, fase, indice, revisao: sala.revisao + 1 };
+      if (sala.schemaVersion === 2) {
+        if (body.acao === "avancar_conteudo") atual.indiceBloco += 1;
+        if (body.acao === "voltar_conteudo") atual.indiceBloco -= 1;
+      }
       if (body.acao === "proxima_rodada") {
         atual.encerraEmMs = null;
         atual.perguntaAbertaEmMs = null;
@@ -411,15 +589,15 @@ export class RevisaoService {
       }
       if (fase === "pergunta") {
         atual.perguntaAbertaEmMs = agora;
-        atual.encerraEmMs = agora + sala.duracaoSegundos * 1000;
+        atual.encerraEmMs =
+          agora +
+          (sala.rodadas[indice].duracaoSegundos ?? sala.duracaoSegundos) * 1000;
       }
       if (["ranking", "finalizada"].includes(fase))
         atual.ranking = calcularRanking(participantes);
+      const publicado = await this.publicacao(atual, congelada.questao, tx);
       tx.set(caminho(codigo), atual);
-      tx.set(
-        `${caminho(codigo)}/publicacao/estado`,
-        montarPublicacao(atual, congelada.questao),
-      );
+      tx.set(`${caminho(codigo)}/publicacao/estado`, publicado);
     });
     return this.estado(ator, codigo);
   }

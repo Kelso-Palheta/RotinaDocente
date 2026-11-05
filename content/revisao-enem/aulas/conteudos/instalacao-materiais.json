@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "instalacao-materiais",
+  "titulo": "Instalação e materiais: organizar o espaço, provocar o corpo",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "instalacao",
+      "descricao": "Identificar a instalação como organização do espaço e da experiência do visitante."
+    },
+    {
+      "id": "materiais",
+      "descricao": "Analisar o uso de materiais cotidianos, industriais e orgânicos na arte contemporânea."
+    },
+    {
+      "id": "ambiente",
+      "descricao": "Relacionar instalação, arquitetura e crítica social ou ambiental."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "A sala como obra",
+      "tipo": "texto",
+      "texto": "A instalação surgiu com força nos anos 1960 e 1970, quando artistas passaram a ocupar salas inteiras em vez de pendurar objetos na parede. O visitante entra na obra, caminha por ela e é afetado por luz, som, temperatura e escala. A instalação pode ser temporária ou permanente, dentro ou fora do museu. Ela dialoga com a arquitetura e com o design, mas não é apenas cenografia: organiza uma experiência estética e conceitual.",
+      "objetivoIds": [
+        "instalacao"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Espaço, percurso e imersão",
+      "tipo": "texto",
+      "texto": "Na instalação, o espaço é material. O artista decide onde o visitante entra, o que vê primeiro, o que precisa contornar e o que não pode tocar. A imersão pode ser sensorial, com tecidos, odores e sons, ou crítica, com obstáculos e ambientes desconfortáveis. O significado não está apenas nos objetos, mas na relação entre eles e o corpo do visitante. Ao analisar, descreva o percurso: o que a obra faz fazer?",
+      "objetivoIds": [
+        "instalacao",
+        "materiais"
+      ]
+    },
+    {
+      "id": "exemplo-ernesto",
+      "titulo": "Ernesto Neto e a arquitetura do toque",
+      "tipo": "texto",
+      "texto": "As instalações de Ernesto Neto usam tecidos elásticos, especiarias, tubos e formas orgânicas que convidam o visitante a entrar, tocar e sentir. A obra se aproxima de uma arquitetura mole, que abriga o corpo em vez de apenas exibi-lo. O cheiro e a textura são parte da experiência. Ao interpretar, observe como o artista transforma o museu em um ambiente acolhedor ou estranho. A participação não é apenas visual: envolve pele, peso e equilíbrio.",
+      "objetivoIds": [
+        "instalacao",
+        "materiais"
+      ]
+    },
+    {
+      "id": "exemplo-critica",
+      "titulo": "Lina Kim e a arquitetura da exclusão",
+      "tipo": "texto",
+      "texto": "Na instalação 'Cry me a river', Lina Kim usa camisas de força, pia, baldes, espelho e luz para criar um ambiente associado à instituição psiquiátrica. A obra não ilustra um tema: ela organiza o desconforto no espaço. O visitante percebe a frieza dos materiais e a violência das normas de contenção. Comparar essa instalação com uma obra acolhedora mostra que o ambiente pode ser tanto abrigo quanto denúncia. A escolha dos objetos é uma escolha política.",
+      "objetivoIds": [
+        "instalacao",
+        "ambiente",
+        "materiais"
+      ]
+    },
+    {
+      "id": "exemplo-ambiental",
+      "titulo": "Arte, natureza e denúncia ambiental",
+      "tipo": "texto",
+      "texto": "Instalações como a baleia encalhada às margens do Sena ou a balsa subaquática de Jason de Caires Taylor usam escala e localização para produzir impacto. A obra pode estar no rio, no mar ou no meio da cidade, e o lugar faz parte do significado. Ao analisar uma intervenção ambiental, pergunte: quem vê? Como a obra altera o cotidiano? Que espécie de responsabilidade ela provoca? O espectador é convidado a pensar sobre consumo, refugiados e ecologia.",
+      "objetivoIds": [
+        "instalacao",
+        "ambiente"
+      ]
+    },
+    {
+      "id": "exemplo-hirst",
+      "titulo": "Damien Hirst e o debate sobre os materiais",
+      "tipo": "texto",
+      "texto": "Em 'Mother and Child' (1993), Damien Hirst apresenta um bezerro dividido em duas partes, conservado em formol e envolvido por vidro, aço pintado, silicone e outros materiais industriais. A obra ficou associada ao grupo Jovens Artistas Britânicos (YABs), que ganhou visibilidade em Londres no fim dos anos 1980 e usou materiais como sangue, esterco e legumes; Hirst, por sua vez, recorreu a carcaças de animais. O choque não é gratuito: os materiais incomuns colocam o corpo, a decomposição e a indústria no mesmo espaço. Ao analisar esse tipo de trabalho, pergunte como o material participa do sentido e como ele se relaciona com objetos construídos, em vez de reduzi-lo a uma lista de substâncias estranhas. A provocação está no arranjo entre matéria, forma e contexto institucional.",
+      "objetivoIds": [
+        "materiais",
+        "instalacao"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a instalação não é",
+      "tipo": "texto",
+      "texto": "Não é qualquer decoração de ambiente: há decisões espaciais e conceituais. Não é sinônimo de escultura grande: a escultura pode ser vista de fora; a instalação organiza um percurso. Não é apenas imersão tecnológica: materiais simples e luz podem criar experiências profundas. E não é 'interativa' só porque o visitante pode tocar: a participação precisa ter sentido na proposta. Evite reduzir a obra a uma selfie ou a um cenário.",
+      "objetivoIds": [
+        "instalacao",
+        "materiais",
+        "ambiente"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre instalação, procure palavras como espaço, ambiente, percurso, imersão e participação. Observe os materiais citados: tecido, aço, vidro, água, objetos domésticos. Relacione a escolha material ao efeito: acolhimento, desconforto, memória, denúncia. A alternativa correta costuma articular espaço e experiência, não apenas descrever objetos. Síntese: a instalação transforma o lugar em linguagem.",
+      "objetivoIds": [
+        "instalacao",
+        "materiais",
+        "ambiente"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Instalação",
+      "url": "https://www.tate.org.uk/art/art-terms/i/installation-art",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Instituto Inhotim — arte contemporânea",
+      "url": "https://www.inhotim.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Museum of Modern Art — instalação",
+      "url": "https://www.moma.org/collection/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

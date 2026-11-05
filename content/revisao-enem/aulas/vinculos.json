@@ -1,0 +1,2804 @@
+{
+  "schemaVersion": 1,
+  "questoes": [
+    {
+      "questaoId": "enem-2009-regular-arte-100",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-dramaturgia",
+          "objetivoIds": [
+            "leitura",
+            "texto-dramatico"
+          ],
+          "justificativa": "A questão aborda “Elementos e criação coletiva do espetáculo teatral” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir texto dramático, rubrica e encenação; Interpretar diálogos, rubricas e conflitos em excertos teatrais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2009-regular-arte-113",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "imagem-colonizacao-retrato",
+          "objetivoIds": [
+            "olhar-colonial",
+            "contra-narrativa"
+          ],
+          "justificativa": "A questão aborda “Representações coloniais dos povos indígenas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar como imagens europeias construíram representações coloniais de povos indígenas; Reconhecer obras que contestam a violência colonial e propõem outras memórias. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2009-regular-arte-115",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-educacao",
+          "objetivoIds": [
+            "boal",
+            "corpo-voz"
+          ],
+          "justificativa": "A questão aborda “Augusto Boal e a participação no Teatro do Oprimido” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Relacionar Teatro do Oprimido, participação e transformação social; Reconhecer o trabalho de corpo, voz e presença na formação do ator. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2009-regular-arte-116",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "corpo-comunidade",
+            "folclore"
+          ],
+          "justificativa": "A questão aborda “Dança, ancestralidade e identidade Xavante” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Relacionar dança, comunidade, ancestralidade e resistência. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-ppl-arte-108",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-dramaturgia",
+          "objetivoIds": [
+            "generos",
+            "leitura"
+          ],
+          "justificativa": "A questão aborda “Commedia dell’arte e humanismo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer gêneros e formas teatrais, como comédia, drama e commedia dell'arte; Interpretar diálogos, rubricas e conflitos em excertos teatrais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-ppl-arte-114",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "saberes",
+            "patrimonio"
+          ],
+          "justificativa": "A questão aborda “Artesanato, saberes e diversidade cultural” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir patrimônio material e imaterial e seus processos de reconhecimento; Analisar saberes populares, artesanato e oralidade como produção cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-ppl-arte-116",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "folclore",
+            "quadrilha-frevo"
+          ],
+          "justificativa": "A questão aborda “Dança e diversidade das expressões culturais” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Analisar transformações da quadrilha e do frevo como patrimônio cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-ppl-arte-132",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "modernismo-brasileiro",
+          "objetivoIds": [
+            "sintese",
+            "ruptura"
+          ],
+          "justificativa": "A questão aborda “Tarsila do Amaral e a síntese modernista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial; Reconhecer a síntese de formas, cores e temas brasileiros em obras modernistas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-regular-arte-102",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "pop-art-apropriacao",
+          "objetivoIds": [
+            "apropriacao",
+            "cultura-massa"
+          ],
+          "justificativa": "A questão aborda “Apropriação, paródia e imagens de diferentes épocas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer na Pop Art o uso de imagens da cultura de massa, do consumo e da mídia; Explicar apropriação, citação e paródia como procedimentos críticos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-regular-arte-106",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "folclore",
+            "quadrilha-frevo"
+          ],
+          "justificativa": "A questão aborda “Danças folclóricas e balé” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Analisar transformações da quadrilha e do frevo como patrimônio cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-regular-arte-108",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "impressionismo",
+          "objetivoIds": [
+            "luz"
+          ],
+          "justificativa": "A questão aborda “Impressionismo, luz e pinceladas de cor” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar como o Impressionismo representa luz, atmosfera e instantes por pinceladas de cor. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-regular-arte-123",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dada-surrealismo",
+          "objetivoIds": [
+            "surrealismo"
+          ],
+          "justificativa": "A questão aborda “Salvador Dalí, surrealismo e imagens oníricas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar procedimentos surrealistas de estranhamento, sonho e escrita automática. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2010-regular-arte-132",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "modernismo-brasileiro",
+          "objetivoIds": [
+            "ruptura",
+            "sintese"
+          ],
+          "justificativa": "A questão aborda “Anita Malfatti e a ruptura modernista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial; Reconhecer a síntese de formas, cores e temas brasileiros em obras modernistas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2011-regular-arte-104",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arquitetura-design",
+          "objetivoIds": [
+            "arquitetura-moderna"
+          ],
+          "justificativa": "A questão aborda “Oscar Niemeyer e a expressividade das colunas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar a arquitetura moderna brasileira e a integração entre forma, estrutura e paisagem. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2011-regular-arte-108",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "folclore",
+            "corpo-comunidade"
+          ],
+          "justificativa": "A questão aborda “Dança como expressão da cultura de um povo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Relacionar dança, comunidade, ancestralidade e resistência. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2011-regular-arte-110",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "grafite"
+          ],
+          "justificativa": "A questão aborda “Grafite e registros rupestres” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir grafite, pichação e arte urbana, com seus contextos e linguagens. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2011-regular-arte-111",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "ready-made-conceitual",
+          "objetivoIds": [
+            "apropriacao-objeto",
+            "ready-made"
+          ],
+          "justificativa": "A questão aborda “Nelson Leirner e a ressignificação do objeto” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar o ready-made e o deslocamento do objeto cotidiano para o espaço da arte; Analisar apropriação e ressignificação de objetos na escultura e na instalação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2011-regular-arte-114",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "cubismo",
+            "guerra-modernidade"
+          ],
+          "justificativa": "A questão aborda “Guernica, cubismo e denúncia da guerra” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Relacionar cubismo e futurismo à experiência da guerra e da vida moderna. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-ppl-arte-113",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "pop-art-apropriacao",
+          "objetivoIds": [
+            "pop-brasil",
+            "cultura-massa"
+          ],
+          "justificativa": "A questão aborda “Futebol e apropriação na Pop Art brasileira” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer na Pop Art o uso de imagens da cultura de massa, do consumo e da mídia; Relacionar Pop Art, ditadura e crítica social no Brasil. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-ppl-arte-127",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arquitetura-design",
+          "objetivoIds": [
+            "arquitetura-moderna",
+            "espaco"
+          ],
+          "justificativa": "A questão aborda “Niemeyer: arquitetura moderna e integração à paisagem” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar a arquitetura moderna brasileira e a integração entre forma, estrutura e paisagem; Discutir espaço construído, cidade e experiência social. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-ppl-arte-128",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "interculturalidade"
+          ],
+          "justificativa": "A questão aborda “Teatro intercultural e linguagem dos gestos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Discutir interculturalidade, fragmentação e novas formas de presença. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-ppl-arte-96",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "saberes",
+            "turismo-mercado"
+          ],
+          "justificativa": "A questão aborda “Heitor dos Prazeres e a vida popular” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar saberes populares, artesanato e oralidade como produção cultural; Discutir tensões entre tradição, mercado, turismo e políticas de patrimônio. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-regular-arte-114",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "tradicao-academica",
+          "objetivoIds": [
+            "idealizacao"
+          ],
+          "justificativa": "A questão aborda “Idealização e equilíbrio no Renascimento” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-regular-arte-123",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "cubismo",
+            "futurismo"
+          ],
+          "justificativa": "A questão aborda “Picasso e a ruptura cubista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Reconhecer no futurismo a exaltação da velocidade, da técnica e da ruptura. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-regular-arte-124",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "rock-tropicalismo-festivais",
+          "objetivoIds": [
+            "tropicalismo",
+            "rock-brasil"
+          ],
+          "justificativa": "A questão aborda “Os Mutantes e a experimentação tropicalista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar o Tropicalismo e a contracultura no Brasil; Reconhecer a incorporação do rock e da experimentação na música popular brasileira. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2012-regular-arte-131",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "barroco-brasileiro",
+          "objetivoIds": [
+            "barroco-mineiro",
+            "aleijadinho"
+          ],
+          "justificativa": "A questão aborda “Barroco brasileiro e matrizes culturais” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar o barroco e o rococó mineiros pela dramaticidade, movimento e uso de materiais locais; Analisar a escultura de Aleijadinho na articulação entre formação erudita e saberes populares. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-ppl-arte-100",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-afro-brasileira",
+          "objetivoIds": [
+            "suporte",
+            "matrizes"
+          ],
+          "justificativa": "A questão aborda “Rosana Paulino e os suportes da arte contemporânea” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer matrizes africanas em obras afro-brasileiras; Relacionar suportes, materiais e corporalidade à memória da escravidão. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-ppl-arte-105",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arquitetura-design",
+          "objetivoIds": [
+            "arquitetura-moderna",
+            "design"
+          ],
+          "justificativa": "A questão aborda “Sérgio Rodrigues e o design moderno brasileiro” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar a arquitetura moderna brasileira e a integração entre forma, estrutura e paisagem; Relacionar design de móveis e objetos à identidade cultural e à indústria. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-ppl-arte-110",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "comunicacao-visual-audiovisual",
+          "objetivoIds": [
+            "midia",
+            "linguagem-audiovisual"
+          ],
+          "justificativa": "A questão aborda “Cinema, televisão e recepção da obra” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar cinema, televisão e vídeo como linguagens com escolhas de ponto de vista e montagem; Relacionar meios de comunicação, mercado e experiência estética. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-ppl-arte-117",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "saberes"
+          ],
+          "justificativa": "A questão aborda “Autoria e memória na arte popular” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar saberes populares, artesanato e oralidade como produção cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-regular-arte-102",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “Arte gráfica e crítica ao trabalho infantil” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-regular-arte-108",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "folclore",
+            "quadrilha-frevo"
+          ],
+          "justificativa": "A questão aborda “Quadrilha e transformação das tradições populares” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Analisar transformações da quadrilha e do frevo como patrimônio cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-regular-arte-117",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "rock-tropicalismo-festivais",
+          "objetivoIds": [
+            "tropicalismo",
+            "rock-brasil"
+          ],
+          "justificativa": "A questão aborda “Tropicalismo, cultura de massa e pop-rock brasileiro” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar o Tropicalismo e a contracultura no Brasil; Reconhecer a incorporação do rock e da experimentação na música popular brasileira. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-regular-arte-127",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-sociedade-sistema",
+          "objetivoIds": [
+            "campo-artistico",
+            "funcao-social"
+          ],
+          "justificativa": "A questão aborda “Paulo Nazareth: identidade, território e mercado de arte” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar o campo artístico: instituições, mercado, crítica e público; Discutir a função social da arte e o acesso à cultura. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2013-regular-arte-97",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "imagem-colonizacao-retrato",
+          "objetivoIds": [
+            "olhar-colonial",
+            "contra-narrativa"
+          ],
+          "justificativa": "A questão aborda “Portinari e os diferentes olhares sobre o descobrimento” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar como imagens europeias construíram representações coloniais de povos indígenas; Reconhecer obras que contestam a violência colonial e propõem outras memórias. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-ppl-arte-100",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "tradicao-academica",
+          "objetivoIds": [
+            "atelie",
+            "idealizacao"
+          ],
+          "justificativa": "A questão aborda “Ateliê renascentista e colaboração na pintura” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder; Explicar a produção colaborativa no ateliê renascentista e os limites da atribuição autoral. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-ppl-arte-107",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-educacao",
+          "objetivoIds": [
+            "jogos",
+            "corpo-voz"
+          ],
+          "justificativa": "A questão aborda “Foco e imaginação nos jogos teatrais” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar jogos teatrais e improvisação como processos de aprendizagem e criação; Reconhecer o trabalho de corpo, voz e presença na formação do ator. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-ppl-arte-110",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "hip-hop",
+            "rap"
+          ],
+          "justificativa": "A questão aborda “Rap, grafite e crítica social” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-ppl-arte-115",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "matrizes-africanas-musica",
+          "objetivoIds": [
+            "africanias",
+            "diaspora"
+          ],
+          "justificativa": "A questão aborda “Matrizes africanas na formação da música popular” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer instrumentos, ritmos e práticas africanas na música brasileira; Analisar a diáspora e o sincretismo na formação musical brasileira. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-ppl-arte-116",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "rap",
+            "hip-hop"
+          ],
+          "justificativa": "A questão aborda “Brô MCs e o dinamismo das culturas indígenas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-reaplicacao-arte-107",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "folclore",
+            "corpo-comunidade"
+          ],
+          "justificativa": "A questão aborda “Danças folclóricas e vida comunitária” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Relacionar dança, comunidade, ancestralidade e resistência. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-reaplicacao-arte-109",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "quadrilha-frevo",
+            "corpo-comunidade"
+          ],
+          "justificativa": "A questão aborda “Capoeira, resistência e marginalização” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar transformações da quadrilha e do frevo como patrimônio cultural; Relacionar dança, comunidade, ancestralidade e resistência. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-reaplicacao-arte-118",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-educacao",
+          "objetivoIds": [
+            "jogos",
+            "corpo-voz"
+          ],
+          "justificativa": "A questão aborda “Viola Spolin e a experiência do presente” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar jogos teatrais e improvisação como processos de aprendizagem e criação; Reconhecer o trabalho de corpo, voz e presença na formação do ator. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-reaplicacao-arte-98",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dada-surrealismo",
+          "objetivoIds": [
+            "dada"
+          ],
+          "justificativa": "A questão aborda “Dadaísmo e contestação da racionalidade” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar o Dadaísmo como contestação da racionalidade, da arte institucional e da guerra. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-reaplicacao-arte-99",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "cordel",
+            "gravura"
+          ],
+          "justificativa": "A questão aborda “Cordel, oralidade e memória cultural” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar procedimentos de gravura e xilogravura e sua circulação social; Relacionar cordel, xilogravura e oralidade à cultura popular. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-106",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "guerra-modernidade",
+            "cubismo"
+          ],
+          "justificativa": "A questão aborda “Guernica, charge e polissemia” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Relacionar cubismo e futurismo à experiência da guerra e da vida moderna. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-109",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "cordel",
+            "gravura"
+          ],
+          "justificativa": "A questão aborda “Cordel, xilogravura e identidade cultural” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar procedimentos de gravura e xilogravura e sua circulação social; Relacionar cordel, xilogravura e oralidade à cultura popular. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-111",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "performance-participacao",
+          "objetivoIds": [
+            "participacao",
+            "performance"
+          ],
+          "justificativa": "A questão aborda “Lygia Clark e a participação do espectador” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar performance e body art como artes do corpo, do tempo presente e da ação; Explicar como a participação do espectador transforma a obra e a autoria. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-112",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "ritmos-regionais",
+            "instrumentos"
+          ],
+          "justificativa": "A questão aborda “Cavaquinho e violão no choro e no samba” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas; Relacionar instrumentos, práticas e transmissão de saberes musicais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-115",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-dramaturgia",
+          "objetivoIds": [
+            "texto-dramatico",
+            "leitura"
+          ],
+          "justificativa": "A questão aborda “Texto dramático, rubricas e autonomia da encenação” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir texto dramático, rubrica e encenação; Interpretar diálogos, rubricas e conflitos em excertos teatrais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-129",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "hip-hop",
+            "rap"
+          ],
+          "justificativa": "A questão aborda “Hip-hop e afirmação da identidade negra” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2014-regular-arte-134",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-erudita-popular",
+          "objetivoIds": [
+            "escuta",
+            "erudito-popular"
+          ],
+          "justificativa": "A questão aborda “John Cage e a ampliação do conceito de música” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir e relacionar música erudita e popular sem hierarquia automática; Reconhecer parâmetros musicais como melodia, ritmo, timbre e forma. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-ppl-arte-100",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "linha-palavra",
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “Leonilson, bordado e composição assimétrica” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas; Analisar o bordado, a linha e a palavra como recursos de composição e memória. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-ppl-arte-105",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "tradicao-academica",
+          "objetivoIds": [
+            "idealizacao",
+            "realismo"
+          ],
+          "justificativa": "A questão aborda “Pedro Américo, A Carioca e os limites do belo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder; Comparar pintura acadêmica e realismo socialista como projetos estéticos e ideológicos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-ppl-arte-108",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "barroco-brasileiro",
+          "objetivoIds": [
+            "barroco-mineiro",
+            "ataide"
+          ],
+          "justificativa": "A questão aborda “Barroco mineiro e síntese cultural” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar o barroco e o rococó mineiros pela dramaticidade, movimento e uso de materiais locais; Reconhecer na pintura de Mestre Ataíde marcas de identidade local e sincretismo visual. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-ppl-arte-122",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "hip-hop",
+            "rap"
+          ],
+          "justificativa": "A questão aborda “Rap, ritmo e relato poético” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-ppl-arte-129",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-educacao",
+          "objetivoIds": [
+            "jogos",
+            "boal"
+          ],
+          "justificativa": "A questão aborda “Improvisação teatral e trabalho coletivo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar jogos teatrais e improvisação como processos de aprendizagem e criação; Relacionar Teatro do Oprimido, participação e transformação social. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-ppl-arte-130",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "danca-moderna-contemporanea",
+          "objetivoIds": [
+            "moderna",
+            "improvisacao"
+          ],
+          "justificativa": "A questão aborda “Dança moderna e criação pessoal” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança moderna e contemporânea de cânones clássicos e acadêmicos; Relacionar improvisação, corpo e presença cênica. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-114",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dada-surrealismo",
+          "objetivoIds": [
+            "surrealismo",
+            "dada"
+          ],
+          "justificativa": "A questão aborda “Surrealismo e a subversão da representação em Magritte” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar o Dadaísmo como contestação da racionalidade, da arte institucional e da guerra; Identificar procedimentos surrealistas de estranhamento, sonho e escrita automática. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-115",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "matrizes-africanas-musica",
+          "objetivoIds": [
+            "diaspora",
+            "africanias"
+          ],
+          "justificativa": "A questão aborda “Pixinguinha, iorubá e matrizes africanas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer instrumentos, ritmos e práticas africanas na música brasileira; Analisar a diáspora e o sincretismo na formação musical brasileira. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-116",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "primitivismo",
+            "cubismo"
+          ],
+          "justificativa": "A questão aborda “Máscaras africanas e a síntese das formas nas vanguardas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Relacionar o interesse das vanguardas por máscaras africanas e formas ibéricas à apropriação cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-117",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "imagem-colonizacao-retrato",
+          "objetivoIds": [
+            "olhar-colonial"
+          ],
+          "justificativa": "A questão aborda “Diversidade artística e base antropológica” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar como imagens europeias construíram representações coloniais de povos indígenas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-118",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "performance-participacao",
+          "objetivoIds": [
+            "performance",
+            "participacao"
+          ],
+          "justificativa": "A questão aborda “Marina Abramovic e a performance como encontro” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar performance e body art como artes do corpo, do tempo presente e da ação; Explicar como a participação do espectador transforma a obra e a autoria. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-135",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "expressionismo-figurativismo",
+          "objetivoIds": [
+            "corpo",
+            "contexto-seculo-xx"
+          ],
+          "justificativa": "A questão aborda “Lucian Freud e o corpo sem idealização” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar representações do corpo que recusam o ideal de beleza acadêmico; Relacionar expressionismo, guerra e subjetividade moderna. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2015-regular-arte-96",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "hip-hop",
+            "rap"
+          ],
+          "justificativa": "A questão aborda “Break e cultura hip-hop” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-ppl-arte-111",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "ritmos-regionais"
+          ],
+          "justificativa": "A questão aborda “Baião e referências culturais nordestinas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-ppl-arte-116",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "tradicao-academica",
+          "objetivoIds": [
+            "idealizacao"
+          ],
+          "justificativa": "A questão aborda “Neoclassicismo, poder e idealização histórica” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-ppl-arte-127",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "danca-moderna-contemporanea",
+          "objetivoIds": [
+            "improvisacao"
+          ],
+          "justificativa": "A questão aborda “Presença e disponibilidade do corpo na dança” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Relacionar improvisação, corpo e presença cênica. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-ppl-arte-134",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-educacao",
+          "objetivoIds": [
+            "jogos"
+          ],
+          "justificativa": "A questão aborda “Jogos teatrais e autonomia do estudante” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar jogos teatrais e improvisação como processos de aprendizagem e criação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-ppl-arte-99",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "hibridismo-musical",
+            "ritmos-regionais"
+          ],
+          "justificativa": "A questão aborda “Tradição, inovação e negociação no samba” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas; Analisar hibridismos entre tradição, indústria cultural e migração. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-102",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-digital-tecnologia",
+          "objetivoIds": [
+            "arte-digital",
+            "acesso"
+          ],
+          "justificativa": "A questão aborda “Museus virtuais e acesso às obras” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar a arte digital como campo de processos, possibilidades e experiências; Avaliar museus virtuais, acervos digitais e formas de acesso à arte. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-112",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "pop-art-apropriacao",
+          "objetivoIds": [
+            "cultura-massa",
+            "apropriacao"
+          ],
+          "justificativa": "A questão aborda “Décollage, cultura de massa e Pop Art” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer na Pop Art o uso de imagens da cultura de massa, do consumo e da mídia; Explicar apropriação, citação e paródia como procedimentos críticos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-114",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "hip-hop",
+            "rap"
+          ],
+          "justificativa": "A questão aborda “Rap como linguagem da cultura hip-hop” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-116",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "forma-abstracao",
+          "objetivoIds": [
+            "neoconcretismo",
+            "leitura-formal"
+          ],
+          "justificativa": "A questão aborda “Amílcar de Castro, construtivismo e o corte-dobra” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Relacionar construtivismo, neoconcretismo e minimalismo a seus contextos históricos; Ler obras abstratas pelos elementos formais, sem exigir figuração ou narrativa. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-119",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão trata de brinquedos cantados e desenvolvimento infantil; o conhecimento cobrado é pedagógico e corporal, não a análise de uma linguagem artística."
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-125",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "primitivismo",
+            "cubismo"
+          ],
+          "justificativa": "A questão aborda “Picasso e as referências às máscaras africanas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Relacionar o interesse das vanguardas por máscaras africanas e formas ibéricas à apropriação cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-reaplicacao-arte-98",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "cubismo",
+            "futurismo"
+          ],
+          "justificativa": "A questão aborda “Futurismo, velocidade e vida moderna” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Reconhecer no futurismo a exaltação da velocidade, da técnica e da ruptura. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-regular-arte-101",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "espaco-publico"
+          ],
+          "justificativa": "A questão aborda “Arte pública e experiência estética cotidiana” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar intervenções artísticas no espaço público e sua relação com o cotidiano. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-regular-arte-109",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "performance-participacao",
+          "objetivoIds": [
+            "performance",
+            "participacao"
+          ],
+          "justificativa": "A questão aborda “Marilá Dardot, A origem da obra de arte e a participação do espectador” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar performance e body art como artes do corpo, do tempo presente e da ação; Explicar como a participação do espectador transforma a obra e a autoria. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-regular-arte-119",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão usa a metáfora da pérola para cobrar interpretação de texto literário; não exige conhecimento de história da arte, linguagem visual ou prática artística."
+    },
+    {
+      "questaoId": "enem-2016-regular-arte-123",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "espaco"
+          ],
+          "justificativa": "A questão aborda “Teatro de rua e ocupação do espaço público” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar teatro de rua, espaço cênico e relação com o público. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-regular-arte-129",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "expressionismo-figurativismo",
+          "objetivoIds": [
+            "corpo",
+            "contexto-seculo-xx"
+          ],
+          "justificativa": "A questão aborda “Francis Bacon, autorretrato e a subjetividade moderna” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar representações do corpo que recusam o ideal de beleza acadêmico; Relacionar expressionismo, guerra e subjetividade moderna. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2016-regular-arte-130",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-dramaturgia",
+          "objetivoIds": [
+            "leitura",
+            "texto-dramatico"
+          ],
+          "justificativa": "A questão aborda “Rubricas e construção da ação teatral” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir texto dramático, rubrica e encenação; Interpretar diálogos, rubricas e conflitos em excertos teatrais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-10",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "tradicao-academica",
+          "objetivoIds": [
+            "realismo",
+            "idealizacao"
+          ],
+          "justificativa": "A questão aborda “Realismo socialista e idealização do trabalho” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder; Comparar pintura acadêmica e realismo socialista como projetos estéticos e ideológicos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-13",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "performance-participacao",
+          "objetivoIds": [
+            "performance",
+            "participacao"
+          ],
+          "justificativa": "A questão aborda “Flávio de Carvalho e a performance New Look” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar performance e body art como artes do corpo, do tempo presente e da ação; Explicar como a participação do espectador transforma a obra e a autoria. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-18",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "O enunciado cobra a definição lexical de frevo e a interpretação do texto, sem pedir análise da dança, da música ou do patrimônio como linguagem artística."
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-20",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "ready-made-conceitual",
+          "objetivoIds": [
+            "ready-made",
+            "apropriacao-objeto"
+          ],
+          "justificativa": "A questão aborda “Duchamp e o ready-made” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar o ready-made e o deslocamento do objeto cotidiano para o espaço da arte; Analisar apropriação e ressignificação de objetos na escultura e na instalação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-22",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "memoria-urbana",
+            "espaco-publico"
+          ],
+          "justificativa": "A questão aborda “Jaime Prades, memória e responsabilidade ambiental” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar intervenções artísticas no espaço público e sua relação com o cotidiano; Relacionar arte pública, patrimônio e memória social. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-34",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "folclore",
+            "quadrilha-frevo"
+          ],
+          "justificativa": "A questão aborda “Quadrilha e vocabulário do movimento” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Analisar transformações da quadrilha e do frevo como patrimônio cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-35",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-dramaturgia",
+          "objetivoIds": [
+            "texto-dramatico",
+            "leitura"
+          ],
+          "justificativa": "A questão aborda “Texto dramático, encenação e analogia” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir texto dramático, rubrica e encenação; Interpretar diálogos, rubricas e conflitos em excertos teatrais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-37",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "cubismo",
+            "futurismo"
+          ],
+          "justificativa": "A questão aborda “Picasso, colagem e planos cubistas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista; Reconhecer no futurismo a exaltação da velocidade, da técnica e da ruptura. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-ppl-arte-40",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "interculturalidade"
+          ],
+          "justificativa": "A questão aborda “Mímica corporal e expressão do ator” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Discutir interculturalidade, fragmentação e novas formas de presença. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-21",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "expressionismo-figurativismo",
+          "objetivoIds": [
+            "contexto-seculo-xx",
+            "expressao"
+          ],
+          "justificativa": "A questão aborda “Oswaldo Goeldi e o expressionismo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer a deformação expressiva como linguagem, não como erro de desenho; Relacionar expressionismo, guerra e subjetividade moderna. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-25",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão trata da memória dos festivais de 1967 a partir de uma resenha; o foco é compreensão textual e gênero discursivo, não a análise estética ou histórica da música."
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-32",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-dramaturgia",
+          "objetivoIds": [
+            "generos",
+            "leitura"
+          ],
+          "justificativa": "A questão aborda “O bem-amado: teatro e sátira política” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer gêneros e formas teatrais, como comédia, drama e commedia dell'arte; Interpretar diálogos, rubricas e conflitos em excertos teatrais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-36",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-afro-brasileira",
+          "objetivoIds": [
+            "matrizes"
+          ],
+          "justificativa": "A questão aborda “Rubem Valentim e a síntese de matrizes culturais” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer matrizes africanas em obras afro-brasileiras. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-37",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "instalacao-materiais",
+          "objetivoIds": [
+            "instalacao",
+            "materiais"
+          ],
+          "justificativa": "A questão aborda “Ernesto Neto e a instalação participativa” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar a instalação como organização do espaço e da experiência do visitante; Analisar o uso de materiais cotidianos, industriais e orgânicos na arte contemporânea. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-43",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "grafite",
+            "espaco-publico"
+          ],
+          "justificativa": "A questão aborda “Speto, grafite e xilogravura nordestina” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir grafite, pichação e arte urbana, com seus contextos e linguagens; Analisar intervenções artísticas no espaço público e sua relação com o cotidiano. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2017-regular-arte-45",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "pop-art-apropriacao",
+          "objetivoIds": [
+            "apropriacao"
+          ],
+          "justificativa": "A questão aborda “Rauschenberg, combines e objetos cotidianos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar apropriação, citação e paródia como procedimentos críticos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-16",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "modernismo-brasileiro",
+          "objetivoIds": [
+            "sintese",
+            "ruptura"
+          ],
+          "justificativa": "A questão aborda “Tarsila e a modernização do espaço” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial; Reconhecer a síntese de formas, cores e temas brasileiros em obras modernistas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-21",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "patrimonio",
+            "saberes"
+          ],
+          "justificativa": "A questão aborda “Azulejaria e circulação de saberes” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir patrimônio material e imaterial e seus processos de reconhecimento; Analisar saberes populares, artesanato e oralidade como produção cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-25",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão pede para identificar a função da linguagem na divulgação de um livro sobre arte naïf; o núcleo é gramatical/discursivo, não a leitura das obras."
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-27",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "instalacao-materiais",
+          "objetivoIds": [
+            "instalacao",
+            "ambiente"
+          ],
+          "justificativa": "A questão aborda “Lina Kim: instalação e questionamento da razão” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar a instalação como organização do espaço e da experiência do visitante; Relacionar instalação, arquitetura e crítica social ou ambiental. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-29",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "instalacao-materiais",
+          "objetivoIds": [
+            "instalacao",
+            "materiais"
+          ],
+          "justificativa": "A questão aborda “Instalação e liberdade da arte contemporânea” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar a instalação como organização do espaço e da experiência do visitante; Analisar o uso de materiais cotidianos, industriais e orgânicos na arte contemporânea. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-31",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "fotografia",
+          "objetivoIds": [
+            "movimento",
+            "fotografia-tecnica"
+          ],
+          "justificativa": "A questão aborda “Fotografia, pintura e percepção do movimento” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a fotografia como técnica de registro e de construção de imagem; Relacionar fotografia, percepção do movimento e ciência no século XIX. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-34",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "barroco-brasileiro",
+          "objetivoIds": [
+            "ataide",
+            "barroco-mineiro"
+          ],
+          "justificativa": "A questão aborda “Mestre Ataíde e a identidade na pintura sacra” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar o barroco e o rococó mineiros pela dramaticidade, movimento e uso de materiais locais; Reconhecer na pintura de Mestre Ataíde marcas de identidade local e sincretismo visual. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-41",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-digital-tecnologia",
+          "objetivoIds": [
+            "arte-digital",
+            "autoria"
+          ],
+          "justificativa": "A questão aborda “Arte digital e participação na autoria” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar a arte digital como campo de processos, possibilidades e experiências; Discutir autoria, reprodutibilidade e direitos em obras digitais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-ppl-arte-45",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "quadrilha-frevo",
+            "folclore"
+          ],
+          "justificativa": "A questão aborda “Frevo e o vocabulário dos passos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Analisar transformações da quadrilha e do frevo como patrimônio cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-regular-arte-11",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "performance-participacao",
+          "objetivoIds": [
+            "performance",
+            "registro"
+          ],
+          "justificativa": "A questão aborda “Body art e o corpo como suporte” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar performance e body art como artes do corpo, do tempo presente e da ação; Discutir o papel da documentação e do registro na arte efêmera. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-regular-arte-12",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão aborda audiodescrição e acessibilidade tecnológica no cinema; não cobra conteúdo de história da arte nem análise de obra."
+    },
+    {
+      "questaoId": "enem-2018-regular-arte-29",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "fotografia",
+          "objetivoIds": [
+            "fotografia-tecnica",
+            "linguagem"
+          ],
+          "justificativa": "A questão aborda “Man Ray e a investigação do fotograma” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a fotografia como técnica de registro e de construção de imagem; Analisar composição, luz e instante decisivo na fotografia autoral. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-regular-arte-32",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "ruptura-cenica",
+            "espaco"
+          ],
+          "justificativa": "A questão aborda “O Teatro Mágico e a integração de linguagens” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer rupturas modernas e contemporâneas na encenação e na dramaturgia; Analisar teatro de rua, espaço cênico e relação com o público. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2018-regular-arte-45",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-digital-tecnologia",
+          "objetivoIds": [
+            "arte-digital",
+            "autoria"
+          ],
+          "justificativa": "A questão aborda “Stephen Lund e o GPS como linguagem artística” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar a arte digital como campo de processos, possibilidades e experiências; Discutir autoria, reprodutibilidade e direitos em obras digitais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-ppl-arte-12",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "ruptura-cenica",
+            "espaco"
+          ],
+          "justificativa": "A questão aborda “Teatro pós-moderno, fragmentação e ruptura narrativa” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer rupturas modernas e contemporâneas na encenação e na dramaturgia; Analisar teatro de rua, espaço cênico e relação com o público. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-ppl-arte-27",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-sociedade-sistema",
+          "objetivoIds": [
+            "campo-artistico"
+          ],
+          "justificativa": "A questão aborda “Mercado de arte contemporânea e produção de novidade” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar o campo artístico: instituições, mercado, crítica e público. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-ppl-arte-40",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "matrizes-africanas-musica",
+          "objetivoIds": [
+            "africanias",
+            "diaspora"
+          ],
+          "justificativa": "A questão aborda “Instrumentos africanos, diáspora e musicalidade brasileira” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer instrumentos, ritmos e práticas africanas na música brasileira; Analisar a diáspora e o sincretismo na formação musical brasileira. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-ppl-arte-55",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dancas-populares",
+          "objetivoIds": [
+            "quadrilha-frevo",
+            "folclore"
+          ],
+          "justificativa": "A questão aborda “Frevo, patrimônio imaterial e sentidos coletivos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança popular, folclórica e de salão, com seus contextos e funções; Analisar transformações da quadrilha e do frevo como patrimônio cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-12",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao",
+            "linha-palavra"
+          ],
+          "justificativa": "A questão aborda “Quadrinhos silenciosos, acessibilidade e experiência de leitura” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas; Analisar o bordado, a linha e a palavra como recursos de composição e memória. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-13",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "ruptura-cenica"
+          ],
+          "justificativa": "A questão aborda “Teatro moderno, vanguarda e resistência social” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer rupturas modernas e contemporâneas na encenação e na dramaturgia. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-15",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão discute acesso a acervos digitais e direitos autorais a partir de um texto argumentativo; o foco é compreensão e argumentação, não linguagem artística."
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-25",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "ritmos-regionais"
+          ],
+          "justificativa": "A questão aborda “Carnaval, samba-enredo e diálogo entre culturas musicais” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-31",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "ready-made-conceitual",
+          "objetivoIds": [
+            "apropriacao-objeto",
+            "ready-made"
+          ],
+          "justificativa": "A questão aborda “Escultura moderna, apropriação e ressignificação de objetos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar o ready-made e o deslocamento do objeto cotidiano para o espaço da arte; Analisar apropriação e ressignificação de objetos na escultura e na instalação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-36",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "pop-art-apropriacao",
+          "objetivoIds": [
+            "apropriacao"
+          ],
+          "justificativa": "A questão aborda “Arte contemporânea, apropriação e reprodutibilidade” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar apropriação, citação e paródia como procedimentos críticos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2019-regular-arte-40",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "cubismo-futurismo",
+          "objetivoIds": [
+            "futurismo"
+          ],
+          "justificativa": "A questão aborda “Futurismo, velocidade e ruptura com a tradição” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer no futurismo a exaltação da velocidade, da técnica e da ruptura. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-ppl-arte-13",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "ritmos-regionais",
+            "hibridismo-musical"
+          ],
+          "justificativa": "A questão aborda “Reggae e pluralidade musical maranhense” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas; Analisar hibridismos entre tradição, indústria cultural e migração. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-ppl-arte-38",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "instalacao-materiais",
+          "objetivoIds": [
+            "ambiente",
+            "instalacao"
+          ],
+          "justificativa": "A questão aborda “Instalação artística e denúncia ambiental” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar a instalação como organização do espaço e da experiência do visitante; Relacionar instalação, arquitetura e crítica social ou ambiental. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-regular-arte-14",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "instalacao-materiais",
+          "objetivoIds": [
+            "materiais",
+            "instalacao"
+          ],
+          "justificativa": "A questão aborda “Damien Hirst e os materiais da arte contemporânea” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar a instalação como organização do espaço e da experiência do visitante; Analisar o uso de materiais cotidianos, industriais e orgânicos na arte contemporânea. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-regular-arte-21",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "hibridismo-musical",
+            "ritmos-regionais"
+          ],
+          "justificativa": "A questão aborda “Lenine e a diversidade da cultura pernambucana” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas; Analisar hibridismos entre tradição, indústria cultural e migração. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-regular-arte-25",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "ready-made-conceitual",
+          "objetivoIds": [
+            "arte-conceitual"
+          ],
+          "justificativa": "A questão aborda “Joseph Kosuth e a arte conceitual” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir arte conceitual de uma arte centrada apenas na habilidade manual. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-regular-arte-28",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-erudita-popular",
+          "objetivoIds": [
+            "circulacao",
+            "erudito-popular"
+          ],
+          "justificativa": "A questão aborda “MC Fioti, Bach e a criação por apropriação” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir e relacionar música erudita e popular sem hierarquia automática; Analisar circulação, arranjo e apropriação de repertórios musicais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-regular-arte-33",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "espaco-publico"
+          ],
+          "justificativa": "A questão aborda “Lambe-lambe e circulação da poesia urbana” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar intervenções artísticas no espaço público e sua relação com o cotidiano. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2020-regular-arte-8",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "slam"
+          ],
+          "justificativa": "A questão aborda “Slam do Corpo e poesia em Libras” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer slam, poesia oral e performance como formas de participação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-ppl-arte-17",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-asiatica",
+          "objetivoIds": [
+            "zen",
+            "porcelana"
+          ],
+          "justificativa": "A questão aborda “Hasegawa Tohaku e a contemplação zen” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer na arte japonesa o zen, a contemplação e o uso do vazio; Analisar a porcelana e a circulação de técnicas e imagens entre Ásia e Europa. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-ppl-arte-35",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "dada-surrealismo",
+          "objetivoIds": [
+            "dada",
+            "fotomontagem"
+          ],
+          "justificativa": "A questão aborda “Raoul Hausmann e a sátira dadaísta” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar o Dadaísmo como contestação da racionalidade, da arte institucional e da guerra; Analisar colagem e fotomontagem como crítica política e visual. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-ppl-arte-37",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "teatro-moderno-contemporaneo",
+          "objetivoIds": [
+            "espaco",
+            "interculturalidade"
+          ],
+          "justificativa": "A questão aborda “Peter Brook e a concentração do tempo teatral” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar teatro de rua, espaço cênico e relação com o público; Discutir interculturalidade, fragmentação e novas formas de presença. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-regular-arte-10",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "comunicacao-visual-audiovisual",
+          "objetivoIds": [
+            "linguagem-audiovisual"
+          ],
+          "justificativa": "A questão aborda “Son of Saul: ponto de vista e apreciação cinematográfica” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar cinema, televisão e vídeo como linguagens com escolhas de ponto de vista e montagem. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-regular-arte-14",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "instalacao-materiais",
+          "objetivoIds": [
+            "materiais",
+            "instalacao"
+          ],
+          "justificativa": "A questão aborda “Instalação subaquática, refugiados e memória” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar a instalação como organização do espaço e da experiência do visitante; Analisar o uso de materiais cotidianos, industriais e orgânicos na arte contemporânea. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-regular-arte-15",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-erudita-popular",
+          "objetivoIds": [
+            "erudito-popular",
+            "escuta"
+          ],
+          "justificativa": "A questão aborda “Pestana e a tensão entre música erudita e popular” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir e relacionar música erudita e popular sem hierarquia automática; Reconhecer parâmetros musicais como melodia, ritmo, timbre e forma. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-regular-arte-20",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "danca-moderna-contemporanea",
+          "objetivoIds": [
+            "hibridismo",
+            "moderna"
+          ],
+          "justificativa": "A questão aborda “Dança contemporânea e multimodalidade na internet” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança moderna e contemporânea de cânones clássicos e acadêmicos; Analisar hibridismos entre dança, tecnologia e religiosidade. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-regular-arte-23",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "danca-moderna-contemporanea",
+          "objetivoIds": [
+            "moderna"
+          ],
+          "justificativa": "A questão aborda “A morte do cisne e o encontro de repertórios” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança moderna e contemporânea de cânones clássicos e acadêmicos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2021-regular-arte-33",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão pede reconhecer a função de um prefácio em uma história em quadrinhos; o foco é gênero textual e leitura, não a linguagem visual ou a história da arte."
+    },
+    {
+      "questaoId": "enem-2022-ppl-arte-11",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-erudita-popular",
+          "objetivoIds": [
+            "erudito-popular",
+            "escuta"
+          ],
+          "justificativa": "A questão aborda “Beethoven e as novas funções sociais da música” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir e relacionar música erudita e popular sem hierarquia automática; Reconhecer parâmetros musicais como melodia, ritmo, timbre e forma. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-ppl-arte-23",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-asiatica",
+          "objetivoIds": [
+            "globalizacao"
+          ],
+          "justificativa": "A questão aborda “Subodh Gupta e a circulação global da arte indiana” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Discutir a presença da arte asiática no mercado global e nas releituras contemporâneas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-ppl-arte-24",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "impressionismo",
+          "objetivoIds": [
+            "luz"
+          ],
+          "justificativa": "A questão aborda “Monet, luz e percepção da cor” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar como o Impressionismo representa luz, atmosfera e instantes por pinceladas de cor. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-ppl-arte-25",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "modernismo-brasileiro",
+          "objetivoIds": [
+            "identidade",
+            "ruptura"
+          ],
+          "justificativa": "A questão aborda “Modernismo e diversidade como identidade nacional” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial; Analisar como o modernismo brasileiro constrói e disputa ideias de identidade nacional. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-ppl-arte-6",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-indigenas",
+          "objetivoIds": [
+            "grafismos",
+            "cosmologia"
+          ],
+          "justificativa": "A questão aborda “Kusiwa e a cosmologia Wajãpi” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar grafismos, pintura corporal e arte plumária como sistemas de conhecimento; Relacionar arte indígena, cosmologia, mito e organização social. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-regular-arte-10",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-digital-tecnologia",
+          "objetivoIds": [
+            "autoria",
+            "arte-digital"
+          ],
+          "justificativa": "A questão aborda “Arte digital e proteção da autoria” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar a arte digital como campo de processos, possibilidades e experiências; Discutir autoria, reprodutibilidade e direitos em obras digitais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-regular-arte-38",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "tradicao-academica",
+          "objetivoIds": [
+            "maneirismo"
+          ],
+          "justificativa": "A questão aborda “El Greco e a distorção maneirista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir a distorção maneirista do equilíbrio e da proporção renascentistas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-regular-arte-39",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "forma-abstracao",
+          "objetivoIds": [
+            "neoconcretismo",
+            "abstracao"
+          ],
+          "justificativa": "A questão aborda “Donald Judd e as formas sintéticas do minimalismo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir abstração lírica e geométrica e reconhecer o papel de cor, linha e ritmo; Relacionar construtivismo, neoconcretismo e minimalismo a seus contextos históricos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-regular-arte-44",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "ready-made-conceitual",
+          "objetivoIds": [
+            "ready-made",
+            "apropriacao-objeto"
+          ],
+          "justificativa": "A questão aborda “Regina Silveira e a crítica aos valores estéticos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar o ready-made e o deslocamento do objeto cotidiano para o espaço da arte; Analisar apropriação e ressignificação de objetos na escultura e na instalação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-regular-arte-45",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "rock-tropicalismo-festivais",
+          "objetivoIds": [
+            "rock-brasil"
+          ],
+          "justificativa": "A questão aborda “Manguebeat e a integração de matrizes musicais” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer a incorporação do rock e da experimentação na música popular brasileira. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2022-regular-arte-8",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "comunicacao-visual-audiovisual",
+          "objetivoIds": [
+            "design"
+          ],
+          "justificativa": "A questão aborda “Design de jogos e representação das mulheres” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer decisões de design gráfico, identidade visual e comunicação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-07",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-erudita-popular",
+          "objetivoIds": [
+            "erudito-popular",
+            "circulacao"
+          ],
+          "justificativa": "A questão aborda “Jon Lord, fusão entre rock e música erudita” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir e relacionar música erudita e popular sem hierarquia automática; Analisar circulação, arranjo e apropriação de repertórios musicais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-13",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "hibridismo-musical",
+            "ritmos-regionais"
+          ],
+          "justificativa": "A questão aborda “Leão do Norte e as manifestações dançadas” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar ritmos e gêneros regionais e suas transformações históricas; Analisar hibridismos entre tradição, indústria cultural e migração. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-20",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-afro-brasileira",
+          "objetivoIds": [
+            "suporte",
+            "resistencia"
+          ],
+          "justificativa": "A questão aborda “Rosana Paulino, Bastidores e a condição da mulher negra” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar a arte afro-brasileira como resistência e afirmação identitária; Relacionar suportes, materiais e corporalidade à memória da escravidão. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-21",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "pop-art-apropriacao",
+          "objetivoIds": [
+            "apropriacao",
+            "cultura-massa"
+          ],
+          "justificativa": "A questão aborda “Vik Muniz, Arcimboldo e o diálogo com a tradição” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer na Pop Art o uso de imagens da cultura de massa, do consumo e da mídia; Explicar apropriação, citação e paródia como procedimentos críticos. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-22",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "espaco-publico",
+            "grafite"
+          ],
+          "justificativa": "A questão aborda “Basquiat, arte urbana e diálogo com a tradição brasileira” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir grafite, pichação e arte urbana, com seus contextos e linguagens; Analisar intervenções artísticas no espaço público e sua relação com o cotidiano. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-26",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “Cartum, função poética e articulação verbal-visual” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-ppl-arte-37",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "forma-abstracao",
+          "objetivoIds": [
+            "abstracao",
+            "leitura-formal"
+          ],
+          "justificativa": "A questão aborda “Kandinsky, ponto e linha na arte abstrata” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir abstração lírica e geométrica e reconhecer o papel de cor, linha e ritmo; Ler obras abstratas pelos elementos formais, sem exigir figuração ou narrativa. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-17",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "comunicacao-visual-audiovisual",
+          "objetivoIds": [
+            "midia",
+            "design"
+          ],
+          "justificativa": "A questão aborda “Identidade visual e sentidos dos colchetes” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer decisões de design gráfico, identidade visual e comunicação; Relacionar meios de comunicação, mercado e experiência estética. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-19",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "slam",
+            "rap"
+          ],
+          "justificativa": "A questão aborda “Slam, resistência negra e argumentação” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar o rap como relato poético, crítica social e afirmação identitária; Reconhecer slam, poesia oral e performance como formas de participação. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-32",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-erudita-popular",
+          "objetivoIds": [
+            "circulacao",
+            "erudito-popular"
+          ],
+          "justificativa": "A questão aborda “Jurandy do Sax e a circulação de repertórios” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir e relacionar música erudita e popular sem hierarquia automática; Analisar circulação, arranjo e apropriação de repertórios musicais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-33",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "modernismo-brasileiro",
+          "objetivoIds": [
+            "censura",
+            "ruptura"
+          ],
+          "justificativa": "A questão aborda “Arte moderna, censura e política” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial; Relacionar arte moderna, censura e projetos políticos no Brasil e na Europa. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-34",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "danca-moderna-contemporanea",
+          "objetivoIds": [
+            "moderna",
+            "hibridismo"
+          ],
+          "justificativa": "A questão aborda “Dança contemporânea e religiosidade afro-brasileira” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir dança moderna e contemporânea de cânones clássicos e acadêmicos; Analisar hibridismos entre dança, tecnologia e religiosidade. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-36",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "patrimonio"
+          ],
+          "justificativa": "A questão aborda “Patrimônio cultural imaterial e Marabaixo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir patrimônio material e imaterial e seus processos de reconhecimento. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-37",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-digital-tecnologia",
+          "objetivoIds": [
+            "arte-digital",
+            "autoria"
+          ],
+          "justificativa": "A questão aborda “Arte contemporânea, redes sociais e visibilidade do artista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar a arte digital como campo de processos, possibilidades e experiências; Discutir autoria, reprodutibilidade e direitos em obras digitais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2023-regular-arte-38",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "rap",
+            "hip-hop"
+          ],
+          "justificativa": "A questão aborda “Rap indígena, cultura urbana e afirmação de causas originárias” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica; Analisar o rap como relato poético, crítica social e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-ppl-arte-01",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “História em quadrinhos, mediação e experiência estética” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-ppl-arte-08",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “Ilustração contemporânea, visibilidade e imaginário social” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-ppl-arte-21",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "fotografia",
+          "objetivoIds": [
+            "fotografia-tecnica",
+            "linguagem"
+          ],
+          "justificativa": "A questão aborda “Fotografia, cidade e trabalho” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a fotografia como técnica de registro e de construção de imagem; Analisar composição, luz e instante decisivo na fotografia autoral. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-ppl-arte-25",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "hibridismo-musical",
+            "instrumentos"
+          ],
+          "justificativa": "A questão aborda “Música popular, viola caipira e tradição” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Relacionar instrumentos, práticas e transmissão de saberes musicais; Analisar hibridismos entre tradição, indústria cultural e migração. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-ppl-arte-40",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "saberes"
+          ],
+          "justificativa": "A questão aborda “Cerâmica popular e figurativismo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar saberes populares, artesanato e oralidade como produção cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-ppl-arte-47",
+      "situacao": "pendente",
+      "vinculos": [],
+      "observacao": "A questão exige relações entre arquitetura gótica medieval, iconografia das catedrais e economia agropecuária. A aula proposta de instituições e mercado artístico não ensina esse recorte. Elaborar aula específica ou ampliar a cobertura com fontes antes de vincular."
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-08",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "instrumentos"
+          ],
+          "justificativa": "A questão aborda “Cavaquinho, ukulele e transformação cultural de instrumentos” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Relacionar instrumentos, práticas e transmissão de saberes musicais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-16",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-afro-brasileira",
+          "objetivoIds": [
+            "matrizes"
+          ],
+          "justificativa": "A questão aborda “Arte afro-brasileira, multiculturalidade e experiência social” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer matrizes africanas em obras afro-brasileiras. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-21",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-indigenas",
+          "objetivoIds": [
+            "grafismos",
+            "cosmologia"
+          ],
+          "justificativa": "A questão aborda “Arte indígena, arte plumária e organização social” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar grafismos, pintura corporal e arte plumária como sistemas de conhecimento; Relacionar arte indígena, cosmologia, mito e organização social. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-25",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "impressionismo",
+          "objetivoIds": [
+            "recepcao",
+            "luz"
+          ],
+          "justificativa": "A questão aborda “Impressionismo e pintura brasileira” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar como o Impressionismo representa luz, atmosfera e instantes por pinceladas de cor; Interpretar a recepção crítica e a circulação do Impressionismo, inclusive no Brasil. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-30",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-sociedade-sistema",
+          "objetivoIds": [
+            "funcao-social",
+            "campo-artistico"
+          ],
+          "justificativa": "A questão aborda “Arte, literatura e função crítica” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar o campo artístico: instituições, mercado, crítica e público; Discutir a função social da arte e o acesso à cultura. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-36",
+      "situacao": "pendente",
+      "vinculos": [],
+      "observacao": "A comparação entre escultura arcaica e Modigliani exige permanências formais e diálogo entre épocas. A aula de Cubismo/Futurismo não cobre suficientemente essa comparação; não usar proximidade entre vanguardas como autorização. Conferir aula específica antes de vincular."
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-43",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "fotografia",
+          "objetivoIds": [
+            "fotografia-tecnica"
+          ],
+          "justificativa": "A questão aborda “Fotografia, acaso e experimentação na câmera pinhole” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a fotografia como técnica de registro e de construção de imagem. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2024-regular-arte-44",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "hip-hop-rap-slam",
+          "objetivoIds": [
+            "hip-hop"
+          ],
+          "justificativa": "A questão aborda “Break dance e transformação do programa olímpico” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar os elementos da cultura hip-hop e sua origem periférica. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-arte-12",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão cobra a função comunicativa de uma carta aberta sobre uma turnê; o núcleo é gênero textual e leitura, não a análise da obra musical."
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-arte-33",
+      "situacao": "fora_escopo",
+      "vinculos": [],
+      "observacao": "A questão compara resenhas de duas cinebiografias e cobra argumentação e gênero textual, sem exigir análise fílmica ou histórica da arte."
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d3-arte-03",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “Cartum, ironia e crítica à imediatismo na educação” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d3-arte-15",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-digital-tecnologia",
+          "objetivoIds": [
+            "autoria",
+            "arte-digital"
+          ],
+          "justificativa": "A questão aborda “Tirinha, inteligência artificial e trabalho criativo” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Caracterizar a arte digital como campo de processos, possibilidades e experiências; Discutir autoria, reprodutibilidade e direitos em obras digitais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d3-arte-27",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "gravura",
+            "ilustracao"
+          ],
+          "justificativa": "A questão aborda “Gravura, arte social e circulação no Brasil e no México” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Identificar procedimentos de gravura e xilogravura e sua circulação social; Analisar ilustração, cartum e quadrinhos como linguagens críticas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d3-arte-30",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-indigenas",
+          "objetivoIds": [
+            "grafismos"
+          ],
+          "justificativa": "A questão aborda “Arte indígena, grafismos e intercâmbio cultural no norte amazônico” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar grafismos, pintura corporal e arte plumária como sistemas de conhecimento. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d3-arte-42",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "fotografia",
+          "objetivoIds": [
+            "linguagem",
+            "fotografia-tecnica"
+          ],
+          "justificativa": "A questão aborda “Fotografia, cotidiano e composição em Cartier-Bresson” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Explicar a fotografia como técnica de registro e de construção de imagem; Analisar composição, luz e instante decisivo na fotografia autoral. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d3-arte-44",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "expressionismo-figurativismo",
+          "objetivoIds": [
+            "contexto-seculo-xx",
+            "expressao"
+          ],
+          "justificativa": "A questão aborda “Iberê Camargo, memória e invenção formal” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer a deformação expressiva como linguagem, não como erro de desenho; Relacionar expressionismo, guerra e subjetividade moderna. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d5-arte-09",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-urbana-publica",
+          "objetivoIds": [
+            "espaco-publico"
+          ],
+          "justificativa": "A questão aborda “Escultura pública, integração urbana e democratização da arte” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar intervenções artísticas no espaço público e sua relação com o cotidiano. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d5-arte-20",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-asiatica",
+          "objetivoIds": [
+            "porcelana"
+          ],
+          "justificativa": "A questão aborda “Porcelana, cópia e repertório cultural do artista” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar a porcelana e a circulação de técnicas e imagens entre Ásia e Europa. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-reaplicacao-d5-arte-42",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "musica-popular-regional",
+          "objetivoIds": [
+            "instrumentos"
+          ],
+          "justificativa": "A questão aborda “Zabé da Loca, pífano e transmissão de saber musical” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Relacionar instrumentos, práticas e transmissão de saberes musicais. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-regular-arte-15",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "imagem-colonizacao-retrato",
+          "objetivoIds": [
+            "olhar-colonial",
+            "retrato-exclusao"
+          ],
+          "justificativa": "A questão aborda “Retrato, memória e afirmação de identidade na arte brasileira” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar como imagens europeias construíram representações coloniais de povos indígenas; Relacionar o retrato de elite à exclusão de pessoas negras e indígenas. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-regular-arte-22",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "culturas-populares-patrimonio",
+          "objetivoIds": [
+            "saberes",
+            "patrimonio"
+          ],
+          "justificativa": "A questão aborda “Arte popular, entalhe em madeira e ressignificação da matéria-prima” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Distinguir patrimônio material e imaterial e seus processos de reconhecimento; Analisar saberes populares, artesanato e oralidade como produção cultural. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-regular-arte-23",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "arte-afro-brasileira",
+          "objetivoIds": [
+            "resistencia",
+            "matrizes"
+          ],
+          "justificativa": "A questão aborda “Arte contemporânea, colonialidade e violência na obra de Adriana Varejão” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Reconhecer matrizes africanas em obras afro-brasileiras; Analisar a arte afro-brasileira como resistência e afirmação identitária. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-regular-arte-41",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-indigenas",
+          "objetivoIds": [
+            "cosmologia",
+            "grafismos"
+          ],
+          "justificativa": "A questão aborda “Arte indígena, grafismos e sacralidade dos bancos Tukano” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar grafismos, pintura corporal e arte plumária como sistemas de conhecimento; Relacionar arte indígena, cosmologia, mito e organização social. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "questaoId": "enem-2025-regular-arte-45",
+      "situacao": "vinculada",
+      "vinculos": [
+        {
+          "conteudoId": "artes-graficas",
+          "objetivoIds": [
+            "ilustracao",
+            "linha-palavra"
+          ],
+          "justificativa": "A questão aborda “Ilustração, palavra intraduzível e função do texto verbal” e cobra leitura do caso apresentado. A aula cobre esse conteúdo ao ensinar: Analisar ilustração, cartum e quadrinhos como linguagens críticas; Analisar o bordado, a linha e a palavra como recursos de composição e memória. Associação proposta; a conferência docente deve verificar a cobertura integral do item antes de aprovar a aula."
+        }
+      ],
+      "observacao": ""
+    }
+  ]
+}

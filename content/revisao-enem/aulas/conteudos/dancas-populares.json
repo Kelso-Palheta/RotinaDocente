@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "id": "dancas-populares",
+  "titulo": "Danças populares: comunidade, festa e patrimônio",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "folclore",
+      "descricao": "Distinguir dança popular, folclórica e de salão, com seus contextos e funções."
+    },
+    {
+      "id": "quadrilha-frevo",
+      "descricao": "Analisar transformações da quadrilha e do frevo como patrimônio cultural."
+    },
+    {
+      "id": "corpo-comunidade",
+      "descricao": "Relacionar dança, comunidade, ancestralidade e resistência."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Dançar junto",
+      "tipo": "texto",
+      "texto": "As danças populares nascem de práticas coletivas ligadas a festas, rituais, trabalho e celebração. Elas variam de região para região e se transformam com migrações, mídia e políticas culturais. No Brasil, a quadrilha junina, o frevo, o samba de roda, o maracatu e muitas danças indígenas e afro-brasileiras compõem um repertório diverso. Chamar tudo de 'folclore' pode homogeneizar; é mais produtivo entender cada prática em seu contexto e em sua comunidade.",
+      "objetivoIds": [
+        "folclore",
+        "corpo-comunidade"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Tradição, transformação e patrimônio",
+      "tipo": "texto",
+      "texto": "Tradição não é repetição idêntica: é transmissão com mudança. A quadrilha, por exemplo, nasceu como dança de salão europeia e foi adaptada no Brasil, incorporando vocabulário próprio e comicidade. O frevo combina música, dança, capoeira e artesanato. O reconhecimento como patrimônio imaterial pode valorizar essas práticas, mas também criar riscos de turistificação e perda de controle pelas comunidades. Ao analisar, pergunte quem define o que é autêntico.",
+      "objetivoIds": [
+        "folclore",
+        "quadrilha-frevo"
+      ]
+    },
+    {
+      "id": "exemplo-quadrilha",
+      "titulo": "Quadrilha: do salão à roça",
+      "tipo": "texto",
+      "texto": "A quadrilha chegou ao Brasil como dança de salão e foi apropriada por comunidades rurais e urbanas. Os comandos em francês foram transformados em expressões como 'anarriê' e 'alavantú', muitas vezes com humor. A dança passou a fazer parte das festas juninas, com trajes, fogueira e música específica. Ao analisar uma apresentação, observe a relação entre os pares, os comandos e a plateia. A tradição é viva porque negocia com o presente.",
+      "objetivoIds": [
+        "quadrilha-frevo",
+        "folclore"
+      ]
+    },
+    {
+      "id": "exemplo-frevo",
+      "titulo": "Frevo: fervura, passo e resistência",
+      "tipo": "texto",
+      "texto": "O frevo surgiu no Recife e em Olinda, associado ao carnaval e às bandas de música. O passo é rápido e acrobático, com influências da capoeira. A dança expressa energia e disputa de espaço. O reconhecimento como patrimônio imaterial da humanidade pela Unesco, em 2012, ampliou sua visibilidade, mas não resolve as desigualdades que afetam seus praticantes. Ao analisar, relacione música, corpo e contexto urbano.",
+      "objetivoIds": [
+        "quadrilha-frevo",
+        "corpo-comunidade"
+      ]
+    },
+    {
+      "id": "exemplo-indigena",
+      "titulo": "Dança indígena e ancestralidade",
+      "tipo": "texto",
+      "texto": "Para muitos povos indígenas, a dança não é um espetáculo separado da vida: integra rituais, preparação do corpo, memória e relação com o cosmos. Os Xavante, por exemplo, associam a dança à energia, à resistência física e à organização social. Ao estudar essas práticas, evite o olhar exótico que trata o indígena como 'primitivo' ou 'puro'. As comunidades contemporâneas circulam entre aldeia, cidade, universidade e mídia, transformando suas tradições.",
+      "objetivoIds": [
+        "corpo-comunidade",
+        "folclore"
+      ]
+    },
+    {
+      "id": "exemplo-ballet",
+      "titulo": "Dança folclórica e dança teatral: campos diferentes",
+      "tipo": "texto",
+      "texto": "O balé clássico é uma tradição teatral codificada, formada em cortes e academias europeias, com vocabulário próprio de passos, papéis e narrativas. Sua transmissão ocorre em escolas e companhias profissionais, e o espetáculo é organizado para uma plateia. As danças folclóricas brasileiras, por sua vez, nascem de práticas comunitárias ligadas a festas, rituais e trabalho, e se transmitem pela participação. Isso não torna o balé 'superior' nem as danças populares 'espontâneas': são campos diferentes, com técnicas e circuitos distintos. Ao classificar uma manifestação, pergunte quem dança, onde, para quem e como o saber é transmitido.",
+      "objetivoIds": [
+        "folclore"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que as danças populares não são",
+      "tipo": "texto",
+      "texto": "Não são 'primitivas' ou 'espontâneas' sem técnica: exigem aprendizado, ensaio e conhecimento do estilo. Não são imutáveis: mudam com o tempo e com o público. Não são apenas entretenimento: podem ter função ritual, política e comunitária. E não são propriedade de um especialista externo: pertencem às comunidades que as praticam. Evite também tratar todas as danças brasileiras como uma mistura homogênea.",
+      "objetivoIds": [
+        "folclore",
+        "quadrilha-frevo",
+        "corpo-comunidade"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre danças populares, identifique a festa, a região e a comunidade. Observe se o texto fala de origem, transformação ou reconhecimento patrimonial. Relacione a dança ao corpo, à música e ao contexto social. A alternativa correta costuma valorizar a diversidade e a agência das comunidades, não a exotização. Síntese: dançar é uma forma de lembrar, celebrar e reivindicar.",
+      "objetivoIds": [
+        "folclore",
+        "quadrilha-frevo",
+        "corpo-comunidade"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "IPHAN — patrimônio imaterial",
+      "url": "https://www.gov.br/iphan/pt-br",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Unesco — patrimônio cultural imaterial",
+      "url": "https://www.unesco.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Funarte — cultura popular",
+      "url": "https://www.gov.br/funarte/pt-br",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

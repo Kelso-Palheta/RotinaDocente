@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "artes-indigenas",
+  "titulo": "Artes indígenas: grafismos, cosmologia e contemporaneidade",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "grafismos",
+      "descricao": "Analisar grafismos, pintura corporal e arte plumária como sistemas de conhecimento."
+    },
+    {
+      "id": "cosmologia",
+      "descricao": "Relacionar arte indígena, cosmologia, mito e organização social."
+    },
+    {
+      "id": "contemporaneidade",
+      "descricao": "Reconhecer a arte indígena contemporânea e suas lutas."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Arte não separada da vida",
+      "tipo": "texto",
+      "texto": "Para muitos povos indígenas, não existe uma categoria separada chamada 'arte': grafismos, cantos, adornos e objetos rituais integram a vida social, a espiritualidade e a relação com o território. O Kusiwa, dos Wajãpi, é um sistema gráfico usado em corpos e objetos; os bancos Tukano carregam mitos de origem; a arte plumária indica prestígio e pertencimento. Estudar essas produções exige abandonar a ideia de que arte é apenas o que fica em museu.",
+      "objetivoIds": [
+        "grafismos",
+        "cosmologia"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Grafismo, corpo e cosmologia",
+      "tipo": "texto",
+      "texto": "O grafismo indígena não é decoração aleatória: segue padrões, combina formas e comunica identidade, gênero, idade e status. A pintura corporal pode marcar rituais, luto, guerra ou festa. A arte plumária usa cores e espécies de aves para construir relações com o cosmos e com a organização social. Ao analisar, pergunte quem usa, em que ocasião e que significado o padrão carrega. A beleza é inseparável do conhecimento.",
+      "objetivoIds": [
+        "grafismos",
+        "cosmologia"
+      ]
+    },
+    {
+      "id": "exemplo-kusiwa",
+      "titulo": "Kusiwa: o desenho que ensina",
+      "tipo": "texto",
+      "texto": "O Kusiwa é um repertório de padrões gráficos dos Wajãpi, reconhecido pela Unesco como patrimônio imaterial. Ele aparece em cestos, corpos e objetos, transmitindo conhecimento sobre o mundo e sobre os seres que o habitam. Não é um simples enfeite: é uma forma de linguagem. Ao analisar uma imagem, observe a repetição, a simetria e as variações. A precisão do traço revela um sistema complexo de transmissão e criação.",
+      "objetivoIds": [
+        "grafismos",
+        "cosmologia"
+      ]
+    },
+    {
+      "id": "exemplo-bancos",
+      "titulo": "Bancos Tukano e a origem do mundo",
+      "tipo": "texto",
+      "texto": "Segundo o mito Tukano, a avó do universo criou os seres sentada em um banco de quartzo. Os bancos de madeira reproduzem esse objeto ancestral e participam de rituais e da vida cotidiana. Ao analisar um banco, observe a forma, os grafismos e o contexto de uso. A obra não é apenas escultura: é um elo entre mito, memória e identidade. A cosmologia está inscrita no objeto.",
+      "objetivoIds": [
+        "cosmologia",
+        "grafismos"
+      ]
+    },
+    {
+      "id": "exemplo-contemporaneo",
+      "titulo": "Arte indígena contemporânea",
+      "tipo": "texto",
+      "texto": "Artistas indígenas contemporâneos circulam entre aldeia, cidade, universidade e mercado, usando pintura, fotografia, vídeo e instalação. Eles não abandonam suas cosmologias: colocam-nas em diálogo com o mundo da arte. Ao analisar uma obra contemporânea, pergunte como a identidade é afirmada e como a colonização é criticada. Evite o olhar que espera do artista indígena apenas 'tradição' ou 'exotismo'. A produção é viva, plural e política.",
+      "objetivoIds": [
+        "contemporaneidade",
+        "cosmologia"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a arte indígena não é",
+      "tipo": "texto",
+      "texto": "Não é um bloco único: há centenas de povos e linguagens. Não é 'primitiva': é complexa, codificada e historicamente situada. Não é anônima: há autores, comunidades e escolas de produção. E não é apenas passado: artistas contemporâneos criam com meios digitais e circuitos globais. Evite também usar objetos rituais como decoração sem reconhecer seu contexto e seus direitos.",
+      "objetivoIds": [
+        "grafismos",
+        "cosmologia",
+        "contemporaneidade"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre arte indígena, identifique o povo, o suporte e a função do objeto. Observe se o texto fala de grafismo, ritual, cosmologia ou arte contemporânea. Relacione a forma ao sistema de conhecimento. A alternativa correta costuma reconhecer complexidade e agência, não exotismo. Síntese: a arte indígena é pensamento visual e memória em movimento.",
+      "objetivoIds": [
+        "grafismos",
+        "cosmologia",
+        "contemporaneidade"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Museu do Índio — acervo e culturas indígenas",
+      "url": "https://www.museudoindio.gov.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "FUNAI — povos indígenas",
+      "url": "https://www.gov.br/funai/pt-br",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Unesco — patrimônio imaterial",
+      "url": "https://www.unesco.org/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

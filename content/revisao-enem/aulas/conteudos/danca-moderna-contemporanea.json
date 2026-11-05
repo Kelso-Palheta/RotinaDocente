@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "danca-moderna-contemporanea",
+  "titulo": "Dança moderna e contemporânea: corpo, presença e hibridismo",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "moderna",
+      "descricao": "Distinguir dança moderna e contemporânea de cânones clássicos e acadêmicos."
+    },
+    {
+      "id": "improvisacao",
+      "descricao": "Relacionar improvisação, corpo e presença cênica."
+    },
+    {
+      "id": "hibridismo",
+      "descricao": "Analisar hibridismos entre dança, tecnologia e religiosidade."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Do tutu ao chão",
+      "tipo": "texto",
+      "texto": "A dança moderna surgiu no início do século XX como recusa do balé clássico e de suas hierarquias. Isadora Duncan, Martha Graham e outros artistas buscaram um corpo livre, expressivo e ligado à gravidade. A dança contemporânea ampliou esse projeto com improvisação, contato, performance e mistura de linguagens. No Brasil, grupos e artistas combinaram técnicas europeias com referências afro-brasileiras, indígenas e populares. O corpo deixou de ser apenas instrumento de forma ideal.",
+      "objetivoIds": [
+        "moderna"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Técnica, presença e composição",
+      "tipo": "texto",
+      "texto": "Na dança moderna, a técnica serve à expressão e ao conhecimento do corpo, não à imitação de um modelo único. A presença cênica envolve atenção, respiração e relação com o espaço. A improvisação pode gerar material ou ser a própria performance. A composição organiza tempo, espaço e energia. Ao analisar uma obra, pergunte como o corpo ocupa o chão, que qualidades de movimento aparecem e como o público é afetado. Não procure apenas 'passos bonitos'.",
+      "objetivoIds": [
+        "moderna",
+        "improvisacao"
+      ]
+    },
+    {
+      "id": "exemplo-moderna",
+      "titulo": "A morte do cisne e a releitura",
+      "tipo": "texto",
+      "texto": "O solo 'A morte do cisne', criado em 1905 por Mikhail Fokine, tornou-se um ícone do balé. Sua imagem de bailarina de branco na ponta dos pés associa-se a um ideal de graça e sofrimento. Versões contemporâneas podem deslocar esse repertório: um homem, um corpo gordo, uma dança no chão. Ao comparar original e releitura, pergunte o que permanece e o que é transformado. A tradição não é abandonada; é citada criticamente.",
+      "objetivoIds": [
+        "moderna",
+        "hibridismo"
+      ]
+    },
+    {
+      "id": "exemplo-presenca",
+      "titulo": "Presença e vazio na cena",
+      "tipo": "texto",
+      "texto": "Alguns coreógrafos falam de um estado de 'vazio' necessário para que o corpo responda ao presente. Não se trata de não pensar, mas de não antecipar tudo. O dançarino precisa estar disponível ao espaço, ao som e ao outro. Ao analisar uma performance, observe pausas, olhares e mudanças de velocidade. A qualidade da presença não está no excesso de movimento, mas na escuta do corpo. Isso aproxima dança, teatro e meditação.",
+      "objetivoIds": [
+        "improvisacao",
+        "moderna"
+      ]
+    },
+    {
+      "id": "exemplo-tecnologia",
+      "titulo": "Dança, internet e novas telas",
+      "tipo": "texto",
+      "texto": "O coreógrafo Didier Mulleras criou experiências que combinam movimento, computador, internet e vídeo. A dança pode acontecer em uma tela, em uma rede ou em um ambiente interativo. Isso amplia o público, mas também coloca desafios: como preservar a presença? Como registrar? Ao analisar uma obra digital, pergunte o que se ganha e o que se perde em relação ao palco. A tecnologia não substitui o corpo; ela reorganiza a percepção dele.",
+      "objetivoIds": [
+        "hibridismo",
+        "improvisacao"
+      ]
+    },
+    {
+      "id": "exemplo-religiosidade",
+      "titulo": "Gira e a religiosidade afro-brasileira",
+      "tipo": "texto",
+      "texto": "Na obra 'Gira', bailarinas ocupam a cena com troncos que pendulam e olhos fechados, sugerindo transe e ritual. A dança contemporânea pode incorporar gestos e cosmologias afro-brasileiras sem reduzi-los a folclore. Ao analisar, observe como o corpo coletivo constrói o sagrado e como a iluminação e o figurino participam. A pergunta é que relação a obra propõe entre arte, espiritualidade e memória.",
+      "objetivoIds": [
+        "hibridismo",
+        "moderna"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de dança moderna, procure palavras como corpo, gravidade, expressão, improvisação e presença. Em dança contemporânea, observe hibridismo, tecnologia e reelaboração de tradições. Relacione a escolha de movimento ao efeito. A alternativa correta costuma valorizar a experiência e a ruptura com o ideal clássico, sem dizer que 'qualquer movimento vale'. Síntese: a dança moderna é uma investigação do corpo no presente.",
+      "objetivoIds": [
+        "moderna",
+        "improvisacao",
+        "hibridismo"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Dance Heritage Coalition — história da dança",
+      "url": "https://www.danceheritage.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Royal Opera House — balé e dança",
+      "url": "https://www.roh.org.uk/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — dança",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

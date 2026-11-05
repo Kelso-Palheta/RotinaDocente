@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "teatro-dramaturgia",
+  "titulo": "Teatro e dramaturgia: texto, rubrica e encenação",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "texto-dramatico",
+      "descricao": "Distinguir texto dramático, rubrica e encenação."
+    },
+    {
+      "id": "generos",
+      "descricao": "Reconhecer gêneros e formas teatrais, como comédia, drama e commedia dell'arte."
+    },
+    {
+      "id": "leitura",
+      "descricao": "Interpretar diálogos, rubricas e conflitos em excertos teatrais."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "O texto que precisa do palco",
+      "tipo": "texto",
+      "texto": "Uma peça teatral é escrita para ser encenada, mas também pode ser lida. O texto dramático organiza falas, personagens, conflitos e indicações de cena. As rubricas são instruções do autor sobre gestos, cenário, luz ou entonação. Na encenação, diretor, atores e equipe criam uma interpretação que pode respeitar ou transformar o texto. Estudar teatro exige articular essas camadas: o que está escrito, o que é imaginado e o que acontece no palco.",
+      "objetivoIds": [
+        "texto-dramatico"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Diálogo, ação e rubrica",
+      "tipo": "texto",
+      "texto": "O diálogo faz avançar o conflito e revela personagens. A rubrica pode ser explícita ('ela chora') ou implícita no próprio diálogo. Nem tudo o que importa está dito: pausas, silêncios e gestos também significam. O texto dramático não é um romance com diálogos: ele é construído para a ação presente. Ao ler um excerto, identifique quem quer o quê, quem impede e que tensão se cria. A pergunta 'o que está acontecendo?' é mais produtiva que 'o que o autor quis dizer?'.",
+      "objetivoIds": [
+        "texto-dramatico",
+        "leitura"
+      ]
+    },
+    {
+      "id": "exemplo-rubrica",
+      "titulo": "Rubricas e a construção da cena",
+      "tipo": "texto",
+      "texto": "Em uma cena de comédia, uma rubrica pode indicar que a personagem arrepela-se de raiva, bate o pé e fala alto. Essas indicações não são enfeites: revelam o ritmo da ação e o tom da interpretação. Se o ator escolhe fazer o oposto — falar baixo e ficar imóvel —, o sentido muda. Ao analisar um trecho, observe as didascálias e o que elas acrescentam ao diálogo. A rubrica é uma pista para a encenação, não uma prisão.",
+      "objetivoIds": [
+        "texto-dramatico",
+        "leitura"
+      ]
+    },
+    {
+      "id": "generos",
+      "titulo": "Comédia, drama e commedia dell'arte",
+      "tipo": "texto",
+      "texto": "A comédia trabalha com equívocos, exageros e crítica de costumes; o drama explora conflitos psicológicos e sociais; a commedia dell'arte, surgida na Itália, usa personagens-tipo, máscaras e improvisação. Arlequim, Colombina e Pantaleão circulam em versões até hoje. Reconhecer gêneros ajuda a entender expectativas do público e escolhas de atuação. Mas os gêneros se misturam: uma peça pode rir de temas trágicos ou usar o cômico para denunciar injustiças.",
+      "objetivoIds": [
+        "generos"
+      ]
+    },
+    {
+      "id": "exemplo-brasil",
+      "titulo": "O bem-amado e a sátira política",
+      "tipo": "texto",
+      "texto": "A peça de Dias Gomes acompanha as artimanhas de um prefeito corrupto em uma cidade pequena. O humor expõe a relação entre poder local, imprensa e eleitorado. A linguagem teatral permite que o público reconheça situações cotidianas e, ao mesmo tempo, se distancie delas para rir e criticar. Ao analisar uma cena, observe como o texto constrói o ridículo: repetição, exagero, contraste entre discurso e ação. A comédia política não é menos séria por ser engraçada.",
+      "objetivoIds": [
+        "generos",
+        "leitura"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que o teatro não é",
+      "tipo": "texto",
+      "texto": "Não é apenas literatura: o texto ganha outra dimensão no palco. Não é apenas improviso: há treino, técnica e composição. Não é sinônimo de cinema: a presença ao vivo e o tempo compartilhado mudam a experiência. E não é um texto sagrado: diretores e atores podem atualizar, cortar ou recontextualizar. Evite também ler rubricas como se fossem narração: elas orientam a cena, não contam a história por fora.",
+      "objetivoIds": [
+        "texto-dramatico",
+        "generos",
+        "leitura"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em excertos teatrais, identifique personagens, conflito e rubricas. Observe quem fala, com quem e em que situação. Pergunte o que a rubrica acrescenta e como o texto seria diferente sem ela. Relacione o trecho ao gênero e ao contexto histórico. A alternativa correta costuma tratar da construção da ação ou da relação texto-palco. Síntese: no teatro, a palavra é apenas uma parte da cena.",
+      "objetivoIds": [
+        "texto-dramatico",
+        "generos",
+        "leitura"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "SP Escola de Teatro — dramaturgia",
+      "url": "https://www.spescoladeteatro.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — teatro",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu da Língua Portuguesa",
+      "url": "https://www.museudalinguagem.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

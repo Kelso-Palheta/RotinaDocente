@@ -4,6 +4,8 @@ import React from 'react';
 import { useCronometroRevisao } from './useCronometroRevisao';
 import { BadgeConexao, BlocoConteudo, formatarTempo } from './revisaoUtils';
 import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
+import { PodioRevisao } from './PodioRevisao';
+import { BlocoAulaTematica } from './BlocoAulaTematica';
 
 export function PainelAluno({
   estado,
@@ -135,7 +137,15 @@ export function PainelAluno({
         )}
 
         {/* FASE: CONTEUDO */}
-        {fase === 'conteudo' && (
+        {fase === 'conteudo' && estado?.aula && (
+          <BlocoAulaTematica
+            bloco={estado.aula.bloco}
+            aula={estado.aula}
+            imagens={estado.aula.bloco?.imagens || []}
+          />
+        )}
+
+        {fase === 'conteudo' && !estado?.aula && (
           <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-2xl p-5 space-y-4 shadow-xl backdrop-blur-md">
             <div className="border-b border-[#6334E3]/40 pb-2 flex items-center justify-between">
               <div>
@@ -370,7 +380,8 @@ export function PainelAluno({
 
             {ranking && ranking.length > 0 ? (
               <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1 text-left">
-                {ranking.map((item, idx) => (
+                {estado?.schemaVersion === 2 && <PodioRevisao ranking={ranking}/>}
+              {ranking.map((item, idx) => (
                   <div
                     key={item.participanteId || idx}
                     data-posicao={item.posicao}

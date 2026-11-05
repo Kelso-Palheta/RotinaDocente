@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "id": "hip-hop-rap-slam",
+  "titulo": "Hip-hop, rap e slam: voz periférica e afirmação de identidade",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "hip-hop",
+      "descricao": "Caracterizar os elementos da cultura hip-hop e sua origem periférica."
+    },
+    {
+      "id": "rap",
+      "descricao": "Analisar o rap como relato poético, crítica social e afirmação identitária."
+    },
+    {
+      "id": "slam",
+      "descricao": "Reconhecer slam, poesia oral e performance como formas de participação."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Do Bronx para o mundo",
+      "tipo": "texto",
+      "texto": "A cultura hip-hop surgiu no Bronx, em Nova York, nos anos 1970, em meio a pobreza, desemprego e políticas de abandono. Seus elementos clássicos são o MC (rap), o DJ, o break dance e o grafite. No Brasil, chegou nos anos 1980 e se enraizou nas periferias de São Paulo e do Rio de Janeiro, com bailes black, grupos de rap e oficinas culturais. O hip-hop se tornou uma linguagem global, mas mantém vínculo com a experiência periférica.",
+      "objetivoIds": [
+        "hip-hop"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Ritmo, rima e relato",
+      "tipo": "texto",
+      "texto": "O rap é composto por fala rítmica, rima e batida. A letra pode narrar experiências, denunciar violência policial, afirmar identidade negra ou celebrar a comunidade. O MC não apenas canta: ele constrói uma persona e ocupa o microfone. O sampling, recurso de retomar trechos de gravações, conecta o rap à história da música e à cultura do remix. Ao analisar uma letra, observe o ponto de vista, as imagens e o ritmo das frases.",
+      "objetivoIds": [
+        "rap",
+        "hip-hop"
+      ]
+    },
+    {
+      "id": "exemplo-identidade",
+      "titulo": "Rap e afirmação negra",
+      "tipo": "texto",
+      "texto": "No Brasil, o rap ajudou a articular uma identidade negra periférica, denunciando racismo e desigualdade. Grupos e artistas usam a música para falar de discriminação, trabalho, família e resistência. A dimensão comunitária é importante: festivais, batalhas de rima e projetos sociais criam espaços de pertencimento. Ao analisar uma canção, relacione a letra ao contexto e evite tratá-la como mera 'denúncia': há invenção poética e performance.",
+      "objetivoIds": [
+        "rap",
+        "hip-hop"
+      ]
+    },
+    {
+      "id": "exemplo-indigena",
+      "titulo": "Brô MCs e o rap indígena",
+      "tipo": "texto",
+      "texto": "O grupo Brô MCs, formado em Dourados, Mato Grosso do Sul, usa o rap para falar de juventude indígena, preconceito e resistência. A escolha do gênero não apaga a identidade guarani: ela amplia o repertório e conecta a aldeia a circuitos globais. Ao analisar, observe como a língua, a paisagem e a causa aparecem na letra. O rap indígena mostra que a cultura hip-hop não é propriedade de um único grupo; é uma linguagem em disputa.",
+      "objetivoIds": [
+        "rap",
+        "hip-hop"
+      ]
+    },
+    {
+      "id": "exemplo-slam",
+      "titulo": "Slam: poesia, corpo e competição",
+      "tipo": "texto",
+      "texto": "O slam é uma competição de poesia falada, com regras de tempo e júri popular. No Brasil, slams de periferia e o Slam do Corpo, com poetas surdos, ampliaram o formato. A performance envolve voz, corpo e presença; a letra pode ser escrita ou improvisada. Ao analisar um slam, observe o ritmo, a repetição e a resposta da plateia. A poesia oral não é uma forma menor de literatura: é uma prática coletiva e política.",
+      "objetivoIds": [
+        "slam",
+        "rap"
+      ]
+    },
+    {
+      "id": "exemplo-break",
+      "titulo": "Break dance, esporte e cultura urbana",
+      "tipo": "texto",
+      "texto": "O break dance nasceu como um dos elementos da cultura hip-hop no Bronx e se desenvolveu em batalhas de dança, com movimentos acrobáticos e grande exigência física. Em 2024, foi incluído no programa olímpico de Paris, decisão apresentada pelo Comitê Olímpico Internacional como forma de dialogar com jovens urbanos. A entrada do break não transforma o esporte em dança nem a dança em esporte: ela expõe a fronteira móvel entre cultura, arte e competição. Ao analisar o caso, pergunte quem ganha visibilidade, que critérios de julgamento são usados e que tradições são mantidas ou alteradas.",
+      "objetivoIds": [
+        "hip-hop"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que o hip-hop não é",
+      "tipo": "texto",
+      "texto": "Não é apenas música: envolve dança, arte visual, moda e conhecimento. Não é sinônimo de violência: essa associação é um estereótipo que criminaliza a juventude periférica. Não é um gênero americano importado sem transformação: no Brasil, ganhou sotaques e temas próprios. E não é monolítico: há rap político, comercial, religioso e experimental. Evite também reduzir o slam a 'batalha de insultos'.",
+      "objetivoIds": [
+        "hip-hop",
+        "rap",
+        "slam"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de hip-hop, identifique os elementos citados (rap, break, grafite, DJ) e o contexto periférico. Em letras de rap, observe o ponto de vista e a crítica social. Em slam, note a performance e a participação do público. A alternativa correta costuma reconhecer agência cultural e denúncia, não estereótipos. Síntese: o hip-hop transforma a experiência da exclusão em linguagem e comunidade.",
+      "objetivoIds": [
+        "hip-hop",
+        "rap",
+        "slam"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Smithsonian NMAAHC — cultura hip-hop",
+      "url": "https://nmaahc.si.edu/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Hiphop Archive & Research Institute — Harvard",
+      "url": "https://hiphoparchive.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu Afro Brasil — juventude e cultura urbana",
+      "url": "https://www.museuafrobrasil.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

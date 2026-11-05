@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "id": "pop-art-apropriacao",
+  "titulo": "Pop Art e apropriação: a arte olha para a vitrine",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "cultura-massa",
+      "descricao": "Reconhecer na Pop Art o uso de imagens da cultura de massa, do consumo e da mídia."
+    },
+    {
+      "id": "apropriacao",
+      "descricao": "Explicar apropriação, citação e paródia como procedimentos críticos."
+    },
+    {
+      "id": "pop-brasil",
+      "descricao": "Relacionar Pop Art, ditadura e crítica social no Brasil."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Sociedade de consumo, televisão e publicidade",
+      "tipo": "texto",
+      "texto": "Nos anos 1950 e 1960, a publicidade, a televisão e os supermercados transformaram o cotidiano em um fluxo de imagens e mercadorias. Artistas pop passaram a usar latas de sopa, histórias em quadrinhos, celebridades e logotipos como matéria-prima. Nos Estados Unidos, Andy Warhol e Roy Lichtenstein levaram esses elementos para a galeria; na Inglaterra, Richard Hamilton já discutia o conforto e o design da vida moderna. A Pop Art não foi uma celebração ingênua: ela expôs a onipresença do consumo.",
+      "objetivoIds": [
+        "cultura-massa"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Apropriar, repetir, deslocar",
+      "tipo": "texto",
+      "texto": "Apropriação é tomar uma imagem, um objeto ou um procedimento já existente e colocá-lo em outro contexto. A repetição pode transformar uma foto de jornal em ícone; a ampliação pode revelar a textura da impressão; a paródia pode inverter o sentido de uma obra famosa. O espectador é convidado a reconhecer a fonte e, ao mesmo tempo, a estranhá-la. A pergunta central não é 'quem criou do zero?', mas 'que sentido novo surge quando algo é deslocado?'.",
+      "objetivoIds": [
+        "cultura-massa",
+        "apropriacao"
+      ]
+    },
+    {
+      "id": "warhol",
+      "titulo": "Warhol e a imagem serial",
+      "tipo": "texto",
+      "texto": "As serigrafias de Warhol repetem retratos de Marilyn Monroe, latas de sopa e desastres jornalísticos. A repetição mecânica imita a produção industrial e o bombardeio midiático. Ao mesmo tempo, cada cópia tem pequenas diferenças de cor e registro. A obra oscila entre a frieza da mercadoria e a memória da pessoa retratada. Ao analisar uma imagem pop, observe o enquadramento, a saturação e a repetição. O impacto não está apenas no tema, mas no modo como ele é apresentado.",
+      "objetivoIds": [
+        "cultura-massa",
+        "apropriacao"
+      ]
+    },
+    {
+      "id": "brasil",
+      "titulo": "Pop Art e ditadura no Brasil",
+      "tipo": "texto",
+      "texto": "No Brasil, artistas como Nelson Leirner e Rubens Gerchman usaram símbolos nacionais, futebol, militares e objetos cotidianos para criticar a ditadura e a sociedade de consumo. A Pop Art brasileira não copiou simplesmente o modelo americano: misturou humor, precariedade e comentário político. 'Futebol', de Leirner, e 'Superhomens', de Gerchman, transformam ícones populares em interrogadores do poder. Em um contexto de censura, o deboche e a apropriação podiam dizer o que não era permitido falar diretamente.",
+      "objetivoIds": [
+        "pop-brasil",
+        "apropriacao"
+      ]
+    },
+    {
+      "id": "rauschenberg",
+      "titulo": "Rauschenberg e a fronteira da pintura",
+      "tipo": "texto",
+      "texto": "Robert Rauschenberg chamou de 'combines' suas obras que misturavam pintura, escultura e objetos. Cama, pneus e jornais podiam entrar na composição. A obra aproxima arte e vida cotidiana e questiona os limites do quadro. Essa estratégia dialoga com a Pop Art e com o ready-made, mas não é idêntica: o combine ainda organiza os objetos como uma composição visual. Ao ler esse tipo de trabalho, pergunte o que ele pede do espectador: contemplação, reconhecimento ou desconforto?",
+      "objetivoIds": [
+        "apropriacao",
+        "cultura-massa"
+      ]
+    },
+    {
+      "id": "exemplo-vik-muniz",
+      "titulo": "Vik Muniz, Arcimboldo e a matéria da imagem",
+      "tipo": "texto",
+      "texto": "Vik Muniz constrói imagens com materiais inusitados — geleia, pasta de amendoim, chocolate, lixo — e depois as fotografa. Em 'Segundo Warhol: dupla Mona Lisa' (1999), a referência à Pop Art e à tradição renascentista aparece de forma paródica: a comida não representa apenas um rosto, ela é a própria matéria da composição. Arcimboldo, no século XVI, já usava frutas e legumes para formar figuras, mas seus alimentos faziam parte de um jogo de representação. Em Muniz, o material é literal e a imagem circula como fotografia. Ao comparar os dois, observe o deslocamento do estatuto da pintura e o diálogo com a cultura de massa.",
+      "objetivoIds": [
+        "apropriacao",
+        "cultura-massa"
+      ]
+    },
+    {
+      "id": "exemplo-decoupagem",
+      "titulo": "Décollage e Pollock: rasgar, respingar, apropriar",
+      "tipo": "texto",
+      "texto": "A décollage, praticada por Mimmo Rotella, consiste em arrancar camadas de cartazes colados em muros e superfícies urbanas. Em 'Marilyn' (1962), a imagem da estrela emerge de rasgos, sobreposições e restos de impressão. O procedimento é o inverso da colagem: em vez de acrescentar, o artista retira e revela. O resultado aproxima universos visuais distintos e reorganiza seus sentidos. Já a 'Action Photo' de Vik Muniz (1997) parte da fotografia de Hans Namuth que registrou Pollock pintando em 1951; Muniz refaz a cena com chocolate e fotografa o arranjo. A originalidade está em apropriar-se do registro do processo, não em imitar a pintura. Ao analisar, pergunte que imagem de origem foi deslocada e que gesto a refez.",
+      "objetivoIds": [
+        "apropriacao",
+        "cultura-massa"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a Pop Art não é",
+      "tipo": "texto",
+      "texto": "Não é simples publicidade ampliada: há ironia, distância crítica e discussão sobre o estatuto da arte. Não é um movimento único: varia entre países e artistas. Não é apenas americana: no Brasil, dialoga com censura e cultura popular. E não é 'fácil' por usar imagens conhecidas; a dificuldade está em perceber o deslocamento. Evite também confundir apropriação com plágio: na arte, a citação pode ser declarada e produtiva, enquanto o plágio envolve ocultação e prejuízo.",
+      "objetivoIds": [
+        "cultura-massa",
+        "apropriacao",
+        "pop-brasil"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de Pop Art, identifique a imagem de origem: produto, celebridade, obra clássica, símbolo nacional. Depois observe o que foi feito com ela: repetição, ampliação, colagem, mudança de cor, inclusão de texto. Relacione ao contexto: consumo, mídia, ditadura, contracultura. A alternativa correta costuma falar de apropriação e ressignificação, não de simples cópia. Síntese: a Pop Art usa a linguagem do mercado para fazê-lo falar de si mesmo.",
+      "objetivoIds": [
+        "cultura-massa",
+        "apropriacao",
+        "pop-brasil"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Pop Art",
+      "url": "https://www.tate.org.uk/art/art-terms/p/pop-art",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Museum of Modern Art — Pop Art",
+      "url": "https://www.moma.org/learn/moma_learning/themes/pop-art/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — artes visuais",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

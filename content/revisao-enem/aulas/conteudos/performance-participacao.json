@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "performance-participacao",
+  "titulo": "Performance e participação: o corpo, o tempo e o público",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "performance",
+      "descricao": "Caracterizar performance e body art como artes do corpo, do tempo presente e da ação."
+    },
+    {
+      "id": "participacao",
+      "descricao": "Explicar como a participação do espectador transforma a obra e a autoria."
+    },
+    {
+      "id": "registro",
+      "descricao": "Discutir o papel da documentação e do registro na arte efêmera."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "A obra que acontece",
+      "tipo": "texto",
+      "texto": "A partir dos anos 1960, artistas passaram a criar ações que não resultavam em um quadro ou escultura permanente. A performance acontece em um tempo e um espaço determinados, com o corpo do artista como material. A body art leva essa investigação ao limite, expondo o corpo a situações de dor, resistência ou transformação. O museu e a galeria deixam de ser apenas lugares de objetos e passam a abrigar eventos, instruções e registros. O espectador, muitas vezes, deixa de ser apenas observador.",
+      "objetivoIds": [
+        "performance"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Efêmero, presença e documentação",
+      "tipo": "texto",
+      "texto": "A performance é efêmera: não pode ser totalmente possuída como um objeto. O que circula depois são fotografias, vídeos, relatos e reencenações. Isso levanta questões sobre autoria, arquivo e mercado. A body art problematiza os limites do corpo e as normas sociais que o disciplinam. A arte participativa cria situações em que o público é convidado a agir, manipular ou completar a obra. Em todos os casos, o significado depende do encontro, não apenas do objeto.",
+      "objetivoIds": [
+        "performance",
+        "participacao",
+        "registro"
+      ]
+    },
+    {
+      "id": "exemplo-abramovic",
+      "titulo": "Abramovic e o encontro silencioso",
+      "tipo": "texto",
+      "texto": "Na retrospectiva 'A Artista Está Presente', Marina Abramovic permaneceu sentada diante de visitantes, em silêncio, durante muitas horas. A obra não estava na cadeira nem no cartaz: estava no encontro, no tempo compartilhado e na disponibilidade dos corpos. O registro fotográfico ajudou a difundir a ação, mas não substitui a experiência. Ao analisar performances desse tipo, pergunte o que o artista oferece, o que o público deve fazer e como o tempo transforma a relação entre ambos.",
+      "objetivoIds": [
+        "performance",
+        "participacao",
+        "registro"
+      ]
+    },
+    {
+      "id": "exemplo-participacao",
+      "titulo": "Lygia Clark e a obra que pede a mão",
+      "tipo": "texto",
+      "texto": "Os 'Bichos' de Lygia Clark são placas metálicas unidas por dobradiças que o público pode manipular. A obra só se completa na ação: abrir, fechar, torcer, equilibrar. Essa participação não é um extra: é a própria proposta estética. Lygia aproxima arte e experiência sensorial, recusando a contemplação passiva. Ao ler uma obra participativa, observe as instruções, os materiais e o grau de liberdade do espectador. A autoria se distribui entre artista, objeto e público.",
+      "objetivoIds": [
+        "participacao",
+        "performance"
+      ]
+    },
+    {
+      "id": "exemplo-brasil",
+      "titulo": "Flávio de Carvalho e o corpo na cidade",
+      "tipo": "texto",
+      "texto": "Em 1956, Flávio de Carvalho desfilou pela Avenida Paulista com um traje masculino tropical, o 'New Look'. A ação misturava moda, performance e provocação dos costumes. O corpo do artista tornou-se uma intervenção no espaço público. A obra não estava no tecido, mas no escândalo e no debate que ele produzia. Esse exemplo ajuda a entender que performance também é uma forma de testar normas sociais e de expor o ridículo das convenções.",
+      "objetivoIds": [
+        "performance",
+        "participacao"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a performance não é",
+      "tipo": "texto",
+      "texto": "Não é sinônimo de teatro: pode não haver personagem, texto ou representação. Não é 'improviso sem preparo': muitas ações exigem treino, roteiro e cuidado com o corpo. Não desaparece sem deixar rastro: fotografias, vídeos e relatos constituem um arquivo. E não é necessariamente escandalosa: há performances silenciosas, cotidianas e minimalistas. Evite também romantizar o sofrimento do artista; a body art levanta questões éticas sobre risco, consentimento e exploração.",
+      "objetivoIds": [
+        "performance",
+        "participacao",
+        "registro"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre performance, procure verbos de ação, tempo, corpo e público. Pergunte: o que acontece? Quem participa? O que resta depois? Em body art, observe a relação entre corpo, dor e norma social. Em obras participativas, identifique o convite feito ao espectador. A alternativa correta costuma destacar a experiência e a efemeridade, não a produção de um objeto decorativo. Síntese: a obra acontece no encontro entre corpos e tempo.",
+      "objetivoIds": [
+        "performance",
+        "participacao",
+        "registro"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Performance art",
+      "url": "https://www.tate.org.uk/art/art-terms/p/performance-art",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Museum of Modern Art — performance",
+      "url": "https://www.moma.org/collection/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — Lygia Clark",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

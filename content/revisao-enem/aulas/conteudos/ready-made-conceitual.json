@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "id": "ready-made-conceitual",
+  "titulo": "Ready-made e arte conceitual: a ideia está no lugar do objeto",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "ready-made",
+      "descricao": "Explicar o ready-made e o deslocamento do objeto cotidiano para o espaço da arte."
+    },
+    {
+      "id": "arte-conceitual",
+      "descricao": "Distinguir arte conceitual de uma arte centrada apenas na habilidade manual."
+    },
+    {
+      "id": "apropriacao-objeto",
+      "descricao": "Analisar apropriação e ressignificação de objetos na escultura e na instalação."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Um urinol no museu",
+      "tipo": "texto",
+      "texto": "Em 1917, Marcel Duchamp enviou um urinol industrial, assinado com um pseudônimo, para uma exposição em Nova York. O objeto foi recusado, mas se tornou um marco: a obra não estava na fabricação do urinol, e sim na escolha de retirá-lo do cotidiano e colocá-lo no espaço da arte. O ready-made deslocou a pergunta 'como foi feito?' para 'o que faz algo ser arte?'. Essa provocação abriu caminho para a arte conceitual, a instalação e tantas práticas contemporâneas.",
+      "objetivoIds": [
+        "ready-made"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Objeto, contexto e ideia",
+      "tipo": "texto",
+      "texto": "No ready-made, o objeto é encontrado, não construído pelo artista. O gesto artístico é a seleção, a assinatura, o título e a exposição. Na arte conceitual, a ideia ou o enunciado pode ser mais importante que a habilidade manual. Isso não significa que a obra seja 'só pensamento': ela precisa de um suporte, de um espaço e de um público. Ao analisar, pergunte o que o objeto fazia antes, que lugar ele ocupa agora e que instituições são colocadas em questão.",
+      "objetivoIds": [
+        "ready-made",
+        "arte-conceitual"
+      ]
+    },
+    {
+      "id": "exemplo-duchamp",
+      "titulo": "Duchamp e a roda de bicicleta",
+      "tipo": "texto",
+      "texto": "A 'Roda de bicicleta' de Duchamp combina uma roda montada em um banco. O movimento do objeto e a inutilidade da montagem criam uma experiência estranha. Duchamp não buscava beleza nem virtuosismo; buscava deslocar o olhar. Ao ler a obra, observe como o objeto cotidiano perde sua função e ganha outra. A pergunta 'isso é arte?' é parte do trabalho. O espectador é convidado a pensar sobre convenções, instituições e o próprio prazo de validade das vanguardas.",
+      "objetivoIds": [
+        "ready-made"
+      ]
+    },
+    {
+      "id": "exemplo-kosuth",
+      "titulo": "Kosuth: uma cadeira, uma foto, uma definição",
+      "tipo": "texto",
+      "texto": "Em 'One and Three Chairs', Joseph Kosuth apresenta uma cadeira, uma fotografia da cadeira e um verbete de dicionário. As três coisas não coincidem: a foto mostra um ângulo, o verbete generaliza, o objeto ocupa o espaço. A obra investiga a relação entre linguagem, imagem e coisa. Não há um único original 'verdadeiro'. A arte conceitual desloca o valor da execução para a proposição. Ao interpretar, pergunte que pergunta a obra está formulando e como o visitante participa dela.",
+      "objetivoIds": [
+        "arte-conceitual",
+        "apropriacao-objeto"
+      ]
+    },
+    {
+      "id": "exemplo-brasil",
+      "titulo": "Objetos brasileiros: Leirner e a crítica do sistema",
+      "tipo": "texto",
+      "texto": "Nelson Leirner incorporou objetos, brinquedos, santos e símbolos de consumo em obras que criticam o mercado de arte e a ditadura. Ao colocar um objeto kitsch em uma composição sofisticada, ele embaralha hierarquias entre erudito e popular. A apropriação não é um elogio ao objeto: é uma forma de expor suas contradições. No Brasil, essa estratégia ganhou força nos anos 1960 e 1970, em diálogo com a Pop Art e com a censura.",
+      "objetivoIds": [
+        "apropriacao-objeto",
+        "arte-conceitual"
+      ]
+    },
+    {
+      "id": "exemplo-regina-silveira",
+      "titulo": "Regina Silveira e a sombra do ready-made",
+      "tipo": "texto",
+      "texto": "Regina Silveira realizou 'In absentia' na 17ª Bienal de São Paulo, em 1983. A instalação trabalha com sombras projetadas de objetos domésticos e com a ausência daquilo que as produz, criando um ambiente de presenças fantasmagóricas. O diálogo com a 'Roda de bicicleta' de Duchamp não é uma repetição: a obra retoma o gesto de deslocar objetos e questionar o que é arte, mas o faz por meio da luz, da sombra e do espaço. Ao analisar, observe como a artista desloca o ready-made para uma poética da ausência. O questionamento dos critérios de valor acontece pela experiência do visitante, não por uma explicação didática.",
+      "objetivoIds": [
+        "apropriacao-objeto",
+        "arte-conceitual"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que o ready-made não é",
+      "tipo": "texto",
+      "texto": "Não é qualquer objeto jogado no chão: há escolha, título, contexto e intenção crítica. Não é uma negação absoluta da técnica: muitos artistas conceituais dominam técnicas e as usam quando necessário. Não é sinônimo de instalação: uma instalação organiza um espaço; um ready-made desloca um objeto. E não é uma piada sem consequência: ele transformou o modo como museus, críticos e públicos definem arte. Evite a resposta fácil de que 'qualquer um poderia fazer'.",
+      "objetivoIds": [
+        "ready-made",
+        "arte-conceitual",
+        "apropriacao-objeto"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre ready-made, identifique o objeto de origem, o deslocamento e a instituição envolvida. Em arte conceitual, procure enunciados, definições, instruções e séries. A alternativa correta costuma falar de questionamento do estatuto da arte, do autor ou do mercado. Desconfie de alternativas que reduzam a obra a 'falta de habilidade'. Síntese: depois de Duchamp, a arte não depende apenas do que se vê, mas também do que se pensa sobre o que se vê.",
+      "objetivoIds": [
+        "ready-made",
+        "arte-conceitual",
+        "apropriacao-objeto"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Ready-made",
+      "url": "https://www.tate.org.uk/art/art-terms/r/ready-made",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Museum of Modern Art — arte conceitual",
+      "url": "https://www.moma.org/learn/moma_learning/themes/conceptual-art/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — Nelson Leirner",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

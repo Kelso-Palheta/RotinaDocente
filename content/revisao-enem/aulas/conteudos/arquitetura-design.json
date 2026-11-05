@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "arquitetura-design",
+  "titulo": "Arquitetura e design: forma, estrutura e identidade",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "arquitetura-moderna",
+      "descricao": "Analisar a arquitetura moderna brasileira e a integração entre forma, estrutura e paisagem."
+    },
+    {
+      "id": "design",
+      "descricao": "Relacionar design de móveis e objetos à identidade cultural e à indústria."
+    },
+    {
+      "id": "espaco",
+      "descricao": "Discutir espaço construído, cidade e experiência social."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Brasília e a invenção de uma capital",
+      "tipo": "texto",
+      "texto": "Na década de 1950, o Brasil viveu um projeto de modernização que incluía a construção de Brasília. Lúcio Costa organizou o plano urbanístico; Oscar Niemeyer projetou os edifícios principais; Roberto Burle Marx criou os jardins. A arquitetura moderna brasileira combinou concreto armado, curvas e integração com a paisagem. Ao estudar esse período, pergunte que ideia de nação o projeto queria construir e que grupos foram excluídos do sonho modernizador.",
+      "objetivoIds": [
+        "arquitetura-moderna",
+        "espaco"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Estrutura, forma e função",
+      "tipo": "texto",
+      "texto": "A arquitetura moderna valoriza a honestidade estrutural, a planta livre e a integração entre interior e exterior. As colunas de Niemeyer, com curvas e formas inesperadas, mostram que a estrutura pode ser expressiva, não apenas funcional. O design de móveis dialoga com essa linguagem: linhas simples, madeira nacional e produção industrial. Ao analisar um edifício ou uma cadeira, observe como forma, material e uso se relacionam.",
+      "objetivoIds": [
+        "arquitetura-moderna",
+        "design"
+      ]
+    },
+    {
+      "id": "exemplo-niemeyer",
+      "titulo": "As colunas do Palácio da Alvorada",
+      "tipo": "texto",
+      "texto": "As colunas do Palácio da Alvorada são finas na base e largas no topo, criando uma silhueta que lembra um barco ou uma flor. Elas sustentam a estrutura, mas também produzem uma imagem de leveza. A obra dialoga com a tradição clássica e a transforma. Ao analisar, observe a relação entre cheio e vazio, a escala e a paisagem ao redor. A forma não é apenas decoração: ela constrói a identidade do edifício.",
+      "objetivoIds": [
+        "arquitetura-moderna",
+        "espaco"
+      ]
+    },
+    {
+      "id": "exemplo-design",
+      "titulo": "Sérgio Rodrigues e a cadeira brasileira",
+      "tipo": "texto",
+      "texto": "Sérgio Rodrigues criou móveis que combinam madeira, couro e formas inspiradas na cultura brasileira. A cadeira 'Lucio' e a poltrona 'Beto' dialogam com a simplicidade de Brasília e com a tradição do artesanato. O design não é cópia do mobiliário europeu: ele adapta materiais e referências locais. Ao analisar uma peça, observe a estrutura, o conforto e o modo de produção. O objeto comunica uma ideia de país.",
+      "objetivoIds": [
+        "design",
+        "espaco"
+      ]
+    },
+    {
+      "id": "exemplo-cidade",
+      "titulo": "Espaço construído e desigualdade",
+      "tipo": "texto",
+      "texto": "Brasília foi planejada para ser racional e igualitária, mas sua construção atraiu trabalhadores que não foram incluídos no plano original. As cidades-satélites cresceram longe do centro. Esse contraste mostra que arquitetura e urbanismo não são neutros: distribuem acesso, tempo e dignidade. Ao analisar uma obra arquitetônica, pergunte quem pode usá-la e quem fica de fora. A forma do espaço também é uma forma de poder.",
+      "objetivoIds": [
+        "espaco",
+        "arquitetura-moderna"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que arquitetura e design não são",
+      "tipo": "texto",
+      "texto": "Não são apenas desenho bonito: envolvem técnica, orçamento e uso. Não são cópia da Europa: a arquitetura moderna brasileira tem soluções próprias. Não são luxo: o design pode ser popular e industrial. E não são neutros: organizam comportamentos e desigualdades. Evite também separar arquitetura de cidade; um edifício só faz sentido no tecido urbano em que existe.",
+      "objetivoIds": [
+        "arquitetura-moderna",
+        "design",
+        "espaco"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de arquitetura, observe estrutura, forma, escala e relação com a paisagem. Em design, note material, função e produção. Relacione essas escolhas ao contexto histórico e à ideia de identidade nacional. A alternativa correta costuma articular forma e uso social. Síntese: construir é organizar a vida no espaço.",
+      "objetivoIds": [
+        "arquitetura-moderna",
+        "design",
+        "espaco"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "ArchDaily Brasil — arquitetura",
+      "url": "https://www.archdaily.com.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Vitruvius — arquitetura e urbanismo",
+      "url": "https://www.vitruvius.com.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "ICOMOS — patrimônio arquitetônico",
+      "url": "https://www.icomos.org/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

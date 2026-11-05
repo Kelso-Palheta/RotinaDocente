@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "id": "modernismo-brasileiro",
+  "titulo": "Modernismo brasileiro: ruptura, identidade e disputa cultural",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "ruptura",
+      "descricao": "Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial."
+    },
+    {
+      "id": "sintese",
+      "descricao": "Reconhecer a síntese de formas, cores e temas brasileiros em obras modernistas."
+    },
+    {
+      "id": "identidade",
+      "descricao": "Analisar como o modernismo brasileiro constrói e disputa ideias de identidade nacional."
+    },
+    {
+      "id": "censura",
+      "descricao": "Relacionar arte moderna, censura e projetos políticos no Brasil e na Europa."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "São Paulo, 1922",
+      "tipo": "texto",
+      "texto": "A Semana de Arte Moderna, realizada em São Paulo em fevereiro de 1922, reuniu poesia, música e artes visuais em um ambiente de modernização urbana, imigração e industrialização. O evento não foi unanimidade: foi vaiado e criticado. Seus participantes buscavam atualizar a produção brasileira em relação às vanguardas europeias, mas também inventar uma linguagem própria. A Semana é um marco, não um começo absoluto: antes dela, artistas como Anita Malfatti já provocavam polêmica, e depois dela o movimento se diversificou.",
+      "objetivoIds": [
+        "ruptura"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Ruptura, síntese e identidade",
+      "tipo": "texto",
+      "texto": "Ruptura modernista não significa rejeitar todo passado: significa recusar a autoridade acadêmica como única regra. Síntese é combinar elementos cubistas, expressionistas e populares em uma composição nova. Identidade nacional é uma construção em disputa: quem define o que é 'brasileiro'? O índio, o negro, o imigrante, a paisagem tropical, a cidade industrial? Cada artista responde de um modo. Ao estudar o período, pergunte que Brasil cada obra inventa e que vozes ficam de fora.",
+      "objetivoIds": [
+        "ruptura",
+        "sintese",
+        "identidade"
+      ]
+    },
+    {
+      "id": "tarsila",
+      "titulo": "Tarsila: linhas retas e cotidiano",
+      "tipo": "texto",
+      "texto": "Tarsila do Amaral estudou em Paris e conviveu com cubistas, mas voltou ao Brasil para pintar temas locais. Em obras como 'O mamoeiro' e 'Estrada de Ferro Central do Brasil', a paisagem e a vida urbana aparecem com formas simplificadas, cores vivas e composição equilibrada. A modernização não é celebrada de forma ingênua: a linha reta, o trilho e a fábrica convivem com a vegetação. Tarsila ajuda a entender que o modernismo brasileiro não copiou a Europa; selecionou e reorganizou referências.",
+      "objetivoIds": [
+        "sintese",
+        "identidade"
+      ]
+    },
+    {
+      "id": "anita",
+      "titulo": "Anita Malfatti e a crítica que revela o campo",
+      "tipo": "texto",
+      "texto": "Anita Malfatti trouxe da Europa uma pintura de cores intensas e formas expressivas. A exposição de 1917 foi atacada por Monteiro Lobato, que a acusou de 'caricatura' e 'estrangeirismo'. A polêmica mostra que a novidade estética era também uma disputa sobre gosto, nação e autoridade. Anita não foi apenas 'a artista que sofreu crítica': foi uma das responsáveis por abrir espaço para a experimentação. Ao ler o episódio, evite transformar a crítica em vilão simplista: entenda o debate cultural da época.",
+      "objetivoIds": [
+        "ruptura",
+        "identidade"
+      ]
+    },
+    {
+      "id": "identidade",
+      "titulo": "Que Brasil o modernismo inventa?",
+      "tipo": "texto",
+      "texto": "O modernismo brasileiro elegeu a mestiçagem, a paisagem tropical e o povo como símbolos nacionais, mas nem sempre deu voz a esses grupos. Os indígenas aparecem muitas vezes como motivo estético; os afro-brasileiros, como folclore. Artistas posteriores, como Rubem Valentim e Rosana Paulino, vão tensionar essa herança. Ler o modernismo com essa pergunta crítica não diminui sua importância: mostra que a identidade nacional é uma construção histórica, com inclusões e exclusões.",
+      "objetivoIds": [
+        "identidade"
+      ]
+    },
+    {
+      "id": "censura",
+      "titulo": "Arte moderna e política",
+      "tipo": "texto",
+      "texto": "Na Alemanha nazista, obras modernas foram classificadas como 'degeneradas' e retiradas de museus. No Brasil, a ditadura militar também censurou artistas e exposições. A obra de Lasar Segall, artista judeu-lituano radicado no Brasil, passou por esse tipo de perseguição na Europa. A censura revela que a arte moderna não era apenas uma questão de gosto: era vista como ameaça política. Ao estudar esses episódios, relacione forma, ideologia e poder, sem reduzir a obra a uma ilustração de tese.",
+      "objetivoIds": [
+        "censura"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Identifique a obra, o autor e o período; depois observe como a composição combina referências europeias e temas brasileiros. Desconfie de alternativas que apresentem o modernismo como cópia ou como pureza nacional. Procure a ideia de síntese: formas simplificadas, cores, cotidiano, paisagem e crítica social. Em questões sobre censura, pergunte quem tem poder para definir o que é arte aceitável. Síntese: modernismo brasileiro é ruptura estética e invenção cultural em disputa.",
+      "objetivoIds": [
+        "ruptura",
+        "sintese",
+        "identidade",
+        "censura"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Enciclopédia Itaú Cultural — Tarsila do Amaral",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu Lasar Segall",
+      "url": "https://www.mlassarsegall.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Pinacoteca de São Paulo — arte brasileira",
+      "url": "https://pinacoteca.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

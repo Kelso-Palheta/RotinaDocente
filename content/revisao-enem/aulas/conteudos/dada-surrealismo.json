@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "dada-surrealismo",
+  "titulo": "Dada e surrealismo: o acaso, o sonho e a crise da razão",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "dada",
+      "descricao": "Caracterizar o Dadaísmo como contestação da racionalidade, da arte institucional e da guerra."
+    },
+    {
+      "id": "surrealismo",
+      "descricao": "Identificar procedimentos surrealistas de estranhamento, sonho e escrita automática."
+    },
+    {
+      "id": "fotomontagem",
+      "descricao": "Analisar colagem e fotomontagem como crítica política e visual."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "A razão que levou à catástrofe",
+      "tipo": "texto",
+      "texto": "A Primeira Guerra Mundial deixou milhões de mortos e desmontou a confiança no progresso. Em Zurique, artistas e escritores refugiados criaram o Dada em 1916, com performances, poemas sonoros e objetos absurdos. A proposta era escandalizar o público e questionar a própria ideia de arte. O surrealismo surgiu depois, em Paris, com André Breton e um grupo que buscava liberar o inconsciente. Em comum, havia a recusa de uma racionalidade que parecia ter produzido a guerra.",
+      "objetivoIds": [
+        "dada",
+        "surrealismo"
+      ]
+    },
+    {
+      "id": "dada",
+      "titulo": "Dada: a arte que duvida de si",
+      "tipo": "texto",
+      "texto": "Dada não propôs um estilo coerente: foi uma atitude de negação e experimentação. Artistas usavam recortes de jornal, objetos encontrados, fotografias e tipografia para desmontar mensagens oficiais. O acaso e o escândalo eram métodos. Ao ler uma obra dadaísta, pergunte o que ela ridiculariza: a guerra, a imprensa, o museu, o bom gosto burguês? A ausência de sentido é uma forma de crítica, não uma falha de comunicação. Dada prepara caminhos para a arte conceitual e para a performance.",
+      "objetivoIds": [
+        "dada",
+        "fotomontagem"
+      ]
+    },
+    {
+      "id": "fotomontagem",
+      "titulo": "Hausmann e o rosto da crítica",
+      "tipo": "texto",
+      "texto": "A fotomontagem combina recortes de fotografias, jornais e impressos para criar uma imagem nova. Raoul Hausmann usou esse procedimento para satirizar políticos, intelectuais e a vida urbana. O resultado é um rosto híbrido, com olhos, engrenagens e letras que não formam uma unidade harmoniosa. A obra age como uma máquina de pensar: obriga o espectador a montar e desmontar sentidos. No ENEM, esse tipo de imagem costuma aparecer associado a crítica política, imprensa e cultura de massa.",
+      "objetivoIds": [
+        "dada",
+        "fotomontagem"
+      ]
+    },
+    {
+      "id": "surrealismo",
+      "titulo": "Surrealismo: o sonho como método",
+      "tipo": "texto",
+      "texto": "O surrealismo valorizava o sonho, o automatismo e o acaso objetivo. Artistas como Dalí, Magritte, Ernst e Tanguy criaram imagens de aparência realista, mas com relações impossíveis: relógios moles, homens com cabeça de maçã, portas que não levam a lugar nenhum. O estranhamento não vem do caos visual, e sim da combinação precisa de elementos reconhecíveis em uma cena incoerente. A pintura surrealista pode ser tecnicamente acadêmica e, ao mesmo tempo, subverter a lógica.",
+      "objetivoIds": [
+        "surrealismo"
+      ]
+    },
+    {
+      "id": "magritte",
+      "titulo": "Magritte e a traição da imagem",
+      "tipo": "texto",
+      "texto": "René Magritte gostava de colocar em crise a relação entre imagem, palavra e coisa. Em 'A reprodução proibida', um espelho reflete o que não deveria refletir; em outras obras, uma palavra não corresponde ao objeto. O espectador é convidado a duvidar do que vê. Isso dialoga com a publicidade, com a fotografia e com a filosofia da representação. Ao analisar Magritte, observe a precisão do desenho: é ela que torna o absurdo verossímil e perturbador.",
+      "objetivoIds": [
+        "surrealismo"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que Dada e surrealismo não são",
+      "tipo": "texto",
+      "texto": "Não são sinônimos: Dada é contestação radical e frequentemente niilista; o surrealismo busca uma nova relação com o inconsciente e com a política. Não são 'qualquer coisa': há procedimentos, grupos, revistas e disputas. Não são apenas pintura: incluem fotomontagem, cinema, literatura e performance. E não são puramente individuais: respondem a guerras, movimentos políticos e ao mercado de arte. Evite reduzir o surrealismo a 'sonho bonito' ou Dada a 'bagunça'.",
+      "objetivoIds": [
+        "dada",
+        "surrealismo",
+        "fotomontagem"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em Dada, procure o escândalo, o objeto deslocado, a tipografia e a crítica à autoridade. Em surrealismo, procure cenas oníricas, justaposições impossíveis, automatismo e referências ao inconsciente. Leia o texto de apoio para saber se a ênfase é política ou psicanalítica. A alternativa correta costuma articular procedimento e efeito: colagem gera choque; sonho gera estranhamento. Síntese: as duas vanguardas usam o irracional para criticar uma ordem que se dizia racional.",
+      "objetivoIds": [
+        "dada",
+        "surrealismo",
+        "fotomontagem"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Dada",
+      "url": "https://www.tate.org.uk/art/art-terms/d/dada",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Tate — Surrealismo",
+      "url": "https://www.tate.org.uk/art/art-terms/s/surrealism",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Centre Pompidou — coleção moderna e contemporânea",
+      "url": "https://www.centrepompidou.fr/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

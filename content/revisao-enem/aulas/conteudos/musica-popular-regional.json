@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "id": "musica-popular-regional",
+  "titulo": "Música popular regional: ritmos, instrumentos e circulação",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "ritmos-regionais",
+      "descricao": "Caracterizar ritmos e gêneros regionais e suas transformações históricas."
+    },
+    {
+      "id": "instrumentos",
+      "descricao": "Relacionar instrumentos, práticas e transmissão de saberes musicais."
+    },
+    {
+      "id": "hibridismo-musical",
+      "descricao": "Analisar hibridismos entre tradição, indústria cultural e migração."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Um país de muitos sons",
+      "tipo": "texto",
+      "texto": "A música popular brasileira é formada por gêneros regionais que circulam, se misturam e se transformam. O baião, o choro, o samba, o frevo, o maracatu, a música caipira e o reggae maranhense têm histórias próprias e públicos diversos. A indústria cultural, o rádio e as migrações aceleraram esses encontros. Ao estudar um gênero, pergunte onde ele nasceu, quem o praticava e como ele chegou a outros lugares. 'Regional' não significa isolado.",
+      "objetivoIds": [
+        "ritmos-regionais"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Gênero, instrumento e transmissão",
+      "tipo": "texto",
+      "texto": "Cada gênero envolve um conjunto de convenções: andamento, forma, instrumentação e modo de cantar. O baião associa-se à sanfona, ao triângulo e à zabumba; o choro, ao violão, ao cavaquinho e à flauta; a música caipira, à viola. A transmissão pode ser oral, familiar ou escolar. Ao analisar, observe como o instrumento participa do timbre e da identidade do gênero. A tecnologia também transforma: amplificação e gravação mudam a escuta.",
+      "objetivoIds": [
+        "ritmos-regionais",
+        "instrumentos"
+      ]
+    },
+    {
+      "id": "exemplo-baiao",
+      "titulo": "Luiz Gonzaga e o baião",
+      "tipo": "texto",
+      "texto": "Luiz Gonzaga levou o baião do sertão para o rádio e para o mercado nacional. Suas canções falam de seca, migração, festa e saudade. A instrumentação e o sotaque criam uma paisagem sonora reconhecível. Ao analisar uma letra, observe como a experiência social é transformada em imagem poética. O gênero não é uma fotografia do Nordeste: é uma construção cultural que dialoga com a indústria e com o público urbano.",
+      "objetivoIds": [
+        "ritmos-regionais",
+        "hibridismo-musical"
+      ]
+    },
+    {
+      "id": "exemplo-instrumentos",
+      "titulo": "Viola, cavaquinho e a viagem dos instrumentos",
+      "tipo": "texto",
+      "texto": "A viola caipira e o cavaquinho têm origens europeias, mas ganharam afinações, técnicas e repertórios próprios no Brasil. O cavaquinho chegou de Portugal e se tornou central no choro e no samba; a viola acompanha modas, toadas e festas. Ao analisar a trajetória de um instrumento, observe as adaptações de construção e de performance. A identidade musical não está na origem pura, mas no modo como o instrumento é tocado e ouvido.",
+      "objetivoIds": [
+        "instrumentos",
+        "hibridismo-musical"
+      ]
+    },
+    {
+      "id": "exemplo-mangue",
+      "titulo": "Manguebeat e a mistura de referências",
+      "tipo": "texto",
+      "texto": "Nos anos 1990, o manguebeat recifense combinou rock, funk, hip-hop, maracatu e música eletrônica. O movimento criticava a desigualdade e a falta de infraestrutura, ao mesmo tempo que celebrava a cultura pernambucana. Ao analisar uma canção, observe a colagem de ritmos e as letras que falam da cidade. A mistura não é aleatória: ela constrói uma identidade cosmopolita e periférica. O regional se torna global sem perder o vínculo local.",
+      "objetivoIds": [
+        "hibridismo-musical",
+        "ritmos-regionais"
+      ]
+    },
+    {
+      "id": "exemplo-lenine",
+      "titulo": "Lenine e o mapa afetivo de Pernambuco",
+      "tipo": "texto",
+      "texto": "'Leão do Norte' (1993), de Lenine e Paulo César Pinheiro, funciona como um mapa afetivo de Pernambuco. A letra acumula referências ao boi-bumbá, à ciranda, ao frevo, ao maracatu, ao mamulengo, à Feira de Caruaru, ao rio Capibaribe e a artistas como Luiz Gonzaga, Mestre Vitalino, Carlos Pena Filho, Capiba, João Cabral de Melo Neto e Ariano Suassuna. Nem tudo é dança: mamulengo é teatro de bonecos, a feira é espaço de comércio e o rio é paisagem. Ao interpretar a canção, diferencie as manifestações dançadas das referências literárias, visuais e musicais. A força do texto está na colagem, que constrói uma identidade plural sem hierarquizar as regiões.",
+      "objetivoIds": [
+        "ritmos-regionais",
+        "hibridismo-musical"
+      ]
+    },
+    {
+      "id": "exemplo-zabe",
+      "titulo": "Zabé da Loca e o pífano",
+      "tipo": "texto",
+      "texto": "Zabé da Loca, nascida Isabel Marques da Silva (1925), viveu parte da vida em uma gruta na Paraíba e aprendeu a tocar pífano ainda criança. O instrumento, uma pequena flauta transversal de origem popular, acompanhou sua trajetória; ela gravou disco, recebeu prêmios e ensinou dezenas de crianças em Monteiro. Sua prática é um exemplo de transmissão oral e autodidata, em que o saber circula pela convivência e pela imitação, não por um currículo formal. Ao analisar o caso, não oponha saber popular e conhecimento escolar: a artista criou uma proposta pedagógica própria, baseada na escuta e na repetição. A flauta é técnica, memória e comunidade.",
+      "objetivoIds": [
+        "instrumentos",
+        "ritmos-regionais"
+      ]
+    },
+    {
+      "id": "exemplo-fandango",
+      "titulo": "Fandango, tropeiros e viola caipira",
+      "tipo": "texto",
+      "texto": "O fandango é uma prática musical e dançada ligada a comunidades rurais e a festas religiosas. O grupo Os Tropeiros da Mata, no registro 'Louvando a Deus' (1982), usa a viola caipira para acompanhar versos de devoção; o violeiro é, ao mesmo tempo, músico, rezador e trabalhador. Historicamente, essa tradição foi estigmatizada como vagabundagem, mas hoje a viola caipira circula no bacharelado em Viola Caipira da USP, criado em 2005 e associado ao pesquisador Ivan Vilela, além da música erudita, do pop e do rock. Os dois textos mostram que o instrumento ocupa lugares sociais contraditórios: raiz e erudição, religião e mercado. Ao analisar, pergunte como uma prática tradicional se legitima sem perder sua história.",
+      "objetivoIds": [
+        "instrumentos",
+        "hibridismo-musical"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a música regional não é",
+      "tipo": "texto",
+      "texto": "Não é sinônimo de música 'autêntica' e imutável: todo gênero muda. Não é apenas rural: há samba urbano, frevo de rua, reggae maranhense. Não é inferior à música erudita: são sistemas diferentes, com complexidades próprias. E não é folclore de museu: artistas contemporâneos reinventam os gêneros. Evite também reduzir uma região a um único ritmo; o Brasil é mais diverso do que os rótulos.",
+      "objetivoIds": [
+        "ritmos-regionais",
+        "instrumentos",
+        "hibridismo-musical"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de música regional, identifique o gênero, os instrumentos e o contexto social. Observe se a letra trata de trabalho, migração, festa ou crítica. Relacione a mistura de referências à história do gênero. A alternativa correta costuma reconhecer transformação e circulação, não pureza. Síntese: o regional é uma rede de trocas, não uma ilha.",
+      "objetivoIds": [
+        "ritmos-regionais",
+        "instrumentos",
+        "hibridismo-musical"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Smithsonian Folkways — música brasileira",
+      "url": "https://folkways.si.edu/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "IPHAN — patrimônio imaterial",
+      "url": "https://www.gov.br/iphan/pt-br",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Sesc São Paulo — música",
+      "url": "https://www.sescsp.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

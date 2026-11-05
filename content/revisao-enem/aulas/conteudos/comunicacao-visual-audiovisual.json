@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "id": "comunicacao-visual-audiovisual",
+  "titulo": "Comunicação visual e audiovisual: linguagem, design e recepção",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "linguagem-audiovisual",
+      "descricao": "Analisar cinema, televisão e vídeo como linguagens com escolhas de ponto de vista e montagem."
+    },
+    {
+      "id": "design",
+      "descricao": "Reconhecer decisões de design gráfico, identidade visual e comunicação."
+    },
+    {
+      "id": "midia",
+      "descricao": "Relacionar meios de comunicação, mercado e experiência estética."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Ver e ser visto",
+      "tipo": "texto",
+      "texto": "Cinema, televisão e internet organizam grande parte das imagens que consumimos. O cinema desenvolveu linguagens próprias: plano, contraplano, montagem, profundidade de campo, som. A televisão e o vídeo ampliaram a circulação doméstica e criaram formatos seriados. O design gráfico, por sua vez, organiza informações em cartazes, revistas, embalagens e interfaces. Essas linguagens não são neutras: orientam o olhar, distribuem atenção e vendem produtos ou ideias.",
+      "objetivoIds": [
+        "linguagem-audiovisual",
+        "midia"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Plano, montagem e ponto de vista",
+      "tipo": "texto",
+      "texto": "No audiovisual, o ponto de vista não é apenas 'de onde a câmera filma', mas também de quem é a experiência narrada. Um close pode produzir intimidade; um plano aberto pode criar distância ou solidão. A montagem relaciona imagens e cria sentido por justaposição. O som também orienta a percepção: uma música pode transformar uma cena aparentemente neutra em ameaça ou ternura. Ao analisar, pergunte o que o espectador sabe, quando sabe e por quê.",
+      "objetivoIds": [
+        "linguagem-audiovisual"
+      ]
+    },
+    {
+      "id": "exemplo-cinema",
+      "titulo": "Son of Saul e o horror fora de quadro",
+      "tipo": "texto",
+      "texto": "O filme 'Son of Saul' acompanha um prisioneiro em um campo de extermínio com uma câmera próxima e uma profundidade de campo limitada. O horror muitas vezes acontece fora do quadro, sugerido por sons e fragmentos. A escolha não é gratuita: ela nos obriga a ver pelo ponto de vista de alguém que tenta sobreviver ao impossível. Ao analisar cinema, observe o que a câmera decide mostrar e esconder. O fora de quadro também narra.",
+      "objetivoIds": [
+        "linguagem-audiovisual",
+        "midia"
+      ]
+    },
+    {
+      "id": "exemplo-tv",
+      "titulo": "Cinema e televisão: hierarquias de gosto",
+      "tipo": "texto",
+      "texto": "O debate sobre 'linguagem de cinema' e 'linguagem de televisão' envolve valores e acesso. Chamar uma obra de 'televisiva' pode ser uma forma de desqualificá-la, enquanto 'cinematográfica' funciona como elogio. Mas os meios se misturam: séries têm qualidade cinematográfica; filmes circulam em streaming. Ao analisar essa hierarquia, pergunte quem tem acesso ao quê e que interesses estão por trás dos rótulos. A distinção é menos técnica do que parece.",
+      "objetivoIds": [
+        "midia",
+        "linguagem-audiovisual"
+      ]
+    },
+    {
+      "id": "exemplo-design",
+      "titulo": "Design e identidade visual",
+      "tipo": "texto",
+      "texto": "Uma revista, um jogo ou uma campanha organizam informações com tipografia, cores, grade e imagens. O design pode facilitar a leitura ou criar obstáculos; pode reforçar estereótipos ou questioná-los. No jogo 'Cara a Cara', a escolha de personagens e perguntas revela normas de gênero e aparência. Ao analisar peças de design, observe hierarquia, contraste, repetição e público-alvo. A forma comunica antes mesmo de o texto ser lido.",
+      "objetivoIds": [
+        "design",
+        "midia"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a comunicação visual não é",
+      "tipo": "texto",
+      "texto": "Não é apenas 'arte comercial': há projetos críticos e experimentais. Não é neutra: toda escolha de enquadramento ou tipografia produz sentido. Não é sinônimo de manipulação: o público pode reinterpretar e resistir. E não é uma hierarquia fixa entre cinema, TV e internet: os meios se transformam. Evite também analisar uma imagem audiovisual apenas pelo roteiro; câmera, som e montagem são parte da narrativa.",
+      "objetivoIds": [
+        "linguagem-audiovisual",
+        "design",
+        "midia"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de audiovisual, identifique o ponto de vista, a montagem e o uso do som. Em design, observe tipografia, cores, grade e hierarquia. Relacione essas escolhas ao público e ao contexto de circulação. A alternativa correta costuma explicar como a forma produz sentido, não apenas descrever o conteúdo. Síntese: comunicar é organizar a atenção.",
+      "objetivoIds": [
+        "linguagem-audiovisual",
+        "design",
+        "midia"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "British Film Institute — cinema e televisão",
+      "url": "https://www.bfi.org.uk/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Criterion Collection — estudos de cinema",
+      "url": "https://www.criterion.com/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Cinemateca Brasileira",
+      "url": "https://www.gov.br/cinemateca/pt-br",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

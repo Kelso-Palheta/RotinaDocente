@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "id": "impressionismo",
+  "titulo": "Impressionismo: luz, instante e a pintura ao ar livre",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "luz",
+      "descricao": "Explicar como o Impressionismo representa luz, atmosfera e instantes por pinceladas de cor."
+    },
+    {
+      "id": "cena-moderna",
+      "descricao": "Relacionar a escolha de temas cotidianos e paisagens à experiência da vida moderna."
+    },
+    {
+      "id": "recepcao",
+      "descricao": "Interpretar a recepção crítica e a circulação do Impressionismo, inclusive no Brasil."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Paris, trens e tintas em tubo",
+      "tipo": "texto",
+      "texto": "Na segunda metade do século XIX, Paris se transforma com avenidas, trens, lojas e cafés. A pintura ao ar livre se torna mais viável com tintas em tubo, telas portáteis e cavaletes. Jovens artistas passam a trabalhar diretamente diante da paisagem, registrando mudanças de luz e atmosfera. O grupo que expôs em 1874, incluindo Monet, Renoir, Pissarro, Sisley e Berthe Morisot, foi chamado de 'impressionista' de forma inicialmente irônica. O nome pegou e virou programa estético.",
+      "objetivoIds": [
+        "cena-moderna"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Cor justaposta, sombra colorida e instante",
+      "tipo": "texto",
+      "texto": "O Impressionismo não mistura todas as cores na paleta antes de aplicar: justapõe pinceladas para que o olho faça a mistura. As sombras deixam de ser preto ou cinza e ganham tons de azul, violeta e verde. O contorno se dissolve, e o quadro capta um instante — uma nuvem, uma reflexão na água, uma multidão. Isso não significa improviso total: há estudo de composição e observação atenta. A tela parece 'inacabada' porque o acabamento acadêmico não é o objetivo.",
+      "objetivoIds": [
+        "luz"
+      ]
+    },
+    {
+      "id": "imagem-sisley",
+      "titulo": "Leitura guiada: a estrada e a luz",
+      "tipo": "imagem",
+      "texto": "Na tela de Alfred Sisley, observe a estrada que atravessa a paisagem, as árvores laterais e o céu claro. As pinceladas curtas constroem a poeira, a grama e as folhas; as sombras não são pretas, mas coloridas. O quadro não conta uma história heroica: mostra um caminho comum em um dia específico. Ao ler uma obra assim, pergunte onde está a fonte de luz, como as cores se repetem e se contrastam, e que sensação de tempo o registro produz.",
+      "objetivoIds": [
+        "luz",
+        "cena-moderna"
+      ],
+      "imagemId": "sisley-estrada"
+    },
+    {
+      "id": "comparacao",
+      "titulo": "Academia e impressão",
+      "tipo": "texto",
+      "texto": "Compare uma paisagem acadêmica, com contornos nítidos e composição hierárquica, com uma paisagem impressionista. A primeira busca estabilidade e idealização; a segunda aceita o transitório, o recorte inesperado e a vibração da luz. Não se trata de 'mais fácil' ou 'mais difícil': são projetos diferentes de conhecimento visual. A academia pergunta 'como representar o mundo segundo regras?'; o Impressionismo pergunta 'como registrar a experiência de ver o mundo agora?'.",
+      "objetivoIds": [
+        "luz",
+        "recepcao"
+      ]
+    },
+    {
+      "id": "brasil",
+      "titulo": "O Impressionismo no Brasil",
+      "tipo": "texto",
+      "texto": "No Brasil, artistas como Eliseu Visconti e outros incorporaram lições impressionistas de luz e cor sem abandonar temas e formação acadêmica. A pintura de Visconti combina retrato, paisagem e cenas cotidianas com pinceladas soltas e interesse por efeitos luminosos. Isso mostra que a vanguarda europeia não foi apenas 'importada': foi reinterpretada em relação a instituições, público e paisagem locais. Ao estudar recepção, pergunte quem tinha acesso às obras, como a crítica reagiu e que usos políticos a novidade estética assumiu.",
+      "objetivoIds": [
+        "recepcao"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que o Impressionismo não é",
+      "tipo": "texto",
+      "texto": "Não é simples 'borrão': a pincelada é construída e orientada. Não é ausência de tema: o cotidiano e o lazer moderno são temas deliberados. Não é um movimento homogêneo: Monet, Degas, Morisot e Pissarro têm interesses distintos. E não é apenas francês: circula e se transforma em outros lugares. Evite também reduzir a obra a 'captar a luz': há mercado, crítica, exposições e disputas sobre o que deveria ser arte.",
+      "objetivoIds": [
+        "luz",
+        "recepcao"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões com reprodução de obra, descreva primeiro o que vê: pincelada, contraste, contorno, luz, tema. Depois relacione à estética: se a tela registra um instante luminoso e dissolve contornos, provavelmente dialoga com o Impressionismo. Se o texto fala de 'impressão', 'luz' e 'cor', verifique se a alternativa descreve esse programa sem exageros. A síntese: Impressionismo é uma nova forma de ver o tempo e a experiência urbana, não apenas uma técnica de pintar mais rápido.",
+      "objetivoIds": [
+        "luz",
+        "cena-moderna",
+        "recepcao"
+      ]
+    }
+  ],
+  "imagens": [
+    {
+      "id": "sisley-estrada",
+      "arquivo": "aulas/imagens/impressionismo-sisley-estrada-versalhes.jpg",
+      "alt": "Paisagem com uma estrada de terra ladeada por árvores, céu claro e pinceladas curtas.",
+      "legenda": "Alfred Sisley, A estrada de Versalhes a Louveciennes, provavelmente 1879, óleo sobre tela, The Metropolitan Museum of Art.",
+      "fonteUrl": "https://www.metmuseum.org/art/collection/search/437685",
+      "licenca": "Domínio público — The Met Open Access."
+    }
+  ],
+  "fontes": [
+    {
+      "titulo": "The Metropolitan Museum of Art — Alfred Sisley, The Road from Versailles to Louveciennes",
+      "url": "https://www.metmuseum.org/art/collection/search/437685",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Musée d'Orsay — Impressionismo",
+      "url": "https://www.musee-orsay.fr/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — Eliseu Visconti",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

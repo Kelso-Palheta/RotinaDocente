@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "id": "culturas-populares-patrimonio",
+  "titulo": "Culturas populares e patrimônio: saberes, festas e mercado",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "patrimonio",
+      "descricao": "Distinguir patrimônio material e imaterial e seus processos de reconhecimento."
+    },
+    {
+      "id": "saberes",
+      "descricao": "Analisar saberes populares, artesanato e oralidade como produção cultural."
+    },
+    {
+      "id": "turismo-mercado",
+      "descricao": "Discutir tensões entre tradição, mercado, turismo e políticas de patrimônio."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "O que se preserva e quem decide",
+      "tipo": "texto",
+      "texto": "Patrimônio cultural não é apenas monumento antigo: inclui festas, saberes, línguas, modos de fazer e expressões artísticas. O Iphan e a Unesco reconhecem bens materiais e imateriais, mas esse reconhecimento envolve escolhas políticas. Nem tudo o que uma comunidade valoriza entra na lista oficial. Ao estudar patrimônio, pergunte quem participou da decisão, que grupos foram ouvidos e que interesses econômicos estão em jogo.",
+      "objetivoIds": [
+        "patrimonio",
+        "turismo-mercado"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Material, imaterial e salvaguarda",
+      "tipo": "texto",
+      "texto": "O patrimônio material inclui edifícios, obras e sítios arqueológicos. O imaterial inclui práticas, representações, expressões e conhecimentos transmitidos entre gerações. A salvaguarda não é congelar a cultura: é criar condições para que as comunidades continuem produzindo. Ao analisar uma política patrimonial, observe se ela valoriza os detentores do saber ou apenas transforma a prática em espetáculo para turistas.",
+      "objetivoIds": [
+        "patrimonio",
+        "saberes"
+      ]
+    },
+    {
+      "id": "exemplo-artesanato",
+      "titulo": "Artesanato e a fronteira com a arte",
+      "tipo": "texto",
+      "texto": "Panelas de barro, redes, bonecos e esculturas podem ser tratados como artesanato, arte popular ou souvenir. Essa classificação muda o valor e o circuito de circulação. Muitos artistas populares não tiveram formação acadêmica, mas dominam técnicas sofisticadas e narrativas próprias. Ao analisar uma peça, observe o material, o processo e a história contada. Evite a hierarquia que trata o artesanato como 'arte menor'.",
+      "objetivoIds": [
+        "saberes",
+        "turismo-mercado"
+      ]
+    },
+    {
+      "id": "exemplo-festa",
+      "titulo": "Marabaixo e a memória negra no Amapá",
+      "tipo": "texto",
+      "texto": "O Marabaixo é uma expressão cultural afro-amapaense que combina música, dança, religiosidade e memória. Sua origem remonta às mortes de pessoas escravizadas em navios negreiros. O reconhecimento como patrimônio fortalece a luta por visibilidade, mas também pode trazer riscos de folclorização. Ao analisar, relacione a festa à comunidade e à história da escravidão. A cultura popular não é apenas alegria: é memória e reivindicação.",
+      "objetivoIds": [
+        "patrimonio",
+        "saberes"
+      ]
+    },
+    {
+      "id": "exemplo-mercado",
+      "titulo": "Tradição, turismo e mercado",
+      "tipo": "texto",
+      "texto": "Festas e saberes populares podem gerar renda e orgulho, mas a comercialização pode padronizar práticas e excluir os próprios produtores. Um bordado ou uma cerâmica vendida como souvenir pode perder a função ritual e ganhar outro sentido. Ao analisar esse processo, pergunte quem lucra, quem decide o preço e como os artistas negociam sua identidade. Não há uma resposta única: há tensões que precisam ser reconhecidas.",
+      "objetivoIds": [
+        "turismo-mercado",
+        "patrimonio"
+      ]
+    },
+    {
+      "id": "exemplo-heitor",
+      "titulo": "Heitor dos Prazeres e a cidade popular",
+      "tipo": "texto",
+      "texto": "Heitor dos Prazeres foi compositor, instrumentista e pintor autodidata no Rio de Janeiro. Suas telas representam rodas de samba, festas, trabalhadores e cenas da vida popular, com perspectivas imprecisas, contornos demarcados e sugestão de movimento. A obra não é um retrato idealizado da pobreza: ela afirma uma sociabilidade que ocorre à margem dos circuitos acadêmicos. Ao analisar, observe quem aparece, como o espaço é organizado e que relações de convivência são encenadas. A pintura popular pode ser ao mesmo tempo documento afetivo, crítica social e invenção de uma imagem do Brasil.",
+      "objetivoIds": [
+        "saberes",
+        "patrimonio"
+      ]
+    },
+    {
+      "id": "exemplo-azulejaria",
+      "titulo": "Azulejaria de São Luís e a circulação de saberes",
+      "tipo": "texto",
+      "texto": "Os azulejos das fachadas do centro histórico de São Luís (MA) integram o patrimônio mundial reconhecido pela Unesco. A técnica do revestimento cerâmico vidrado chegou ao Brasil pela tradição portuguesa, que havia incorporado procedimentos e motivos do Oriente Médio e da Europa. Não se trata de uma cópia única: oficinas locais adaptaram medidas, cores e padrões ao clima e à arquitetura. Ao estudar a azulejaria, acompanhe a circulação de saberes entre culturas e evite explicar o conjunto apenas por influência francesa ou holandesa. O azulejo é uma tecnologia de revestimento, mas também uma linguagem visual que organiza a fachada e a paisagem urbana.",
+      "objetivoIds": [
+        "patrimonio",
+        "saberes"
+      ]
+    },
+    {
+      "id": "exemplo-vitalino-entalhe",
+      "titulo": "Barro e madeira: Mestre Vitalino e a Ilha do Ferro",
+      "tipo": "texto",
+      "texto": "Mestre Vitalino (1909-1963) transformou o barro em cena narrativa. Seus bonecos de barro narram o cotidiano do sertão — a feira, a ceia, o trabalho, a banda de pífanos — com gestos sintéticos e grande força expressiva. A cerâmica popular não é uma imitação pobre da escultura erudita: ela tem convenções próprias de proporção, cor e composição. Na Ilha do Ferro (AL), artistas contemporâneos entalham madeira retorcida e veem formas onde antes havia apenas galhos; o artista negocia com a forma do galho e inventa uma utilidade poética para o material, sem perder a memória do lugar. Ao comparar cerâmica e entalhe, pergunte como o material orienta a forma e como a comunidade participa da circulação da obra.",
+      "objetivoIds": [
+        "saberes"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que patrimônio não é",
+      "tipo": "texto",
+      "texto": "Não é apenas o que é antigo: manifestações recentes também podem ser patrimônio. Não é apenas o que é belo: valores sociais e históricos importam. Não é uma lista definitiva: reconhecimentos mudam. E não é propriedade do Estado: as comunidades são protagonistas. Evite também tratar a cultura popular como 'pura' e imutável; ela se transforma com o tempo e com o público.",
+      "objetivoIds": [
+        "patrimonio",
+        "saberes",
+        "turismo-mercado"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre patrimônio, identifique se o bem é material ou imaterial e quem o reconhece. Observe se o texto valoriza a comunidade ou apenas o turismo. Relacione a prática à memória e à economia. A alternativa correta costuma reconhecer a agência dos detentores do saber e a dimensão política do patrimônio. Síntese: preservar é garantir que as comunidades continuem criando.",
+      "objetivoIds": [
+        "patrimonio",
+        "saberes",
+        "turismo-mercado"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "IPHAN — patrimônio cultural",
+      "url": "https://www.gov.br/iphan/pt-br",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Unesco — patrimônio imaterial",
+      "url": "https://www.unesco.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Funarte — cultura popular",
+      "url": "https://www.gov.br/funarte/pt-br",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "id": "arte-urbana-publica",
+  "titulo": "Arte urbana e espaço público: a cidade como suporte",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "grafite",
+      "descricao": "Distinguir grafite, pichação e arte urbana, com seus contextos e linguagens."
+    },
+    {
+      "id": "espaco-publico",
+      "descricao": "Analisar intervenções artísticas no espaço público e sua relação com o cotidiano."
+    },
+    {
+      "id": "memoria-urbana",
+      "descricao": "Relacionar arte pública, patrimônio e memória social."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "A rua como galeria e como conflito",
+      "tipo": "texto",
+      "texto": "Nos anos 1970 e 1980, jovens de Nova York, São Paulo e outras cidades usaram muros, trens e fachadas para inscrever nomes, imagens e mensagens. O grafite se desenvolveu com letras estilizadas, personagens e crítica social; a pichação, com traços e códigos próprios. A arte urbana ampliou esse repertório com lambe-lambes, estênceis, instalações e performances. Essas práticas disputam o direito à cidade e questionam quem pode ocupar visualmente o espaço público.",
+      "objetivoIds": [
+        "grafite",
+        "espaco-publico"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Grafite, pichação e intervenção",
+      "tipo": "texto",
+      "texto": "Grafite e pichação não são sinônimos. O grafite costuma ser reconhecido como linguagem artística, com técnicas e circuitos próprios; a pichação é frequentemente tratada como vandalismo, mas também expressa identidade e disputa territorial. A intervenção urbana pode ser efêmera, como uma ação, ou durável, como um mural. Todas essas formas dialogue com a arquitetura, o trânsito e o cotidiano. Ao analisar, pergunte quem autorizou, quem paga, quem vê e que interesse é afetado.",
+      "objetivoIds": [
+        "grafite",
+        "espaco-publico"
+      ]
+    },
+    {
+      "id": "exemplo-speto",
+      "titulo": "Speto e a xilogravura na rua",
+      "tipo": "texto",
+      "texto": "O grafiteiro paulista Speto incorpora traços da xilogravura nordestina em murais urbanos. A referência ao cordel não é apenas decorativa: conecta a cultura popular à cidade contemporânea. A linha grossa, o preto e branco e os personagens criam uma identidade visual reconhecível. Ao interpretar, observe como a obra circula entre museu, rua e mercado. A arte urbana pode ser ao mesmo tempo afirmação de origem, crítica e produto cultural.",
+      "objetivoIds": [
+        "grafite",
+        "memoria-urbana"
+      ]
+    },
+    {
+      "id": "exemplo-prades",
+      "titulo": "Jaime Prades e o lixo como memória",
+      "tipo": "texto",
+      "texto": "Jaime Prades começou a interferir em muros e depois passou a usar resíduos urbanos em instalações. Sua obra chama atenção para a ecologia da cidade e para o descarte. O lixo não é apenas tema: é material e arquivo de uma sociedade. Ao analisar uma intervenção com resíduos, pergunte o que ela revela sobre consumo, desigualdade e memória dos lugares. A estética da ruína pode ser crítica, mas também corre o risco de romantizar a pobreza.",
+      "objetivoIds": [
+        "espaco-publico",
+        "memoria-urbana"
+      ]
+    },
+    {
+      "id": "exemplo-mural",
+      "titulo": "Murais, metrô e arte pública",
+      "tipo": "texto",
+      "texto": "Murais em estações de metrô, praças e edifícios públicos aproximam a arte do cotidiano de milhares de pessoas. Eles podem celebrar a história local, homenagear trabalhadores ou simplesmente criar beleza no trajeto. A arte pública é muitas vezes financiada pelo Estado e implica escolhas sobre memória e representação: quem aparece no mural? Que história é contada? Ao analisar, relacione a obra ao lugar e à comunidade, não apenas ao estilo do artista.",
+      "objetivoIds": [
+        "espaco-publico",
+        "memoria-urbana"
+      ]
+    },
+    {
+      "id": "exemplo-rupestre",
+      "titulo": "Da Toca do Salitre ao muro contemporâneo",
+      "tipo": "texto",
+      "texto": "Pinturas rupestres como as da Toca do Salitre, no Piauí, inscrevem no território visões de mundo, mitos, caçadas e relações sociais. O grafite contemporâneo também intervém em superfícies públicas e pode ser lido como inscrição de pertencimento, crítica e memória. A comparação entre os dois não deve apagar as diferenças de tempo, técnica e função: a arte rupestre está ligada a contextos rituais e comunitários muito distintos, enquanto o grafite nasce em meio à cidade industrial e às culturas juvenis. O ponto comum está no gesto de marcar o espaço e comunicar valores. Ao analisar, pergunte quem produzia, para quem e em que lugar.",
+      "objetivoIds": [
+        "grafite",
+        "memoria-urbana"
+      ]
+    },
+    {
+      "id": "exemplo-basquiat",
+      "titulo": "Basquiat e a tradição visual brasileira",
+      "tipo": "texto",
+      "texto": "Basquiat ganhou projeção em Nova York nos anos 1980, depois de atuar na cena do grafite e da arte de rua. Suas telas combinam sinais, palavras, números, símbolos populares, referências à história da arte e temas da violência racial. A pintura é gráfica e acumulativa: os elementos não se organizam em perspectiva tradicional, mas em ritmos visuais. Ao comparar com a produção brasileira, procure obras que também articulem cultura popular, signos gráficos e espaço público, sem buscar uma cópia de estilo. No Brasil, murais modernistas e painéis públicos usaram superfícies coletivas e repertórios populares. A aproximação depende do critério formal e do contexto, não do simples tema.",
+      "objetivoIds": [
+        "grafite",
+        "espaco-publico"
+      ]
+    },
+    {
+      "id": "exemplo-ohtake",
+      "titulo": "Tomie Ohtake e a escultura pública",
+      "tipo": "texto",
+      "texto": "Tomie Ohtake (1913-2015) foi uma artista nipo-brasileira conhecida por pinturas, gravuras e esculturas monumentais. A escultura em homenagem aos 100 anos da imigração japonesa, instalada na orla de Santos em 2008, usa aço-carbono e formas curvas em grande escala. A obra não representa literalmente a vida marinha nem recupera a função de um museu: ela se integra à paisagem urbana e convida o público a circular ao seu redor. Ao analisar escultura pública, observe a escala, o local, o material e a relação com o corpo do espectador. A arte no espaço público pode democratizar o acesso sem deixar de ser forma.",
+      "objetivoIds": [
+        "espaco-publico",
+        "memoria-urbana"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a arte urbana não é",
+      "tipo": "texto",
+      "texto": "Não é toda pixação artística: há diferenças de intenção, técnica e recepção. Não é necessariamente ilegal: murais e projetos públicos podem ter autorização. Não é apenas juventude e rebeldia: há artistas com formação acadêmica e circuitos comerciais. E não é automaticamente democrática: a valorização de uma intervenção pode expulsar moradores e encarecer o bairro. Evite celebrar a rua sem perguntar quem tem direito de nela intervir.",
+      "objetivoIds": [
+        "grafite",
+        "espaco-publico",
+        "memoria-urbana"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre arte urbana, identifique o suporte (muro, metrô, lambe-lambe), a técnica (spray, estêncil, xilogravura) e o contexto (periferia, museu, patrimônio). Observe se o texto trata a prática como arte, crime ou disputa. A alternativa correta costuma reconhecer a dimensão social e o caráter efêmero ou site-specific da obra. Síntese: a cidade não é apenas cenário; é matéria e conflito.",
+      "objetivoIds": [
+        "grafite",
+        "espaco-publico",
+        "memoria-urbana"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Street art",
+      "url": "https://www.tate.org.uk/art/art-terms/s/street-art",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu Afro Brasil — arte e cultura urbana",
+      "url": "https://www.museuafrobrasil.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — graffiti",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

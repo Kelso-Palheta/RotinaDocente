@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "id": "matrizes-africanas-musica",
+  "titulo": "Matrizes africanas na música brasileira: ritmo, diáspora e invenção",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "africanias",
+      "descricao": "Reconhecer instrumentos, ritmos e práticas africanas na música brasileira."
+    },
+    {
+      "id": "diaspora",
+      "descricao": "Analisar a diáspora e o sincretismo na formação musical brasileira."
+    },
+    {
+      "id": "ritmo",
+      "descricao": "Relacionar padrões rítmicos, oralidade e performance."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Música que atravessou o Atlântico",
+      "tipo": "texto",
+      "texto": "Entre os séculos XVI e XIX, milhões de africanos foram escravizados e trazidos ao Brasil. Com eles vieram línguas, religiões, instrumentos e formas de organizar o som. Essas práticas não sobreviveram intactas: foram transformadas pelo contato com povos indígenas, europeus e com as condições da escravidão. O samba, o maracatu, o candomblé, o choro e o funk são alguns dos resultados desse encontro desigual. Falar de matrizes africanas é falar de invenção, não de cópia.",
+      "objetivoIds": [
+        "africanias",
+        "diaspora"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Polirritmia, oralidade e sincretismo",
+      "tipo": "texto",
+      "texto": "A música africana é diversa: há centenas de línguas e tradições. No Brasil, destacam-se a polirritmia (vários ritmos simultâneos), a participação do corpo, a chamada e resposta e a transmissão oral. Instrumentos como atabaque, agogô, berimbau e kalimba participam desse repertório. Sincretismo não é mistura sem conflito: é negociação entre tradições em relações de poder. Ao analisar, pergunte quem toca, quem dança e que função social o som cumpre.",
+      "objetivoIds": [
+        "africanias",
+        "ritmo"
+      ]
+    },
+    {
+      "id": "exemplo-instrumentos",
+      "titulo": "Kalimba, atabaque e a diáspora",
+      "tipo": "texto",
+      "texto": "A kalimba, instrumento de lâminas metálicas, aparece em diferentes regiões da África e foi recriada em vários países. No Brasil, atabaques e agogôs marcam o candomblé e o samba. A trajetória desses instrumentos mostra que a diáspora não foi apenas perda: foi reconstrução de saber em outro território. Ao analisar uma imagem ou um trecho musical, observe o material, a técnica e o contexto ritual ou festivo. O instrumento carrega história.",
+      "objetivoIds": [
+        "africanias",
+        "diaspora"
+      ]
+    },
+    {
+      "id": "exemplo-pixinguinha",
+      "titulo": "Pixinguinha e a canção de terreiro",
+      "tipo": "texto",
+      "texto": "A canção 'Yaô', de Pixinguinha, faz referência a elementos do candomblé e da língua iorubá. A música popular brasileira incorporou palavras, ritmos e cosmologias afro-brasileiras, muitas vezes em diálogo com a indústria e com a censura. Ao analisar a letra, observe como o sagrado aparece no cotidiano e como a sonoridade participa do sentido. Não se trata de exotismo: trata-se de uma memória cultural que atravessa o samba e a MPB.",
+      "objetivoIds": [
+        "africanias",
+        "ritmo"
+      ]
+    },
+    {
+      "id": "exemplo-samba",
+      "titulo": "Samba, maxixe e a transformação da polca",
+      "tipo": "texto",
+      "texto": "O maxixe e o samba nasceram do encontro entre ritmos africanos, polca, lundu e outras formas europeias. A polca chegou ao Brasil e foi transformada pelo sotaque rítmico local. Esse processo mostra que a música popular não é pura: é resultado de apropriações e reinvenções. Ao comparar versões, observe o andamento, a síncope, os instrumentos e a forma de dançar. A diferença de resultado vem da cultura que recebe e transforma o modelo.",
+      "objetivoIds": [
+        "diaspora",
+        "ritmo"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que as matrizes africanas não são",
+      "tipo": "texto",
+      "texto": "Não são um bloco único: a África é diversa e as tradições chegaram ao Brasil em contextos distintos. Não são 'folclore' separado da música moderna: estão no rádio, no carnaval e na indústria. Não são cópia da Europa: a polca, por exemplo, foi transformada. E não são apenas ritmo: envolvem língua, espiritualidade e organização comunitária. Evite também apagar a violência da escravidão em nome de uma celebração da mistura.",
+      "objetivoIds": [
+        "africanias",
+        "diaspora"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre matrizes africanas, identifique instrumentos, palavras e práticas citadas. Observe se o texto fala de origem, transformação ou resistência. Relacione o som ao contexto social e religioso. A alternativa correta costuma reconhecer a agência dos povos africanos e afro-brasileiros, não apenas a 'influência'. Síntese: a música brasileira é feita de memórias em movimento.",
+      "objetivoIds": [
+        "africanias",
+        "diaspora",
+        "ritmo"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Smithsonian Folkways — música e tradições",
+      "url": "https://folkways.si.edu/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "National Museum of African American History and Culture",
+      "url": "https://nmaahc.si.edu/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu Afro Brasil — cultura e memória",
+      "url": "https://www.museuafrobrasil.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "id": "arte-digital-tecnologia",
+  "titulo": "Arte digital e tecnologia: autoria, acesso e novas linguagens",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "arte-digital",
+      "descricao": "Caracterizar a arte digital como campo de processos, possibilidades e experiências."
+    },
+    {
+      "id": "autoria",
+      "descricao": "Discutir autoria, reprodutibilidade e direitos em obras digitais."
+    },
+    {
+      "id": "acesso",
+      "descricao": "Avaliar museus virtuais, acervos digitais e formas de acesso à arte."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "A obra como programa",
+      "tipo": "texto",
+      "texto": "Desde os anos 1960, artistas usam computadores, vídeos e redes para criar obras que não são apenas objetos. A arte digital pode ser uma imagem gerada por algoritmo, um ambiente interativo, um site ou umaperformance transmitida. O artista não controla totalmente o resultado: o sistema, o acaso e o usuário participam. Isso desloca a ideia de obra acabada e de autoria individual. Também coloca novos problemas de preservação: como conservar uma obra que depende de software e de conexão?",
+      "objetivoIds": [
+        "arte-digital"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Processo, interface e participação",
+      "tipo": "texto",
+      "texto": "Na arte digital, a interface é parte da obra: o que o usuário vê, clica e escolhe altera a experiência. A obra pode ser generativa, produzindo variações a cada execução. A participação pode ser explícita, como um jogo, ou implícita, como a navegação por um acervo. Ao analisar, pergunte: qual é o suporte? O que o usuário pode fazer? O resultado é fixo ou varia? Quem controla os dados? Essas perguntas aproximam arte, design e tecnologia.",
+      "objetivoIds": [
+        "arte-digital",
+        "autoria"
+      ]
+    },
+    {
+      "id": "exemplo-gps",
+      "titulo": "Stephen Lund e o desenho com o corpo",
+      "tipo": "texto",
+      "texto": "O artista canadense Stephen Lund usa o GPS da bicicleta para desenhar trajetos em mapas. A obra não está na tela nem na rua, mas no percurso registrado. O corpo, o deslocamento e a cidade tornam-se materiais. A imagem final é um mapa, mas a experiência é a pedalada. Ao interpretar, observe a distância entre a ação e o registro: o desenho é uma consequência do movimento. Isso mostra como a tecnologia pode transformar o cotidiano em linguagem artística.",
+      "objetivoIds": [
+        "arte-digital",
+        "acesso"
+      ]
+    },
+    {
+      "id": "exemplo-acervo",
+      "titulo": "Museus virtuais e a democratização do olhar",
+      "tipo": "texto",
+      "texto": "Google Arts & Culture e instituições como o Instituto de Arte de Chicago disponibilizam imagens em alta resolução, visitas virtuais e downloads. Isso amplia o acesso de quem não pode viajar, mas não elimina desigualdades: depende de internet, dispositivos e letramento digital. A experiência virtual também é diferente da presença física: escala, textura e luz mudam. Ao discutir acesso, evite opor totalmente presença e tela; pergunte quem ganha e quem continua excluído.",
+      "objetivoIds": [
+        "acesso",
+        "arte-digital"
+      ]
+    },
+    {
+      "id": "exemplo-autoria",
+      "titulo": "Autoria e apropriação na rede",
+      "tipo": "texto",
+      "texto": "A facilidade de copiar, remixar e circular imagens na internet intensifica debates sobre autoria. Obras digitais podem ser reproduzidas infinitamente, mas isso não significa que não haja direitos, créditos e contextos. Artistas usam a apropriação como crítica, enquanto outros têm imagens usadas sem consentimento. Ao analisar um caso, pergunte: quem criou? Quem lucra? Quem é creditado? A tecnologia não elimina a ética; ela cria novas formas de negociação.",
+      "objetivoIds": [
+        "autoria",
+        "arte-digital"
+      ]
+    },
+    {
+      "id": "exemplo-laerte-ia",
+      "titulo": "Laerte, a tirinha e o trabalho criativo na era da IA",
+      "tipo": "texto",
+      "texto": "Em uma tirinha publicada por Laerte, a inteligência artificial aparece como tema de crítica. A tira não discute apenas o suporte digital nem a falta de fontes: ela chama atenção para o trabalho criativo que desaparece quando a produção de texto e imagem é delegada a um sistema automatizado. A IA generativa funciona por padrões estatísticos extraídos de obras anteriores; o resultado pode parecer novo, mas recombina repertórios e apaga o percurso de quem escreveu, desenhou e editou. Ao ler uma tirinha assim, observe quem fala, que voz é atribuída à máquina e que relação de poder se estabelece entre artista, ferramenta e público. A crítica é à redução do trabalho humano, não à mera presença da tecnologia.",
+      "objetivoIds": [
+        "autoria",
+        "arte-digital"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a arte digital não é",
+      "tipo": "texto",
+      "texto": "Não é apenas 'arte feita no computador': pode envolver corpo, cidade, impressão e instalação. Não é necessariamente interativa: há obras digitais contemplativas. Não é sinônimo de inteligência artificial: a IA é uma ferramenta entre outras. E não é automaticamente democrática: o acesso depende de infraestrutura e poder. Evite também tratar a tecnologia como novidade absoluta; artistas já experimentavam máquinas e sistemas muito antes dos aplicativos.",
+      "objetivoIds": [
+        "arte-digital",
+        "autoria",
+        "acesso"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre arte digital, identifique o suporte, o processo e o grau de participação do usuário. Se o texto fala de acervo on-line, pense em acesso e mediação; se fala de algoritmo, pense em autoria e imprevisibilidade; se fala de redes sociais, pense em circulação e mercado. A alternativa correta costuma articular tecnologia e experiência, não apenas elogiar a inovação. Síntese: a tecnologia é meio, não garantia de qualidade ou democracia.",
+      "objetivoIds": [
+        "arte-digital",
+        "autoria",
+        "acesso"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Rhizome — arte digital",
+      "url": "https://www.rhizome.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Google Arts & Culture",
+      "url": "https://artsandculture.google.com/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Art Institute of Chicago — coleção digital",
+      "url": "https://www.artic.edu/collection",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

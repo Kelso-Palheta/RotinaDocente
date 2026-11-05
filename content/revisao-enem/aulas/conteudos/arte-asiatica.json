@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "id": "arte-asiatica",
+  "titulo": "Arte asiática: zen, porcelana e circulação global",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "zen",
+      "descricao": "Reconhecer na arte japonesa o zen, a contemplação e o uso do vazio."
+    },
+    {
+      "id": "porcelana",
+      "descricao": "Analisar a porcelana e a circulação de técnicas e imagens entre Ásia e Europa."
+    },
+    {
+      "id": "globalizacao",
+      "descricao": "Discutir a presença da arte asiática no mercado global e nas releituras contemporâneas."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Outras formas de ver o espaço",
+      "tipo": "texto",
+      "texto": "A arte asiática é diversa: inclui pintura, cerâmica, arquitetura, caligrafia e artes performáticas de China, Japão, Índia e outros países. Na pintura zen japonesa, o vazio não é ausência: é parte da composição e do exercício de contemplação. A porcelana chinesa circulou pelo mundo e transformou gostos e técnicas. Estudar essa produção exige evitar estereótipos de 'exotismo' e reconhecer contextos históricos específicos.",
+      "objetivoIds": [
+        "zen",
+        "porcelana"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Vazio, assimetria e contemplação",
+      "tipo": "texto",
+      "texto": "A pintura zen valoriza a economia de traços, a assimetria e o espaço não preenchido. O artista busca captar a energia da natureza, não descrever cada detalhe. A caligrafia e a pintura compartilham gestos e materiais. Ao analisar uma tela, observe onde o pincel toca e onde não toca. O vazio orienta o olhar e cria respiração. A obra não exige uma interpretação rápida; ela propõe uma experiência de tempo lento.",
+      "objetivoIds": [
+        "zen"
+      ]
+    },
+    {
+      "id": "exemplo-tohaku",
+      "titulo": "Hasegawa Tohaku e a floresta de pinheiros",
+      "tipo": "texto",
+      "texto": "A tela 'Floresta de pinheiros', de Hasegawa Tohaku, representa árvores emergindo da névoa. Os troncos são sugeridos por manchas e pinceladas, e grandes áreas ficam vazias. A composição convida o espectador a completar a cena com a imaginação. Ao analisar, observe a relação entre cheio e vazio, a variação do nanquim e a escala. A obra não é um instantâneo realista: é uma meditação sobre presença e ausência.",
+      "objetivoIds": [
+        "zen",
+        "globalizacao"
+      ]
+    },
+    {
+      "id": "exemplo-porcelana",
+      "titulo": "Porcelana e o comércio de formas",
+      "tipo": "texto",
+      "texto": "A porcelana chinesa foi admirada e copiada na Europa. Fábricas europeias tentaram reproduzir a técnica e adaptaram motivos aos gostos locais. Esse comércio não foi apenas de objetos: foi de conhecimento, imagens e prestígio. Ao analisar uma peça, observe a forma, a decoração e as marcas de produção. A cópia pode ser homenagem, competição ou apropriação. A circulação global da cerâmica mostra que a arte sempre viajou.",
+      "objetivoIds": [
+        "porcelana",
+        "globalizacao"
+      ]
+    },
+    {
+      "id": "exemplo-global",
+      "titulo": "Subodh Gupta e a arte indiana global",
+      "tipo": "texto",
+      "texto": "O artista indiano Subodh Gupta usa utensílios de cozinha de aço inoxidável para criar esculturas que falam de consumo, migração e desigualdade. Sua obra circula em feiras e museus internacionais. Ao analisar, pergunte como o material cotidiano se transforma em linguagem e como a identidade indiana é negociada no mercado global. A arte asiática contemporânea não é apenas tradição: é crítica e invenção.",
+      "objetivoIds": [
+        "globalizacao",
+        "porcelana"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a arte asiática não é",
+      "tipo": "texto",
+      "texto": "Não é um bloco homogêneo: China, Japão, Índia e outros países têm histórias distintas. Não é apenas 'espiritualidade': há política, comércio e técnica. Não é estática: artistas contemporâneos reinventam tradições. E não é um espelho do olhar ocidental: o 'zen' vendido como estilo de vida é uma redução. Evite também usar 'oriental' como categoria geral.",
+      "objetivoIds": [
+        "zen",
+        "porcelana",
+        "globalizacao"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre arte asiática, identifique o país, o período e o suporte. Observe se o texto fala de contemplação, comércio ou globalização. Relacione a forma ao contexto cultural. A alternativa correta costuma reconhecer especificidade histórica e circulação, não exotismo. Síntese: a arte asiática é plural e participa de redes globais há séculos.",
+      "objetivoIds": [
+        "zen",
+        "porcelana",
+        "globalizacao"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tokyo National Museum",
+      "url": "https://www.tnm.jp/?lang=en",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The British Museum — Ásia",
+      "url": "https://www.britishmuseum.org/collection",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Metropolitan Museum of Art — arte asiática",
+      "url": "https://www.metmuseum.org/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

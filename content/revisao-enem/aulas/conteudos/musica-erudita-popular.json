@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "id": "musica-erudita-popular",
+  "titulo": "Música erudita e popular: hierarquias, arranjos e escuta",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "erudito-popular",
+      "descricao": "Distinguir e relacionar música erudita e popular sem hierarquia automática."
+    },
+    {
+      "id": "circulacao",
+      "descricao": "Analisar circulação, arranjo e apropriação de repertórios musicais."
+    },
+    {
+      "id": "escuta",
+      "descricao": "Reconhecer parâmetros musicais como melodia, ritmo, timbre e forma."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Uma fronteira histórica",
+      "tipo": "texto",
+      "texto": "A distinção entre música erudita e popular se consolidou na Europa dos séculos XVIII e XIX, com a valorização da partitura, da sala de concerto e do compositor autoral. A música popular, transmitida muitas vezes oralmente e ligada à dança e à festa, foi tratada como menor. No século XX, rádio, disco e cinema embaralharam essas fronteiras. Hoje, artistas circulam entre orquestra, rock e música eletrônica. A hierarquia ainda existe, mas é histórica e discutível.",
+      "objetivoIds": [
+        "erudito-popular",
+        "circulacao"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Melodia, ritmo, timbre e forma",
+      "tipo": "texto",
+      "texto": "Para ouvir com atenção, não é preciso decorar nomes: comece pelo que está mais evidente. A melodia é a linha de notas que se destaca; o ritmo organiza durações e pulsações; o timbre é a cor do som, que diferencia violino, sanfona e sintetizador; a forma é a organização das partes. Ao comparar versões, observe andamento, instrumentação e dinâmica. Essas categorias ajudam a explicar por que uma mesma música soa diferente em cada arranjo.",
+      "objetivoIds": [
+        "escuta",
+        "erudito-popular"
+      ]
+    },
+    {
+      "id": "exemplo-cage",
+      "titulo": "John Cage e a pergunta 'o que é música?'",
+      "tipo": "texto",
+      "texto": "John Cage questionou a ideia de que música é apenas som organizado intencionalmente. Em obras como '4'33', o silêncio da sala se torna material: tosses, ruídos e respiração entram na experiência. Isso dialoga com a arte conceitual e com a música experimental. Ao analisar, pergunte o que conta como som, quem define a moldura e como o público participa. Cage não eliminou a técnica: deslocou a atenção para a escuta do ambiente.",
+      "objetivoIds": [
+        "erudito-popular",
+        "escuta"
+      ]
+    },
+    {
+      "id": "exemplo-pestana",
+      "titulo": "Pestana, a polca e o piano",
+      "tipo": "texto",
+      "texto": "No conto de Machado de Assis, Pestana compõe polcas populares enquanto sonha com a grande obra erudita. A narrativa expõe a tensão entre reconhecimento comercial e prestígio artístico. A polca, gênero de dança popular, circulava em salões e ruas. Ao analisar o texto, observe como o personagem hierarquiza os gêneros e como o público reage. A literatura ajuda a entender que o valor artístico não é uma propriedade natural da obra, mas uma construção social.",
+      "objetivoIds": [
+        "erudito-popular",
+        "circulacao"
+      ]
+    },
+    {
+      "id": "exemplo-bolero",
+      "titulo": "Bolero, sax e praça pública",
+      "tipo": "texto",
+      "texto": "O bolero de Ravel, composto para orquestra, ganhou versões em sax, piano e arranjos populares. Quando executado ao pôr do sol em uma praia, o repertório erudito se mistura ao cotidiano e ao turismo. Isso não 'vulgariza' a obra: cria outra experiência. Ao comparar a versão orquestral com a popular, observe a instrumentação, o andamento e o espaço de escuta. A mesma composição pode ter funções diferentes sem perder sua estrutura.",
+      "objetivoIds": [
+        "circulacao",
+        "escuta"
+      ]
+    },
+    {
+      "id": "exemplo-fusao",
+      "titulo": "Deep Purple e a orquestra",
+      "tipo": "texto",
+      "texto": "Jon Lord, tecladista do Deep Purple, compôs peças que combinam rock, orquestra e formas eruditas. Para ele, clássico e popular eram aspectos da mesma música. Essa fusão não é uma novidade isolada: atravessa o progressivo, a MPB e a música contemporânea. Ao analisar uma fusão, pergunte o que cada tradição contribui e que público é convidado. A mistura pode ser enriquecedora ou apenas decorativa; a escuta atenta ajuda a distinguir.",
+      "objetivoIds": [
+        "circulacao",
+        "erudito-popular"
+      ]
+    },
+    {
+      "id": "exemplo-fioti",
+      "titulo": "MC Fioti e Bach: encontro de realidades",
+      "tipo": "texto",
+      "texto": "Em 'Bum bum tam tam' (2017), MC Fioti partiu de uma gravação de flauta encontrada na internet e construiu uma faixa de funk. O trecho era da Partita em Lá menor para flauta solo, de Johann Sebastian Bach, composta por volta de 1723. Fioti não conhecia o compositor nem tocava flauta: o encontro aconteceu por acaso, mediado pela circulação digital. A obra resultante não é uma homenagem erudita nem uma prova de influência europeia permanente; é uma articulação entre repertórios de realidades distintas, com novos ritmos, funções e públicos. Ao analisar apropriações, pergunte o que é citado, como é transformado e quem passa a ouvir.",
+      "objetivoIds": [
+        "circulacao",
+        "escuta"
+      ]
+    },
+    {
+      "id": "exemplo-beethoven",
+      "titulo": "Beethoven no caminhão de gás",
+      "tipo": "texto",
+      "texto": "Für Elise, bagatela composta por Beethoven em 1810, tornou-se no Brasil um sinal sonoro de caminhões de gás. A Lei municipal paulistana 11.016/1991 proibiu o uso de buzinas por esses veículos, e os entregadores passaram a usar chips com músicas livres de direitos. A melodia mudou de função: deixou de ser uma peça de concerto para se tornar aviso cotidiano, meme e marca sonora. Isso não empobrece a obra; mostra que o significado de uma música depende do contexto de escuta. Ao analisar esse tipo de caso, relacione a obra ao lugar e ao uso, não apenas à intenção original do compositor.",
+      "objetivoIds": [
+        "circulacao",
+        "erudito-popular"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a hierarquia não é",
+      "tipo": "texto",
+      "texto": "Erudito não significa 'melhor' nem 'mais difícil'; popular não significa 'simples' ou 'espontâneo'. As categorias variam historicamente e não são puras. Uma canção popular pode ter harmonias complexas; uma obra erudita pode ser dançante e acessível. Evite também usar 'clássico' como sinônimo de 'antigo': há música clássica contemporânea. O mais produtivo é analisar cada obra pelos seus próprios parâmetros e contextos.",
+      "objetivoIds": [
+        "erudito-popular",
+        "circulacao",
+        "escuta"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre erudito e popular, identifique o gênero, o instrumento e o espaço de circulação. Observe se o texto critica ou reproduz a hierarquia. Relacione a versão ao arranjo e ao público. A alternativa correta costuma valorizar a circulação e a transformação, não a pureza. Síntese: ouvir é comparar escolhas, não apenas reconhecer estilos.",
+      "objetivoIds": [
+        "erudito-popular",
+        "circulacao",
+        "escuta"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Carnegie Hall — história da música",
+      "url": "https://www.carnegiehall.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Library of Congress — música",
+      "url": "https://www.loc.gov/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Digital Concert Hall — Berlin Philharmonic",
+      "url": "https://www.digitalconcerthall.com/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

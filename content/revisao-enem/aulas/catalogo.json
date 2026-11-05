@@ -1,0 +1,731 @@
+{
+  "schemaVersion": 1,
+  "trilhas": [
+    {
+      "id": "artes-visuais",
+      "titulo": "Artes visuais: tradição, vanguardas e imagem"
+    },
+    {
+      "id": "arte-contemporanea",
+      "titulo": "Arte contemporânea: ideia, corpo e espaço"
+    },
+    {
+      "id": "imagem-audiovisual",
+      "titulo": "Imagem, audiovisual e artes gráficas"
+    },
+    {
+      "id": "teatro-danca",
+      "titulo": "Teatro e dança"
+    },
+    {
+      "id": "musica",
+      "titulo": "Música"
+    },
+    {
+      "id": "culturas-populares",
+      "titulo": "Culturas populares, indígenas e afro-brasileiras"
+    },
+    {
+      "id": "arte-sociedade",
+      "titulo": "Arte, sociedade, arquitetura e design"
+    }
+  ],
+  "conteudos": [
+    {
+      "id": "tradicao-academica",
+      "trilhaId": "artes-visuais",
+      "titulo": "Tradição acadêmica: Renascimento, Maneirismo, Neoclassicismo e Realismo",
+      "resumo": "Da perspectiva renascentista ao realismo socialista, a aula mostra como a tradição acadêmica constrói modelos de corpo, história e poder, e como artistas tensionam esses modelos.",
+      "objetivos": [
+        {
+          "id": "idealizacao",
+          "descricao": "Reconhecer como a tradição acadêmica idealiza corpos, cenas históricas e relações de poder."
+        },
+        {
+          "id": "atelie",
+          "descricao": "Explicar a produção colaborativa no ateliê renascentista e os limites da atribuição autoral."
+        },
+        {
+          "id": "maneirismo",
+          "descricao": "Distinguir a distorção maneirista do equilíbrio e da proporção renascentistas."
+        },
+        {
+          "id": "realismo",
+          "descricao": "Comparar pintura acadêmica e realismo socialista como projetos estéticos e ideológicos."
+        }
+      ]
+    },
+    {
+      "id": "barroco-brasileiro",
+      "trilhaId": "artes-visuais",
+      "titulo": "Barroco e rococó no Brasil: fé, mineração e mãos locais",
+      "resumo": "A aula aborda o barroco e o rococó mineiros, a escultura de Aleijadinho e a pintura de Mestre Ataíde, articulando religiosidade, economia do ouro e saberes locais.",
+      "objetivos": [
+        {
+          "id": "barroco-mineiro",
+          "descricao": "Caracterizar o barroco e o rococó mineiros pela dramaticidade, movimento e uso de materiais locais."
+        },
+        {
+          "id": "aleijadinho",
+          "descricao": "Analisar a escultura de Aleijadinho na articulação entre formação erudita e saberes populares."
+        },
+        {
+          "id": "ataide",
+          "descricao": "Reconhecer na pintura de Mestre Ataíde marcas de identidade local e sincretismo visual."
+        }
+      ]
+    },
+    {
+      "id": "impressionismo",
+      "trilhaId": "artes-visuais",
+      "titulo": "Impressionismo: luz, instante e a pintura ao ar livre",
+      "resumo": "A aula explica como Monet, Sisley, Renoir e outros artistas transformaram pincelada, cor e tema ao pintar a luz e a vida moderna, e como essa estética foi recebida no Brasil.",
+      "objetivos": [
+        {
+          "id": "luz",
+          "descricao": "Explicar como o Impressionismo representa luz, atmosfera e instantes por pinceladas de cor."
+        },
+        {
+          "id": "cena-moderna",
+          "descricao": "Relacionar a escolha de temas cotidianos e paisagens à experiência da vida moderna."
+        },
+        {
+          "id": "recepcao",
+          "descricao": "Interpretar a recepção crítica e a circulação do Impressionismo, inclusive no Brasil."
+        }
+      ]
+    },
+    {
+      "id": "expressionismo-figurativismo",
+      "trilhaId": "artes-visuais",
+      "titulo": "Expressionismo e figuração: o corpo que resiste ao ideal",
+      "resumo": "A aula apresenta a deformação expressiva, o corpo como campo de tensão e a presença do expressionismo na gravura brasileira e na figuração moderna europeia.",
+      "objetivos": [
+        {
+          "id": "expressao",
+          "descricao": "Reconhecer a deformação expressiva como linguagem, não como erro de desenho."
+        },
+        {
+          "id": "corpo",
+          "descricao": "Analisar representações do corpo que recusam o ideal de beleza acadêmico."
+        },
+        {
+          "id": "contexto-seculo-xx",
+          "descricao": "Relacionar expressionismo, guerra e subjetividade moderna."
+        }
+      ]
+    },
+    {
+      "id": "modernismo-brasileiro",
+      "trilhaId": "artes-visuais",
+      "titulo": "Modernismo brasileiro: ruptura, identidade e disputa cultural",
+      "resumo": "A aula examina a Semana de 1922, a síntese formal de Tarsila, a ruptura de Anita Malfatti e as tensões entre modernização, tradição e censura na arte brasileira.",
+      "objetivos": [
+        {
+          "id": "ruptura",
+          "descricao": "Explicar a ruptura modernista com normas acadêmicas e com o gosto oficial."
+        },
+        {
+          "id": "sintese",
+          "descricao": "Reconhecer a síntese de formas, cores e temas brasileiros em obras modernistas."
+        },
+        {
+          "id": "identidade",
+          "descricao": "Analisar como o modernismo brasileiro constrói e disputa ideias de identidade nacional."
+        },
+        {
+          "id": "censura",
+          "descricao": "Relacionar arte moderna, censura e projetos políticos no Brasil e na Europa."
+        }
+      ]
+    },
+    {
+      "id": "forma-abstracao",
+      "trilhaId": "artes-visuais",
+      "titulo": "Forma e abstração: da ruptura à experiência do espaço",
+      "resumo": "A aula apresenta a abstração lírica e geométrica, o construtivismo brasileiro, o neoconcretismo e o minimalismo, ensinando a ler obras sem figuração.",
+      "objetivos": [
+        {
+          "id": "abstracao",
+          "descricao": "Distinguir abstração lírica e geométrica e reconhecer o papel de cor, linha e ritmo."
+        },
+        {
+          "id": "neoconcretismo",
+          "descricao": "Relacionar construtivismo, neoconcretismo e minimalismo a seus contextos históricos."
+        },
+        {
+          "id": "leitura-formal",
+          "descricao": "Ler obras abstratas pelos elementos formais, sem exigir figuração ou narrativa."
+        }
+      ]
+    },
+    {
+      "id": "imagem-colonizacao-retrato",
+      "trilhaId": "artes-visuais",
+      "titulo": "Imagem, colonização e retrato: quem tem direito a ser visto",
+      "resumo": "A aula analisa imagens europeias sobre povos indígenas, o retrato como privilégio de elite e as obras que contestam a invisibilidade colonial.",
+      "objetivos": [
+        {
+          "id": "olhar-colonial",
+          "descricao": "Analisar como imagens europeias construíram representações coloniais de povos indígenas."
+        },
+        {
+          "id": "retrato-exclusao",
+          "descricao": "Relacionar o retrato de elite à exclusão de pessoas negras e indígenas."
+        },
+        {
+          "id": "contra-narrativa",
+          "descricao": "Reconhecer obras que contestam a violência colonial e propõem outras memórias."
+        }
+      ]
+    },
+    {
+      "id": "cubismo-futurismo",
+      "trilhaId": "artes-visuais",
+      "titulo": "Cubismo e futurismo: espaço partido, tempo acelerado",
+      "resumo": "A aula explica a decomposição cubista, a colagem, o diálogo com máscaras africanas e a exaltação futurista da velocidade e da guerra.",
+      "objetivos": [
+        {
+          "id": "cubismo",
+          "descricao": "Explicar a decomposição cubista do espaço e a multiplicidade de pontos de vista."
+        },
+        {
+          "id": "primitivismo",
+          "descricao": "Relacionar o interesse das vanguardas por máscaras africanas e formas ibéricas à apropriação cultural."
+        },
+        {
+          "id": "futurismo",
+          "descricao": "Reconhecer no futurismo a exaltação da velocidade, da técnica e da ruptura."
+        },
+        {
+          "id": "guerra-modernidade",
+          "descricao": "Relacionar cubismo e futurismo à experiência da guerra e da vida moderna."
+        }
+      ]
+    },
+    {
+      "id": "dada-surrealismo",
+      "trilhaId": "artes-visuais",
+      "titulo": "Dada e surrealismo: o acaso, o sonho e a crise da razão",
+      "resumo": "A aula apresenta o Dadaísmo como contestação da guerra e da arte institucional e o surrealismo como investigação do inconsciente, da colagem e do estranhamento.",
+      "objetivos": [
+        {
+          "id": "dada",
+          "descricao": "Caracterizar o Dadaísmo como contestação da racionalidade, da arte institucional e da guerra."
+        },
+        {
+          "id": "surrealismo",
+          "descricao": "Identificar procedimentos surrealistas de estranhamento, sonho e escrita automática."
+        },
+        {
+          "id": "fotomontagem",
+          "descricao": "Analisar colagem e fotomontagem como crítica política e visual."
+        }
+      ]
+    },
+    {
+      "id": "pop-art-apropriacao",
+      "trilhaId": "artes-visuais",
+      "titulo": "Pop Art e apropriação: a arte olha para a vitrine",
+      "resumo": "A aula explica como a Pop Art incorporou imagens do consumo e da mídia e como a apropriação virou crítica social no Brasil e no mundo.",
+      "objetivos": [
+        {
+          "id": "cultura-massa",
+          "descricao": "Reconhecer na Pop Art o uso de imagens da cultura de massa, do consumo e da mídia."
+        },
+        {
+          "id": "apropriacao",
+          "descricao": "Explicar apropriação, citação e paródia como procedimentos críticos."
+        },
+        {
+          "id": "pop-brasil",
+          "descricao": "Relacionar Pop Art, ditadura e crítica social no Brasil."
+        }
+      ]
+    },
+    {
+      "id": "ready-made-conceitual",
+      "trilhaId": "arte-contemporanea",
+      "titulo": "Ready-made e arte conceitual: a ideia está no lugar do objeto",
+      "resumo": "A aula explica o ready-made de Duchamp, a arte conceitual e a ressignificação de objetos na escultura e na instalação contemporânea.",
+      "objetivos": [
+        {
+          "id": "ready-made",
+          "descricao": "Explicar o ready-made e o deslocamento do objeto cotidiano para o espaço da arte."
+        },
+        {
+          "id": "arte-conceitual",
+          "descricao": "Distinguir arte conceitual de uma arte centrada apenas na habilidade manual."
+        },
+        {
+          "id": "apropriacao-objeto",
+          "descricao": "Analisar apropriação e ressignificação de objetos na escultura e na instalação."
+        }
+      ]
+    },
+    {
+      "id": "performance-participacao",
+      "trilhaId": "arte-contemporanea",
+      "titulo": "Performance e participação: o corpo, o tempo e o público",
+      "resumo": "A aula aborda performance, body art, arte participativa e o papel do registro, discutindo o espectador como parte da obra.",
+      "objetivos": [
+        {
+          "id": "performance",
+          "descricao": "Caracterizar performance e body art como artes do corpo, do tempo presente e da ação."
+        },
+        {
+          "id": "participacao",
+          "descricao": "Explicar como a participação do espectador transforma a obra e a autoria."
+        },
+        {
+          "id": "registro",
+          "descricao": "Discutir o papel da documentação e do registro na arte efêmera."
+        }
+      ]
+    },
+    {
+      "id": "instalacao-materiais",
+      "trilhaId": "arte-contemporanea",
+      "titulo": "Instalação e materiais: organizar o espaço, provocar o corpo",
+      "resumo": "A aula explica a instalação como ambiente, o uso de materiais cotidianos e industriais e a relação entre arte, arquitetura e crítica social.",
+      "objetivos": [
+        {
+          "id": "instalacao",
+          "descricao": "Identificar a instalação como organização do espaço e da experiência do visitante."
+        },
+        {
+          "id": "materiais",
+          "descricao": "Analisar o uso de materiais cotidianos, industriais e orgânicos na arte contemporânea."
+        },
+        {
+          "id": "ambiente",
+          "descricao": "Relacionar instalação, arquitetura e crítica social ou ambiental."
+        }
+      ]
+    },
+    {
+      "id": "arte-digital-tecnologia",
+      "trilhaId": "arte-contemporanea",
+      "titulo": "Arte digital e tecnologia: autoria, acesso e novas linguagens",
+      "resumo": "A aula discute arte digital, museus virtuais, GPS como linguagem, redes sociais e os desafios de autoria e preservação.",
+      "objetivos": [
+        {
+          "id": "arte-digital",
+          "descricao": "Caracterizar a arte digital como campo de processos, possibilidades e experiências."
+        },
+        {
+          "id": "autoria",
+          "descricao": "Discutir autoria, reprodutibilidade e direitos em obras digitais."
+        },
+        {
+          "id": "acesso",
+          "descricao": "Avaliar museus virtuais, acervos digitais e formas de acesso à arte."
+        }
+      ]
+    },
+    {
+      "id": "arte-urbana-publica",
+      "trilhaId": "arte-contemporanea",
+      "titulo": "Arte urbana e espaço público: a cidade como suporte",
+      "resumo": "A aula distingue grafite, pichação e intervenção urbana, discute a arte pública e a relação entre cidade, memória e cotidiano.",
+      "objetivos": [
+        {
+          "id": "grafite",
+          "descricao": "Distinguir grafite, pichação e arte urbana, com seus contextos e linguagens."
+        },
+        {
+          "id": "espaco-publico",
+          "descricao": "Analisar intervenções artísticas no espaço público e sua relação com o cotidiano."
+        },
+        {
+          "id": "memoria-urbana",
+          "descricao": "Relacionar arte pública, patrimônio e memória social."
+        }
+      ]
+    },
+    {
+      "id": "fotografia",
+      "trilhaId": "imagem-audiovisual",
+      "titulo": "Fotografia: técnica, movimento e olhar",
+      "resumo": "A aula percorre a fotografia científica do século XIX, o fotograma, a câmera pinhole e o instante decisivo, discutindo técnica e construção de sentido.",
+      "objetivos": [
+        {
+          "id": "fotografia-tecnica",
+          "descricao": "Explicar a fotografia como técnica de registro e de construção de imagem."
+        },
+        {
+          "id": "movimento",
+          "descricao": "Relacionar fotografia, percepção do movimento e ciência no século XIX."
+        },
+        {
+          "id": "linguagem",
+          "descricao": "Analisar composição, luz e instante decisivo na fotografia autoral."
+        }
+      ]
+    },
+    {
+      "id": "artes-graficas",
+      "trilhaId": "imagem-audiovisual",
+      "titulo": "Artes gráficas: gravura, ilustração e narrativa visual",
+      "resumo": "A aula aborda gravura, xilogravura, cordel, ilustração, cartum, quadrinhos e a circulação social das imagens impressas.",
+      "objetivos": [
+        {
+          "id": "gravura",
+          "descricao": "Identificar procedimentos de gravura e xilogravura e sua circulação social."
+        },
+        {
+          "id": "ilustracao",
+          "descricao": "Analisar ilustração, cartum e quadrinhos como linguagens críticas."
+        },
+        {
+          "id": "cordel",
+          "descricao": "Relacionar cordel, xilogravura e oralidade à cultura popular."
+        },
+        {
+          "id": "linha-palavra",
+          "descricao": "Analisar o bordado, a linha e a palavra como recursos de composição e memória."
+        }
+      ]
+    },
+    {
+      "id": "comunicacao-visual-audiovisual",
+      "trilhaId": "imagem-audiovisual",
+      "titulo": "Comunicação visual e audiovisual: linguagem, design e recepção",
+      "resumo": "A aula analisa cinema, televisão, vídeo, design gráfico e identidade visual como linguagens que organizam a experiência e o consumo.",
+      "objetivos": [
+        {
+          "id": "linguagem-audiovisual",
+          "descricao": "Analisar cinema, televisão e vídeo como linguagens com escolhas de ponto de vista e montagem."
+        },
+        {
+          "id": "design",
+          "descricao": "Reconhecer decisões de design gráfico, identidade visual e comunicação."
+        },
+        {
+          "id": "midia",
+          "descricao": "Relacionar meios de comunicação, mercado e experiência estética."
+        }
+      ]
+    },
+    {
+      "id": "teatro-dramaturgia",
+      "trilhaId": "teatro-danca",
+      "titulo": "Teatro e dramaturgia: texto, rubrica e encenação",
+      "resumo": "A aula apresenta o texto dramático, a função das rubricas, os gêneros teatrais e a relação entre palavra, corpo e encenação.",
+      "objetivos": [
+        {
+          "id": "texto-dramatico",
+          "descricao": "Distinguir texto dramático, rubrica e encenação."
+        },
+        {
+          "id": "generos",
+          "descricao": "Reconhecer gêneros e formas teatrais, como comédia, drama e commedia dell'arte."
+        },
+        {
+          "id": "leitura",
+          "descricao": "Interpretar diálogos, rubricas e conflitos em excertos teatrais."
+        }
+      ]
+    },
+    {
+      "id": "teatro-moderno-contemporaneo",
+      "trilhaId": "teatro-danca",
+      "titulo": "Teatro moderno e contemporâneo: rupturas, espaço e interculturalidade",
+      "resumo": "A aula aborda a crise do drama, o teatro de rua, a fragmentação contemporânea, a interculturalidade e o trabalho do ator.",
+      "objetivos": [
+        {
+          "id": "ruptura-cenica",
+          "descricao": "Reconhecer rupturas modernas e contemporâneas na encenação e na dramaturgia."
+        },
+        {
+          "id": "espaco",
+          "descricao": "Analisar teatro de rua, espaço cênico e relação com o público."
+        },
+        {
+          "id": "interculturalidade",
+          "descricao": "Discutir interculturalidade, fragmentação e novas formas de presença."
+        }
+      ]
+    },
+    {
+      "id": "teatro-educacao",
+      "trilhaId": "teatro-danca",
+      "titulo": "Teatro e educação: jogos, improvisação e transformação",
+      "resumo": "A aula apresenta os jogos teatrais, a improvisação, o Teatro do Oprimido e o trabalho de corpo e voz na formação do ator e do estudante.",
+      "objetivos": [
+        {
+          "id": "jogos",
+          "descricao": "Explicar jogos teatrais e improvisação como processos de aprendizagem e criação."
+        },
+        {
+          "id": "boal",
+          "descricao": "Relacionar Teatro do Oprimido, participação e transformação social."
+        },
+        {
+          "id": "corpo-voz",
+          "descricao": "Reconhecer o trabalho de corpo, voz e presença na formação do ator."
+        }
+      ]
+    },
+    {
+      "id": "dancas-populares",
+      "trilhaId": "teatro-danca",
+      "titulo": "Danças populares: comunidade, festa e patrimônio",
+      "resumo": "A aula aborda danças folclóricas, quadrilha, frevo, capoeira e danças indígenas, discutindo tradição, transformação e reconhecimento patrimonial.",
+      "objetivos": [
+        {
+          "id": "folclore",
+          "descricao": "Distinguir dança popular, folclórica e de salão, com seus contextos e funções."
+        },
+        {
+          "id": "quadrilha-frevo",
+          "descricao": "Analisar transformações da quadrilha e do frevo como patrimônio cultural."
+        },
+        {
+          "id": "corpo-comunidade",
+          "descricao": "Relacionar dança, comunidade, ancestralidade e resistência."
+        }
+      ]
+    },
+    {
+      "id": "danca-moderna-contemporanea",
+      "trilhaId": "teatro-danca",
+      "titulo": "Dança moderna e contemporânea: corpo, presença e hibridismo",
+      "resumo": "A aula apresenta a dança moderna, a improvisação, a presença cênica e os hibridismos entre dança, tecnologia e religiosidade afro-brasileira.",
+      "objetivos": [
+        {
+          "id": "moderna",
+          "descricao": "Distinguir dança moderna e contemporânea de cânones clássicos e acadêmicos."
+        },
+        {
+          "id": "improvisacao",
+          "descricao": "Relacionar improvisação, corpo e presença cênica."
+        },
+        {
+          "id": "hibridismo",
+          "descricao": "Analisar hibridismos entre dança, tecnologia e religiosidade."
+        }
+      ]
+    },
+    {
+      "id": "matrizes-africanas-musica",
+      "trilhaId": "musica",
+      "titulo": "Matrizes africanas na música brasileira: ritmo, diáspora e invenção",
+      "resumo": "A aula aborda instrumentos, ritmos e práticas africanas na formação da música brasileira, discutindo diáspora, sincretismo e oralidade.",
+      "objetivos": [
+        {
+          "id": "africanias",
+          "descricao": "Reconhecer instrumentos, ritmos e práticas africanas na música brasileira."
+        },
+        {
+          "id": "diaspora",
+          "descricao": "Analisar a diáspora e o sincretismo na formação musical brasileira."
+        },
+        {
+          "id": "ritmo",
+          "descricao": "Relacionar padrões rítmicos, oralidade e performance."
+        }
+      ]
+    },
+    {
+      "id": "musica-popular-regional",
+      "trilhaId": "musica",
+      "titulo": "Música popular regional: ritmos, instrumentos e circulação",
+      "resumo": "A aula percorre baião, samba, choro, frevo, reggae maranhense, viola caipira e outros gêneros, discutindo tradição, migração e indústria cultural.",
+      "objetivos": [
+        {
+          "id": "ritmos-regionais",
+          "descricao": "Caracterizar ritmos e gêneros regionais e suas transformações históricas."
+        },
+        {
+          "id": "instrumentos",
+          "descricao": "Relacionar instrumentos, práticas e transmissão de saberes musicais."
+        },
+        {
+          "id": "hibridismo-musical",
+          "descricao": "Analisar hibridismos entre tradição, indústria cultural e migração."
+        }
+      ]
+    },
+    {
+      "id": "musica-erudita-popular",
+      "trilhaId": "musica",
+      "titulo": "Música erudita e popular: hierarquias, arranjos e escuta",
+      "resumo": "A aula discute a oposição entre erudito e popular, a circulação de repertórios e os parâmetros musicais que ajudam a ouvir com mais atenção.",
+      "objetivos": [
+        {
+          "id": "erudito-popular",
+          "descricao": "Distinguir e relacionar música erudita e popular sem hierarquia automática."
+        },
+        {
+          "id": "circulacao",
+          "descricao": "Analisar circulação, arranjo e apropriação de repertórios musicais."
+        },
+        {
+          "id": "escuta",
+          "descricao": "Reconhecer parâmetros musicais como melodia, ritmo, timbre e forma."
+        }
+      ]
+    },
+    {
+      "id": "rock-tropicalismo-festivais",
+      "trilhaId": "musica",
+      "titulo": "Rock, tropicalismo e festivais: a música como arena política",
+      "resumo": "A aula aborda a contracultura, o tropicalismo, os festivais de música e a incorporação do rock e da experimentação na MPB.",
+      "objetivos": [
+        {
+          "id": "tropicalismo",
+          "descricao": "Explicar o Tropicalismo e a contracultura no Brasil."
+        },
+        {
+          "id": "festivais",
+          "descricao": "Relacionar festivais, televisão e mercado à música brasileira dos anos 1960 e 1970."
+        },
+        {
+          "id": "rock-brasil",
+          "descricao": "Reconhecer a incorporação do rock e da experimentação na música popular brasileira."
+        }
+      ]
+    },
+    {
+      "id": "hip-hop-rap-slam",
+      "trilhaId": "musica",
+      "titulo": "Hip-hop, rap e slam: voz periférica e afirmação de identidade",
+      "resumo": "A aula apresenta os elementos da cultura hip-hop, o rap como relato poético e o slam como performance oral e política.",
+      "objetivos": [
+        {
+          "id": "hip-hop",
+          "descricao": "Caracterizar os elementos da cultura hip-hop e sua origem periférica."
+        },
+        {
+          "id": "rap",
+          "descricao": "Analisar o rap como relato poético, crítica social e afirmação identitária."
+        },
+        {
+          "id": "slam",
+          "descricao": "Reconhecer slam, poesia oral e performance como formas de participação."
+        }
+      ]
+    },
+    {
+      "id": "culturas-populares-patrimonio",
+      "trilhaId": "culturas-populares",
+      "titulo": "Culturas populares e patrimônio: saberes, festas e mercado",
+      "resumo": "A aula discute patrimônio material e imaterial, artesanato, cordel, festas e a tensão entre tradição, turismo e reconhecimento oficial.",
+      "objetivos": [
+        {
+          "id": "patrimonio",
+          "descricao": "Distinguir patrimônio material e imaterial e seus processos de reconhecimento."
+        },
+        {
+          "id": "saberes",
+          "descricao": "Analisar saberes populares, artesanato e oralidade como produção cultural."
+        },
+        {
+          "id": "turismo-mercado",
+          "descricao": "Discutir tensões entre tradição, mercado, turismo e políticas de patrimônio."
+        }
+      ]
+    },
+    {
+      "id": "artes-indigenas",
+      "trilhaId": "culturas-populares",
+      "titulo": "Artes indígenas: grafismos, cosmologia e contemporaneidade",
+      "resumo": "A aula aborda grafismos, arte plumária, bancos rituais e a produção indígena contemporânea, articulando estética, cosmologia e política.",
+      "objetivos": [
+        {
+          "id": "grafismos",
+          "descricao": "Analisar grafismos, pintura corporal e arte plumária como sistemas de conhecimento."
+        },
+        {
+          "id": "cosmologia",
+          "descricao": "Relacionar arte indígena, cosmologia, mito e organização social."
+        },
+        {
+          "id": "contemporaneidade",
+          "descricao": "Reconhecer a arte indígena contemporânea e suas lutas."
+        }
+      ]
+    },
+    {
+      "id": "arte-afro-brasileira",
+      "trilhaId": "culturas-populares",
+      "titulo": "Arte afro-brasileira: memória, resistência e invenção",
+      "resumo": "A aula aborda matrizes africanas, artistas afro-brasileiros, suportes da memória e obras que enfrentam a violência colonial e o racismo.",
+      "objetivos": [
+        {
+          "id": "matrizes",
+          "descricao": "Reconhecer matrizes africanas em obras afro-brasileiras."
+        },
+        {
+          "id": "resistencia",
+          "descricao": "Analisar a arte afro-brasileira como resistência e afirmação identitária."
+        },
+        {
+          "id": "suporte",
+          "descricao": "Relacionar suportes, materiais e corporalidade à memória da escravidão."
+        }
+      ]
+    },
+    {
+      "id": "arte-sociedade-sistema",
+      "trilhaId": "arte-sociedade",
+      "titulo": "Arte e sociedade: mercado, censura e função social",
+      "resumo": "A aula discute o campo artístico, o mercado de arte, a censura política e a função social da arte, com exemplos brasileiros e internacionais.",
+      "objetivos": [
+        {
+          "id": "campo-artistico",
+          "descricao": "Analisar o campo artístico: instituições, mercado, crítica e público."
+        },
+        {
+          "id": "arte-politica",
+          "descricao": "Relacionar arte, censura e projetos políticos."
+        },
+        {
+          "id": "funcao-social",
+          "descricao": "Discutir a função social da arte e o acesso à cultura."
+        }
+      ]
+    },
+    {
+      "id": "arquitetura-design",
+      "trilhaId": "arte-sociedade",
+      "titulo": "Arquitetura e design: forma, estrutura e identidade",
+      "resumo": "A aula apresenta a arquitetura moderna brasileira, a obra de Niemeyer e o design de móveis, articulando técnica, paisagem e cultura.",
+      "objetivos": [
+        {
+          "id": "arquitetura-moderna",
+          "descricao": "Analisar a arquitetura moderna brasileira e a integração entre forma, estrutura e paisagem."
+        },
+        {
+          "id": "design",
+          "descricao": "Relacionar design de móveis e objetos à identidade cultural e à indústria."
+        },
+        {
+          "id": "espaco",
+          "descricao": "Discutir espaço construído, cidade e experiência social."
+        }
+      ]
+    },
+    {
+      "id": "arte-asiatica",
+      "trilhaId": "artes-visuais",
+      "titulo": "Arte asiática: zen, porcelana e circulação global",
+      "resumo": "A aula aborda a pintura zen japonesa, a porcelana chinesa e a presença da arte asiática no mercado global, discutindo contemplação e troca cultural.",
+      "objetivos": [
+        {
+          "id": "zen",
+          "descricao": "Reconhecer na arte japonesa o zen, a contemplação e o uso do vazio."
+        },
+        {
+          "id": "porcelana",
+          "descricao": "Analisar a porcelana e a circulação de técnicas e imagens entre Ásia e Europa."
+        },
+        {
+          "id": "globalizacao",
+          "descricao": "Discutir a presença da arte asiática no mercado global e nas releituras contemporâneas."
+        }
+      ]
+    }
+  ]
+}

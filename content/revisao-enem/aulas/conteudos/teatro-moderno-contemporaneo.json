@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "id": "teatro-moderno-contemporaneo",
+  "titulo": "Teatro moderno e contemporâneo: rupturas, espaço e interculturalidade",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "ruptura-cenica",
+      "descricao": "Reconhecer rupturas modernas e contemporâneas na encenação e na dramaturgia."
+    },
+    {
+      "id": "espaco",
+      "descricao": "Analisar teatro de rua, espaço cênico e relação com o público."
+    },
+    {
+      "id": "interculturalidade",
+      "descricao": "Discutir interculturalidade, fragmentação e novas formas de presença."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Do palco à rua, do texto ao acontecimento",
+      "tipo": "texto",
+      "texto": "No século XX, o teatro passou por rupturas: o palco italiano foi questionado, o texto deixou de ser o centro, o público foi convidado a participar. Bertolt Brecht propôs um teatro épico que estimula o pensamento crítico; Antonin Artaud buscou um teatro de crueldade sensorial; Jerzy Grotowski investigou o corpo do ator. No Brasil, o Teatro de Arena, o Oficina e o Teatro do Oprimido criaram propostas próprias, muitas vezes em diálogo com a política e a censura.",
+      "objetivoIds": [
+        "ruptura-cenica"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Espaço, presença e ruptura",
+      "tipo": "texto",
+      "texto": "O espaço cênico não é apenas o lugar onde a peça acontece: ele organiza a relação entre atores e público. No palco italiano, o público fica de frente; no teatro de rua, o espaço é aberto e disputado com o cotidiano. A presença do ator ao vivo é irreproduzível: cada apresentação tem um tempo e um risco. A ruptura contemporânea pode aparecer na fragmentação da narrativa, na mistura de linguagens e na recusa de um sentido único.",
+      "objetivoIds": [
+        "ruptura-cenica",
+        "espaco"
+      ]
+    },
+    {
+      "id": "exemplo-rua",
+      "titulo": "Teatro de rua e ocupação do espaço",
+      "tipo": "texto",
+      "texto": "Quando um grupo encena 'Romeu e Julieta' em uma praça, a peça dialoga com o lugar: pedestres, sons, clima e arquitetura entram na cena. O teatro de rua não é uma versão pobre do teatro de sala; é uma forma específica de encontro com o público. Ao analisar uma foto de espetáculo de rua, observe a roda de espectadores, a ausência de cenário fixo e a adaptação ao ambiente. O espaço é parte da dramaturgia.",
+      "objetivoIds": [
+        "espaco",
+        "ruptura-cenica"
+      ]
+    },
+    {
+      "id": "exemplo-intercultural",
+      "titulo": "Interculturalidade e tradução de culturas",
+      "tipo": "texto",
+      "texto": "O teatro intercultural coloca em contato tradições cênicas diferentes, como o teatro oriental, o ritual afro-brasileiro ou a commedia dell'arte. Esse encontro pode produzir novas formas, mas também riscos de exotismo e apropriação. Ao analisar uma proposta intercultural, pergunte quem fala, quem é traduzido e que poder existe na relação. Não basta misturar referências: é preciso entender seus contextos e suas funções.",
+      "objetivoIds": [
+        "interculturalidade",
+        "ruptura-cenica"
+      ]
+    },
+    {
+      "id": "exemplo-foreman",
+      "titulo": "Fragmentação e bombardeio de estímulos",
+      "tipo": "texto",
+      "texto": "O teatro de Richard Foreman e de outros artistas contemporâneos pode abandonar a narrativa linear e sobrepor imagens, sons e ações. O espectador não recebe um sentido pronto; precisa construir relações. Isso pode gerar desconforto e prazer. Ao analisar uma obra fragmentada, observe a repetição, a justaposição e a ausência de resolução. A pergunta 'o que isso significa?' talvez seja menos produtiva que 'que experiência isso produz?'.",
+      "objetivoIds": [
+        "ruptura-cenica",
+        "interculturalidade"
+      ]
+    },
+    {
+      "id": "exemplo-ator",
+      "titulo": "O trabalho do ator: corpo, voz e presença",
+      "tipo": "texto",
+      "texto": "A mímica corporal de Etienne Decroux e o trabalho de Luís Otávio Burnier investigam um corpo que não apenas ilustra o texto, mas cria significado. O ator treina para tornar visível o invisível: peso, intenção, pausa. Ao analisar uma proposta de atuação, pergunte como o corpo ocupa o espaço e como a voz se relaciona com o gesto. O teatro é uma arte do encontro, e o ator é um dos principais agentes desse encontro.",
+      "objetivoIds": [
+        "espaco",
+        "interculturalidade"
+      ]
+    },
+    {
+      "id": "exemplo-brook",
+      "titulo": "Peter Brook e a concentração do tempo teatral",
+      "tipo": "texto",
+      "texto": "Peter Brook, diretor inglês, defende que o teatro não é uma cópia da vida cotidiana. Em 'A porta aberta', ele observa que a cena torna a vida mais visível e intensa porque concentra espaço e tempo: uma existência inteira pode ser condensada no tempo e no espaço da representação. Essa concentração não é truque técnico; é a condição do encontro teatral. Ao analisar a citação, diferencie a concentração do espectador da concentração da própria ação dramática. O teatro transforma a duração e o lugar para que algo se torne compreensível.",
+      "objetivoIds": [
+        "espaco",
+        "ruptura-cenica"
+      ]
+    },
+    {
+      "id": "exemplo-teatro-magico",
+      "titulo": "O Teatro Mágico e a ópera como espetáculo total",
+      "tipo": "texto",
+      "texto": "O Teatro Mágico é um grupo brasileiro que mistura música autoral, teatro, poesia, circo e artes visuais em seus espetáculos. A referência à ópera europeia do século XIX não está na adoção de um enredo linear ou de uma orquestra sinfônica, mas na ideia de espetáculo total, em que várias linguagens convergem. O público não assiste a um show convencional: é envolvido por uma dramaturgia de cena. Ao analisar essa proposta, observe como luz, figurino, texto e música se articulam. A originalidade está na combinação, não na soma mecânica de elementos.",
+      "objetivoIds": [
+        "interculturalidade",
+        "ruptura-cenica"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de teatro moderno, procure palavras como ruptura, espaço, público, fragmentação e interculturalidade. Observe se o texto valoriza a participação, a crítica social ou a experiência sensorial. Em fotos, note a relação entre palco e plateia. A alternativa correta costuma articular forma cênica e efeito político ou estético. Síntese: o teatro moderno questiona o que é drama, quem é público e onde a cena acontece.",
+      "objetivoIds": [
+        "ruptura-cenica",
+        "espaco",
+        "interculturalidade"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "SP Escola de Teatro — artes cênicas",
+      "url": "https://www.spescoladeteatro.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Tate — performance e teatro experimental",
+      "url": "https://www.tate.org.uk/art/art-terms/p/performance-art",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — teatro brasileiro",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

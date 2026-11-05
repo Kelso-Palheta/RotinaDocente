@@ -1,6 +1,6 @@
 # Revisão temática — contrato de extensão v2
 
-Data: 05/11/2026. Status: design aprovado, implementação pendente. Complementa `REVISAO_AO_VIVO_SPEC.md`; não altera os contratos legados sem `schemaVersion: 2`.
+Data: 05/11/2026. Status: implementação integrada; material pedagógico em rascunho para conferência docente. Complementa `REVISAO_AO_VIVO_SPEC.md`; não altera os contratos legados sem `schemaVersion: 2`.
 
 ## 1. Organização e cobertura
 
@@ -97,3 +97,7 @@ RT-T01 cobertura explícita e integridade de todos os IDs; RT-T02 aula completa 
 ## 8. Comentário para a próxima versão — RV-FUT-01
 
 A pedido do usuário em 05/11/2026, pontuação por tempo de resposta fica adiada. Não faz parte desta implementação. Avaliar futuramente bônus por velocidade com tempo do servidor e idempotência, priorizando quantidade de acertos e usando velocidade como desempate; fórmula e critérios finais ainda precisam de validação. Registro em `TASKS.md`, seção “Revisão ao Vivo: bônus por tempo adiado”. Até lá, continuam 1.000 pontos por acerto e nenhum bônus por tempo.
+
+## 9. Integração e revisão — 05/11/2026
+
+Implementação v2 acrescenta pódio acumulado das posições 1–3 depois do feedback, mantendo empates e ranking completo. Novas salas exigem modo temático no servidor; metadados adulterados não autorizam perguntas externas. A conferência mostra assuntos vinculados, sem dispensar revisão de cada pergunta. Dois vínculos recebidos foram colocados em pendência por cobertura insuficiente; relatório: `docs/analises/2026-11-05-revisao-integracao-tematica.md`. O restante permanece proposta editorial em rascunho, não homologação humana.

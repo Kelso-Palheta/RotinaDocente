@@ -4,6 +4,8 @@ import React from 'react';
 import { useCronometroRevisao } from './useCronometroRevisao';
 import { BadgeConexao, BlocoConteudo, formatarTempo, LETRAS_ALTERNATIVAS } from './revisaoUtils';
 import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
+import { PodioRevisao } from './PodioRevisao';
+import { BlocoAulaTematica } from './BlocoAulaTematica';
 
 export function TelaProjecao({ estado }) {
   const sala = estado?.sala || {};
@@ -91,7 +93,17 @@ export function TelaProjecao({ estado }) {
         )}
 
         {/* FASE: CONTEUDO */}
-        {fase === 'conteudo' && (
+        {fase === 'conteudo' && estado?.aula && (
+          <section className="max-w-5xl mx-auto w-full">
+            <BlocoAulaTematica
+              bloco={estado.aula.bloco}
+              aula={estado.aula}
+              imagens={estado.aula.bloco?.imagens || []}
+            />
+          </section>
+        )}
+
+        {fase === 'conteudo' && !estado?.aula && (
           <section className="bg-[#6334E3]/30 border-2 border-[#6334E3]/70 rounded-3xl p-8 md:p-12 shadow-2xl space-y-6 max-w-5xl mx-auto w-full backdrop-blur-md">
             <div className="border-b-2 border-[#6334E3]/50 pb-4">
               <span className="text-[#00DDEB] text-sm uppercase tracking-widest font-black">
@@ -356,6 +368,7 @@ export function TelaProjecao({ estado }) {
             </div>
 
             <div className="max-h-[600px] overflow-y-auto space-y-3.5 pr-2">
+              {estado?.schemaVersion === 2 && <PodioRevisao ranking={ranking}/>}
               {ranking.map((item, idx) => {
                 const ehPodio = item.posicao <= 3;
                 return (

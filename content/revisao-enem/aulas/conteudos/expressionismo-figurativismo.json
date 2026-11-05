@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "id": "expressionismo-figurativismo",
+  "titulo": "Expressionismo e figuração: o corpo que resiste ao ideal",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "expressao",
+      "descricao": "Reconhecer a deformação expressiva como linguagem, não como erro de desenho."
+    },
+    {
+      "id": "corpo",
+      "descricao": "Analisar representações do corpo que recusam o ideal de beleza acadêmico."
+    },
+    {
+      "id": "contexto-seculo-xx",
+      "descricao": "Relacionar expressionismo, guerra e subjetividade moderna."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Uma Europa em crise",
+      "tipo": "texto",
+      "texto": "No início do século XX, artistas alemães e de outros países usaram cor intensa, formas angulosas e distorções para expressar ansiedade, violência e êxtase. A Primeira Guerra Mundial e as crises políticas aprofundaram a sensação de instabilidade. O expressionismo não é um estilo único: há grupos como Die Brücke e Der Blaue Reiter, além de desdobramentos no cinema, no teatro e na gravura. O corpo deixa de ser modelo ideal e passa a ser lugar de ferida, desejo e memória.",
+      "objetivoIds": [
+        "contexto-seculo-xx"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Deformar para dizer",
+      "tipo": "texto",
+      "texto": "Deformação expressiva não é falta de habilidade: é escolha de linguagem. A cor pode ser arbitrária, a perspectiva pode ser torcida, o rosto pode ser cortado ou manchado. O objetivo é atingir o espectador com uma emoção, não produzir uma cópia proporcional. No ENEM, esse tipo de obra costuma aparecer com textos que falam de 'angústia', 'solidão', 'guerra' ou 'crítica social'. A pista está na relação entre forma e sentimento, não na busca por beleza clássica.",
+      "objetivoIds": [
+        "expressao"
+      ]
+    },
+    {
+      "id": "goeldi",
+      "titulo": "Goeldi e a gravura como drama",
+      "tipo": "texto",
+      "texto": "Oswaldo Goeldi usou xilogravura e bico de pena para construir cidades escuras, peixes, urubus e figuras abandonadas. Seu expressionismo é brasileiro e gráfico: o preto e branco, a linha grossa e o contraste criam uma atmosfera de solidão e medo. A obra dialoga com a tradição da gravura social e com a experiência urbana do Rio de Janeiro. Ao observar, pergunte como o suporte (madeira, tinta, papel) participa do clima da cena.",
+      "objetivoIds": [
+        "expressao",
+        "contexto-seculo-xx"
+      ]
+    },
+    {
+      "id": "freud",
+      "titulo": "Lucian Freud: a carne sem ideal",
+      "tipo": "texto",
+      "texto": "Lucian Freud pintou corpos com atenção quase clínica a dobras, manchas, pelos e imperfeições. O retrato não busca lisonjear o modelo: busca registrar uma presença física em um espaço e tempo determinados. Isso aproxima sua obra do realismo, mas não do ideal acadêmico. O corpo é visto de perto, com luz crua e composição muitas vezes descentrada. A pergunta 'é bonito?' perde força diante de outra: 'o que essa figura faz sentir sobre estar vivo e vulnerável?'.",
+      "objetivoIds": [
+        "corpo"
+      ]
+    },
+    {
+      "id": "bacon",
+      "titulo": "Francis Bacon: o rosto desfeito",
+      "tipo": "texto",
+      "texto": "Nos autorretratos e retratos de Bacon, rostos são torcidos, borrados e isolados em fundos geométricos. A violência da pintura não é literal: é uma forma de mostrar a instabilidade do eu. O artista viveu as guerras e as transformações do século XX, e sua obra dialoga com a fotografia, o cinema e a tradição do retrato. Comparar Bacon com um retrato acadêmico ajuda a ver o que mudou: não a técnica de representar, mas a concepção de sujeito.",
+      "objetivoIds": [
+        "corpo",
+        "contexto-seculo-xx"
+      ]
+    },
+    {
+      "id": "ibere",
+      "titulo": "Iberê Camargo: memória e invenção",
+      "tipo": "texto",
+      "texto": "Iberê Camargo partiu de objetos e lembranças da infância, como carretéis, para construir pinturas quase abstratas. A forma não copia o objeto: transforma a lembrança em ritmo, matéria e cor. Sua obra mostra que expressionismo e abstração podem se encontrar no gesto e na memória. Ao ler uma tela de Iberê, observe a espessura da tinta, a direção das pinceladas e a tensão entre figura e fundo. O tema não está apenas no que se vê, mas em como a matéria foi trabalhada.",
+      "objetivoIds": [
+        "expressao",
+        "corpo"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "Expressionismo não é licença para qualquer coisa",
+      "tipo": "texto",
+      "texto": "A obra expressionista tem composição, ritmo e decisões técnicas. Chamar de 'feio' não explica nada: muitas obras querem perturbar o gosto estabelecido. Também não se deve reduzir tudo à biografia do artista; a obra dialoga com história, materiais e público. E há diferença entre expressionismo histórico e figuração contemporânea: Freud e Bacon não são 'expressionistas alemães', embora compartilhem a recusa do ideal. Use o contexto para nomear com precisão.",
+      "objetivoIds": [
+        "expressao",
+        "corpo"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Descreva a figura: ela está inteira? O rosto é nítido? A cor é natural? A perspectiva é estável? Se há distorção, pergunte qual emoção ou ideia ela produz. Depois procure no texto palavras como 'angústia', 'guerra', 'solidão', 'corpo' e 'crítica'. A alternativa correta costuma articular forma e sentido, não apenas listar fatos biográficos. Síntese: expressionismo é uma linguagem da subjetividade e da crise, feita de escolhas formais deliberadas.",
+      "objetivoIds": [
+        "expressao",
+        "corpo",
+        "contexto-seculo-xx"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — Expressionismo e arte moderna",
+      "url": "https://www.tate.org.uk/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Metropolitan Museum of Art — arte moderna",
+      "url": "https://www.metmuseum.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu Lasar Segall — arte, memória e expressão",
+      "url": "https://www.mlassarsegall.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

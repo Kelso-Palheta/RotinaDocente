@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "arte-sociedade-sistema",
+  "titulo": "Arte e sociedade: mercado, censura e função social",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "campo-artistico",
+      "descricao": "Analisar o campo artístico: instituições, mercado, crítica e público."
+    },
+    {
+      "id": "arte-politica",
+      "descricao": "Relacionar arte, censura e projetos políticos."
+    },
+    {
+      "id": "funcao-social",
+      "descricao": "Discutir a função social da arte e o acesso à cultura."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "A obra não existe sozinha",
+      "tipo": "texto",
+      "texto": "Uma obra de arte circula em um campo formado por ateliês, galerias, museus, críticos, colecionadores e público. Esse campo define o que é exibido, valorizado e lembrado. O mercado de arte transforma novidade em produto e pode acelerar a carreira de um artista ou ignorá-lo. Ao estudar arte, é importante perguntar quem financia, quem expõe e quem tem acesso. A autonomia da arte é sempre relativa: ela dialoga com instituições e poderes.",
+      "objetivoIds": [
+        "campo-artistico"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Campo, censura e acesso",
+      "tipo": "texto",
+      "texto": "O conceito de campo artístico ajuda a entender as disputas por legitimidade. Censura não é apenas proibição explícita: pode ser econômica, institucional ou moral. A função social da arte inclui educação, memória, crítica e invenção de formas de vida. O acesso envolve preço, localização, linguagem e mediação. Ao analisar uma situação, pergunte quem ganha voz, quem é silenciado e que interesses a obra incomoda.",
+      "objetivoIds": [
+        "campo-artistico",
+        "arte-politica",
+        "funcao-social"
+      ]
+    },
+    {
+      "id": "exemplo-mercado",
+      "titulo": "Paulo Nazareth e o mercado de bananas",
+      "tipo": "texto",
+      "texto": "Paulo Nazareth realizou ações em que se apresentava como vendedor de bananas em feiras de arte, carregando uma placa com a frase 'não me esqueçam quando eu for um nome importante'. A obra ironiza o mercado, a fama e a exclusão de artistas negros e periféricos. O corpo e a performance são centrais. Ao analisar, observe como o artista usa o próprio deslocamento para expor as regras do campo. A crítica acontece dentro do sistema que ela questiona.",
+      "objetivoIds": [
+        "campo-artistico",
+        "arte-politica"
+      ]
+    },
+    {
+      "id": "exemplo-censura",
+      "titulo": "Segall e a arte degenerada",
+      "tipo": "texto",
+      "texto": "Em 1933, obras de Lasar Segall foram incluídas em exposições de 'arte degenerada' promovidas pelo regime nazista. O artista judeu-lituano radicado no Brasil viu sua produção ser classificada como ameaça à pureza cultural. A censura revela que a arte pode ser perseguida por sua forma e por seu autor. Ao analisar, relacione a obra ao contexto político e evite separar completamente estética e ideologia. A violência atinge pessoas e imagens.",
+      "objetivoIds": [
+        "arte-politica",
+        "campo-artistico"
+      ]
+    },
+    {
+      "id": "exemplo-literatura",
+      "titulo": "Portinari, Graciliano e a denúncia social",
+      "tipo": "texto",
+      "texto": "A correspondência entre Graciliano Ramos e Candido Portinari mostra como escritor e pintor se admiravam e como a arte pode construir pontes entre linguagens. As séries de retirantes de Portinari denunciam a miséria sem transformar os retirantes em símbolos vazios. Ao analisar a relação entre imagem e texto, pergunte como cada linguagem constrói empatia e crítica. A função social da arte não é dar respostas prontas, mas tornar visível o que foi naturalizado.",
+      "objetivoIds": [
+        "funcao-social",
+        "arte-politica"
+      ]
+    },
+    {
+      "id": "exemplo-catedral",
+      "titulo": "A catedral medieval e a sociedade agrária",
+      "tipo": "texto",
+      "texto": "Georges Duby, em 'O tempo das catedrais', mostra que a arte urbana medieval — a arte das catedrais — não nasceu isolada da economia rural. O crescimento das cidades dependeu do excedente agrícola, do desmatamento, das plantações e das obras de drenagem feitas no campo. Nas igrejas, bois de trabalho coroam torres, capitéis recebem ramos de videira e fachadas representam os trabalhos das estações. A catedral é, ao mesmo tempo, monumento religioso, obra coletiva e expressão de uma sociedade agrária em transformação. Ao analisar o texto, não separe a obra do trabalho que a tornou possível: a pergunta é que base material e social sustentou aquele patrimônio.",
+      "objetivoIds": [
+        "funcao-social",
+        "campo-artistico"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a relação arte-sociedade não é",
+      "tipo": "texto",
+      "texto": "Não é reduzir a obra a um panfleto: forma e conteúdo importam. Não é dizer que toda arte é política da mesma maneira: há graus e estratégias. Não é ignorar o mercado: ele condiciona a produção e a circulação. E não é achar que a censura é coisa do passado: ela assume formas contemporâneas. Evite também celebrar a arte como 'resistência' sem examinar quem tem acesso a ela.",
+      "objetivoIds": [
+        "campo-artistico",
+        "arte-politica",
+        "funcao-social"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre arte e sociedade, identifique a instituição, o mercado ou o poder envolvido. Observe se o texto fala de censura, acesso, mercado ou função social. Relacione a obra ao contexto histórico e à experiência do público. A alternativa correta costuma articular estética e política sem reduzir uma à outra. Síntese: a arte é autônoma e social ao mesmo tempo.",
+      "objetivoIds": [
+        "campo-artistico",
+        "arte-politica",
+        "funcao-social"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Tate — arte e política",
+      "url": "https://www.tate.org.uk/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The Museum of Modern Art — arte e sociedade",
+      "url": "https://www.moma.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — arte brasileira",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

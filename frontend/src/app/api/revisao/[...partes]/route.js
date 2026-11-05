@@ -1,3 +1,4 @@
+import {lerImagemConteudo} from '@/infraestrutura/revisao/acervoTematicoServidor';
 import { getRevisaoService } from '@/infraestrutura/revisao/runtimeServidor';
 import { criarHandlerRevisao } from '@/infraestrutura/revisao/httpServidor';
 import { autenticarRevisao, autorizarMidiaRevisao, emitirCookieMidiaRevisao } from '@/infraestrutura/revisao/acessoServidor';
@@ -11,7 +12,7 @@ async function atender(request, contexto) {
   try {
     const handler = criarHandlerRevisao({
       service: await getRevisaoService(), autenticar: autenticarRevisao,
-      autorizarMidia: autorizarMidiaRevisao, emitirCookieMidia: emitirCookieMidiaRevisao, lerImagemAcervo,
+      autorizarMidia: autorizarMidiaRevisao, emitirCookieMidia: emitirCookieMidiaRevisao, lerImagemAcervo, lerImagemConteudo,
     });
     return await handler(request, contexto);
   } catch {

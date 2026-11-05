@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "rock-tropicalismo-festivais",
+  "titulo": "Rock, tropicalismo e festivais: a música como arena política",
+  "duracaoEstimadaMinutos": 15,
+  "objetivos": [
+    {
+      "id": "tropicalismo",
+      "descricao": "Explicar o Tropicalismo e a contracultura no Brasil."
+    },
+    {
+      "id": "festivais",
+      "descricao": "Relacionar festivais, televisão e mercado à música brasileira dos anos 1960 e 1970."
+    },
+    {
+      "id": "rock-brasil",
+      "descricao": "Reconhecer a incorporação do rock e da experimentação na música popular brasileira."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Guitarras, TVs e ditadura",
+      "tipo": "texto",
+      "texto": "Nos anos 1960, a jovem guarda, o rock e a MPB disputavam o público brasileiro. A televisão e os festivais de música tornaram-se vitrines e arenas de debate. Em 1967, o Festival da Record consagrou canções e artistas que se tornariam referências. O tropicalismo surgiu nesse ambiente, misturando rock, psicodelia, bossa nova, música popular e crítica à ditadura. A cultura de massa não era apenas inimiga: podia ser usada como material de invenção.",
+      "objetivoIds": [
+        "tropicalismo",
+        "festivais"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Antropofagia, alegoria e contracultura",
+      "tipo": "texto",
+      "texto": "O tropicalismo retomou a ideia antropofágica de Oswald de Andrade: devorar o que vem de fora e transformar em outra coisa. As canções usavam alegorias, citações e justaposições inesperadas. A performance e a imagem dos artistas também faziam parte da obra. Ao analisar uma canção tropicalista, observe a letra, o arranjo e o contexto de censura. A ironia e o deboche podem ser formas de resistência quando a fala direta é perigosa.",
+      "objetivoIds": [
+        "tropicalismo",
+        "rock-brasil"
+      ]
+    },
+    {
+      "id": "exemplo-mutantes",
+      "titulo": "Os Mutantes e a colagem sonora",
+      "tipo": "texto",
+      "texto": "A capa do LP dos Mutantes, de 1968, e suas músicas combinam psicodelia, humor, distorção e referências brasileiras. A banda participou do movimento tropicalista e ajudou a ampliar o uso de recursos de estúdio na música brasileira. Ao analisar uma canção, observe os efeitos, as mudanças de andamento e as vozes. A experimentação não é gratuita: ela constrói uma sensação de estranhamento e liberdade em um contexto autoritário.",
+      "objetivoIds": [
+        "rock-brasil",
+        "tropicalismo"
+      ]
+    },
+    {
+      "id": "exemplo-festival",
+      "titulo": "Festivais e a memória da MPB",
+      "tipo": "texto",
+      "texto": "Os festivais de música dos anos 1960 reuniam compositores, intérpretes e plateias em torno de competições. Eles projetaram artistas e criaram momentos históricos, como vaias e defesas acaloradas. A televisão transformou a música em espetáculo e debate público. Ao estudar um festival, pergunte quem tinha acesso, que gêneros eram aceitos e como o público reagia. A memória desses eventos ajuda a entender a relação entre arte, mídia e política.",
+      "objetivoIds": [
+        "festivais",
+        "tropicalismo"
+      ]
+    },
+    {
+      "id": "exemplo-mangue",
+      "titulo": "Manguebeat e a herança tropicalista",
+      "tipo": "texto",
+      "texto": "O manguebeat recifense dos anos 1990 retomou a ideia de misturar referências locais e globais. Rock, hip-hop, maracatu e eletrônica convivem em um projeto que criticava a desigualdade e a falta de infraestrutura. A herança tropicalista aparece na colagem e na ironia, mas o contexto é outro: globalização, periferias urbanas e novas tecnologias. Ao comparar os dois movimentos, observe o que permanece e o que muda.",
+      "objetivoIds": [
+        "rock-brasil",
+        "tropicalismo"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que o tropicalismo não é",
+      "tipo": "texto",
+      "texto": "Não é apenas rock: incorpora bossa nova, samba, música de cinema e experimentalismo. Não é uma celebração ingênua da cultura de massa: há crítica e ironia. Não é um movimento homogêneo: os artistas tinham projetos distintos. E não terminou com a prisão de seus líderes: sua influência atravessa décadas. Evite também reduzir a MPB a um gênero único; ela é um campo de disputas.",
+      "objetivoIds": [
+        "tropicalismo",
+        "festivais",
+        "rock-brasil"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões sobre tropicalismo, procure mistura de referências, ironia, alegoria e crítica à ditadura. Em festivais, observe a relação entre TV, público e mercado. Em rock brasileiro, identifique a incorporação de guitarra, distorção e experimentação. A alternativa correta costuma articular estética e política. Síntese: a música popular é uma arena de negociação com a indústria e com o poder.",
+      "objetivoIds": [
+        "tropicalismo",
+        "festivais",
+        "rock-brasil"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Enciclopédia Itaú Cultural — Tropicalismo",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Sesc São Paulo — música brasileira",
+      "url": "https://www.sescsp.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Library of Congress — música e contracultura",
+      "url": "https://www.loc.gov/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

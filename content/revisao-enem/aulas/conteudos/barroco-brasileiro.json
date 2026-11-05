@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "id": "barroco-brasileiro",
+  "titulo": "Barroco e rococó no Brasil: fé, mineração e mãos locais",
+  "duracaoEstimadaMinutos": 16,
+  "objetivos": [
+    {
+      "id": "barroco-mineiro",
+      "descricao": "Caracterizar o barroco e o rococó mineiros pela dramaticidade, movimento e uso de materiais locais."
+    },
+    {
+      "id": "aleijadinho",
+      "descricao": "Analisar a escultura de Aleijadinho na articulação entre formação erudita e saberes populares."
+    },
+    {
+      "id": "ataide",
+      "descricao": "Reconhecer na pintura de Mestre Ataíde marcas de identidade local e sincretismo visual."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Ouro, irmandades e igrejas",
+      "tipo": "texto",
+      "texto": "Nos séculos XVIII e início do XIX, a extração de ouro em Minas Gerais financiou a construção e a decoração de igrejas. Irmandades religiosas, incluindo irmandades de negros e mestiços, contratavam artistas e artífices. O barroco chegou com missionários e tratados europeus, mas foi transformado por materiais, técnicas e mãos locais. Entender esse circuito ajuda a evitar a ideia de que a arte colonial é apenas 'cópia' da Europa: ela é negociação entre modelos, devoção e recursos disponíveis.",
+      "objetivoIds": [
+        "barroco-mineiro"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Movimento, contraste e materialidade",
+      "tipo": "texto",
+      "texto": "O barroco valoriza o movimento, o contraste de luz e sombra, a emoção e o envolvimento do fiel. O rococó posterior suaviza as formas, multiplica curvas e ornamentos e busca graça e leveza. Em Minas, a pedra-sabão e a madeira policromada ganham papel central. A talha dourada, os anjos, os santos e os profetas não são apenas decoração: organizam a experiência religiosa no espaço. Ao observar, pergunte como a obra conduz o olhar e o corpo do espectador.",
+      "objetivoIds": [
+        "barroco-mineiro"
+      ]
+    },
+    {
+      "id": "aleijadinho",
+      "titulo": "Aleijadinho entre o tratado e o canteiro",
+      "tipo": "texto",
+      "texto": "Antônio Francisco Lisboa, o Aleijadinho, é associado aos Profetas de Congonhas e a outras obras em Minas. Sua formação inclui o aprendizado em canteiros e oficinas, o contato com gravuras e tratados europeus e o conhecimento de soluções locais. Os profetas combinam monumentalidade, expressão dramática e detalhes de vestes e barbas. A obra não deve ser explicada apenas pela biografia trágica do artista: ela é resultado de uma rede de encomendas, colaboradores e escolhas formais. Evite transformar a deficiência física em explicação única da genialidade.",
+      "objetivoIds": [
+        "aleijadinho"
+      ]
+    },
+    {
+      "id": "ataide",
+      "titulo": "Mestre Ataíde e a pintura que localiza o sagrado",
+      "tipo": "texto",
+      "texto": "Manuel da Costa Ataíde pintou forros e painéis em igrejas mineiras, como a Igreja de São Francisco de Assis, em Ouro Preto. Suas composições partem de modelos religiosos europeus, mas incorporam figuras, tons e soluções locais. Em 'Coroação de Nossa Senhora', a Virgem e os anjos aparecem em um céu festivo, com rostos e cores que podem remeter à população mestiça da região. Isso não significa afirmar uma 'pureza' brasileira, e sim perceber como a arte sacra se torna um lugar de encontro e tradução cultural.",
+      "objetivoIds": [
+        "ataide"
+      ]
+    },
+    {
+      "id": "comparacao",
+      "titulo": "Europa e Minas: o que se mantém e o que se transforma",
+      "tipo": "texto",
+      "texto": "Compare uma igreja barroca europeia com uma mineira: ambas usam talha, douramento e narrativa religiosa, mas a escala, a luz, os materiais e a participação de irmandades locais mudam. Na Europa, muitas vezes há uma corte e uma academia consolidadas; em Minas, a urbanização do ouro e as irmandades criam outros circuitos. A comparação não serve para medir 'atraso' ou 'cópia', mas para entender como formas viajam e ganham novos sentidos.",
+      "objetivoIds": [
+        "barroco-mineiro",
+        "ataide"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "Cuidado com rótulos",
+      "tipo": "texto",
+      "texto": "Dizer que o barroco é 'só exagero' empobrece o movimento: há rigor compositivo, programa teológico e função litúrgica. Dizer que Aleijadinho é 'um gênio isolado' apaga oficinas, ajudantes e encomendas. Dizer que a arte mineira é 'tipicamente brasileira' pode homogeneizar povos e regiões. O mais produtivo é perguntar: quais modelos circulavam, quem pagava, quem executava e quais escolhas tornavam a obra significativa para aquela comunidade?",
+      "objetivoIds": [
+        "aleijadinho",
+        "ataide"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Leitura para o ENEM",
+      "tipo": "texto",
+      "texto": "Quando a questão trouxer uma escultura ou pintura sacra, observe expressão dos rostos, gestos, vestes, luz e posição no espaço. Depois relacione esses elementos ao contexto: religiosidade, irmandades, mineração, influência europeia e adaptação local. Desconfie de alternativas que apresentem a arte colonial como simples imitação ou como expressão isolada de um 'gênio'. A resposta costuma estar na relação entre forma, devoção e sociedade.",
+      "objetivoIds": [
+        "barroco-mineiro",
+        "aleijadinho",
+        "ataide"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "IPHAN — patrimônio cultural brasileiro",
+      "url": "https://www.gov.br/iphan/pt-br",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — artes visuais",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Museu de Congonhas — Santuário do Bom Jesus de Matosinhos",
+      "url": "https://www.museudecongonhas.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

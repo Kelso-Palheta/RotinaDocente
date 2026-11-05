@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "id": "fotografia",
+  "titulo": "Fotografia: técnica, movimento e olhar",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "fotografia-tecnica",
+      "descricao": "Explicar a fotografia como técnica de registro e de construção de imagem."
+    },
+    {
+      "id": "movimento",
+      "descricao": "Relacionar fotografia, percepção do movimento e ciência no século XIX."
+    },
+    {
+      "id": "linguagem",
+      "descricao": "Analisar composição, luz e instante decisivo na fotografia autoral."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Uma máquina que muda o olhar",
+      "tipo": "texto",
+      "texto": "A fotografia foi anunciada em 1839 e transformou a relação das sociedades com a memória e a representação. Retratos deixaram de ser privilégio de quem podia pagar um pintor; jornais e revistas passaram a circular imagens de lugares distantes. Ao mesmo tempo, a técnica levantou debates sobre verdade, autoria e arte. A foto não é um espelho neutro: envolve escolha de enquadramento, luz, tempo de exposição e edição. Estudar fotografia é estudar essas escolhas.",
+      "objetivoIds": [
+        "fotografia-tecnica"
+      ]
+    },
+    {
+      "id": "movimento",
+      "titulo": "Muybridge e o cavalo que voa",
+      "tipo": "texto",
+      "texto": "No século XIX, Eadweard Muybridge usou séries de câmeras para registrar o galope de cavalos e o movimento de pessoas e animais. As imagens mostraram que o cavalo, em certo momento, tem as quatro patas no ar. Isso interessava à ciência e à arte: a pintura tradicional representava o galope de um modo que a fotografia revelou impreciso. A experiência também antecipou o cinema. Ao observar uma prancha de Muybridge, note a sequência, o enquadramento repetido e a grade que organiza o tempo.",
+      "objetivoIds": [
+        "movimento",
+        "fotografia-tecnica"
+      ]
+    },
+    {
+      "id": "imagem-muybridge",
+      "titulo": "Leitura guiada: a sequência como análise",
+      "tipo": "imagem",
+      "texto": "Nesta prancha de 'Animal Locomotion', o cavalo aparece em várias fases do movimento, com o corpo dividido em imagens sucessivas. O fundo neutro isola o animal e permite comparar posições. A imagem não busca beleza pitoresca: busca decompor o movimento em instantes legíveis. Ao analisar, pergunte o que a repetição revela, como o enquadramento padroniza o corpo e que relação existe entre fotografia, ciência e espetáculo. A sequência é, ao mesmo tempo, prova e encenação.",
+      "objetivoIds": [
+        "movimento",
+        "linguagem"
+      ],
+      "imagemId": "muybridge-cavalos"
+    },
+    {
+      "id": "fotograma",
+      "titulo": "Man Ray e a fotografia sem câmera",
+      "tipo": "texto",
+      "texto": "O fotograma é produzido colocando objetos sobre papel fotossensível e expondo à luz. Man Ray usou esse procedimento para criar imagens em que a sombra e a transparência substituem a representação direta. O resultado parece abstrato, mas nasce de corpos e objetos reais. Ao interpretar, observe os contornos, as gradações e os vazios. O fotograma mostra que a fotografia não depende apenas da câmera: depende da luz e da superfície sensível.",
+      "objetivoIds": [
+        "fotografia-tecnica",
+        "linguagem"
+      ]
+    },
+    {
+      "id": "pinhole",
+      "titulo": "Câmera pinhole e o tempo longo",
+      "tipo": "texto",
+      "texto": "Uma câmera pinhole é uma caixa escura com um pequeno orifício. A imagem se forma lentamente, sem lente, e pode registrar o movimento do sol ao longo de meses ou anos. O resultado é uma imagem de baixa definição, mas de grande carga poética e documental. Ao analisar uma foto pinhole, pergunte: que tempo essa imagem condensa? O que se ganha e o que se perde sem a precisão da lente? A técnica revela que a fotografia também é uma forma de medir o tempo.",
+      "objetivoIds": [
+        "fotografia-tecnica",
+        "movimento"
+      ]
+    },
+    {
+      "id": "cartier-bresson",
+      "titulo": "Cartier-Bresson e o instante decisivo",
+      "tipo": "texto",
+      "texto": "Henri Cartier-Bresson defendia a ideia de 'instante decisivo': o momento em que forma, ação e significado se alinham. Em suas fotos de rua, personagens, sombras e arquitetura parecem convergir. Isso não é puro acaso: exige observação, paciência e rapidez. Ao analisar uma foto, observe as linhas, os planos e as relações entre figuras. O corte do enquadramento também é uma decisão. A foto não mostra tudo; ela escolhe o que entra e o que fica fora.",
+      "objetivoIds": [
+        "linguagem"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que a fotografia não é",
+      "tipo": "texto",
+      "texto": "Não é cópia objetiva do real: há seleção, lente, luz e pós-produção. Não é apenas técnica: a escolha do tema e do instante é cultural. Não é sinônimo de arte automaticamente: a artisticidade depende de contexto, intenção e recepção. E não é memória pura: toda foto é uma interpretação do passado. Evite também opor foto e pintura como inimigas; elas se influenciaram e continuam dialogando.",
+      "objetivoIds": [
+        "fotografia-tecnica",
+        "movimento",
+        "linguagem"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de fotografia, identifique o procedimento (câmera, pinhole, fotograma), o tempo de exposição e o enquadramento. Relacione a técnica ao efeito: movimento congelado, borrão, silhueta, sequência. Leia o texto de apoio para saber se a ênfase é científica, documental ou poética. A alternativa correta costuma articular técnica e sentido. Síntese: toda foto é uma decisão sobre o que mostrar e como mostrar.",
+      "objetivoIds": [
+        "fotografia-tecnica",
+        "movimento",
+        "linguagem"
+      ]
+    }
+  ],
+  "imagens": [
+    {
+      "id": "muybridge-cavalos",
+      "arquivo": "aulas/imagens/fotografia-muybridge-cavalos.jpg",
+      "alt": "Prancha em preto e branco com várias imagens sucessivas de um cavalo em movimento, organizadas em grade.",
+      "legenda": "Eadweard Muybridge, Animal Locomotion, volume IX, cavalos, 1887, fotogravura, The Metropolitan Museum of Art.",
+      "fonteUrl": "https://www.metmuseum.org/art/collection/search/266439",
+      "licenca": "Domínio público — The Met Open Access."
+    }
+  ],
+  "fontes": [
+    {
+      "titulo": "The Metropolitan Museum of Art — Eadweard Muybridge, Animal Locomotion",
+      "url": "https://www.metmuseum.org/art/collection/search/266439",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "International Center of Photography — fotografia",
+      "url": "https://www.icp.org/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "George Eastman Museum — história da fotografia",
+      "url": "https://www.eastman.org/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}

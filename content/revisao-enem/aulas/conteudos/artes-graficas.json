@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "id": "artes-graficas",
+  "titulo": "Artes gráficas: gravura, ilustração e narrativa visual",
+  "duracaoEstimadaMinutos": 17,
+  "objetivos": [
+    {
+      "id": "gravura",
+      "descricao": "Identificar procedimentos de gravura e xilogravura e sua circulação social."
+    },
+    {
+      "id": "ilustracao",
+      "descricao": "Analisar ilustração, cartum e quadrinhos como linguagens críticas."
+    },
+    {
+      "id": "cordel",
+      "descricao": "Relacionar cordel, xilogravura e oralidade à cultura popular."
+    },
+    {
+      "id": "linha-palavra",
+      "descricao": "Analisar o bordado, a linha e a palavra como recursos de composição e memória."
+    }
+  ],
+  "blocos": [
+    {
+      "id": "contexto",
+      "titulo": "Imagens que se multiplicam",
+      "tipo": "texto",
+      "texto": "Antes da fotografia e da internet, a gravura permitiu multiplicar imagens e colocá-las em circulação. Xilogravura, calcogravura e litografia foram usadas em livros, jornais, panfletos e cartazes. No Brasil, a xilogravura se associou ao cordel e à cultura popular do Nordeste. No México, a gravura teve papel político na Revolução. Estudar artes gráficas é entender não apenas a técnica, mas também os meios de reprodução e os públicos que elas alcançam.",
+      "objetivoIds": [
+        "gravura"
+      ]
+    },
+    {
+      "id": "conceitos",
+      "titulo": "Matriz, reprodução e edição",
+      "tipo": "texto",
+      "texto": "Na gravura, a imagem é produzida a partir de uma matriz: madeira, metal ou pedra. O artista grava, entinta e pressiona o papel. Cada cópia é uma estampa, e a série é uma edição. A xilogravura usa a madeira e produz contrastes fortes; a litografia permite traços mais livres; a serigrafia trabalha com telas e cores. Ao analisar, pergunte: qual é a matriz? Quantas cópias existem? A imagem foi feita para circular onde?",
+      "objetivoIds": [
+        "gravura",
+        "ilustracao"
+      ]
+    },
+    {
+      "id": "exemplo-cordel",
+      "titulo": "Cordel: palavra, imagem e oralidade",
+      "tipo": "texto",
+      "texto": "Os folhetos de cordel eram vendidos em feiras e recitados em voz alta. A capa em xilogravura antecipava o tom da história: aventura, religião, política, humor. A imagem não era apenas ilustração: ajudava a atrair o público e a criar um repertório visual compartilhado. Ao analisar uma capa, observe os tipos, a composição e os símbolos. O cordel mostra como arte gráfica, literatura e performance oral podem formar um sistema único.",
+      "objetivoIds": [
+        "cordel",
+        "gravura"
+      ]
+    },
+    {
+      "id": "exemplo-ilustracao",
+      "titulo": "Ilustração e crítica social",
+      "tipo": "texto",
+      "texto": "Ilustradores como Pawel Kuczynski e Al Margen usam metáforas visuais para criticar trabalho infantil, consumo, desigualdade e padrões de comportamento. A imagem condensa um argumento em poucos elementos. Ao interpretar, identifique o contraste, a escala e o detalhe que subverte a cena. A legenda pode orientar, mas a força está na combinação entre o que se vê e o que se espera ver. A ilustração crítica não precisa de texto longo para produzir reflexão.",
+      "objetivoIds": [
+        "ilustracao"
+      ]
+    },
+    {
+      "id": "exemplo-quadrinhos",
+      "titulo": "Quadrinhos e narrativa visual",
+      "tipo": "texto",
+      "texto": "Nos quadrinhos, o tempo é construído por quadros, espaços entre quadros e recursos como balões e onomatopeias. A ausência de palavras pode aumentar a exigência de leitura visual. Cartuns e tirinhas podem ser cômicos, poéticos ou políticos. Ao analisar, observe a sequência, o enquadramento e a relação entre imagem e texto. A pergunta não é apenas 'o que está desenhado?', mas 'como a história é contada?'. A leitura exige atenção ao ritmo e às elipses.",
+      "objetivoIds": [
+        "ilustracao"
+      ]
+    },
+    {
+      "id": "exemplo-leonilson",
+      "titulo": "Leonilson: bordado, palavra e composição assimétrica",
+      "tipo": "texto",
+      "texto": "Leonilson (1953-1993) levou o bordado manual para o campo das artes visuais e aproximou linha, palavra e desenho. Em 'O recruta, a aranha e Penélope' (1992), o tecido recebe figuras e inscrições que se organizam de modo assimétrico, com vazios e interrupções. O bordado não é apenas uma técnica doméstica: ele carrega tempo, afeto e memória do corpo. Ao analisar a composição, observe o ritmo das linhas, a relação entre texto e imagem e o modo como o equilíbrio é construído sem simetria. A obra mostra que o suporte e o gesto também produzem significado.",
+      "objetivoIds": [
+        "linha-palavra",
+        "ilustracao"
+      ]
+    },
+    {
+      "id": "exemplo-quadrinhos-silenciosos",
+      "titulo": "Quadrinhos silenciosos e leitura visual",
+      "tipo": "texto",
+      "texto": "Nos quadrinhos silenciosos, a narrativa é construída sem palavras: quadros, gestos, enquadramentos e elipses assumem a função de diálogo e narração. A quadrinista surda Ju Loyola, divulgada na CCXP, chama essas histórias de 'narrativas silenciosas' e destaca que elas podem ser lidas por pessoas de diferentes nacionalidades e idades. A ausência de texto não é uma falha nem uma perda: é uma escolha que amplia a acessibilidade e exige outra atenção do leitor. Ao analisar uma página silenciosa, descreva a sequência dos gestos, o espaço entre os quadros e as expressões dos personagens. A leitura visual se torna uma experiência compartilhada.",
+      "objetivoIds": [
+        "ilustracao"
+      ]
+    },
+    {
+      "id": "exemplo-laerte-cartum",
+      "titulo": "Laerte e a articulação entre palavra e imagem",
+      "tipo": "texto",
+      "texto": "Laerte é uma cartunista brasileira que combina desenho, palavra e crítica de costumes. Em cartuns como 'Mapa-múndi', a força não está apenas no assunto, mas no modo como palavra e desenho se afetam mutuamente: o texto e a imagem se completam, se contradizem ou criam um terceiro sentido. A função poética da linguagem aparece quando a própria organização dos signos chama atenção para si. Ao ler um cartum, observe o título, as legendas, o enquadramento e o que ficou fora do quadro. A interpretação exige relacionar os elementos, não escolher entre imagem ou texto.",
+      "objetivoIds": [
+        "ilustracao"
+      ]
+    },
+    {
+      "id": "equivocos",
+      "titulo": "O que as artes gráficas não são",
+      "tipo": "texto",
+      "texto": "Não são uma arte menor por serem reproduzíveis: a gravura tem história, técnica e mercado próprios. Não são apenas ilustração de texto: muitas vezes criam sentido autônomo. Não são sinônimo de desenho único: a matriz e a edição mudam o estatuto da obra. E não são neutras: cartazes, charges e panfletos participam de disputas políticas. Evite também confundir xilogravura com desenho a lápis: o processo é diferente.",
+      "objetivoIds": [
+        "gravura",
+        "ilustracao",
+        "cordel"
+      ]
+    },
+    {
+      "id": "enem-sintese",
+      "titulo": "Estratégia de leitura",
+      "tipo": "texto",
+      "texto": "Em questões de artes gráficas, identifique a técnica (xilogravura, litografia, charge, tirinha), o suporte (folheto, jornal, muro) e o público. Observe contrastes, textos e sequência. Relacione a imagem ao contexto social e político. A alternativa correta costuma destacar a circulação e a construção de sentido, não apenas a habilidade do desenhista. Síntese: a imagem impressa é uma tecnologia de comunicação e de crítica.",
+      "objetivoIds": [
+        "gravura",
+        "ilustracao",
+        "cordel"
+      ]
+    }
+  ],
+  "imagens": [],
+  "fontes": [
+    {
+      "titulo": "Library of Congress — gravura e impressos",
+      "url": "https://www.loc.gov/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "The British Museum — prints and drawings",
+      "url": "https://www.britishmuseum.org/collection",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Enciclopédia Itaú Cultural — xilogravura",
+      "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    }
+  ],
+  "status": "rascunho"
+}
