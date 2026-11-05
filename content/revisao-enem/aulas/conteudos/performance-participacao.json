@@ -39,6 +39,18 @@
       ]
     },
     {
+      "id": "imagem-esquema-performance",
+      "titulo": "Leitura guiada: o circuito da performance",
+      "tipo": "imagem",
+      "imagemId": "esquema-circuito",
+      "texto": "Observe o esquema: corpo, ação, público e registro aparecem em um circuito, com o tempo irrepetível no centro. Repare que a obra não está em um objeto final, mas na relação entre esses elementos; o registro é uma segunda camada, não o acontecimento. Compare uma performance com sua documentação: a foto permite circular, mas não devolve o cheiro, a espera e a presença dos corpos. Pergunte: o que se ganha e o que se perde quando a ação vira arquivo? Note também o lugar da ética: participação exige consentimento, segurança e contexto. O esquema é autoral e serve para organizar a leitura, não para substituir a experiência.",
+      "objetivoIds": [
+        "performance",
+        "participacao",
+        "registro"
+      ]
+    },
+    {
       "id": "exemplo-abramovic",
       "titulo": "Abramovic e o encontro silencioso",
       "tipo": "texto",
@@ -92,7 +104,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-circuito",
+      "arquivo": "aulas/imagens/performance-participacao-esquema-circuito.png",
+      "alt": "Esquema autoral com corpo, ação, público e registro em circuito, tempo irrepetível no centro e cartões sobre ética, documentação e participação.",
+      "legenda": "Esquema autoral sobre performance: corpo, ação, público e registro em circuito, com o tempo irrepetível no centro.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Tate, Performance art.",
+      "fonteUrl": "https://www.tate.org.uk/art/art-terms/p/performance-art",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Performance art",

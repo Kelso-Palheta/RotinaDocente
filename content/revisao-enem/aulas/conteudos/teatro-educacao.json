@@ -39,6 +39,17 @@
       ]
     },
     {
+      "id": "imagem-esquema-jogo",
+      "titulo": "Leitura guiada: o processo também é cena",
+      "tipo": "imagem",
+      "imagemId": "esquema-jogo",
+      "texto": "Observe o ciclo do esquema: jogo, improvisação, reflexão e cena giram em torno de corpo, voz e escuta. Repare que o jogo não é um intervalo divertido entre conteúdos: ele propõe regras claras e um problema a resolver, enquanto a improvisação exige escuta e ajuste em tempo real. Os cartões laterais lembram consentimento, erro como material e avaliação processual — princípios que distinguem teatro-educação de uma simples montagem para a festa da escola. Compare o produto final com o percurso: o que se aprende aparece também nas decisões tomadas em grupo. Pergunte: como transformar uma proposta em cena sem fixar colegas em personagens estereotipados? O esquema é autoral e não reproduz uma aula ou espetáculo.",
+      "objetivoIds": [
+        "jogos",
+        "corpo-voz"
+      ]
+    },
+    {
       "id": "exemplo-spolin",
       "titulo": "Spolin e o jogo do cabo de guerra",
       "tipo": "texto",
@@ -91,7 +102,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-jogo",
+      "arquivo": "aulas/imagens/teatro-educacao-esquema-jogo.png",
+      "alt": "Esquema autoral em ciclo com jogo, improvisação, reflexão e cena ao redor de corpo, voz e escuta, acompanhado de cartões sobre regras, consentimento, erro e avaliação processual.",
+      "legenda": "Esquema autoral sobre teatro-educação: ciclo de jogo, improvisação, reflexão e cena, com princípios do processo.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: jogos teatrais e Teatro do Oprimido.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Teatro_do_Oprimido",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Instituto Augusto Boal",

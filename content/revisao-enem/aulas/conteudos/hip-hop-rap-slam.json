@@ -38,6 +38,18 @@
       ]
     },
     {
+      "id": "imagem-esquema-hip-hop",
+      "titulo": "Leitura guiada: quatro elementos, uma cidade",
+      "tipo": "imagem",
+      "imagemId": "esquema-quatro-elementos",
+      "texto": "Observe o esquema: MC, DJ, grafite e break dispõem-se ao redor de “periferia e cidade”, enquanto a faixa inferior acrescenta slam e sampling. Repare que os quatro elementos não são compartimentos isolados: eles se conectam pela rua, pela festa e pela memória. O rap, no centro do circuito, organiza voz, rima e narrativa; o DJ seleciona e mixa; o break transforma o corpo em disputa; o grafite inscreve imagem e assinatura no espaço urbano. Compare o microfone do MC com o pincel do grafite: são suportes diferentes para uma mesma afirmação de presença. Pergunte: que histórias a cidade conta quando a periferia ocupa o centro da cena? O esquema é autoral e não reproduz uma obra ou performance específica.",
+      "objetivoIds": [
+        "hip-hop",
+        "rap",
+        "slam"
+      ]
+    },
+    {
       "id": "exemplo-identidade",
       "titulo": "Rap e afirmação negra",
       "tipo": "texto",
@@ -99,7 +111,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-quatro-elementos",
+      "arquivo": "aulas/imagens/hip-hop-rap-slam-esquema-quatro-elementos.png",
+      "alt": "Esquema autoral com MC, DJ, grafite e break ao redor de periferia e cidade, além de faixas sobre slam e sampling.",
+      "legenda": "Esquema autoral sobre hip-hop: quatro elementos, periferia, cidade, slam e sampling.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: cultura hip-hop, slam e sampling.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Hip-hop",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Smithsonian NMAAHC — cultura hip-hop",

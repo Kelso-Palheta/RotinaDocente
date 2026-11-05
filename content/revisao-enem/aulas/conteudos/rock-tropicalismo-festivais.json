@@ -29,6 +29,17 @@
       ]
     },
     {
+      "id": "imagem-esquema-arena",
+      "titulo": "Leitura guiada: a música como arena",
+      "tipo": "imagem",
+      "imagemId": "esquema-arena",
+      "texto": "Observe a linha do tempo do esquema: Jovem Guarda, Festival da Record, AI-5, underground/punk e Rock Brasil aparecem sobre uma mesma faixa, enquanto a indústria cultural e a política atravessam o percurso. Repare que os marcos não são apenas estilos musicais: cada um corresponde a uma forma de circulação (TV, festival, censura, circuitos independentes, MTV) e a uma disputa sobre o que pode ser ouvido. Compare a Jovem Guarda com o tropicalismo: ambos usam a cultura de massa, mas com projetos estéticos e políticos distintos. Pergunte: um festival é vitrine, tribuna ou laboratório? A resposta depende de quem organiza, quem canta e quem assiste. O esquema é autoral e não reproduz cartazes ou gravações.",
+      "objetivoIds": [
+        "tropicalismo",
+        "festivais"
+      ]
+    },
+    {
       "id": "conceitos",
       "titulo": "Antropofagia, alegoria e contracultura",
       "tipo": "texto",
@@ -91,7 +102,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-arena",
+      "arquivo": "aulas/imagens/rock-tropicalismo-festivais-esquema-arena.png",
+      "alt": "Esquema autoral com linha do tempo de 1965 a 1980, ligando Jovem Guarda, Festival da Record, AI-5, underground e Rock Brasil a faixas de indústria cultural e política.",
+      "legenda": "Esquema autoral sobre rock, tropicalismo e festivais: linha do tempo de 1965 a 1980 e faixas de contexto.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: tropicalismo, festivais e indústria cultural.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Tropicalismo",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Enciclopédia Itaú Cultural — Tropicalismo",

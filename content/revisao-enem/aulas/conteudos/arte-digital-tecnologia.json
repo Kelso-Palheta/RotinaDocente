@@ -38,6 +38,18 @@
       ]
     },
     {
+      "id": "imagem-esquema-digital",
+      "titulo": "Leitura guiada: as camadas da obra digital",
+      "tipo": "imagem",
+      "imagemId": "esquema-camadas",
+      "texto": "Observe o esquema: interface, código-fonte, rede, arquivo e modelos de IA aparecem como camadas de uma mesma obra. Repare que a imagem na tela é apenas a parte visível de um sistema que depende de servidores, formatos e decisões de programação. Compare uma pintura em tela com uma obra digital: a primeira envelhece com a matéria; a segunda pode deixar de abrir quando o software ou a conexão mudam. Pergunte: quem assina, quem hospeda e quem conseguirá acessar o arquivo daqui a dez anos? A cópia sem perda e a autoria distribuída colocam novos problemas para o museu e para o direito. O esquema é autoral.",
+      "objetivoIds": [
+        "arte-digital",
+        "autoria",
+        "acesso"
+      ]
+    },
+    {
       "id": "exemplo-gps",
       "titulo": "Stephen Lund e o desenho com o corpo",
       "tipo": "texto",
@@ -100,7 +112,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-camadas",
+      "arquivo": "aulas/imagens/arte-digital-tecnologia-esquema-camadas.png",
+      "alt": "Esquema autoral em camadas sobre arte digital: interface, código-fonte, rede, arquivo e modelos de IA, com notas sobre cópia, autoria e acesso.",
+      "legenda": "Esquema autoral sobre arte digital: camadas de interface, código, rede, arquivo e IA, com questões de autoria e preservação.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Tate, Digital art.",
+      "fonteUrl": "https://www.tate.org.uk/art/art-terms/d/digital-art",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Rhizome — arte digital",

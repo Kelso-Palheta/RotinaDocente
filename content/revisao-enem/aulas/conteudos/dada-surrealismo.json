@@ -39,6 +39,17 @@
       ]
     },
     {
+      "id": "imagem-cabaret",
+      "titulo": "Leitura guiada: o cartaz como provocação",
+      "tipo": "imagem",
+      "imagemId": "cabaret-voltaire-cartaz",
+      "texto": "Observe o cartaz do Cabaret Voltaire: três figuras recortadas em preto e branco, com traços angulosos, ocupam a parte superior; abaixo, a tipografia anuncia uma “Künstlerkneipe” com música, recitação e uma data de abertura. O contraste entre a imagem expressionista e o texto publicitário cria um efeito de estranhamento. Repare em como o cartaz não vende um produto convencional: ele convida o público a entrar em um espaço de experimentação e escândalo. Pergunte: que relação existe entre a arte gráfica e a performance ao vivo que ela anuncia? O cartaz é documento e obra, e ajuda a entender Dada como atitude coletiva, não apenas estilo.",
+      "objetivoIds": [
+        "dada",
+        "fotomontagem"
+      ]
+    },
+    {
       "id": "fotomontagem",
       "titulo": "Hausmann e o rosto da crítica",
       "tipo": "texto",
@@ -53,6 +64,16 @@
       "titulo": "Surrealismo: o sonho como método",
       "tipo": "texto",
       "texto": "O surrealismo valorizava o sonho, o automatismo e o acaso objetivo. Artistas como Dalí, Magritte, Ernst e Tanguy criaram imagens de aparência realista, mas com relações impossíveis: relógios moles, homens com cabeça de maçã, portas que não levam a lugar nenhum. O estranhamento não vem do caos visual, e sim da combinação precisa de elementos reconhecíveis em uma cena incoerente. A pintura surrealista pode ser tecnicamente acadêmica e, ao mesmo tempo, subverter a lógica.",
+      "objetivoIds": [
+        "surrealismo"
+      ]
+    },
+    {
+      "id": "imagem-esquema-surrealismo",
+      "titulo": "Leitura guiada: procedimentos surrealistas",
+      "tipo": "imagem",
+      "imagemId": "esquema-procedimentos",
+      "texto": "Observe o esquema: quatro cartões apresentam escrita automática, cadáver esquisito, colagem/frottage e objeto surrealista. Repare que cada procedimento tem regras e produz um tipo diferente de estranhamento; nenhum deles significa simplesmente “desenhar qualquer coisa”. A faixa inferior lembra que sonho, desejo e acaso entram como métodos de trabalho, com edição e escolha. Compare a escrita automática com a colagem: uma libera o fluxo verbal, a outra desloca materiais e imagens. Pergunte: como o acaso é organizado para produzir sentido? O esquema é autoral e não reproduz obras surrealistas; serve para reconhecer procedimentos recorrentes.",
       "objetivoIds": [
         "surrealismo"
       ]
@@ -89,7 +110,27 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "cabaret-voltaire-cartaz",
+      "arquivo": "aulas/imagens/dada-surrealismo-cabaret-voltaire-cartaz.jpg",
+      "alt": "Cartaz em preto e branco com três figuras expressionistas e o texto Künstlerkneipe Voltaire, seguido de informações sobre música, recitação e abertura.",
+      "legenda": "Marcel Słodki, cartaz do Cabaret Voltaire, 1916, linoleogravura, Zurique.",
+      "credito": "Marcel Słodki; imagem: Wikimedia Commons / Bayerischer Rundfunk.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:1916_Marcel_S%C5%82odki_Cabaret-Voltaire.jpg",
+      "licenca": "Domínio público — cartaz de Marcel Słodki; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    },
+    {
+      "id": "esquema-procedimentos",
+      "arquivo": "aulas/imagens/dada-surrealismo-esquema-procedimentos.png",
+      "alt": "Esquema autoral com quatro cartões sobre escrita automática, cadáver esquisito, colagem e objeto surrealista, além de uma faixa sobre sonho e acaso.",
+      "legenda": "Esquema autoral sobre procedimentos surrealistas: escrita automática, cadáver esquisito, colagem, frottage e objeto surrealista.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Tate, Surrealism.",
+      "fonteUrl": "https://www.tate.org.uk/art/art-terms/s/surrealism",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Dada",

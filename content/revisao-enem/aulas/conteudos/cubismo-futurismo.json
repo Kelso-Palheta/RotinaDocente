@@ -62,10 +62,31 @@
       ]
     },
     {
+      "id": "imagem-juan-gris",
+      "titulo": "Leitura guiada: dentro e fora na janela de Juan Gris",
+      "tipo": "imagem",
+      "imagemId": "juan-gris-janela",
+      "texto": "Em “Natureza-morta diante de uma janela aberta”, observe a mesa com jornal, garrafa e fruteira, sobreposta à sacada e à fachada azul do outro lado da rua. Os planos se interpenetram: o interior e o exterior deixam de ter uma fronteira estável. Repare nas letras do jornal, nas sombras geométricas e nas cores frias que organizam a composição. A colagem cubista não apenas representa objetos: incorpora sinais do cotidiano urbano. Compare a profundidade desta tela com a de uma janela renascentista. O que muda quando o espaço é construído por fragmentos? A obra convida a olhar várias vezes, sem hierarquia fixa.",
+      "objetivoIds": [
+        "cubismo"
+      ]
+    },
+    {
       "id": "futurismo",
       "titulo": "Velocidade, máquina e violência",
       "tipo": "texto",
       "texto": "O Manifesto Futurista, publicado por Marinetti em 1909, exaltava a velocidade, a máquina, a juventude e a guerra. Artistas futuristas usavam linhas de força, repetições e fragmentos para sugerir movimento. A obra não representa um instante parado: tenta captar o deslocamento e a energia. Ao ler o manifesto, observe o vocabulário agressivo e a recusa do passado. O futurismo foi estética e politicamente heterogêneo, mas sua exaltação da violência deve ser lida no contexto que levaria à Primeira Guerra.",
+      "objetivoIds": [
+        "futurismo",
+        "guerra-modernidade"
+      ]
+    },
+    {
+      "id": "imagem-boccioni",
+      "titulo": "Leitura guiada: o corpo em movimento de Boccioni",
+      "tipo": "imagem",
+      "imagemId": "boccioni-futebol",
+      "texto": "Em “Dinamismo de um jogador de futebol”, não vemos um atleta de contorno nítido. Observe as formas facetadas em azul, vermelho, laranja e verde, que se cruzam e parecem explodir em direções opostas. O corpo é sugerido pela repetição de volumes e pela interseção de planos, não por um desenho anatômico estável. Repare em como as linhas diagonais e as cores complementares produzem sensação de velocidade. Compare essa estratégia com a decomposição cubista: aqui, o objetivo não é mostrar vários lados do objeto, mas captar a energia do deslocamento. Que impressão de tempo e movimento a tela provoca? A obra exalta a técnica e a ação, como pedia o futurismo.",
       "objetivoIds": [
         "futurismo",
         "guerra-modernidade"
@@ -104,7 +125,28 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "juan-gris-janela",
+      "arquivo": "aulas/imagens/cubismo-futurismo-juan-gris-janela.jpg",
+      "alt": "Natureza-morta cubista com mesa, jornal, garrafa e fruteira, sobreposta a uma janela aberta com sacada e fachada azul ao fundo.",
+      "legenda": "Juan Gris, Natureza-morta diante de uma janela aberta, Place Ravignan, 1915, óleo sobre tela, Philadelphia Museum of Art.",
+      "credito": "Juan Gris; imagem: Google Arts & Culture / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Juan_Gris_(Jos%C3%A9_Victoriano_Gonz%C3%A1lez_P%C3%A9rez),_Spanish_-_Still_Life_before_an_Open_Window,_Place_Ravignan_-_Google_Art_Project.jpg",
+      "licenca": "Domínio público — obra de Juan Gris; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    },
+    {
+      "id": "boccioni-futebol",
+      "arquivo": "aulas/imagens/cubismo-futurismo-boccioni-futebol.jpg",
+      "alt": "Pintura futurista com formas facetadas e coloridas que se fundem em movimento, sugerindo um corpo em ação, sem contorno nítido.",
+      "legenda": "Umberto Boccioni, Dinamismo de um jogador de futebol, 1913, óleo sobre tela, Museum of Modern Art, Nova York.",
+      "credito": "Umberto Boccioni; imagem: Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Umberto_boccioni-dynamism_of_a_soccer_player-1913.jpg",
+      "licenca": "Domínio público — obra de Umberto Boccioni; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "The Museum of Modern Art — cubismo",

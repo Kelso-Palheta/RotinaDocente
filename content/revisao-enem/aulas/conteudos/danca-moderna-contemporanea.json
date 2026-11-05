@@ -28,6 +28,16 @@
       ]
     },
     {
+      "id": "imagem-isadora",
+      "titulo": "Leitura guiada: o corpo descalço de Isadora Duncan",
+      "tipo": "imagem",
+      "imagemId": "sloan-isadora-duncan",
+      "texto": "Observe a gravura de John Sloan: Isadora Duncan aparece descalça, com os braços erguidos e uma túnica curta, sob um facho de luz que a recorta contra cortinas escuras. Repare que o corpo não segue a verticalidade rígida do balé clássico nem usa sapatilhas de ponta; a linha da água-forte acompanha o gesto e as dobras do tecido, mas também constrói sombras com hachuras. Compare essa imagem com um cartaz de balé do século XIX: o que muda na relação com o chão, com o peso e com o olhar do público? Pergunte o que a gravura destaca e o que ela deixa fora do quadro. A obra é de 1915 e interpreta Duncan por meio de outra linguagem; não é um registro fotográfico neutro da dançarina.",
+      "objetivoIds": [
+        "moderna"
+      ]
+    },
+    {
       "id": "conceitos",
       "titulo": "Técnica, presença e composição",
       "tipo": "texto",
@@ -89,7 +99,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "sloan-isadora-duncan",
+      "arquivo": "aulas/imagens/danca-moderna-contemporanea-isadora-duncan.jpg",
+      "alt": "Gravura em preto e branco de uma mulher descalça em cena, com os braços erguidos, túnica curta e saia drapeada, sob um facho de luz.",
+      "legenda": "John Sloan, Isadora Duncan, 1915, água-forte; reprodução fotográfica da Library of Congress.",
+      "credito": "Gravura: John Sloan; reprodução fotográfica: coleção Arnold Genthe, Library of Congress.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Isadora_Duncan,_1878-1927_LCCN2002715687.jpg",
+      "licenca": "Domínio público — obra de John Sloan; reprodução da Library of Congress em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Dance Heritage Coalition — história da dança",
@@ -104,6 +125,11 @@
     {
       "titulo": "Enciclopédia Itaú Cultural — dança",
       "url": "https://enciclopedia.itaucultural.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "MoMA — John Sloan, Isadora Duncan, 1915 (identificação da gravura)",
+      "url": "https://www.moma.org/collection/works/76370",
       "consultadoEm": "2026-11-05"
     }
   ],

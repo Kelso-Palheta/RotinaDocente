@@ -8,6 +8,16 @@ import React from "react";
  *
  * Contrato: BlocoAulaTematica({ bloco, imagens, aula, tema })
  */
+const urlSegura = (v, local = false) => {
+  if (typeof v !== "string") return false;
+  if (local && v.startsWith("/api/revisao/")) return true;
+  try {
+    const u = new URL(v);
+    return u.protocol === "https:" && !u.username && !u.password;
+  } catch {
+    return false;
+  }
+};
 export function BlocoAulaTematica({
   bloco,
   imagens = [],
@@ -60,7 +70,7 @@ export function BlocoAulaTematica({
         {/* Renderização de Imagem Contextual */}
         {bloco.tipo === "imagem" && (
           <figure className="space-y-2.5 max-w-2xl mx-auto my-3 text-center">
-            {dadosImagem?.url ? (
+            {urlSegura(dadosImagem?.url, true) ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={dadosImagem.url}
@@ -80,6 +90,58 @@ export function BlocoAulaTematica({
               <figcaption className="text-xs text-[#FFFDF7]/80 leading-relaxed max-w-xl mx-auto">
                 <span className="font-bold text-[#00DDEB]">Figura: </span>
                 <span>{dadosImagem.legenda || dadosImagem.alt}</span>
+                {dadosImagem.credito && (
+                  <span className="block mt-1">{dadosImagem.credito}</span>
+                )}
+                {dadosImagem.alteracoes && (
+                  <span className="block mt-1">{dadosImagem.alteracoes}</span>
+                )}
+                <span className="flex flex-wrap justify-center gap-3 mt-2">
+                  {urlSegura(dadosImagem.fonteUrl) && (
+                    <a
+                      aria-label="Fonte da imagem"
+                      href={dadosImagem.fonteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      Fonte
+                    </a>
+                  )}
+                  {urlSegura(dadosImagem.autorUrl) && (
+                    <a
+                      aria-label="Autor da fotografia"
+                      href={dadosImagem.autorUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      Autor
+                    </a>
+                  )}
+                  {urlSegura(dadosImagem.licencaUrl) && (
+                    <a
+                      aria-label="Licença de uso"
+                      href={dadosImagem.licencaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      Licença
+                    </a>
+                  )}
+                  {urlSegura(dadosImagem.url, true) && (
+                    <a
+                      aria-label="Ampliar imagem"
+                      href={dadosImagem.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      Ampliar imagem ↗
+                    </a>
+                  )}
+                </span>
                 {dadosImagem.licenca && (
                   <span className="block text-[11px] text-[#FFFDF7]/60 mt-0.5">
                     Fonte / Licença: {dadosImagem.licenca}

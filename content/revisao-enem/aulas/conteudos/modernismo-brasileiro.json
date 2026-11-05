@@ -43,6 +43,18 @@
       ]
     },
     {
+      "id": "imagem-esquema",
+      "titulo": "Leitura guiada: uma linha do tempo em disputa",
+      "tipo": "imagem",
+      "imagemId": "esquema-rupturas",
+      "texto": "Observe o esquema: uma linha horizontal organiza datas, revistas e manifestos, mas as faixas superior e inferior lembram que o modernismo não foi um bloco único. Repare em como a Semana de 1922, a revista Klaxon, o Manifesto Pau-Brasil e o Manifesto Antropófago aparecem como momentos de um debate, não como etapas de uma evolução tranquila. As setas e os quadros mostram projetos diferentes de nação e de linguagem. Pergunte: que grupos e que visões de Brasil disputam espaço nessa linha do tempo? O esquema é autoral e serve para estudar relações; não reproduz uma obra modernista.",
+      "objetivoIds": [
+        "ruptura",
+        "sintese",
+        "identidade"
+      ]
+    },
+    {
       "id": "tarsila",
       "titulo": "Tarsila: linhas retas e cotidiano",
       "tipo": "texto",
@@ -93,7 +105,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-rupturas",
+      "arquivo": "aulas/imagens/modernismo-brasileiro-esquema-rupturas.png",
+      "alt": "Esquema autoral com linha do tempo do modernismo brasileiro, faixas de ruptura e disputa e cinco marcos entre 1922 e 1930.",
+      "legenda": "Esquema autoral sobre o modernismo brasileiro: linha do tempo de 1922 a 1930, com revistas, manifestos e disputas de identidade.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Wikipédia, Semana de Arte Moderna.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Semana_de_Arte_Moderna",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Enciclopédia Itaú Cultural — Tarsila do Amaral",

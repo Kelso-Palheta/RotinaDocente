@@ -1,3 +1,4 @@
+import {contemAcervoPrivado} from './lib/revisao-bundle.mjs';
 /** Executar após o build para impedir publicação de acervo cliente ou credenciais locais. */
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -26,10 +27,10 @@ for (const nft of (await arquivos(path.join(build, 'server'))).filter(f => f.end
 assert(!files.some(f => /(?:^|\/)AGENTS\.md$|(?:^|\/)next\.config\.mjs$/.test(f)), 'Rastreamento indevido da raiz do projeto.');
 const questoes = privados.filter(f => /\/questoes\/[^/]+\.json$/.test(f));
 const aulas = privados.filter(f=>/\/aulas\/conteudos\/[^/]+\.json$/.test(f));
-const idsAulas=await Promise.all(aulas.map(async f=>JSON.parse(await fs.readFile(f,'utf8')).id));
+const textosAulas=(await Promise.all(aulas.map(async f=>JSON.parse(await fs.readFile(f,'utf8')).blocos.map(b=>b.texto)))).flat();
 const ids = await Promise.all(questoes.map(async f => JSON.parse(await fs.readFile(f, 'utf8')).id));
 for (const arquivo of (await arquivos(path.join(build, 'static/chunks'))).filter(f => f.endsWith('.js'))) {
   const texto = await fs.readFile(arquivo, 'utf8');
-  assert(![...ids,...idsAulas].some(id => texto.includes(id)), `Questão privada encontrada no chunk cliente: ${path.basename(arquivo)}`);
+  assert(!contemAcervoPrivado(texto,{idsQuestoes:ids,textosAulas}), `Questão privada encontrada no chunk cliente: ${path.basename(arquivo)}`);
 }
-console.log(JSON.stringify({ questoes: ids.length, aulas:idsAulas.length, arquivosPrivadosNoServidor: privados.length, credenciaisLocaisNoPacote: 0, questoesNoCliente: 0 }));
+console.log(JSON.stringify({ questoes: ids.length, aulas:aulas.length, arquivosPrivadosNoServidor: privados.length, credenciaisLocaisNoPacote: 0, questoesNoCliente: 0 }));

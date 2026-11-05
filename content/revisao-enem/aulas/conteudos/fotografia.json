@@ -41,7 +41,7 @@
       "id": "imagem-muybridge",
       "titulo": "Leitura guiada: a sequência como análise",
       "tipo": "imagem",
-      "texto": "Nesta prancha de 'Animal Locomotion', o cavalo aparece em várias fases do movimento, com o corpo dividido em imagens sucessivas. O fundo neutro isola o animal e permite comparar posições. A imagem não busca beleza pitoresca: busca decompor o movimento em instantes legíveis. Ao analisar, pergunte o que a repetição revela, como o enquadramento padroniza o corpo e que relação existe entre fotografia, ciência e espetáculo. A sequência é, ao mesmo tempo, prova e encenação.",
+      "texto": "Nesta prancha de “Animal Locomotion”, o cavalo aparece em várias fases do movimento, com o corpo dividido em imagens sucessivas. O fundo neutro isola o animal e permite comparar posições. A imagem não busca beleza pitoresca: busca decompor o movimento em instantes legíveis. Ao analisar, pergunte: o que a repetição revela? Como o enquadramento padroniza o corpo? Que relação existe entre fotografia, ciência e espetáculo? A sequência é, ao mesmo tempo, prova e encenação.",
       "objetivoIds": [
         "movimento",
         "linguagem"
@@ -107,7 +107,8 @@
       "alt": "Prancha em preto e branco com várias imagens sucessivas de um cavalo em movimento, organizadas em grade.",
       "legenda": "Eadweard Muybridge, Animal Locomotion, volume IX, cavalos, 1887, fotogravura, The Metropolitan Museum of Art.",
       "fonteUrl": "https://www.metmuseum.org/art/collection/search/266439",
-      "licenca": "Domínio público — The Met Open Access."
+      "licenca": "Domínio público — The Met Open Access.",
+      "credito": "Eadweard Muybridge; The Metropolitan Museum of Art."
     }
   ],
   "fontes": [

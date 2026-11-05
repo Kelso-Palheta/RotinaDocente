@@ -78,6 +78,16 @@
       ]
     },
     {
+      "id": "imagem-arcimboldo",
+      "titulo": "Leitura guiada: o rosto feito de frutas",
+      "tipo": "imagem",
+      "imagemId": "arcimboldo-vertumno",
+      "texto": "Observe o retrato de Rodolfo II como Vertumno: de longe, vemos um rosto masculino; de perto, o rosto se desfaz em frutas, legumes, flores e espigas. O artista usa a composição para criar um duplo sentido: o imperador é associado à abundância e ao domínio sobre as estações. Repare no equilíbrio entre o contorno do rosto e a diversidade dos alimentos, e em como a barba se transforma em frutos. Compare com a apropriação pop de Vik Muniz: ambos usam matéria comum para formar uma imagem reconhecível. Pergunte: em que momento o espectador deixa de ver o rosto e passa a ver os alimentos? A obra é um jogo entre representação e matéria.",
+      "objetivoIds": [
+        "apropriacao"
+      ]
+    },
+    {
       "id": "exemplo-decoupagem",
       "titulo": "Décollage e Pollock: rasgar, respingar, apropriar",
       "tipo": "texto",
@@ -110,7 +120,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "arcimboldo-vertumno",
+      "arquivo": "aulas/imagens/pop-art-apropriacao-arcimboldo-vertumno.jpg",
+      "alt": "Retrato maneirista em que o rosto do imperador é formado por frutas, legumes, flores, espigas e folhas, sobre fundo escuro.",
+      "legenda": "Giuseppe Arcimboldo, Rodolfo II como Vertumno, 1591, óleo sobre madeira, Castelo de Skokloster, Suécia.",
+      "credito": "Giuseppe Arcimboldo; imagem: Google Arts & Culture / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Giuseppe_Arcimboldo_-_Rudolf_II_of_Habsburg_as_Vertumnus_-_Google_Art_Project.jpg",
+      "licenca": "Domínio público — obra de Giuseppe Arcimboldo; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Pop Art",

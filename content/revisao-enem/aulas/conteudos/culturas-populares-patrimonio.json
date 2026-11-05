@@ -89,6 +89,17 @@
       ]
     },
     {
+      "id": "imagem-azulejos",
+      "titulo": "Leitura guiada: o módulo, a falha e a cidade",
+      "tipo": "imagem",
+      "imagemId": "azulejos-sao-luis",
+      "texto": "Observe a parede de azulejos: o padrão repete módulos com curvas azuis, fundos amarelos e folhagens verdes, mas as peças não são idênticas. Repare nas falhas, nos remendos e nas marcas de restauração: o revestimento envelhece, é consertado e continua a organizar a fachada. A foto foi feita no centro histórico de São Luís, patrimônio mundial, e mostra um detalhe que costuma passar despercebido na visão geral da rua. Compare a repetição do módulo com a ideia de “cópia”: a oficina adapta medidas, cores e padrões ao clima e à arquitetura local. Pergunte: o que a conservação do azulejo preserva — a técnica, a paisagem urbana ou as duas coisas? A imagem é um recorte contemporâneo, não um documento do período colonial.",
+      "objetivoIds": [
+        "patrimonio",
+        "saberes"
+      ]
+    },
+    {
       "id": "exemplo-vitalino-entalhe",
       "titulo": "Barro e madeira: Mestre Vitalino e a Ilha do Ferro",
       "tipo": "texto",
@@ -120,7 +131,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "azulejos-sao-luis",
+      "arquivo": "aulas/imagens/culturas-populares-patrimonio-azulejos-sao-luis.jpg",
+      "alt": "Detalhe de azulejos com padrão floral em azul, amarelo e verde, formando módulos repetidos, com falhas e remendos na parede.",
+      "legenda": "Azulejos do centro histórico de São Luís (MA), 2024; foto: Thuaia.",
+      "credito": "Thuaia; imagem: Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Azulejos_no_Centro_Hist%C3%B3rico_de_S%C3%A3o_Lu%C3%ADs.jpg",
+      "licenca": "CC BY-SA 4.0 — foto de Thuaia, via Wikimedia Commons.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "IPHAN — patrimônio cultural",

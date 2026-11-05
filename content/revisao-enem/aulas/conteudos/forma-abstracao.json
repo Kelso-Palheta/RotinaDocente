@@ -48,6 +48,17 @@
       ]
     },
     {
+      "id": "imagem-kandinsky",
+      "titulo": "Leitura guiada: ritmo e tensão em Composição VII",
+      "tipo": "imagem",
+      "imagemId": "kandinsky-composicao-vii",
+      "texto": "Em “Composição VII”, não há um objeto central a ser identificado. Observe as manchas de vermelho, azul, amarelo e verde, as linhas negras que atravessam a tela e as formas circulares que se repetem em escalas diferentes. O olho é puxado de um canto a outro, sem repouso: a composição cria ritmo e tensão por meio de contrastes de cor, direção e densidade. Repare que o vazio também participa, deixando respirar algumas áreas. Que percurso seu olhar faz pela tela e onde ele encontra pausa? A obra pede leitura formal, não a busca de uma figura escondida.",
+      "objetivoIds": [
+        "abstracao",
+        "leitura-formal"
+      ]
+    },
+    {
       "id": "exemplo-brasil",
       "titulo": "Amílcar de Castro e o corte-dobra",
       "tipo": "texto",
@@ -89,7 +100,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "kandinsky-composicao-vii",
+      "arquivo": "aulas/imagens/forma-abstracao-kandinsky-composicao-vii.jpg",
+      "alt": "Pintura abstrata densa, com manchas e linhas coloridas em vermelho, azul, amarelo e verde, formas circulares e traços negros sobre fundo claro.",
+      "legenda": "Wassily Kandinsky, Composição VII, 1913, óleo sobre tela, Galeria Tretyakov, Moscou.",
+      "credito": "Wassily Kandinsky; imagem: Google Arts & Culture / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Composition_VII_-_Wassily_Kandinsky,_GAC.jpg",
+      "licenca": "Domínio público — obra de Wassily Kandinsky; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — arte abstrata",

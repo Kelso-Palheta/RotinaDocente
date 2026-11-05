@@ -39,6 +39,18 @@
       ]
     },
     {
+      "id": "imagem-esquema-afro",
+      "titulo": "Leitura guiada: matrizes em relação",
+      "tipo": "imagem",
+      "imagemId": "esquema-matrizes",
+      "texto": "Observe o esquema: arte afro-brasileira aparece no centro, ligada a matrizes africanas, invenção, religião, memória, território e resistência. Repare que os suportes listados — barro, tecido, som, corpo, parede, fotografia e vídeo — não pertencem a um único estilo nem a uma única época. A faixa inferior adverte que não há uma matriz nem uma identidade únicas: artistas e obras pedem contexto histórico, não rótulos prontos. Compare uma escultura de Rubem Valentim com a costura de Rosana Paulino: ambas reelaboram matrizes, mas com materiais, escalas e estratégias diferentes. Pergunte: que história o material carrega e que gesto artístico transforma a memória em forma? O esquema é autoral e não reproduz obras; serve para mapear relações sem folclorizar.",
+      "objetivoIds": [
+        "matrizes",
+        "resistencia",
+        "suporte"
+      ]
+    },
+    {
       "id": "exemplo-valentim",
       "titulo": "Rubem Valentim e o emblema",
       "tipo": "texto",
@@ -101,7 +113,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-matrizes",
+      "arquivo": "aulas/imagens/arte-afro-brasileira-esquema-matrizes.png",
+      "alt": "Esquema autoral com arte afro-brasileira no centro, ligada a matrizes africanas, invenção, religião, memória, território e resistência, além de uma lista de suportes.",
+      "legenda": "Esquema autoral sobre arte afro-brasileira: matrizes, memória, resistência, invenção e suportes.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: arte afro-brasileira, memória e resistência.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Cultura_afro-brasileira",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Museu Afro Brasil — arte afro-brasileira",

@@ -38,6 +38,17 @@
       ]
     },
     {
+      "id": "imagem-esquema-palcos",
+      "titulo": "Leitura guiada: o que muda quando o palco muda",
+      "tipo": "imagem",
+      "imagemId": "esquema-palcos",
+      "texto": "Observe a comparação entre o palco italiano e a arena ou rua. No palco italiano, a cena fica separada da plateia pelo procênio e pela convenção da quarta parede; na arena, o público rodeia a cena e a proximidade muda a escala do gesto, da voz e do olhar. Repare que o esquema não declara um formato superior: ele pergunta o que cada disposição torna visível e o que ela esconde. A faixa inferior relaciona visibilidade, corpo e interculturalidade, lembrando que formas asiáticas, africanas e latino-americanas não são decoração, mas dramaturgias. Compare uma cena frontal com uma cena de rua: quem pode olhar para quem? Pergunte como a escolha do espaço interfere na experiência política do espectador. O esquema é autoral e não reproduz um espetáculo.",
+      "objetivoIds": [
+        "espaco",
+        "ruptura-cenica"
+      ]
+    },
+    {
       "id": "exemplo-rua",
       "titulo": "Teatro de rua e ocupação do espaço",
       "tipo": "texto",
@@ -109,7 +120,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-palcos",
+      "arquivo": "aulas/imagens/teatro-moderno-contemporaneo-esquema-palcos.png",
+      "alt": "Esquema autoral comparando palco italiano, com plateia de um lado e quarta parede, a arena ou rua, com público ao redor, além de notas sobre visibilidade, corpo e interculturalidade.",
+      "legenda": "Esquema autoral sobre teatro moderno: palco italiano, arena/rua e os efeitos da mudança espacial.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: teatro moderno e espaço cênico.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Teatro",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "SP Escola de Teatro — artes cênicas",

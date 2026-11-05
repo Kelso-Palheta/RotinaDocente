@@ -79,6 +79,17 @@
       ]
     },
     {
+      "id": "imagem-chartres",
+      "titulo": "Leitura guiada: a catedral como obra coletiva",
+      "tipo": "imagem",
+      "imagemId": "chartres-fachada",
+      "texto": "Observe a fachada ocidental de Chartres: duas torres desiguais, um rosetão central, três portais com esculturas e uma praça com visitantes. Repare que as torres não foram construídas no mesmo momento nem com o mesmo desenho; a catedral é um palimpsesto de campanhas, reformas e técnicas. A escala humana dos visitantes ajuda a medir a empresa coletiva: pedreiros, escultores, vidraceiros, carroceiros e financiadores participaram de uma obra que atravessou gerações. Compare a imagem com a tese de Duby sobre a sociedade agrária: a cidade que ergue a catedral depende do excedente do campo. Pergunte: que trabalho e que recursos uma obra dessas exige, e quem aparece nas arquivoltas? A foto mostra o monumento pronto, mas não o canteiro, os conflitos e a base material que o tornaram possível.",
+      "objetivoIds": [
+        "funcao-social",
+        "campo-artistico"
+      ]
+    },
+    {
       "id": "equivocos",
       "titulo": "O que a relação arte-sociedade não é",
       "tipo": "texto",
@@ -101,7 +112,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "chartres-fachada",
+      "arquivo": "aulas/imagens/arte-sociedade-sistema-chartres-fachada.jpg",
+      "alt": "Fachada ocidental de uma catedral gótica com duas torres desiguais, rosetão central, três portais esculpidos e visitantes na praça.",
+      "legenda": "Catedral de Chartres, fachada ocidental, França; foto: Dcconsta, 2013.",
+      "credito": "Foto: Dcconsta; imagem: Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Chartres_cathedral_(West_fa%C3%A7ade).jpg",
+      "licenca": "CC BY-SA 3.0 — foto de Dcconsta, via Wikimedia Commons.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — arte e política",

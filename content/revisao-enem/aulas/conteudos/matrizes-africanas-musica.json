@@ -49,6 +49,17 @@
       ]
     },
     {
+      "id": "imagem-kalimba",
+      "titulo": "Leitura guiada: a kalimba e a matéria do som",
+      "tipo": "imagem",
+      "imagemId": "kalimba-museu",
+      "texto": "Observe a kalimba: lâminas metálicas presas a uma placa de madeira, montada sobre uma cabaça que funciona como caixa de ressonância. Repare nas incisões geométricas da madeira e no formato arredondado da cabaça; cada detalhe participa do som e da identidade do instrumento. A peça pertence ao acervo do Museu Real da África Central, em Tervuren, e não traz na ficha uma atribuição a um povo específico: isso deve nos tornar prudentes contra generalizações sobre “a música africana”. Compare a kalimba com o atabaque e o agogô: são instrumentos diversos, com histórias e funções próprias. Pergunte: como o material e a técnica influenciam o timbre e o modo de tocar? A imagem ajuda a observar o instrumento, mas não substitui a escuta nem o contexto ritual ou festivo.",
+      "objetivoIds": [
+        "africanias",
+        "ritmo"
+      ]
+    },
+    {
       "id": "exemplo-pixinguinha",
       "titulo": "Pixinguinha e a canção de terreiro",
       "tipo": "texto",
@@ -90,7 +101,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "kalimba-museu",
+      "arquivo": "aulas/imagens/matrizes-africanas-musica-kalimba.jpg",
+      "alt": "Kalimba com lâminas metálicas sobre placa de madeira e ressonador de cabaça, com incisões geométricas, sobre fundo neutro.",
+      "legenda": "Kalimba (lamelofone) com ressonador de cabaça, acervo do Museu Real da África Central, Tervuren.",
+      "credito": "Foto: Daderot; acervo: Museu Real da África Central / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Kalimba_-_Royal_Museum_for_Central_Africa_-_DSC07093.JPG",
+      "licenca": "CC0 — foto de Daderot, via Wikimedia Commons; objeto de acervo museológico.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Smithsonian Folkways — música e tradições",

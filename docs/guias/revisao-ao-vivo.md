@@ -38,4 +38,6 @@ Defina uma quantidade exata de 1–20 questões, escolha/reordene os itens compa
 
 Na sala nova, o professor avança ou volta pelos blocos da introdução. Todos acompanham o mesmo bloco. Apenas no último bloco é possível abrir o desafio. Depois de cada pergunta: tempo encerrado → Mostrar Feedback → Mostrar Ranking/pódio → Iniciar próxima questão. Essa última ação já inicia o cronômetro da próxima pergunta; não repete a introdução. O pódio é acumulado e respeita empates. Salas antigas mantêm o funcionamento anterior.
 
-As 34 aulas iniciais continuam em rascunho para conferência docente; somente duas têm imagem nesta entrega. Revise a suficiência dos exemplos visuais e das referências antes de usar em aula. Dois vínculos sem cobertura suficiente ficaram pendentes; esses itens não são oferecidos automaticamente sob o tema errado. Bônus por velocidade permanece adiado.
+As 34 aulas iniciais continuam em rascunho para conferência docente; todas possuem exemplos visuais comentados (obras, registros ou esquemas autorais identificados). Revise a suficiência dos exemplos visuais e das referências antes de usar em aula. Dois vínculos sem cobertura suficiente ficaram pendentes; esses itens não são oferecidos automaticamente sob o tema errado. Bônus por velocidade permanece adiado.
+
+Nos blocos ilustrados, use **Ampliar imagem** para examinar detalhes ou esquemas. Créditos e links de fonte/licença acompanham a figura. A nova versão dos arquivos invalida conferências anteriores; confira novamente a aula antes de abrir outra sala.

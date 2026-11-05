@@ -57,6 +57,17 @@
       ]
     },
     {
+      "id": "imagem-callot",
+      "titulo": "Leitura guiada: personagens da commedia dell’arte",
+      "tipo": "imagem",
+      "imagemId": "callot-commedia",
+      "texto": "Observe a gravura: três figuras mascaradas ocupam a cena, com gestos exagerados, espada, cachimbo e instrumentos musicais. Repare nos corpos curvados, nos narizes e nos chapéus pontudos: são tipos da commedia dell’arte, recognoscíveis pelo público. A imagem foi impressa por Anthonie de Winter a partir de uma composição de Jacques Callot, o que mostra como esses personagens circularam pela Europa em gravuras, muito além do palco italiano. Compare a máscara fixa com a expressão de um ator contemporâneo: o que se ganha e o que se perde quando o rosto vira tipo? Pergunte: que gestos e objetos identificam cada personagem antes mesmo de qualquer fala? A legenda distingue o autor da composição e o gravador.",
+      "objetivoIds": [
+        "generos",
+        "leitura"
+      ]
+    },
+    {
       "id": "exemplo-brasil",
       "titulo": "O bem-amado e a sátira política",
       "tipo": "texto",
@@ -89,7 +100,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "callot-commedia",
+      "arquivo": "aulas/imagens/teatro-dramaturgia-callot-commedia.jpg",
+      "alt": "Gravura em preto e branco com três figuras mascaradas da commedia dell’arte, uma com espada e cachimbo, outra ao centro e outra com instrumento de corda.",
+      "legenda": "Anthonie de Winter, a partir de Jacques Callot, Fricasso, Mezzetino e Franca Trippa, série Personagens da commedia dell’arte, 1668-1707, gravura, Rijksmuseum.",
+      "credito": "Anthonie de Winter, após Jacques Callot; Rijksmuseum, Amsterdã.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Fricasso,_Mezzetino_en_Franca_Trippa_Fricasso_Metzetin_Franca_Trippa_(titel_op_object)_Personages_uit_de_commedia_dell%27arte_(serietitel),_RP-P-1903-A-24054EX.jpg",
+      "licenca": "CC0 — imagem disponibilizada pelo Rijksmuseum em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "SP Escola de Teatro — dramaturgia",

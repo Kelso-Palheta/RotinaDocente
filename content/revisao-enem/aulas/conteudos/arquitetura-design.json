@@ -49,6 +49,17 @@
       ]
     },
     {
+      "id": "imagem-alvorada",
+      "titulo": "Leitura guiada: leveza construída",
+      "tipo": "imagem",
+      "imagemId": "alvorada",
+      "texto": "Observe o Palácio da Alvorada: volumes brancos, uma longa galeria de vidro, a curva de um corpo lateral coroado por uma cruz e o gramado que separa o edifício da rua. Repare na horizontalidade, nas linhas repetidas das esquadrias e na integração com as árvores; a construção parece leve, mas depende de concreto, aço e cálculo estrutural. Compare a fachada aberta com a ideia de planta livre: o interior pode se organizar com poucas paredes, enquanto a estrutura aparece como forma. Pergunte: o que o edifício promete e como a cidade real cumpre ou não essa promessa? A imagem mostra a residência oficial vista de fora; não revela os trabalhadores que a construíram nem as cidades-satélites que cresceram longe do centro.",
+      "objetivoIds": [
+        "arquitetura-moderna",
+        "espaco"
+      ]
+    },
+    {
       "id": "exemplo-design",
       "titulo": "Sérgio Rodrigues e a cadeira brasileira",
       "tipo": "texto",
@@ -91,7 +102,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "alvorada",
+      "arquivo": "aulas/imagens/arquitetura-design-alvorada.jpg",
+      "alt": "Palácio modernista branco com galeria de vidro e colunas, volume curvo com cruz e amplo gramado arborizado em primeiro plano.",
+      "legenda": "Palácio da Alvorada, Brasília (DF), projeto de Oscar Niemeyer; foto: Arne Müseler, 2022.",
+      "credito": "Foto: Arne Müseler; imagem: Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Pal%C3%A1cio_da_Alvorada_brasilia.jpg",
+      "licenca": "CC BY-SA 3.0 DE — foto de Arne Müseler, via Wikimedia Commons.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "ArchDaily Brasil — arquitetura",

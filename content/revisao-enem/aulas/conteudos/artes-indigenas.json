@@ -39,6 +39,18 @@
       ]
     },
     {
+      "id": "imagem-esquema-indigena",
+      "titulo": "Leitura guiada: pluralidade, não bloco único",
+      "tipo": "imagem",
+      "imagemId": "esquema-pluralidade",
+      "texto": "Observe os quatro campos do esquema: grafismo, cosmologia, corpo e objeto, contemporaneidade. Repare que o grafismo aparece em corpos, cestos, cerâmica e tecidos, e que a cosmologia não é um tema separado da vida social: ela organiza parentesco, território e relações com outros seres. O esquema não reproduz padrões de um povo específico; ao contrário, alerta que cada grafismo tem autoria, contexto e circulação. Compare a ideia de “arte indígena” como bloco único com a pluralidade de povos e linguagens. Pergunte: quem fez, para quem, em que contexto e com que autorização? Essas perguntas valem tanto para uma peça de museu quanto para uma imagem que circula na internet. O esquema é autoral e serve para organizar a leitura, não para substituir o estudo de cada povo.",
+      "objetivoIds": [
+        "grafismos",
+        "cosmologia",
+        "contemporaneidade"
+      ]
+    },
+    {
       "id": "exemplo-kusiwa",
       "titulo": "Kusiwa: o desenho que ensina",
       "tipo": "texto",
@@ -91,7 +103,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-pluralidade",
+      "arquivo": "aulas/imagens/artes-indigenas-esquema-pluralidade.png",
+      "alt": "Esquema autoral com quatro campos — grafismo, cosmologia, corpo e objeto, contemporaneidade — e a advertência de que não existe uma arte indígena única.",
+      "legenda": "Esquema autoral sobre artes indígenas: grafismo, cosmologia, corpo/objeto e contemporaneidade, sem reproduzir padrões específicos.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: artes indígenas, grafismo e cosmologia.",
+      "fonteUrl": "https://www.gov.br/funai/pt-br/atuacao/povos-indigenas",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Museu do Índio — acervo e culturas indígenas",

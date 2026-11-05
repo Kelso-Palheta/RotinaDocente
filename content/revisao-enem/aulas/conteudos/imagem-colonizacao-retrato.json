@@ -47,6 +47,17 @@
       ]
     },
     {
+      "id": "imagem-eckhout",
+      "titulo": "Leitura guiada: o corpo observado de Eckhout",
+      "tipo": "imagem",
+      "imagemId": "eckhout-mulher-africana",
+      "texto": "Observe a mulher africana representada por Eckhout: ela está em pé, segura um cesto de frutas sobre a cabeça e aparece acompanhada de uma criança. As palmeiras, a paisagem e os objetos compõem um cenário de exibição, como se o corpo e a natureza fossem parte do mesmo inventário colonial. Repare no enquadramento frontal, na luz uniforme e na ausência de um nome próprio na legenda original. Pergunte: quem olha para quem nessa imagem e que detalhes foram escolhidos para tornar o corpo legível como “tipo”? A pintura não é um documento neutro; é uma construção de alteridade a serviço de um projeto de domínio.",
+      "objetivoIds": [
+        "olhar-colonial",
+        "retrato-exclusao"
+      ]
+    },
+    {
       "id": "exemplo-brasil",
       "titulo": "Portinari e a violência do descobrimento",
       "tipo": "texto",
@@ -88,7 +99,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "eckhout-mulher-africana",
+      "arquivo": "aulas/imagens/imagem-colonizacao-retrato-eckhout-mulher-africana.jpg",
+      "alt": "Pintura colonial com uma mulher negra em pé, segurando um cesto de frutas sobre a cabeça, acompanhada de uma criança nua, entre palmeiras e paisagem.",
+      "legenda": "Albert Eckhout, Mulher africana com criança, 1641, óleo sobre tela, Nationalmuseet, Copenhague.",
+      "credito": "Albert Eckhout; acervo: Nationalmuseet / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:African_woman_and_child,_1641,_Albert_Eckhout.jpg",
+      "licenca": "CC BY 4.0 — reprodução do Nationalmuseet via Wikimedia Commons; obra histórica em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "The British Museum — coleção",

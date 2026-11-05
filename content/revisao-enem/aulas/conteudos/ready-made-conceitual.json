@@ -47,6 +47,17 @@
       ]
     },
     {
+      "id": "imagem-esquema-ready-made",
+      "titulo": "Leitura guiada: do objeto ao debate",
+      "tipo": "imagem",
+      "imagemId": "esquema-deslocamento",
+      "texto": "Observe o esquema em quatro etapas: objeto comum, deslocamento, contexto e ideia. Repare que o ready-made não começa com uma habilidade manual excepcional, mas com uma escolha: retirar um objeto do uso cotidiano e colocá-lo diante de um público. A etapa do contexto é decisiva, pois são a exposição, o catálogo e a crítica que transformam o gesto em proposição artística. Compare a roda de bicicleta de Duchamp com um objeto industrial qualquer: o que muda não é a matéria, mas o enquadramento. Pergunte: que instituições e valores são colocados em questão quando um urinol entra no museu? O esquema é autoral e não reproduz a obra.",
+      "objetivoIds": [
+        "ready-made",
+        "arte-conceitual"
+      ]
+    },
+    {
       "id": "exemplo-kosuth",
       "titulo": "Kosuth: uma cadeira, uma foto, uma definição",
       "tipo": "texto",
@@ -99,7 +110,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-deslocamento",
+      "arquivo": "aulas/imagens/ready-made-conceitual-esquema-deslocamento.png",
+      "alt": "Esquema autoral em quatro etapas sobre ready-made: objeto comum, deslocamento, contexto institucional e ideia, com uma faixa sobre o que está em jogo.",
+      "legenda": "Esquema autoral sobre o ready-made: objeto comum, deslocamento, contexto e ideia, com pergunta de observação ao final.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Tate, Readymade.",
+      "fonteUrl": "https://www.tate.org.uk/art/art-terms/r/readymade",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Ready-made",

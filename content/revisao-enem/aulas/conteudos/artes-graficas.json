@@ -52,6 +52,18 @@
       ]
     },
     {
+      "id": "imagem-lucelia",
+      "titulo": "Leitura guiada: a xilogravura e a memória do cordel",
+      "tipo": "imagem",
+      "imagemId": "lucelia-borges-xilogravura",
+      "texto": "Observe a xilogravura de Lucélia Borges: quatro figuras femininas de gerações diferentes se sobrepõem no centro, como uma genealogia, enquanto folhas, espigas e grafismos geométricos fecham a composição em círculos concêntricos. Repare no contraste entre o preto denso e as linhas brancas da madeira; a imagem foi pensada para a capa de um cordel e precisa ser legível à distância. Compare essa capa com uma ilustração digital: a xilogravura carrega as marcas do corte e da matriz, e cada impressão pode variar. Pergunte: como a composição visual antecipa o universo da história e o que ela afirma sobre memória e ancestralidade? A legenda identifica a artista e o cordel.",
+      "objetivoIds": [
+        "gravura",
+        "cordel",
+        "ilustracao"
+      ]
+    },
+    {
       "id": "exemplo-ilustracao",
       "titulo": "Ilustração e crítica social",
       "tipo": "texto",
@@ -120,7 +132,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "lucelia-borges-xilogravura",
+      "arquivo": "aulas/imagens/artes-graficas-xilogravura-lucelia-borges.jpg",
+      "alt": "Xilogravura em preto e branco com quatro gerações de mulheres sobrepostas no centro, cercadas por folhas, espigas e um padrão geométrico circular.",
+      "legenda": "Lucélia Borges, xilogravura para o cordel Os Encantados tabajaras, de Auritha Tabajara, 2018, Sesc Folhetim.",
+      "credito": "Lucélia Borges; publicação: Sesc Folhetim / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Xilogravura_Luc%C3%A9lia_Borges.webp",
+      "licenca": "CC BY-SA 4.0 — xilogravura de Lucélia Borges, via Wikimedia Commons.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Library of Congress — gravura e impressos",

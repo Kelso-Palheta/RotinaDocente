@@ -254,5 +254,5 @@ Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 
 ## 05/11/2026 — Revisão temática: exemplos visuais em todas as aulas
 
-- [ ] RT-VIS-01: complementar as 32 aulas sem imagens e auditar as duas ilustradas; exemplos visuais pertinentes, leitura guiada e fixação, com fontes diretas/condições de uso/alt/legibilidade conferidos. Renderização já implementada; pacote de conteúdo para DeepSeek em `docs/plans/2026-11-05-prompt-deepseek-exemplos-visuais.md`.
-- [ ] Receber e revisar material/teste novo/relatório, verificar integridade e cobertura, publicar somente após validações. Manter rascunho até conferência docente. Não resolver antecipadamente questões nem ampliar para bônus por velocidade.
+- [x] RT-VIS-01: complementar as 32 aulas sem imagens e auditar as duas ilustradas; exemplos visuais pertinentes, leitura guiada e fixação, com fontes diretas/condições de uso/alt/legibilidade conferidos. Renderização já implementada; pacote de conteúdo para DeepSeek em `docs/plans/2026-11-05-prompt-deepseek-exemplos-visuais.md`.
+- [x] Receber e revisar material/teste novo/relatório, verificar integridade e cobertura, publicar somente após validações. Manter rascunho até conferência docente. Não resolver antecipadamente questões nem ampliar para bônus por velocidade.

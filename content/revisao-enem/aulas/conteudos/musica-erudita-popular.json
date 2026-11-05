@@ -39,6 +39,17 @@
       ]
     },
     {
+      "id": "imagem-esquema-fronteira",
+      "titulo": "Leitura guiada: uma fronteira com passagens",
+      "tipo": "imagem",
+      "imagemId": "esquema-fronteira",
+      "texto": "Observe o esquema: dois campos, música de concerto e música popular, aparecem separados por uma zona de contato. Repare que as diferenças apontadas não são de essência, mas de instituições, transmissão e valor: conservatório, partitura e sala de concerto de um lado; oralidade, festa e mercado de outro. A zona central lista arranjo, citação, sampling, improviso e orquestração, procedimentos que atravessam a fronteira. Compare uma obra orquestral com um arranjo popular: os mesmos parâmetros de melodia, ritmo, timbre e forma podem ser reorganizados. Pergunte: o que se ganha e o que se perde quando uma música muda de espaço e de público? O esquema é autoral e não reproduz obra existente; serve para discutir hierarquias historicamente construídas.",
+      "objetivoIds": [
+        "erudito-popular",
+        "circulacao"
+      ]
+    },
+    {
       "id": "exemplo-cage",
       "titulo": "John Cage e a pergunta 'o que é música?'",
       "tipo": "texto",
@@ -121,7 +132,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-fronteira",
+      "arquivo": "aulas/imagens/musica-erudita-popular-esquema-fronteira.png",
+      "alt": "Esquema autoral com dois campos, música de concerto e música popular, separados por uma zona de contato com arranjo, citação, sampling, improviso e orquestração.",
+      "legenda": "Esquema autoral sobre a fronteira entre música erudita e popular, com zona de contato e procedimentos partilhados.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: música erudita e popular, mediação e hierarquias.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/M%C3%BAsica_erudita",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Carnegie Hall — história da música",

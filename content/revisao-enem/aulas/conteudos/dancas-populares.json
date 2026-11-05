@@ -59,6 +59,17 @@
       ]
     },
     {
+      "id": "imagem-frevo",
+      "titulo": "Leitura guiada: o frevo ocupa a rua",
+      "tipo": "imagem",
+      "imagemId": "frevo-olinda",
+      "texto": "Observe os passistas de frevo na rua: os braços erguidos, as sombrinhas coloridas, as roupas brilhantes e as pernas em movimento ocupam o espaço público. Ao fundo, a igreja colonial e os sobrados lembram que a festa acontece em uma cidade histórica, e não em um palco isolado. Repare que a fotografia foi feita durante o carnaval de Olinda, em 2009: ela registra uma prática viva, sujeita a mudanças, e não uma tradição imóvel. Compare a energia dos corpos com a ideia de “folclore” como algo distante ou exótico. Pergunte: o que a rua e a arquitetura acrescentam à compreensão do frevo como patrimônio? A imagem mostra o espetáculo, mas não os ensaios, a comunidade e as desigualdades que sustentam a festa.",
+      "objetivoIds": [
+        "quadrilha-frevo",
+        "corpo-comunidade"
+      ]
+    },
+    {
       "id": "exemplo-indigena",
       "titulo": "Dança indígena e ancestralidade",
       "tipo": "texto",
@@ -100,7 +111,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "frevo-olinda",
+      "arquivo": "aulas/imagens/dancas-populares-frevo-olinda.jpg",
+      "alt": "Passistas de frevo em rua de paralelepípedos, com roupas coloridas e sombrinhas erguidas, diante de uma igreja colonial.",
+      "legenda": "Passistas de frevo durante o carnaval em Olinda (PE), 2009; foto: Prefeitura de Olinda.",
+      "credito": "Prefeitura de Olinda; imagem: Flickr / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Frevo_dancers_-_Olinda,_Pernambuco,_Brazil.jpg",
+      "licenca": "CC BY 2.0 — foto da Prefeitura de Olinda, via Wikimedia Commons.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "IPHAN — patrimônio imaterial",

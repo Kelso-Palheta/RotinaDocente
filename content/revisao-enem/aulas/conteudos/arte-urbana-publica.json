@@ -39,6 +39,18 @@
       ]
     },
     {
+      "id": "imagem-esquema-urbana",
+      "titulo": "Leitura guiada: o muro como suporte e conflito",
+      "tipo": "imagem",
+      "imagemId": "esquema-muro",
+      "texto": "Observe o esquema: um muro reúne grafite, stencil, cartaz e pichação, enquanto etiquetas laterais lembram suporte, escala, visibilidade, tempo e comunidade. Repare que a mesma parede pode ser linguagem artística, território e publicidade, dependendo de quem pinta, quem autoriza e quem olha. Compare o grafite com a pichação: as duas marcam o espaço, mas têm histórias, códigos e recepções diferentes; não são sinônimos. Pergunte: quem tem direito de intervir na cidade e quem decide o que é arte ou vandalismo? Note também que a valorização de uma intervenção pode encarecer o bairro e expulsar moradores. O esquema é autoral.",
+      "objetivoIds": [
+        "grafite",
+        "espaco-publico",
+        "memoria-urbana"
+      ]
+    },
+    {
       "id": "exemplo-speto",
       "titulo": "Speto e a xilogravura na rua",
       "tipo": "texto",
@@ -121,7 +133,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-muro",
+      "arquivo": "aulas/imagens/arte-urbana-publica-esquema-muro.png",
+      "alt": "Esquema autoral com muro no qual aparecem grafite, stencil, cartaz e pichação, acompanhado de etiquetas sobre suporte, escala, tempo e comunidade.",
+      "legenda": "Esquema autoral sobre arte urbana: muro com grafite, stencil, cartaz e pichação, e categorias de leitura do espaço público.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Tate, Street art.",
+      "fonteUrl": "https://www.tate.org.uk/art/art-terms/s/street-art",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Street art",

@@ -88,6 +88,11 @@ export function publicarTematico(base, s, congelada) {
             alt: i.alt,
             legenda: i.legenda,
             licenca: i.licenca,
+            credito: i.credito || "",
+            fonteUrl: i.fonteUrl || null,
+            licencaUrl: i.licencaUrl || null,
+            autorUrl: i.autorUrl || null,
+            alteracoes: i.alteracoes || null,
           }))
       : [];
   p.rodada = { ...p.rodada, questao: null, conteudo: [] };

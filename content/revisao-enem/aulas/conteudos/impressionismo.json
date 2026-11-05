@@ -40,7 +40,7 @@
       "id": "imagem-sisley",
       "titulo": "Leitura guiada: a estrada e a luz",
       "tipo": "imagem",
-      "texto": "Na tela de Alfred Sisley, observe a estrada que atravessa a paisagem, as árvores laterais e o céu claro. As pinceladas curtas constroem a poeira, a grama e as folhas; as sombras não são pretas, mas coloridas. O quadro não conta uma história heroica: mostra um caminho comum em um dia específico. Ao ler uma obra assim, pergunte onde está a fonte de luz, como as cores se repetem e se contrastam, e que sensação de tempo o registro produz.",
+      "texto": "Na tela de Alfred Sisley, observe a estrada que atravessa a paisagem, as árvores laterais e o céu claro. As pinceladas curtas constroem a poeira, a grama e as folhas; as sombras não são pretas, mas coloridas. O quadro não conta uma história heroica: mostra um caminho comum em um dia específico. Ao ler uma obra assim, pergunte: onde está a fonte de luz? Como as cores se repetem e se contrastam? Que sensação de tempo o registro produz?",
       "objetivoIds": [
         "luz",
         "cena-moderna"
@@ -95,7 +95,8 @@
       "alt": "Paisagem com uma estrada de terra ladeada por árvores, céu claro e pinceladas curtas.",
       "legenda": "Alfred Sisley, A estrada de Versalhes a Louveciennes, provavelmente 1879, óleo sobre tela, The Metropolitan Museum of Art.",
       "fonteUrl": "https://www.metmuseum.org/art/collection/search/437685",
-      "licenca": "Domínio público — The Met Open Access."
+      "licenca": "Domínio público — The Met Open Access.",
+      "credito": "Alfred Sisley; The Metropolitan Museum of Art."
     }
   ],
   "fontes": [

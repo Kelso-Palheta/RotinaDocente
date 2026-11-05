@@ -37,6 +37,17 @@
       ]
     },
     {
+      "id": "imagem-munch",
+      "titulo": "Leitura guiada: o grito e a paisagem ondulada",
+      "tipo": "imagem",
+      "imagemId": "munch-o-grito",
+      "texto": "Em “O Grito”, uma figura de rosto oval leva as mãos às orelhas, enquanto o céu se ondula em faixas de laranja, vermelho e amarelo e a água escura se contorce. A ponte diagonal organiza o espaço e conduz o olhar para a figura; ao fundo, duas silhuetas caminham sem reagir. Observe como as linhas curvas do ambiente parecem contaminar o corpo e como as cores intensificam a angústia. A deformação não é falta de habilidade: é linguagem. Que relação a obra estabelece entre o indivíduo e a paisagem? O grito parece vir da figura ou do mundo ao redor?",
+      "objetivoIds": [
+        "expressao",
+        "contexto-seculo-xx"
+      ]
+    },
+    {
       "id": "goeldi",
       "titulo": "Goeldi e a gravura como drama",
       "tipo": "texto",
@@ -97,7 +108,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "munch-o-grito",
+      "arquivo": "aulas/imagens/expressionismo-figurativismo-munch-o-grito.jpg",
+      "alt": "Figura humana de rosto oval e mãos junto ao rosto, em uma ponte diagonal, sob céu ondulado em tons de laranja e vermelho e água azul-escura.",
+      "legenda": "Edvard Munch, O Grito, 1893, óleo, têmpera e pastel sobre cartão, Galeria Nacional da Noruega, Oslo.",
+      "credito": "Edvard Munch; imagem: Galeria Nacional da Noruega / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Edvard_Munch,_1893,_The_Scream,_oil,_tempera_and_pastel_on_cardboard,_91_x_73_cm,_National_Gallery_of_Norway.jpg",
+      "licenca": "Domínio público — obra de Edvard Munch; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Expressionismo e arte moderna",

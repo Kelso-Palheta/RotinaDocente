@@ -38,6 +38,16 @@
       ]
     },
     {
+      "id": "imagem-esquema-montagem",
+      "titulo": "Leitura guiada: a imagem ganha tempo",
+      "tipo": "imagem",
+      "imagemId": "esquema-montagem",
+      "texto": "Observe o esquema: quatro quadros isolam o plano geral, o plano próximo, o fora de campo e a montagem. Repare que o plano geral situa o espaço, o plano próximo constrói o olhar e o fora de campo indica o que não vemos; a montagem, por sua vez, nasce da relação entre planos, não de uma imagem única. A faixa inferior acrescenta a cadeia roteiro, decupagem, filmagem, montagem, som e tela, lembrando que o sentido se decide em várias etapas. Compare o peso do fora de campo com o da trilha sonora: ambos orientam a expectativa do espectador. Pergunte: o que a cena sugere quando esconde um corpo ou um som? O esquema é autoral e não reproduz um filme; serve para treinar a leitura da linguagem audiovisual.",
+      "objetivoIds": [
+        "linguagem-audiovisual"
+      ]
+    },
+    {
       "id": "exemplo-cinema",
       "titulo": "Son of Saul e o horror fora de quadro",
       "tipo": "texto",
@@ -90,7 +100,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-montagem",
+      "arquivo": "aulas/imagens/comunicacao-visual-audiovisual-esquema-montagem.png",
+      "alt": "Esquema autoral com quatro quadros — plano geral, plano próximo, fora de campo e montagem — e a cadeia roteiro, decupagem, filmagem, montagem, som e tela.",
+      "legenda": "Esquema autoral sobre linguagem audiovisual: tipos de plano, fora de campo, montagem e cadeia de produção.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: linguagem audiovisual e montagem.",
+      "fonteUrl": "https://pt.wikipedia.org/wiki/Montagem",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "British Film Institute — cinema e televisão",

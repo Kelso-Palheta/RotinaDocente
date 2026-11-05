@@ -38,6 +38,17 @@
       ]
     },
     {
+      "id": "imagem-esquema-instalacao",
+      "titulo": "Leitura guiada: a sala como percurso",
+      "tipo": "imagem",
+      "imagemId": "esquema-planta",
+      "texto": "Observe a planta do esquema: volumes, tecido, água, estrutura e uma linha de percurso organizam a sala. Repare que a obra não é a soma dos objetos, mas o arranjo entre eles, a entrada, a escala e a luz. Compare uma instalação com uma escultura vista de fora: aqui, o visitante precisa caminhar, contornar e decidir por onde passar. Pergunte: que percurso a obra impõe e o que ele faz sentir? Note que materiais simples podem criar ambientes acolhedores ou desconfortáveis. O esquema é autoral e não reproduz uma instalação existente; serve para treinar a leitura espacial.",
+      "objetivoIds": [
+        "instalacao",
+        "materiais"
+      ]
+    },
+    {
       "id": "exemplo-ernesto",
       "titulo": "Ernesto Neto e a arquitetura do toque",
       "tipo": "texto",
@@ -101,7 +112,17 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "esquema-planta",
+      "arquivo": "aulas/imagens/instalacao-materiais-esquema-planta.png",
+      "alt": "Esquema autoral com planta de sala, objetos, percurso do visitante e etiquetas sobre escala, material, luz, som e site-specific.",
+      "legenda": "Esquema autoral sobre instalação: planta de sala, objetos, percurso do visitante e categorias de leitura espacial.",
+      "credito": "Esquema autoral da equipe editorial; referência conceitual: Tate, Installation art.",
+      "fonteUrl": "https://www.tate.org.uk/art/art-terms/i/installation-art",
+      "licenca": "Esquema autoral original; uso educacional nesta plataforma."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Tate — Instalação",

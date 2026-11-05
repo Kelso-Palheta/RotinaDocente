@@ -58,6 +58,17 @@
       ]
     },
     {
+      "id": "imagem-violeiro",
+      "titulo": "Leitura guiada: a viola e a cena rural",
+      "tipo": "imagem",
+      "imagemId": "almeida-junior-violeiro",
+      "texto": "Observe a cena de Almeida Júnior: um homem sentado no parapeito de uma janela toca um instrumento de cordas enquanto uma mulher, de pé, o escuta. Repare na parede de taipa, na moldura de madeira e na luz que incide sobre os corpos; a pintura constrói uma cena rural idealizada, não um documento etnográfico. O título, “O Violeiro”, e a data de 1899 ajudam a situar o interesse acadêmico pela cultura popular no fim do século XIX. Compare a viola da pintura com a viola caipira descrita na aula: o instrumento, o repertório e o modo de tocar mudam conforme a comunidade. Pergunte: o que a escuta da mulher sugere sobre a circulação da música e quem aparece como público nessa imagem? A obra não prova como a música soava; ela mostra como um artista imaginou essa prática.",
+      "objetivoIds": [
+        "instrumentos",
+        "ritmos-regionais"
+      ]
+    },
+    {
       "id": "exemplo-mangue",
       "titulo": "Manguebeat e a mistura de referências",
       "tipo": "texto",
@@ -120,7 +131,18 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "almeida-junior-violeiro",
+      "arquivo": "aulas/imagens/musica-popular-regional-almeida-junior-violeiro.jpg",
+      "alt": "Pintura com um homem sentado no parapeito de uma janela tocando um instrumento de cordas diante de uma mulher que o escuta.",
+      "legenda": "Almeida Júnior, O Violeiro, 1899, óleo sobre tela, Pinacoteca do Estado de São Paulo.",
+      "credito": "Almeida Júnior; imagem: Google Art Project / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Almeida_J%C3%BAnior_-_O_Violeiro_(1899).jpg",
+      "licenca": "Domínio público — obra de Almeida Júnior; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Smithsonian Folkways — música brasileira",

@@ -51,6 +51,16 @@
       ]
     },
     {
+      "id": "imagem-piero",
+      "titulo": "Leitura guiada: o perfil idealizado de Battista Sforza",
+      "tipo": "imagem",
+      "imagemId": "piero-battista-sforza",
+      "texto": "Observe o perfil de Battista Sforza: o rosto aparece de lado, sem que vejamos os dois olhos, e o contorno nítido separa a figura da paisagem. O toucado alto, o colar de pérolas e o tecido bordado exibem riqueza e posição social. A pele clara e a expressão serena aproximam a retratada de um modelo de beleza contido, não de uma pessoa comum surpreendida em movimento. Compare esse perfil com um retrato fotográfico contemporâneo: o que a pose escolhida esconde e o que ela afirma sobre poder? A pintura idealiza ao selecionar traços e ao organizar o corpo para durar como imagem pública.",
+      "objetivoIds": [
+        "idealizacao"
+      ]
+    },
+    {
       "id": "exemplo-atelie",
       "titulo": "A oficina antes da assinatura",
       "tipo": "texto",
@@ -64,6 +74,16 @@
       "titulo": "Quando a proporção começa a torcer",
       "tipo": "texto",
       "texto": "No Maneirismo, artistas como El Greco alongam corpos, comprimem espaços e usam cores ácidas para criar tensão espiritual. Não se trata de 'erro' de desenho, mas de uma escolha expressiva que rompe com a serenidade renascentista. Em 'Laocoonte', o corpo se contorce, as proporções se esticam e o drama ocupa a cena. Comparar uma figura maneirista com uma renascentista ajuda a perceber que a regra clássica não desaparece: ela é citada e deformada de propósito.",
+      "objetivoIds": [
+        "maneirismo"
+      ]
+    },
+    {
+      "id": "imagem-el-greco",
+      "titulo": "Leitura guiada: o corpo que se torce em Laocoonte",
+      "tipo": "imagem",
+      "imagemId": "el-greco-laocoonte",
+      "texto": "Em “Laocoonte”, El Greco mostra corpos nus alongados, contorcidos e comprimidos em primeiro plano, enquanto a cidade de Toledo aparece ao fundo sob um céu tempestuoso. A serpente atravessa a cena e liga as figuras; os gestos não se organizam em equilíbrio sereno, mas em tensão. Repare nas proporções esticadas, nas cores ácidas e no espaço instável: são escolhas maneiristas, não erros de desenho. Compare a serenidade do retrato de Battista Sforza com o drama desta tela. Que efeito a distorção produz sobre quem olha? Aqui, a regra clássica é citada para ser deformada de propósito.",
       "objetivoIds": [
         "maneirismo"
       ]
@@ -100,7 +120,28 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "piero-battista-sforza",
+      "arquivo": "aulas/imagens/tradicao-academica-piero-duques.jpg",
+      "alt": "Retrato renascentista de perfil de uma mulher loura com toucado ornamentado, colar de pérolas, vestido escuro e paisagem ao fundo.",
+      "legenda": "Piero della Francesca, Retrato de Battista Sforza (painel do díptico dos duques de Urbino), c. 1467-1472, têmpera sobre madeira, Galleria degli Uffizi.",
+      "credito": "Piero della Francesca; imagem: Google Arts & Culture / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Piero_della_Francesca_-_Portraits_of_the_Duke_and_Duchess_of_Urbino,_Federico_da_Montefeltro_and_Battista_Sforza_-_Google_Art_Project.jpg",
+      "licenca": "Domínio público — obra de Piero della Francesca; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    },
+    {
+      "id": "el-greco-laocoonte",
+      "arquivo": "aulas/imagens/tradicao-academica-el-greco-laocoonte.jpg",
+      "alt": "Pintura maneirista com corpos nus contorcidos, um ancião no centro e uma serpente, diante de uma cidade e de um céu tempestuoso.",
+      "legenda": "El Greco, Laocoonte, c. 1610-1614, óleo sobre tela, National Gallery of Art, Washington.",
+      "credito": "El Greco; imagem: Google Arts & Culture / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:El_Greco_(Domenikos_Theotokopoulos)_-_Laoco%C3%B6n_-_Google_Art_Project.jpg",
+      "licenca": "Domínio público — obra de El Greco; reprodução em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "Musée du Louvre — coleções e história das artes",

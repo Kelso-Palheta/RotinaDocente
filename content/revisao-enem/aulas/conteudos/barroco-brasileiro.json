@@ -46,12 +46,34 @@
       ]
     },
     {
+      "id": "imagem-aleijadinho",
+      "titulo": "Leitura guiada: o Profeta Jonas no adro",
+      "tipo": "imagem",
+      "imagemId": "aleijadinho-jonas",
+      "texto": "Observe a escultura de Jonas vista de baixo, contra o céu: o corpo se inclina, o manto cria dobras profundas e o olhar se dirige para fora do enquadramento. A pedra-sabão permite superfícies detalhadas, mas o efeito monumental depende da posição no adro e da relação com os outros profetas. Note como a luz do dia recorta o volume e como a figura parece prestes a se mover. Pergunte: que percurso o visitante faz para ver o conjunto e como essa escala o coloca diante do sagrado? A obra articula modelo erudito, oficina e experiência devocional ao ar livre.",
+      "objetivoIds": [
+        "aleijadinho",
+        "barroco-mineiro"
+      ]
+    },
+    {
       "id": "ataide",
       "titulo": "Mestre Ataíde e a pintura que localiza o sagrado",
       "tipo": "texto",
       "texto": "Manuel da Costa Ataíde pintou forros e painéis em igrejas mineiras, como a Igreja de São Francisco de Assis, em Ouro Preto. Suas composições partem de modelos religiosos europeus, mas incorporam figuras, tons e soluções locais. Em 'Coroação de Nossa Senhora', a Virgem e os anjos aparecem em um céu festivo, com rostos e cores que podem remeter à população mestiça da região. Isso não significa afirmar uma 'pureza' brasileira, e sim perceber como a arte sacra se torna um lugar de encontro e tradução cultural.",
       "objetivoIds": [
         "ataide"
+      ]
+    },
+    {
+      "id": "imagem-ataide",
+      "titulo": "Leitura guiada: a Última Ceia de Ataíde",
+      "tipo": "imagem",
+      "imagemId": "ataide-ceia",
+      "texto": "Na “Última Ceia”, Cristo ocupa o centro de uma longa mesa, ladeado por discípulos em gestos variados. Observe a perspectiva do teto, a luz que incide sobre os corpos e a profusão de alimentos, tecidos e cores quentes. A cena religiosa ganha um ambiente local: rostos, tons e objetos aproximam o sagrado da experiência devocional do ambiente em que foi exposta. Repare em como o olhar é conduzido para o centro e para os gestos de partilha. Compare essa composição com uma pintura europeia do mesmo tema: o que foi mantido e o que foi traduzido? A obra mostra que a arte sacra também é negociação cultural.",
+      "objetivoIds": [
+        "ataide",
+        "barroco-mineiro"
       ]
     },
     {
@@ -86,7 +108,30 @@
       ]
     }
   ],
-  "imagens": [],
+  "imagens": [
+    {
+      "id": "aleijadinho-jonas",
+      "arquivo": "aulas/imagens/barroco-brasileiro-aleijadinho-jonas.jpg",
+      "alt": "Escultura em pedra-sabão de um profeta barbado, com manto e livro, vista de baixo contra o céu azul, no adro de uma igreja.",
+      "legenda": "Aleijadinho e oficina, Profeta Jonas, 1800-1805, pedra-sabão, Santuário do Bom Jesus de Matosinhos, Congonhas (MG).",
+      "credito": "Escultura: Aleijadinho e oficina; fotografia: © Martin Thurnherr.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Aleijadinho_Santuario_Jonas_01.jpg",
+      "licenca": "Fotografia: CC BY-SA 4.0; escultura em domínio público.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem.",
+      "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "autorUrl": "https://meta.wikimedia.org/wiki/User:Martin_Thurnherr"
+    },
+    {
+      "id": "ataide-ceia",
+      "arquivo": "aulas/imagens/barroco-brasileiro-ataide-ceia.jpg",
+      "alt": "Pintura sacra com Cristo ao centro de uma longa mesa, discípulos em ambos os lados, alimentos sobre a mesa e arquitetura ao fundo.",
+      "legenda": "Manuel da Costa Ataíde, A Última Ceia, 1828, Colégio do Caraça (MG).",
+      "credito": "Manuel da Costa Ataíde; foto: Pedro Caetano / Wikimedia Commons.",
+      "fonteUrl": "https://commons.wikimedia.org/wiki/File:Ceia_mestre_ataide.JPG",
+      "licenca": "Domínio público — pintura e fotografia em domínio público, conforme Wikimedia Commons.",
+      "alteracoes": "Arquivo otimizado para exibição, sem alteração artística da imagem."
+    }
+  ],
   "fontes": [
     {
       "titulo": "IPHAN — patrimônio cultural brasileiro",
@@ -101,6 +146,11 @@
     {
       "titulo": "Museu de Congonhas — Santuário do Bom Jesus de Matosinhos",
       "url": "https://www.museudecongonhas.org.br/",
+      "consultadoEm": "2026-11-05"
+    },
+    {
+      "titulo": "Província Brasileira da Congregação da Missão — Última Ceia do Caraça (Informativo 312)",
+      "url": "https://www.pbcm.org.br/documentos/221020-139B2r7tPJdtz.pdf",
       "consultadoEm": "2026-11-05"
     }
   ],
