@@ -86,7 +86,7 @@ export default function Dashboard() {
   const provAtivo = config?.provider ? AIProviders[config.provider] : null;
 
   return (
-    <div className="min-h-screen bg-[#f3edff] text-[#25104a] font-sans flex flex-col selection:bg-[#6315d9] selection:text-white">
+    <div className="min-h-screen bg-[#fffdf7] text-[#25104a] font-sans flex flex-col selection:bg-[#6315d9] selection:text-white">
       {/* Header Superior Navy */}
       <header className="bg-[#25104a] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
@@ -257,7 +257,7 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {PLATFORM_MODULES.map((mod) => {
+            {PLATFORM_MODULES.map((mod, indice) => {
               const temAcesso = temAcessoAoModulo(perfil, mod.id);
               const Icon = ICON_MAP[mod.icon] || BookOpen;
 
@@ -266,7 +266,8 @@ export default function Dashboard() {
                   key={mod.id}
                   type="button"
                   onClick={() => handleCardClick(mod)}
-                  className={`p-6 rounded-3xl text-left bg-white border border-[#e2d9f7] shadow-sm transition-all duration-300 relative group flex flex-col justify-between min-h-[200px] ${
+                  data-acento={indice % 4}
+                  className={`arte-ferramenta p-5 rounded-2xl text-left bg-white border border-[#e2d9f7] shadow-sm transition-all duration-300 relative group flex flex-col justify-between min-h-[175px] ${
                     temAcesso
                       ? "hover:shadow-xl hover:border-[#6315d9]/40 hover:-translate-y-1 cursor-pointer"
                       : "opacity-50 cursor-not-allowed bg-[#f3edff]"

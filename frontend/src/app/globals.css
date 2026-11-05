@@ -178,3 +178,123 @@ h1, h2, h3, h4, .font-head {
   .arte-faixa { border-block-start: 0; }
   .arte-composicao { background-image: none; }
 }
+
+/* Arte em Jogo: acentos nos limites das superfícies, fora das áreas de leitura. */
+.arte-banner-festival {
+  background-color: #25104a;
+  background-image:
+    repeating-linear-gradient(130deg, #ff2d93 0 6px, transparent 6px 13px),
+    radial-gradient(circle at 100% 0%, #ffe500 0 1.4rem, #00ddeb 1.45rem 2.8rem, transparent 2.85rem),
+    linear-gradient(110deg, #25104a, #431099);
+  background-repeat: no-repeat;
+  background-size: 5rem .35rem, 6rem 6rem, 100% 100%;
+  background-position: right 1.2rem bottom, right top, center;
+}
+
+.arte-selo {
+  display: inline-block;
+  padding: .25rem .75rem;
+  border-radius: .45rem;
+  background: #ffe500;
+  color: #25104a;
+  font-size: .75rem;
+  font-weight: 850;
+  letter-spacing: .04em;
+}
+
+.arte-ferramenta {
+  --arte-acento: #00ddeb;
+  border-block-start: .25rem solid var(--arte-acento);
+}
+.arte-ferramenta[data-acento="1"] { --arte-acento: #ffe500; }
+.arte-ferramenta[data-acento="2"] { --arte-acento: #ff2d93; }
+.arte-ferramenta[data-acento="3"] { --arte-acento: #b9ef00; }
+.arte-ferramenta:focus-visible { outline: 2px solid #5411b8; outline-offset: 3px; }
+
+.arte-hero-publico {
+  --arte-fundo: linear-gradient(120deg, #fffdf7 48%, #f3edff);
+}
+
+@media print {
+  .arte-banner-festival { background-image: none; }
+}
+
+@media screen {
+  .arte-faixa:not(.arte-composicao, .app-header, .agentes-navbar) {
+    background-image: linear-gradient(105deg, #f3edff, #fffdf7 58%);
+  }
+}
+
+/* Moldura clara, assinatura em camadas e palco violeta do aulão. */
+.festival-moldura {
+  background-color: #fffdf7;
+}
+.festival-marca {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .65rem 1.65rem;
+  position: relative;
+  isolation: isolate;
+  padding: 1rem 1rem 1.45rem;
+  background:
+    radial-gradient(circle at 0 90%, #b9ef00 0 2.65rem, transparent 2.7rem),
+    radial-gradient(circle at 100% 0, #00ddeb 0 3.5rem, transparent 3.55rem),
+    repeating-conic-gradient(from 45deg, #431099 0 25%, transparent 0 50%) right 0 bottom .35rem / .45rem .45rem no-repeat;
+}
+.festival-logotipo {
+  color: #fffdf7;
+  font-size: clamp(2.1rem, 6vw, 5.7rem);
+  font-weight: 950;
+  font-style: italic;
+  line-height: 1.05;
+  letter-spacing: -.055em;
+  -webkit-text-stroke: .075em #25104a;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 .055em 0 #25104a) drop-shadow(0 .04em 0 #ff2d93) drop-shadow(0 .034em 0 #ffe500);
+}
+.festival-faixa-enem {
+  display: inline-block;
+  padding: .25em .5em;
+  background: #ffe500;
+  color: #25104a;
+  box-shadow: .12em .15em #00ddeb;
+  transform: skew(-7deg);
+  font-size: clamp(.8rem, 2.7vw, 2.4rem);
+  font-weight: 950;
+  text-transform: uppercase;
+}
+.festival-marca-compacta {
+  justify-content: flex-start;
+  padding: 0 0 .4rem;
+  gap: .3rem .75rem;
+  background: none;
+}
+.festival-marca-compacta .festival-logotipo { font-size: 1.5rem; }
+.festival-marca-compacta .festival-faixa-enem { font-size: .65rem; }
+.festival-palco {
+  color: #fffdf7;
+  background: linear-gradient(115deg, #431099, #25104a 72%);
+  border-radius: 1.35rem;
+  overflow: hidden;
+  border: 2px solid #5411b8;
+}
+.festival-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  padding: .65rem 1rem;
+  background: linear-gradient(100deg, #6315d9, #25104a);
+  border-bottom: 1px solid #a78bfa;
+}
+.festival-chip-ciano {
+  background: #00ddeb;
+  color: #25104a;
+  border-radius: 999px;
+  padding: .25rem .75rem;
+  font-size: .85rem;
+  font-weight: 850;
+}

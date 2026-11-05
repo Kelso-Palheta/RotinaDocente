@@ -1,5 +1,6 @@
 "use client";
 
+import { MarcaFestival } from './MarcaFestival';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,7 +17,7 @@ const semConfirmacoes = () => ({
   explicacoes: false,
 });
 const campo =
-  "mt-2 w-full rounded-xl border border-teal-700 bg-[#0c2423] p-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-teal-300 disabled:opacity-50";
+  "mt-2 w-full rounded-xl border border-[#B9A6EF] bg-white p-3 text-sm text-[#25104A] focus:outline-none focus:ring-2 focus:ring-[#6315D9] disabled:opacity-50";
 
 export function IntegracaoPreparacao({ obterToken }) {
   const router = useRouter();
@@ -379,11 +380,11 @@ export function IntegracaoPreparacao({ obterToken }) {
   if (revisao) {
     const q = revisao.questao;
     return (
-      <main className="min-h-screen bg-[#081a19] text-white pb-8">
+      <main className="min-h-screen bg-[#FFFDF7] text-[#25104A] pb-8">
         <div className="mx-auto max-w-5xl p-4 md:px-8 space-y-4">
           <button
             type="button"
-            className="rounded-xl border border-teal-600 px-4 py-2 disabled:opacity-50"
+            className="rounded-xl border border-[#B9A6EF] px-4 py-2 disabled:opacity-50"
             disabled={ocupado}
             onClick={() => {
               setRevisao(null);
@@ -393,11 +394,11 @@ export function IntegracaoPreparacao({ obterToken }) {
           >
             ← Voltar à preparação
           </button>
-          <details className="rounded-2xl border border-teal-700 p-4" open>
-            <summary className="cursor-pointer font-bold text-teal-200">
+          <details className="rounded-2xl border border-[#B9A6EF] p-4" open>
+            <summary className="cursor-pointer font-bold text-[#5411B8]">
               Corrigir textos antes da conferência
             </summary>
-            <p className="mt-2 text-sm text-slate-300">
+            <p className="mt-2 text-sm text-[#5B4B86]">
               Cada alteração reinicia as quatro confirmações. Identidade,
               imagens, fontes e gabarito oficial são preservados.
             </p>
@@ -470,7 +471,7 @@ export function IntegracaoPreparacao({ obterToken }) {
             )}
             <button
               type="button"
-              className="mt-4 rounded-lg border border-teal-600 px-3 py-2"
+              className="mt-4 rounded-lg border border-[#B9A6EF] px-3 py-2"
               disabled={ocupado}
               onClick={() =>
                 editar("conteudoRevisao", [
@@ -495,35 +496,34 @@ export function IntegracaoPreparacao({ obterToken }) {
     );
   }
   return (
-    <main className="min-h-screen bg-[#081a19] text-white">
-      <div className="mx-auto max-w-7xl p-4 md:px-8 pt-6 space-y-4">
+    <main className="festival-moldura min-h-screen text-[#25104A]">
+      <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 space-y-5">
         <Link
           href="/"
-          className="inline-block rounded-xl border border-teal-700 px-4 py-2"
+          className="inline-block rounded-xl border border-[#B9A6EF] px-4 py-2"
         >
           ← Voltar ao Hub
         </Link>
-        <section className="rounded-3xl bg-gradient-to-br from-[#5b21b6] to-[#701a75] p-5 md:p-7 border border-[#a78bfa]/50 space-y-2">
-          <h1 className="font-black text-2xl">Revisão ao Vivo</h1>
+        <MarcaFestival />
+        <section className="arte-banner-festival rounded-3xl p-5 md:p-8 text-white space-y-3">
+          <h1 className="text-2xl font-black text-white">Revisão ao Vivo</h1>
           <p>
-            Escolha as aulas → confira o conteúdo e as questões compatíveis →
-            defina quantidade e tempo → apresente a introdução → inicie o
-            desafio.
+            Escolha os assuntos, organize as questões e defina o tempo de resposta.
+            Nas novas salas, cada assunto é seguido pelas suas questões.
           </p>
-          <p className="text-sm text-[#ede9fe]">
-            1.000 pontos por acerto, sem bônus de velocidade. Não altera notas.
-            Piloto com até 100 alunos elegíveis por sala; capacidade de rede
-            escolar ainda depende de ensaio.
-          </p>
-          <p className="text-sm text-[#ede9fe]">
-            Acervo parcial. As questões em rascunho precisam da sua conferência
-            antes de entrar no aulão.
-          </p>
+          <details className="text-sm text-[#ede9fe]">
+            <summary className="w-fit cursor-pointer font-semibold">Regras e acervo do aulão</summary>
+            <p className="mt-2">
+              1.000 pontos por acerto, sem bônus de velocidade. A atividade não altera notas.
+              Piloto com até 100 alunos elegíveis por sala. A capacidade da rede escolar depende de ensaio.
+            </p>
+            <p className="mt-1">Confira as questões em rascunho antes de usar o acervo no aulão.</p>
+          </details>
         </section>
         {catalogo && !catalogo.turmas?.length && (
           <p
             role="status"
-            className="rounded-xl border border-amber-600 p-3 text-amber-200"
+            className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-amber-950"
           >
             Cadastre uma turma no Diário Pedagógico para criar sua primeira
             sala.
@@ -532,26 +532,26 @@ export function IntegracaoPreparacao({ obterToken }) {
         {catalogo && !catalogo.questoes?.some((q) => q.apta === true) && (
           <p
             role="status"
-            className="rounded-xl border border-amber-600 p-3 text-amber-200"
+            className="rounded-xl border border-amber-300 bg-amber-50 p-3 text-amber-950"
           >
             Comece por “Inspecionar” uma questão do catálogo e confirme os
             quatro itens da revisão docente.
           </p>
         )}
         {Boolean(catalogo?.salas?.length) && (
-          <section className="rounded-2xl border border-teal-800 p-4">
+          <section className="rounded-2xl border border-[#E2D9F7] bg-white p-4">
             <h2 className="font-bold mb-3">Retomar uma sala</h2>
             <ul className="max-h-64 overflow-y-auto space-y-2">
               {catalogo.salas.map((s) => (
                 <li
                   key={s.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-lg bg-teal-900/50 p-3 hover:bg-teal-800 transition"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-lg bg-[#F3EDFF] p-3 hover:bg-[#E7DBFD] transition"
                 >
                   <Link
                     href={`/revisao/sala/${encodeURIComponent(s.codigo)}`}
-                    className="flex-1 font-medium hover:underline text-teal-100"
+                    className="flex-1 font-medium hover:underline text-[#25104A]"
                   >
-                    {s.titulo} · <strong className="font-mono text-yellow-200">{s.codigo}</strong> · <span className="uppercase text-xs font-bold text-teal-300">{s.fase}</span>
+                    {s.titulo} · <strong className="font-mono text-[#5411B8]">{s.codigo}</strong> · <span className="uppercase text-xs font-bold text-[#5411B8]">{s.fase}</span>
                   </Link>
                   {s.fase === "espera" && (
                     <button
@@ -559,7 +559,7 @@ export function IntegracaoPreparacao({ obterToken }) {
                       data-testid={`btn-editar-sala-${s.codigo}`}
                       disabled={ocupado}
                       onClick={() => abrirEdicao(s.codigo)}
-                      className="px-3 py-1.5 rounded-lg border border-teal-400 bg-teal-800 hover:bg-teal-700 text-xs font-bold text-teal-100 transition disabled:opacity-50"
+                      className="px-3 py-1.5 rounded-lg border border-[#B9A6EF] bg-white hover:bg-[#F3EDFF] text-xs font-bold text-[#25104A] transition disabled:opacity-50"
                     >
                       Editar sala
                     </button>
@@ -577,7 +577,7 @@ export function IntegracaoPreparacao({ obterToken }) {
         {erro && (
           <button
             type="button"
-            className="rounded-lg border border-teal-600 px-3 py-2"
+            className="rounded-lg border border-[#B9A6EF] px-3 py-2"
             onClick={() => {
               setErro(null);
               setTentativa((n) => n + 1);

@@ -1,5 +1,6 @@
 'use client';
 
+import { MarcaFestival } from './MarcaFestival';
 import React from 'react';
 import { useCronometroRevisao } from './useCronometroRevisao';
 import { BadgeConexao, BlocoConteudo, formatarTempo, LETRAS_ALTERNATIVAS } from './revisaoUtils';
@@ -27,49 +28,34 @@ export function TelaProjecao({ estado }) {
   return (
     <div
       data-tema="vibrante"
-      className={`w-full min-h-screen text-[#FFFDF7] p-4 md:p-10 lg:p-12 flex flex-col justify-between font-sans select-none ${temaStyles.palco}`}
-      style={{ backgroundColor: '#25104A' }}
+      className="festival-moldura min-h-screen px-3 pb-5 pt-3 md:px-6"
     >
-      {/* Topo da Projeção */}
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#6334E3]/50 pb-5 mb-6">
-        <div className="flex items-center gap-4">
-          <div className="w-3.5 h-12 bg-[#00DDEB] rounded-full shadow-[0_0_15px_#00DDEB]" aria-hidden="true" />
-          <div>
-            <h1 className="text-2xl md:text-4xl font-black text-[#FFFDF7] tracking-tight">
-              {sala.titulo || 'Grande Aulão ENEM'}
-            </h1>
-            <div className="flex items-center gap-3 mt-1.5">
-              {rodada?.numero && rodada?.total && (
-                <span className="text-[#FFE14D] font-black text-sm uppercase tracking-wider bg-[#FFE14D]/20 px-3 py-0.5 rounded-full border border-[#FFE14D]/40">
-                  Rodada {rodada.numero} de {rodada.total}
-                </span>
-              )}
-              {questao?.tema && (
-                <span className="text-[#FFFDF7]/80 text-sm font-medium">
-                  • {questao.tema}
-                </span>
-              )}
-            </div>
+      <MarcaFestival />
+      <div className="festival-palco">
+        <header className="festival-barra">
+          <span className="font-black uppercase tracking-wide">Telão da turma</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <BadgeConexao conexao={conexao} />
+            {fase !== 'espera' && (
+              <div className="flex items-center gap-2 text-sm">
+                <span>Código da sala:</span>
+                <strong className="arte-selo font-mono">{sala.codigo || '------'}</strong>
+              </div>
+            )}
+          </div>
+        </header>
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 pt-4 lg:px-6">
+          <h1 className="min-w-0 break-words text-2xl font-black tracking-tight lg:text-4xl">
+            {sala.titulo || 'Grande Aulão ENEM'}
+          </h1>
+          <div className="flex flex-wrap items-center gap-2">
+            {questao.tema && <span className="text-sm text-white/80">{questao.tema}</span>}
+            {Boolean(rodada.numero && rodada.total) && (
+              <span className="festival-chip-ciano">Rodada {rodada.numero} de {rodada.total}</span>
+            )}
           </div>
         </div>
-
-        <div className="flex items-center gap-4">
-          <BadgeConexao conexao={conexao} />
-          {fase !== 'espera' && (
-            <div className="bg-[#6334E3]/40 border-2 border-[#00DDEB] rounded-2xl px-6 py-2.5 text-right shadow-xl backdrop-blur-md">
-              <span className="text-[11px] text-[#00DDEB] uppercase font-black tracking-widest block">
-                Código de Acesso
-              </span>
-              <span className="text-2xl md:text-3xl font-mono font-black text-[#FFE14D] tracking-wider">
-                {sala.codigo || '------'}
-              </span>
-            </div>
-          )}
-        </div>
-      </header>
-
-      {/* Área Central Projetada */}
-      <main key={`${sala.id || ""}:${rodada.id || ""}:${fase}`} className={`${temaStyles.animacaoEntrada} flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full my-auto`}>
+        <main key={`${sala.id || ''}:${rodada.id || ''}:${fase}`} className={`${temaStyles.animacaoEntrada} px-4 pb-5 pt-3 lg:px-6`}>
         {/* FASE: ESPERA */}
         {fase === 'espera' && (
           <section className="text-center py-12 space-y-8 ">
@@ -124,15 +110,15 @@ export function TelaProjecao({ estado }) {
 
         {/* FASES: PERGUNTA & ENCERRADA */}
         {(fase === 'pergunta' || fase === 'encerrada') && (
-          <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
             {/* Coluna Esquerda: Imagem Original (quando houver) */}
             {questao.imagens && questao.imagens.length > 0 && (
-              <div className="min-w-0 lg:col-span-4 bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-5 shadow-2xl flex flex-col justify-between items-center backdrop-blur-md">
+              <div className="min-w-0 lg:col-span-4 bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-2xl p-3 flex flex-col items-center">
                 <div className="w-full space-y-3">
                   <span className="bg-[#00DDEB]/20 text-[#00DDEB] text-[11px] font-black px-3 py-1 rounded-full border border-[#00DDEB]/50 uppercase tracking-wider inline-block">
                     Recurso Visual
                   </span>
-                  <div className="rounded-2xl overflow-hidden border-2 border-[#6334E3]/40 bg-[#25104A] p-2 flex flex-col items-center justify-center">
+                  <div className="rounded-2xl overflow-hidden border-2 border-[#6334E3]/40 bg-[#25104A] p-2 [&_figure]:my-0 [&_img]:h-auto [&_img]:w-full">
                     {questao.imagens.map((img, idx) => (
                       <BlocoConteudo key={idx} bloco={img} />
                     ))}
@@ -150,7 +136,7 @@ export function TelaProjecao({ estado }) {
                 questao.imagens && questao.imagens.length > 0
                   ? 'lg:col-span-5'
                   : 'lg:col-span-8'
-              } bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-3xl p-6 md:p-8 shadow-2xl space-y-5 backdrop-blur-md`}
+              } bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-2xl p-3 md:p-4 space-y-3`}
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
@@ -169,7 +155,7 @@ export function TelaProjecao({ estado }) {
               </div>
 
               {/* Lista de Alternativas (cartões claros com badge colorido estilo Arte em Jogo) */}
-              <div className="space-y-3 pt-1">
+              <div className="space-y-2 pt-1">
                 {(questao.alternativas || []).map((alt) => {
                   const corBadge = CORES_ALTERNATIVAS[alt.id] || {
                     bg: '#FFE14D',
@@ -211,7 +197,7 @@ export function TelaProjecao({ estado }) {
               {/* Timer Circular */}
               {fase === 'pergunta' && (
                 <div className="bg-[#6334E3]/30 border-2 border-[#6334E3] rounded-3xl p-5 text-center shadow-2xl backdrop-blur-md">
-                  <div className="relative w-36 h-36 mx-auto rounded-full border-4 border-[#00DDEB] flex flex-col items-center justify-center bg-[#25104A] shadow-[0_0_20px_rgba(0,221,235,0.3)]">
+                  <div className="relative w-36 h-36 mx-auto rounded-full border-[7px] border-[#00DDEB] border-l-[#FF4F9B] flex flex-col items-center justify-center bg-[#25104A] shadow-[0_0_20px_rgba(0,221,235,0.3)]">
                     <span className="text-[10px] text-[#00DDEB] uppercase font-black tracking-widest block">
                       Tempo
                     </span>
@@ -436,6 +422,7 @@ export function TelaProjecao({ estado }) {
           </section>
         )}
       </main>
+      </div>
     </div>
   );
 }

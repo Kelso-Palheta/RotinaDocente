@@ -11,8 +11,8 @@ function SalaAluno({ codigo, contexto, onSair }) {
 }
 function SalaAlunoConectada({ codigo, contexto, onSair, onReconectar }) {
   const { estado, envio, ocupado, erro, responder, tentarNovamente } = useSalaRevisao({ codigo, contexto, papel: 'aluno' });
-  return <main className="min-h-screen bg-[#25104A] text-white">
-    <nav className="flex flex-wrap items-center gap-3 border-b border-[#8b5cf6]/50 px-4 py-3 text-sm"><button type="button" className="rounded-lg border border-[#a78bfa] px-3 py-2" onClick={onSair}>← Trocar sala</button><span>Sala <strong className="font-mono text-yellow-200">{codigo}</strong></span><Link href="/aluno/notas" className="underline">Voltar ao boletim</Link>{erro && <button type="button" className="rounded-lg border border-amber-400 px-3 py-2" onClick={onReconectar}>Reconectar</button>}</nav>
+  return <main className="min-h-screen bg-[#FFFDF7] text-[#25104A]">
+    <nav className="bg-[#25104A] text-white flex flex-wrap items-center gap-3 border-b border-[#8b5cf6]/50 px-4 py-3 text-sm"><button type="button" className="rounded-lg border border-[#a78bfa] px-3 py-2" onClick={onSair}>← Trocar sala</button><span>Sala <strong className="font-mono text-yellow-200">{codigo}</strong></span><Link href="/aluno/notas" className="underline">Voltar ao boletim</Link>{erro && <button type="button" className="rounded-lg border border-amber-400 px-3 py-2" onClick={onReconectar}>Reconectar</button>}</nav>
     {!estado ? <p className="p-8" role={erro ? 'alert' : 'status'}>{erro || 'Entrando na sala e recuperando sua participação…'}</p>
       : <PainelAluno estado={estado} envio={envio} ocupado={ocupado} erro={erro} onResponder={responder} onTentarNovamente={tentarNovamente} />}
   </main>;

@@ -371,19 +371,18 @@ export function PrepararAulaoTematico({
   return (
     <div
       data-tema="vibrante"
-      className="w-full min-h-screen text-[#FFFDF7] p-4 sm:p-6 md:p-8 max-w-6xl mx-auto space-y-6 font-sans"
-      style={{ backgroundColor: "#25104A" }}
+      className="w-full max-w-7xl mx-auto text-[#25104A] px-4 pb-8 md:px-8 space-y-5 font-sans"
     >
       {/* Cabeçalho */}
-      <header className="bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-3xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
+      <header className="bg-[#F3EDFF] border-2 border-[#D9C9FA] rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[11px] uppercase font-black tracking-widest text-[#00DDEB] bg-[#00DDEB]/20 border border-[#00DDEB]/50 px-3 py-1 rounded-full">
-            {modoEdicao ? `Edição de Sala • ${codigoSala || ''}` : 'Configuração Pedagógica Temática v2'}
+          <span className="text-[11px] uppercase font-black tracking-widest text-[#5411B8] bg-[#00DDEB]/20 border border-[#00DDEB]/50 px-3 py-1 rounded-full">
+            {modoEdicao ? `Edição de Sala • ${codigoSala || ''}` : 'Roteiro do aulão'}
           </span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#FFFDF7] mt-2 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#25104A] mt-2 tracking-tight">
             {modoEdicao ? `Editar Sala: ${codigoSala || ''}` : 'Preparar Aulão por Conteúdo'}
           </h1>
-          <p className="text-xs sm:text-sm text-[#FFFDF7]/80 mt-1">
+          <p className="text-xs sm:text-sm text-[#5B4B86] mt-1">
             Escolha as aulas introdutórias, defina a quantidade exata e organize
             os desafios contextualizados.
           </p>
@@ -395,7 +394,7 @@ export function PrepararAulaoTematico({
               type="button"
               disabled={ocupado}
               onClick={onCancelar}
-              className="px-4 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider border border-[#A78BFA] text-[#FFFDF7] hover:bg-[#6334E3]/40 transition disabled:opacity-40"
+              className="px-4 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider border border-[#A78BFA] text-[#25104A] hover:bg-[#F3EDFF] transition disabled:opacity-40"
             >
               Cancelar edição
             </button>
@@ -404,7 +403,7 @@ export function PrepararAulaoTematico({
             type="button"
             disabled={!podeCriar}
             onClick={() => podeCriar && onCriar && onCriar(selecaoValidada)}
-            className="px-6 py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-95 text-[#25104A] transition shadow-xl disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-6 py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider bg-[#00DDEB] hover:bg-[#54EEF8] active:scale-95 text-[#25104A] transition shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {ocupado ? (modoEdicao ? 'Salvando...' : 'Criando...') : (textoAcao || 'Criar Aulão')}
           </button>
@@ -412,13 +411,13 @@ export function PrepararAulaoTematico({
       </header>
 
       {/* Alertas */}
-      {(erro || erroContexto) && (
+      {(erro || (conteudoIdsSelecionados.length > 0 && erroContexto)) && (
         <div
           role="alert"
-          className="p-4 rounded-2xl bg-rose-950/90 border-2 border-[#FF4F9B] text-[#FFFDF7] text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg"
+          className="p-4 rounded-2xl bg-rose-50 border-2 border-[#FF4F9B] text-[#25104A] text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg"
         >
           <div className="flex items-start gap-3">
-            <span className="font-black text-[#FF4F9B]">Erro:</span>
+            <span className="font-black text-[#9D174D]">Erro:</span>
             <p className="flex-1 font-medium">{erro || erroContexto}</p>
           </div>
           {onRecarregar && (
@@ -436,13 +435,13 @@ export function PrepararAulaoTematico({
       {avisoRemocao && (
         <div
           role="status"
-          className="p-4 rounded-2xl bg-[#FFE14D]/15 border-2 border-[#FFE14D] text-[#FFE14D] text-xs font-bold flex items-center justify-between"
+          className="p-4 rounded-2xl bg-[#FFE14D]/15 border-2 border-[#FFE14D] text-[#713F12] text-xs font-bold flex items-center justify-between"
         >
           <span>ℹ {avisoRemocao}</span>
           <button
             type="button"
             onClick={() => setAvisoRemocao(null)}
-            className="text-xs underline hover:text-[#FFFDF7]"
+            className="text-xs underline hover:text-[#25104A]"
           >
             Dispensar
           </button>
@@ -452,15 +451,15 @@ export function PrepararAulaoTematico({
       {avisoInsuficiencia && (
         <div
           role="status"
-          className="p-4 rounded-2xl bg-[#FF4F9B]/15 border-2 border-[#FF4F9B] text-[#FF4F9B] text-xs font-bold"
+          className="p-4 rounded-2xl bg-[#FF4F9B]/15 border-2 border-[#FF4F9B] text-[#9D174D] text-xs font-bold"
         >
           ⚠ {avisoInsuficiencia}
         </div>
       )}
 
       {/* Configurações Gerais: Título, Turmas, Metas e Tempos */}
-      <section className="bg-[#6334E3]/20 border-2 border-[#6334E3]/50 rounded-3xl p-6 shadow-xl space-y-6">
-        <h2 className="text-lg font-black text-[#FFE14D] uppercase tracking-wider">
+      <section className="bg-white border border-[#D9C9FA] rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
+        <h2 className="text-lg font-black text-[#713F12] uppercase tracking-wider">
           1. Parâmetros da Sala e Turmas
         </h2>
 
@@ -469,7 +468,7 @@ export function PrepararAulaoTematico({
           <div className="space-y-2">
             <label
               htmlFor="input-titulo-aulao"
-              className="text-xs font-black uppercase text-[#00DDEB]"
+              className="text-xs font-black uppercase text-[#5411B8]"
             >
               Título do Aulão (1 a 120 caracteres)
             </label>
@@ -482,7 +481,7 @@ export function PrepararAulaoTematico({
                 onAlterar && onAlterar({ ...selecao, titulo: e.target.value })
               }
               placeholder="Ex: Aulão de Vanguardas e Arte Moderna"
-              className="w-full px-4 py-3 rounded-2xl bg-[#25104A] border-2 border-[#6334E3]/60 text-[#FFFDF7] text-sm focus:outline-none focus:border-[#00DDEB] font-semibold"
+              className="w-full px-4 py-3 rounded-2xl bg-[#FFFDF7] border-2 border-[#D9C9FA] text-[#25104A] text-sm focus:outline-none focus:border-[#00DDEB] font-semibold"
             />
           </div>
 
@@ -490,7 +489,7 @@ export function PrepararAulaoTematico({
           <div className="space-y-2">
             <label
               htmlFor="input-duracao-padrao"
-              className="text-xs font-black uppercase text-[#00DDEB]"
+              className="text-xs font-black uppercase text-[#5411B8]"
             >
               Tempo Padrão por Pergunta (10 a 600 segundos)
             </label>
@@ -505,7 +504,7 @@ export function PrepararAulaoTematico({
                 const val = e.target.value === "" ? "" : Number(e.target.value);
                 onAlterar && onAlterar({ ...selecao, duracaoSegundos: val });
               }}
-              className="w-full px-4 py-3 rounded-2xl bg-[#25104A] border-2 border-[#6334E3]/60 text-[#FFFDF7] text-sm focus:outline-none focus:border-[#00DDEB] font-mono font-bold"
+              className="w-full px-4 py-3 rounded-2xl bg-[#FFFDF7] border-2 border-[#D9C9FA] text-[#25104A] text-sm focus:outline-none focus:border-[#00DDEB] font-mono font-bold"
             />
           </div>
 
@@ -513,7 +512,7 @@ export function PrepararAulaoTematico({
           <div className="space-y-2">
             <label
               htmlFor="input-quantidade-questoes"
-              className="text-xs font-black uppercase text-[#FFE14D]"
+              className="text-xs font-black uppercase text-[#713F12]"
             >
               Meta Exata de Questões (1 a 20)
             </label>
@@ -528,17 +527,17 @@ export function PrepararAulaoTematico({
                 const val = e.target.value === "" ? "" : Number(e.target.value);
                 onAlterar && onAlterar({ ...selecao, quantidadeQuestoes: val });
               }}
-              className="w-full px-4 py-3 rounded-2xl bg-[#25104A] border-2 border-[#FFE14D]/60 text-[#FFE14D] text-sm focus:outline-none focus:border-[#FFE14D] font-mono font-black"
+              className="w-full px-4 py-3 rounded-2xl bg-[#FFFDF7] border-2 border-[#FFE14D]/60 text-[#713F12] text-sm focus:outline-none focus:border-[#FFE14D] font-mono font-black"
             />
           </div>
 
           {/* Seleção de Turmas */}
           <div className="space-y-2">
-            <span className="text-xs font-black uppercase text-[#00DDEB] block">
+            <span className="text-xs font-black uppercase text-[#5411B8] block">
               Turmas Participantes
             </span>
             {!podeEditarTurmas && (
-              <p className="text-xs text-[#FFE14D] font-bold bg-[#FFE14D]/10 border border-[#FFE14D]/40 p-2.5 rounded-xl">
+              <p className="text-xs text-[#713F12] font-bold bg-[#FFE14D]/10 border border-[#FFE14D]/40 p-2.5 rounded-xl">
                 Participantes já estão na sala de espera. As turmas e a lista de alunos estão congeladas.
               </p>
             )}
@@ -554,7 +553,7 @@ export function PrepararAulaoTematico({
                     className={`px-3.5 py-1.5 rounded-xl border text-xs font-bold transition ${
                       checked
                         ? "bg-[#00DDEB] border-[#00DDEB] text-[#25104A]"
-                        : "bg-[#25104A] border-[#6334E3]/60 text-[#FFFDF7]/80 hover:bg-[#6334E3]/40"
+                        : "bg-[#FFFDF7] border-[#D9C9FA] text-[#5B4B86] hover:bg-[#F3EDFF]"
                     } disabled:opacity-40 disabled:cursor-not-allowed`}
                   >
                     {checked ? "✓ " : "+ "}
@@ -563,7 +562,7 @@ export function PrepararAulaoTematico({
                 );
               })}
               {(!turmas || turmas.length === 0) && (
-                <span className="text-xs text-[#FFFDF7]/60 italic">
+                <span className="text-xs text-[#5B4B86] italic">
                   Nenhuma turma cadastrada.
                 </span>
               )}
@@ -573,18 +572,17 @@ export function PrepararAulaoTematico({
       </section>
 
       {/* Seleção de Conteúdos por Trilha */}
-      <section className="bg-[#6334E3]/20 border-2 border-[#6334E3]/50 rounded-3xl p-6 shadow-xl space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#6334E3]/40 pb-3">
+      <section className="bg-white border border-[#D9C9FA] rounded-2xl p-4 sm:p-6 shadow-sm space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#D9C9FA] pb-3">
           <div>
-            <h2 className="text-lg font-black text-[#00DDEB] uppercase tracking-wider">
+            <h2 className="text-lg font-black text-[#5411B8] uppercase tracking-wider">
               2. Conteúdos e Aulas Introdutórias
             </h2>
-            <p className="text-xs text-[#FFFDF7]/80">
-              Selecione as aulas temáticas que serão ministradas antes das
-              questões.
+            <p className="text-xs text-[#5B4B86]">
+              Escolha os assuntos que você quer apresentar.
             </p>
           </div>
-          <span className="text-xs font-mono font-black text-[#FFE14D]">
+          <span className="text-xs font-mono font-black text-[#713F12]">
             {conteudoIdsSelecionados.length} conteúdo(s) marcado(s)
           </span>
         </div>
@@ -599,7 +597,7 @@ export function PrepararAulaoTematico({
 
             return (
               <div key={trilha.id} className="space-y-3">
-                <h3 className="text-xs font-black uppercase tracking-widest text-[#FFFDF7]/70 flex items-center gap-2">
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#5B4B86] flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#00DDEB]" />
                   Trilha: {trilha.titulo}
                 </h3>
@@ -612,8 +610,8 @@ export function PrepararAulaoTematico({
                         key={c.id}
                         className={`p-4 rounded-2xl border-2 transition flex flex-col justify-between gap-3 ${
                           marcado
-                            ? "bg-[#6334E3]/50 border-[#00DDEB] shadow-lg"
-                            : "bg-[#25104A]/90 border-[#6334E3]/50 text-[#FFFDF7]/90"
+                            ? "bg-[#F3EDFF] border-[#00DDEB] shadow-lg"
+                            : "bg-[#FFFDF7] border-[#D9C9FA] text-[#5B4B86]"
                         }`}
                       >
                         <div className="flex items-start gap-3">
@@ -623,26 +621,26 @@ export function PrepararAulaoTematico({
                             checked={marcado}
                             disabled={ocupado}
                             onChange={() => handleToggleConteudo(c.id)}
-                            className="mt-1 w-5 h-5 rounded border-2 border-[#00DDEB] text-[#00DDEB] bg-[#25104A] focus:ring-[#00DDEB]"
+                            className="mt-1 w-5 h-5 rounded border-2 border-[#00DDEB] text-[#5411B8] bg-[#FFFDF7] focus:ring-[#00DDEB]"
                           />
                           <div className="space-y-1 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-extrabold text-sm text-[#FFFDF7]">
+                              <span className="font-extrabold text-sm text-[#25104A]">
                                 {c.titulo}
                               </span>
                               {c.apta !== true && (
-                                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-[#FF4F9B]/20 text-[#FF4F9B] border border-[#FF4F9B]/50">
+                                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-[#FF4F9B]/20 text-[#9D174D] border border-[#FF4F9B]/50">
                                   Pendente de Aprovação
                                 </span>
                               )}
                               {c.duracaoEstimadaMinutos && (
-                                <span className="text-[10px] text-[#FFE14D] font-mono">
+                                <span className="text-[10px] text-[#713F12] font-mono">
                                   ⏱ {c.duracaoEstimadaMinutos} min
                                 </span>
                               )}
                             </div>
                             {c.resumo && (
-                              <p className="text-xs text-[#FFFDF7]/75 line-clamp-2 leading-relaxed">
+                              <p className="text-xs text-[#5B4B86] line-clamp-2 leading-relaxed">
                                 {c.resumo}
                               </p>
                             )}
@@ -651,13 +649,13 @@ export function PrepararAulaoTematico({
 
                         {/* Botão de Conferência / Inspeção */}
                         {onAbrirConteudo && (
-                          <div className="pt-2 border-t border-[#6334E3]/40 flex justify-end">
+                          <div className="pt-2 border-t border-[#D9C9FA] flex justify-end">
                             <button
                               type="button"
                               data-testid={`btn-conferir-conteudo-${c.id}`}
                               disabled={ocupado}
                               onClick={() => onAbrirConteudo(c.id)}
-                              className="text-xs text-[#00DDEB] hover:text-[#54EEF8] font-bold underline"
+                              className="text-xs text-[#5411B8] hover:text-[#431099] font-bold underline"
                             >
                               🔍 Inspecionar Conteúdo
                             </button>
@@ -674,7 +672,7 @@ export function PrepararAulaoTematico({
 
         {/* Aviso de Conteúdos Inaptos */}
         {conteudosInaptos.length > 0 && (
-          <div className="p-4 rounded-2xl bg-amber-950/80 border-2 border-[#FFE14D] text-[#FFE14D] text-xs space-y-1">
+          <div className="p-4 rounded-2xl bg-amber-50 border-2 border-[#FFE14D] text-[#713F12] text-xs space-y-1">
             <span className="font-bold">Aviso pedagógico:</span>
             <p>
               Você selecionou conteúdo pendente de aprovação docente (
@@ -689,14 +687,14 @@ export function PrepararAulaoTematico({
       </section>
 
       {/* Questões Selecionadas e Ordem de Apresentação */}
-      <section className="bg-[#6334E3]/20 border-2 border-[#6334E3]/50 rounded-3xl p-6 shadow-xl space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#6334E3]/40 pb-3">
+      <section className="bg-white border border-[#D9C9FA] rounded-2xl p-4 sm:p-6 shadow-sm space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D9C9FA] pb-3">
           <div>
-            <h2 className="text-lg font-black text-[#FFE14D] uppercase tracking-wider">
+            <h2 className="text-lg font-black text-[#713F12] uppercase tracking-wider">
               3. Questões Selecionadas ({questoesSelecionadas.length} de{" "}
               {quantidadeDesejada})
             </h2>
-            <p className="text-xs text-[#FFFDF7]/80">
+            <p className="text-xs text-[#5B4B86]">
               Reordene as questões e defina exceções de tempo individuais caso
               necessário.
             </p>
@@ -716,7 +714,7 @@ export function PrepararAulaoTematico({
 
         {/* Status de Quantidade */}
         {!quantidadeExata && (
-          <div className="p-3.5 rounded-xl bg-[#6334E3]/40 border border-[#FFE14D]/60 text-xs text-[#FFE14D] font-bold flex items-center justify-between">
+          <div className="p-3.5 rounded-xl bg-[#F3EDFF] border border-[#FFE14D]/60 text-xs text-[#713F12] font-bold flex items-center justify-between">
             <span>
               {questoesSelecionadas.length < quantidadeDesejada
                 ? `Selecione exatamente ${quantidadeDesejada} questões (${questoesSelecionadas.length} de ${quantidadeDesejada} questões selecionadas. Faltam ${
@@ -739,23 +737,23 @@ export function PrepararAulaoTematico({
             return (
               <div
                 key={cid}
-                className="rounded-2xl bg-[#6334E3]/15 border border-[#6334E3]/40 p-4 space-y-3"
+                className="rounded-2xl bg-[#F3EDFF] border border-[#D9C9FA] p-4 space-y-3"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#6334E3]/30">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#D9C9FA]">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-[#00DDEB] bg-[#00DDEB]/20 border border-[#00DDEB]/40 px-2 py-0.5 rounded-md">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-[#5411B8] bg-[#00DDEB]/20 border border-[#00DDEB]/40 px-2 py-0.5 rounded-md">
                       Assunto
                     </span>
-                    <h3 className="font-bold text-sm text-[#FFFDF7]">
+                    <h3 className="font-bold text-sm text-[#25104A]">
                       {c?.titulo || cid}
                     </h3>
                   </div>
                   {questoesDoAssunto.length === 0 ? (
-                    <span className="text-xs font-bold text-[#FF4F9B] bg-[#FF4F9B]/20 px-2.5 py-1 rounded-full border border-[#FF4F9B]/40 w-fit">
+                    <span className="text-xs font-bold text-[#9D174D] bg-[#FF4F9B]/20 px-2.5 py-1 rounded-full border border-[#FF4F9B]/40 w-fit">
                       ⚠️ Sem questões vinculadas
                     </span>
                   ) : (
-                    <span className="text-xs text-[#FFFDF7]/70 font-mono">
+                    <span className="text-xs text-[#5B4B86] font-mono">
                       {questoesDoAssunto.length}{" "}
                       {questoesDoAssunto.length === 1 ? "questão" : "questões"}
                     </span>
@@ -776,17 +774,17 @@ export function PrepararAulaoTematico({
                       <div
                         key={q.id}
                         data-testid={`selecionada-${q.id}`}
-                        className="p-4 rounded-2xl bg-[#25104A]/90 border border-[#6334E3]/50 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                        className="p-4 rounded-2xl bg-[#FFFDF7] border border-[#D9C9FA] flex flex-col md:flex-row md:items-center justify-between gap-4"
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-xl bg-[#6334E3] text-[#FFE14D] font-black text-sm flex items-center justify-center shrink-0">
+                          <span className="w-8 h-8 rounded-xl bg-[#FFE500] text-[#25104A] font-black text-sm flex items-center justify-center shrink-0">
                             {idx + 1}º
                           </span>
                           <div>
-                            <span className="font-extrabold text-sm text-[#FFFDF7] block">
+                            <span className="font-extrabold text-sm text-[#25104A] block">
                               {q.tema || "Questão"}
                             </span>
-                            <span className="text-[11px] text-[#FFFDF7]/70 font-mono">
+                            <span className="text-[11px] text-[#5B4B86] font-mono">
                               ID: {q.id} {q.ano ? `• ENEM ${q.ano}` : ""}
                             </span>
                           </div>
@@ -796,7 +794,7 @@ export function PrepararAulaoTematico({
                         <div className="flex items-center gap-3 self-end md:self-center flex-wrap">
                           {vinculosCompativeis.length > 1 && (
                             <div className="flex items-center gap-1.5 text-xs">
-                              <span className="text-[#00DDEB] font-bold text-[11px]">
+                              <span className="text-[#5411B8] font-bold text-[11px]">
                                 Assunto:
                               </span>
                               <select
@@ -806,7 +804,7 @@ export function PrepararAulaoTematico({
                                   handleTrocarVinculo(q.id, e.target.value)
                                 }
                                 disabled={ocupado}
-                                className="px-2 py-1.5 rounded-lg bg-[#25104A] border border-[#00DDEB]/60 text-[#00DDEB] font-bold text-xs focus:outline-none"
+                                className="px-2 py-1.5 rounded-lg bg-[#FFFDF7] border border-[#00DDEB]/60 text-[#5411B8] font-bold text-xs focus:outline-none"
                               >
                                 {vinculosCompativeis.map((vid) => {
                                   const vinculoConteudo = conteudosMap.get(vid);
@@ -821,7 +819,7 @@ export function PrepararAulaoTematico({
                           )}
 
                           <div className="flex items-center gap-1.5 text-xs">
-                            <span className="text-[#FFFDF7]/70">Tempo (s):</span>
+                            <span className="text-[#5B4B86]">Tempo (s):</span>
                             <input
                               type="number"
                               min={10}
@@ -833,7 +831,7 @@ export function PrepararAulaoTematico({
                               onChange={(e) =>
                                 handleDuracaoIndividualChange(q.id, e.target.value)
                               }
-                              className="w-20 px-2 py-1.5 rounded-lg bg-[#25104A] border border-[#6334E3] text-[#FFE14D] font-mono font-bold text-xs text-center focus:border-[#00DDEB] focus:outline-none"
+                              className="w-20 px-2 py-1.5 rounded-lg bg-[#FFFDF7] border border-[#6334E3] text-[#713F12] font-mono font-bold text-xs text-center focus:border-[#00DDEB] focus:outline-none"
                             />
                           </div>
 
@@ -843,7 +841,7 @@ export function PrepararAulaoTematico({
                               data-testid={`btn-mover-cima-${q.id}`}
                               disabled={ocupado || idx === 0}
                               onClick={() => handleMoverQuestao(idx, -1)}
-                              className="w-8 h-8 rounded-lg bg-[#6334E3]/50 hover:bg-[#6334E3] text-[#FFFDF7] font-bold text-xs disabled:opacity-30"
+                              className="w-8 h-8 rounded-lg bg-[#F3EDFF] hover:bg-[#E7DBFD] text-[#25104A] font-bold text-xs disabled:opacity-30"
                             >
                               ▲
                             </button>
@@ -854,7 +852,7 @@ export function PrepararAulaoTematico({
                                 ocupado || idx === questoesSelecionadas.length - 1
                               }
                               onClick={() => handleMoverQuestao(idx, 1)}
-                              className="w-8 h-8 rounded-lg bg-[#6334E3]/50 hover:bg-[#6334E3] text-[#FFFDF7] font-bold text-xs disabled:opacity-30"
+                              className="w-8 h-8 rounded-lg bg-[#F3EDFF] hover:bg-[#E7DBFD] text-[#25104A] font-bold text-xs disabled:opacity-30"
                             >
                               ▼
                             </button>
@@ -863,7 +861,7 @@ export function PrepararAulaoTematico({
                               data-testid={`btn-remover-${q.id}`}
                               disabled={ocupado}
                               onClick={() => handleToggleQuestao(q.id)}
-                              className="w-8 h-8 rounded-lg bg-[#FF4F9B]/20 hover:bg-[#FF4F9B]/40 text-[#FF4F9B] border border-[#FF4F9B]/40 font-bold text-xs disabled:opacity-30"
+                              className="w-8 h-8 rounded-lg bg-[#FF4F9B]/20 hover:bg-[#FF4F9B]/40 text-[#9D174D] border border-[#FF4F9B]/40 font-bold text-xs disabled:opacity-30"
                             >
                               ✕
                             </button>
@@ -878,7 +876,7 @@ export function PrepararAulaoTematico({
           })}
 
           {questoesSelecionadas.length === 0 && (
-            <p className="text-center text-xs text-[#FFFDF7]/60 italic py-6">
+            <p className="text-center text-xs text-[#5B4B86] italic py-6">
               Nenhuma questão selecionada ainda. Escolha no catálogo contextual
               abaixo ou clique em &ldquo;Completar com aptas&rdquo;.
             </p>
@@ -887,19 +885,19 @@ export function PrepararAulaoTematico({
       </section>
 
       {/* Catálogo Contextual Disponível */}
-      <section className="bg-[#6334E3]/20 border-2 border-[#6334E3]/50 rounded-3xl p-6 shadow-xl space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#6334E3]/40 pb-3">
+      <section className="bg-white border border-[#D9C9FA] rounded-2xl p-4 sm:p-6 shadow-sm space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D9C9FA] pb-3">
           <div>
-            <h2 className="text-lg font-black text-[#00DDEB] uppercase tracking-wider">
+            <h2 className="text-lg font-black text-[#5411B8] uppercase tracking-wider">
               4. Catálogo Contextual de Questões
             </h2>
-            <p className="text-xs text-[#FFFDF7]/80">
+            <p className="text-xs text-[#5B4B86]">
               Questões comprovadamente vinculadas aos conteúdos selecionados.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs font-black text-[#FFE14D] bg-[#FFE14D]/20 border border-[#FFE14D]/40 px-3 py-1 rounded-full">
+            <span className="text-xs font-black text-[#713F12] bg-[#FFE14D]/20 border border-[#FFE14D]/40 px-3 py-1 rounded-full">
               {totalCompativeis} compatíveis ({totalAptas} aptas)
             </span>
           </div>
@@ -907,12 +905,12 @@ export function PrepararAulaoTematico({
 
         {/* Sem conteúdo selecionado */}
         {conteudoIdsSelecionados.length === 0 && (
-          <div className="p-8 text-center space-y-2 bg-[#25104A]/60 rounded-2xl border border-dashed border-[#6334E3]/40">
-            <p className="text-sm font-bold text-[#FFE14D]">
+          <div className="p-8 text-center space-y-2 bg-[#FFFDF7] rounded-2xl border border-dashed border-[#D9C9FA]">
+            <p className="text-sm font-bold text-[#713F12]">
               Nenhum conteúdo selecionado. Selecione ao menos um conteúdo para
               visualizar questões.
             </p>
-            <p className="text-xs text-[#FFFDF7]/70">
+            <p className="text-xs text-[#5B4B86]">
               O catálogo de questões só é disponibilizado após a escolha dos
               temas que serão abordados na aula.
             </p>
@@ -929,12 +927,12 @@ export function PrepararAulaoTematico({
                 placeholder="Buscar por tema..."
                 value={buscaTexto}
                 onChange={(e) => setBuscaTexto(e.target.value)}
-                className="px-3 py-2 rounded-xl bg-[#25104A] border border-[#6334E3] text-xs text-[#FFFDF7] focus:outline-none focus:border-[#00DDEB]"
+                className="px-3 py-2 rounded-xl bg-[#FFFDF7] border border-[#6334E3] text-xs text-[#25104A] focus:outline-none focus:border-[#00DDEB]"
               />
               <select
                 value={filtroAno}
                 onChange={(e) => setFiltroAno(e.target.value)}
-                className="px-3 py-2 rounded-xl bg-[#25104A] border border-[#6334E3] text-xs text-[#FFFDF7] focus:outline-none focus:border-[#00DDEB]"
+                className="px-3 py-2 rounded-xl bg-[#FFFDF7] border border-[#6334E3] text-xs text-[#25104A] focus:outline-none focus:border-[#00DDEB]"
               >
                 <option value="">Todos os anos</option>
                 <option value="2025">2025</option>
@@ -946,7 +944,7 @@ export function PrepararAulaoTematico({
               <select
                 value={filtroModalidade}
                 onChange={(e) => setFiltroModalidade(e.target.value)}
-                className="px-3 py-2 rounded-xl bg-[#25104A] border border-[#6334E3] text-xs text-[#FFFDF7] focus:outline-none focus:border-[#00DDEB]"
+                className="px-3 py-2 rounded-xl bg-[#FFFDF7] border border-[#6334E3] text-xs text-[#25104A] focus:outline-none focus:border-[#00DDEB]"
               >
                 <option value="">Todas as modalidades</option>
                 <option value="regular">Regular</option>
@@ -965,43 +963,43 @@ export function PrepararAulaoTematico({
                     data-testid={`catalogo-questao-${q.id}`}
                     className={`p-4 rounded-2xl border-2 transition flex flex-col justify-between gap-3 ${
                       jaSelecionada
-                        ? "bg-[#6334E3]/40 border-[#FFE14D]"
-                        : "bg-[#25104A]/90 border-[#6334E3]/40 text-[#FFFDF7]/90"
+                        ? "bg-[#F3EDFF] border-[#FFE14D]"
+                        : "bg-[#FFFDF7] border-[#D9C9FA] text-[#5B4B86]"
                     }`}
                   >
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-mono text-xs font-bold text-[#00DDEB]">
+                        <span className="font-mono text-xs font-bold text-[#5411B8]">
                           {q.id}
                         </span>
                         {q.apta === true ? (
-                          <span className="text-[10px] font-bold text-[#B7F247] bg-[#B7F247]/20 border border-[#B7F247]/40 px-2 py-0.5 rounded-md">
+                          <span className="text-[10px] font-bold text-[#365314] bg-[#B7F247]/20 border border-[#B7F247]/40 px-2 py-0.5 rounded-md">
                             Apta
                           </span>
                         ) : (
-                          <span className="text-[10px] font-bold text-[#FF4F9B] bg-[#FF4F9B]/20 border border-[#FF4F9B]/40 px-2 py-0.5 rounded-md">
+                          <span className="text-[10px] font-bold text-[#9D174D] bg-[#FF4F9B]/20 border border-[#FF4F9B]/40 px-2 py-0.5 rounded-md">
                             Rascunho
                           </span>
                         )}
                       </div>
 
-                      <h4 className="font-extrabold text-sm text-[#FFFDF7]">
+                      <h4 className="font-extrabold text-sm text-[#25104A]">
                         {q.tema}
                       </h4>
-                      <p className="text-[11px] text-[#FFFDF7]/70">
+                      <p className="text-[11px] text-[#5B4B86]">
                         {q.ano ? `ENEM ${q.ano}` : ""}{" "}
                         {q.aplicacoes ? `• ${q.aplicacoes.join(", ")}` : ""}
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-[#6334E3]/30 flex items-center justify-between gap-2">
+                    <div className="pt-2 border-t border-[#D9C9FA] flex items-center justify-between gap-2">
                       {onAbrirRevisao && (
                         <button
                           type="button"
                           data-testid={`btn-inspecionar-${q.id}`}
                           disabled={ocupado}
                           onClick={() => onAbrirRevisao(q.id)}
-                          className="text-xs text-[#00DDEB] hover:text-[#54EEF8] font-bold underline"
+                          className="text-xs text-[#5411B8] hover:text-[#431099] font-bold underline"
                         >
                           Inspecionar
                         </button>
@@ -1027,7 +1025,7 @@ export function PrepararAulaoTematico({
             </div>
 
             {questoesCatalogoFiltradas.length === 0 && (
-              <p className="text-center text-xs text-[#FFFDF7]/60 italic py-6">
+              <p className="text-center text-xs text-[#5B4B86] italic py-6">
                 Nenhuma questão contextual encontrada com os filtros informados.
               </p>
             )}

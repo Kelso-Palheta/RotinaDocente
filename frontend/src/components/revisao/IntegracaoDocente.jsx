@@ -20,7 +20,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao, onReconectar 
       <Link href="/revisao" className="rounded-lg border border-[#a78bfa] px-3 py-2">← Minhas salas</Link>
       {!projecao && <Link href={`/revisao/projecao/${encodeURIComponent(codigo)}`} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-[#7c3aed] px-3 py-2 font-bold">Abrir projeção ↗</Link>}
       {!projecao && <Link href="/aluno/revisao" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-[#a78bfa] px-3 py-2">Acesso dos alunos ↗</Link>}
-      {!projecao && estado?.fase === 'espera' && <Link href={`/revisao?editar=${encodeURIComponent(codigo)}`} className="rounded-lg border border-teal-400 bg-teal-800/80 hover:bg-teal-700 px-3 py-2 text-teal-100 font-bold transition">Editar sala ✎</Link>}
+      {!projecao && estado?.fase === 'espera' && <Link href={`/revisao?editar=${encodeURIComponent(codigo)}`} className="rounded-lg border border-[#B9A6EF] bg-[#F3EDFF] hover:bg-[#E7DBFD] px-3 py-2 text-[#25104A] font-bold transition">Editar sala ✎</Link>}
       <span>Código: <strong className="font-mono text-yellow-200">{codigo}</strong></span>
       {erro && <button type="button" onClick={onReconectar} className="rounded-lg border border-amber-400 px-3 py-2">Reconectar sala</button>}
     </nav>
@@ -38,7 +38,7 @@ export function IntegracaoDocente({ codigo, projecao = false }) {
     if (!uid || !atual || atual.uid !== uid) throw new Error('Sua conta mudou. Faça login novamente para continuar.');
     return atual.getIdToken();
   }, [uid]);
-  if (loading) return <main className="min-h-screen bg-[#081a19] p-8 text-white"><p role="status">Verificando seu acesso…</p></main>;
-  if (!user || user.isDjango || !auth?.currentUser || auth.currentUser.uid !== uid) return <main className="min-h-screen bg-[#081a19] p-8 text-white space-y-4"><h1 className="text-2xl font-bold">Revisão ao Vivo</h1><p>Faça login de professor com sua conta Firebase para continuar.</p><Link href="/" className="inline-block rounded-xl bg-teal-700 px-4 py-2">Voltar para entrar</Link></main>;
+  if (loading) return <main className="min-h-screen bg-[#FFFDF7] p-8 text-[#25104A]"><p role="status">Verificando seu acesso…</p></main>;
+  if (!user || user.isDjango || !auth?.currentUser || auth.currentUser.uid !== uid) return <main className="min-h-screen bg-[#FFFDF7] p-8 text-[#25104A] space-y-4"><h1 className="text-2xl font-bold">Revisão ao Vivo</h1><p>Faça login de professor com sua conta Firebase para continuar.</p><Link href="/" className="inline-block rounded-xl bg-[#5411B8] px-4 py-2 text-white">Voltar para entrar</Link></main>;
   return codigo ? <SalaDocente key={`${uid}:${codigo}:${projecao}`} codigo={codigo} uid={uid} obterToken={obterToken} projecao={projecao} /> : <IntegracaoPreparacao key={uid} obterToken={obterToken} />;
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { MarcaFestival } from './MarcaFestival';
 import React from 'react';
 import { BadgeConexao, BlocoConteudo, LETRAS_ALTERNATIVAS } from './revisaoUtils';
 import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
@@ -31,9 +32,10 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
       className={`w-full min-h-screen text-[#FFFDF7] p-4 md:p-6 lg:p-8 font-sans ${temaStyles.palco}`}
       style={{ backgroundColor: '#25104A' }}
     >
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-4">
+        <div className="festival-moldura rounded-2xl px-3 py-1"><MarcaFestival /></div>
         {/* Cabeçalho do Painel Docente */}
-        <header className="bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-3xl p-5 md:p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
+        <header className="arte-banner-festival bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-3xl p-5 md:p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
           <div className="space-y-1.5">
             <div className="flex items-center gap-3 flex-wrap">
               <span className="bg-[#6334E3] text-[#FFFDF7] text-xs font-black px-3 py-1 rounded-full border border-[#00DDEB]/50 uppercase tracking-widest">
@@ -64,7 +66,7 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
         </header>
 
         {/* Fita de Etapas da Metodologia Arte em Jogo */}
-        <div className="bg-[#25104A]/90 border-2 border-[#6334E3]/60 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg backdrop-blur-md">
+        <div className="bg-[#431099] border border-[#A78BFA] rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg">
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#FFFDF7]">
             <span className="text-[#00DDEB]">👤 Controle de Etapas</span>
             <span className="text-[#6334E3]">|</span>
@@ -110,6 +112,16 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
               Ranking
             </span>
           </div>
+          {fase === 'pergunta' && (
+            <button
+              type="button"
+              disabled={acaoBloqueada}
+              onClick={() => onAcao('encerrar_pergunta')}
+              className="py-2.5 px-4 rounded-xl font-black bg-[#FF4F9B] hover:bg-[#FF80B6] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
+            >
+              Encerrar Pergunta
+            </button>
+          )}
         </div>
 
         {/* Alerta de Erro */}
@@ -198,17 +210,6 @@ export function PainelProfessor({ estado, ocupado, erro, onAcao }) {
                       ← Voltar Bloco
                     </button>
                   </div>
-                )}
-
-                {fase === 'pergunta' && (
-                  <button
-                    type="button"
-                    disabled={acaoBloqueada}
-                    onClick={() => onAcao('encerrar_pergunta')}
-                    className="w-full py-3.5 px-4 rounded-xl font-black bg-[#FFE14D] hover:bg-[#FFF085] active:scale-98 text-[#25104A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-sm tracking-wide"
-                  >
-                    Encerrar Pergunta
-                  </button>
                 )}
 
                 {fase === 'encerrada' && (

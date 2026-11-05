@@ -24,7 +24,7 @@ export function RevisarQuestao({
 }) {
   if (!questao) {
     return (
-      <div className="p-8 text-center text-slate-400 bg-[#081a19] rounded-2xl border border-teal-800/40">
+      <div className="p-8 text-center text-slate-400 bg-[#25104A] rounded-2xl border border-[#A78BFA]/40">
         Nenhuma questão selecionada para conferência.
       </div>
     );
@@ -56,15 +56,15 @@ export function RevisarQuestao({
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 md:p-8 bg-[#081a19] text-slate-100 font-sans space-y-8">
+    <div className="w-full max-w-5xl mx-auto p-4 md:p-8 bg-[#25104A] text-slate-100 font-sans space-y-8">
       {/* Cabeçalho da Conferência */}
-      <header className="border-b border-teal-800/40 pb-5">
+      <header className="border-b border-[#A78BFA]/40 pb-5">
         <div className="flex flex-wrap items-center gap-2 mb-2">
-          <span className="text-xs font-bold text-teal-400 uppercase tracking-widest">
+          <span className="text-xs font-bold text-[#00DDEB] uppercase tracking-widest">
             Conferência Pedagógica • {questao.ano ? `ENEM ${questao.ano}` : 'ENEM'}
           </span>
           {questao.aplicacoes && questao.aplicacoes.length > 0 && (
-            <span className="text-[11px] px-2 py-0.5 rounded bg-teal-900/60 text-teal-300 border border-teal-700/40">
+            <span className="text-[11px] px-2 py-0.5 rounded bg-[#431099]/60 text-[#E7DBFD] border border-[#A78BFA]/40">
               {questao.aplicacoes.join(', ')}
             </span>
           )}
@@ -99,8 +99,8 @@ export function RevisarQuestao({
 
       {/* Conteúdo Preparatório (se houver) */}
       {questao.conteudoRevisao && questao.conteudoRevisao.length > 0 && (
-        <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-4">
-          <h2 className="text-base font-bold text-teal-300 uppercase tracking-wider border-b border-teal-800/40 pb-2">
+        <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-4">
+          <h2 className="text-base font-bold text-[#E7DBFD] uppercase tracking-wider border-b border-[#A78BFA]/40 pb-2">
             Conteúdo Preparatório de Apoio
           </h2>
           <div className="space-y-4">
@@ -116,8 +116,8 @@ export function RevisarQuestao({
       )}
 
       {/* Enunciado e Imagens da Questão */}
-      <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-6">
-        <h2 className="text-base font-bold text-teal-300 uppercase tracking-wider border-b border-teal-800/40 pb-2">
+      <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-6">
+        <h2 className="text-base font-bold text-[#E7DBFD] uppercase tracking-wider border-b border-[#A78BFA]/40 pb-2">
           Texto Base e Enunciado
         </h2>
 
@@ -140,9 +140,9 @@ export function RevisarQuestao({
       </section>
 
       {/* Alternativas A–E e Explicações Detalhadas */}
-      <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-800/40 pb-3">
-          <h2 className="text-base font-bold text-teal-300 uppercase tracking-wider">
+      <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#A78BFA]/40 pb-3">
+          <h2 className="text-base font-bold text-[#E7DBFD] uppercase tracking-wider">
             Alternativas e Justificativas Pedagógicas
           </h2>
           <span className="text-xs font-bold text-emerald-400 bg-emerald-950 px-3 py-1 rounded-full border border-emerald-600/60">
@@ -161,7 +161,7 @@ export function RevisarQuestao({
                 className={`p-4 rounded-xl border transition ${
                   ehGabarito
                     ? 'bg-emerald-950/70 border-emerald-500/80 text-emerald-100'
-                    : 'bg-[#0c2423] border-teal-800/50 text-slate-200'
+                    : 'bg-[#301658] border-[#A78BFA]/50 text-slate-200'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -169,7 +169,7 @@ export function RevisarQuestao({
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold shrink-0 ${
                       ehGabarito
                         ? 'bg-emerald-500 text-emerald-950'
-                        : 'bg-teal-800/70 text-teal-200'
+                        : 'bg-[#5411B8]/70 text-[#E7DBFD]'
                     }`}
                   >
                     {alt.id}
@@ -177,8 +177,8 @@ export function RevisarQuestao({
                   <div className="flex-1 space-y-2">
                     <p className="text-sm font-medium">{alt.texto}</p>
                     {explicacao ? (
-                      <div className="p-3 bg-black/30 rounded-lg border border-teal-900/40 text-xs text-slate-300 leading-relaxed">
-                        <span className="font-semibold text-teal-300 block mb-0.5">
+                      <div className="p-3 bg-black/30 rounded-lg border border-[#A78BFA]/40 text-xs text-slate-300 leading-relaxed">
+                        <span className="font-semibold text-[#E7DBFD] block mb-0.5">
                           Justificativa Pedagógica ({alt.id}):
                         </span>
                         {explicacao}
@@ -197,8 +197,8 @@ export function RevisarQuestao({
       </section>
 
       {/* Fontes Oficiais Documentadas */}
-      <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-4">
-        <h2 className="text-base font-bold text-teal-300 uppercase tracking-wider border-b border-teal-800/40 pb-2">
+      <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-4">
+        <h2 className="text-base font-bold text-[#E7DBFD] uppercase tracking-wider border-b border-[#A78BFA]/40 pb-2">
           Fontes Oficiais INEP
         </h2>
 
@@ -206,7 +206,7 @@ export function RevisarQuestao({
           {fontes.map((f, idx) => (
             <div
               key={idx}
-              className="p-3.5 bg-[#0c2423] rounded-xl border border-teal-800/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+              className="p-3.5 bg-[#301658] rounded-xl border border-[#A78BFA]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
             >
               <div>
                 <span className="font-bold text-white block">
@@ -225,7 +225,7 @@ export function RevisarQuestao({
                     href={f.provaUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-teal-900/60 border border-teal-700/60 text-teal-200 hover:bg-teal-800/70 transition font-medium inline-flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-lg bg-[#431099]/60 border border-[#A78BFA]/60 text-[#E7DBFD] hover:bg-[#5411B8]/70 transition font-medium inline-flex items-center gap-1"
                   >
                     Prova Oficial Caderno {f.caderno} ↗
                   </a>
@@ -235,7 +235,7 @@ export function RevisarQuestao({
                     href={f.gabaritoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-teal-900/60 border border-teal-700/60 text-teal-200 hover:bg-teal-800/70 transition font-medium inline-flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-lg bg-[#431099]/60 border border-[#A78BFA]/60 text-[#E7DBFD] hover:bg-[#5411B8]/70 transition font-medium inline-flex items-center gap-1"
                   >
                     Gabarito Oficial INEP ↗
                   </a>
@@ -252,63 +252,63 @@ export function RevisarQuestao({
       </section>
 
       {/* Seção de Confirmações Docentes (Checkboxes Explícitos) */}
-      <section className="bg-[#123c3a] border-2 border-teal-600/60 rounded-2xl p-6 shadow-2xl space-y-5">
+      <section className="bg-[#431099] border-2 border-[#A78BFA]/60 rounded-2xl p-6 shadow-2xl space-y-5">
         <div>
           <h2 className="text-base font-bold text-white uppercase tracking-wider">
             Checklist de Homologação Docente
           </h2>
-          <p className="text-xs text-teal-200/80 mt-0.5">
+          <p className="text-xs text-[#E7DBFD]/80 mt-0.5">
             Marque cada item individualmente após conferência direta com os cadernos oficiais.
           </p>
         </div>
 
         <div className="space-y-3">
-          <label className="flex items-start gap-3 p-3 bg-[#0c2423] rounded-xl border border-teal-800/50 cursor-pointer text-xs select-none">
+          <label className="flex items-start gap-3 p-3 bg-[#301658] rounded-xl border border-[#A78BFA]/50 cursor-pointer text-xs select-none">
             <input
               type="checkbox"
               checked={confirmacoes?.transcricao === true}
               onChange={() => handleCheckboxChange('transcricao')}
               disabled={ocupado}
-              className="w-4 h-4 mt-0.5 rounded text-teal-600 bg-slate-900 border-teal-700 focus:ring-teal-400"
+              className="w-4 h-4 mt-0.5 rounded text-[#00DDEB] bg-slate-900 border-[#A78BFA] focus:ring-[#00DDEB]"
             />
             <span className="text-slate-200">
               <strong className="text-white">Transcrição do Enunciado e Alternativas:</strong> Confirmo a transcrição fiel do texto-base, enunciado e das 5 opções com o caderno oficial.
             </span>
           </label>
 
-          <label className="flex items-start gap-3 p-3 bg-[#0c2423] rounded-xl border border-teal-800/50 cursor-pointer text-xs select-none">
+          <label className="flex items-start gap-3 p-3 bg-[#301658] rounded-xl border border-[#A78BFA]/50 cursor-pointer text-xs select-none">
             <input
               type="checkbox"
               checked={confirmacoes?.gabarito === true}
               onChange={() => handleCheckboxChange('gabarito')}
               disabled={ocupado}
-              className="w-4 h-4 mt-0.5 rounded text-teal-600 bg-slate-900 border-teal-700 focus:ring-teal-400"
+              className="w-4 h-4 mt-0.5 rounded text-[#00DDEB] bg-slate-900 border-[#A78BFA] focus:ring-[#00DDEB]"
             />
             <span className="text-slate-200">
               <strong className="text-white">Gabarito Oficial:</strong> Confirmo a exatidão do gabarito oficial indicado pela documentação do INEP.
             </span>
           </label>
 
-          <label className="flex items-start gap-3 p-3 bg-[#0c2423] rounded-xl border border-teal-800/50 cursor-pointer text-xs select-none">
+          <label className="flex items-start gap-3 p-3 bg-[#301658] rounded-xl border border-[#A78BFA]/50 cursor-pointer text-xs select-none">
             <input
               type="checkbox"
               checked={confirmacoes?.imagens === true}
               onChange={() => handleCheckboxChange('imagens')}
               disabled={ocupado}
-              className="w-4 h-4 mt-0.5 rounded text-teal-600 bg-slate-900 border-teal-700 focus:ring-teal-400"
+              className="w-4 h-4 mt-0.5 rounded text-[#00DDEB] bg-slate-900 border-[#A78BFA] focus:ring-[#00DDEB]"
             />
             <span className="text-slate-200">
               <strong className="text-white">Imagens e Obras Artísticas:</strong> Confirmo a legibilidade e fidelidade das imagens e reproduções de obras.
             </span>
           </label>
 
-          <label className="flex items-start gap-3 p-3 bg-[#0c2423] rounded-xl border border-teal-800/50 cursor-pointer text-xs select-none">
+          <label className="flex items-start gap-3 p-3 bg-[#301658] rounded-xl border border-[#A78BFA]/50 cursor-pointer text-xs select-none">
             <input
               type="checkbox"
               checked={confirmacoes?.explicacoes === true}
               onChange={() => handleCheckboxChange('explicacoes')}
               disabled={ocupado}
-              className="w-4 h-4 mt-0.5 rounded text-teal-600 bg-slate-900 border-teal-700 focus:ring-teal-400"
+              className="w-4 h-4 mt-0.5 rounded text-[#00DDEB] bg-slate-900 border-[#A78BFA] focus:ring-[#00DDEB]"
             />
             <span className="text-slate-200">
               <strong className="text-white">Justificativas Pedagógicas:</strong> Confirmo as explicações das 5 alternativas e sua consistência pedagógica.
@@ -317,7 +317,7 @@ export function RevisarQuestao({
         </div>
 
         {/* Rodapé e Ação de Aprovação */}
-        <div className="pt-4 border-t border-teal-800/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="pt-4 border-t border-[#A78BFA]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             {motivoBloqueioAprovacao && (
               <p className="text-xs text-amber-300 font-medium">

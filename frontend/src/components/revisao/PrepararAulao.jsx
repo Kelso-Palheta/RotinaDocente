@@ -128,11 +128,11 @@ export function PrepararAulao({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4 md:p-8 bg-[#081a19] text-slate-100 font-sans space-y-8">
+    <div className="w-full max-w-7xl mx-auto p-4 md:p-8 bg-[#25104A] text-slate-100 font-sans space-y-8">
       {/* Cabeçalho */}
-      <header className="border-b border-teal-800/40 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <header className="border-b border-[#A78BFA]/40 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-teal-400 uppercase tracking-widest block mb-1">
+          <span className="text-xs font-bold text-[#00DDEB] uppercase tracking-widest block mb-1">
             {modoEdicao ? `Edição de Sala • ${codigoSala}` : 'Planejamento Docente • Revisão ENEM Arte'}
           </span>
           <h1 className="text-2xl md:text-3xl font-extrabold text-white">
@@ -147,7 +147,7 @@ export function PrepararAulao({
             type="button"
             disabled={ocupado}
             onClick={onCancelar}
-            className="px-4 py-2 rounded-xl border border-teal-600 hover:bg-teal-800/50 text-xs font-bold text-teal-200 transition"
+            className="px-4 py-2 rounded-xl border border-[#A78BFA] hover:bg-[#5411B8]/50 text-xs font-bold text-[#E7DBFD] transition"
           >
             Cancelar edição
           </button>
@@ -178,8 +178,8 @@ export function PrepararAulao({
 
       <form onSubmit={handleCriar} className="space-y-8">
         {/* Seção 1: Configurações Gerais (Título e Duração) */}
-        <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-6">
-          <h2 className="text-lg font-bold text-white border-b border-teal-800/40 pb-3">
+        <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-6">
+          <h2 className="text-lg font-bold text-white border-b border-[#A78BFA]/40 pb-3">
             1. Dados Gerais da Sessão
           </h2>
 
@@ -187,7 +187,7 @@ export function PrepararAulao({
             <div className="md:col-span-2 space-y-2">
               <label
                 htmlFor="input-titulo-aulao"
-                className="block text-xs font-semibold uppercase tracking-wider text-teal-300"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#E7DBFD]"
               >
                 Título do Aulão <span className="text-rose-400">*</span>
               </label>
@@ -199,7 +199,7 @@ export function PrepararAulao({
                 disabled={ocupado}
                 maxLength={120}
                 placeholder="Ex: Aulão Especial ENEM Arte — Vanguardas e Espaço Urbano"
-                className="w-full px-4 py-2.5 bg-[#0c2423] border border-teal-700/60 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-400 transition disabled:opacity-50 text-sm"
+                className="w-full px-4 py-2.5 bg-[#301658] border border-[#A78BFA]/60 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00DDEB] transition disabled:opacity-50 text-sm"
               />
               <span className="text-xs text-slate-400 block text-right">
                 {(selecao?.titulo || '').length}/120 caracteres
@@ -209,7 +209,7 @@ export function PrepararAulao({
             <div className="space-y-2">
               <label
                 htmlFor="input-duracao-segundos"
-                className="block text-xs font-semibold uppercase tracking-wider text-teal-300"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#E7DBFD]"
               >
                 Duração por Questão (segundos) <span className="text-rose-400">*</span>
               </label>
@@ -221,7 +221,7 @@ export function PrepararAulao({
                 value={selecao?.duracaoSegundos ?? ''}
                 onChange={handleDuracaoChange}
                 disabled={ocupado}
-                className="w-full px-4 py-2.5 bg-[#0c2423] border border-teal-700/60 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-400 transition disabled:opacity-50 text-sm"
+                className="w-full px-4 py-2.5 bg-[#301658] border border-[#A78BFA]/60 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00DDEB] transition disabled:opacity-50 text-sm"
               />
               <span className="text-xs text-slate-400 block">
                 Permitido: 10 a 600 segundos (10s a 10min).
@@ -230,8 +230,8 @@ export function PrepararAulao({
           </div>
 
           {/* Seleção de Turmas */}
-          <div className="space-y-3 pt-4 border-t border-teal-800/40">
-            <span className="block text-xs font-semibold uppercase tracking-wider text-teal-300">
+          <div className="space-y-3 pt-4 border-t border-[#A78BFA]/40">
+            <span className="block text-xs font-semibold uppercase tracking-wider text-[#E7DBFD]">
               Turmas Participantes <span className="text-rose-400">*</span>
             </span>
             {!podeEditarTurmas && (
@@ -247,8 +247,8 @@ export function PrepararAulao({
                     key={turma.id}
                     className={`flex items-center gap-3 p-3.5 rounded-xl border text-sm transition select-none ${
                       checked
-                        ? 'bg-teal-900/60 border-teal-500 text-teal-100 font-medium'
-                        : 'bg-[#0c2423] border-teal-800/40 text-slate-300 hover:border-teal-700/60'
+                        ? 'bg-[#431099]/60 border-[#00DDEB] text-[#FFFDF7] font-medium'
+                        : 'bg-[#301658] border-[#A78BFA]/40 text-slate-300 hover:border-[#A78BFA]/60'
                     } ${ocupado || !podeEditarTurmas ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <input
@@ -256,7 +256,7 @@ export function PrepararAulao({
                       checked={checked}
                       onChange={() => podeEditarTurmas && handleToggleTurma(turma.id)}
                       disabled={ocupado || !podeEditarTurmas}
-                      className="w-4 h-4 rounded text-teal-600 bg-slate-900 border-teal-700 focus:ring-teal-400"
+                      className="w-4 h-4 rounded text-[#00DDEB] bg-slate-900 border-[#A78BFA] focus:ring-[#00DDEB]"
                     />
                     <span>{turma.nome}</span>
                   </label>
@@ -272,8 +272,8 @@ export function PrepararAulao({
         </section>
 
         {/* Seção 2: Questões Selecionadas e Ordem de Execução */}
-        <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-800/40 pb-3">
+        <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#A78BFA]/40 pb-3">
             <div>
               <h2 className="text-lg font-bold text-white">
                 2. Questões Selecionadas ({questoesSelecionadas.length})
@@ -283,7 +283,7 @@ export function PrepararAulao({
               </p>
             </div>
             {questoesSelecionadas.length > 0 && (
-              <span className="text-xs font-mono font-semibold text-teal-300 bg-teal-950 px-2.5 py-1 rounded-full border border-teal-700/60">
+              <span className="text-xs font-mono font-semibold text-[#E7DBFD] bg-[#25104A] px-2.5 py-1 rounded-full border border-[#A78BFA]/60">
                 {questoesSelecionadas.length} {questoesSelecionadas.length === 1 ? 'rodada' : 'rodadas'}
               </span>
             )}
@@ -302,20 +302,20 @@ export function PrepararAulao({
                   className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition ${
                     ehInapta
                       ? 'bg-rose-950/40 border-rose-700/60'
-                      : 'bg-[#0c2423] border-teal-800/50'
+                      : 'bg-[#301658] border-[#A78BFA]/50'
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <span className="w-7 h-7 rounded-full bg-teal-800/70 border border-teal-600/70 text-teal-200 text-xs font-bold flex items-center justify-center shrink-0">
+                    <span className="w-7 h-7 rounded-full bg-[#5411B8]/70 border border-[#A78BFA]/70 text-[#E7DBFD] text-xs font-bold flex items-center justify-center shrink-0">
                       {idx + 1}
                     </span>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-teal-400">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-[#00DDEB]">
                           {q.ano ? `ENEM ${q.ano}` : 'ENEM'}
                         </span>
                         {q.aplicacoes && q.aplicacoes.length > 0 && (
-                          <span className="text-[11px] px-2 py-0.5 rounded bg-teal-900/60 text-teal-300 border border-teal-700/40">
+                          <span className="text-[11px] px-2 py-0.5 rounded bg-[#431099]/60 text-[#E7DBFD] border border-[#A78BFA]/40">
                             {q.aplicacoes.join(', ')}
                           </span>
                         )}
@@ -341,7 +341,7 @@ export function PrepararAulao({
                       aria-label={`mover ${q.id} para cima`}
                       onClick={() => handleMoverQuestao(idx, -1)}
                       disabled={ehPrimeiro || ocupado}
-                      className="p-1.5 rounded-lg bg-teal-900/50 border border-teal-700/40 text-teal-200 hover:bg-teal-800/60 disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-semibold"
+                      className="p-1.5 rounded-lg bg-[#431099]/50 border border-[#A78BFA]/40 text-[#E7DBFD] hover:bg-[#5411B8]/60 disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-semibold"
                     >
                       ▲
                     </button>
@@ -350,7 +350,7 @@ export function PrepararAulao({
                       aria-label={`mover ${q.id} para baixo`}
                       onClick={() => handleMoverQuestao(idx, 1)}
                       disabled={ehUltimo || ocupado}
-                      className="p-1.5 rounded-lg bg-teal-900/50 border border-teal-700/40 text-teal-200 hover:bg-teal-800/60 disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-semibold"
+                      className="p-1.5 rounded-lg bg-[#431099]/50 border border-[#A78BFA]/40 text-[#E7DBFD] hover:bg-[#5411B8]/60 disabled:opacity-30 disabled:cursor-not-allowed transition text-xs font-semibold"
                     >
                       ▼
                     </button>
@@ -369,7 +369,7 @@ export function PrepararAulao({
             })}
 
             {questoesSelecionadas.length === 0 && (
-              <div className="p-8 border border-dashed border-teal-800/40 rounded-xl text-center text-slate-400 text-sm">
+              <div className="p-8 border border-dashed border-[#A78BFA]/40 rounded-xl text-center text-slate-400 text-sm">
                 Nenhuma questão adicionada ainda. Selecione questões no catálogo abaixo.
               </div>
             )}
@@ -377,8 +377,8 @@ export function PrepararAulao({
         </section>
 
         {/* Seção 3: Catálogo de Questões com Filtros */}
-        <section className="bg-[#123c3a]/70 border border-teal-800/40 rounded-2xl p-6 shadow-xl space-y-6">
-          <div className="border-b border-teal-800/40 pb-3">
+        <section className="bg-[#431099]/70 border border-[#A78BFA]/40 rounded-2xl p-6 shadow-xl space-y-6">
+          <div className="border-b border-[#A78BFA]/40 pb-3">
             <h2 className="text-lg font-bold text-white">
               3. Catálogo de Questões do Acervo
             </h2>
@@ -388,11 +388,11 @@ export function PrepararAulao({
           </div>
 
           {/* Filtros Locais */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-[#0c2423] p-4 rounded-xl border border-teal-800/40">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-[#301658] p-4 rounded-xl border border-[#A78BFA]/40">
             <div>
               <label
                 htmlFor="filtro-ano"
-                className="block text-xs font-semibold text-teal-300 uppercase mb-1"
+                className="block text-xs font-semibold text-[#E7DBFD] uppercase mb-1"
               >
                 Filtrar por Ano
               </label>
@@ -402,14 +402,14 @@ export function PrepararAulao({
                 value={filtroAno}
                 onChange={(e) => setFiltroAno(e.target.value)}
                 placeholder="Ex: 2024"
-                className="w-full px-3 py-1.5 bg-[#081a19] border border-teal-700/60 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-teal-400"
+                className="w-full px-3 py-1.5 bg-[#25104A] border border-[#A78BFA]/60 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#00DDEB]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="filtro-modalidade"
-                className="block text-xs font-semibold text-teal-300 uppercase mb-1"
+                className="block text-xs font-semibold text-[#E7DBFD] uppercase mb-1"
               >
                 Filtrar por Aplicação
               </label>
@@ -417,7 +417,7 @@ export function PrepararAulao({
                 id="filtro-modalidade"
                 value={filtroModalidade}
                 onChange={(e) => setFiltroModalidade(e.target.value)}
-                className="w-full px-3 py-1.5 bg-[#081a19] border border-teal-700/60 rounded-lg text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-400"
+                className="w-full px-3 py-1.5 bg-[#25104A] border border-[#A78BFA]/60 rounded-lg text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#00DDEB]"
               >
                 <option value="">Todas as modalidades</option>
                 <option value="regular">Regular</option>
@@ -429,7 +429,7 @@ export function PrepararAulao({
             <div>
               <label
                 htmlFor="filtro-tema"
-                className="block text-xs font-semibold text-teal-300 uppercase mb-1"
+                className="block text-xs font-semibold text-[#E7DBFD] uppercase mb-1"
               >
                 Filtrar por Tema
               </label>
@@ -439,7 +439,7 @@ export function PrepararAulao({
                 value={filtroTema}
                 onChange={(e) => setFiltroTema(e.target.value)}
                 placeholder="Ex: Contemporânea"
-                className="w-full px-3 py-1.5 bg-[#081a19] border border-teal-700/60 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-teal-400"
+                className="w-full px-3 py-1.5 bg-[#25104A] border border-[#A78BFA]/60 rounded-lg text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#00DDEB]"
               />
             </div>
           </div>
@@ -455,14 +455,14 @@ export function PrepararAulao({
               return (
                 <div
                   key={q.id}
-                  className="p-4 bg-[#0c2423] border border-teal-800/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  className="p-4 bg-[#301658] border border-[#A78BFA]/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                 >
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold text-teal-300 uppercase">
+                      <span className="text-xs font-bold text-[#E7DBFD] uppercase">
                         ENEM {q.ano}
                       </span>
-                      <span className="text-[11px] px-2 py-0.5 rounded bg-teal-900/60 text-teal-300 border border-teal-700/40">
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-[#431099]/60 text-[#E7DBFD] border border-[#A78BFA]/40">
                         {(q.aplicacoes || []).join(', ')}
                       </span>
                       {q.apta === true ? (
@@ -492,8 +492,8 @@ export function PrepararAulao({
                         disabled={jaAdicionada || ocupado}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                           jaAdicionada
-                            ? 'bg-teal-950 border border-teal-800 text-teal-400/60 cursor-default'
-                            : 'bg-teal-600 hover:bg-teal-500 text-teal-950 font-bold shadow'
+                            ? 'bg-[#25104A] border border-[#A78BFA] text-[#00DDEB]/60 cursor-default'
+                            : 'bg-[#00DDEB] hover:bg-[#00DDEB] text-[#25104A] font-bold shadow'
                         } disabled:opacity-50`}
                       >
                         {jaAdicionada ? 'Já Adicionada' : '+ Adicionar'}
@@ -535,7 +535,7 @@ export function PrepararAulao({
         </section>
 
         {/* Rodapé e Botão de Criação */}
-        <footer className="pt-4 border-t border-teal-800/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <footer className="pt-4 border-t border-[#A78BFA]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             {motivoBloqueio && (
               <p className="text-xs text-amber-300 font-medium">
@@ -548,7 +548,7 @@ export function PrepararAulao({
             type="submit"
             aria-label={modoEdicao ? 'salvar alterações' : 'criar aulão'}
             disabled={!podeCriar}
-            className="px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-teal-950 font-bold text-sm tracking-wide shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition"
+            className="px-6 py-3 rounded-xl bg-[#00DDEB] hover:bg-[#00DDEB] text-[#25104A] font-bold text-sm tracking-wide shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition"
           >
             {ocupado ? (modoEdicao ? 'Salvando...' : 'Criando Sessão...') : (textoAcao || 'Criar Aulão')}
           </button>

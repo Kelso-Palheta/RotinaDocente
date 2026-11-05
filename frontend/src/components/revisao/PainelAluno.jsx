@@ -1,5 +1,6 @@
 'use client';
 
+import { MarcaFestival } from './MarcaFestival';
 import React from 'react';
 import { useCronometroRevisao } from './useCronometroRevisao';
 import { BadgeConexao, BlocoConteudo, formatarTempo } from './revisaoUtils';
@@ -44,12 +45,12 @@ export function PainelAluno({
   return (
     <div
       data-tema="vibrante"
-      className={`w-full min-h-screen text-[#FFFDF7] flex flex-col font-sans p-3 sm:p-4 md:p-6 max-w-2xl mx-auto ${temaStyles.palco}`}
-      style={{ backgroundColor: '#25104A' }}
+      className={`w-full min-h-screen flex flex-col font-sans p-3 sm:p-4 md:p-6 max-w-2xl mx-auto ${fase === 'pergunta' ? 'festival-moldura text-[#25104A]' : `text-[#FFFDF7] ${temaStyles.palco}`}`}
     >
       {/* Topo do Aluno: Sala, Rodada e Conexão */}
-      <header className="bg-[#6334E3]/30 border-2 border-[#6334E3]/60 rounded-2xl p-3.5 mb-4 shadow-xl flex items-center justify-between gap-3 backdrop-blur-md">
+      <header className="arte-banner-festival text-white border border-[#5411B8] rounded-xl p-3 mb-3 shadow-md flex items-center justify-between gap-3 backdrop-blur-md">
         <div className="min-w-0">
+          <MarcaFestival compacta />
           <span className="text-[10px] uppercase font-extrabold text-[#00DDEB] tracking-wider block truncate">
             {sala.titulo || 'Festival ENEM Arte'}
           </span>
@@ -171,32 +172,28 @@ export function PainelAluno({
         {fase === 'pergunta' && (
           <div className="space-y-4">
             {/* Barra de Cronômetro e Enunciado */}
-            <div className="bg-[#6334E3]/25 border-2 border-[#6334E3]/60 rounded-2xl p-4 md:p-5 shadow-xl space-y-3.5 backdrop-blur-md">
+            <div className="bg-white border border-[#E2D9F7] rounded-xl p-3 md:p-4 shadow-sm space-y-3 backdrop-blur-md">
               <div className="flex justify-between items-center border-b border-[#6334E3]/40 pb-2.5">
-                <span className="text-xs text-[#FFE14D] font-extrabold uppercase tracking-wider bg-[#FFE14D]/20 px-2.5 py-0.5 rounded-md border border-[#FFE14D]/40">
+                <span className="text-xs text-[#25104A] font-extrabold uppercase tracking-wider bg-[#FFE500] px-2.5 py-0.5 rounded-md border border-[#FFE14D]/40">
                   Questão {rodada.numero}
                 </span>
 
                 {/* Timer Visual (aria-hidden para não poluir leitores de tela a cada segundo) */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#FFFDF7]/70 font-semibold">Tempo:</span>
+                  <span className="text-xs text-[#5B4B86] font-semibold">Tempo:</span>
                   <span
                     data-testid="timer-visual-segundos"
                     aria-hidden="true"
                     className={`font-mono text-base font-black px-2.5 py-0.5 rounded-md ${
                       segundosRestantes <= 10
                         ? 'bg-[#FF4F9B] text-[#25104A] animate-pulse'
-                        : 'bg-[#00DDEB]/20 text-[#00DDEB] border border-[#00DDEB]/50'
+                        : 'bg-[#00DDEB] text-[#25104A] border border-[#00DDEB]/50'
                     }`}
                   >
                     {formatarTempo(segundosRestantes)}
                   </span>
                 </div>
               </div>
-
-              <p className="text-sm md:text-base text-[#FFFDF7] font-medium leading-relaxed">
-                {questao.enunciado}
-              </p>
 
               {questao.imagens && questao.imagens.length > 0 && (
                 <div className="my-2">
@@ -205,10 +202,14 @@ export function PainelAluno({
                   ))}
                 </div>
               )}
+
+              <p className="text-base text-[#25104A] font-bold leading-relaxed">
+                {questao.enunciado}
+              </p>
             </div>
 
             {tempoEsgotado && (
-              <p role="status" className="text-sm text-[#FFE14D] font-bold bg-[#FFE14D]/10 p-3 rounded-xl border border-[#FFE14D]/40 text-center">
+              <p role="status" className="text-sm text-amber-950 font-bold bg-amber-50 p-3 rounded-xl border border-[#FFE14D]/40 text-center">
                 Tempo encerrado. Aguarde a explicação do professor.
               </p>
             )}
@@ -217,7 +218,7 @@ export function PainelAluno({
             {envioAtivo && (
               <div
                 role="status"
-                className="p-3 bg-[#6334E3]/50 border-2 border-[#00DDEB] rounded-xl text-[#00DDEB] text-xs flex items-center justify-center gap-2 font-bold shadow-md"
+                className="p-3 bg-cyan-50 border-2 border-[#00DDEB] rounded-xl text-[#25104A] text-xs flex items-center justify-center gap-2 font-bold shadow-md"
               >
                 <span className="w-3.5 h-3.5 border-2 border-[#00DDEB] border-t-transparent rounded-full animate-spin" />
                 <span>Enviando resposta...</span>
@@ -227,7 +228,7 @@ export function PainelAluno({
             {envioConfirmado && (
               <div
                 role="status"
-                className={`p-3 bg-[#6334E3]/40 border-2 border-[#00DDEB] rounded-xl text-[#00DDEB] text-xs text-center font-extrabold flex items-center justify-center gap-2 shadow-lg ${temaStyles.confirmadoAnimado}`}
+                className={`p-3 bg-[#B9EF00] border-2 border-[#B9EF00] rounded-xl text-[#25104A] text-xs text-center font-extrabold flex items-center justify-center gap-2 shadow-lg ${temaStyles.confirmadoAnimado}`}
               >
                 <span>✓ Resposta confirmada: Alternativa {envio.alternativa}</span>
               </div>
