@@ -157,6 +157,7 @@ export function ConferirConteudoTematico({
             <BlocoAulaTematica
               key={bloco.id || idx}
               bloco={bloco}
+              imagens={conteudo.imagens || []}
               aula={{
                 indiceBloco: idx,
                 totalBlocos: conteudo.blocos.length,
@@ -193,9 +194,9 @@ export function ConferirConteudoTematico({
                     {img.arquivo}
                   </span>
                 </div>
-                <p className="text-[#FFFDF7] font-semibold">
-                  {img.legenda || img.alt}
-                </p>
+                {!conteudo.blocos?.some(b => b.tipo === 'imagem' && b.imagemId === img.id) && (
+                  <p className="text-[#FFFDF7] font-semibold">{img.legenda || img.alt}</p>
+                )}
                 {img.fonteUrl && (
                   <p className="text-[#00DDEB] truncate">
                     <span className="text-[#FFFDF7]/70">Fonte: </span>
