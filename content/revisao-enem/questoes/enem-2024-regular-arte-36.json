@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-36",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Escultura, forma e permanências estéticas",
+  "habilidades": [
+    "Comparar obras de épocas distintas",
+    "Reconhecer permanências e rupturas formais"
+  ],
+  "enunciado": "TEXTO I\n\nAnônimo. Cabeça de uma figura feminina. Circa 2700-2500 a.C. Escultura em mármore, 8 × 3,2 cm. Metropolitan Museum of Art, Nova Iorque.\n\nTEXTO II\n\nMODIGLIANI, A. Cabeça de mulher. Circa 1910-1911. Escultura em calcário, 68,3 × 15,9 × 24,1 cm. National Gallery of Art, Washington.\n\nWOLKOFF, J. These 5,000-Year-Old Sculptures Look Shockingly Similar to Modern Art. Disponível em: www.artsy.net. Acesso em: 19 jun. 2019.\n\nA leitura comparativa das duas esculturas, separadas por mais de 2 500 anos, indica a",
+  "imagens": [
+    {
+      "id": "cabeca-antiga",
+      "arquivo": "imagens/enem-2024-regular-arte-36-cabeca-antiga.png",
+      "alt": "Escultura em mármore de uma cabeça feminina da Antiguidade, com traços simples e alongados.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": true
+    },
+    {
+      "id": "cabeca-modigliani",
+      "arquivo": "imagens/enem-2024-regular-arte-36-cabeca-modigliani.png",
+      "alt": "Escultura em calcário Cabeça de mulher, de Amedeo Modigliani, com rosto alongado e olhos vazados.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "valorização da arte antiga por artistas contemporâneos."
+    },
+    {
+      "id": "B",
+      "texto": "resistência da arte escultórica aos avanços tecnológicos."
+    },
+    {
+      "id": "C",
+      "texto": "simplificação da forma em razão do tipo de material utilizado."
+    },
+    {
+      "id": "D",
+      "texto": "persistência de padrões estéticos em diferentes épocas e culturas."
+    },
+    {
+      "id": "E",
+      "texto": "ausência de detalhes como traço distintivo da arte tradicional popular."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A reportagem compara as obras, mas não afirma que artistas contemporâneos valorizam a arte antiga por si só.",
+    "B": "A questão é formal e estética; não há discussão sobre resistência da escultura a avanços tecnológicos.",
+    "C": "A simplificação formal não é explicada apenas pelo material, até porque as duas obras usam pedras diferentes.",
+    "D": "A semelhança entre a cabeça antiga e a de Modigliani evidencia a persistência de soluções estéticas em épocas e culturas distintas.",
+    "E": "A ausência de detalhes não é apresentada como traço exclusivo da arte tradicional popular."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A comparação entre esculturas de épocas distantes permite discutir permanências formais e diferenças de contexto. A semelhança entre uma cabeça antiga e a de Modigliani não implica cópia, mas diálogo de soluções estéticas."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "cabeca-antiga",
+      "legenda": "Cabeça feminina anônima, circa 2700-2500 a.C."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "cabeca-modigliani",
+      "legenda": "Amedeo Modigliani, Cabeça de mulher, circa 1910-1911."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 36,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

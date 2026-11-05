@@ -1,0 +1,8 @@
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+
+ Test Files  6 passed (6)
+      Tests  45 passed (45)
+   Start at  22:54:58
+   Duration  1.74s (transform 642ms, setup 1.25s, import 871ms, tests 1.17s, environment 2.70s)

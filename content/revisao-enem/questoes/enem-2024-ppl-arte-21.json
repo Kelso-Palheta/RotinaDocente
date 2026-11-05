@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-ppl-arte-21",
+  "ano": 2024,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Fotografia, cidade e trabalho",
+  "habilidades": [
+    "Relacionar fotografia e contexto histórico",
+    "Interpretar a construção da cena urbana"
+  ],
+  "enunciado": "TEXTO I\n\nLORCA, G. À procura de emprego. Fotografia. 1949. Disponível em: www.livrariacultura.com.br. Acesso em: 18 jun. 2019.\n\nTEXTO II\n\nA maestria da luz\n\nSombras duras recortadas contra uma parede de São Paulo, uma São Paulo irreconhecível, de superfícies de concreto limpas e lajotas impecáveis — sem nenhum papel, sem nenhuma sujeira. O título da obra, À procura de emprego (1949), explica a intensidade desses personagens que parecem querer mergulhar entre as páginas do Diário Popular — o jornal que, na época, oferecia a maior quantidade de anúncios com oportunidades de trabalho.\n\nDURAN, J. R. Disponível em: www.livrariacultura.com.br. Acesso em: 18 jun. 2019 (adaptado).\n\nO texto de J. R. Duran confere força expressiva à fotografia de German Lorca, produzida na década de 1940, ao",
+  "imagens": [
+    {
+      "id": "german-lorca",
+      "arquivo": "imagens/enem-2024-ppl-arte-21-german-lorca.png",
+      "alt": "Fotografia em preto e branco de pessoas em uma calçada urbana lendo o jornal Diário Popular, em cena de procura de emprego.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "destacar as características de uma cidade em processo de decadência."
+    },
+    {
+      "id": "B",
+      "texto": "construir uma cena urbana a partir de uma ação cotidiana da época."
+    },
+    {
+      "id": "C",
+      "texto": "evidenciar o acesso à leitura com base em diferentes notícias."
+    },
+    {
+      "id": "D",
+      "texto": "explorar a socialização entre as pessoas em vias públicas."
+    },
+    {
+      "id": "E",
+      "texto": "representar os cidadãos no seu tempo de ócio."
+    }
+  ],
+  "gabarito": "B",
+  "explicacoes": {
+    "A": "A fotografia não denuncia decadência urbana; ao contrário, o texto destaca superfícies limpas e cena organizada.",
+    "B": "A imagem constrói a cena urbana a partir da ação cotidiana de procurar emprego no jornal, como argumenta Duran.",
+    "C": "O jornal é lido em busca de anúncios de trabalho, não para evidenciar acesso a diferentes notícias.",
+    "D": "As pessoas estão absortas na leitura individual, não socializando em via pública.",
+    "E": "A ação é de procura de emprego, não de ócio."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A fotografia de German Lorca registra uma ação cotidiana da cidade: a leitura de anúncios de emprego em jornal. A composição em preto e branco valoriza sombras, enquadramento e a relação entre os corpos e o espaço urbano."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "german-lorca",
+      "legenda": "German Lorca, À procura de emprego, 1949."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 21,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 21,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

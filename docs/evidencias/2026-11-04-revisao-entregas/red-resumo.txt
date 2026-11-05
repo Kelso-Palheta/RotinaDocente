@@ -1,0 +1,18 @@
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > aluno: mostra imagem por arquivo, sem exigir tipo ou url fora do contrato
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > aluno: resolve imagemId do conteúdo pela imagem da questão
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > professor: mostra imagem por arquivo, sem exigir tipo ou url fora do contrato
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > professor: resolve imagemId do conteúdo pela imagem da questão
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > projeção: mostra imagem por arquivo, sem exigir tipo ou url fora do contrato
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > projeção: resolve imagemId do conteúdo pela imagem da questão
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > aluno: atraso do callback não prolonga prazo
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > aluno: volta a contar após nova sincronização com mesmo prazo depois de zero
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > projeção: mede tempo decorrido mesmo com callback atrasado
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > conexão desconhecida não autoriza resposta ou comando docente
+ FAIL  |dom| ../tests/unit/components/revisao/RevisaoEntregaRevisao.test.jsx > RV-REV-01 — revisão independente da interface > feedback não inventa pontos só porque a alternativa coincide com gabarito
+ FAIL  |node| ../tests/contract/revisao_acervo_revisao.test.js > RV-REV-01 — fontes da revisão > mantém PPL/reaplicação de 2024 no mesmo conteúdo sem excluir uma modalidade
+ FAIL  |node| ../tests/contract/revisao_acervo_revisao.test.js > RV-REV-01 — fontes da revisão > fontes regulares anteriores a 2017 apontam o segundo dia de Linguagens
+ Test Files  2 failed (2)
+      Tests  13 failed | 1 passed (14)
+
+Acessibilidade adicional: 1 falha e 12 aprovações antes do aviso estático. Logs completos de execução local em /tmp/revisao-*.log; caminhos temporários não integram o produto.

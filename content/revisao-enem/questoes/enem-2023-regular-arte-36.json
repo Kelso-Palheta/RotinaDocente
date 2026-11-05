@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-36",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Patrimônio cultural imaterial e Marabaixo",
+  "habilidades": [
+    "Reconhecer função social de manifestações culturais",
+    "Relacionar memória e patrimônio imaterial"
+  ],
+  "enunciado": "O Marabaixo é uma expressão artístico-cultural formada nas tradições e na identificação cultural entre as comunidades negras do Amapá. O nome remonta às mortes de escravizados em navios negreiros que eram jogados na água. Em sua homenagem, hinos de lamento eram cantados mar abaixo, mar acima. Posteriormente, o Marabaixo se integrou à vivência das comunidades negras em um ciclo de danças, cantorias com tambores e festas religiosas, recebendo, em 2018, o título de Patrimônio Cultural do Brasil.\n\nDisponível em: http://portal.iphan.gov.br. Acesso em: 15 nov. 2021 (adaptado).\n\nA manifestação do Marabaixo se constituiu em expressão de arte e cultura, exercendo função de",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "ressignificar episódios dramáticos em novas práticas culturais."
+    },
+    {
+      "id": "B",
+      "texto": "adaptar coreografias como imitação dos movimentos do mar."
+    },
+    {
+      "id": "C",
+      "texto": "lembrar dos mortos no passado escravista como forma de lamento."
+    },
+    {
+      "id": "D",
+      "texto": "perpetuar uma narrativa de apagamento dos fatos históricos traumáticos."
+    },
+    {
+      "id": "E",
+      "texto": "ritualizar a passagem de atos fúnebres nas produções coletivas com espírito festivo."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O Marabaixo ressignifica a memória das mortes no mar em danças, cantorias e festas, transformando o episódio dramático em prática cultural.",
+    "B": "As coreografias não imitam o movimento do mar; o nome remete aos corpos lançados à água, mas a manifestação se organiza em ciclo festivo.",
+    "C": "O lamento existe na origem, porém a manifestação se integra a festas religiosas e não se reduz a lembrar os mortos.",
+    "D": "A tradição preserva e ressignifica a memória, em vez de apagar os fatos históricos.",
+    "E": "O Marabaixo não ritualiza atos fúnebres; ele transforma a memória em celebração cultural."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O Marabaixo é patrimônio cultural imaterial do Amapá. A manifestação nasce da memória de escravizados mortos no mar e se transforma em ciclo de danças, cantorias e festas religiosas."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 36,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

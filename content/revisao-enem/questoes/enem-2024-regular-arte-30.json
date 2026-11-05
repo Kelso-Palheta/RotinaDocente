@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-30",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte, literatura e função crítica",
+  "habilidades": [
+    "Comparar posições sobre a função da arte",
+    "Interpretar textos argumentativos"
+  ],
+  "enunciado": "TEXTO I\n\nA 13 de fevereiro de 1946, Graciliano Ramos escreve uma carta a Cândido Portinari relembrando uma visita que lhe fizera quando tivera a ocasião de apreciar algumas telas da série Retirantes. Diz o escritor alagoano:\n\nCaríssimo Portinari:\n\nA sua carta chegou muito atrasada, e receio que esta resposta já não o ache fixando na tela a nossa pobre gente da roça. Não há trabalho mais digno, penso eu. Dizem que somos pessimistas e exibimos deformações; contudo, as deformações e essa miséria existem fora da arte e são cultivadas pelos que nos censuram. [...]\n\nDos quadros que você me mostrou quando almocei no Cosme Velho pela última vez, o que mais me comoveu foi aquela mãe com a criança morta. Saí de sua casa com um pensamento horrível: numa sociedade sem classes e sem miséria, seria possível fazer-se aquilo? Numa vida tranquila e feliz, que espécie de arte surgiria? Chego a pensar que teríamos cromos, anjinhos cor-de-rosa, e isto me horroriza.\n\nGraciliano\n\nDisponível em: https://graciliano.com.br. Acesso em: 6 fev. 2024 (adaptado).\n\nTEXTO II\n\nHistórias de ninar (adultos)\n\nHouve um tempo — tão perto, e, ó, tão longe — em que a arte era um holofote na unha encravada, não um campeonato de melhores esmaltes.\n\nRaskolnikov matava velhinhas, a família de Gregor Samsa o assassinava a “maçãzadas”, Memórias póstumas de Brás Cubas (Machado de Assis) é o retrato mais perfeito de tudo o que tem de pior na sociedade brasileira, uma sequência tristemente hilária de ações moralmente condenáveis, atitudes pusilânimes, cálculos mesquinhos e maus passos cretinos.\n\nA literatura, o cinema e o teatro vêm se transformando num exercício de lacração: o mal está sempre no outro, os protagonistas são ironmen / women da virtude. A pessoa sai da leitura ou da sessão não com a guarda abaixada, as certezas abaladas, mais próxima da verdade (ou, à falta de uma palavra melhor, da sinceridade): sai com suas certezas reforçadas.\n\nA realidade é confusa. Contraditória. Muitas vezes incompreensível. A arte é onde tentamos nos mostrar nus, com todos os nossos defeitos.\n\nPRATA, A. Disponível em: www1.folha.uol.com.br. Acesso em: 12 jan. 2024 (adaptado).\n\nNo que diz respeito à arte, o posicionamento de Antônio Prata, no Texto II, aproxima-se da tese de Graciliano Ramos, no Texto I, uma vez que ambos",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "defendem a dignidade do ofício dos artistas."
+    },
+    {
+      "id": "B",
+      "texto": "concluem que a arte reforça crenças pessoais."
+    },
+    {
+      "id": "C",
+      "texto": "apresentam a pobreza como inspiração para a arte."
+    },
+    {
+      "id": "D",
+      "texto": "afirmam o necessário caráter desestabilizador da arte."
+    },
+    {
+      "id": "E",
+      "texto": "atestam que há mudanças significativas na produção artística."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "Nenhum dos textos discute a dignidade profissional dos artistas; o foco é a função crítica da arte.",
+    "B": "Prata critica justamente a arte que reforça certezas; Graciliano também recusa a arte acomodada.",
+    "C": "A pobreza aparece no texto de Graciliano, mas não é a tese comum sobre a função da arte.",
+    "D": "Os dois textos defendem que a arte deve incomodar, abalar certezas e mostrar contradições, e não confirmar o leitor.",
+    "E": "Os textos não avaliam mudanças históricas na produção artística; discutem o papel da arte."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A arte moderna e a literatura problematizam o papel da obra diante da desigualdade e da experiência social. Graciliano Ramos e Antônio Prata discutem o que a arte deve fazer com as certezas do público."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 30,
+      "pagina": 13,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

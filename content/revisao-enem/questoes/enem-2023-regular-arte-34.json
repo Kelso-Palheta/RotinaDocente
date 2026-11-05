@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-34",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Dança contemporânea e religiosidade afro-brasileira",
+  "habilidades": [
+    "Relacionar dança, ritual e criação contemporânea",
+    "Interpretar a reelaboração estética de práticas culturais"
+  ],
+  "enunciado": "TEXTO I\n\nLogo no início de Gira, um grupo de sete bailarinas ocupa o centro da cena. Mãos cruzadas sobre a lateral esquerda do quadril, olhos fechados, troncos que pendulam sobre si mesmos em vaguíssimas órbitas, tudo nelas sugere o transe. Está estabelecido o caráter volátil do que se passará no palco dali para frente. Mas engana-se quem pensa que vai assistir a uma representação mimética dos cultos afro-brasileiros.\n\nTEXTO II\n\nDisponível em: www.grupocorpo.com.br. Acesso em: 2 jul. 2019.\n\nNo diálogo que estabelece com religiões afro-brasileiras, sintetizado na descrição e na imagem do espetáculo, a dança exprime uma",
+  "imagens": [
+    {
+      "id": "gira-grupo-corpo",
+      "arquivo": "imagens/enem-2023-regular-arte-34-gira.png",
+      "alt": "Fotografia de integrantes do espetáculo Gira, do Grupo Corpo, em cena com corpos inclinados e olhos fechados.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "crítica aos movimentos padronizados do balé clássico."
+    },
+    {
+      "id": "B",
+      "texto": "representação contemporânea de rituais ancestrais extintos."
+    },
+    {
+      "id": "C",
+      "texto": "reelaboração estética erudita de práticas religiosas populares."
+    },
+    {
+      "id": "D",
+      "texto": "releitura irônica da atmosfera mística presente no culto a entidades."
+    },
+    {
+      "id": "E",
+      "texto": "oposição entre o resgate de tradições e a efemeridade da vida humana."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A descrição não critica o balé clássico; ela aproxima a dança de matriz afro-brasileira de uma elaboração cênica contemporânea.",
+    "B": "As religiões afro-brasileiras não são tratadas como extintas; a obra dialoga com práticas vivas.",
+    "C": "O espetáculo reelabora esteticamente rituais populares em linguagem erudita/contemporânea, sem imitação mimética.",
+    "D": "A obra não tem tom irônico; a descrição sugere respeito e elaboração estética do transe.",
+    "E": "A oposição entre tradição e efemeridade não é o eixo da questão; o foco é a reelaboração da religiosidade."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O espetáculo Gira, do Grupo Corpo, dialoga com religiões afro-brasileiras sem reproduzir literalmente seus rituais. A dança contemporânea reelabora gestos, transe e musicalidade em linguagem cênica."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "gira-grupo-corpo",
+      "legenda": "Grupo Corpo, Gira, reproduzido na prova oficial."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 34,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

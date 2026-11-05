@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-ppl-arte-25",
+  "ano": 2024,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Música popular, viola caipira e tradição",
+  "habilidades": [
+    "Relacionar letra, contexto social e prática musical",
+    "Reconhecer transformações de tradições populares"
+  ],
+  "enunciado": "TEXTO I\n\nLá no bairro que eu moro\nÉ tão triste os dias meus\nPor eu ser um violeiro\nMuita gente me ofendeu\nMe chamam de vagabundo\nMuita tristeza me deu\nMas eu sou encorajado\nEu rezo pra São Mateus\nCantando eu não faço mal\nPorque estou louvando a Deus\n\nGRUPO DE FANDANGO OS TROPEIROS DA MATA. Louvando a Deus. In: SILVA, O.; BARROS, A. et al. Documento sonoro do folclore brasileiro. São Paulo: Funarte; Atração Fonográfica; Instituto Itaú Cultural, 1982 (fragmento).\n\nTEXTO II\n\nUSP tem primeiro curso de Viola Caipira do mundo.\n\nOs alunos que prestaram o vestibular 2005 para o curso de Música na Escola de Comunicações e Artes da USP, em Ribeirão Preto, tiveram mais uma opção: o bacharelado em Viola Caipira. Segundo o professor do curso, Ivan Vilela, existe um interesse cada vez maior pela viola caipira, pois “as pessoas se voltam para suas origens. Hoje encontramos a viola não só na música de raiz, mas na música erudita, na música pop e até mesmo em bandas de rock”.\n\nBLASQUES, M. Disponível em: http://usp.br. Acesso em: 17 nov. 2021 (adaptado).\n\nA maneira como a viola caipira é abordada nos dois textos revela que esse instrumento cordófono dedilhado",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "assume papéis antagônicos na história da música brasileira."
+    },
+    {
+      "id": "B",
+      "texto": "substitui aqueles de uso tradicional em vários estilos musicais."
+    },
+    {
+      "id": "C",
+      "texto": "representa a extinta cultura tradicional de gerações passadas."
+    },
+    {
+      "id": "D",
+      "texto": "depende de pesquisas para não desaparecer como tradição popular."
+    },
+    {
+      "id": "E",
+      "texto": "subordina-se às manifestações musicais religiosas para continuar a ser tocado."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "O texto I mostra o violeiro desvalorizado, e o II mostra a viola em gêneros eruditos e populares; a trajetória revela papéis antagônicos.",
+    "B": "A viola não substitui instrumentos tradicionais; ela circula por novos estilos sem abandonar a raiz.",
+    "C": "O texto II afirma que o interesse cresce e que a viola está em vários estilos, o que contradiz a ideia de cultura extinta.",
+    "D": "A pesquisa e o curso ampliam a presença da viola, mas o texto não diz que ela depende disso para não desaparecer.",
+    "E": "A viola não se subordina ao religioso; o texto I tem contexto religioso, mas o II mostra sua presença em outros gêneros."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A viola caipira ocupa lugares distintos na cultura brasileira: da música de raiz e das festas religiosas à música erudita, pop e rock. Essa circulação mostra como tradições populares se transformam e ganham novos públicos."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 25,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 25,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

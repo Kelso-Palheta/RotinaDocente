@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-16",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte afro-brasileira, multiculturalidade e experiência social",
+  "habilidades": [
+    "Relacionar produção artística e contexto social",
+    "Reconhecer a pluralidade da arte afro-brasileira"
+  ],
+  "enunciado": "Uma definição possível para o conceito de arte afro-brasileira pode ser: produção plástica que é feita por negros, mestiços ou brancos a partir de suas experiências sociais com a cultura negra nacional. Exemplos clássicos dessa abordagem são Carybé (1911-1997), Mestre Didi (1917-2013) e Djanira da Motta e Silva (1914-1979), cujas obras emergem e ganham forma em razão do ambiente social no qual habitaram e viveram. Se Didi era um célebre representante da cultura religiosa nagô baiana e brasileira, iniciado desde o ventre no candomblé, Carybé era argentino e, naturalizado brasileiro, envolveu-se de tal modo com essa religião que alguns dos orixás dos quais conhecemos a imagem visual são produções suas.\n\nDisponível em: www.premiopipa.com. Acesso em: 13 nov. 2021 (adaptado).\n\nSob a perspectiva da multiculturalidade e de acordo com o texto, a produção artística afro-brasileira caracteriza-se pelo(a)",
+  "imagens": [],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "estranhamento no modo de apropriação da cultura religiosa de matriz africana."
+    },
+    {
+      "id": "B",
+      "texto": "distanciamento entre as raízes de matriz africana e a estética de outras culturas."
+    },
+    {
+      "id": "C",
+      "texto": "visão uniformizadora das religiões de matriz africana expressada nas diferentes produções."
+    },
+    {
+      "id": "D",
+      "texto": "relação complexa entre as vivências pessoais dos artistas e os referenciais estéticos de matriz africana."
+    },
+    {
+      "id": "E",
+      "texto": "padronização da forma de produção e da temática da matriz africana presente nas obras dos artistas citados."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "O texto mostra envolvimento e identificação dos artistas com a cultura negra, não estranhamento ou apropriação distanciada.",
+    "B": "A produção afro-brasileira dialoga com outras tradições estéticas; o texto não afirma separação ou distanciamento entre elas.",
+    "C": "Carybé, Mestre Didi e Djanira têm trajetórias e obras singulares; o texto não os apresenta sob uma visão uniforme das religiões.",
+    "D": "A alternativa sintetiza a tese: as obras nascem da experiência social dos artistas e de seus vínculos com referenciais estéticos de matriz africana.",
+    "E": "O texto destaca a pluralidade de origens e poéticas; não há padronização de forma ou temática entre os artistas citados."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A arte afro-brasileira se constitui no encontro entre experiências sociais, religiosidades de matriz africana e linguagens plásticas diversas. A produção não é homogênea: cada artista parte de seu repertório e de seu vínculo com a cultura negra."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 16,
+      "pagina": 8,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

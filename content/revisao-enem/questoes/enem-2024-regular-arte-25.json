@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-25",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Impressionismo e pintura brasileira",
+  "habilidades": [
+    "Identificar características do impressionismo",
+    "Relacionar obra e contexto de circulação"
+  ],
+  "enunciado": "VISCONTI, E. Três meninas no jardim. Óleo sobre tela, 81 × 65 cm. Museu Nacional de Belas Artes, Rio de Janeiro, 1935. Disponível em: www.eliseuvisconti.com.br. Acesso em: 18 set. 2012.\n\nEliseu D’Angelo Visconti (1866-1944) desenvolveu diversas obras no Brasil, com grande influência das escolas europeias. Em sua pintura Três meninas no jardim, há",
+  "imagens": [
+    {
+      "id": "tres-meninas",
+      "arquivo": "imagens/enem-2024-regular-arte-25-tres-meninas.png",
+      "alt": "Pintura Três meninas no jardim, de Eliseu Visconti, com três meninas em ambiente externo e pinceladas que sugerem luz.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "pagina": 11,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "culto à fluidez e ao progresso, nos moldes do ideário futurista."
+    },
+    {
+      "id": "B",
+      "texto": "valorização de formas decompostas, a exemplo do estilo cubista."
+    },
+    {
+      "id": "C",
+      "texto": "efeitos fugazes de luz e movimento, que remetem à estética impressionista."
+    },
+    {
+      "id": "D",
+      "texto": "expressão do sonho e do inconsciente, que dialoga com a proposta surrealista."
+    },
+    {
+      "id": "E",
+      "texto": "tematização de elementos cotidianos, que resgata modelos de representação da arte realista."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A tela não apresenta linhas de força, velocidade ou exaltação da máquina, traços associados ao futurismo.",
+    "B": "As formas não são decompostas em planos geométricos como no cubismo; a cena mantém unidade figurativa.",
+    "C": "A pincelada solta e a atenção à luz e ao instante aproximam a obra da estética impressionista.",
+    "D": "Não há onirismo, automatismo ou elementos do inconsciente que caracterizem o surrealismo.",
+    "E": "A obra não se limita a modelos realistas de tipos cotidianos; a ênfase recai sobre luz e atmosfera."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "O impressionismo valoriza a impressão instantânea, a luz e a pincelada solta. No Brasil, artistas como Visconti dialogaram com essa tendência sem abandonar a figuração."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "tres-meninas",
+      "legenda": "Eliseu Visconti, Três meninas no jardim, 1935."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 25,
+      "pagina": 11,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

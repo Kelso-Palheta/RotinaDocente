@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-regular-arte-36",
+  "ano": 2019,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte contemporânea, apropriação e reprodutibilidade",
+  "habilidades": [
+    "Comparar fotografia e releitura contemporânea",
+    "Interpretar procedimentos de apropriação"
+  ],
+  "enunciado": "TEXTO I\n\nFotografia de Jackson Pollock pintando em seu ateliê, realizada por Hans Namuth em 1951.\n\nCHIPP, H. Teorias da arte moderna. São Paulo: Martins Fontes, 1988.\n\nTEXTO II\n\nMUNIZ, V. Action Photo (segundo Hans Namuth em Pictures in Chocolate). Impressão fotográfica, 152,4 cm x 121,92 cm, The Museum of Modern Art, Nova Iorque, 1977.\n\nNEVES, A. História da arte 4. Vitória: Ufes – Nead, 2011.\n\nUtilizando chocolate derretido como matéria-prima, essa obra de Vick Muniz reproduz a célebre fotografia do processo de criação de Jackson Pollock. A originalidade dessa releitura reside na",
+  "imagens": [
+    {
+      "id": "pollock-atelie",
+      "arquivo": "imagens/enem-2019-regular-arte-36-pollock.png",
+      "alt": "Fotografia em preto e branco de Jackson Pollock pintando no ateliê, inclinado sobre a tela no chão, com latas de tinta ao redor.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "pagina": 16,
+      "revisada": true
+    },
+    {
+      "id": "vick-muniz",
+      "arquivo": "imagens/enem-2019-regular-arte-36-vick-muniz.png",
+      "alt": "Obra de Vick Muniz em preto e branco que recria a fotografia de Pollock usando chocolate derretido, com a figura inclinada sobre respingos.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "pagina": 16,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "apropriação parodística das técnicas e materiais utilizados."
+    },
+    {
+      "id": "B",
+      "texto": "reflexão acerca dos sistemas de circulação da arte."
+    },
+    {
+      "id": "C",
+      "texto": "simplificação dos traços da composição pictórica."
+    },
+    {
+      "id": "D",
+      "texto": "contraposição de linguagens artísticas distintas."
+    },
+    {
+      "id": "E",
+      "texto": "crítica ao advento do abstracionismo."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "Vick Muniz apropria-se da fotografia e do gesto de Pollock, parodiando técnicas e materiais ao trocar a tinta por chocolate.",
+    "B": "A obra não discute primordialmente os sistemas de circulação da arte, mas a própria imagem do processo criativo.",
+    "C": "A releitura não simplifica os traços; ela reproduz a cena com outro material e mantém sua complexidade.",
+    "D": "A contraposição de linguagens existe, mas a originalidade apontada está na apropriação parodística, não apenas no contraste.",
+    "E": "A obra não é uma crítica ao abstracionismo; ela homenageia e reencena o gesto de Pollock."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A obra de Vick Muniz parte da fotografia de Hans Namuth que registra Jackson Pollock pintando. Ao reproduzir a cena com chocolate, o artista apropria-se do gesto e do material para discutir imagem, autoria e reprodutibilidade."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "pollock-atelie",
+      "legenda": "Hans Namuth, Jackson Pollock pintando, 1951."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "vick-muniz",
+      "legenda": "Vick Muniz, Action Photo (segundo Hans Namuth em Pictures in Chocolate), 1977."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 36,
+      "pagina": 16,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

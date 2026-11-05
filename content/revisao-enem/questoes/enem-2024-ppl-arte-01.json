@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-ppl-arte-01",
+  "ano": 2024,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "História em quadrinhos, mediação e experiência estética",
+  "habilidades": [
+    "Interpretar recursos verbais e não verbais",
+    "Refletir sobre a relação do público com a arte"
+  ],
+  "enunciado": "BARRY, L. Disponível em: www.avclub.com. Acesso em: 25 out. 2021.\n\nEssa história em quadrinhos, que apresenta dois personagens frente a um quadro, ilustra a",
+  "imagens": [
+    {
+      "id": "tira-barry",
+      "arquivo": "imagens/enem-2024-ppl-arte-01-tira-barry.png",
+      "alt": "Tira em quatro quadros com uma personagem canina e uma criatura pequena diante de um quadro; elas conversam sobre como olhar arte e a pequena pede colo para ver melhor.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 2,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "necessidade de promoção do ensino de Arte."
+    },
+    {
+      "id": "B",
+      "texto": "diversidade de opiniões sobre dispositivos culturais."
+    },
+    {
+      "id": "C",
+      "texto": "dificuldade de valorização de elementos culturais."
+    },
+    {
+      "id": "D",
+      "texto": "importância de identificação com produções artísticas."
+    },
+    {
+      "id": "E",
+      "texto": "possibilidade de aprendizado de técnicas artísticas."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A tira não discute ensino de Arte nem defende políticas de promoção da disciplina.",
+    "B": "Os personagens não debatem dispositivos culturais; conversam sobre como se relacionar com um quadro.",
+    "C": "Não há dificuldade de valorização de elementos culturais; o humor está na experiência de olhar a obra.",
+    "D": "A pequena criatura só compreende a obra quando é erguida para ver melhor, o que sugere a importância da identificação e do ponto de vista.",
+    "E": "A tira não trata de aprendizado de técnicas artísticas; o foco é a experiência de contemplação."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A tira explora o estranhamento de quem visita uma exposição e não sabe como se relacionar com a obra. O humor evidencia que o encontro com a arte depende de mediação, repertório e ponto de vista."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "tira-barry",
+      "legenda": "Tira de Barry reproduzida na prova oficial."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 1,
+      "pagina": 2,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 1,
+      "pagina": 2,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

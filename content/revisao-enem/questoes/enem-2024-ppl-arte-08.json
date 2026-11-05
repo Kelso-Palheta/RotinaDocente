@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-ppl-arte-08",
+  "ano": 2024,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Ilustração contemporânea, visibilidade e imaginário social",
+  "habilidades": [
+    "Interpretar metáforas visuais",
+    "Relacionar imagem e crítica social"
+  ],
+  "enunciado": "AL MARGEN. Os defeitos da sociedade. Ilustração, lápis. 2016. Disponível em: https://culturainquieta.com. Acesso em: 18 nov. 2021.\n\nAl Margen é um artista argentino que questiona padrões de comportamento da sociedade contemporânea. Essa ilustração reflete práticas sociais sintetizadas na",
+  "imagens": [
+    {
+      "id": "al-margen",
+      "arquivo": "imagens/enem-2024-ppl-arte-08-al-margen.png",
+      "alt": "Ilustração em lápis com uma figura saindo de uma flor, um olho alado e um espeto com pão e queijo, em composição surreal.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 6,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "exposição da vida privada nas redes sociais como estímulo à vaidade."
+    },
+    {
+      "id": "B",
+      "texto": "ideia de perfeição associada a padrões de beleza inacessíveis."
+    },
+    {
+      "id": "C",
+      "texto": "natureza simbólica da linguagem relacionada ao gênero."
+    },
+    {
+      "id": "D",
+      "texto": "relação entre visibilidade, imaginário social e desejo."
+    },
+    {
+      "id": "E",
+      "texto": "visão falseada do enclausuramento como proteção."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A imagem não representa redes sociais ou exposição de vida privada; seu vocabulário é simbólico e corporal.",
+    "B": "Não há ideal de beleza inacessível; a figura é híbrida e não funciona como modelo de aparência.",
+    "C": "A ilustração não organiza sua crítica em torno de linguagem de gênero, mas de visibilidade e consumo.",
+    "D": "O olho alado, a figura exposta e os objetos de consumo sugerem a relação entre ser visto, o imaginário social e o desejo.",
+    "E": "A obra não trata enclausuramento como proteção; a flor que envolve o corpo pode ser lida como exposição, não abrigo."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A ilustração de Al Margen usa metáforas visuais para discutir visibilidade, aparência e consumo. O olho, a flor e os objetos alimentares compõem um imaginário sobre o desejo de ser visto."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "al-margen",
+      "legenda": "Al Margen, Os defeitos da sociedade, 2016."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 8,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 8,
+      "pagina": 6,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

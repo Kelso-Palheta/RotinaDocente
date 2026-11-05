@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2019-regular-arte-31",
+  "ano": 2019,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Escultura moderna, apropriação e ressignificação de objetos",
+  "habilidades": [
+    "Reconhecer procedimentos da arte moderna",
+    "Interpretar a ressignificação de objetos cotidianos"
+  ],
+  "enunciado": "PICASSO, P. Cabeça de touro. Bronze, 33,5 cm x 43,5 cm x 19 cm. Musée Picasso, Paris. França, 1945.\n\nJANSON, H. W. Iniciação à história da arte. São Paulo: Martins Fontes, 1988.\n\nNa obra Cabeça de touro, o material descartado torna-se objeto de arte por meio da",
+  "imagens": [
+    {
+      "id": "cabeca-de-touro",
+      "arquivo": "imagens/enem-2019-regular-arte-31-cabeca-de-touro.png",
+      "alt": "Escultura Cabeça de touro, de Pablo Picasso, formada por um selim e um guidão de bicicleta montados como chifres e focinho.",
+      "fonteUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "reciclagem da matéria-prima original."
+    },
+    {
+      "id": "B",
+      "texto": "complexidade da combinação de formas abstratas."
+    },
+    {
+      "id": "C",
+      "texto": "perenidade dos elementos que constituem a escultura."
+    },
+    {
+      "id": "D",
+      "texto": "mudança da funcionalidade pela integração dos objetos."
+    },
+    {
+      "id": "E",
+      "texto": "fragmentação da imagem no uso de elementos diversificados."
+    }
+  ],
+  "gabarito": "D",
+  "explicacoes": {
+    "A": "A obra não recicla a matéria-prima original: o selim e o guidão são integrados e fundidos em bronze, mudando de função.",
+    "B": "As formas não são abstratas; o conjunto continua reconhecível como cabeça de touro.",
+    "C": "A perenidade dos elementos não explica a operação artística; o que importa é a ressignificação dos objetos.",
+    "D": "Picasso desloca objetos cotidianos de sua função e os integra como chifres e focinho, criando a escultura.",
+    "E": "Não há fragmentação da imagem; a obra recompõe os objetos em uma nova totalidade."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A escultura Cabeça de touro, de Picasso, é formada por um selim e um guidão de bicicleta. O artista desloca objetos do cotidiano e os integra em uma nova forma, questionando os limites da arte."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "cabeca-de-touro",
+      "legenda": "Pablo Picasso, Cabeça de touro, 1945."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 31,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/educacao_basica/enem/provas/2019/2019_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/educacao_basica/enem/gabaritos/2019/gabarito_1_dia_caderno_1_azul_aplicacao_regular.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

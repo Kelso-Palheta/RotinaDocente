@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-ppl-arte-40",
+  "ano": 2024,
+  "aplicacoes": [
+    "ppl",
+    "reaplicacao"
+  ],
+  "tema": "Cerâmica popular e figurativismo",
+  "habilidades": [
+    "Reconhecer características da arte popular",
+    "Interpretar cenas do cotidiano na cerâmica"
+  ],
+  "enunciado": "MESTRE VITALINO. Ceia. Cerâmica policromada. 14 × 24 cm. Acervo Galeria Pé de Boi, Rio de Janeiro. Disponível em: www.itaucultural.org.br. Acesso em: 26 jul. 2010.\n\nMestre Vitalino, importante ceramista popular brasileiro, na obra reproduzida, retrata uma cena típica da cultura nordestina: o horário da refeição. Seus bonecos de barro apresentam características artísticas marcantes, representadas como",
+  "imagens": [
+    {
+      "id": "mestre-vitalino",
+      "arquivo": "imagens/enem-2024-ppl-arte-40-mestre-vitalino.png",
+      "alt": "Cerâmica policromada Ceia, de Mestre Vitalino, com figuras humanas sentadas à mesa em uma cena de refeição.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "pagina": 17,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "humanas, com fixação do momento de um gesto."
+    },
+    {
+      "id": "B",
+      "texto": "abstratas, com estilização e redução da figura."
+    },
+    {
+      "id": "C",
+      "texto": "figurativas, com representação da realidade."
+    },
+    {
+      "id": "D",
+      "texto": "religiosas, com alongamento das formas divinas."
+    },
+    {
+      "id": "E",
+      "texto": "dramáticas, com predominância de linhas curvas."
+    }
+  ],
+  "gabarito": "C",
+  "explicacoes": {
+    "A": "A obra não se limita a fixar um gesto; ela constrói uma cena coletiva reconhecível da vida nordestina.",
+    "B": "Os bonecos não são abstratos; mantêm formas humanas identificáveis e detalhes da cena.",
+    "C": "A cerâmica de Mestre Vitalino é figurativa e representa uma cena real do cotidiano, como a refeição em família.",
+    "D": "A cena é doméstica e cotidiana, sem alongamento ou caráter devocional das formas religiosas.",
+    "E": "A dramaticidade não é o traço dominante; a composição é descritiva e narrativa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A cerâmica popular de Mestre Vitalino representa cenas do cotidiano nordestino com figurativismo e narrativa. As peças preservam gestos, vestimentas e relações sociais reconhecíveis."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "mestre-vitalino",
+      "legenda": "Mestre Vitalino, Ceia, cerâmica policromada."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "ppl",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 40,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    },
+    {
+      "aplicacao": "reaplicacao",
+      "caderno": "Caderno 1 Azul — 2ª Aplicação/PPL",
+      "numeroQuestao": 40,
+      "pagina": 17,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_reaplicacao_PPL_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_reaplicacao_PPL_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

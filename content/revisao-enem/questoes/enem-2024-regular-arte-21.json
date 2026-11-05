@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2024-regular-arte-21",
+  "ano": 2024,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte indígena, arte plumária e organização social",
+  "habilidades": [
+    "Interpretar objetos rituais em seu contexto sociocultural",
+    "Relacionar arte indígena e cosmologia"
+  ],
+  "enunciado": "TEXTO I\n\nA linguagem visual dos adornos transmite informações sobre prestígio e transgressão, direito e dever, pois só é permitido ao indivíduo o uso de adornos de sua linhagem. Quando diretamente vinculadas aos conceitos cosmológicos, as artes indígenas convertem-se antes em prismas que refletem as concepções acerca da composição do universo e dos componentes que o povoam.\n\nAGUILAR, N. (Org.); DIAS, J. A. B. F.; VELTHEN, L. H. V. Mostra do redescobrimento: artes indígenas. São Paulo: Fundação Bienal de São Paulo-Associação Brasil 500 anos, 2000 (adaptado).\n\nTEXTO II\n\nDiadema (etnia Kayapó). Estados do Mato Grosso e Pará. Museu de Arte Indígena, s.d. Disponível em: www.maimuseu.com.br. Acesso em: 11 jul. 2024.\n\nPela leitura desses textos, infere-se que a compreensão da arte plumária indígena requer a consideração da",
+  "imagens": [
+    {
+      "id": "diadema-kayapo",
+      "arquivo": "imagens/enem-2024-regular-arte-21-diadema.png",
+      "alt": "Diadema indígena Kayapó com penas coloridas, exibido em fundo neutro.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "pagina": 10,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "indistinção hierárquica entre os membros de um mesmo grupo social."
+    },
+    {
+      "id": "B",
+      "texto": "prevalência dos elementos do mundo natural sobre as relações humanas."
+    },
+    {
+      "id": "C",
+      "texto": "reconfiguração constante das representações coletivas acerca do universo."
+    },
+    {
+      "id": "D",
+      "texto": "indeterminação entre as noções de identidade individual e de identidade cultural."
+    },
+    {
+      "id": "E",
+      "texto": "indissociabilidade entre objetos ritualísticos e os papéis dos indivíduos na comunidade."
+    }
+  ],
+  "gabarito": "E",
+  "explicacoes": {
+    "A": "O texto afirma que o uso de adornos é regulado pela linhagem, o que pressupõe hierarquia e distinção, não indistinção.",
+    "B": "As artes indígenas são descritas como prismas das concepções cosmológicas, sem subordinar as relações humanas ao mundo natural.",
+    "C": "O texto trata de concepções cosmológicas e papéis sociais, mas não defende que as representações coletivas mudem constantemente.",
+    "D": "Os adornos indicam linhagem e deveres; a identidade é coletiva e socialmente regulada, não indeterminada.",
+    "E": "A leitura correta articula objeto ritual, hierarquia e papel do indivíduo na comunidade, como pede a alternativa."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "A arte plumária indígena articula estética, cosmologia e organização social. Os adornos indicam pertencimento, prestígio e deveres dentro da comunidade, e não funcionam apenas como enfeite."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "diadema-kayapo",
+      "legenda": "Diadema Kayapó (Museu de Arte Indígena), reproduzido na prova oficial."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 21,
+      "pagina": 10,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}

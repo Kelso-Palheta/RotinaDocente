@@ -1,0 +1,6 @@
+{
+  "tests/contract/revisao_acervo.test.js": "1e0ff19c5afb888f06dd2ed6449cff5196bd587c2acb75a2fa2452f6d90658f4",
+  "tests/unit/components/revisao/RevisaoFluxo.test.jsx": "f9328b350962a4316ca6283b1298b128d96d64531d64890c93a90bde9225b1a9",
+  "tests/unit/components/revisao/RevisaoAluno.test.jsx": "e07e2dc2cee53342e6de97085b137c8257d18e8f5fc9dc75d99db6a9c1d8cd55",
+  "tests/unit/components/revisao/RevisaoProjecao.test.jsx": "b2cce72dca236ff65f104dec7960a63c3794dcce3418394876b403cbba472ec8"
+}

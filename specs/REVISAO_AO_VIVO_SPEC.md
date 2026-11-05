@@ -124,6 +124,10 @@ Paleta petróleo/sálvia existente; estados não dependem apenas de cor. Celular
 
 ## 5. Regras críticas — ChatGPT
 
+### Preparação e conferência docente (segunda execução visual)
+
+Componentes controlados adicionais: `PrepararAulao` e `RevisarQuestao`, com contrato detalhado no prompt `docs/plans/2026-11-04-prompt-antigravity-revisao-preparacao.md`. Preparação mantém seleção ordenada de questões aptas, turmas, título e duração inteira 10–600s; filtros não perdem seleção. Conferência mostra material e fontes completos, exige quatro confirmações explícitas antes do callback de aprovação e não grava status sozinha. Nunca importar acervo privado por componente cliente; material docente só chega após autorização no servidor. IDs inexistentes/inaptos, referências de imagem ausentes ou estrutura incompleta impedem os respectivos callbacks de criar/aprovar. Controlador e servidor revalidam tudo. Duração/título são limites iniciais de contrato, sem alteração de notas.
+
 - Validar ID, turma, sala e propriedade a cada operação; revogação do vínculo impede responder. Separar conta docente, identidade discente e participante da sala.
 - Payload de aluno não escolhe professor/aluno para autorizar a si mesmo. Sessão e vínculos definem identidade. Proteção de origem nas mutações com cookie; código de sala não substitui autenticação.
 - Rodada tem ID único, prazo no servidor e revisão. Comando antigo não avança outra rodada; resposta de contexto anterior não afeta a atual. Trocar sala/unmount invalida assinaturas e requisições pendentes.
@@ -153,6 +157,8 @@ Paleta petróleo/sálvia existente; estados não dependem apenas de cor. Celular
 Capacidade: cenários progressivos 50, 100, 200, 500 e superiores somente enquanto critérios passam. Incluir rajada de respostas no fim, reconexão em massa, pelo menos duas instâncias e duração de aula. Metas propostas: p95 de confirmação ≤2s, projeção atualizada ≤2s, zero perda de resposta confirmada e zero duplicação; publicar número seguro com margem, ambiente, duração e limitações. Teste local não equivale a homologação em produção ou Wi-Fi escolar. Nenhuma carga de produção nesta fase.
 
 ## 7. Portões de entrega
+
+Complemento de revisão (RV-REV-01): imagens podem chegar como registro `{id, arquivo, alt}` e blocos de conteúdo como `{tipo:'imagem', imagemId, legenda}`; resolver a referência pela coleção de imagens da questão sem inventar URL. Cronômetro usa tempo monotônico decorrido, não número de callbacks, e nova sincronização reinicia a medição mesmo após zero. Estado de conexão ausente bloqueia ações. Interface não inventa bônus/pontos no feedback. Aplicações que compartilham uma prova aparecem em ambos os filtros sem duplicar questão; ausência de caderno separado não significa modalidade não aplicável. Provas de Linguagens anteriores a 2017 são do segundo dia; inventário de Arte não deve apresentar o primeiro dia como fonte suficiente.
 
 1. Interface controlada e inventário podem avançar paralelamente com este contrato; mudanças no contrato retornam à coordenação.
 2. Transporte, pontuação e integração passam por decisão registrada antes do respectivo código.

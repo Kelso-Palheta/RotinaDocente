@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "id": "enem-2023-regular-arte-33",
+  "ano": 2023,
+  "aplicacoes": [
+    "regular"
+  ],
+  "tema": "Arte moderna, censura e política",
+  "habilidades": [
+    "Relacionar obra modernista e contexto político",
+    "Interpretar a noção de arte degenerada"
+  ],
+  "enunciado": "TEXTO I\n\nSEGALL, L. Eternos caminhantes. Óleo sobre tela, 138 x 184 cm. Museu Lasar Segall, IbramMinc, São Paulo, 1919.\n\nTEXTO II\n\nEm 1933, a obra Eternos caminhantes ingressou em uma das primeiras edições das exposições de Arte Degenerada, promovida por membros do partido nazista alemão. Nos anos seguintes, ela voltaria a ser exibida na mostra denominada Exposição da Vergonha, promovida por pequenos grupos abastados. Em 1937, essa obra foi confiscada pelo Ministério da Propaganda daquele país, na grande ação nacional-socialista contra a “Arte Degenerada”.\n\nSCHWARTZ, J. Perseguição à Arte Moderna em tempos de guerra. São Paulo: Museu Lasar Segall, 2018 (adaptado).\n\nQuase cinquenta obras de Lasar Segall foram confiscadas pelo regime totalitário alemão na primeira metade do século XX, entre elas a obra Eternos caminhantes, considerada degenerada por",
+  "imagens": [
+    {
+      "id": "eternos-caminhantes",
+      "arquivo": "imagens/enem-2023-regular-arte-33-eternos-caminhantes.png",
+      "alt": "Pintura Eternos caminhantes, de Lasar Segall, com figuras humanas em tons terrosos caminhando em um espaço indefinido.",
+      "fonteUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "pagina": 15,
+      "revisada": true
+    }
+  ],
+  "alternativas": [
+    {
+      "id": "A",
+      "texto": "representar uma estética tida como inconveniente para o ideário político vigente."
+    },
+    {
+      "id": "B",
+      "texto": "manifestar um posicionamento político-cultural concebido por grupos de oposição."
+    },
+    {
+      "id": "C",
+      "texto": "expressar a cultura artística por meio da representação parcial do corpo humano."
+    },
+    {
+      "id": "D",
+      "texto": "apresentar uma composição que antecipa o imaginário artístico germânico."
+    },
+    {
+      "id": "E",
+      "texto": "estimular discussões sobre o papel da arte na construção coletiva de cultura."
+    }
+  ],
+  "gabarito": "A",
+  "explicacoes": {
+    "A": "A obra foi confiscada por representar uma estética moderna incompatível com o ideário nazista, o que confirma a alternativa.",
+    "B": "Segall não é apresentado como porta-voz de um grupo político de oposição; a perseguição atinge sua linguagem artística.",
+    "C": "A representação parcial do corpo não é o motivo declarado da condenação; o regime rejeitava a estética moderna.",
+    "D": "A obra não antecipa o imaginário germânico; ela é classificada como degenerada justamente por não corresponder a ele.",
+    "E": "O texto não discute o papel da arte na construção coletiva; trata da censura e do confisco."
+  },
+  "conteudoRevisao": [
+    {
+      "tipo": "texto",
+      "texto": "Lasar Segall foi um artista moderno perseguido pelo regime nazista. A obra Eternos caminhantes foi exibida em mostras de “arte degenerada” e confiscada, o que evidencia o uso político da censura estética."
+    },
+    {
+      "tipo": "imagem",
+      "imagemId": "eternos-caminhantes",
+      "legenda": "Lasar Segall, Eternos caminhantes, 1919."
+    }
+  ],
+  "fontes": [
+    {
+      "aplicacao": "regular",
+      "caderno": "Caderno 1 Azul",
+      "numeroQuestao": 33,
+      "pagina": 15,
+      "provaUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_PV_impresso_D1_CD1.pdf",
+      "gabaritoUrl": "https://download.inep.gov.br/enem/provas_e_gabaritos/2023_GB_impresso_D1_CD1.pdf",
+      "consultadoEm": "2026-11-04"
+    }
+  ],
+  "status": "rascunho",
+  "revisao": {
+    "transcricao": true,
+    "gabarito": true,
+    "imagens": true,
+    "explicacoes": false
+  }
+}
