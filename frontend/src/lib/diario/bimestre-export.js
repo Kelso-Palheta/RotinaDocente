@@ -70,11 +70,14 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
     doc.text(`${dados.bimestre}º bimestre - somente o período selecionado`, margem, 21);
   };
   const novaPagina = () => { doc.addPage(); cabecalhoPagina(); y = 36; };
-  const paragrafo = (texto, tamanho = 9, negrito = false) => {
+  const paragrafo = (texto, tamanho = 9, negrito = false, onNovaPagina = null) => {
     doc.setFont('helvetica', negrito ? 'bold' : 'normal'); doc.setFontSize(tamanho); doc.setTextColor(18, 60, 58);
     const linhas = doc.splitTextToSize(String(texto), larguraUtil);
     linhas.forEach(linha => {
-      if (y + 5 > limiteY) novaPagina();
+      if (y + 5 > limiteY) {
+        novaPagina();
+        if (typeof onNovaPagina === 'function') onNovaPagina();
+      }
       doc.setFont('helvetica', negrito ? 'bold' : 'normal'); doc.setFontSize(tamanho); doc.setTextColor(18, 60, 58);
       doc.text(linha, margem, y); y += 4.5;
     });
@@ -143,9 +146,24 @@ export async function generateRelatorioBimestrePDF(turma, bimestre, professorNom
     y += 6;
   });
   if (dados.atividades.length) {
+    const tituloCatalogo = 'Atividades deste bimestre - nomes completos';
+    const cabecalhoCatalogo = () => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(18, 60, 58);
+      doc.text(tituloCatalogo, margem, y);
+      y += 6.5;
+    };
     if (y + 20 > limiteY) novaPagina();
-    paragrafo('Atividades deste bimestre - nomes completos', 11, true);
-    dados.atividades.forEach((atividade, index) => paragrafo(`Ativ. ${index + 1}: ${atividade.nome || 'Atividade sem título'} | Nota máxima: ${fmt(atividade.max)}`));
+    cabecalhoCatalogo();
+    dados.atividades.forEach((atividade, index) => {
+      paragrafo(
+        `Ativ. ${index + 1}: ${atividade.nome || 'Atividade sem título'} | Nota máxima: ${fmt(atividade.max)}`,
+        9,
+        false,
+        cabecalhoCatalogo
+      );
+    });
   }
   const paginas = doc.getNumberOfPages();
   for (let pagina = 1; pagina <= paginas; pagina += 1) {

@@ -87,4 +87,22 @@ describe('RN-68: exportação do bimestre selecionado', () => {
     expect(() => montarCSVNotasBimestre(turma(), 5)).toThrow(/bimestre/i);
     await expect(generateRelatorioBimestrePDF(turma(), 'anual')).rejects.toThrow(/bimestre/i);
   });
+  it('PDF repete o título do catálogo de atividades quando ele continua em outra página', async () => {
+    const t = turma();
+    t.bimestres[3].atividades = Array.from({ length: 35 }, (_, i) => ({
+      id: `atv_${i + 1}`,
+      nome: `Atividade Avaliativa Detalhada Número ${i + 1} de Produção Textual e Interpretação`,
+      max: 2,
+    }));
+    const doc = await generateRelatorioBimestrePDF(t, 3, 'Prof. Repeticao Catalogo');
+    const titulosCatalogo = doc.registros.filter(
+      (r) => r.valores[0] === 'Atividades deste bimestre - nomes completos'
+    );
+    expect(titulosCatalogo.length).toBeGreaterThanOrEqual(2);
+    // As continuações do catálogo devem iniciar no topo da página subsequente (y = 36)
+    titulosCatalogo.slice(1).forEach((item) => {
+      expect(item.valores[1]).toBe(12);
+      expect(item.valores[2]).toBe(36);
+    });
+  });
 });

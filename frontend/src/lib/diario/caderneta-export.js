@@ -106,7 +106,14 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
   }));
 
   dadosAlunos.forEach((d, idx) => {
-    if (cursorY > pageHeight - 22) {
+    const nomeCompleto = `${String(d.ordem).padStart(2, '0')}. ${titleCase(d.aluno?.nome ? String(d.aluno.nome) : '')}`;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7.5);
+    const linhasNome = doc.splitTextToSize(nomeCompleto, cols[0].w - 4);
+    const passoLinha = 3.5;
+    const alturaLinha = Math.max(11, 4.5 + (linhasNome.length - 1) * passoLinha + 4);
+
+    if (cursorY + alturaLinha > pageHeight - 11) {
       doc.addPage();
       cursorY = 15;
       renderTableHeader(cursorY);
@@ -116,10 +123,10 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     // Fundo zebrado
     if (idx % 2 === 1) {
       doc.setFillColor(243, 248, 245);
-      doc.rect(margin, cursorY, maxLineWidth, 11, "F");
+      doc.rect(margin, cursorY, maxLineWidth, alturaLinha, "F");
     }
     doc.setDrawColor(213, 227, 220);
-    doc.line(margin, cursorY + 11, margin + maxLineWidth, cursorY + 11);
+    doc.line(margin, cursorY + alturaLinha, margin + maxLineWidth, cursorY + alturaLinha);
 
     let curX = margin;
 
@@ -127,8 +134,9 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.setTextColor(18, 60, 58);
-    const nomeCortado = d.aluno.nome.length > 34 ? d.aluno.nome.substring(0, 32) + "..." : d.aluno.nome;
-    doc.text(`${String(d.ordem).padStart(2, '0')}. ${titleCase(nomeCortado)}`, curX + 2, cursorY + 4.5);
+    linhasNome.forEach((linha, lIdx) => {
+      doc.text(linha, curX + 2, cursorY + 4.5 + lIdx * passoLinha);
+    });
     curX += cols[0].w;
 
     // 1º Bim
@@ -187,7 +195,7 @@ export const generateCadernetaPDF = async (turma, professorNome = "Professor(a)"
     doc.setTextColor(st.color[0], st.color[1], st.color[2]);
     doc.text(st.label, curX + cols[9].w / 2, cursorY + 4.5, { align: "center" });
 
-    cursorY += 11;
+    cursorY += alturaLinha;
   });
 
   // ── ASSINATURAS NO FINAL ──

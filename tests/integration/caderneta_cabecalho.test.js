@@ -399,7 +399,7 @@ describe('Caderneta PDF — cabeçalho dinâmico e preservação (CAB-01..06)', 
     }
   });
 
-  it('CAB-05: preserva cálculos 25/25/50, zero vs ausência, cores de situação, colunas e truncamento de 34 caracteres na tabela', async () => {
+  it('CAB-05: preserva cálculos 25/25/50, zero vs ausência, cores de situação, colunas e nome completo na tabela', async () => {
     const turma = {
       id: 't-notas',
       nome: '1º Ano B',
@@ -454,10 +454,17 @@ describe('Caderneta PDF — cabeçalho dinâmico e preservação (CAB-01..06)', 
     await generateCadernetaPDF(turma, 'Prof. Teste');
     const doc = m.docs.at(-1);
 
-    // Verifica truncamento de nome na tabela (> 34 chars -> 32 chars + "...")
+    // Verifica exibição do nome completo sem truncamento (quebrado em linhas na tabela)
     const linhaAluno1 = doc.__textos.find((t) => t.texto.startsWith('01. '));
     expect(linhaAluno1).toBeDefined();
-    expect(linhaAluno1.texto).toBe('01. Estudante Com Nome Muito Longo Q...');
+    expect(linhaAluno1.texto).toBe('01. Estudante Com Nome Muito Longo Que Ultrapassa');
+    const linhaContAluno1 = doc.__textos.find((t) => t.texto === 'Trinta E Quatro Caracteres Na Tabela');
+    expect(linhaContAluno1).toBeDefined();
+    const nomeCompletoAluno1 = doc.__textos
+      .filter((t) => t.pagina === linhaAluno1.pagina && t.x === linhaAluno1.x && t.y >= linhaAluno1.y && t.y < linhaAluno1.y + 10)
+      .map((t) => t.texto)
+      .join(' ');
+    expect(nomeCompletoAluno1).toBe('01. Estudante Com Nome Muito Longo Que Ultrapassa Trinta E Quatro Caracteres Na Tabela');
 
     // Aluno 1: B1=4,00, B2=8,00 -> S1 = 4*2 + 8*3 = 32,00; B3=5,00, B4=5,00 -> S2 = 25,00; Total Anual = 57,00 -> APROVADO
     const textosAl1 = doc.__textos.filter((t) => Math.abs(t.y - linhaAluno1.y) < 0.2);
