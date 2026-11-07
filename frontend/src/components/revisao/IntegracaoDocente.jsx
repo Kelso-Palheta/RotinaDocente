@@ -8,6 +8,7 @@ import { IntegracaoPreparacao } from './IntegracaoPreparacao';
 import { useSalaRevisao } from './useSalaRevisao';
 import { PainelProfessor } from './PainelProfessor';
 import { TelaProjecao } from './TelaProjecao';
+import { ControlesSala } from './ControlesSala';
 
 function SalaDocente({ codigo, uid, obterToken, projecao }) {
   const [tentativa, setTentativa] = useState(0);
@@ -24,6 +25,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao, onReconectar 
       <span>Código: <strong className="font-mono text-yellow-200">{codigo}</strong></span>
       {erro && <button type="button" onClick={onReconectar} className="rounded-lg border border-amber-400 px-3 py-2">Reconectar sala</button>}
     </nav>
+    {estado && <ControlesSala estado={estado} ocupado={ocupado} onAcao={acao} projecao={projecao} />}
     {!estado ? <div className="p-8 space-y-3"><p role={erro ? 'alert' : 'status'}>{erro || 'Conectando à sala…'}</p><p className="text-sm text-[#ddd6fe]">Mantenha esta aba aberta durante o aulão.</p></div>
       : projecao ? <><div aria-live="polite" className="px-4">{erro && <p role="alert">{erro}</p>}</div><TelaProjecao estado={estado} /></>
         : <PainelProfessor estado={estado} ocupado={ocupado} erro={erro} onAcao={acao} />}

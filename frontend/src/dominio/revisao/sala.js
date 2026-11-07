@@ -34,7 +34,20 @@ export function validarComando(sala, comando, agora) {
       "A sala mudou. Confira o estado atualizado antes de continuar.",
     );
   const fase = faseEfetiva(sala, agora);
+  if (comando.acao === "reiniciar") {
+    if (comando.confirmarReinicio !== true)
+      throw falha(422, "Confirme que deseja zerar as respostas e o placar.");
+    return "espera";
+  }
   if (fase === "finalizada") throw falha(409, "Esta sala já foi finalizada.");
+  if (comando.acao === "alterar_tempo") {
+    const tempo = comando.duracaoSegundos;
+    if (!Number.isInteger(tempo) || tempo < 10 || tempo > 600)
+      throw falha(422, "Informe um tempo entre 10 e 600 segundos.");
+    return sala.fase;
+  }
+  if (comando.acao === "iniciar_so_questoes" && ["espera", "conteudo"].includes(fase))
+    return "pergunta";
   if (comando.acao === "finalizar") return "finalizada";
   const mapa = {
     espera: ["mostrar_conteudo", "conteudo"],
@@ -51,7 +64,7 @@ export function validarComando(sala, comando, agora) {
     sala.indice >= sala.rodadas.length - 1
   )
     throw falha(409, "Esta é a última rodada. Finalize a sala.");
-  return mapa[fase][1];
+  return comando.acao === "proxima_rodada" && sala.soQuestoes ? "pergunta" : mapa[fase][1];
 }
 export function calcularRanking(participantes) {
   const lista = participantes
@@ -100,6 +113,7 @@ export function montarPublicacao(sala, questao) {
       titulo: sala.titulo,
       revisao: sala.revisao,
       limiteParticipantes: LIMITE_PARTICIPANTES,
+      duracaoSegundos: sala.duracaoSegundos,
     },
     fase,
     rodada: {
@@ -148,6 +162,9 @@ export function montarPublicacao(sala, questao) {
           }
         : null,
     ranking: ["ranking", "finalizada"].includes(fase) ? sala.ranking || [] : [],
+    ...(fase === "ranking" && sala.soQuestoes && sala.indice < sala.rodadas.length - 1
+      ? { proximaAcao: "proxima_rodada", textoProximaAcao: "Próxima pergunta" }
+      : {}),
   };
 }
 export function projetarEstado(

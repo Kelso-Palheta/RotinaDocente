@@ -178,3 +178,10 @@ A impressão de revisão inclui os bytes do JSON e de todas as imagens declarada
 ## 9. Revisão temática aprovada — 05/11/2026
 
 A extensão `REVISAO_TEMATICA_SPEC.md` define aula introdutória completa por conteúdo específico, questões exclusivamente vinculadas ao conteúdo selecionado, quantidade explícita e duração individual. Fluxo v2: sequência explicativa inteira antes do desafio, sem repetir a introdução a cada questão. Contratos legados continuam válidos; implementação e novas salas v2 pendentes. Design, plano e pacotes externos em `docs/plans/2026-11-05-revisao-tematica*` e prompts correspondentes.
+
+## Controles durante o aulão
+
+- O professor proprietário pode iniciar em “Só questões” na espera ou pular a introdução atual e as seguintes. O modo vale até reiniciar. Feedback e ranking continuam entre perguntas.
+- O professor pode mudar o tempo padrão entre 10 e 600 segundos. Se uma pergunta ainda estiver na fase de resposta ou tiver acabado de expirar sem encerramento manual, o prazo dessa pergunta recomeça no momento da mudança. Respostas confirmadas são preservadas. As próximas perguntas com tempo individual mantêm sua duração.
+- “Reiniciar sala” exige confirmação. Mantém código, configuração e alunos conectados, volta à espera e zera o progresso. Uma resposta da execução anterior fica inacessível à nova rodada. O servidor aplica o reinício em uma transação com controle de revisão.
+- A projeção autenticada do professor oferece os mesmos comandos do painel. O Portal do Aluno continua somente com os comandos de aluno.

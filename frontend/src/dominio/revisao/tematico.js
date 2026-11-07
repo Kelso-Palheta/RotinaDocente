@@ -129,7 +129,7 @@ export function transicaoTematica(s, b, agora) {
           "A sala mudou. Confira o estado atualizado antes de continuar.",
         );
       const fase = faseEfetiva(s, agora);
-      if (fase !== "ranking")
+      if (fase !== "ranking" || s.soQuestoes)
         throw falha(409, "Essa ação não está disponível nesta fase.");
       if (s.indice >= s.rodadas.length - 1)
         throw falha(409, "Esta é a última rodada. Finalize a sala.");
@@ -142,7 +142,7 @@ export function transicaoTematica(s, b, agora) {
       return "conteudo";
     }
 
-    if (b?.acao === "proxima_rodada") {
+    if (b?.acao === "proxima_rodada" && !s.soQuestoes) {
       const proximaRodada = s.rodadas[s.indice + 1];
       if (
         proximaRodada &&
@@ -182,7 +182,7 @@ export function publicarTematico(base, s, congelada) {
   const p = { ...base, schemaVersion: 2 };
   if (s.modoFluxo) p.modoFluxo = s.modoFluxo;
 
-  if (s.modoFluxo === "sequencia_assunto" && p.fase === "ranking") {
+  if (s.modoFluxo === "sequencia_assunto" && !s.soQuestoes && p.fase === "ranking") {
     if (s.indice < s.rodadas.length - 1) {
       const mudaAssunto =
         s.rodadas[s.indice + 1]?.conteudoId !== s.rodadas[s.indice]?.conteudoId;

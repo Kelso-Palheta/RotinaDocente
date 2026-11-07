@@ -86,7 +86,7 @@ export function useSalaRevisao({ codigo, papel, contexto, obterToken }) {
       ...(tipo === 'respostas' ? { envio: { status: 'enviando', alternativa: valor, rodadaId } } : {}) });
     try {
       const body = tipo === 'respostas' ? { rodadaId, alternativa: valor }
-        : { acao: valor, revisao: estado.sala.revisao, rodadaId: rodadaId || null };
+        : { ...(typeof valor === 'string' ? { acao: valor } : valor), revisao: estado.sala.revisao, rodadaId: rodadaId || null };
       const payload = await requisitarRevisao(`/salas/${encodeURIComponent(codigo)}/${tipo}`, {
         obterToken: papel === 'aluno' ? undefined : obterToken, signal: atual.controller.signal, body,
       });

@@ -883,6 +883,39 @@ export class RevisaoService {
       const { sala } = await this.autorizarSala(ator, codigo, tx);
       const agora = this.agora();
       const fase = transicaoTematica(sala, body, agora);
+      const base = caminho(codigo);
+      if (body.acao === "reiniciar") {
+        const [participantes, congeladas] = await Promise.all([
+          tx.list(`${base}/participantes`),
+          Promise.all(sala.rodadas.map((r) => tx.get(`${base}/conteudo/${r.id}`))),
+        ]);
+        if (congeladas.some((r) => !r))
+          throw falha(503, "Conteúdo da sala indisponível.");
+        const rodadas = sala.rodadas.map((r) => ({ ...r, id: this.gerarId() }));
+        const reiniciada = {
+          ...sala,
+          rodadas,
+          indice: 0,
+          ...(sala.schemaVersion === 2 ? { indiceBloco: 0 } : {}),
+          fase,
+          revisao: sala.revisao + 1,
+          reiniciada: true,
+          soQuestoes: false,
+          encerraEmMs: null,
+          perguntaAbertaEmMs: null,
+          ranking: [],
+        };
+        const publicado = await this.publicacao(reiniciada, congeladas[0].questao, tx);
+        for (const p of participantes)
+          tx.set(`${base}/participantes/${p.id}`, { ...p, pontos: 0 });
+        rodadas.forEach((r, i) => {
+          tx.create(`${base}/conteudo/${r.id}`, congeladas[i]);
+          tx.delete(`${base}/conteudo/${sala.rodadas[i].id}`);
+        });
+        tx.set(base, reiniciada);
+        tx.set(`${base}/publicacao/estado`, publicado);
+        return;
+      }
       let indice = sala.indice;
       if (
         body.acao === "proxima_rodada" ||
@@ -897,6 +930,13 @@ export class RevisaoService {
         ? await tx.list(`${caminho(codigo)}/participantes`)
         : [];
       const atual = { ...sala, fase, indice, revisao: sala.revisao + 1 };
+      if (body.acao === "iniciar_so_questoes") atual.soQuestoes = true;
+      if (body.acao === "alterar_tempo") {
+        atual.duracaoSegundos = body.duracaoSegundos;
+        atual.rodadas = sala.rodadas.map((r) => r.usaDuracaoPadrao
+          ? { ...r, duracaoSegundos: body.duracaoSegundos }
+          : r);
+      }
       if (sala.schemaVersion === 2) {
         if (body.acao === "avancar_conteudo") atual.indiceBloco += 1;
         if (body.acao === "voltar_conteudo") atual.indiceBloco -= 1;
@@ -920,7 +960,9 @@ export class RevisaoService {
         atual.perguntaAbertaEmMs = agora;
         atual.encerraEmMs =
           agora +
-          (sala.rodadas[indice].duracaoSegundos ?? sala.duracaoSegundos) * 1000;
+          (body.acao === "alterar_tempo"
+            ? atual.duracaoSegundos
+            : atual.rodadas[indice].duracaoSegundos ?? atual.duracaoSegundos) * 1000;
       }
       if (["ranking", "finalizada"].includes(fase))
         atual.ranking = calcularRanking(participantes);
@@ -938,6 +980,8 @@ export class RevisaoService {
     segmento(body.rodadaId);
     const recibo = await this.store.transaction(async (tx) => {
       const { sala, participante } = await this.autorizarSala(ator, codigo, tx);
+      if (sala.reiniciada && !sala.rodadas.some((r) => r.id === body.rodadaId))
+        throw falha(409, "A rodada não está aberta para respostas.");
       const id = `${body.rodadaId}__${participante.id}`;
       const path = `${caminho(codigo)}/respostas/${id}`;
       const anterior = await tx.get(path);

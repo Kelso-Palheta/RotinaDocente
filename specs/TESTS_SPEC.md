@@ -544,3 +544,7 @@ Contrato em `REVISAO_EDICAO_SALA_SPEC.md`. Implementação e testes automatizado
   - Interface em `IntegracaoPreparacao`: botão "Editar sala" visível apenas para salas em espera, carregamento de dados com pré-preenchimento do formulário de preparação, salvamento e redirecionamento, e tratamento de conflito 409 com preservação do rascunho e botão de recarga sem sobrescrita automática.
 - **ED-05:** adicionar, manter e remover questões na mesma edição, com a restrição do Firestore de que leituras precedem escritas.
 - **ED-06:** alterar o tempo padrão preserva tempos individuais e atualiza as questões que herdam o padrão.
+
+### Controles do aulão
+- Verificar início só com questões, troca de assunto, ajuste de prazo expirado com resposta preservada, reinício transacional e rejeição de recibo antigo em `tests/integration/revisao_controles_sala.test.js`.
+- Verificar envio das ações e confirmação de reinício no telão em `tests/unit/components/revisao/ControlesSala.test.jsx`.
