@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import DOMPurify from 'dompurify';
 import { BotaoLeitorVoz } from '@/components/acessibilidade/BotaoLeitorVoz';
+import { ehQuestaoObjetiva } from '@/dominio/atividades/devolutivaAluno';
 import { Lightbulb, ChevronDown, ChevronUp } from 'lucide-react';
 
 const safeSanitize = (html) => {
@@ -174,7 +175,8 @@ export const RespostaForm = ({ atividade, onSubmit, loading, textos = [] }) => {
 
   const totalRespondidas = questoes.filter(q => {
     const r = respostas[q.id]?.resposta;
-    return q.tipo === 'discursiva' ? r?.trim().length >= 5 : !!r;
+    if (ehQuestaoObjetiva(q.tipo)) return !!r;
+    return typeof r === 'string' && r.trim().length > 0;
   }).length;
 
   const podeEnviar = !loading && totalRespondidas === questoes.length;
@@ -199,8 +201,8 @@ export const RespostaForm = ({ atividade, onSubmit, loading, textos = [] }) => {
 
       {questoes.map((q, i) => (
         <div key={q.id}>
-          {q.tipo === 'objetiva'
-            ? <QuestaoObjetiva numero={i + 1} questao={q} resposta={respostas[q.id]?.resposta || ''} onChange={(r) => handleChange(q.id, 'objetiva', r)} />
+          {ehQuestaoObjetiva(q.tipo)
+            ? <QuestaoObjetiva numero={i + 1} questao={q} resposta={respostas[q.id]?.resposta || ''} onChange={(r) => handleChange(q.id, q.tipo, r)} />
             : <QuestaoDiscursiva numero={i + 1} questao={q} resposta={respostas[q.id]?.resposta || ''} onChange={(r) => handleChange(q.id, 'discursiva', r)} />
           }
           {(textosPor[i] || []).map(t => <TextoApoio key={t.id} texto={t} />)}

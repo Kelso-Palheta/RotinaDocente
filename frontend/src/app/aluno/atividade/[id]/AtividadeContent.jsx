@@ -4,6 +4,7 @@ import { CabecalhoPagina } from '@/components/ui/CabecalhoPagina';
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { decodeToken } from '@/utils/diario/tokenUtils';
+import { interpretarDataEntrega, formatarDataEntrega } from '@/dominio/atividades/dataEntrega';
 import { RespostaForm } from './RespostaForm';
 import { ConfirmacaoView } from './ConfirmacaoView';
 import { FeedbackView } from './FeedbackView';
@@ -55,8 +56,8 @@ export default function AtividadeContent() {
         setAlunoInfo(info);
 
         const agora = new Date();
-        const prazo = atv.dataEntrega?.toDate?.() || new Date(atv.dataEntrega);
-        if (prazo < agora && !ent) {
+        const prazo = interpretarDataEntrega(atv.dataEntrega);
+        if (prazo && prazo < agora && !ent) {
           setErroTipo('prazo_encerrado');
           setEstado('erro');
           return;
@@ -125,13 +126,13 @@ export default function AtividadeContent() {
   }
 
   if (estado === 'erro') {
-    const prazo = atividade?.dataEntrega?.toDate?.();
-    const dataStr = prazo ? prazo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : null;
+    const dataStr = interpretarDataEntrega(atividade?.dataEntrega)
+      ? formatarDataEntrega(atividade.dataEntrega)
+      : null;
     return <ErroView tipo={erroTipo} dataEntrega={dataStr} />;
   }
 
-  const prazo = atividade?.dataEntrega?.toDate?.() || new Date(atividade?.dataEntrega || 0);
-  const prazoStr = prazo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const prazoStr = formatarDataEntrega(atividade?.dataEntrega);
 
   return (
     <div className="min-h-screen bg-[#f3edff] font-sans selection:bg-[#6315d9] selection:text-white">
