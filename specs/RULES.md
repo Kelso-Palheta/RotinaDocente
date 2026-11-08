@@ -535,6 +535,7 @@ Este documento define as regras de negócio inegociáveis do sistema. Qualquer c
 - Nota não lançada difere de zero. Critério sem lançamento é exibido como traço com indicação “Ainda não publicado”; zero lançado permanece `0,00`. A fórmula bimestral, as cores e a aprovação 25/25/50 não mudam.
 - Devolutiva objetiva reconhece `objetiva` e `multipla_escolha`, inclusive variações de grafia, e apresenta resposta marcada e indicador de acerto/erro. Objetiva e múltipla escolha compartilham a mesma apresentação; o selo de método reflete correção manual, IA ou revisão.
 - Comprovante de entrega usa a data serializada da entrega (Timestamp, `{seconds}`, `{_seconds}`, número ou texto ISO). Data ausente ou inválida é declarada indisponível; nunca é substituída pela data atual do dispositivo.
+- Após o envio, consultar o registro autorizado para recuperar o comprovante. Se a resposta do envio for inconclusiva e a consulta falhar, manter o formulário preenchido e oferecer “Verificar entrega” antes de liberar outro envio. Uma entrega existente prevalece sobre a tentativa local.
 - Instrução de acesso usa a mesma regra do login: primeiro nome + DDMM. O segundo nome aparece apenas como exceção de colisão, sem prometer formato que o gerador não aplica.
 
 ## RN-76 — Meu Horário Escolar: isolamento por conta e salvamento verificável

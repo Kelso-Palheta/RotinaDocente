@@ -233,6 +233,7 @@ Validação RN-70: **704/704 testes em 134 arquivos**, build aprovado, lint dos 
 ## RN-75 — Portal do Aluno: estados, nota ausente e devolutiva
 - [x] **UT-44 (RN-75):** `interpretarDataEntrega` aceita Timestamp, `{seconds}`, `{_seconds}`, número e ISO; descarta data ausente/inválida e não devolve a data atual.
 - [x] **UT-45 (RN-75):** `ConfirmacaoView` exibe a data serializada da entrega e, sem data válida, declara indisponibilidade em vez de “enviada agora”.
+- [x] **UT-45a (RN-75):** `EnvioComprovanteAtividade.test.jsx` cobre horário oficial após envio, recuperação quando o POST perde a resposta e nova tentativa após consulta sem entrega.
 - [x] **UT-46 (RN-75):** `FeedbackView` apresenta resposta marcada e “Correta/Incorreta” para `objetiva` e `multipla_escolha`, incluindo grafias alternativas, sem alterar o caso discursivo.
 - [x] **UT-47 (RN-75):** `BimestreCard` mostra `0,00` apenas para zero lançado; critério ausente aparece como traço com “Ainda não publicado”, preservando total, cores e fórmula.
 - [x] **UT-48 (RN-75):** `GET /api/aluno/boletim` sinaliza `falhas` por seção (`notas`, `atividades`, `entregas`, `tokens`) e mantém as demais seções e o HTTP 200.

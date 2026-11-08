@@ -156,7 +156,7 @@ function TextoApoio({ texto }) {
   );
 }
 
-export const RespostaForm = ({ atividade, onSubmit, loading, textos = [] }) => {
+export const RespostaForm = ({ atividade, onSubmit, loading, bloquearEnvio, textos = [] }) => {
   const questoes = atividade?.questoes?.length > 0
     ? atividade.questoes
     : [{ id: 'legacy', tipo: 'discursiva', enunciado: atividade?.enunciado || '', notaMaxima: atividade?.notaMaxima || 10, imagens: [] }];
@@ -179,7 +179,7 @@ export const RespostaForm = ({ atividade, onSubmit, loading, textos = [] }) => {
     return typeof r === 'string' && r.trim().length > 0;
   }).length;
 
-  const podeEnviar = !loading && totalRespondidas === questoes.length;
+  const podeEnviar = !loading && !bloquearEnvio && totalRespondidas === questoes.length;
 
   const handleSubmit = (e) => {
     e.preventDefault();

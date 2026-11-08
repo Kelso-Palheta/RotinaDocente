@@ -15,12 +15,19 @@ export default function AtividadeContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
+  return <AtividadePorAcesso key={JSON.stringify([activityId, token])} activityId={activityId} token={token} />;
+}
+
+function AtividadePorAcesso({ activityId, token }) {
+  const urlAtividade = `/api/aluno/atividade/${encodeURIComponent(activityId)}?token=${encodeURIComponent(token)}`;
   const [estado, setEstado] = useState('carregando');
   const [erroTipo, setErroTipo] = useState('token_invalido');
   const [atividade, setAtividade] = useState(null);
   const [alunoInfo, setAlunoInfo] = useState(null);
   const [entrega, setEntrega] = useState(null);
-  const [enviando, setEnviando] = useState(false);
+  const [operacao, setOperacao] = useState(null);
+  const [erroEnvio, setErroEnvio] = useState(null);
+  const [verificacaoPendente, setVerificacaoPendente] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -34,7 +41,7 @@ export default function AtividadeContent() {
       return;
     }
 
-    fetch(`/api/aluno/atividade/${activityId}?token=${encodeURIComponent(token)}`)
+    fetch(urlAtividade)
       .then(async (res) => {
         if (!res.ok) {
           const error = new Error('Falha ao carregar atividade.'); error.status = res.status; throw error;
@@ -74,11 +81,48 @@ export default function AtividadeContent() {
         setErroTipo(error.status === 401 ? 'login_necessario' : error.status === 403 ? 'token_invalido' : 'erro_carregamento');
         setEstado('erro');
       });
-  }, [activityId, token]);
+  }, [activityId, token, urlAtividade]);
+
+  function mostrarEntrega(registro) {
+    setEntrega(registro);
+    setEstado(['corrigido', 'revisado'].includes(registro.status) ? 'feedback' : 'confirmacao');
+  }
+
+  async function consultarComprovante() {
+    const res = await fetch(urlAtividade, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Comprovante indisponível.');
+    const data = await res.json();
+    if (!data?.atividade || !Object.hasOwn(data, 'entrega')) throw new Error('Comprovante indisponível.');
+    if (data.entrega) mostrarEntrega(data.entrega);
+    return Boolean(data.entrega);
+  }
+
+  async function verificarEntrega(mensagemSemEntrega) {
+    try {
+      const registrada = await consultarComprovante();
+      setVerificacaoPendente(false);
+      if (!registrada) setErroEnvio(mensagemSemEntrega || 'A consulta ainda não encontrou uma entrega. Você pode tentar enviar novamente.');
+    } catch {
+      setVerificacaoPendente(true);
+      setErroEnvio('Não foi possível confirmar o envio. Quando a conexão voltar, verifique a entrega. Suas respostas continuam nesta página.');
+    }
+  }
+
+  async function handleVerificarEntrega() {
+    if (operacao) return;
+    setOperacao('verificando');
+    setErroEnvio(null);
+    try {
+      await verificarEntrega();
+    } finally {
+      setOperacao(null);
+    }
+  }
 
   const handleSubmit = async (respostaTexto, respostas) => {
-    if (!atividade || !alunoInfo) return;
-    setEnviando(true);
+    if (!atividade || !alunoInfo || operacao || verificacaoPendente) return;
+    setOperacao('enviando');
+    setErroEnvio(null);
     try {
       const res = await fetch('/api/aluno/entregar', {
         method: 'POST',
@@ -93,24 +137,19 @@ export default function AtividadeContent() {
         }),
       });
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Erro ao enviar resposta.');
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success === true) {
+        const registrada = await consultarComprovante().catch(() => false);
+        if (!registrada) mostrarEntrega({ status: 'entregue' });
+      } else if (res.status >= 400 && res.status < 500 && res.status !== 409 && data?.error) {
+        setErroEnvio(data.error);
+      } else {
+        await verificarEntrega(res.status === 409 ? data?.error : null);
       }
-
-      setEntrega({
-        activityId,
-        alunoId: alunoInfo.alunoId,
-        turmaId: alunoInfo.turmaId,
-        status: 'entregue',
-        ...(respostas != null ? { respostas } : { respostaTexto }),
-      });
-      setEstado('confirmacao');
-    } catch (err) {
-      console.error('Erro ao enviar resposta:', err);
-      alert(err.message || 'Erro ao enviar resposta. Tente novamente.');
+    } catch {
+      await verificarEntrega();
     } finally {
-      setEnviando(false);
+      setOperacao(null);
     }
   };
 
@@ -162,7 +201,17 @@ export default function AtividadeContent() {
           const textos = atividade?.textosBase?.length > 0
             ? atividade.textosBase
             : (atividade?.textoBase ? [{ id: 'legacy', html: atividade.textoBase, aposQuestao: null }] : []);
-          return <RespostaForm atividade={atividade} onSubmit={handleSubmit} loading={enviando} textos={textos} />;
+          return <>
+            <RespostaForm atividade={atividade} onSubmit={handleSubmit} loading={operacao === 'enviando'}
+              bloquearEnvio={verificacaoPendente} textos={textos} />
+            {erroEnvio && <p role="alert" className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-950">{erroEnvio}</p>}
+            {verificacaoPendente && (
+              <button type="button" onClick={handleVerificarEntrega} disabled={Boolean(operacao)}
+                className="btn-brand-ghost mt-2 px-4 py-2 text-sm font-bold">
+                {operacao === 'verificando' ? 'Verificando…' : 'Verificar entrega'}
+              </button>
+            )}
+          </>;
         })()}
 
         {estado === 'confirmacao' && <ConfirmacaoView submittedAt={entrega?.submittedAt} />}
