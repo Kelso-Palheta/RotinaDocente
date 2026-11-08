@@ -1,6 +1,6 @@
 "use client";
 
-import { ehQuestaoObjetiva, rotuloAcerto } from '@/dominio/atividades/devolutivaAluno';
+import { ehQuestaoObjetiva, rotuloAcerto, textoAlternativa } from '@/dominio/atividades/devolutivaAluno';
 
 export const FeedbackView = ({ entrega, atividade }) => {
   const notaMaxima = atividade?.notaMaxima || 10;
@@ -29,21 +29,32 @@ export const FeedbackView = ({ entrega, atividade }) => {
           const res = resultados[q.id];
           const resposta = entrega.respostas?.[q.id]?.resposta;
           const objetiva = ehQuestaoObjetiva(q.tipo);
+          const alternativaMarcada = objetiva ? textoAlternativa(q, resposta) : null;
           if (!res) return null;
           return (
             <div key={q.id} className="bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className={`w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center ${objetiva ? 'bg-[#6315D9]' : 'bg-[#6315D9]'}`}>{i + 1}</span>
-                <span className="text-xs font-semibold text-[#25104A] flex-1 truncate">{q.enunciado?.slice(0, 60)}{q.enunciado?.length > 60 ? '…' : ''}</span>
-                <span className={`text-xs font-mono font-bold tabular-nums ${res.notaObtida >= res.notaMaxima ? 'text-green-600' : res.notaObtida > 0 ? 'text-blue-500' : 'text-red-500'}`}>
+                <span className="w-6 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center bg-[#6315D9]">{i + 1}</span>
+                <span className="text-[10px] font-extrabold text-[#5B4B86] uppercase tracking-wider">
+                  {objetiva ? 'Objetiva' : 'Discursiva'}
+                </span>
+                <span className={`text-xs font-mono font-bold tabular-nums ml-auto ${res.notaObtida >= res.notaMaxima ? 'text-green-600' : res.notaObtida > 0 ? 'text-blue-500' : 'text-red-500'}`}>
                   {res.notaObtida.toFixed(1).replace('.', ',')} / {res.notaMaxima.toFixed(1).replace('.', ',')}
                 </span>
               </div>
 
+              {q.enunciado && (
+                <p className="text-sm text-[#25104A] leading-relaxed whitespace-pre-wrap wrap-anywhere mb-2">{q.enunciado}</p>
+              )}
+
               {objetiva && (
                 <p className={`text-xs mt-1 ${res.correto ? 'text-green-600' : 'text-red-500'}`}>
                   {res.correto ? '✓' : '✗'} {rotuloAcerto(res.correto)}
-                  {resposta && <span className="text-slate-400 ml-1">(marcou: {resposta})</span>}
+                  {resposta && (
+                    <span className="text-[#5B4B86] ml-1 wrap-anywhere">
+                      (marcou: {resposta}{alternativaMarcada ? ` — ${alternativaMarcada}` : ''})
+                    </span>
+                  )}
                 </p>
               )}
 

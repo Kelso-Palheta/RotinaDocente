@@ -2,11 +2,6 @@
 
 import { interpretarDataEntrega } from '@/dominio/atividades/dataEntrega';
 
-const voltaUrl = () => {
-  if (typeof window !== 'undefined' && sessionStorage.getItem('aluno_login')) return '/aluno/notas';
-  return '/aluno';
-};
-
 export const ConfirmacaoView = ({ submittedAt }) => {
   const data = interpretarDataEntrega(submittedAt);
   const dataStr = data?.toLocaleDateString('pt-BR', {
@@ -15,14 +10,8 @@ export const ConfirmacaoView = ({ submittedAt }) => {
   });
 
   return (
-    <div className="arte-composicao min-h-screen bg-[#fffdf7]">
-      <div className="max-w-2xl mx-auto px-4 py-4">
-        <a href={voltaUrl()} className="inline-flex items-center gap-1 text-xs text-[#6315D9] hover:text-[#5B4B86] font-medium transition-colors">
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-          Voltar
-        </a>
-      </div>
-      <div className="flex items-center justify-center p-4 -mt-8">
+    <div className="arte-composicao bg-[#fffdf7]">
+      <div className="flex items-center justify-center px-4 py-8 sm:py-12">
         <div className="text-center max-w-sm animate-card-in">
           <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#F3EDFF] border border-[#E7DBFD] flex items-center justify-center">
             <svg className="w-8 h-8 text-[#6315D9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
