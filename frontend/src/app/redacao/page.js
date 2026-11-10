@@ -15,6 +15,8 @@ import { NavegacaoRedacao } from '@/components/redacao/NavegacaoRedacao';
 import { Upload } from 'lucide-react';
 import { renderFeedbackText } from '@/lib/redacao/renderFeedback';
 import { RUBRICA_REDACAO } from '@/dominio/redacao/rubrica';
+import { anosRedacao } from '@/dominio/redacao/historico';
+import { anoLetivoTurma } from '@/dominio/diario/evolucao';
 import { generatePDF } from '@/lib/redacao/pdf-generator';
 
 const COMPETENCIAS = ['c1', 'c2', 'c3', 'c4', 'c5'];
@@ -73,6 +75,10 @@ export default function RedacaoPage() {
 
   const turmas=(diario.turmas || []).filter(t=>!t.arquivada);
   const turma=turmas.find(t=>t.id===form.turmaId);
+  const anoDaRedacao=anoLetivoTurma(turma || form);
+  const anoSelecionado=turma?String(anoDaRedacao || 'legado'):String(form.anoLetivo || '');
+  const anos=anosRedacao(turmas,[new Date().getFullYear(),anoSelecionado]);
+  const turmasDoAno=turmas.filter(t=>!anoSelecionado||String(anoLetivoTurma(t)||'legado')===anoSelecionado);
   const aluno=turma?.alunos?.find(a=>a.id===form.alunoId);
   const mudar=patch=>{
     const mudouContexto=('turmaId' in patch && patch.turmaId!==form.turmaId) || ('alunoId' in patch && patch.alunoId!==form.alunoId);
@@ -163,7 +169,7 @@ export default function RedacaoPage() {
         scores={items,total:items.length===5?items.reduce((s,c)=>s+c.A,0):null,modo:items.length===5?'completa':'parcial',anulada:false};result=comentario.trim();
       }
       if(!atual())return;
-      const data={id:crypto.randomUUID(),schemaVersion:2,rubricaVersao:RUBRICA_REDACAO.versao,rubricaFonte:RUBRICA_REDACAO.fonte,rubricaHomologada:RUBRICA_REDACAO.homologacaoOficial,userId:uid,studentName:form.nome.trim(),studentClass:form.turmaNome || 'Avulsa',turmaNome:form.turmaNome || 'Avulsa',turmaId:turma?.id || null,alunoId:aluno?.id || null,anoLetivo:turma?.anoLetivo || form.anoLetivo || null,bimestre:Number(form.bimestre),essayTheme:form.tema.trim() || 'Tema livre',originalText:form.texto,motivatorText:form.motivador,fonte:form.fonte,loginAluno,loginKey,result,scoreData:scores.items,totalScore:scores.total,modo:scores.modo || (scores.total===null?'parcial':'completa'),nomeProfessor:perfil?.nome || user?.displayName || 'Professor',assessmentMode:scores.modo || (scores.total===null?'parcial':'completa'),competencias:form.competencias,anulada:!!scores.anulada,motivoAnulacao:scores.motivoAnulacao || '',metodoCorrecao:usarIA?'ia':'manual',status:'corrigido',createdAt:new Date().toISOString(),revision:0};
+      const data={id:crypto.randomUUID(),schemaVersion:2,rubricaVersao:RUBRICA_REDACAO.versao,rubricaFonte:RUBRICA_REDACAO.fonte,rubricaHomologada:RUBRICA_REDACAO.homologacaoOficial,userId:uid,studentName:form.nome.trim(),studentClass:form.turmaNome || 'Avulsa',turmaNome:form.turmaNome || 'Avulsa',turmaId:turma?.id || null,alunoId:aluno?.id || null,anoLetivo:anoDaRedacao,bimestre:Number(form.bimestre),essayTheme:form.tema.trim() || 'Tema livre',originalText:form.texto,motivatorText:form.motivador,fonte:form.fonte,loginAluno,loginKey,result,scoreData:scores.items,totalScore:scores.total,modo:scores.modo || (scores.total===null?'parcial':'completa'),nomeProfessor:perfil?.nome || user?.displayName || 'Professor',assessmentMode:scores.modo || (scores.total===null?'parcial':'completa'),competencias:form.competencias,anulada:!!scores.anulada,motivoAnulacao:scores.motivoAnulacao || '',metodoCorrecao:usarIA?'ia':'manual',status:'corrigido',createdAt:new Date().toISOString(),revision:0};
       setRegistro(data);setEtapa('result');setDirty(true);setSalvo(false);
       // O resultado fica visível e no rascunho antes da gravação. Erro repete apenas salvar.
       emAndamento.current=false;await salvar(data);
@@ -202,10 +208,10 @@ export default function RedacaoPage() {
         <section className={box}><h2 className="font-bold">1. Identificar redação</h2>
           {diario.erro && <p role="alert">Turmas indisponíveis: {diario.erro} <button type="button" onClick={()=>diario.tentarNovamente?.().catch(e=>setErro(e.message))} className="underline">Tentar novamente</button></p>}
           <div className="grid gap-3 sm:grid-cols-2">
-            {label('Turma',<select className={field} value={form.turmaId} disabled={diario.carregando} onChange={e=>{const t=turmas.find(t=>t.id===e.target.value);mudar({turmaId:t?.id || '',alunoId:'',nome:'',turmaNome:t?.nome || '',anoLetivo:t?.anoLetivo || ''});}}><option value="">Redação avulsa</option>{turmas.map(t=><option key={t.id} value={t.id}>{t.nome} · {t.anoLetivo || 'Ano não informado'}</option>)}</select>)}
-            {turma?label('Aluno',<select className={field} value={form.alunoId} onChange={e=>{const a=turma.alunos.find(a=>a.id===e.target.value);mudar({alunoId:a?.id || '',nome:a?.nome || ''});}}><option value="">Selecionar aluno</option>{turma.alunos.map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select>):label('Nome do aluno',<input className={field} value={form.nome} onChange={e=>mudar({nome:e.target.value})} maxLength={100}/>)}
+            {label('Ano letivo',<select className={field} value={anoSelecionado} onChange={e=>mudar({anoLetivo:e.target.value,...(turma?{turmaId:'',alunoId:'',nome:'',turmaNome:''}:{})})}><option value="">Selecionar ano</option>{anos.map(ano=><option key={ano} value={ano}>{ano==='legado'?'Legado — ano não informado':ano}</option>)}</select>)}
+            {label('Turma',<select className={field} value={form.turmaId} disabled={diario.carregando} onChange={e=>{const t=turmasDoAno.find(t=>String(t.id)===e.target.value);mudar({turmaId:t?.id || '',alunoId:'',nome:'',turmaNome:t?.nome || '',anoLetivo:t?anoLetivoTurma(t) || 'legado':anoSelecionado});}}><option value="">Redação avulsa</option>{turmasDoAno.map(t=><option key={t.id} value={t.id}>{t.nome} · {anoLetivoTurma(t) || 'Ano não informado'}</option>)}</select>)}
             {label('Bimestre',<select className={field} value={form.bimestre} onChange={e=>mudar({bimestre:Number(e.target.value)})}>{[1,2,3,4].map(b=><option key={b} value={b}>{b}º bimestre</option>)}</select>)}
-            {label('Ano letivo',<input className={field} value={form.anoLetivo} onChange={e=>mudar({anoLetivo:e.target.value})} maxLength={4} inputMode="numeric"/>)}
+            {turma?label('Aluno',<select className={field} value={form.alunoId} onChange={e=>{const a=turma.alunos.find(a=>String(a.id)===e.target.value);mudar({alunoId:a?.id || '',nome:a?.nome || ''});}}><option value="">Selecionar aluno</option>{turma.alunos.map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select>):label('Nome do aluno',<input className={field} value={form.nome} onChange={e=>mudar({nome:e.target.value})} maxLength={100}/>)}
             {label('Tema',<input className={field} value={form.tema} onChange={e=>mudar({tema:e.target.value})} maxLength={500}/>)}
           </div><p className="text-sm text-[#5B4B86]">Redação avulsa não publica para aluno por associação automática de nome. Escolha o aluno cadastrado para disponibilizar no Portal.</p>
         </section>
