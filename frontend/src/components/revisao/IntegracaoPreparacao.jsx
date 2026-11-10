@@ -505,7 +505,7 @@ export function IntegracaoPreparacao({ obterToken }) {
           ← Voltar ao Hub
         </Link>
         <MarcaFestival />
-        <section className="arte-banner-festival rounded-3xl p-5 md:p-8 text-white space-y-3">
+        <section className="arte-banner-festival arte-cartaz p-5 md:p-8 text-white space-y-3">
           <h1 className="text-2xl font-black text-white">Revisão ao Vivo</h1>
           <p>
             Escolha os assuntos, organize as questões e defina o tempo de resposta.

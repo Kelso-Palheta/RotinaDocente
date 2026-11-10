@@ -602,12 +602,12 @@ function AdaptacoesDaConta() {
   return (
     <div className="arte-pagina min-h-screen text-[#25104a]">
       {/* Barra Superior / Header */}
-      <header className="arte-faixa bg-white border-b border-[#e2d9f7] sticky top-0 z-40 print:hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <header className="arte-barra-roxa sticky top-0 z-40 print:hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 min-h-16 py-2 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="p-2 rounded-xl border border-[#e2d9f7] hover:border-[#6315d9]/40 hover:bg-[#f3edff] text-[#5b4b86] hover:text-[#5411b8] transition-colors"
+              className="p-2 rounded-xl border border-[#e2d9f7] hover:border-[#6315d9]/40 hover:bg-[#f3edff] text-white hover:text-[#5411b8] transition-colors"
               title="Voltar ao Painel Principal"
             >
               <ArrowLeft size={18} />
@@ -617,10 +617,10 @@ function AdaptacoesDaConta() {
                 <HeartHandshake size={20} />
               </div>
               <div>
-                <h1 className="text-sm sm:text-base font-bold text-[#25104a] leading-tight">
+                <h1 className="arte-titulo-cartaz text-base sm:text-lg leading-tight">
                   Atividades Adaptadas & Educação Inclusiva
                 </h1>
-                <p className="text-[11px] text-[#5b4b86]">
+                <p className="text-[11px] text-white/90">
                   Desenho Universal para a Aprendizagem (DUA) • LBI nº 13.146/2015
                 </p>
               </div>
@@ -672,7 +672,7 @@ function AdaptacoesDaConta() {
       </header>
 
       {/* Barra de Abas Principais (RN-42) */}
-      <div className="bg-white border-b border-[#e2d9f7] sticky top-16 z-30 print:hidden shadow-2xs">
+      <div className="bg-white border-b border-[#e2d9f7] md:sticky md:top-16 z-30 print:hidden shadow-2xs">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-2 py-2.5 overflow-x-auto">
           <div className="flex items-center gap-1.5 p-1 bg-[#f3edff] border border-[#e2d9f7] rounded-2xl">
             <button

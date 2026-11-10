@@ -248,7 +248,7 @@ export default function AtividadesPage() {
       )}
 
       {/* Sidebar - Off-canvas on mobile */}
-      <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full bg-white border-r border-[#e2d9f7]`}>
+      <div className={`fixed inset-y-0 left-0 z-40 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 transition-transform duration-300 md:w-auto h-full`}>
         <Sidebar
           turmas={listaContexto}
           backupTurmas={turmas}
@@ -273,12 +273,12 @@ export default function AtividadesPage() {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <div data-testid="acoes-topo" className="arte-faixa flex-shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#e2d9f7] bg-white flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <div data-testid="acoes-topo" className="arte-barra-roxa flex-shrink-0 px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSidebarOpen(true)}
               aria-label="Abrir menu"
-              className="md:hidden p-2 -ml-2 rounded-xl text-[#6E5F94] hover:bg-[#F3EDFF] transition-colors"
+              className="md:hidden p-2 -ml-2 rounded-xl text-white hover:bg-white/15 transition-colors"
             >
               <Menu size={20} />
             </button>
@@ -378,7 +378,11 @@ export default function AtividadesPage() {
         </section>
         {(erroSalvamentoSaida || persistencia.erro) && <div role="alert" className="p-3 bg-[#F3EDFF] text-sm">{erroSalvamentoSaida || persistencia.erro} <button onClick={() => (erroSalvamentoSaida ? tentarSalvarESair() : executar(persistencia.tentarNovamente))} className="underline">Tentar novamente</button> <button onClick={() => { if (confirm('Recarregar a nuvem? Preserve antes seu rascunho pelo backup.')) executar(persistencia.recarregar); }} className="underline">Recarregar nuvem</button></div>}
         {/* Content */}
-        <div className="flex-1 overflow-auto p-6 bg-[#f3edff]">
+        <div className="arte-pagina flex-1 overflow-auto p-3 sm:p-6">
+          {viewMode === 'todas' && <header className="arte-banner-festival arte-cartaz-compacto mb-5">
+            <span className="arte-selo">Área docente</span>
+            <h1 className="mt-1 text-2xl sm:text-3xl">Gerador de Atividades</h1>
+          </header>}
           {!persistencia.podeEditar ? <p>Edição bloqueada até concluir carregamento ou revisar conflito. Seu rascunho foi preservado.</p> : viewMode === 'recuperacao' ? (
             <RecuperacaoSemestral
               user={user}
@@ -402,15 +406,13 @@ export default function AtividadesPage() {
             />
           ) : turmaAtual ? (
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="px-2.5 py-0.5 bg-[#f3edff] border border-[#e7dbfd] rounded-full text-[10px] font-bold uppercase tracking-wider text-[#6315d9]">
+              <div className="arte-banner-festival arte-cartaz-compacto mb-5">
+                <span className="arte-selo uppercase">
                   {bimestre}º Bimestre
                 </span>
+                <h1 className="mt-1 text-2xl sm:text-3xl">Turma {turmaAtual.nome}</h1>
+                <p className="text-xs text-white/90">({turmaAtual.alunos.length} alunos)</p>
               </div>
-              <h1 className="text-2xl font-bold text-[#25104a] tracking-tight mb-6">
-                Turma {turmaAtual.nome}
-                <span className="text-xs text-[#5b4b86] font-mono ml-2">({turmaAtual.alunos.length} alunos)</span>
-              </h1>
               <AtividadesList
                 key={`${user.uid}:${turmaAtual.id}:${bimestre}`}
                 user={user}

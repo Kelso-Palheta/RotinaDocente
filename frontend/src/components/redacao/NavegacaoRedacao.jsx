@@ -8,7 +8,7 @@ export function NavegacaoRedacao({ pagina, onNova, ocupado = false }) {
     { id: 'criterios', href: '/redacao/criterios', nome: 'Critérios ENEM', Icone: BookOpen },
   ];
   return (
-    <aside className="arte-menu-redacao">
+    <aside className="arte-trilho arte-menu-redacao">
       <Link href="/" className="arte-menu-voltar"><ArrowLeft size={16} aria-hidden="true" /> Voltar ao Hub</Link>
       <p className="arte-menu-marca">Redação Corrigida</p>
       <nav aria-label="Navegação da Redação" className="arte-menu-itens">

@@ -147,9 +147,9 @@ export const Sidebar = ({
   };
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-white border-r border-[#e2d9f7] flex flex-col h-full overflow-hidden font-sans">
+    <aside className="arte-trilho arte-trilho-turmas w-64 flex-shrink-0 flex flex-col h-full overflow-hidden font-sans">
       {/* Logo */}
-      <div className="px-5 pt-6 pb-4 border-b border-[#e2d9f7]">
+      <div className="px-5 pt-6 pb-4 border-b border-white/20">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-[#6315d9] flex items-center justify-center text-white text-xs font-extrabold shadow-sm">
@@ -159,14 +159,14 @@ export const Sidebar = ({
               </svg>
             </div>
             <div>
-              <span className="font-head font-extrabold text-[#25104a] tracking-tight text-sm block leading-none">
+              <span className="font-head font-black text-white tracking-tight text-base block leading-none">
                 Diário Pedagógico
               </span>
-              <span className="text-[10px] text-[#5b4b86] font-medium">Gestão de Turmas</span>
+              <span className="text-[11px] text-white/85 font-medium">Gestão de Turmas</span>
             </div>
           </div>
           {onClose && (
-            <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg text-[#5b4b86] hover:text-[#25104a] hover:bg-[#f3edff] transition-all" aria-label="Fechar menu">
+            <button onClick={onClose} className="lg:hidden p-1.5 rounded-lg text-white hover:bg-white/15 transition-all" aria-label="Fechar menu">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           )}
@@ -174,8 +174,8 @@ export const Sidebar = ({
       </div>
 
       {/* Bimestre selector */}
-      <div className="px-4 py-4 border-b border-[#e2d9f7] bg-[#f3edff]/60">
-        <p className="text-[10px] text-[#5b4b86] uppercase tracking-wider mb-2 font-bold font-head">Bimestre Letivo</p>
+      <div className="px-4 py-3 border-b border-white/20">
+        <p className="text-[11px] text-white/90 uppercase tracking-wider mb-2 font-bold font-head">Bimestre Letivo</p>
         <div className="grid grid-cols-4 gap-1.5">
           {BIMESTRES.map((b) => (
             <button
@@ -183,8 +183,8 @@ export const Sidebar = ({
               onClick={() => onSelectBimestre(b)}
               className={`py-1.5 rounded-xl text-xs font-bold transition-all duration-200 border
                 ${bimestreSelecionado === b
-                  ? 'bg-[#25104a] text-white border-[#25104a] shadow-xs'
-                  : 'bg-white text-[#5b4b86] hover:bg-[#f3edff] hover:text-[#25104a] border-[#e2d9f7]'}`}
+                  ? 'bg-[#ffe500] text-[#25104a] border-[#ffe500] shadow-xs'
+                  : 'bg-white/10 text-white hover:bg-white/20 border-white/30'}`}
             >
               {b}º
             </button>
@@ -194,7 +194,7 @@ export const Sidebar = ({
 
       {/* Turmas list */}
       <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
-        <p className="text-[10px] text-[#5b4b86] uppercase tracking-wider mb-2.5 px-1 font-bold font-head">Turmas Cadastradas</p>
+        <p className="text-[11px] text-white/90 uppercase tracking-wider mb-2.5 px-1 font-bold font-head">Turmas Cadastradas</p>
         {turmas.map((turma, index) => {
           const media = mediaTurma(turma, bimestreSelecionado);
           const ativa = turmaSelecionada?.id === turma.id;
@@ -217,19 +217,17 @@ export const Sidebar = ({
               )}
               <button
                 onClick={() => onSelectTurma(turma)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all duration-200 border
-                  ${ativa
-                    ? 'bg-[#f3edff] border-l-4 border-l-[#6315d9] border-[#e7dbfd] shadow-2xs'
-                    : 'hover:bg-[#f3edff] text-[#25104a] border-transparent'}`}
+                aria-current={ativa ? 'true' : undefined}
+                className="arte-turma-item w-full flex items-center justify-between gap-1 px-2.5 py-2.5 rounded-xl text-left transition-colors"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-[#6e5f94] cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity select-none font-mono text-xs w-3 text-center" title="Arrastar para reordenar">⠿</span>
-                  <span className={`font-semibold text-sm ${ativa ? 'text-[#5411b8] font-bold' : 'text-[#25104a]'}`}>
+                  <span className="cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity select-none font-mono text-xs w-3 text-center" title="Arrastar para reordenar">⠿</span>
+                  <span className={`font-semibold text-sm ${ativa ? 'font-bold' : ''}`}>
                     {turma.nome}
                   </span>
-                  <span className="text-xs text-[#6e5f94] font-mono">({turma.alunos.length})</span>
+                  <span className="text-xs opacity-80 font-mono">({turma.alunos.length})</span>
                 </div>
-                <MediaBadge value={media} config={turma.bimestres[String(bimestreSelecionado)]?.config} />
+                <span className="rounded-md bg-white px-1.5 py-0.5"><MediaBadge value={media} config={turma.bimestres[String(bimestreSelecionado)]?.config} /></span>
               </button>
             </div>
           );
@@ -237,7 +235,7 @@ export const Sidebar = ({
       </div>
 
       {/* Backup */}
-      <div className="px-3 py-3 border-t border-[#e2d9f7] bg-[#f3edff]/40">
+      <div className="px-3 py-3 border-t border-[#e2d9f7] bg-[#fffdf7]">
         <p className="text-[10px] text-[#5b4b86] uppercase tracking-wider mb-2 font-bold">Backup e restauração</p>
         <div className="flex gap-2">
         <button onClick={handleExport} className="flex-1 py-2 bg-white hover:bg-[#f3edff] border border-[#e2d9f7] hover:border-[#e7dbfd] rounded-xl text-[10px] uppercase tracking-wider font-bold text-[#5b4b86] hover:text-[#5411b8] transition-all text-center">
@@ -255,14 +253,14 @@ export const Sidebar = ({
       {backup && <RestaurarBackupModal turmasAtuais={todasTurmas} backup={backup} contaId={user?.uid} onAplicar={aplicarBackup} onClose={() => setBackup(null)} />}
 
       {/* Add turma */}
-      <div className="px-3 py-4 border-t border-[#e2d9f7]">
+      <div className="px-3 py-3 border-t border-[#e2d9f7] bg-[#fffdf7]">
         <div className="flex gap-2">
           <input
             value={novaTurma}
             onChange={(e) => setNovaTurma(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && submit()}
             placeholder="Nome da nova turma…"
-            className="flex-1 bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-3 py-2 text-sm text-[#25104a] placeholder-[#6e5f94] outline-none focus:bg-white focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
+            className="min-w-0 flex-1 bg-[#f3edff] border border-[#e2d9f7] rounded-xl px-3 py-2 text-sm text-[#25104a] placeholder-[#6e5f94] outline-none focus:bg-white focus:ring-2 focus:ring-[#6315d9]/30 focus:border-[#6315d9] transition-all"
           />
           <button
             onClick={submit}
@@ -275,7 +273,7 @@ export const Sidebar = ({
 
       {/* User */}
       {user && (
-        <div className="px-3 py-3 border-t border-[#e2d9f7] bg-[#f3edff]">
+        <div className="px-3 py-3 border-t border-[#e2d9f7] bg-[#f3edff] text-[#25104a]">
           <div className="flex items-center gap-2.5">
             <button onClick={onOpenProfile} className="flex flex-1 items-center gap-2.5 min-w-0 text-left hover:opacity-80 transition-opacity outline-none" title="Meu Perfil">
               {user.photoURL ? (

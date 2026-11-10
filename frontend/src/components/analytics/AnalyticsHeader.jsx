@@ -19,18 +19,18 @@ export function AnalyticsHeader({
   const input = 'border border-[#B9A6EF] bg-white text-[#25104A] rounded-lg p-2 text-sm';
   return (
     <header className="arte-faixa arte-composicao bg-white border rounded-2xl p-4 space-y-3">
-      <div className="flex gap-4 flex-wrap justify-between items-center">
+      <div className="arte-banner-festival arte-cartaz-compacto flex gap-4 flex-wrap justify-between items-center">
         <div>
           <Link href="/" className="underline text-sm">
             Voltar ao Hub
           </Link>
-          <h1 className="text-xl font-bold">Dashboard Analytics</h1>
-          <p className="text-sm text-[#5B4B86]">Acompanhe notas, pendências e evolução.</p>
+          <h1 className="mt-1 text-2xl sm:text-3xl">Dashboard Analytics</h1>
+          <p className="text-sm text-white/90">Acompanhe notas, pendências e evolução.</p>
         </div>
         <button
           onClick={onExportPDF}
           disabled={exportingPDF || exportDisabled || !turmas.length}
-          className="btn-brand-navy rounded-lg px-4 py-2 disabled:opacity-50"
+          className="rounded-lg bg-[#ffe500] px-4 py-2 font-bold text-[#25104a] disabled:opacity-50"
         >
           {exportingPDF ? 'Gerando PDF…' : 'Conferir e exportar PDF'}
         </button>

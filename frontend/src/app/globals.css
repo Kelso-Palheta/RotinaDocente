@@ -292,6 +292,49 @@ h1, h2, h3, h4, .font-head {
   box-shadow: .26rem .3rem 0 var(--accent-ciano), .49rem .52rem 0 var(--accent-amarelo);
 }
 
+.arte-cartaz-compacto {
+  border: 1px solid var(--navy);
+  border-radius: .9rem;
+  box-shadow: .18rem .2rem 0 var(--accent-ciano), .31rem .34rem 0 var(--accent-amarelo);
+  color: var(--surface);
+  padding: .75rem 1rem;
+}
+
+.arte-cartaz-compacto :is(h1, h2) {
+  font-weight: 900;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+
+.arte-cartaz-compacto :is(a, button):focus-visible,
+.arte-trilho :is(a, button):focus-visible {
+  outline: 2px solid var(--accent-ciano);
+  outline-offset: 2px;
+}
+
+.arte-trilho {
+  background: linear-gradient(150deg, #5411b8, #25104a 60%);
+  color: var(--surface);
+}
+
+.arte-trilho-turmas {
+  border-inline-end: .25rem solid var(--accent-ciano);
+}
+
+.arte-turma-item {
+  border: 1px solid #ffffff30;
+  color: var(--surface);
+}
+.arte-turma-item:hover { background: #ffffff20; }
+.arte-turma-item[aria-current="true"] {
+  background: var(--accent-amarelo);
+  color: var(--navy);
+}
+.arte-turma-item[aria-current="true"]:focus-visible { outline-color: var(--navy); }
+
+.arte-horario-marca .brand-title { color: var(--surface); }
+.arte-horario-marca .brand-subtitle { color: #f3edff; }
+
 .arte-titulo-cartaz {
   font-weight: 900;
   letter-spacing: -.045em;
@@ -308,8 +351,6 @@ h1, h2, h3, h4, .font-head {
   align-content: start;
   gap: .65rem;
   padding: 1rem;
-  background: linear-gradient(150deg, #5411b8, #25104a 60%);
-  color: var(--surface);
   border-block-end: .25rem solid var(--accent-ciano);
 }
 
@@ -380,7 +421,7 @@ h1, h2, h3, h4, .font-head {
 @media print {
   .arte-menu-redacao { display: none; }
   .arte-redacao-layout { display: block; }
-  .arte-cartaz { box-shadow: none; }
+  .arte-cartaz, .arte-cartaz-compacto { box-shadow: none; }
 }
 
 /* Moldura clara, assinatura em camadas e palco violeta do aulão. */

@@ -152,7 +152,7 @@ export default function AlunoLoginPage() {
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#6315d9]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#25104a]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="arte-faixa arte-composicao w-full max-w-md bg-white border border-[#e2d9f7] rounded-3xl shadow-xl p-8 z-10">
+      <div className="arte-cartaz w-full max-w-md bg-white p-5 sm:p-8 z-10">
         {/* Topo / Voltar */}
         <div className="flex items-center justify-between mb-6">
           <button
@@ -167,14 +167,14 @@ export default function AlunoLoginPage() {
         </div>
 
         {/* Logo e Cabeçalho */}
-        <div className="text-center mb-6">
+        <div className="arte-banner-festival arte-cartaz-compacto text-center mb-6">
           <div className="w-14 h-14 mx-auto mb-3.5 rounded-2xl bg-[#25104a] border-2 border-[#6315d9]/20 flex items-center justify-center text-white shadow-md shadow-[#25104a]/10">
-            <GraduationCap size={28} className="text-[#6315d9]" />
+            <GraduationCap size={28} className="text-[#00ddeb]" />
           </div>
-          <h1 className="font-head text-2xl font-extrabold text-[#25104a] tracking-tight">
+          <h1 className="font-head text-2xl tracking-tight">
             Portal do Aluno
           </h1>
-          <p className="text-xs text-[#5b4b86] mt-1">
+          <p className="text-xs text-white/90 mt-1">
             Consulte seu boletim, redações corrigidas e atividades
           </p>
         </div>

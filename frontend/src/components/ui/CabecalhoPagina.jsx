@@ -25,7 +25,7 @@ export function CabecalhoPagina({
 
   if (variante === 'escuro') {
     return (
-      <header className="arte-faixa arte-composicao arte-composicao-escura bg-[#25104A] border-b-2 border-[#6315D9]/40 p-4 sm:p-6 md:p-8 text-[#FFFDF7] shadow-lg">
+      <header className="arte-banner-festival arte-cartaz-compacto p-4 sm:p-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-2">
             <div className="flex items-center gap-3 flex-wrap">

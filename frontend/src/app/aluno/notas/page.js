@@ -281,20 +281,20 @@ export default function AlunoNotasPage() {
         </div>
 
         {/* Card do Estudante */}
-        <div className="arte-faixa arte-composicao bg-white border border-[#e2d9f7] rounded-3xl p-4 sm:p-6 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-3">
+        <div className="arte-banner-festival arte-cartaz-compacto mb-6 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 shrink-0 rounded-xl bg-[#25104a] text-[#00ddeb] flex items-center justify-center">
               <User size={22} />
             </div>
             <div>
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#5b4b86] block">
+              <span className="arte-selo uppercase">
                 Boletim de Desempenho
               </span>
-              <h1 className="font-head text-xl sm:text-2xl font-extrabold text-[#25104a] leading-tight [overflow-wrap:anywhere]">
+              <h1 className="font-head mt-1 text-xl sm:text-2xl leading-tight [overflow-wrap:anywhere]">
                 {nome}
               </h1>
-              <p className="text-xs text-[#5b4b86] mt-0.5">
-                Turma: <span className="font-semibold text-[#25104a]">{turmaId}</span>
+              <p className="text-xs text-white/90 mt-0.5">
+                Turma: <span className="font-semibold">{turmaId}</span>
               </p>
             </div>
           </div>

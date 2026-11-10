@@ -96,3 +96,5 @@ No aceite, registrar cada rota ou documento verificado, incluindo os que ficam f
 Recuperar a navegação lateral de correção, histórico e critérios em desktop, com navegação em linha no celular. Expor configuração da avaliação antes da transcrição e manter os comandos de correção disponíveis após a conferência do texto. Usar o fluxo RN-73 para rascunho, validação, revisão e publicação.
 
 O layout usa as famílias [Manrope](https://github.com/google/fonts/tree/main/ofl/manrope) e [Inter](https://github.com/google/fonts/tree/main/ofl/inter) em WOFF2 local. As licenças OFL acompanham os arquivos em `frontend/src/app/fontes`.
+
+O Diário e o Gerador de Atividades usam a mesma base roxa do menu da Redação na navegação por turma. A seleção usa amarelo e a média mantém a cor da faixa da nota. Os demais módulos e o Portal reutilizam a faixa roxa e os cartões de título, respeitando o espaço de tabelas, grades e formulários em telas estreitas.

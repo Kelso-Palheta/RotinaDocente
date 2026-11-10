@@ -101,7 +101,7 @@ export default function AgentesPage() {
         >
           {/* Header do painel */}
           {!selectedAgente && (
-            <div className="agentes-painel-cabecalho" style={{ textAlign: 'center' }}>
+            <div className="agentes-painel-cabecalho arte-banner-festival arte-cartaz-compacto" style={{ textAlign: 'center' }}>
               <div style={{
                 width: 56, height: 56, borderRadius: '1.25rem',
                 background: 'rgba(99, 21, 217,0.2)',

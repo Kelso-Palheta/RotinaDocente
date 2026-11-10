@@ -555,7 +555,7 @@ export default function HorarioApp() {
       {/* CABEÇALHO */}
       <header className="arte-faixa arte-barra-roxa app-header no-print">
         <div className="header-container">
-          <div className="brand-group">
+          <div className="brand-group arte-horario-marca">
             <Link
               href="/"
               className="btn-back-hub"
@@ -580,7 +580,7 @@ export default function HorarioApp() {
               <div>
                 <h1 className="brand-title" style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
                   <span>
-                    Rotina<span style={{ color: "var(--primary)" }}>Docente</span>
+                    Rotina<span style={{ color: "var(--accent-amarelo)" }}>Docente</span>
                   </span>
                   <span
                     style={{

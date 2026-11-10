@@ -63,10 +63,10 @@ export const TurmaView = ({
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Header */}
       <section aria-label="Cabeçalho da turma" className="arte-faixa shrink-0 border-b border-[#e2d9f7] bg-[#fffdf7] px-3 py-2.5 sm:px-6 sm:py-3">
-        <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <div className="arte-banner-festival arte-cartaz-compacto flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-              <h1 className="text-lg sm:text-2xl font-extrabold text-[#25104a] tracking-tight font-head">Turma {turma.nome}</h1>
-              <span className="text-xs text-[#5b4b86] font-mono font-semibold">({turma.alunos.length} alunos)</span>
+              <h1 className="text-xl sm:text-3xl font-head">Turma {turma.nome}</h1>
+              <span className="text-xs text-white/90 font-mono font-semibold">({turma.alunos.length} alunos)</span>
               {view === 'bimestre' && (
                 <span className="px-2.5 py-0.5 bg-[#ffe500] border border-[#ffe500] rounded-full text-[10px] font-extrabold uppercase tracking-wider text-[#25104a]">{bimestre}º Bimestre</span>
               )}
@@ -123,7 +123,7 @@ export const TurmaView = ({
               </button>
             </nav>
         </div>
-        <div className="mt-2 flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <div className="mt-3 flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-2">
             {view === 'bimestre' && (
               <dl aria-label="Resumo de desempenho" className="flex flex-wrap items-center gap-1.5">
                 <StatChip label="Excelentes" value={stats.excelentes} color="border-green-200 text-green-700 bg-green-50" />

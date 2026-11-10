@@ -181,7 +181,7 @@ function AtividadePorAcesso({ activityId, token }) {
             titulo={atividade?.titulo}
             badge="Atividade"
             badgeCor="ciano"
-            variante="compacto"
+            variante="escuro"
             subtitulo={<>
               {alunoInfo?.nome && <span className="block">Estudante: <strong>{alunoInfo.nome}</strong></span>}
               <span className="block">Prazo de entrega: {prazoStr}</span>
