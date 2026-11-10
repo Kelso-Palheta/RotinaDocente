@@ -174,7 +174,7 @@ function AtividadePorAcesso({ activityId, token }) {
   const prazoStr = formatarDataEntrega(atividade?.dataEntrega);
 
   return (
-    <div className="min-h-screen bg-[#f3edff] font-sans selection:bg-[#6315d9] selection:text-white">
+    <div className="arte-pagina min-h-screen font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
         <div className="mb-6 overflow-hidden rounded-3xl">
           <CabecalhoPagina

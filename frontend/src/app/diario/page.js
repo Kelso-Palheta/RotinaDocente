@@ -173,7 +173,7 @@ export default function DiarioPage() {
 
   if (loading || persistencia.carregando || (user && !perfil)) return <div className="h-screen flex items-center justify-center text-sm">Carregando Diário…</div>;
   if (!user || !perfil?.modulos_permitidos?.includes('diario-planejamento')) return null;
-  return <div className="flex h-screen overflow-hidden bg-white text-[#25104a]">
+  return <div className="arte-pagina flex h-screen overflow-hidden text-[#25104a]">
     {sidebarOpen && <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
     <div className={`fixed inset-y-0 left-0 z-50 w-64 lg:relative lg:translate-x-0 transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
       <Sidebar key={user.uid} turmas={listaContexto} backupTurmas={turmas} turmaSelecionada={turmaAtual} bimestreSelecionado={bimestre} user={user}

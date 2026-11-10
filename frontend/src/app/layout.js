@@ -1,17 +1,19 @@
-import { Manrope, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { AuthProvider } from "@/lib/auth-context";
 import "./globals.css";
 
-const manrope = Manrope({
+const manrope = localFont({
+  src: "./fontes/manrope.woff2",
   variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "400 800",
+  display: "swap",
 });
 
-const inter = Inter({
+const inter = localFont({
+  src: "./fontes/inter.woff2",
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
+  display: "swap",
 });
 
 export const metadata = {

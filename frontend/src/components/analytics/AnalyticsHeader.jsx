@@ -18,7 +18,7 @@ export function AnalyticsHeader({
 }) {
   const input = 'border border-[#B9A6EF] bg-white text-[#25104A] rounded-lg p-2 text-sm';
   return (
-    <header className="arte-faixa bg-white border rounded-2xl p-4 space-y-3">
+    <header className="arte-faixa arte-composicao bg-white border rounded-2xl p-4 space-y-3">
       <div className="flex gap-4 flex-wrap justify-between items-center">
         <div>
           <Link href="/" className="underline text-sm">

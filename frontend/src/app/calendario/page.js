@@ -134,7 +134,7 @@ export default function CalendarioPage(){
     });
   };
   const contexto=`${turmaId}:${ano}`;
-  return <div className="min-h-screen bg-[#f3edff] text-[#25104a]">
+  return <div className="arte-pagina min-h-screen text-[#25104a]">
     <header className="arte-faixa bg-white border-b border-[#e2d9f7] p-4 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3"><div><button className="text-sm font-bold" onClick={()=>router.push('/')}>← Hub</button><h1 className="text-xl font-extrabold">Calendário Pedagógico</h1></div><button className={botao} disabled={!aulasVisiveis.length||cal.salvando} onClick={()=>generateCalendarioPDF({turma,grade,aulas:aulasVisiveis,feriados,professorNome:user?.displayName||user?.email,anoLetivo:ano,dataInicio:inicio,dataFim:fim,planejamento})}>Baixar PDF do período</button></div>
       <fieldset disabled={cal.salvando||Boolean(previa)} className="flex flex-wrap gap-3 text-sm">

@@ -103,7 +103,7 @@ export default function AlunoRedacaoViewPage() {
 
   return (
     <div
-      className="min-h-screen bg-[#F3EDFF] py-8 px-4 font-sans"
+      className="arte-pagina min-h-screen py-8 px-4 font-sans"
       style={{
         backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99, 21, 217,0.05), transparent)',
       }}

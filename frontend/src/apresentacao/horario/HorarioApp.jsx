@@ -551,9 +551,9 @@ export default function HorarioApp() {
   }
 
   return (
-    <div className="horario-module-wrapper">
+    <div className="arte-pagina horario-module-wrapper">
       {/* CABEÇALHO */}
-      <header className="arte-faixa app-header no-print">
+      <header className="arte-faixa arte-barra-roxa app-header no-print">
         <div className="header-container">
           <div className="brand-group">
             <Link

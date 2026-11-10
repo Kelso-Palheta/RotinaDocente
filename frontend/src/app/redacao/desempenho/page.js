@@ -12,6 +12,7 @@ import { arquivarRedacao } from '@/lib/redacao/repositorio';
 import { generatePDF } from '@/lib/redacao/pdf-generator';
 import { renderFeedbackText } from '@/lib/redacao/renderFeedback';
 import RevisaoRedacao from '@/components/redacao/RevisaoRedacao';
+import { NavegacaoRedacao } from '@/components/redacao/NavegacaoRedacao';
 import AssociarContextoRedacao from '@/components/redacao/AssociarContextoRedacao';
 
 const estados={corrigido:'Aguardando revisão',revisado:'Revisado',publicado:'Publicado',arquivado:'Arquivado',rascunho:'Rascunho'};
@@ -49,8 +50,14 @@ export default function DesempenhoPage() {
   const evolucao=calcularEvolucaoCompetencias([...lista].reverse());
   if(authLoading)return <main className="p-6">Carregando sua conta…</main>;
   if(!user)return <main className="p-6"><p>Entre na sua conta para consultar suas correções.</p><button onClick={()=>router.push('/login')}>Entrar</button></main>;
-  return <main className="min-h-screen bg-[#f3edff] p-4 text-[#25104a] sm:p-8"><div className="mx-auto max-w-6xl space-y-5">
-    <header className="arte-faixa flex flex-wrap items-center justify-between gap-3"><div><button onClick={()=>router.push('/redacao')} className="text-sm underline">Voltar para correção</button><h1 className="mt-2 text-2xl font-bold">Histórico e evolução</h1><p className="text-sm text-[#5B4B86]">Revise, disponibilize e acompanhe suas redações por contexto.</p></div><button onClick={()=>router.push('/redacao')} className="rounded-xl bg-[#6315d9] px-4 py-3 font-semibold text-white">Nova correção</button></header>
+  return <div className="arte-redacao-layout arte-pagina min-h-screen text-[#25104a]">
+    <NavegacaoRedacao pagina="historico" />
+    <main className="mx-auto w-full min-w-0 max-w-6xl space-y-5 px-4 py-5 sm:px-8">
+      <header className="arte-banner-festival arte-cartaz p-5 text-white sm:p-8">
+        <span className="arte-selo">Minhas correções</span>
+        <h1 className="arte-titulo-cartaz mt-3 text-3xl sm:text-5xl">Histórico e evolução</h1>
+        <p className="mt-2 text-sm text-white/90">Revise, disponibilize e acompanhe suas redações por contexto.</p>
+      </header>
     <section aria-label="Filtros do histórico" className="flex flex-wrap gap-3 rounded-2xl border bg-white p-4">
       <label className="text-sm">Turma<select aria-label="Turma" value={filtros.turmaId} onChange={e=>alterar('turmaId',e.target.value)} className="ml-2 rounded-lg border p-2"><option value="all">Todas</option>{turmas.map(t=><option key={t.id} value={t.id}>{t.nome}</option>)}</select></label>
       <label className="text-sm">Ano letivo<select aria-label="Ano letivo" value={filtros.anoLetivo} onChange={e=>alterar('anoLetivo',e.target.value)} className="ml-2 rounded-lg border p-2"><option value="all">Todos</option>{anos.map(ano=><option key={ano} value={ano}>{ano==='legado'?'Legado — ano não informado':ano}</option>)}</select></label>
@@ -61,7 +68,21 @@ export default function DesempenhoPage() {
     </section>
     {dados.error && <div role="alert" className="rounded-xl bg-[#F3EDFF] p-4"><p>{dados.error}</p><button onClick={carregar} className="mt-2 underline">Tentar novamente</button></div>}
     {(dados.loading || !ativo)?<p role="status">Carregando histórico…</p>:<>
-      <section aria-label="Resumo do recorte" className="flex flex-wrap gap-4 rounded-xl bg-white p-4"><strong>{resumo.total} redações neste recorte</strong><span>{resumo.revisar} para revisar</span><span>{resumo.publicadas} publicadas</span><span>Média completa: {resumo.media ?? 'Sem avaliações completas'}</span></section>
+      <section aria-label="Resumo do recorte" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="arte-ferramenta rounded-xl border border-[#e2d9f7] bg-white p-3">
+          <strong className="block text-lg">{resumo.total} redações neste recorte</strong>
+        </div>
+        {[
+          [resumo.revisar, 'Para revisar'],
+          [resumo.publicadas, 'Publicadas'],
+          [resumo.media ?? '—', 'Média completa'],
+        ].map(([valor, rotulo], i) => (
+          <div key={rotulo} data-acento={i + 1} className="arte-ferramenta rounded-xl border border-[#e2d9f7] bg-white p-3">
+            <strong className="block text-2xl tabular-nums">{valor}</strong>
+            <span className="text-sm text-[#5b4b86]">{rotulo}</span>
+          </div>
+        ))}
+      </section>
       {notice && <p role="status" className="rounded-lg bg-[#F3EDFF] p-3">{notice}</p>}
       <div className="flex flex-wrap items-center justify-between gap-3"><p className="text-sm text-[#5B4B86]">Registros sem identidade confirmada aparecem como legado; nomes nunca criam associação automática.</p><button onClick={baixarBackup} disabled={!lista.length} className="rounded-lg border bg-white p-2 text-sm">Baixar backup do recorte</button></div>
       {!lista.length && !dados.error && <p className="rounded-xl border bg-white p-6">Nenhuma redação neste recorte. Ajuste os filtros ou inicie uma nova correção.</p>}
@@ -69,5 +90,6 @@ export default function DesempenhoPage() {
       {viewing && viewing._owner===uid && <section className="space-y-4 rounded-2xl border bg-white p-4" aria-label="Redação selecionada"><div className="flex flex-wrap justify-between gap-3"><h2 className="font-bold">{viewing.studentName} — {viewing.essayTheme || 'Redação'}</h2><button onClick={()=>setViewing(null)} className="underline">Fechar revisão</button></div><p className="text-sm">Texto original</p><pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-lg bg-[#F3EDFF] p-3 font-sans text-sm">{viewing.essayText || viewing.originalText || 'Texto original indisponível neste registro legado.'}</pre><AssociarContextoRedacao key={`contexto-${viewing.id}-${viewing.revision || 0}`} professorUid={user.uid} redacao={viewing} turmas={turmas} onSaved={salvarLocal}/><RevisaoRedacao key={`${viewing.id}-${viewing.revision || 0}`} professorUid={user.uid} redacao={viewing} onSaved={salvarLocal}/><button onClick={()=>generatePDF(viewing.result || '',viewing.studentName,viewing.studentClass,viewing.essayTheme,viewing.scoreData,{...viewing,createdAt:dataRedacao(viewing)})} className="rounded-lg border p-2">Exportar relatório PDF</button><details><summary>Histórico de versões ({viewing.historico?.length || 0})</summary>{(viewing.historico || []).map((h,i)=><div className="mt-2 border-t p-2 text-sm" key={i}><p>{h.acao} · {h.autor} · {h.data}</p><details><summary>Ver versão anterior</summary><div>{renderFeedbackText(h.anterior?.result || 'Sem devolutiva anterior.')}</div></details></div>)}</details></section>}
       <section className="rounded-xl border bg-white p-4"><h2 className="font-bold">Evolução por aluno</h2>{filtros.alunoId==='all'?<p className="mt-2 text-sm">Selecione um aluno para comparar redações. A média acima considera o recorte inteiro.</p>:<><p className="mt-2 text-sm">{evolucao.totalRedacoes} avaliações completas válidas · Tendência: {evolucao.tendencia}. Avaliações parciais não entram nesta comparação.</p><div className="mt-3 flex flex-wrap gap-4">{Object.entries(evolucao.medias).map(([c,media])=><span key={c}>{c.toUpperCase()}: {evolucao.totalRedacoes?media:'—'}</span>)}</div>{evolucao.competenciaAlvo&&<p className="mt-2 text-sm">Prioridade de reescrita: {evolucao.competenciaAlvo.toUpperCase()} — confira as justificativas das redações.</p>}</>}</section>
     </>}
-  </div></main>;
+    </main>
+  </div>;
 }

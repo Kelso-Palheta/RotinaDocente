@@ -237,7 +237,7 @@ export default function AlunoNotasPage() {
   const abaAtual = abaMap[abaAtv] || [];
 
   return (
-    <div className="min-h-screen bg-[#fffdf7] font-sans selection:bg-[#6315d9] selection:text-white">
+    <div className="arte-pagina min-h-screen font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
         <AcessoRevisao aluno />
 

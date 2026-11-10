@@ -132,7 +132,7 @@ function AnalyticsConta({ uid, professorNome }) {
     setErroPDF('');
   };
   return (
-    <main className="min-h-screen bg-[#F3EDFF] text-[#25104a] p-3 md:p-6 space-y-4 max-w-7xl mx-auto">
+    <main className="arte-pagina min-h-screen text-[#25104a] p-3 md:p-6 space-y-4 max-w-7xl mx-auto">
       <AnalyticsHeader
         turmas={contexto}
         turmaSelecionadaId={turmaId}

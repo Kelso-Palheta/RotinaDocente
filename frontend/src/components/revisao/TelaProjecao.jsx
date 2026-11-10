@@ -8,7 +8,7 @@ import { CORES_ALTERNATIVAS, temaStyles } from './RevisaoTema';
 import { PodioRevisao } from './PodioRevisao';
 import { BlocoAulaTematica } from './BlocoAulaTematica';
 
-export function TelaProjecao({ estado }) {
+export function TelaProjecao({ estado, controles }) {
   const sala = estado?.sala || {};
   const rodada = estado?.rodada || {};
   const questao = rodada?.questao || {};
@@ -423,6 +423,12 @@ export function TelaProjecao({ estado }) {
         )}
       </main>
       </div>
+      {controles && (
+        <footer className="arte-barra-roxa mt-3 rounded-2xl lg:sticky lg:bottom-0 lg:z-20">
+          <p className="px-4 pt-2 text-xs font-black uppercase tracking-wider">Painel do professor</p>
+          {controles}
+        </footer>
+      )}
     </div>
   );
 }

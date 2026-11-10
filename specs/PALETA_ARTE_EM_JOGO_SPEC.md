@@ -90,3 +90,9 @@ Aceite visual: comparar com a referência a página pública, o início autentic
 Inventariar tudo que o aluno pode abrir pelo portal, por link direto ou a partir de outra tela. Cobrir login e seleção de turma, início, atividades (abertura, realização, envio, entrega e devolutiva), notas, boletim, relatórios, redação e revisão. Incluir telas de impressão e PDFs dos relatórios destinados ao aluno, adaptando a identidade para legibilidade em papel. Conferir também diálogos, menus e estados de carregamento, vazio, erro e conclusão. Preservar dados, permissões, pontuação e cores semânticas das notas.
 
 No aceite, registrar cada rota ou documento verificado, incluindo os que ficam fora de `/aluno`. Usar dados sintéticos e capturar o percurso da atividade até a devolutiva e a abertura de um relatório no celular.
+
+### Redação Corrigida
+
+Recuperar a navegação lateral de correção, histórico e critérios em desktop, com navegação em linha no celular. Expor configuração da avaliação antes da transcrição e manter os comandos de correção disponíveis após a conferência do texto. Usar o fluxo RN-73 para rascunho, validação, revisão e publicação.
+
+O layout usa as famílias [Manrope](https://github.com/google/fonts/tree/main/ofl/manrope) e [Inter](https://github.com/google/fonts/tree/main/ofl/inter) em WOFF2 local. As licenças OFL acompanham os arquivos em `frontend/src/app/fontes`.

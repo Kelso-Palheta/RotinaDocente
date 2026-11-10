@@ -41,12 +41,11 @@ export default function AgentesPage() {
     >
       {/* ─── Navbar ─────────────────────────────────── */}
       <div
-        className="arte-faixa agentes-navbar"
+        className="arte-faixa arte-barra-roxa agentes-navbar"
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.75rem',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
         }}
       >
         <button

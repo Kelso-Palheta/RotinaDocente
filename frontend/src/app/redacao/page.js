@@ -11,12 +11,14 @@ import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { salvarRedacao } from '@/lib/redacao/repositorio';
 import RevisaoRedacao from '@/components/redacao/RevisaoRedacao';
+import { NavegacaoRedacao } from '@/components/redacao/NavegacaoRedacao';
+import { Upload } from 'lucide-react';
 import { renderFeedbackText } from '@/lib/redacao/renderFeedback';
 import { RUBRICA_REDACAO } from '@/dominio/redacao/rubrica';
 import { generatePDF } from '@/lib/redacao/pdf-generator';
 
 const COMPETENCIAS = ['c1', 'c2', 'c3', 'c4', 'c5'];
-const field = 'w-full border border-[#B9A6EF] rounded-xl p-3 bg-white text-[#25104a]';
+const field = 'w-full border border-[#B9A6EF] rounded-xl p-3 bg-white text-[#25104a] focus-visible:outline-2 focus-visible:outline-[#6315d9]';
 const box = 'rounded-2xl border border-[#E2D9F7] bg-white p-5 space-y-4';
 const vazio = () => ({ turmaId:'', alunoId:'', nome:'', turmaNome:'', anoLetivo:'', bimestre:1, tema:'', texto:'', motivador:'', depth:'analyzed', competencias:[...COMPETENCIAS], fonte:null });
 const chaveRascunho = uid => `redacao_rascunho_v2_${uid}`;
@@ -174,20 +176,32 @@ export default function RedacaoPage() {
   if(!perfil?.modulos_permitidos?.includes('redacao-corretor'))return <p className="p-8">Seu plano não inclui Redação Corrigida. <Link href="/">Voltar ao Hub</Link></p>;
   const contexto=form.nome ? `${form.turmaNome || 'Avulsa'} · ${form.nome} · ${form.bimestre}º bimestre`:'Selecione turma e aluno ou crie uma redação avulsa.';
   const label=(texto,children)=><label className="block space-y-1"><span className="text-sm font-semibold">{texto}</span>{children}</label>;
-  return <main onClickCapture={e=>{const link=e.target.closest('a');if(!link)return;if(busy){e.preventDefault();e.stopPropagation();setErro('Aguarde o processamento terminar antes de sair.');}else if((dirty || revisaoDirty) && !window.confirm('Sair desta redação? O texto ficará no rascunho deste dispositivo; a imagem precisará ser reenviada.')){e.preventDefault();e.stopPropagation();}}} className="min-h-screen bg-[#F3EDFF] text-[#25104a] p-4 sm:p-8">
-    <div className="max-w-5xl mx-auto space-y-5">
-      <header className="arte-faixa flex flex-wrap items-center justify-between gap-3"><div><Link href="/" className="text-sm underline">Voltar ao Hub</Link><h1 className="text-2xl font-bold">Redação Corrigida</h1></div><nav className="flex flex-wrap gap-3"><Link className="btn-brand-navy rounded-xl px-4 py-2" href="/redacao/desempenho">Histórico e evolução</Link><Link href="/redacao/criterios" className="underline py-2">Critérios ENEM</Link><button className="btn-brand-ghost rounded-xl px-4 py-2" disabled={!!busy} onClick={novo}>Nova redação</button></nav></header>
-      <p className="text-sm">Enviar → Revisar texto → Corrigir → Revisar resultado → Disponibilizar. Salvamento e publicação são etapas separadas.</p>
-      <p className="rounded-xl bg-[#f3edff] border border-[#6315d9]/20 p-3 font-semibold">{contexto}</p>
+  return <main onClickCapture={e=>{const link=e.target.closest('a');if(!link)return;if(busy){e.preventDefault();e.stopPropagation();setErro('Aguarde o processamento terminar antes de sair.');}else if((dirty || revisaoDirty) && !window.confirm('Sair desta redação? O texto ficará no rascunho deste dispositivo; a imagem precisará ser reenviada.')){e.preventDefault();e.stopPropagation();}}} className="arte-redacao-layout arte-pagina min-h-screen text-[#25104a]">
+    <NavegacaoRedacao pagina="correcao" onNova={novo} ocupado={Boolean(busy)} />
+    <div className="mx-auto w-full min-w-0 max-w-6xl space-y-5 px-4 py-5 sm:px-8">
+      <header className="arte-banner-festival arte-cartaz p-5 text-white sm:p-8">
+        <span className="arte-selo">Redação ENEM</span>
+        <h1 className="arte-titulo-cartaz mt-3 text-3xl sm:text-5xl">Redação Corrigida</h1>
+        <p className="mt-2 max-w-xl text-sm text-white/90">Corrija pelas cinco competências e revise a devolutiva. Salvamento e publicação no Portal são etapas separadas.</p>
+      </header>
+      <ol aria-label="Etapas da correção" className="arte-etapas">
+        {['Enviar e revisar texto', 'Corrigir', 'Revisar e disponibilizar'].map((nome, i) => (
+          <li key={nome} aria-current={etapa === ['input', 'review', 'result'][i] ? 'step' : undefined}>
+            <span>{i + 1}</span> {nome}
+          </li>
+        ))}
+      </ol>
+      <p className="rounded-xl border border-[#e2d9f7] bg-white p-3 font-semibold">{contexto}</p>
       {recuperavel && <section className={box}><p>Há um rascunho desta conta neste dispositivo. Fonte original deve ser reenviada para comparação visual.</p><button className="btn-brand-primary rounded-xl px-4 py-2" disabled={!!busy} onClick={recuperar}>Recuperar rascunho</button><button className="ml-3 underline" disabled={!!busy} onClick={()=>{setRecuperavel(null);localStorage.removeItem(chaveRascunho(user.uid));}}>Descartar rascunho</button></section>}
       {rascunhos.length>0 && <details className={box}><summary>Rascunhos por aluno ({rascunhos.length})</summary>{rascunhos.map(d=><button key={chaveContexto(user.uid,d.form)} disabled={!!busy} className="block underline text-left py-2" onClick={()=>setRecuperavel(d)}>{d.form.nome || 'Aluno não selecionado'} · {d.form.turmaNome || 'Avulsa'} · {d.form.bimestre}º bimestre — recuperar</button>)}</details>}
       {erro && <p role="alert" className="rounded-xl bg-[#F3EDFF] border border-[#E2D9F7] p-4">{erro}</p>}
       {aviso && <p role="status" className="rounded-xl bg-[#F3EDFF] p-4">{aviso}</p>}
       {busy && <p role="status" aria-live="polite" className="p-4 bg-[#F3EDFF] rounded-xl">{busy}</p>}
-      {etapa!=='result' && <fieldset disabled={!!busy} className="space-y-5">
+      {etapa!=='result' && <fieldset disabled={!!busy} className="min-w-0 space-y-5">
+        <div className="grid gap-5 xl:grid-cols-2">
         <section className={box}><h2 className="font-bold">1. Identificar redação</h2>
           {diario.erro && <p role="alert">Turmas indisponíveis: {diario.erro} <button type="button" onClick={()=>diario.tentarNovamente?.().catch(e=>setErro(e.message))} className="underline">Tentar novamente</button></p>}
-          <div className="grid sm:grid-cols-3 gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             {label('Turma',<select className={field} value={form.turmaId} disabled={diario.carregando} onChange={e=>{const t=turmas.find(t=>t.id===e.target.value);mudar({turmaId:t?.id || '',alunoId:'',nome:'',turmaNome:t?.nome || '',anoLetivo:t?.anoLetivo || ''});}}><option value="">Redação avulsa</option>{turmas.map(t=><option key={t.id} value={t.id}>{t.nome} · {t.anoLetivo || 'Ano não informado'}</option>)}</select>)}
             {turma?label('Aluno',<select className={field} value={form.alunoId} onChange={e=>{const a=turma.alunos.find(a=>a.id===e.target.value);mudar({alunoId:a?.id || '',nome:a?.nome || ''});}}><option value="">Selecionar aluno</option>{turma.alunos.map(a=><option key={a.id} value={a.id}>{a.nome}</option>)}</select>):label('Nome do aluno',<input className={field} value={form.nome} onChange={e=>mudar({nome:e.target.value})} maxLength={100}/>)}
             {label('Bimestre',<select className={field} value={form.bimestre} onChange={e=>mudar({bimestre:Number(e.target.value)})}>{[1,2,3,4].map(b=><option key={b} value={b}>{b}º bimestre</option>)}</select>)}
@@ -195,8 +209,18 @@ export default function RedacaoPage() {
             {label('Tema',<input className={field} value={form.tema} onChange={e=>mudar({tema:e.target.value})} maxLength={500}/>)}
           </div><p className="text-sm text-[#5B4B86]">Redação avulsa não publica para aluno por associação automática de nome. Escolha o aluno cadastrado para disponibilizar no Portal.</p>
         </section>
+        <section className={box}><h2 className="font-bold">Configurar avaliação</h2><p>Critérios pedagógicos internos v2, sujeitos à revisão docente. Completa: cinco competências e total /1000. Seleção parcial: apenas competências escolhidas, sem nota total comparável.</p>
+          <div className="flex flex-wrap gap-4">{COMPETENCIAS.map(c=><label key={c}><input type="checkbox" checked={form.competencias.includes(c)} onChange={e=>mudar({competencias:e.target.checked?[...form.competencias,c].sort():form.competencias.filter(x=>x!==c)})}/> {c.toUpperCase()}</label>)}</div>
+          {label('Profundidade do feedback',<select className={field} value={form.depth} onChange={e=>mudar({depth:e.target.value})}><option value="basic">Básico — justificativa e dicas</option><option value="analyzed">Analítico — exemplos e checklist</option><option value="deep">Profundo — análise e reescrita</option></select>)}
+          <p className="text-sm">IA conectada: {getClientAIHeaders()['x-user-ai-provider'] || 'nenhuma'} · {getClientAIHeaders()['x-user-ai-model'] || 'modelo padrão'}. <Link className="underline" href="/">Conectar IA no Hub</Link></p>
+        </section>
+        </div>
         <section className={box}><h2 className="font-bold">2. Enviar e revisar texto</h2>
-          <label className="block font-semibold">Enviar redação<input className={`${field} mt-2`} type="file" accept="image/*,.heic,.heif,.pdf,.docx,.txt" onChange={e=>importar(e)}/></label><p className="text-sm text-[#5B4B86]">Imagem até 7 MB; PDF, DOCX e TXT até 15 MB. Até 10 páginas escaneadas. Fotografe sem sombras e com a folha inteira. Confira a transcrição sem corrigir os erros do aluno.</p>
+          <label className="arte-envio">
+            <Upload size={22} aria-hidden="true" />
+            <span className="font-bold">Enviar redação</span>
+            <input className="block w-full min-w-0 max-w-lg text-sm file:mr-2 file:rounded-lg file:border-0 file:bg-[#ffe500] file:px-3 file:py-2 file:font-bold file:text-[#25104a]" type="file" accept="image/*,.heic,.heif,.pdf,.docx,.txt" onChange={e=>importar(e)}/>
+          </label><p className="text-sm text-[#5B4B86]">Imagem até 7 MB; PDF, DOCX e TXT até 15 MB. Até 10 páginas escaneadas. Fotografe sem sombras e com a folha inteira. Confira a transcrição sem corrigir os erros do aluno.</p>
           {form.fonte && <p>Fonte: {form.fonte.nome}</p>}
           {imagem && <button onClick={()=>setZoom(true)} type="button" className="block text-left"><img src={imagem} alt="Fonte original da redação; ampliar para conferir" className="max-h-72 max-w-full object-contain border rounded-xl"/><span className="underline">Ampliar original</span></button>}
           {label('Texto original / transcrição',<textarea className={field} rows={12} value={form.texto} spellCheck={false} lang="pt-BR" maxLength={25000} onChange={e=>mudar({texto:e.target.value})}/>)}
@@ -204,10 +228,7 @@ export default function RedacaoPage() {
           <details><summary className="cursor-pointer font-semibold">Textos motivadores (opcional)</summary><label className="block mt-3">Enviar motivador<input type="file" className={field} accept="image/*,.heic,.pdf,.docx,.txt" onChange={e=>importar(e,true)}/></label>{label('Texto motivador',<textarea className={field} rows={5} value={form.motivador} onChange={e=>mudar({motivador:e.target.value})} maxLength={25000}/>)}</details>
           <button className="btn-brand-navy rounded-xl px-4 py-2" type="button" onClick={()=>setEtapa('review')}>Conferi o texto</button>
         </section>
-        {etapa==='review' && <section className={box}><h2 className="font-bold">3. Configurar avaliação</h2><p>Critérios pedagógicos internos v2, sujeitos à revisão docente. Completa: cinco competências e total /1000. Seleção parcial: apenas competências escolhidas, sem nota total comparável.</p>
-          <div className="flex flex-wrap gap-4">{COMPETENCIAS.map(c=><label key={c}><input type="checkbox" checked={form.competencias.includes(c)} onChange={e=>mudar({competencias:e.target.checked?[...form.competencias,c].sort():form.competencias.filter(x=>x!==c)})}/> {c.toUpperCase()}</label>)}</div>
-          {label('Profundidade do feedback',<select className={field} value={form.depth} onChange={e=>mudar({depth:e.target.value})}><option value="basic">Básico — justificativa e dicas</option><option value="analyzed">Analítico — exemplos e checklist</option><option value="deep">Profundo — análise e reescrita</option></select>)}
-          <p className="text-sm">IA conectada: {getClientAIHeaders()['x-user-ai-provider'] || 'nenhuma'} · {getClientAIHeaders()['x-user-ai-model'] || 'modelo padrão'}. <Link className="underline" href="/">Conectar IA no Hub</Link></p>
+        {etapa==='review' && <section className={box}><h2 className="font-bold">3. Corrigir redação</h2>
           <div className="flex flex-wrap gap-3"><button type="button" className="btn-brand-primary rounded-xl px-4 py-3" onClick={()=>corrigir(true)}>Corrigir com IA</button><button type="button" className="btn-brand-navy rounded-xl px-4 py-3" onClick={()=>setManual(true)}>Corrigir manualmente</button></div>
           {manual && <div className="space-y-3"><h3 className="font-semibold">Correção manual — não usa chave de IA</h3><div className="grid grid-cols-2 sm:grid-cols-5 gap-3">{form.competencias.map(c=>label(`Nota ${c.toUpperCase()}`,<select key={c} className={field} value={notas[c]??''} onChange={e=>{setNotas(n=>({...n,[c]:e.target.value}));setDirty(true);}}><option value="">Selecionar</option>{[0,40,80,120,160,200].map(n=><option key={n} value={n}>{n}</option>)}</select>))}</div>{label('Devolutiva e justificativas por competência',<textarea rows={7} className={field} value={comentario} onChange={e=>{setComentario(e.target.value);setDirty(true);}}/>)}<button type="button" className="btn-brand-primary rounded-xl px-4 py-3" onClick={()=>corrigir(false)}>Salvar correção manual</button></div>}
         </section>}

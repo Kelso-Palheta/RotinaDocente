@@ -147,7 +147,7 @@ export default function AlunoLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3edff] flex items-center justify-center p-4 font-sans selection:bg-[#6315d9] selection:text-white relative overflow-hidden">
+    <div className="arte-pagina min-h-screen flex items-center justify-center p-4 font-sans selection:bg-[#6315d9] selection:text-white relative overflow-hidden">
       {/* Elementos decorativos sutis */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#6315d9]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#25104a]/5 rounded-full blur-3xl pointer-events-none" />

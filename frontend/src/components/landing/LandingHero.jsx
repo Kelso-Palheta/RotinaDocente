@@ -17,7 +17,7 @@ export function LandingHero({ onOpenAuth }) {
           {/* Lado Esquerdo - Copy & CTAs */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#f3edff] border border-[#e7dbfd] text-[#5411b8] text-xs sm:text-sm font-bold shadow-xs">
+            <div className="arte-selo inline-flex items-center gap-2.5">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#6315d9] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#6315d9]"></span>
@@ -26,7 +26,7 @@ export function LandingHero({ onOpenAuth }) {
             </div>
 
             {/* Headline Manrope */}
-            <h1 className="font-head text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#25104a] tracking-tight leading-[1.08]">
+            <h1 className="arte-titulo-cartaz font-head text-4xl sm:text-5xl lg:text-6xl text-[#25104a] leading-[1.08]">
               O Rotina<span className="text-[#6315d9]">Docente</span>{" "}
               <span className="text-[#6315d9] relative whitespace-nowrap inline-block">
                 devolve seus
@@ -86,9 +86,9 @@ export function LandingHero({ onOpenAuth }) {
           <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-lg lg:max-w-none">
               {/* Moldura macOS */}
-              <div className="bg-white rounded-2xl shadow-2xl border border-[#e2d9f7] overflow-hidden">
+              <div className="arte-cartaz bg-white overflow-hidden">
                 {/* Barra do macOS */}
-                <div className="flex items-center justify-between px-4 py-3 bg-[#f3edff] border-b border-[#e2d9f7]">
+                <div className="flex items-center justify-between arte-barra-roxa px-4 py-3">
                   <div className="flex items-center gap-1.5">
                     <span className="w-3 h-3 rounded-full bg-(--accent-rosa)" />
                     <span className="w-3 h-3 rounded-full bg-(--accent-amarelo)" />
@@ -96,7 +96,7 @@ export function LandingHero({ onOpenAuth }) {
                   </div>
                   <div className="px-3 py-1 bg-white border border-[#e2d9f7] rounded-md text-[11px] font-medium text-[#6e5f94] flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#6315D9]"></span>
-                    simuladoapp.com.br/edu/hub
+                    RotinaDocente · Hub
                   </div>
                   <div className="w-10" />
                 </div>

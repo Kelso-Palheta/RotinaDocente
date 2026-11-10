@@ -86,10 +86,10 @@ export default function Dashboard() {
   const provAtivo = config?.provider ? AIProviders[config.provider] : null;
 
   return (
-    <div className="min-h-screen bg-[#fffdf7] text-[#25104a] font-sans flex flex-col selection:bg-[#6315d9] selection:text-white">
+    <div className="arte-pagina min-h-screen text-[#25104a] font-sans flex flex-col selection:bg-[#6315d9] selection:text-white">
       {/* Header Superior Navy */}
-      <header className="bg-[#25104a] text-white border-b border-white/10 px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+      <header className="arte-barra-roxa px-4 sm:px-8 py-4 shadow-md sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-2">
           {/* Logo Rotina Docente */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#6315d9] flex items-center justify-center text-white shadow-md">
@@ -119,7 +119,7 @@ export default function Dashboard() {
           </div>
 
           {/* Ações de Usuário & Botão Conectar IA */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-3">
             {/* Botão Conectar IA / Status da Chave */}
             <button
               onClick={() => setShowAIModal(true)}
@@ -141,14 +141,16 @@ export default function Dashboard() {
 
             <button
               onClick={() => setShowProfile(true)}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-white/15 transition-all"
+              aria-label="Perfil"
+              className="flex items-center gap-2 px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-white/15 transition-all"
             >
               <User size={15} className="text-[#B9A6EF]" />
               <span className="hidden sm:inline">Perfil</span>
             </button>
             <button
               onClick={logout}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-[#5411b8] hover:border-[#5411b8] transition-all"
+              aria-label="Sair"
+              className="flex items-center gap-2 px-2.5 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 text-white border border-white/15 hover:bg-[#5411b8] hover:border-[#5411b8] transition-all"
             >
               <LogOut size={15} />
               <span className="hidden sm:inline">Sair</span>
@@ -160,13 +162,13 @@ export default function Dashboard() {
       {/* Conteúdo Principal do Hub */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8 space-y-8">
         {/* Banner de Boas-Vindas com Status de IA & Plano */}
-        <div className="arte-faixa arte-composicao arte-composicao-escura bg-gradient-to-r from-[#25104a] via-[#3a1a73] to-[#25104a] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-[#25104a]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="arte-banner-festival arte-cartaz p-6 sm:p-8 text-white shadow-xl border border-[#25104a]/20 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-3 relative z-10 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#6315d9] text-white">
+            <div className="arte-selo inline-flex items-center gap-1.5">
               <Sparkles size={12} />
               <span>Painel do Docente</span>
             </div>
-            <h2 className="font-head text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h2 className="arte-titulo-cartaz font-head text-2xl sm:text-4xl text-white">
               Seu Hub Pedagógico com Inteligência Artificial
             </h2>
             <p className="text-sm text-white/70 leading-relaxed">

@@ -201,6 +201,7 @@ h1, h2, h3, h4, .font-head {
   font-weight: 850;
   letter-spacing: .04em;
 }
+.arte-selo.inline-flex { display: inline-flex; }
 
 .arte-ferramenta {
   --arte-acento: #00ddeb;
@@ -213,6 +214,13 @@ h1, h2, h3, h4, .font-head {
 
 .arte-hero-publico {
   --arte-fundo: linear-gradient(120deg, #fffdf7 48%, #f3edff);
+  background-image:
+    radial-gradient(circle at 100% 0, #00ddeb 0 7rem, transparent 7.05rem),
+    radial-gradient(circle at 0 100%, #b9ef00 0 4.5rem, transparent 4.55rem),
+    radial-gradient(circle at 10% 0%, #6315d9 1.2px, transparent 1.7px),
+    var(--arte-fundo);
+  background-size: 100% 100%, 100% 100%, .65rem .65rem, 100% 100%;
+  background-repeat: no-repeat, no-repeat, repeat-x, no-repeat;
 }
 
 @media print {
@@ -220,9 +228,159 @@ h1, h2, h3, h4, .font-head {
 }
 
 @media screen {
-  .arte-faixa:not(.arte-composicao, .app-header, .agentes-navbar) {
-    background-image: linear-gradient(105deg, #f3edff, #fffdf7 58%);
+  .arte-faixa:not(.arte-composicao, .arte-banner-festival, .app-header, .agentes-navbar) {
+    background-image:
+      linear-gradient(90deg, #00ddeb 0 30%, #ffe500 30% 58%, #ff2d93 58% 82%, #b9ef00 82%),
+      linear-gradient(105deg, #f3edff, #fffdf7 52%);
+    background-size: 5rem .2rem, 100% 100%;
+    background-repeat: no-repeat;
+    background-position: right top, center;
   }
+}
+
+.arte-pagina {
+  background-color: var(--surface);
+}
+
+.arte-barra-roxa {
+  background: linear-gradient(105deg, #5411b8, #25104a 60%);
+  color: var(--surface);
+  border-block-end: .2rem solid var(--accent-ciano);
+}
+
+.arte-etapas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  padding: .6rem .8rem;
+  border-radius: .9rem;
+  background: #431099;
+  color: var(--surface);
+  font-size: .85rem;
+  font-weight: 750;
+}
+.arte-etapas li { display: flex; align-items: center; gap: .45rem; }
+.arte-etapas li span {
+  display: grid;
+  width: 1.6rem;
+  height: 1.6rem;
+  place-items: center;
+  border-radius: .45rem;
+  color: var(--navy);
+  background: var(--pink-light);
+}
+.arte-etapas li[aria-current] span { background: var(--accent-ciano); }
+
+.arte-envio {
+  display: grid;
+  justify-items: center;
+  gap: .55rem;
+  padding: 1.35rem .8rem;
+  border: 2px dashed #6315d9;
+  border-radius: 1rem;
+  background: #f3edff;
+  text-align: center;
+}
+.arte-envio:focus-within {
+  outline: 2px solid var(--roxo);
+  outline-offset: 3px;
+}
+
+.arte-cartaz {
+  border: 2px solid var(--navy);
+  border-radius: 1.5rem;
+  box-shadow: .26rem .3rem 0 var(--accent-ciano), .49rem .52rem 0 var(--accent-amarelo);
+}
+
+.arte-titulo-cartaz {
+  font-weight: 900;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.arte-redacao-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.arte-menu-redacao {
+  display: grid;
+  align-content: start;
+  gap: .65rem;
+  padding: 1rem;
+  background: linear-gradient(150deg, #5411b8, #25104a 60%);
+  color: var(--surface);
+  border-block-end: .25rem solid var(--accent-ciano);
+}
+
+.arte-menu-voltar, .arte-menu-item {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.75rem;
+  width: fit-content;
+  border-radius: .65rem;
+  padding: .5rem .75rem;
+  font-size: .875rem;
+  font-weight: 750;
+  text-align: left;
+}
+
+.arte-menu-marca {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 1.25rem;
+  padding-inline: .75rem;
+}
+
+.arte-menu-itens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.arte-menu-item[aria-current="page"] {
+  background: var(--accent-amarelo);
+  color: var(--navy);
+}
+.arte-menu-item:not([aria-current="page"]):hover, .arte-menu-voltar:hover {
+  background: #ffffff26;
+}
+.arte-menu-redacao :focus-visible {
+  outline: 2px solid var(--accent-ciano);
+  outline-offset: 2px;
+}
+
+@media (max-width: 63.999rem) {
+  .arte-menu-itens {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .arte-menu-item {
+    width: 100%;
+    padding-inline: .5rem;
+    font-size: .75rem;
+  }
+  .arte-menu-item svg { flex-shrink: 0; }
+}
+
+@media (min-width: 64rem) {
+  .arte-redacao-layout { grid-template-columns: 15rem minmax(0, 1fr); }
+  .arte-menu-redacao {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    border-block-end: 0;
+    border-inline-end: .25rem solid var(--accent-ciano);
+  }
+  .arte-menu-itens { flex-direction: column; }
+  .arte-menu-item { width: 100%; }
+}
+
+@media print {
+  .arte-menu-redacao { display: none; }
+  .arte-redacao-layout { display: block; }
+  .arte-cartaz { box-shadow: none; }
 }
 
 /* Moldura clara, assinatura em camadas e palco violeta do aulão. */

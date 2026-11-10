@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
-import { ArrowLeft, BookOpen, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { NavegacaoRedacao } from '@/components/redacao/NavegacaoRedacao';
 
 const CRITERIOS_INEP = [
   { num: 1, titulo: 'Demonstrar domínio da modalidade escrita formal da Língua Portuguesa', cor: '#ef4444', desc: 'Avalia a adequação à norma-padrão da língua portuguesa: ortografia, acentuação, pontuação, concordância, regência, colocação pronominal, estrutura sintática e escolha vocabular.' },
@@ -14,20 +14,14 @@ const CRITERIOS_INEP = [
 const NOTAS_VALIDAS = [0, 40, 80, 120, 160, 200];
 
 export default function CriteriosPage() {
-  const router = useRouter();
-
   return (
-    <div className="min-h-screen bg-[#F3EDFF]"
-      style={{ backgroundImage: 'radial-gradient(ellipse 80% 80% at 50% -20%, rgba(99, 21, 217,0.06), transparent)' }}>
-      <header className="arte-faixa bg-white/80 backdrop-blur-xl border-b border-[#E2D9F7]/60 px-4 sm:px-6 py-3 flex items-center gap-3 sticky top-0 z-30 overflow-x-auto no-scrollbar">
-        <button onClick={() => router.push('/redacao')}
-          className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold bg-[#f3edff] hover:bg-[#e7dbfd] text-[#6315d9] border border-[#6315d9]/30 hover:border-[#6315d9]/50 transition-all duration-300 shadow-sm whitespace-nowrap">
-          <ArrowLeft size={16} /> <span className="hidden sm:inline">Voltar</span>
-        </button>
-        <h1 className="text-sm font-semibold text-[#4A3B7C] flex items-center gap-2 whitespace-nowrap"><BookOpen size={16} /> Critérios INEP</h1>
-      </header>
-
-      <main className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+    <div className="arte-redacao-layout arte-pagina min-h-screen">
+      <NavegacaoRedacao pagina="criterios" />
+      <main className="mx-auto w-full min-w-0 max-w-4xl space-y-6 px-4 py-5 sm:px-8">
+        <header className="arte-banner-festival arte-cartaz p-5 text-white sm:p-8">
+          <span className="arte-selo">Redação ENEM</span>
+          <h1 className="arte-titulo-cartaz mt-3 text-3xl sm:text-5xl">Critérios INEP</h1>
+        </header>
         <div className="text-center mb-6">
           <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-[#6315d9] to-[#5411b8] flex items-center justify-center shadow-xl shadow-[#6315d9]/20 mb-4">
             <Shield size={28} color="white" />
