@@ -63,3 +63,12 @@ export const PLATFORM_MODULES = [
     descricao: "Crie e organize as grades escolares da escola com IA",
   },
 ];
+
+/** Entrada independente da Aula Gamificada (preserva a ordem canônica dos 9 módulos do Hub). */
+export const AULA_GAMIFICADA_MODULE = {
+  id: "aula-gamificada",
+  nome: "Aula Gamificada",
+  icon: "Gamepad2",
+  path: "/aula-gamificada",
+  descricao: "Cinco jogos ao vivo para todas as disciplinas com banco privado, geração IA e projeção",
+};
