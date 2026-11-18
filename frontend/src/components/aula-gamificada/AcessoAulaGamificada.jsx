@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { AULA_GAMIFICADA_MODULE } from '@/config/modules';
+import { MODALIDADES_PADRAO } from './constantes';
 
 /**
  * Entrada independente no Hub Docente e no Portal do Aluno, seguindo o mesmo
@@ -20,10 +21,10 @@ export function AcessoAulaGamificada({ aluno = false }) {
       <div className="space-y-1">
         <div className="flex flex-wrap items-center gap-2">
           <span className="inline-block rounded-md bg-[#FFE500] px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-[#25104A]">
-            Todas as disciplinas · 5 jogos
+            Todas as disciplinas · {MODALIDADES_PADRAO.length} jogos
           </span>
           <span className="inline-block rounded-md bg-[#E7DBFD] px-2.5 py-0.5 text-[11px] font-bold text-[#25104A]">
-            Quiz · Memória · Associação · Ordenação · Equipes
+            Quiz · Memória · Associação · Ordenação · Equipes · Heróis · Tabuleiro
           </span>
         </div>
         <span className="block font-head text-xl font-black text-[#25104A]">

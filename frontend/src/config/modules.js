@@ -70,5 +70,5 @@ export const AULA_GAMIFICADA_MODULE = {
   nome: "Aula Gamificada",
   icon: "Gamepad2",
   path: "/aula-gamificada",
-  descricao: "Cinco jogos ao vivo para todas as disciplinas com banco privado, geração IA e projeção",
+  descricao: "Sete jogos ao vivo para todas as disciplinas com banco privado, geração IA e projeção",
 };

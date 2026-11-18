@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSalaGamificada } from './useSalaGamificada';
 import { SalaAlunoView } from './SalaAlunoView';
-import { normalizarCodigoSala } from './constantes';
+import { MODALIDADES_PADRAO, normalizarCodigoSala } from './constantes';
 
 function SalaAlunoConectada({ codigo, loginKey, onTrocarSala }) {
   const { estado, conexao, erro, ocupado, reconectar, enviarResposta } = useSalaGamificada({
@@ -146,7 +146,7 @@ export function AcessoAlunoView({ codigoInicial = '' }) {
     <main className="arte-pagina min-h-screen flex items-center justify-center p-4">
       <section className="arte-banner-festival arte-cartaz w-full max-w-lg p-6 sm:p-8 text-white space-y-5">
         <div className="space-y-1.5">
-          <span className="arte-selo">Portal do Aluno · 5 Jogos ao Vivo</span>
+          <span className="arte-selo">Portal do Aluno · {MODALIDADES_PADRAO.length} Jogos ao Vivo</span>
           <h1 className="font-head text-3xl font-black text-white">Aula Gamificada</h1>
         </div>
 

@@ -22,6 +22,20 @@ const semAcento = (valor) =>
 
 const chaveTexto = (valor) => semAcento(valor).replace(/\s+/g, ' ').trim();
 
+const PLACEHOLDERS_PROIBIDOS = new Set([
+  'digite aqui a pergunta',
+  'resposta correta',
+  'resposta incorreta',
+]);
+
+export function rejeitarPlaceholders(textos = []) {
+  for (const texto of textos) {
+    if (PLACEHOLDERS_PROIBIDOS.has(chaveTexto(texto))) {
+      throw falha(422, 'Substitua o texto placeholder antes de salvar a questão.');
+    }
+  }
+}
+
 export function normalizarDificuldade(valor) {
   const chave = semAcento(valor).trim();
   const mapa = { facil: 'facil', medio: 'medio', dificil: 'dificil' };
@@ -303,6 +317,7 @@ export function normalizarQuestao(
     if (!alternativa)
       throw falha(422, 'O gabarito deve ser o ID de uma das alternativas.');
     base.respostaCorreta = alternativa.id;
+    rejeitarPlaceholders([base.enunciado, ...base.alternativas.map((a) => a.texto)]);
   } else if (tipo === 'pares') {
     const normalizado = normalizarPares(entrada, { gerarId, novosIdsPares });
     base.pares = normalizado.pares;

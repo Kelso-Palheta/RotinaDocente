@@ -75,8 +75,16 @@ function HubDocenteAutenticado({ uid, obterToken }) {
   // Garante que dados de outro UID jamais sejam exibidos.
   const catalogoSeguro = catalogo.donoUid === uid ? catalogo : CATALOGO_VAZIO;
 
+  const totalModalidades = catalogoSeguro.modalidades.length;
+  const rotuloCatalogo = totalModalidades > 0 ? `Catálogo (${totalModalidades} jogos)` : 'Catálogo';
+
   const abas = [
-    { id: 'catalogo', rotulo: 'Catálogo (5 jogos)', icone: '🎮', contagem: 5 },
+    {
+      id: 'catalogo',
+      rotulo: rotuloCatalogo,
+      icone: '🎮',
+      ...(totalModalidades > 0 ? { contagem: totalModalidades } : {}),
+    },
     { id: 'banco', rotulo: 'Banco de Questões', icone: '📚', contagem: catalogoSeguro.questoes.length },
     { id: 'gerar', rotulo: 'Gerar com IA', icone: '✨' },
     { id: 'salas', rotulo: 'Preparar Sala', icone: '🚀', contagem: catalogoSeguro.salas.length },
@@ -107,8 +115,12 @@ function HubDocenteAutenticado({ uid, obterToken }) {
     <div className="arte-pagina min-h-screen text-[#25104A] flex flex-col">
       <CabecalhoPagina
         titulo="Aula Gamificada"
-        subtitulo="Crie questões manuais ou com IA por tema e anexos, calibre dificuldades para a série e conduza cinco modalidades ao vivo sem alterar notas."
-        badge="Todas as disciplinas · 5 jogos"
+        subtitulo={
+          totalModalidades > 0
+            ? `Crie questões manuais ou com IA por tema e anexos, calibre dificuldades para a série e conduza ${totalModalidades} modalidades ao vivo sem alterar notas.`
+            : 'Crie questões manuais ou com IA por tema e anexos, calibre dificuldades para a série e conduza modalidades ao vivo sem alterar notas.'
+        }
+        badge={totalModalidades > 0 ? `Todas as disciplinas · ${totalModalidades} jogos` : 'Todas as disciplinas'}
         badgeCor="amarelo"
         voltarUrl="/"
         acoes={

@@ -79,6 +79,24 @@ export function PrepararSala({
     return lista;
   }, [turmas, turmaIds]);
 
+  const distribuirEquipesTabuleiro = (alunos = alunosDasTurmasSelecionadas) => {
+    const azul = { id: 'eq_azul', nome: 'Equipe Azul', cor: 'azul', participanteIds: [] };
+    const verde = { id: 'eq_verde', nome: 'Equipe Verde', cor: 'verde', participanteIds: [] };
+    alunos.forEach((al, idx) => {
+      (idx % 2 === 0 ? azul : verde).participanteIds.push(al.participanteId);
+    });
+    return [azul, verde];
+  };
+
+  const equipesEfetivas = useMemo(() => {
+    if (modalidade !== 'tabuleiro') return equipes;
+    if (equipes.length >= 2) {
+      const totalComAluno = equipes.reduce((s, e) => s + e.participanteIds.length, 0);
+      if (totalComAluno > 0 || alunosDasTurmasSelecionadas.length === 0) return equipes;
+    }
+    return distribuirEquipesTabuleiro(alunosDasTurmasSelecionadas);
+  }, [modalidade, equipes, alunosDasTurmasSelecionadas]);
+
   const trocarModalidade = (novaModalidade) => {
     setModalidade(novaModalidade);
     setAvisoIncompatibilidade(null);
@@ -102,12 +120,21 @@ export function PrepararSala({
           if (al.id) permitidos.add(String(al.id));
         }
       }
-      setEquipes((eqs) =>
-        eqs.map((eq) => ({
+      setEquipes((eqs) => {
+        const filtradas = eqs.map((eq) => ({
           ...eq,
           participanteIds: eq.participanteIds.filter((pid) => permitidos.has(String(pid))),
-        }))
-      );
+        }));
+        if (modalidade !== 'tabuleiro' || filtradas.length === 0) return filtradas;
+        const jaAlocados = new Set(filtradas.flatMap((eq) => eq.participanteIds.map(String)));
+        const novos = [...permitidos].filter((pid) => !jaAlocados.has(pid));
+        if (novos.length === 0) return filtradas;
+        const atualizadas = filtradas.map((eq) => ({ ...eq, participanteIds: [...eq.participanteIds] }));
+        novos.forEach((pid, idx) => {
+          atualizadas[idx % atualizadas.length].participanteIds.push(pid);
+        });
+        return atualizadas;
+      });
       return proximas;
     });
   };
@@ -134,16 +161,22 @@ export function PrepararSala({
   const adicionarEquipe = () => {
     const limpo = nomeNovaEquipe.trim();
     if (!limpo) return;
-    setEquipes((prev) => [
-      ...prev,
-      { id: `eq_${Date.now().toString(36)}_${prev.length + 1}`, nome: limpo, participanteIds: [] },
+    if (modalidade === 'tabuleiro' && equipesEfetivas.length >= 4) {
+      setErro('O Tabuleiro aceita no máximo quatro equipes.');
+      return;
+    }
+    const base = equipes.length ? equipes : equipesEfetivas;
+    setEquipes([
+      ...base,
+      { id: `eq_${Date.now().toString(36)}_${base.length + 1}`, nome: limpo, participanteIds: [] },
     ]);
     setNomeNovaEquipe('');
   };
 
   const alternarParticipanteEquipe = (equipeId, alunoId) => {
-    setEquipes((prev) =>
-      prev.map((eq) => {
+    setEquipes((prev) => {
+      const base = prev.length ? prev : equipesEfetivas;
+      return base.map((eq) => {
         if (eq.id === equipeId) {
           const existe = eq.participanteIds.includes(alunoId);
           return {
@@ -158,8 +191,8 @@ export function PrepararSala({
           ...eq,
           participanteIds: eq.participanteIds.filter((p) => p !== alunoId),
         };
-      })
-    );
+      });
+    });
   };
 
   const handleCriarSala = async (e) => {
@@ -179,8 +212,12 @@ export function PrepararSala({
       setErro('Selecione pelo menos uma questão revisada e compatível com a modalidade.');
       return;
     }
-    if (modalidade === 'equipes' && equipes.length < 2) {
+    if ((modalidade === 'equipes' || modalidade === 'tabuleiro') && equipesEfetivas.length < 2) {
       setErro('Cadastre pelo menos duas equipes para este modo.');
+      return;
+    }
+    if (modalidade === 'tabuleiro' && equipesEfetivas.length > 4) {
+      setErro('O Tabuleiro aceita no máximo quatro equipes.');
       return;
     }
 
@@ -192,7 +229,7 @@ export function PrepararSala({
       turmaIds,
       questaoIds,
       tempoSegundos: tempoValido,
-      ...(modalidade === 'equipes' ? { equipes } : {}),
+      ...(modalidade === 'equipes' || modalidade === 'tabuleiro' ? { equipes: equipesEfetivas } : {}),
     };
 
     const assinatura = JSON.stringify(configuracao);
@@ -307,16 +344,31 @@ export function PrepararSala({
           </div>
         </fieldset>
 
-        {/* Regra explícita quando equipes estiver selecionada */}
-        {modalidade === 'equipes' && (
+        {/* Regra explícita quando equipes ou tabuleiro estiver selecionada */}
+        {(modalidade === 'equipes' || modalidade === 'tabuleiro') && (
           <div className="rounded-2xl border-2 border-[#6315D9] bg-[#F3EDFF] p-4 space-y-4">
-            <div className="space-y-1">
-              <span className="inline-block rounded-md bg-[#FFE500] px-2.5 py-0.5 text-[11px] font-black uppercase text-[#25104A]">
-                Regra do Desafio em Equipes
-              </span>
-              <p className="text-sm font-bold text-[#25104A]">
-                Uma resposta por aluno/rodada, pontuação da equipe pela soma dos resultados individuais (1000 pontos por acerto, sem bônus por tempo).
-              </p>
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div className="space-y-1">
+                <span className="inline-block rounded-md bg-[#FFE500] px-2.5 py-0.5 text-[11px] font-black uppercase text-[#25104A]">
+                  {modalidade === 'tabuleiro'
+                    ? 'Equipes do Tabuleiro (prévia editável)'
+                    : 'Regra do Desafio em Equipes'}
+                </span>
+                <p className="text-sm font-bold text-[#25104A]">
+                  {modalidade === 'tabuleiro'
+                    ? 'Equipes padrão (Azul e Verde) com alunos distribuídos automaticamente. Edite nomes, adicione equipes ou ajuste integrantes antes de iniciar.'
+                    : 'Uma resposta por aluno/rodada, pontuação da equipe pela soma dos resultados individuais (1000 pontos por acerto, sem bônus por tempo).'}
+                </p>
+              </div>
+              {modalidade === 'tabuleiro' && (
+                <button
+                  type="button"
+                  onClick={() => setEquipes(distribuirEquipesTabuleiro(alunosDasTurmasSelecionadas))}
+                  className="min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#E7DBFD]"
+                >
+                  Distribuir automaticamente
+                </button>
+              )}
             </div>
 
             <div className="flex flex-wrap gap-2 items-end">
@@ -335,24 +387,39 @@ export function PrepararSala({
               </div>
               <button
                 type="button"
+                disabled={modalidade === 'tabuleiro' && equipesEfetivas.length >= 4}
                 onClick={adicionarEquipe}
-                className="min-h-11 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white hover:bg-[#180A30]"
+                className="min-h-11 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white hover:bg-[#180A30] disabled:opacity-45"
               >
                 + Adicionar equipe
               </button>
             </div>
 
-            {equipes.length > 0 && (
+            {equipesEfetivas.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {equipes.map((eq) => (
+                {equipesEfetivas.map((eq) => (
                   <div key={eq.id} className="rounded-xl border border-[#E2D9F7] bg-white p-3 space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <strong className="text-sm font-black text-[#25104A]">
-                        {eq.nome} ({eq.participanteIds.length} integrantes)
-                      </strong>
+                      <input
+                        type="text"
+                        aria-label={`Nome da equipe ${eq.nome}`}
+                        value={eq.nome}
+                        onChange={(e) => {
+                          const base = equipesEfetivas;
+                          setEquipes(
+                            base.map((item) =>
+                              item.id === eq.id ? { ...item, nome: e.target.value } : item
+                            )
+                          );
+                        }}
+                        className="min-h-9 flex-1 rounded-lg border border-[#E2D9F7] bg-[#F8F5FF] px-2.5 py-1 text-sm font-black text-[#25104A]"
+                      />
+                      <span className="text-xs font-bold text-[#5B4B86]">
+                        ({eq.participanteIds.length} integrantes)
+                      </span>
                       <button
                         type="button"
-                        onClick={() => setEquipes((prev) => prev.filter((item) => item.id !== eq.id))}
+                        onClick={() => setEquipes(equipesEfetivas.filter((item) => item.id !== eq.id))}
                         className="text-xs font-bold text-red-700 hover:underline"
                       >
                         Remover

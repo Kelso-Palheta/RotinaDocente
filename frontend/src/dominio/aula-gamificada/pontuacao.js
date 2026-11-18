@@ -42,23 +42,34 @@ export function pontuarMemoria(questao, paresEncontrados = []) {
   return proporcao(acertos, total);
 }
 
-function comPosicoes(entradas) {
-  const ordenadas = [...entradas].sort((a, b) => b.pontos - a.pontos);
+function comPosicoes(entradas, { porTabuleiro = false } = {}) {
+  const ordenadas = [...entradas].sort((a, b) => {
+    if (porTabuleiro) {
+      const diffCasa = (Number(b.posicaoTabuleiro) || 0) - (Number(a.posicaoTabuleiro) || 0);
+      if (diffCasa !== 0) return diffCasa;
+    }
+    return b.pontos - a.pontos;
+  });
   let posicaoAnterior = null;
-  let pontosAnteriores = null;
+  let chaveAnterior = null;
+  const chave = (e) => (porTabuleiro ? `${Number(e.posicaoTabuleiro) || 0}:${e.pontos}` : String(e.pontos));
   return ordenadas.map((entrada, indice) => {
-    const posicao = pontosAnteriores === entrada.pontos ? posicaoAnterior : indice + 1;
+    const atual = chave(entrada);
+    const posicao = chaveAnterior === atual ? posicaoAnterior : indice + 1;
     posicaoAnterior = posicao;
-    pontosAnteriores = entrada.pontos;
-    const empate = ordenadas.filter((outra) => outra.pontos === entrada.pontos).length > 1;
+    chaveAnterior = atual;
+    const empate = ordenadas.filter((outra) => chave(outra) === atual).length > 1;
     return { ...entrada, posicao, empate };
   });
 }
 
-export function calcularRanking(participantes = [], { modalidade, equipes = [] } = {}) {
+export function calcularRanking(
+  participantes = [],
+  { modalidade, equipes = [], posicoesPorEquipe = {} } = {},
+) {
   const pontos = (p) => (Number.isFinite(p?.pontos) ? p.pontos : 0);
 
-  if (modalidade === 'equipes') {
+  if (modalidade === 'equipes' || modalidade === 'tabuleiro') {
     const somas = new Map(equipes.map((equipe) => [equipe.id, 0]));
     for (const participante of participantes) {
       if (somas.has(participante.equipeId))
@@ -69,7 +80,11 @@ export function calcularRanking(participantes = [], { modalidade, equipes = [] }
         id: equipe.id,
         nome: equipe.nome,
         pontos: somas.get(equipe.id) || 0,
+        ...(modalidade === 'tabuleiro'
+          ? { posicaoTabuleiro: Number(posicoesPorEquipe?.[equipe.id]) || 0 }
+          : {}),
       })),
+      { porTabuleiro: modalidade === 'tabuleiro' },
     );
   }
 

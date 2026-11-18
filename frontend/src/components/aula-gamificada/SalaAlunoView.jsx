@@ -17,6 +17,8 @@ import { JogoQuiz } from './jogos/JogoQuiz';
 import { JogoMemoria } from './jogos/JogoMemoria';
 import { JogoAssociacao } from './jogos/JogoAssociacao';
 import { JogoOrdenacao } from './jogos/JogoOrdenacao';
+import JogoHerois from './jogos/JogoHerois';
+import JogoTabuleiro from './jogos/JogoTabuleiro';
 
 function StatusConexao({ conexao }) {
   const mapa = {
@@ -228,6 +230,38 @@ export function SalaAlunoView({
               onEnviar={onResponder}
             />
           )}
+
+          {estado.modalidade === 'herois' && (
+            <JogoHerois
+              key={chaveRodada}
+              modo="aluno"
+              questao={questao}
+              fase={fase}
+              rodada={estado.rodada}
+              totalRodadas={estado.totalRodadas}
+              recibo={recibo}
+              estado={estado}
+              prazoEncerrado={prazoEncerrado}
+              ocupado={ocupado}
+              bloqueado={bloqueado}
+              onResponder={onResponder}
+            />
+          )}
+
+          {estado.modalidade === 'tabuleiro' && (
+            <JogoTabuleiro
+              key={chaveRodada}
+              modo="aluno"
+              estado={estado}
+              questao={questao}
+              fase={fase}
+              recibo={recibo}
+              prazoEncerrado={prazoEncerrado}
+              ocupado={ocupado}
+              bloqueado={bloqueado}
+              onResponder={onResponder}
+            />
+          )}
         </section>
       )}
 
@@ -285,6 +319,19 @@ export function SalaAlunoView({
       {/* FASE: RANKING OU ENCERRADA */}
       {(fase === 'ranking' || fase === 'encerrada') && (
         <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-6 space-y-5 shadow-xs">
+          {fase === 'encerrada' && estado.modalidade === 'herois' && (
+            <JogoHerois
+              modo="aluno"
+              questao={null}
+              fase="encerrada"
+              rodada={estado.rodada}
+              totalRodadas={estado.totalRodadas}
+              estado={estado}
+            />
+          )}
+          {fase === 'encerrada' && estado.modalidade === 'tabuleiro' && (
+            <JogoTabuleiro modo="aluno" estado={estado} questao={null} fase="encerrada" />
+          )}
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-head text-xl font-black text-[#25104A]">
               {fase === 'encerrada' ? 'Placar final da partida' : `Placar após a rodada ${estado?.rodada}`}
@@ -294,7 +341,7 @@ export function SalaAlunoView({
             </span>
           </div>
 
-          {estado?.modalidade === 'equipes' && rankingEquipes.length > 0 && (
+          {(estado?.modalidade === 'equipes' || estado?.modalidade === 'tabuleiro') && rankingEquipes.length > 0 && (
             <div className="space-y-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-[#4A3B7C]">
                 Classificação das Equipes (soma individual)

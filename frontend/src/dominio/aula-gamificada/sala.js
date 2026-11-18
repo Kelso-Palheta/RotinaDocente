@@ -3,6 +3,134 @@ import { regraPontuacao } from './modalidades';
 import { facesDasCartas, paresPrivados, questaoPublica } from './questoes';
 import { calcularRanking } from './pontuacao';
 
+export const TOTAL_CASAS_TABULEIRO = 12;
+export const MAX_TENTATIVAS_HEROIS = 2;
+
+export function equipeDaVezTabuleiro(equipes = [], rodada = 1) {
+  if (!Array.isArray(equipes) || !equipes.length) return null;
+  const indice = Math.max(0, Number(rodada) - 1) % equipes.length;
+  return equipes[indice] || equipes[0];
+}
+
+export function inicializarTabuleiroEstado(equipes = [], totalCasas = TOTAL_CASAS_TABULEIRO) {
+  const posicoesPorEquipe = Object.fromEntries(equipes.map((e) => [e.id, 0]));
+  return {
+    totalCasas,
+    posicoesPorEquipe,
+    equipeDaVezId: equipeDaVezTabuleiro(equipes, 1)?.id ?? null,
+    ultimaCarta: null,
+    vencedorChegadaId: null,
+    ultimaRodadaAvaliada: 0,
+  };
+}
+
+export function avaliarRodadaTabuleiro({
+  tabuleiroEstado,
+  equipes = [],
+  rodada = 1,
+  questao = {},
+  respostasRodada = [],
+}) {
+  const atual = tabuleiroEstado || inicializarTabuleiroEstado(equipes);
+  const equipeAtiva = equipeDaVezTabuleiro(equipes, rodada);
+  if (!equipeAtiva) return atual;
+
+  const membros = new Set(equipeAtiva.participanteIds || []);
+  const daEquipe = (respostasRodada || []).filter((r) => membros.has(r.participanteId));
+  const respondentes = daEquipe.length;
+  const acertos = daEquipe.filter((r) => Number(r.pontos) > 0).length;
+
+  let ultimaCarta;
+  if (respondentes === 0) {
+    ultimaCarta = {
+      tipo: 'passe_a_vez',
+      titulo: 'Passe a vez',
+      avanco: 0,
+      equipeId: equipeAtiva.id,
+      equipeNome: equipeAtiva.nome,
+      rodada,
+    };
+  } else if (acertos / respondentes <= 0.5) {
+    ultimaCarta = {
+      tipo: 'erro_nao_ande',
+      titulo: 'Ops. Não ande! Você errou',
+      avanco: 0,
+      equipeId: equipeAtiva.id,
+      equipeNome: equipeAtiva.nome,
+      rodada,
+    };
+  } else if (questao?.dificuldade === 'dificil') {
+    ultimaCarta = {
+      tipo: 'avance_2',
+      titulo: 'Parabéns, avance 2 casas.',
+      avanco: 2,
+      equipeId: equipeAtiva.id,
+      equipeNome: equipeAtiva.nome,
+      rodada,
+    };
+  } else {
+    ultimaCarta = {
+      tipo: 'avance_1',
+      titulo: 'Parabéns, avance 1 casa.',
+      avanco: 1,
+      equipeId: equipeAtiva.id,
+      equipeNome: equipeAtiva.nome,
+      rodada,
+    };
+  }
+
+  const totalCasas = Number(atual.totalCasas) || TOTAL_CASAS_TABULEIRO;
+  const posAnterior = Number(atual.posicoesPorEquipe?.[equipeAtiva.id]) || 0;
+  const novaPos = Math.min(totalCasas, posAnterior + ultimaCarta.avanco);
+  const posicoesPorEquipe = {
+    ...(atual.posicoesPorEquipe || {}),
+    [equipeAtiva.id]: novaPos,
+  };
+  const vencedorChegadaId =
+    atual.vencedorChegadaId || (novaPos >= totalCasas ? equipeAtiva.id : null);
+
+  return {
+    ...atual,
+    totalCasas,
+    posicoesPorEquipe,
+    equipeDaVezId: equipeAtiva.id,
+    ultimaCarta,
+    vencedorChegadaId,
+    ultimaRodadaAvaliada: Number(rodada),
+  };
+}
+
+export function avaliarTentativaHerois({ sala, registro = null, acertou, agora = Date.now() }) {
+  if (!aceitaRespostas(sala, agora))
+    throw falha(409, 'O prazo desta rodada terminou.');
+  if (sala?.fase !== 'pergunta')
+    throw falha(409, 'A rodada não está aberta para respostas.');
+
+  const tentativasAnteriores = Number(registro?.tentativas) || 0;
+  if (registro?.acertou || tentativasAnteriores >= MAX_TENTATIVAS_HEROIS) {
+    throw falha(409, 'Você já concluiu suas tentativas nesta rodada.');
+  }
+
+  const tentativas = tentativasAnteriores + 1;
+  const acertouAgora = Boolean(acertou);
+  const podeTentarNovamente = !acertouAgora && tentativas < MAX_TENTATIVAS_HEROIS;
+  const pontosRodada = acertouAgora ? 1000 : 0;
+  const estadoHeroi = acertouAgora
+    ? 'vitoria_fase'
+    : podeTentarNovamente
+      ? 'golpe_tente_novamente'
+      : 'golpe_encerrado';
+
+  return {
+    tentativas,
+    maxTentativas: MAX_TENTATIVAS_HEROIS,
+    acertou: acertouAgora,
+    podeTentarNovamente,
+    pontosRodada,
+    estadoHeroi,
+  };
+}
+
 export const FASES = Object.freeze(['espera', 'pergunta', 'feedback', 'ranking', 'encerrada']);
 export const ACOES = Object.freeze([
   'iniciar',
@@ -74,13 +202,26 @@ export function aplicarComando(sala, comando, agora) {
 
   if (acao === 'proxima') {
     if (sala.fase !== 'ranking') throw falha(409, 'Abra o ranking antes de avançar.');
+    if (sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado?.vencedorChegadaId) {
+      return { ...base, fase: 'encerrada', encerradaEmMs: agora };
+    }
     if (sala.rodada < sala.totalRodadas) {
+      const proximaRodada = sala.rodada + 1;
+      const proxTabuleiro =
+        sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado
+          ? {
+              ...sala.tabuleiroEstado,
+              equipeDaVezId: equipeDaVezTabuleiro(sala.equipes, proximaRodada)?.id ?? null,
+              ultimaCarta: null,
+            }
+          : sala.tabuleiroEstado;
       return {
         ...base,
         fase: 'pergunta',
-        rodada: sala.rodada + 1,
+        rodada: proximaRodada,
         encerraEmMs: agora + sala.tempoSegundos * 1000,
         revelado: false,
+        ...(proxTabuleiro ? { tabuleiroEstado: proxTabuleiro } : {}),
       };
     }
     return { ...base, fase: 'encerrada', encerradaEmMs: agora };
@@ -133,12 +274,19 @@ function reciboPublico(recibo, { revelado, questao }) {
     base.facesEncontradas = facesDasCartas(questao, encontradas);
     base.completo = recibo.completo === true;
   }
+  if (recibo.estadoHeroi) {
+    base.tentativas = Number(recibo.tentativas) || 1;
+    base.maxTentativas = Number(recibo.maxTentativas) || MAX_TENTATIVAS_HEROIS;
+    base.podeTentarNovamente = recibo.podeTentarNovamente === true;
+    base.estadoHeroi = recibo.estadoHeroi;
+  }
   if (revelado) base.pontos = Number(recibo.pontos) || 0;
   return base;
 }
 
-function distribuicaoQuiz(respostas, modalidade) {
-  if (!['quiz', 'equipes'].includes(modalidade)) return undefined;
+function distribuicaoQuiz(respostas, modalidade, { revelado = false } = {}) {
+  if (!['quiz', 'equipes', 'herois', 'tabuleiro'].includes(modalidade)) return undefined;
+  if (modalidade === 'herois' && !revelado) return undefined;
   const contagem = new Map();
   for (const resposta of respostas || []) {
     const alternativaId = resposta?.resposta?.alternativaId;
@@ -188,6 +336,7 @@ export function projetarEstado({
       ? calcularRanking(participantes, {
           modalidade: sala.modalidade,
           equipes: sala.equipes || [],
+          posicoesPorEquipe: sala.tabuleiroEstado?.posicoesPorEquipe || {},
         })
       : undefined;
 
@@ -243,9 +392,15 @@ export function projetarEstado({
       iniciadaEmMs: sala.iniciadaEmMs ?? null,
       encerradaEmMs: sala.encerradaEmMs ?? null,
       ...(sala.equipes?.length
-        ? { equipes: sala.equipes.map(({ id, nome }) => ({ id, nome })) }
+        ? { equipes: sala.equipes.map(({ id, nome, cor }) => ({ id, nome, ...(cor ? { cor } : {}) })) }
+        : {}),
+      ...(sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado
+        ? { tabuleiroEstado: structuredClone(sala.tabuleiroEstado) }
         : {}),
     },
+    ...(sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado
+      ? { tabuleiroEstado: structuredClone(sala.tabuleiroEstado) }
+      : {}),
     servidorAgora: agora,
     prazo: sala.encerraEmMs ?? null,
     aberta: aceitaRespostas(sala, agora),
@@ -302,8 +457,8 @@ export function projetarEstado({
           respondentes: participantes
             .filter((p) => participanteRespondeu(p))
             .map((p) => ({ id: p.id, nomeExibicao: p.nomeExibicao })),
-          ...(distribuicaoQuiz(respostas, sala.modalidade)
-            ? { distribuicao: distribuicaoQuiz(respostas, sala.modalidade) }
+          ...(distribuicaoQuiz(respostas, sala.modalidade, { revelado })
+            ? { distribuicao: distribuicaoQuiz(respostas, sala.modalidade, { revelado }) }
             : {}),
         }
       : {}),

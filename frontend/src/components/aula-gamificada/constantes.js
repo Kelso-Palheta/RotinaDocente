@@ -50,13 +50,32 @@ export const MODALIDADES_PADRAO = [
     badge: 'Coletivo',
     accent: 'ciano',
   },
+  {
+    id: 'herois',
+    nome: 'Heróis',
+    resumo: 'Batalha em fases com feedback individual imediato, chance de Tente novamente no prazo e celebração coletiva.',
+    tiposQuestoes: ['multipla_escolha'],
+    regraPontuacao: '1000 pontos por resposta correta (até 2 tentativas dentro do prazo com Tente novamente), sem bônus por tempo.',
+    badge: 'Fases · Áudio',
+    accent: 'rosa',
+  },
+  {
+    id: 'tabuleiro',
+    nome: 'Tabuleiro',
+    resumo: 'Trilha de blocos de 12 casas por turnos entre equipes com cartas de avanço, Passe a vez e chegada.',
+    tiposQuestoes: ['multipla_escolha'],
+    regraPontuacao: 'Cada equipe avança casas até a Chegada (12 casas) na sua vez e soma 1000 pontos por resposta correta.',
+    regraPreparacao: 'Equipes padrão (Azul e Verde) com alunos distribuídos automaticamente e prévia editável.',
+    badge: 'Trilha · Equipes',
+    accent: 'lima',
+  },
 ];
 
 export const TIPOS_QUESTAO = {
   multipla_escolha: {
     id: 'multipla_escolha',
     rotulo: 'Múltipla escolha',
-    modalidades: ['quiz', 'equipes'],
+    modalidades: ['quiz', 'equipes', 'herois', 'tabuleiro'],
   },
   pares: {
     id: 'pares',
@@ -488,6 +507,8 @@ export function normalizarEstadoSala(bruto) {
     recibo,
     feedback,
     equipeAluno,
+    equipes: bruto.equipes ?? sala?.equipes ?? [],
+    tabuleiroEstado: bruto.tabuleiroEstado ?? sala?.tabuleiroEstado ?? null,
     participacao: participacao || {
       totalParticipantes: 0,
       totalPresentes: 0,

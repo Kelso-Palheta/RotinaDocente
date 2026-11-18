@@ -30,11 +30,24 @@ import {
 import {
   aceitaRespostas,
   aplicarComando,
+  avaliarRodadaTabuleiro,
+  avaliarTentativaHerois,
+  equipeDaVezTabuleiro,
+  inicializarTabuleiroEstado,
   montarConteudo,
   montarRoster,
   projetarEstado,
   validarEquipes,
 } from "@/dominio/aula-gamificada/sala";
+
+function equipesPadraoTabuleiro(roster = []) {
+  const azul = { id: "eq_azul", nome: "Equipe Azul", cor: "azul", participanteIds: [] };
+  const verde = { id: "eq_verde", nome: "Equipe Verde", cor: "verde", participanteIds: [] };
+  roster.forEach((p, idx) => {
+    (idx % 2 === 0 ? azul : verde).participanteIds.push(p.id);
+  });
+  return [azul, verde];
+}
 import { pontuarMemoria, pontuarResposta } from "@/dominio/aula-gamificada/pontuacao";
 
 const salaPath = (codigo) => `aulaGamificadaSalas/${codigo}`;
@@ -313,9 +326,15 @@ export class AulaGamificadaService {
       const equipes =
         modalidade === "equipes"
           ? validarEquipes(config.equipes, roster)
-          : [];
-      if (modalidade === "equipes" && equipes.length < 2)
+          : modalidade === "tabuleiro"
+            ? Array.isArray(config.equipes) && config.equipes.length
+              ? validarEquipes(config.equipes, roster)
+              : equipesPadraoTabuleiro(roster)
+            : [];
+      if (["equipes", "tabuleiro"].includes(modalidade) && equipes.length < 2)
         throw falha(422, "Cadastre pelo menos duas equipes para este modo.");
+      if (modalidade === "tabuleiro" && equipes.length > 4)
+        throw falha(422, "O Tabuleiro aceita no máximo quatro equipes.");
 
       const codigo = codigoSala(this.gerarCodigo());
       const existente = await tx.get(salaPath(codigo));
@@ -347,6 +366,9 @@ export class AulaGamificadaService {
         revelado: false,
         revision: 1,
         equipes,
+        ...(modalidade === "tabuleiro"
+          ? { tabuleiroEstado: inicializarTabuleiroEstado(equipes) }
+          : {}),
         regraPontuacao: regraPontuacao(modalidade),
         schemaVersion: 1,
         criadoEmMs: agora,
@@ -587,6 +609,24 @@ export class AulaGamificadaService {
         }
       }
 
+      // Tabuleiro avança uma única vez ao revelar a rodada.
+      if (
+        atual.modalidade === "tabuleiro" &&
+        comando.acao === "revelar" &&
+        Number(atual.tabuleiroEstado?.ultimaRodadaAvaliada) !== Number(sala.rodada)
+      ) {
+        const daRodada = respostas.filter(
+          (registro) => Number(registro.rodada) === Number(sala.rodada),
+        );
+        atual.tabuleiroEstado = avaliarRodadaTabuleiro({
+          tabuleiroEstado: atual.tabuleiroEstado,
+          equipes: atual.equipes,
+          rodada: sala.rodada,
+          questao: conteudoAtual.segredo.questao,
+          respostasRodada: daRodada,
+        });
+      }
+
       tx.set(salaPath(codigo), atual);
       const estado = await this.projetar(atual, {
         ator,
@@ -727,6 +767,55 @@ export class AulaGamificadaService {
             totalPares: questao.pares.length,
             completo,
           },
+          atualizadoEmMs: agora,
+        });
+        return { recibo: copia(recibo) };
+      }
+
+      if (sala.modalidade === "tabuleiro") {
+        const equipeAtiva = equipeDaVezTabuleiro(sala.equipes, rodada);
+        if (!equipeAtiva || participante.equipeId !== equipeAtiva.id)
+          throw falha(409, "Aguarde a vez da sua equipe.");
+      }
+
+      if (sala.modalidade === "herois") {
+        const resposta = validarResposta(questao, body.resposta);
+        const pontosTentativa = pontuarResposta(questao, resposta);
+        const evalHeroi = avaliarTentativaHerois({
+          sala,
+          registro,
+          acertou: pontosTentativa > 0,
+          agora,
+        });
+        const recibo = {
+          status: "confirmado",
+          rodadaId: String(rodada),
+          reciboId: `rcp_${chaveRecibo.slice(0, 24)}`,
+          recebidoEmMs: agora,
+          resposta: copia(resposta),
+          tentativas: evalHeroi.tentativas,
+          maxTentativas: evalHeroi.maxTentativas,
+          podeTentarNovamente: evalHeroi.podeTentarNovamente,
+          estadoHeroi: evalHeroi.estadoHeroi,
+        };
+        const pontos =
+          (Number(participante.pontos) || 0) -
+          (Number(registro?.pontos) || 0) +
+          evalHeroi.pontosRodada;
+        tx.set(caminhoResposta, {
+          rodada: Number(rodada),
+          participanteId,
+          resposta,
+          tentativas: evalHeroi.tentativas,
+          acertou: evalHeroi.acertou,
+          pontos: evalHeroi.pontosRodada,
+          recibos: { ...(registro?.recibos || {}), [chaveRecibo]: recibo },
+          ultimoRecibo: recibo,
+          atualizadoEmMs: agora,
+        });
+        tx.set(participantePath(codigo, participanteId), {
+          ...participante,
+          pontos,
           atualizadoEmMs: agora,
         });
         return { recibo: copia(recibo) };

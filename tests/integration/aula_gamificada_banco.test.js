@@ -145,6 +145,8 @@ describe('banco privado de questões', () => {
       'associacao',
       'ordenacao',
       'equipes',
+      'herois',
+      'tabuleiro',
     ]);
     expect(catalogo.turmas).toEqual([
       {

@@ -25,14 +25,14 @@ export function CatalogoModalidades({
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
           <h2 id="titulo-catalogo-modalidades" className="font-head text-2xl font-black text-[#25104A]">
-            Cinco modalidades para qualquer disciplina
+            {modalidades.length} modalidades para qualquer disciplina
           </h2>
           <p className="text-sm text-[#5B4B86] mt-1">
             Escolha a mecânica ideal para o conteúdo da aula. Cada modalidade aceita apenas tipos de questões compatíveis e revisadas.
           </p>
         </div>
         <span className="inline-flex items-center rounded-full bg-[#E7DBFD] px-3 py-1 text-xs font-extrabold text-[#25104A] w-fit">
-          5 jogos prontos · Sem alterar notas
+          {modalidades.length} jogos prontos · Sem alterar notas
         </span>
       </div>
 

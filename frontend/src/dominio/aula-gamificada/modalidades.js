@@ -10,6 +10,8 @@ export const MODALIDADES = Object.freeze([
   { id: 'associacao', nome: 'Associação', tiposQuestoes: ['pares'] },
   { id: 'ordenacao', nome: 'Ordenação', tiposQuestoes: ['ordenacao'] },
   { id: 'equipes', nome: 'Equipes', tiposQuestoes: ['multipla_escolha'] },
+  { id: 'herois', nome: 'Heróis', tiposQuestoes: ['multipla_escolha'] },
+  { id: 'tabuleiro', nome: 'Tabuleiro', tiposQuestoes: ['multipla_escolha'] },
 ]);
 
 const POR_ID = new Map(MODALIDADES.map((m) => [m.id, m]));
@@ -17,7 +19,10 @@ const POR_ID = new Map(MODALIDADES.map((m) => [m.id, m]));
 export function obterModalidade(id) {
   const modalidade = POR_ID.get(String(id ?? '').trim());
   if (!modalidade)
-    throw falha(422, 'Escolha uma modalidade válida: quiz, memória, associação, ordenação ou equipes.');
+    throw falha(
+      422,
+      'Escolha uma modalidade válida: quiz, memória, associação, ordenação, equipes, heróis ou tabuleiro.',
+    );
   return modalidade;
 }
 
@@ -45,6 +50,10 @@ export function regraPontuacao(modalidade) {
     return 'Até 1000 pontos por desafio, proporcional aos pares encontrados antes do prazo. A pontuação é consolidada uma única vez.';
   if (alvo.id === 'associacao')
     return 'Até 1000 pontos por desafio, proporcional aos pares corretos.';
+  if (alvo.id === 'herois')
+    return 'Cada resposta correta vale 1000 pontos (até 2 tentativas dentro do prazo com Tente novamente), sem bônus por tempo.';
+  if (alvo.id === 'tabuleiro')
+    return 'Cada equipe avança casas até a Chegada (12 casas) conforme acertos na sua vez e soma 1000 pontos por resposta correta.';
   return 'Até 1000 pontos por desafio, proporcional às posições corretas na ordem.';
 }
 

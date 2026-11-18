@@ -16,6 +16,8 @@ import {
   rotuloDificuldade,
   validarUrlImagemSegura,
 } from './constantes';
+import JogoHerois from './jogos/JogoHerois';
+import JogoTabuleiro from './jogos/JogoTabuleiro';
 
 function ControlesTransicao({ estado, ocupado, bloqueado, onComando, segundos }) {
   const fase = estado?.fase || 'espera';
@@ -295,7 +297,29 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
             )}
 
             {/* FASE: PERGUNTA / FEEDBACK */}
-            {(fase === 'pergunta' || fase === 'feedback') && questao && (
+            {(fase === 'pergunta' || fase === 'feedback') && estado.modalidade === 'herois' && (
+              <JogoHerois
+                modo="docente"
+                questao={questao}
+                fase={fase}
+                rodada={estado.rodada}
+                totalRodadas={estado.totalRodadas}
+                estado={estado}
+              />
+            )}
+
+            {(fase === 'pergunta' || fase === 'feedback') && estado.modalidade === 'tabuleiro' && (
+              <JogoTabuleiro
+                modo="docente"
+                estado={estado}
+                questao={questao}
+                fase={fase}
+              />
+            )}
+
+            {(fase === 'pergunta' || fase === 'feedback') &&
+              !['herois', 'tabuleiro'].includes(estado.modalidade) &&
+              questao && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 <section className="lg:col-span-2 rounded-3xl border-2 border-[#6315D9]/70 bg-[#FFFDF7] text-[#25104A] p-6 space-y-5 shadow-lg">
                   <div className="flex flex-wrap items-center gap-2">
@@ -492,6 +516,19 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
             {/* FASE: RANKING OU ENCERRADA */}
             {(fase === 'ranking' || fase === 'encerrada') && (
               <section className="rounded-3xl border-2 border-[#6315D9] bg-[#3A1A73]/50 p-6 sm:p-8 space-y-6">
+                {fase === 'encerrada' && estado.modalidade === 'herois' && (
+                  <JogoHerois
+                    modo="docente"
+                    questao={null}
+                    fase="encerrada"
+                    rodada={estado.rodada}
+                    totalRodadas={estado.totalRodadas}
+                    estado={estado}
+                  />
+                )}
+                {fase === 'encerrada' && estado.modalidade === 'tabuleiro' && (
+                  <JogoTabuleiro modo="docente" estado={estado} questao={null} fase="encerrada" />
+                )}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className={`font-head font-black text-white ${projecao ? 'text-3xl' : 'text-2xl'}`}>
                     {fase === 'encerrada' ? 'Placar Final' : `Placar — Rodada ${estado.rodada}`}
@@ -501,7 +538,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                   </span>
                 </div>
 
-                {estado.modalidade === 'equipes' && rankingEquipes.length > 0 && (
+                {(estado.modalidade === 'equipes' || estado.modalidade === 'tabuleiro') && rankingEquipes.length > 0 && (
                   <div className="space-y-2.5">
                     <h3 className="text-xs font-black uppercase tracking-wider text-[#00DDEB]">
                       Ranking por Equipes (soma individual)
