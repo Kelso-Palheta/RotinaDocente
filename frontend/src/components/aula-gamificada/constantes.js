@@ -482,12 +482,13 @@ export function normalizarEstadoSala(bruto) {
       : null);
 
   const rankingBruto = Array.isArray(bruto.ranking) ? bruto.ranking : [];
+  const rankingPorEquipe = modalidade === 'equipes' || modalidade === 'tabuleiro';
   const rankingEquipes = Array.isArray(bruto.rankingEquipes)
     ? bruto.rankingEquipes
-    : modalidade === 'equipes'
+    : rankingPorEquipe
     ? rankingBruto
     : [];
-  const ranking = modalidade === 'equipes' && !Array.isArray(bruto.rankingEquipes) ? [] : rankingBruto;
+  const ranking = rankingPorEquipe && !Array.isArray(bruto.rankingEquipes) ? [] : rankingBruto;
 
   return {
     ...bruto,

@@ -541,7 +541,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                 {(estado.modalidade === 'equipes' || estado.modalidade === 'tabuleiro') && rankingEquipes.length > 0 && (
                   <div className="space-y-2.5">
                     <h3 className="text-xs font-black uppercase tracking-wider text-[#00DDEB]">
-                      Ranking por Equipes (soma individual)
+                      {estado.modalidade === 'tabuleiro' ? 'Ranking por equipes (casas e pontos)' : 'Ranking por Equipes (soma individual)'}
                     </h3>
                     <ol className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {rankingEquipes.map((eq) => (
@@ -555,7 +555,12 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                             </span>
                             <span className="text-lg font-black text-white">{eq.nome}</span>
                           </div>
-                          <span className="font-mono text-xl font-black text-[#B9EF00]">{eq.pontos} pts</span>
+                          <span className="font-mono text-xl font-black text-[#B9EF00]">
+                      {estado.modalidade === 'tabuleiro' && (
+                        <span className="block text-xs">Casa {eq.posicaoTabuleiro ?? 0}</span>
+                      )}
+                      {eq.pontos} pts
+                    </span>
                         </li>
                       ))}
                     </ol>

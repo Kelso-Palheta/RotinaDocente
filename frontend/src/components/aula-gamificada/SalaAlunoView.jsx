@@ -344,7 +344,7 @@ export function SalaAlunoView({
           {(estado?.modalidade === 'equipes' || estado?.modalidade === 'tabuleiro') && rankingEquipes.length > 0 && (
             <div className="space-y-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-[#4A3B7C]">
-                Classificação das Equipes (soma individual)
+                {estado.modalidade === 'tabuleiro' ? 'Classificação das equipes (casas e pontos)' : 'Classificação das Equipes (soma individual)'}
               </h3>
               <ol className="space-y-2">
                 {rankingEquipes.map((eq) => (
@@ -358,7 +358,12 @@ export function SalaAlunoView({
                       </span>
                       <span className="font-extrabold text-[#25104A]">{eq.nome}</span>
                     </div>
-                    <span className="font-mono text-base font-black text-[#6315D9]">{eq.pontos} pts</span>
+                    <span className="font-mono text-base font-black text-[#6315D9]">
+                      {estado.modalidade === 'tabuleiro' && (
+                        <span className="block text-xs">Casa {eq.posicaoTabuleiro ?? 0}</span>
+                      )}
+                      {eq.pontos} pts
+                    </span>
                   </li>
                 ))}
               </ol>
