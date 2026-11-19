@@ -52,3 +52,17 @@ Em `docs/evidencias/2026-11-19-revisao-autonoma/`:
 ### Limitações Conhecidas
 - Geração de questões por IA sob demanda pelo aluno e novos jogos jogáveis adicionais permanecem fora desta primeira entrega (registrados em `specs/TASKS.md`).
 - As capturas foram executadas com dados sintéticos e respostas simuladas de API no servidor Next.js local da cópia publicável; não substituem validação em turma real.
+
+---
+
+## 5. Correções Pós-Revisão Independente (`REV-LIVRE-01` e `REV-LIVRE-02`)
+
+**Referência:** `docs/analises/2026-11-19-revisao-autonoma-revisao-chatgpt.md`
+
+- **`REV-LIVRE-01` (`RevisaoAutonoma.jsx`):** `conferir` no evento `focus` agora também revalida `catalogo` e `historico` quando não há sessão ativa (`!sessaoId.current`), incrementa `geracao.current`, aborta requisições pendentes, limpa seleções incompatíveis e descarta dados/operações da conta anterior em caso de troca de aluno ou logout (`401`/`403`/`404`).
+- **`REV-LIVRE-02` (`RevisaoAutonoma.jsx`):** rejeições definitivas (`400`, `409`, `422`, `429`) limpam `pedido.current` e mantêm `pendente = false`, desbloqueando os controles para o aluno corrigir a escolha, marcar nova revisão ou clicar em `Retomar fase` (e exibindo `Recarregar progresso salvo` quando há sessão ativa em erro). Erros incertos (rede, timeout `408`, `5xx`) continuam preservando `requestId` e `pendente = true` para retry idempotente.
+- **Validação após correção (cópia publicável isolada):**
+  - Direcionados (`revisao_autonoma RevisaoAutonomaUI RevisaoLivreFluxo RevisaoLivreRecuperacao`): **8 arquivos / 24 testes aprovados, 0 falhas** (incluindo `tests/regression/revisao_autonoma_conta_recuperacao.test.jsx` e `tests/unit/components/aula-gamificada/RevisaoLivreRecuperacao.test.jsx`).
+  - Suíte integral (`npm test -- --maxWorkers=6`): **394 arquivos aprovados, 4 ignorados (emuladores opcionais) de 398** — **1.793 testes aprovados, 10 ignorados, 0 falhas**.
+  - ESLint (`npm run lint`): **0 erros** (`20 warnings`).
+  - Build (`NODE_USE_SYSTEM_CA=1 npm run build`): **aprovado** (`next build`, 42 páginas estáticas).

@@ -37,6 +37,9 @@ export function RevisaoAutonoma() {
     setSessao(null);
     setDesafio(false);
     setAlternativa('');
+    setDisciplina('');
+    setSelecao('');
+    setQuantidade(1);
     setConteudos([]);
     setHistorico([]);
     setErro(mensagem);
@@ -48,11 +51,12 @@ export function RevisaoAutonoma() {
     montado.current = true;
     const ctrl = new AbortController();
     let ativo = true;
-    const versaoInicial = geracao.current;
+    const refGeracao = geracao;
+    const versaoInicial = refGeracao.current;
     Promise.all([requisitarLivre('catalogo', { signal: ctrl.signal }), requisitarLivre('historico', { signal: ctrl.signal })]).then(([cat, hist]) => {
-      if (ativo && geracao.current === versaoInicial) { setConteudos(cat.conteudos); setHistorico(hist.sessoes); }
+      if (ativo && refGeracao.current === versaoInicial) { setConteudos(cat.conteudos); setHistorico(hist.sessoes); }
     }).catch(e => {
-      if (ativo && geracao.current === versaoInicial) {
+      if (ativo && refGeracao.current === versaoInicial) {
         if ([401, 403].includes(e.status)) {
           invalidarAcesso(e.status === 401 ? 'Entre no Portal para revisar seus conteúdos.' : e.message);
         } else {
@@ -61,10 +65,33 @@ export function RevisaoAutonoma() {
       }
     }).finally(() => { if (ativo) setCarregando(false); });
     const conferir = async () => {
-      if (!sessaoId.current) return;
-      try { await requisitarLivre(`sessoes/${encodeURIComponent(sessaoId.current)}`, { signal: ctrl.signal }); }
-      catch (e) {
-        if (ativo && [401, 403, 404].includes(e.status)) {
+      if (sessaoId.current) {
+        try { await requisitarLivre(`sessoes/${encodeURIComponent(sessaoId.current)}`, { signal: ctrl.signal }); }
+        catch (e) {
+          if (ativo && [401, 403, 404].includes(e.status)) {
+            invalidarAcesso('Seu acesso mudou. Recarregue ou entre novamente no Portal.');
+          }
+        }
+        return;
+      }
+      const versaoFoco = ++refGeracao.current;
+      ctrlAtivo.current?.abort();
+      pedido.current = null;
+      setPendente(false);
+      try {
+        const [cat, hist] = await Promise.all([
+          requisitarLivre('catalogo', { signal: ctrl.signal }),
+          requisitarLivre('historico', { signal: ctrl.signal }),
+        ]);
+        if (!ativo || refGeracao.current !== versaoFoco) return;
+        const novosConteudos = Array.isArray(cat?.conteudos) ? cat.conteudos : [];
+        const novoHistorico = Array.isArray(hist?.sessoes) ? hist.sessoes : [];
+        setConteudos(novosConteudos);
+        setHistorico(novoHistorico);
+        setDisciplina((prev) => (novosConteudos.some((c) => c.disciplina === prev) ? prev : ''));
+        setSelecao((prev) => (novosConteudos.some((c) => JSON.stringify(c) === prev) ? prev : ''));
+      } catch (e) {
+        if (ativo && refGeracao.current === versaoFoco && [401, 403, 404].includes(e.status)) {
           invalidarAcesso('Seu acesso mudou. Recarregue ou entre novamente no Portal.');
         }
       }
@@ -73,7 +100,7 @@ export function RevisaoAutonoma() {
     return () => {
       ativo = false;
       montado.current = false;
-      geracao.current++;
+      refGeracao.current++;
       ctrl.abort();
       ctrlAtivo.current?.abort();
       window.removeEventListener('focus', conferir);
@@ -102,6 +129,10 @@ export function RevisaoAutonoma() {
       if (montado.current && geracao.current === versao) {
         if ([401, 403, 404].includes(e.status)) {
           invalidarAcesso(e.message || 'Seu acesso expirou ou mudou. Entre novamente no Portal.');
+        } else if ([400, 409, 422, 429].includes(e.status)) {
+          pedido.current = null;
+          setPendente(false);
+          setErro(e.message);
         } else {
           setErro(e.message);
           setPendente(true);
@@ -149,7 +180,7 @@ export function RevisaoAutonoma() {
         <p className="mt-3 max-w-2xl">Explore, pule, encontre o portal e supere desafios da sua disciplina. Jogue de casa, no seu ritmo, sem sala ou professor conectado.</p>
         <p className="mt-2 text-sm text-[#E7DBFD]">Seu histórico mostra aprendizagem. Quedas e estrelas não alteram acertos nem notas do boletim.</p>
       </header>
-      {erro && <div role="alert" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 space-y-3"><p>{erro}</p>{pendente && <div className="flex flex-wrap gap-3"><button type="button" disabled={ocupado} onClick={() => executar(pedido.current.path, pedido.current.body)} className="rounded-xl bg-[#6315D9] text-white font-bold p-3">Tentar o mesmo envio novamente</button>{sessao && <button type="button" disabled={ocupado} onClick={() => retomar(sessao.id)} className="rounded-xl border font-bold p-3">Recarregar progresso salvo</button>}</div>}<Link href="/aluno" className="underline font-bold">Entrar no Portal</Link></div>}
+      {erro && <div role="alert" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 space-y-3"><p>{erro}</p>{(pendente || sessao) && <div className="flex flex-wrap gap-3">{pendente && <button type="button" disabled={ocupado} onClick={() => executar(pedido.current.path, pedido.current.body)} className="rounded-xl bg-[#6315D9] text-white font-bold p-3">Tentar o mesmo envio novamente</button>}{sessao && <button type="button" disabled={ocupado} onClick={() => retomar(sessao.id)} className="rounded-xl border font-bold p-3">Recarregar progresso salvo</button>}</div>}<Link href="/aluno" className="underline font-bold">Entrar no Portal</Link></div>}
       {carregando && <p role="status">Carregando seus conteúdos e histórico...</p>}
       {!carregando && !sessao && <form onSubmit={iniciar} className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4">
         <h2 className="text-2xl font-black">Prepare sua aventura</h2>
