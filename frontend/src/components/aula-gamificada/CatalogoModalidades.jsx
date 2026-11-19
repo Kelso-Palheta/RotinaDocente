@@ -85,7 +85,7 @@ export function CatalogoModalidades({
                   </button>
                   <button
                     type="button"
-                    onClick={() => onSelecionarParaGerar?.(tipoPrincipal)}
+                    onClick={() => onSelecionarParaGerar?.(tipoPrincipal, mod.id)}
                     className="min-h-11 rounded-xl border border-[#6315D9] bg-white px-3 py-2 text-xs font-extrabold text-[#6315D9] transition hover:bg-[#F3EDFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6315D9]"
                   >
                     Gerar IA

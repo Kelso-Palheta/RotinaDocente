@@ -1,0 +1,54 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_avaliacao_limites_firestore --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js (2 tests | 2 failed) 58ms
+     × finaliza turma de 40 alunos com 20 questões; publicarPortal=false 39ms
+     × finaliza turma de 40 alunos com 20 questões; publicarPortal=true 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js > REV-AV-15 — avaliação dentro dos limites documentais do Firestore > finaliza turma de 40 alunos com 20 questões; publicarPortal=false
+AssertionError: promise rejected "Error: Documento aulaGamificadaDocentes/p…" instead of resolving
+ ❯ ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:82:8
+     80|     await expect(servico.finalizarAvaliacao({ tipo: 'professor', uid: …
+     81|       expectedRevision: 1, requestId: `finalizar-${publicarPortal}`, p…
+     82|     })).resolves.toMatchObject({ revision: 2 });
+       |        ^
+     83|   });
+     84| });
+
+Caused by: Error: Documento aulaGamificadaDocentes/prof-1/requisicoes/618ae019c9d236fd: só strings já somam 1288236 bytes; máximo 1048576.
+ ❯ Object.set ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:65:19
+ ❯ src/aplicacao/aula-gamificada/AulaGamificadaService.js:1426:10
+ ❯ Object.transaction ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:60:25
+ ❯ ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:80:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js > REV-AV-15 — avaliação dentro dos limites documentais do Firestore > finaliza turma de 40 alunos com 20 questões; publicarPortal=true
+AssertionError: promise rejected "Error: Documento aulaGamificadaSalas/AVCA…" instead of resolving
+ ❯ ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:82:8
+     80|     await expect(servico.finalizarAvaliacao({ tipo: 'professor', uid: …
+     81|       expectedRevision: 1, requestId: `finalizar-${publicarPortal}`, p…
+     82|     })).resolves.toMatchObject({ revision: 2 });
+       |        ^
+     83|   });
+     84| });
+
+Caused by: Error: Documento aulaGamificadaSalas/AVCAP1/avaliacao/estado: só strings já somam 1288207 bytes; máximo 1048576.
+ ❯ Object.set ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:65:19
+ ❯ src/aplicacao/aula-gamificada/AulaGamificadaService.js:1396:10
+ ❯ Object.transaction ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:60:25
+ ❯ ../tests/regression/aula_gamificada_avaliacao_limites_firestore.test.js:80:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  08:23:46
+   Duration  614ms (transform 278ms, setup 0ms, import 353ms, tests 58ms, environment 0ms)

@@ -3,6 +3,7 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { EstadoVazio } from '@/components/ui/EstadoVazio';
+import { anoLetivoTurma } from '@/dominio/diario/evolucao';
 import { RenderTextoSeguro } from './RenderTextoSeguro';
 import { criarSala, gerarRequestId } from './api';
 import {
@@ -20,19 +21,52 @@ import {
 export function PrepararSala({
   modalidadesServidor = null,
   turmas = [],
+  contextoAvaliacao = null,
   questoes = [],
   salas = [],
   modalidadeInicial = 'quiz',
+  questaoIdsIniciais = [],
   obterToken,
   onSalaCriada,
 }) {
   const formId = useId();
   const modalidades = useMemo(() => mesclarModalidades(modalidadesServidor), [modalidadesServidor]);
 
+  const anosDisponiveis = useMemo(() => {
+    if (Array.isArray(contextoAvaliacao?.anos) && contextoAvaliacao.anos.length > 0) {
+      return contextoAvaliacao.anos;
+    }
+    const mapa = new Map();
+    for (const t of turmas) {
+      const ano = anoLetivoTurma(t);
+      const id = ano ? String(ano) : 'legado';
+      mapa.set(id, ano ? String(ano) : 'Legado (ano não informado)');
+    }
+    return [...mapa.entries()].map(([id, rotulo]) => ({ id, rotulo }));
+  }, [contextoAvaliacao, turmas]);
+
+  const turmasContexto = useMemo(() => {
+    if (Array.isArray(contextoAvaliacao?.turmas) && contextoAvaliacao.turmas.length > 0) {
+      return contextoAvaliacao.turmas;
+    }
+    return turmas;
+  }, [contextoAvaliacao, turmas]);
+
   const [titulo, setTitulo] = useState('');
   const [modalidade, setModalidade] = useState(modalidadeInicial || MODALIDADES_PADRAO[0].id);
+  const [finalidade, setFinalidade] = useState('revisao');
+  const [tituloAtividade, setTituloAtividade] = useState('');
+  const [disciplinaAval, setDisciplinaAval] = useState('');
+  const [conteudoAval, setConteudoAval] = useState('');
+  const [anoLetivo, setAnoLetivo] = useState(() => anosDisponiveis[0]?.id || 'legado');
+  const [bimestre, setBimestre] = useState('1');
+  const [valorMaximo, setValorMaximo] = useState(10);
+  const [criterioHerois, setCriterioHerois] = useState('primeira_tentativa');
+  const [colunaPorTurma, setColunaPorTurma] = useState({});
   const [turmaIds, setTurmaIds] = useState([]);
-  const [questaoIds, setQuestaoIds] = useState([]);
+  const [questaoIds, setQuestaoIds] = useState(() =>
+    Array.isArray(questaoIdsIniciais) ? questaoIdsIniciais.map(String) : [],
+  );
   const [tempoSegundos, setTempoSegundos] = useState(60);
   const [equipes, setEquipes] = useState([]);
   const [nomeNovaEquipe, setNomeNovaEquipe] = useState('');
@@ -226,6 +260,21 @@ export function PrepararSala({
     const configuracao = {
       titulo: titulo.trim(),
       modalidade,
+      finalidade,
+      ...(finalidade === 'avaliativa'
+        ? {
+            avaliacao: {
+              tituloAtividade: (tituloAtividade || titulo).trim(),
+              disciplina: disciplinaAval.trim(),
+              conteudo: conteudoAval.trim(),
+              bimestre,
+              anoLetivo,
+              valorMaximo: Number(valorMaximo) || 10,
+              criterioHerois,
+              colunaPorTurma,
+            },
+          }
+        : {}),
       turmaIds,
       questaoIds,
       tempoSegundos: tempoValido,
@@ -342,6 +391,181 @@ export function PrepararSala({
               );
             })}
           </div>
+        </fieldset>
+
+        {/* Finalidade da sala: revisão vs avaliativa */}
+        <fieldset className="rounded-2xl border border-[#E2D9F7] bg-[#F8F5FF] p-4 space-y-3">
+          <legend className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C] px-1">
+            Finalidade da sala
+          </legend>
+          <div className="flex flex-wrap gap-3">
+            <label className="inline-flex items-center gap-2 text-sm font-bold text-[#25104A] cursor-pointer">
+              <input
+                type="radio"
+                name={`${formId}-finalidade`}
+                value="revisao"
+                checked={finalidade === 'revisao'}
+                onChange={() => setFinalidade('revisao')}
+                className="accent-[#6315D9]"
+              />
+              Revisão (placar lúdico sem alterar notas)
+            </label>
+            <label className="inline-flex items-center gap-2 text-sm font-bold text-[#25104A] cursor-pointer">
+              <input
+                type="radio"
+                name={`${formId}-finalidade`}
+                value="avaliativa"
+                checked={finalidade === 'avaliativa'}
+                onChange={() => setFinalidade('avaliativa')}
+                className="accent-[#6315D9]"
+              />
+              Avaliativa (gera relatório de aproveitamento, revisão e sincronização com o Diário)
+            </label>
+          </div>
+
+          {finalidade === 'avaliativa' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+              <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-atv-tit`} className="text-xs font-extrabold text-[#4A3B7C]">
+                  Título da atividade avaliativa
+                </label>
+                <input
+                  id={`${formId}-atv-tit`}
+                  type="text"
+                  required
+                  value={tituloAtividade}
+                  onChange={(e) => setTituloAtividade(e.target.value)}
+                  placeholder="Ex.: Avaliação Arte Conceitual"
+                  className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-atv-disc`} className="text-xs font-extrabold text-[#4A3B7C]">
+                  Disciplina
+                </label>
+                <input
+                  id={`${formId}-atv-disc`}
+                  type="text"
+                  required
+                  value={disciplinaAval}
+                  onChange={(e) => setDisciplinaAval(e.target.value)}
+                  placeholder="Ex.: Arte"
+                  className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-atv-cont`} className="text-xs font-extrabold text-[#4A3B7C]">
+                  Conteúdo
+                </label>
+                <input
+                  id={`${formId}-atv-cont`}
+                  type="text"
+                  value={conteudoAval}
+                  onChange={(e) => setConteudoAval(e.target.value)}
+                  placeholder="Opcional"
+                  className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-atv-ano`} className="text-xs font-extrabold text-[#4A3B7C]">
+                  Ano letivo (Diário)
+                </label>
+                <select
+                  id={`${formId}-atv-ano`}
+                  value={anoLetivo}
+                  onChange={(e) => setAnoLetivo(e.target.value)}
+                  className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                >
+                  {anosDisponiveis.map((a) => (
+                    <option key={a.id} value={a.id}>{a.rotulo}</option>
+                  ))}
+                  {anosDisponiveis.length === 0 && <option value="legado">Legado</option>}
+                </select>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-atv-bim`} className="text-xs font-extrabold text-[#4A3B7C]">
+                  Bimestre
+                </label>
+                <select
+                  id={`${formId}-atv-bim`}
+                  value={bimestre}
+                  onChange={(e) => setBimestre(e.target.value)}
+                  className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                >
+                  <option value="1">1º Bimestre</option>
+                  <option value="2">2º Bimestre</option>
+                  <option value="3">3º Bimestre</option>
+                  <option value="4">4º Bimestre</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-atv-val`} className="text-xs font-extrabold text-[#4A3B7C]">
+                  Valor máximo
+                </label>
+                <input
+                  id={`${formId}-atv-val`}
+                  type="number"
+                  min={0.5}
+                  max={100}
+                  step={0.5}
+                  value={valorMaximo}
+                  onChange={(e) => setValorMaximo(Number(e.target.value))}
+                  className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                />
+              </div>
+              {modalidade === 'herois' && (
+                <div className="flex flex-col gap-1 sm:col-span-2">
+                  <label htmlFor={`${formId}-atv-heroi`} className="text-xs font-extrabold text-[#4A3B7C]">
+                    Critério de Heróis
+                  </label>
+                  <select
+                    id={`${formId}-atv-heroi`}
+                    value={criterioHerois}
+                    onChange={(e) => setCriterioHerois(e.target.value)}
+                    className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                  >
+                    <option value="primeira_tentativa">Primeira tentativa (padrão)</option>
+                    <option value="melhor_tentativa">Melhor tentativa (considera Tente novamente)</option>
+                  </select>
+                </div>
+              )}
+              {turmaIds.length > 0 && (
+                <div className="sm:col-span-2 lg:col-span-3 space-y-1.5">
+                  <span className="block text-xs font-extrabold text-[#4A3B7C]">
+                    Coluna no Diário por turma ({bimestre}º Bimestre)
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {turmaIds.map((tid) => {
+                      const tCtx = turmasContexto.find((t) => String(t.id) === String(tid));
+                      const cols = tCtx?.bimestres?.[bimestre]?.atividades || [];
+                      return (
+                        <label key={tid} className="flex flex-col gap-1 text-xs font-bold text-[#25104A]">
+                          <span>{tCtx?.nome || tid}</span>
+                          <select
+                            value={colunaPorTurma[tid]?.atvId || ''}
+                            onChange={(e) =>
+                              setColunaPorTurma((prev) => ({
+                                ...prev,
+                                [tid]: e.target.value ? { atvId: e.target.value } : {},
+                              }))
+                            }
+                            className="min-h-9 rounded-lg border border-[#E2D9F7] bg-white px-2 text-xs"
+                          >
+                            <option value="">Nova coluna automática ({valorMaximo} pts)</option>
+                            {cols.map((c) => (
+                              <option key={c.id} value={c.id}>
+                                {c.nome} (máx: {c.max})
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </fieldset>
 
         {/* Regra explícita quando equipes ou tabuleiro estiver selecionada */}

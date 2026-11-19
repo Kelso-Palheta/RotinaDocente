@@ -164,3 +164,107 @@ export async function enviarRespostaSala({ codigo, rodada, requestId, resposta, 
     fetcher,
   });
 }
+
+export async function obterContextoAvaliacao({ obterToken, signal, fetcher } = {}) {
+  return requisitar('/avaliacoes/contexto', { method: 'GET', obterToken, signal, fetcher });
+}
+
+export async function listarAvaliacoes({ filtros = {}, obterToken, signal, fetcher } = {}) {
+  const sp = new URLSearchParams();
+  for (const [k, v] of Object.entries(filtros || {})) {
+    if (v !== undefined && v !== null && String(v).trim() !== '') sp.set(k, String(v));
+  }
+  const qs = sp.toString();
+  return requisitar(`/avaliacoes${qs ? `?${qs}` : ''}`, { method: 'GET', obterToken, signal, fetcher });
+}
+
+export async function obterRelatorioSala({ codigo, obterToken, signal, fetcher } = {}) {
+  return requisitar(`/salas/${encodeURIComponent(codigo)}/relatorio`, {
+    method: 'GET',
+    obterToken,
+    signal,
+    fetcher,
+  });
+}
+
+export async function revisarNotaAvaliacao({
+  codigo,
+  expectedRevision,
+  participanteId,
+  notaRevisada,
+  justificativa,
+  requestId,
+  obterToken,
+  signal,
+  fetcher,
+} = {}) {
+  return requisitar(`/salas/${encodeURIComponent(codigo)}/avaliacao/revisar`, {
+    method: 'POST',
+    body: {
+      expectedRevision,
+      participanteId,
+      notaRevisada,
+      justificativa,
+      requestId: requestId || gerarRequestId('rev_nota'),
+    },
+    obterToken,
+    signal,
+    fetcher,
+  });
+}
+
+export async function finalizarAvaliacao({
+  codigo,
+  expectedRevision,
+  zerarAusentes = false,
+  publicarPortal = false,
+  requestId,
+  obterToken,
+  signal,
+  fetcher,
+} = {}) {
+  return requisitar(`/salas/${encodeURIComponent(codigo)}/avaliacao/finalizar`, {
+    method: 'POST',
+    body: {
+      expectedRevision,
+      zerarAusentes,
+      publicarPortal,
+      requestId: requestId || gerarRequestId('fin_av'),
+    },
+    obterToken,
+    signal,
+    fetcher,
+  });
+}
+
+export async function sincronizarAvaliacaoDiario({
+  codigo,
+  expectedRevision,
+  diarioRevisionEsperada,
+  turmaIds,
+  dryRun = false,
+  confirmarSobrescrita = false,
+  requestId,
+  obterToken,
+  signal,
+  fetcher,
+} = {}) {
+  return requisitar(`/salas/${encodeURIComponent(codigo)}/avaliacao/sincronizar`, {
+    method: 'POST',
+    body: {
+      expectedRevision,
+      ...(diarioRevisionEsperada !== undefined ? { diarioRevisionEsperada } : {}),
+      ...(Array.isArray(turmaIds) ? { turmaIds } : {}),
+      dryRun,
+      confirmarSobrescrita,
+      requestId: requestId || gerarRequestId('sync_av'),
+    },
+    obterToken,
+    signal,
+    fetcher,
+  });
+}
+
+export async function obterMinhasAvaliacoes({ signal, fetcher } = {}) {
+  return requisitar('/avaliacoes/minhas', { method: 'GET', signal, fetcher });
+}

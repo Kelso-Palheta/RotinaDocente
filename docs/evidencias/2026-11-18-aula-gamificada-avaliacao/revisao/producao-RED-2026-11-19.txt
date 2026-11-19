@@ -1,0 +1,87 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_avaliacao_producao --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_avaliacao_producao.test.js (3 tests | 3 failed) 19ms
+     × REV-AV-12: filtro de aluno reconhece o participante SHA-256 usado em produção 7ms
+     × REV-AV-13: sincronização rejeita turma cujo ano diverge da avaliação congelada 7ms
+     × REV-AV-14: revisão docente não substitui resultado publicado sem nova publicação 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_producao.test.js > Avaliação gamificada — contratos reais de produção > REV-AV-12: filtro de aluno reconhece o participante SHA-256 usado em produção
+AssertionError: expected [] to include 'AV0001'
+ ❯ ../tests/regression/aula_gamificada_avaliacao_producao.test.js:69:50
+     67|     const { servico } = ambiente();
+     68|     const resultado = await servico.listarAvaliacoes(prof, { turmaId: …
+     69|     expect(resultado.itens.map((s) => s.codigo)).toContain(codigo);
+       |                                                  ^
+     70|   });
+     71|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_producao.test.js > Avaliação gamificada — contratos reais de produção > REV-AV-13: sincronização rejeita turma cujo ano diverge da avaliação congelada
+AssertionError: promise resolved "{ sincronizadas: 1, …(3) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "alteracoes": [
++     {
++       "alunoId": "a1",
++       "atvId": "ag_AV0001_t1",
++       "bimestre": "1",
++       "turmaId": "t1",
++     },
++   ],
++   "pendencias": [],
++   "sincronizacao": {
++     "pendencias": [],
++     "sincronizadaEmMs": 100000,
++     "sincronizadas": 1,
++     "status": "sincronizada",
++   },
++   "sincronizadas": 1,
+  }
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_producao.test.js:76:8
+     74|     await expect(servico.sincronizarDiario(prof, codigo, {
+     75|       expectedRevision: 1, requestId: 'sync-ano', dryRun: false, diari…
+     76|     })).rejects.toMatchObject({ status: 422 });
+       |        ^
+     77|   });
+     78|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_producao.test.js > Avaliação gamificada — contratos reais de produção > REV-AV-14: revisão docente não substitui resultado publicado sem nova publicação
+AssertionError: expected 6 to be 10 // Object.is equality
+
+- Expected
++ Received
+
+- 10
++ 6
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_producao.test.js:95:50
+     93|     expect(resumoPortal.avaliacoes[0].notaFinal).toBe(10);
+     94|     const detalhePortal = await servico.relatorioSala(aluno, codigo);
+     95|     expect(detalhePortal.meuResultado.notaFinal).toBe(10);
+       |                                                  ^
+     96|   });
+     97| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  07:44:21
+   Duration  338ms (transform 129ms, setup 0ms, import 166ms, tests 19ms, environment 0ms)

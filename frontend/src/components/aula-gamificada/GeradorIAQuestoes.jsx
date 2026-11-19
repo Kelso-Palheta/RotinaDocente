@@ -5,12 +5,15 @@ import { extractTextFromDocument } from '@/utils/atividades/documentExtractor';
 import { useAIConfig } from '@/hooks/useAIConfig';
 import { ModalConectarIA } from '@/components/ai/ModalConectarIA';
 import { RenderTextoSeguro } from './RenderTextoSeguro';
-import { gerarQuestoesIA, gerarRequestId, salvarQuestao } from './api';
+import { gerarQuestoesIA, gerarRequestId, revisarQuestao, salvarQuestao } from './api';
 import {
   ANOS_ESCOLARES_SUGERIDOS,
   DISCIPLINAS_SUGERIDAS,
+  MODALIDADES_PADRAO,
   TIPOS_QUESTAO,
   classeDificuldade,
+  mesclarModalidades,
+  obterModalidadeInfo,
   rotuloDificuldade,
   rotuloTipoQuestao,
   textoCarta,
@@ -23,13 +26,20 @@ function assinaturaRascunho(dados, expectedRevision) {
 export function GeradorIAQuestoes({
   uid = null,
   obterToken,
+  modalidadeInicial = 'quiz',
+  modalidadesServidor = MODALIDADES_PADRAO,
   tipoInicial = 'multipla_escolha',
+  rascunhosExternos = null,
+  onRascunhosChange = null,
   onQuestaoSalva,
+  onContinuarParaSala = null,
 }) {
   const formId = useId();
   const { temChave, config } = useAIConfig();
   const [mostrarModalIA, setMostrarModalIA] = useState(false);
 
+  const listaJogos = mesclarModalidades(modalidadesServidor);
+  const [modalidade, setModalidade] = useState(modalidadeInicial || 'quiz');
   const [disciplina, setDisciplina] = useState('');
   const [anoEscolar, setAnoEscolar] = useState('');
   const [conteudo, setConteudo] = useState('');
@@ -48,7 +58,15 @@ export function GeradorIAQuestoes({
   // Estado de geração e salvamento separado
   const [gerando, setGerando] = useState(false);
   const [erroGeracao, setErroGeracao] = useState(null);
-  const [rascunhos, setRascunhos] = useState([]);
+  const [rascunhosInternos, setRascunhosInternos] = useState([]);
+  const rascunhos = Array.isArray(rascunhosExternos) ? rascunhosExternos : rascunhosInternos;
+  const setRascunhos = (updater) => {
+    if (typeof onRascunhosChange === 'function') {
+      onRascunhosChange(updater);
+    } else {
+      setRascunhosInternos(updater);
+    }
+  };
 
   // Controle de contexto, versão e cancelamento de pedidos assíncronos
   const montadoRef = useRef(true);
@@ -57,7 +75,23 @@ export function GeradorIAQuestoes({
   const versaoGeracaoRef = useRef(0);
   const abortGeracaoRef = useRef(null);
 
+  const infoJogo = obterModalidadeInfo(modalidade, listaJogos);
+  const tiposCompativeis = infoJogo.tiposQuestoes || ['multipla_escolha'];
+  const tipoEfetivo = tiposCompativeis.includes(tipo) ? tipo : tiposCompativeis[0];
+
+  const aoMudarJogo = (novaModalidade) => {
+    setModalidade(novaModalidade);
+    const info = obterModalidadeInfo(novaModalidade, listaJogos);
+    if (!info.tiposQuestoes.includes(tipo)) {
+      setTipo(info.tiposQuestoes[0] || 'multipla_escolha');
+    }
+  };
+
   useEffect(() => {
+    if (uidRef.current !== uid) {
+      setRascunhos([]);
+      setErroGeracao(null);
+    }
     uidRef.current = uid;
   }, [uid]);
 
@@ -162,10 +196,11 @@ export function GeradorIAQuestoes({
     setGerando(true);
     try {
       const entrada = {
+        modalidade,
         disciplina: discLimpa,
         anoEscolar: anoLimpo,
         conteudo: contLimpo,
-        tipo,
+        tipo: tipoEfetivo,
         fonte,
         ...(fonte === 'material' ? { textoMaterial: materialLimpo } : {}),
         quantidades: {
@@ -254,8 +289,8 @@ export function GeradorIAQuestoes({
     );
   };
 
-  const handleSalvarRascunho = async (item) => {
-    if (item.salvando || item.salvo) return;
+  const handleSalvarRascunho = async (item, { aprovar = false } = {}) => {
+    if (item.salvando || (item.salvo && (!aprovar || item.dados?.status === 'revisada'))) return;
     const uidSnapshot = uidRef.current;
     const expectedRevision = item.revisionSalva !== null ? item.revisionSalva : undefined;
     const assinatura = assinaturaRascunho(item.dados, expectedRevision);
@@ -280,17 +315,50 @@ export function GeradorIAQuestoes({
       )
     );
 
+    let salva = item.salvo && item.dados?.id ? item.dados : null;
+    const reqAprovacao =
+      item.requestIdAprovacaoPendente || (aprovar ? gerarRequestId('revisar_ia') : null);
+
     try {
-      const res = await salvarQuestao({
-        questao: item.dados,
-        expectedRevision,
-        requestId,
-        obterToken,
-      });
-      if (!montadoRef.current || uidRef.current !== uidSnapshot) return;
-      const salva = res?.questao || item.dados;
-      if (res?.questao) {
-        onQuestaoSalva?.(res.questao);
+      if (!salva) {
+        const res = await salvarQuestao({
+          questao: item.dados,
+          expectedRevision,
+          requestId,
+          obterToken,
+        });
+        if (!montadoRef.current || uidRef.current !== uidSnapshot) return;
+        salva = res?.questao || item.dados;
+        if (salva?.id) {
+          setRascunhos((prev) =>
+            prev.map((r) =>
+              r.chaveLocal === item.chaveLocal
+                ? {
+                    ...r,
+                    salvo: true,
+                    revisionSalva: salva.revision ?? (item.revisionSalva ?? 0) + 1,
+                    assinaturaPendente: null,
+                    requestIdPendente: null,
+                    requestIdAprovacaoPendente: reqAprovacao,
+                    dados: salva,
+                  }
+                : r
+            )
+          );
+        }
+      }
+      if (aprovar && salva?.id && salva.status !== 'revisada') {
+        const revRes = await revisarQuestao({
+          id: salva.id,
+          expectedRevision: salva.revision ?? 1,
+          requestId: reqAprovacao,
+          obterToken,
+        });
+        if (!montadoRef.current || uidRef.current !== uidSnapshot) return;
+        salva = revRes?.questao || { ...salva, status: 'revisada' };
+      }
+      if (salva?.id) {
+        onQuestaoSalva?.(salva);
       }
       setRascunhos((prev) =>
         prev.map((r) =>
@@ -302,6 +370,7 @@ export function GeradorIAQuestoes({
                 revisionSalva: salva.revision ?? (item.revisionSalva ?? 0) + 1,
                 assinaturaPendente: null,
                 requestIdPendente: null,
+                requestIdAprovacaoPendente: null,
                 dados: salva,
               }
             : r
@@ -315,6 +384,8 @@ export function GeradorIAQuestoes({
             ? {
                 ...r,
                 salvando: false,
+                ...(salva?.id ? { salvo: true, dados: salva, revisionSalva: salva.revision ?? r.revisionSalva } : {}),
+                ...(aprovar && reqAprovacao ? { requestIdAprovacaoPendente: reqAprovacao } : {}),
                 erroSalvar: err?.message || 'Erro ao salvar rascunho. Clique para tentar novamente sem rechamar a IA.',
               }
             : r
@@ -443,19 +514,38 @@ export function GeradorIAQuestoes({
               </div>
 
               <div className="flex flex-col gap-1">
+                <label htmlFor={`${formId}-jogo`} className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C]">
+                  Jogo / Modalidade
+                </label>
+                <select
+                  id={`${formId}-jogo`}
+                  value={modalidade}
+                  onChange={(e) => aoMudarJogo(e.target.value)}
+                  className="min-h-12 rounded-xl border border-[#E2D9F7] bg-[#FFFDF7] px-3 py-2 text-base text-[#25104A]"
+                >
+                  {listaJogos.map((m) => (
+                    <option key={m.id} value={m.id}>{m.nome}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-1">
                 <label htmlFor={`${formId}-tipo`} className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C]">
-                  Tipo compatível com o jogo
+                  Formato da questão
                 </label>
                 <select
                   id={`${formId}-tipo`}
-                  value={tipo}
+                  value={tipoEfetivo}
                   onChange={(e) => setTipo(e.target.value)}
                   className="min-h-12 rounded-xl border border-[#E2D9F7] bg-[#FFFDF7] px-3 py-2 text-base text-[#25104A]"
                 >
-                  {Object.values(TIPOS_QUESTAO).map((t) => (
-                    <option key={t.id} value={t.id}>{t.rotulo}</option>
+                  {tiposCompativeis.map((tid) => (
+                    <option key={tid} value={tid}>{TIPOS_QUESTAO[tid]?.rotulo || tid}</option>
                   ))}
                 </select>
+                <span className="text-[11px] font-semibold text-[#5B4B86]">
+                  {infoJogo.nome} aceita {tiposCompativeis.map((tid) => TIPOS_QUESTAO[tid]?.rotulo || tid).join(' ou ')}.
+                </span>
               </div>
             </div>
 
@@ -605,12 +695,37 @@ export function GeradorIAQuestoes({
       {rascunhos.length > 0 && (
         <div className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h3 className="font-head text-lg font-black text-[#25104A]">
-              Rascunhos gerados ({rascunhos.length}) — revise e salve no banco
-            </h3>
-            <span className="text-xs font-semibold text-[#5B4B86]">
-              Salvar grava apenas a questão selecionada, sem chamar a IA novamente.
-            </span>
+            <div>
+              <h3 className="font-head text-lg font-black text-[#25104A]">
+                Rascunhos gerados ({rascunhos.length}) — revise e salve no banco
+              </h3>
+              <span className="text-xs font-semibold text-[#5B4B86]">
+                Salvar grava apenas a questão selecionada, sem chamar a IA novamente.
+              </span>
+            </div>
+            {typeof onContinuarParaSala === 'function' && (
+              <button
+                type="button"
+                disabled={
+                  rascunhos.filter((r) => r.salvo && r.dados?.status === 'revisada' && r.dados?.id)
+                    .length === 0
+                }
+                onClick={() => {
+                  const aprovadasIds = rascunhos
+                    .filter((r) => r.salvo && r.dados?.status === 'revisada' && r.dados?.id)
+                    .map((r) => r.dados.id);
+                  onContinuarParaSala({ modalidade, questaoIds: aprovadasIds });
+                }}
+                className="min-h-11 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white disabled:opacity-45"
+              >
+                Continuar para Preparar Sala (
+                {
+                  rascunhos.filter((r) => r.salvo && r.dados?.status === 'revisada' && r.dados?.id)
+                    .length
+                }{' '}
+                aprovadas)
+              </button>
+            )}
           </div>
 
           {rascunhos.map((item, idx) => {
@@ -634,24 +749,41 @@ export function GeradorIAQuestoes({
                     </span>
                   </div>
 
-                  <button
-                    type="button"
-                    disabled={item.salvando || item.salvo}
-                    onClick={() => handleSalvarRascunho(item)}
-                    className={`min-h-10 rounded-xl px-4 py-2 text-xs font-extrabold transition ${
-                      item.salvo
-                        ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                        : 'bg-[#6315D9] text-white hover:bg-[#5411B8] disabled:opacity-50'
-                    }`}
-                  >
-                    {item.salvo
-                      ? 'Salvo no banco ✓'
-                      : item.salvando
-                      ? 'Salvando...'
-                      : jaExistiaNoBanco
-                      ? 'Salvar alteração no banco'
-                      : 'Salvar no banco'}
-                  </button>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      disabled={item.salvando || item.salvo}
+                      onClick={() => handleSalvarRascunho(item)}
+                      className={`min-h-10 rounded-xl px-4 py-2 text-xs font-extrabold transition ${
+                        item.salvo
+                          ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                          : 'bg-[#6315D9] text-white hover:bg-[#5411B8] disabled:opacity-50'
+                      }`}
+                    >
+                      {item.salvo
+                        ? 'Salvo no banco ✓'
+                        : item.salvando
+                        ? 'Salvando...'
+                        : jaExistiaNoBanco
+                        ? 'Salvar alteração no banco'
+                        : 'Salvar no banco'}
+                    </button>
+                    {q.status !== 'revisada' && (
+                      <button
+                        type="button"
+                        disabled={item.salvando}
+                        onClick={() => handleSalvarRascunho(item, { aprovar: true })}
+                        className="min-h-10 rounded-xl border border-[#6315D9] bg-white px-3.5 py-2 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF] disabled:opacity-50"
+                      >
+                        Salvar e aprovar
+                      </button>
+                    )}
+                    {q.status === 'revisada' && (
+                      <span className="inline-flex items-center rounded-xl bg-[#B9EF00] px-3 py-1.5 text-xs font-black text-[#25104A]">
+                        Aprovada ✓
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {item.erroSalvar && (

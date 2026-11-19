@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import DOMPurify from 'dompurify';
 import { BotaoLeitorVoz } from '@/components/acessibilidade/BotaoLeitorVoz';
 import { ehQuestaoObjetiva } from '@/dominio/atividades/devolutivaAluno';
@@ -157,6 +158,18 @@ function TextoApoio({ texto }) {
 }
 
 export const RespostaForm = ({ atividade, onSubmit, loading, bloquearEnvio, textos = [] }) => {
+  const [respostas, setRespostas] = useState({});
+
+  if (atividade?.origem === 'aula_gamificada') {
+    return (
+      <div className="rounded-2xl border border-[#E2D9F7] bg-[#F3EDFF] p-5 text-sm font-bold text-[#25104A] space-y-2">
+        <p>Esta avaliação foi realizada ao vivo na Aula Gamificada e não utiliza envio convencional.</p>
+        <Link href="/aluno/aula-gamificada" className="inline-block text-xs font-extrabold text-[#6315D9] underline">
+          Acessar Minhas Avaliações na Aula Gamificada →
+        </Link>
+      </div>
+    );
+  }
   const questoes = atividade?.questoes?.length > 0
     ? atividade.questoes
     : [{ id: 'legacy', tipo: 'discursiva', enunciado: atividade?.enunciado || '', notaMaxima: atividade?.notaMaxima || 10, imagens: [] }];
@@ -166,8 +179,6 @@ export const RespostaForm = ({ atividade, onSubmit, loading, bloquearEnvio, text
     const key = t.aposQuestao != null ? t.aposQuestao : 'inicio';
     (textosPor[key] = textosPor[key] || []).push(t);
   });
-
-  const [respostas, setRespostas] = useState({});
 
   const handleChange = (questaoId, tipo, resposta) => {
     setRespostas(prev => ({ ...prev, [questaoId]: { tipo, resposta } }));

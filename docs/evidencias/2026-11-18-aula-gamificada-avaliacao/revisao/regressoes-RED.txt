@@ -1,0 +1,336 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_avaliacao_revisao --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js (7 tests | 7 failed) 38ms
+     × REV-AV-01: comandos existentes continuam compatíveis com transações Firestore 19ms
+     × REV-AV-02: finalizar grava entregas sem ler documentos após escritas 3ms
+     × REV-AV-03: não finaliza nem publica uma partida ainda aberta 8ms
+     × REV-AV-04: sincronização exige conferência e finalização anteriores 2ms
+     × REV-AV-05: título igual não vincula automaticamente a coluna antiga de outra escala 1ms
+     × REV-AV-06: finalizar uma sala nunca iniciada não inventa questão aberta 1ms
+     × REV-AV-07: valor de revisão inválido não vira nota zero silenciosamente 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-01: comandos existentes continuam compatíveis com transações Firestore
+AssertionError: promise rejected "Error: Todas as leituras devem preceder a…" instead of resolving
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:82:8
+     80|     await expect(servico.comandar(prof, codigo, {
+     81|       acao: 'iniciar', rodada: 1, expectedRevision: 1, requestId: 'ini…
+     82|     })).resolves.toHaveProperty('estado');
+       |        ^
+     83|   });
+     84|
+
+Caused by: Error: Todas as leituras devem preceder as escritas da transação.
+ ❯ ler ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:61:45
+ ❯ Object.get ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:65:21
+ ❯ src/aplicacao/aula-gamificada/AulaGamificadaService.js:681:34
+ ❯ Object.transaction ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:64:25
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:80:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-02: finalizar grava entregas sem ler documentos após escritas
+AssertionError: promise rejected "Error: Todas as leituras devem preceder a…" instead of resolving
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:89:8
+     87|     await expect(servico.finalizarAvaliacao(prof, codigo, {
+     88|       expectedRevision: 1, requestId: 'finalizar-1',
+     89|     })).resolves.toMatchObject({ revision: 2 });
+       |        ^
+     90|   });
+     91|
+
+Caused by: Error: Todas as leituras devem preceder as escritas da transação.
+ ❯ ler ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:61:45
+ ❯ Object.get ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:65:21
+ ❯ src/aplicacao/aula-gamificada/AulaGamificadaService.js:1171:32
+ ❯ Object.transaction ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:64:25
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:87:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-03: não finaliza nem publica uma partida ainda aberta
+AssertionError: promise resolved "{ relatorio: { …(7) }, …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "publicadoPortal": true,
++   "relatorio": {
++     "alunos": [
++       {
++         "acertos": 1,
++         "alunoId": "a1",
++         "aproveitamento": 1,
++         "detalhesQuestoes": [
++           {
++             "fracao": 1,
++             "primeiraResposta": {
++               "alternativaId": "A",
++             },
++             "respostaFinal": {
++               "alternativaId": "A",
++             },
++             "rodada": 1,
++             "status": "acerto",
++             "tentativas": 1,
++           },
++         ],
++         "elegiveis": 1,
++         "equipeId": null,
++         "erros": 0,
++         "justificativaRevisao": null,
++         "naoRespondidas": 0,
++         "nome": "Ana",
++         "notaCalculada": 10,
++         "notaFinal": 10,
++         "notaRevisada": null,
++         "parciais": 0,
++         "participanteId": "t1:a1",
++         "pontosJogo": 1000,
++         "respondidas": 1,
++         "situacao": "avaliado",
++         "turmaId": "t1",
++         "versaoRevisao": 0,
++       },
++     ],
++     "auditoria": [],
++     "configuracaoCongelada": {
++       "anoLetivo": "2026",
++       "bimestre": "1",
++       "colunaPorTurma": {},
++       "disciplina": "Arte",
++       "tituloAtividade": "Prova 1",
++       "valorMaximo": 10,
++     },
++     "limitacoes": [
++       "Partida ainda em andamento; resultados sujeitos a alteração até o encerramento.",
++     ],
++     "resumoTurma": {
++       "ausentes": 0,
++       "mediaNota": 10,
++       "presentes": 1,
++       "semOportunidade": 0,
++       "totalElegiveis": 1,
++     },
++     "sala": {
++       "codigo": "AV0001",
++       "criadoEmMs": null,
++       "encerradaEmMs": null,
++       "fase": "pergunta",
++       "finalidade": "avaliativa",
++       "modalidade": "quiz",
++       "rodada": 1,
++       "titulo": "Avaliação de Arte",
++       "totalRodadas": 1,
++     },
++     "sincronizacao": {
++       "pendencias": [],
++       "status": "pendente",
++     },
++   },
++   "revision": 2,
+  }
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:96:8
+     94|     await expect(servico.finalizarAvaliacao(prof, codigo, {
+     95|       expectedRevision: 1, requestId: 'finalizar-aberta', publicarPort…
+     96|     })).rejects.toMatchObject({ status: 409 });
+       |        ^
+     97|   });
+     98|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-04: sincronização exige conferência e finalização anteriores
+AssertionError: promise resolved "{ sincronizadas: 1, …(2) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "alteracoes": [
++     {
++       "alunoId": "a1",
++       "atvId": "anterior",
++       "bimestre": "1",
++       "turmaId": "t1",
++     },
++   ],
++   "sincronizacao": {
++     "pendencias": [],
++     "sincronizadaEmMs": 100000,
++     "sincronizadas": 1,
++     "status": "sincronizada",
++   },
++   "sincronizadas": 1,
+  }
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:103:8
+    101|     await expect(servico.sincronizarDiario(prof, codigo, {
+    102|       expectedRevision: 1, requestId: 'sync-nao-finalizada', dryRun: f…
+    103|     })).rejects.toMatchObject({ status: 409 });
+       |        ^
+    104|   });
+    105|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-05: título igual não vincula automaticamente a coluna antiga de outra escala
+AssertionError: expected 10 to be undefined
+
+- Expected:
+undefined
+
++ Received:
+10
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:112:40
+    110|     });
+    111|     const bimestre = (await store.get(diarioPath)).turmas[0].bimestres…
+    112|     expect(bimestre.notas.a1.anterior).toBeUndefined();
+       |                                        ^
+    113|     expect(bimestre.notas.a1[`ag_${codigo}_t1`]).toBe(10);
+    114|     expect(bimestre.atividades.find((a) => a.id === `ag_${codigo}_t1`)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-06: finalizar uma sala nunca iniciada não inventa questão aberta
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:123:33
+    121|       participante, conteudos: [conteudo], respostasDoParticipante: [],
+    122|     });
+    123|     expect(resultado.elegiveis).toBe(0);
+       |                                 ^
+    124|     expect(resultado.situacao).toBe('sem_oportunidade');
+    125|     expect(resultado.notaCalculada).toBeNull();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_avaliacao_revisao.test.js > Regressões da revisão independente da avaliação gamificada > REV-AV-07: valor de revisão inválido não vira nota zero silenciosamente
+AssertionError: promise resolved "{ relatorio: { …(7) }, revision: 2 }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "relatorio": {
++     "alunos": [
++       {
++         "acertos": 1,
++         "alunoId": "a1",
++         "aproveitamento": 1,
++         "detalhesQuestoes": [
++           {
++             "fracao": 1,
++             "primeiraResposta": {
++               "alternativaId": "A",
++             },
++             "respostaFinal": {
++               "alternativaId": "A",
++             },
++             "rodada": 1,
++             "status": "acerto",
++             "tentativas": 1,
++           },
++         ],
++         "elegiveis": 1,
++         "equipeId": null,
++         "erros": 0,
++         "justificativaRevisao": "Deve rejeitar dado inválido.",
++         "naoRespondidas": 0,
++         "nome": "Ana",
++         "notaCalculada": 10,
++         "notaFinal": 0,
++         "notaRevisada": 0,
++         "parciais": 0,
++         "participanteId": "t1:a1",
++         "pontosJogo": 1000,
++         "respondidas": 1,
++         "situacao": "avaliado",
++         "turmaId": "t1",
++         "versaoRevisao": 1,
++       },
++     ],
++     "auditoria": [
++       {
++         "criadoEmMs": 100000,
++         "id": "auditoria1",
++         "justificativa": "Deve rejeitar dado inválido.",
++         "notaAnterior": null,
++         "notaNova": 0,
++         "participanteId": "t1:a1",
++         "professorId": "prof-1",
++         "tipo": "revisao_nota",
++         "versao": 1,
++       },
++     ],
++     "configuracaoCongelada": {
++       "anoLetivo": "2026",
++       "bimestre": "1",
++       "colunaPorTurma": {},
++       "disciplina": "Arte",
++       "tituloAtividade": "Prova 1",
++       "valorMaximo": 10,
++     },
++     "limitacoes": [],
++     "resumoTurma": {
++       "ausentes": 0,
++       "mediaNota": 0,
++       "presentes": 1,
++       "semOportunidade": 0,
++       "totalElegiveis": 1,
++     },
++     "sala": {
++       "codigo": "AV0001",
++       "criadoEmMs": null,
++       "encerradaEmMs": null,
++       "fase": "encerrada",
++       "finalidade": "avaliativa",
++       "modalidade": "quiz",
++       "rodada": 1,
++       "titulo": "Avaliação de Arte",
++       "totalRodadas": 1,
++     },
++     "sincronizacao": {
++       "pendencias": [],
++       "status": "pendente",
++     },
++   },
++   "revision": 2,
+  }
+
+ ❯ ../tests/regression/aula_gamificada_avaliacao_revisao.test.js:133:8
+    131|       expectedRevision: 1, requestId: 'revisao-invalida', participante…
+    132|       notaRevisada: 'invalida', justificativa: 'Deve rejeitar dado inv…
+    133|     })).rejects.toMatchObject({ status: 422 });
+       |        ^
+    134|   });
+    135| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  21:08:27
+   Duration  361ms (transform 129ms, setup 0ms, import 164ms, tests 38ms, environment 0ms)

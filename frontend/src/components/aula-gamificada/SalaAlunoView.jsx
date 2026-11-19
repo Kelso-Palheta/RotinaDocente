@@ -64,6 +64,9 @@ export function SalaAlunoView({
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <span className="arte-selo">{modalidadeInfo.nome}</span>
+            <span className="rounded-full bg-white/15 px-3 py-0.5 text-xs font-extrabold text-white">
+              {estado?.finalidade === 'avaliativa' ? 'Avaliativa' : 'Revisão'}
+            </span>
             <StatusConexao conexao={conexao} />
           </div>
           <span className="font-mono text-sm font-black bg-white/15 border border-white/25 rounded-xl px-3 py-1">

@@ -49,6 +49,12 @@ function equipesPadraoTabuleiro(roster = []) {
   return [azul, verde];
 }
 import { pontuarMemoria, pontuarResposta } from "@/dominio/aula-gamificada/pontuacao";
+import {
+  arredondarDuasCasas,
+  gerarRelatorioSala,
+  validarConfiguracaoAvaliacao,
+} from "@/dominio/aula-gamificada/avaliacao";
+import { anoLetivoTurma } from "@/dominio/diario/evolucao";
 
 const salaPath = (codigo) => `aulaGamificadaSalas/${codigo}`;
 const conteudoPath = (codigo, indice) => `${salaPath(codigo)}/conteudos/${indice}`;
@@ -336,6 +342,14 @@ export class AulaGamificadaService {
       if (modalidade === "tabuleiro" && equipes.length > 4)
         throw falha(422, "O Tabuleiro aceita no máximo quatro equipes.");
 
+      const turmasSelecionadas = turmas.filter((t) => turmaIds.includes(String(t.id)));
+      const { finalidade, avaliacao } = validarConfiguracaoAvaliacao({
+        finalidade: config.finalidade ?? "revisao",
+        avaliacao: config.avaliacao ?? null,
+        modalidade,
+        turmas: turmasSelecionadas,
+      });
+
       const codigo = codigoSala(this.gerarCodigo());
       const existente = await tx.get(salaPath(codigo));
       if (existente)
@@ -355,6 +369,8 @@ export class AulaGamificadaService {
         professorId: uid,
         titulo,
         modalidade,
+        finalidade,
+        ...(avaliacao ? { avaliacao } : {}),
         turmaIds,
         questaoIds,
         roster: roster.map((participante) => participante.id),
@@ -377,6 +393,39 @@ export class AulaGamificadaService {
 
       const resposta = { sala };
       tx.set(salaPath(codigo), sala);
+      tx.set(`aulaGamificadaDocentes/${uid}/salas/${codigo}`, {
+        codigo,
+        professorId: uid,
+        titulo,
+        modalidade,
+        finalidade,
+        ...(avaliacao ? { avaliacao } : {}),
+        turmaIds,
+        fase: sala.fase,
+        criadoEmMs: agora,
+      });
+      if (finalidade === "avaliativa" && avaliacao) {
+        for (const tId of turmaIds) {
+          const atvId = `ag_${codigo}_${tId}`;
+          tx.set(`atividades/${atvId}`, {
+            id: atvId,
+            professorId: uid,
+            origem: "aula_gamificada",
+            salaCodigo: codigo,
+            modalidade,
+            titulo: avaliacao.tituloAtividade,
+            disciplina: avaliacao.disciplina,
+            conteudo: avaliacao.conteudo || "",
+            bimestre: avaliacao.bimestre,
+            anoLetivo: avaliacao.anoLetivo,
+            turmaIds: [tId],
+            notaMaxima: avaliacao.valorMaximo,
+            status: "aguardando_publicacao",
+            criadoEmMs: agora,
+            atualizadoEmMs: agora,
+          });
+        }
+      }
       questoes.forEach((questao, indice) => {
         tx.set(
           conteudoPath(codigo, indice),
@@ -627,7 +676,17 @@ export class AulaGamificadaService {
         });
       }
 
+      // Leituras na transação devem preceder qualquer escrita (exigência do Firestore).
+      const resumoIdx = await tx.get(`aulaGamificadaDocentes/${uid}/salas/${codigo}`);
+
       tx.set(salaPath(codigo), atual);
+      if (resumoIdx) {
+        tx.set(`aulaGamificadaDocentes/${uid}/salas/${codigo}`, {
+          ...resumoIdx,
+          fase: atual.fase,
+          ...(atual.encerradaEmMs ? { encerradaEmMs: atual.encerradaEmMs } : {}),
+        });
+      }
       const estado = await this.projetar(atual, {
         ator,
         reader: tx,
@@ -805,6 +864,7 @@ export class AulaGamificadaService {
         tx.set(caminhoResposta, {
           rodada: Number(rodada),
           participanteId,
+          primeiraResposta: registro?.primeiraResposta ?? copia(resposta),
           resposta,
           tentativas: evalHeroi.tentativas,
           acertou: evalHeroi.acertou,
@@ -852,5 +912,873 @@ export class AulaGamificadaService {
       });
       return { recibo: copia(recibo) };
     });
+  }
+
+  async contextoAvaliacao(ator) {
+    const uid = this.docente(ator);
+    const turmas = (await this.turmas(uid, this.store)).filter((t) => !t.arquivada);
+    const anosSet = new Map();
+    for (const t of turmas) {
+      const ano = anoLetivoTurma(t);
+      const id = ano ? String(ano) : "legado";
+      const rotulo = ano ? String(ano) : "Legado (ano não informado)";
+      anosSet.set(id, { id, rotulo });
+    }
+    return {
+      anos: [...anosSet.values()].sort((a, b) => a.id.localeCompare(b.id)),
+      bimestres: ["1", "2", "3", "4"],
+      turmas: turmas.map((t) => ({
+        id: String(t.id),
+        nome: t.nome || t.titulo || String(t.id),
+        anoLetivo: anoLetivoTurma(t) ? String(anoLetivoTurma(t)) : "legado",
+        bimestres: Object.fromEntries(
+          ["1", "2", "3", "4"].map((b) => [
+            b,
+            {
+              atividades: (t.bimestres?.[b]?.atividades || []).map((a) => ({
+                id: String(a.id),
+                nome: a.nome || a.titulo || String(a.id),
+                max: Number(a.max ?? a.notaMaxima ?? 10),
+              })),
+            },
+          ]),
+        ),
+      })),
+    };
+  }
+
+  async listarAvaliacoes(ator, filtros = {}) {
+    const uid = this.docente(ator);
+    const limite = Math.min(Math.max(Number(filtros.limite) || 20, 1), 100);
+
+    const indexadas = await this.store.list(`aulaGamificadaDocentes/${uid}/salas`);
+    const legadas = await this.store.list("aulaGamificadaSalas", [["professorId", "==", uid]]);
+    const porCodigo = new Map();
+    for (const s of legadas || []) {
+      if (s?.codigo) porCodigo.set(s.codigo, s);
+    }
+    for (const s of indexadas || []) {
+      if (s?.codigo) porCodigo.set(s.codigo, { ...(porCodigo.get(s.codigo) || {}), ...s });
+    }
+
+    const deMs = filtros.de ? Date.parse(String(filtros.de)) : null;
+    const ateMs = filtros.ate ? Date.parse(String(filtros.ate)) : null;
+
+    const preFiltradas = [...porCodigo.values()].filter((s) => {
+      if (filtros.finalidade && (s.finalidade || "revisao") !== filtros.finalidade) return false;
+      if (filtros.turmaId && !(s.turmaIds || []).map(String).includes(String(filtros.turmaId)))
+        return false;
+      if (filtros.bimestre && String(s.avaliacao?.bimestre || "") !== String(filtros.bimestre))
+        return false;
+      if (filtros.ano && String(s.avaliacao?.anoLetivo || "") !== String(filtros.ano))
+        return false;
+      if (Number.isFinite(deMs) && (Number(s.criadoEmMs) || 0) < deMs) return false;
+      if (Number.isFinite(ateMs) && (Number(s.criadoEmMs) || 0) > ateMs) return false;
+      if (
+        filtros.disciplina &&
+        !String(s.avaliacao?.disciplina || "")
+          .toLowerCase()
+          .includes(String(filtros.disciplina).toLowerCase())
+      )
+        return false;
+      if (
+        filtros.conteudo &&
+        !String(s.avaliacao?.conteudo || s.titulo || "")
+          .toLowerCase()
+          .includes(String(filtros.conteudo).toLowerCase())
+      )
+        return false;
+      return true;
+    });
+
+    let filtradas = preFiltradas;
+    if (filtros.alunoId) {
+      const alunoFiltro = String(filtros.alunoId).trim();
+      const turmaFiltro = filtros.turmaId ? String(filtros.turmaId).trim() : null;
+      filtradas = [];
+      for (const s of preFiltradas) {
+        const roster = Array.isArray(s.roster) ? s.roster.map(String) : [];
+        const turmasEscopo = turmaFiltro
+          ? [turmaFiltro]
+          : Array.isArray(s.turmaIds)
+            ? s.turmaIds.map(String)
+            : [];
+        const idsEsperados = new Set(
+          turmasEscopo.map((tId) => String(this.idParticipante(tId, alunoFiltro))),
+        );
+        const matchRoster = roster.some((pid) => {
+          if (idsEsperados.has(pid)) return true;
+          if (pid === alunoFiltro) return true;
+          if (turmaFiltro) return pid === `${turmaFiltro}:${alunoFiltro}`;
+          return pid.endsWith(`:${alunoFiltro}`);
+        });
+        if (matchRoster) {
+          filtradas.push(s);
+          continue;
+        }
+        const participantesSala = await this.store.list(participantesPath(s.codigo));
+        const matchParticipante = (participantesSala || []).some(
+          (p) =>
+            p &&
+            String(p.alunoId) === alunoFiltro &&
+            (!turmaFiltro || String(p.turmaId) === turmaFiltro),
+        );
+        if (matchParticipante) {
+          filtradas.push(s);
+        }
+      }
+    }
+
+    filtradas.sort((a, b) => {
+      const diff = (Number(b.criadoEmMs) || 0) - (Number(a.criadoEmMs) || 0);
+      if (diff !== 0) return diff;
+      return String(b.codigo || "").localeCompare(String(a.codigo || ""));
+    });
+
+    let inicio = 0;
+    if (filtros.cursor) {
+      const [cMsStr, cCod] = String(filtros.cursor).split("_");
+      const cMs = Number(cMsStr);
+      if (Number.isFinite(cMs) && cCod) {
+        const idx = filtradas.findIndex(
+          (s) => (Number(s.criadoEmMs) || 0) === cMs && String(s.codigo) === cCod,
+        );
+        if (idx >= 0) inicio = idx + 1;
+        else {
+          const pos = filtradas.findIndex(
+            (s) =>
+              (Number(s.criadoEmMs) || 0) < cMs ||
+              ((Number(s.criadoEmMs) || 0) === cMs && String(s.codigo || "").localeCompare(cCod) < 0),
+          );
+          inicio = pos >= 0 ? pos : filtradas.length;
+        }
+      } else {
+        inicio = Math.max(Number(filtros.cursor) || 0, 0);
+      }
+    }
+
+    const itens = filtradas.slice(inicio, inicio + limite);
+    const ultimo = itens[itens.length - 1];
+    const proximoCursor =
+      inicio + itens.length < filtradas.length && ultimo
+        ? `${Number(ultimo.criadoEmMs) || 0}_${ultimo.codigo}`
+        : null;
+    return {
+      itens,
+      totalFiltrado: filtradas.length,
+      proximoCursor,
+    };
+  }
+
+  async carregarDadosRelatorio(codigo, reader = this.store) {
+    const sala = await reader.get(salaPath(codigo));
+    if (!sala) throw falha(404, "Sala não encontrada.");
+    const conteudos = [];
+    for (let i = 0; i < (sala.totalRodadas || 1); i++) {
+      const c = await reader.get(conteudoPath(codigo, i));
+      if (c) conteudos.push(c);
+    }
+    const participantes = await reader.list(participantesPath(codigo));
+    const respostas = await reader.list(respostasPath(codigo));
+    const avalDoc = (await reader.get(`${salaPath(codigo)}/avaliacao/estado`)) || {};
+    return { sala, conteudos, participantes, respostas, avalDoc };
+  }
+
+  async relatorioSala(ator, codigo) {
+    codigoSala(codigo);
+    const { sala, conteudos, participantes, respostas, avalDoc } =
+      await this.carregarDadosRelatorio(codigo);
+
+    const relatorio = gerarRelatorioSala({
+      sala,
+      conteudos,
+      participantes,
+      respostas,
+      revisoesPorParticipante: avalDoc.revisoesPorParticipante || {},
+      auditoria: avalDoc.auditoria || [],
+      zerarAusentes: Boolean(avalDoc.zerarAusentes),
+      sincronizacao: avalDoc.sincronizacao || null,
+    });
+
+    if (ator?.tipo === "professor") {
+      if (sala.professorId !== this.docente(ator)) {
+        throw falha(403, "Esta sala pertence a outro professor.");
+      }
+      return {
+        ...relatorio,
+        revision: sala.revision,
+        pendenciasAtualizacao: avalDoc.pendenciasAtualizacao || null,
+        versaoPublicada: avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada ?? null,
+      };
+    }
+
+    const { participanteId, participante } = await this.autorizarAluno(ator, sala, this.store);
+    if (!avalDoc.publicadoPortal) {
+      throw falha(403, "Este resultado ainda não foi disponibilizado pelo professor.");
+    }
+    const snapshotParticipante = avalDoc.snapshotPublicado?.porParticipante?.[participanteId] || null;
+    if (snapshotParticipante) {
+      return {
+        sala: avalDoc.snapshotPublicado.sala || relatorio.sala,
+        configuracaoCongelada:
+          avalDoc.snapshotPublicado.configuracaoCongelada || relatorio.configuracaoCongelada,
+        versaoPublicada: avalDoc.snapshotPublicado.versaoPublicada ?? null,
+        publicadaEmMs: avalDoc.snapshotPublicado.publicadaEmMs ?? null,
+        meuResultado: copia(snapshotParticipante),
+      };
+    }
+    const versaoAtiva = avalDoc.versaoPublicada;
+    if (versaoAtiva) {
+      const [versaoDoc, partDoc] = await Promise.all([
+        this.store.get(`${salaPath(codigo)}/avaliacaoVersoes/${versaoAtiva}`),
+        this.store.get(`${salaPath(codigo)}/avaliacaoPublicados/${versaoAtiva}_${participanteId}`),
+      ]);
+      if (versaoDoc && partDoc) {
+        const { detalhesCompactos = [], ...restoAluno } = partDoc;
+        const questoesBase = versaoDoc.questoesBase || {};
+        const detalhesQuestoes = detalhesCompactos.map((d) => {
+          const baseQ = questoesBase[String(d.rodada)] || {};
+          return {
+            ...d,
+            ...(baseQ.enunciado !== undefined ? { enunciado: baseQ.enunciado } : {}),
+            ...(baseQ.respostaCorreta !== undefined ? { respostaCorreta: baseQ.respostaCorreta } : {}),
+            ...(baseQ.explicacao !== undefined ? { explicacao: baseQ.explicacao } : {}),
+          };
+        });
+        return {
+          sala: versaoDoc.sala || relatorio.sala,
+          configuracaoCongelada: versaoDoc.configuracaoCongelada || relatorio.configuracaoCongelada,
+          versaoPublicada: versaoDoc.versaoPublicada ?? versaoAtiva,
+          publicadaEmMs: versaoDoc.publicadaEmMs ?? null,
+          meuResultado: {
+            ...restoAluno,
+            detalhesQuestoes,
+          },
+        };
+      }
+    }
+    if (avalDoc.pendenciasAtualizacao?.portalPendente) {
+      const resumoPortal = participante?.alunoId
+        ? await this.store.get(`aulaGamificadaPortal/${participante.alunoId}/avaliacoes/${codigo}`)
+        : null;
+      if (!resumoPortal) {
+        throw falha(409, "Resultado publicado em atualização; aguarde nova publicação do professor.");
+      }
+      return {
+        sala: relatorio.sala,
+        configuracaoCongelada: relatorio.configuracaoCongelada,
+        versaoPublicada: resumoPortal.versaoPublicada ?? null,
+        publicadaEmMs: resumoPortal.publicadaEmMs ?? null,
+        snapshotLegadoLimitado: true,
+        limitacoes: [
+          "Detalhes da versão publicada anterior indisponíveis neste registro legado até nova publicação docente.",
+        ],
+        meuResultado: {
+          participanteId,
+          alunoId: resumoPortal.alunoId,
+          turmaId: resumoPortal.turmaId,
+          nome: participante?.nomeExibicao || "Estudante",
+          situacao: resumoPortal.situacao,
+          aproveitamento: resumoPortal.aproveitamento,
+          notaFinal: resumoPortal.notaFinal,
+          detalhesQuestoes: [],
+          snapshotLegadoLimitado: true,
+        },
+      };
+    }
+    const meuResultado = relatorio.alunos.find((a) => a.participanteId === participanteId) || null;
+    if (!meuResultado) throw falha(404, "Participação não encontrada nesta sala.");
+    return {
+      sala: relatorio.sala,
+      configuracaoCongelada: relatorio.configuracaoCongelada,
+      meuResultado,
+    };
+  }
+
+  async reconstruirRelatorioDeCompacto(codigo, tx, compacto) {
+    const { sala, conteudos, participantes, respostas } = await this.carregarDadosRelatorio(codigo, tx);
+    return gerarRelatorioSala({
+      sala: { ...sala, revision: compacto.revision ?? sala.revision },
+      conteudos,
+      participantes,
+      respostas,
+      revisoesPorParticipante: compacto.revisoesPorParticipante || {},
+      auditoria: compacto.auditoria || [],
+      zerarAusentes: Boolean(compacto.zerarAusentes),
+      sincronizacao: compacto.sincronizacao || null,
+    });
+  }
+
+  async revisarNotaAvaliacao(ator, codigo, body = {}) {
+    const uid = this.docente(ator);
+    codigoSala(codigo);
+    const requestId = idRequisicao(body.requestId);
+    const chave = hashRequisicao("rev_nota", uid, codigo, requestId);
+
+    return this.store.transaction(async (tx) => {
+      const anterior = await tx.get(requisicaoPath(uid, chave));
+      if (anterior) {
+        if (anterior.resposta) return copia(anterior.resposta);
+        const relatorio = await this.reconstruirRelatorioDeCompacto(codigo, tx, anterior.compacto || {});
+        return { relatorio, revision: anterior.compacto?.revision };
+      }
+
+      const { sala, conteudos, participantes, respostas, avalDoc } =
+        await this.carregarDadosRelatorio(codigo, tx);
+      if (sala.professorId !== uid) throw falha(403, "Esta sala pertence a outro professor.");
+      if (sala.finalidade !== "avaliativa" || !sala.avaliacao) {
+        throw falha(422, "Apenas salas avaliativas permitem revisão formal de notas.");
+      }
+      if (sala.fase !== "encerrada") {
+        throw falha(409, "Encerre a partida antes de revisar notas.");
+      }
+      if (Number(body.expectedRevision) !== Number(sala.revision)) {
+        throw falha(409, "A sala mudou. Recarregue antes de revisar a nota.");
+      }
+
+      const pid = String(body.participanteId ?? "").trim();
+      if (!participantes.some((p) => p.id === pid)) {
+        throw falha(404, "Estudante não encontrado nesta sala.");
+      }
+      const brutoNota = body.notaRevisada;
+      if (
+        brutoNota === undefined ||
+        brutoNota === null ||
+        brutoNota === "" ||
+        typeof brutoNota === "boolean" ||
+        !Number.isFinite(Number(brutoNota))
+      ) {
+        throw falha(422, "Informe uma nota revisada numérica válida.");
+      }
+      const valorMax = Number(sala.avaliacao?.valorMaximo);
+      if (!Number.isFinite(valorMax) || valorMax <= 0) {
+        throw falha(422, "Valor máximo da avaliação inválido.");
+      }
+      const nota = arredondarDuasCasas(Number(brutoNota));
+      if (nota < 0 || nota > valorMax) {
+        throw falha(422, `A nota revisada deve estar entre 0 e ${valorMax}.`);
+      }
+      const justificativa = textoObrigatorio(body.justificativa, "justificativa da revisão", {
+        max: 500,
+      });
+
+      const agora = this.agora();
+      const revAnterior = avalDoc.revisoesPorParticipante?.[pid] || null;
+      const versao = (Number(revAnterior?.versao) || 0) + 1;
+      const revisoesPorParticipante = {
+        ...(avalDoc.revisoesPorParticipante || {}),
+        [pid]: { notaRevisada: nota, justificativa, versao, atualizadoEmMs: agora },
+      };
+      const auditoria = [
+        ...(avalDoc.auditoria || []),
+        {
+          id: this.gerarId(),
+          tipo: "revisao_nota",
+          participanteId: pid,
+          notaAnterior: revAnterior?.notaRevisada ?? null,
+          notaNova: nota,
+          justificativa,
+          versao,
+          professorId: uid,
+          criadoEmMs: agora,
+        },
+      ];
+
+      const novoAvalDoc = {
+        ...avalDoc,
+        revisoesPorParticipante,
+        auditoria,
+        ...(avalDoc.publicadoPortal ||
+        avalDoc.sincronizacao?.status === "sincronizada" ||
+        avalDoc.pendenciasAtualizacao?.portalPendente ||
+        avalDoc.pendenciasAtualizacao?.diarioPendente
+          ? {
+              pendenciasAtualizacao: {
+                portalPendente: Boolean(
+                  avalDoc.publicadoPortal || avalDoc.pendenciasAtualizacao?.portalPendente,
+                ),
+                diarioPendente:
+                  avalDoc.sincronizacao?.status === "sincronizada" ||
+                  Boolean(avalDoc.pendenciasAtualizacao?.diarioPendente),
+                revisaoVersao: versao,
+              },
+            }
+          : {}),
+        atualizadoEmMs: agora,
+      };
+      const novaSala = { ...sala, revision: sala.revision + 1, atualizadoEmMs: agora };
+      tx.set(`${salaPath(codigo)}/avaliacao/estado`, novoAvalDoc);
+      tx.set(salaPath(codigo), novaSala);
+
+      const relatorio = gerarRelatorioSala({
+        sala: novaSala,
+        conteudos,
+        participantes,
+        respostas,
+        revisoesPorParticipante,
+        auditoria,
+        zerarAusentes: Boolean(novoAvalDoc.zerarAusentes),
+        sincronizacao: novoAvalDoc.sincronizacao || null,
+      });
+      const resposta = { relatorio, revision: novaSala.revision };
+      const compacto = {
+        revision: novaSala.revision,
+        zerarAusentes: Boolean(novoAvalDoc.zerarAusentes),
+        revisoesPorParticipante,
+        auditoria,
+        sincronizacao: novoAvalDoc.sincronizacao || null,
+      };
+      tx.set(requisicaoPath(uid, chave), { tipo: "rev_nota", requestId, compacto, criadoEmMs: agora });
+      return resposta;
+    });
+  }
+
+  async finalizarAvaliacao(ator, codigo, body = {}) {
+    const uid = this.docente(ator);
+    codigoSala(codigo);
+    const requestId = idRequisicao(body.requestId);
+    const chave = hashRequisicao("fin_av", uid, codigo, requestId);
+
+    return this.store.transaction(async (tx) => {
+      const anterior = await tx.get(requisicaoPath(uid, chave));
+      if (anterior) {
+        if (anterior.resposta) return copia(anterior.resposta);
+        const relatorio = await this.reconstruirRelatorioDeCompacto(codigo, tx, anterior.compacto || {});
+        return {
+          relatorio,
+          revision: anterior.compacto?.revision,
+          publicadoPortal: Boolean(anterior.compacto?.publicadoPortal),
+        };
+      }
+
+      const { sala, conteudos, participantes, respostas, avalDoc } =
+        await this.carregarDadosRelatorio(codigo, tx);
+      if (sala.professorId !== uid) throw falha(403, "Esta sala pertence a outro professor.");
+      if (sala.fase !== "encerrada") {
+        throw falha(409, "Encerre a partida antes de finalizar a avaliação.");
+      }
+      if (Number(body.expectedRevision) !== Number(sala.revision)) {
+        throw falha(409, "A sala mudou. Recarregue antes de finalizar.");
+      }
+
+      // Ler todas as atividades antes de iniciar qualquer escrita (regra de transação Firestore).
+      const atividadesLidas = new Map();
+      if (sala.finalidade === "avaliativa" && sala.avaliacao) {
+        for (const tId of sala.turmaIds || []) {
+          const atvPath = `atividades/ag_${codigo}_${tId}`;
+          const atv = await tx.get(atvPath);
+          if (atv) atividadesLidas.set(atvPath, atv);
+        }
+      }
+
+      const agora = this.agora();
+      const zerarAusentes = Boolean(body.zerarAusentes);
+      const publicarPortal = Boolean(body.publicarPortal);
+      const relatorio = gerarRelatorioSala({
+        sala,
+        conteudos,
+        participantes,
+        respostas,
+        revisoesPorParticipante: avalDoc.revisoesPorParticipante || {},
+        auditoria: avalDoc.auditoria || [],
+        zerarAusentes,
+        sincronizacao: avalDoc.sincronizacao || null,
+      });
+
+      if (sala.finalidade === "avaliativa" && sala.avaliacao) {
+        for (const a of relatorio.alunos) {
+          if (!a.turmaId || typeof a.notaFinal !== "number") continue;
+          const activityId = `ag_${codigo}_${a.turmaId}`;
+          const entregaId = `ag_${codigo}_${a.turmaId}_${a.alunoId}`;
+          tx.set(`entregas/${entregaId}`, {
+            id: entregaId,
+            activityId,
+            professorId: uid,
+            turmaId: a.turmaId,
+            alunoId: a.alunoId,
+            bimestre: sala.avaliacao.bimestre,
+            origem: "aula_gamificada",
+            salaCodigo: codigo,
+            status: a.versaoRevisao > 0 ? "revisado" : "corrigido",
+            notaFinal: a.notaCalculada ?? a.notaFinal,
+            ...(a.notaRevisada !== null ? { notaRevisada: a.notaRevisada } : {}),
+            ...(a.justificativaRevisao ? { justificativaRevisao: a.justificativaRevisao } : {}),
+            aproveitamento: a.aproveitamento,
+            situacao: a.situacao,
+            atualizadoEmMs: agora,
+          });
+        }
+
+        for (const [atvPath, atv] of atividadesLidas.entries()) {
+          tx.set(atvPath, {
+            ...atv,
+            status: publicarPortal ? "publicada" : "finalizada",
+            atualizadoEmMs: agora,
+          });
+        }
+      }
+
+      const versaoPublicada = publicarPortal
+        ? (Number(avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada) || 0) + 1
+        : (avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada ?? null);
+
+      const { snapshotPublicado: _legacySnap, ...avalSemLegacy } = avalDoc;
+      const novoAvalDoc = {
+        ...(publicarPortal ? avalSemLegacy : avalDoc),
+        finalizada: true,
+        finalizadaEmMs: agora,
+        zerarAusentes,
+        publicadoPortal: publicarPortal || Boolean(avalDoc.publicadoPortal),
+        ...(publicarPortal
+          ? {
+              versaoPublicada,
+              publicadaEmMs: agora,
+              ...(avalDoc.pendenciasAtualizacao
+                ? {
+                    pendenciasAtualizacao: {
+                      ...avalDoc.pendenciasAtualizacao,
+                      portalPendente: false,
+                    },
+                  }
+                : {}),
+            }
+          : {}),
+      };
+      const novaSala = { ...sala, revision: sala.revision + 1, atualizadoEmMs: agora };
+      tx.set(`${salaPath(codigo)}/avaliacao/estado`, novoAvalDoc);
+      tx.set(salaPath(codigo), novaSala);
+
+      if (publicarPortal) {
+        const questoesBase = {};
+        for (const a of relatorio.alunos) {
+          for (const d of a.detalhesQuestoes || []) {
+            const rk = String(d.rodada);
+            if (!questoesBase[rk]) {
+              questoesBase[rk] = {
+                rodada: d.rodada,
+                ...(d.enunciado !== undefined ? { enunciado: d.enunciado } : {}),
+                ...(d.respostaCorreta !== undefined ? { respostaCorreta: d.respostaCorreta } : {}),
+                ...(d.explicacao !== undefined ? { explicacao: d.explicacao } : {}),
+              };
+            }
+          }
+        }
+        tx.set(`${salaPath(codigo)}/avaliacaoVersoes/${versaoPublicada}`, {
+          versaoPublicada,
+          publicadaEmMs: agora,
+          sala: copia(relatorio.sala),
+          configuracaoCongelada: copia(relatorio.configuracaoCongelada),
+          questoesBase,
+        });
+        for (const a of relatorio.alunos) {
+          const { detalhesQuestoes = [], ...restoAluno } = a;
+          const detalhesCompactos = detalhesQuestoes.map(
+            ({ enunciado: _e, respostaCorreta: _r, explicacao: _x, ...restoDet }) => restoDet,
+          );
+          tx.set(`${salaPath(codigo)}/avaliacaoPublicados/${versaoPublicada}_${a.participanteId}`, {
+            ...restoAluno,
+            detalhesCompactos,
+          });
+        }
+      }
+
+      if (publicarPortal && sala.finalidade === "avaliativa") {
+        for (const a of relatorio.alunos) {
+          if (!a.turmaId || typeof a.notaFinal !== "number") continue;
+          const recPath = `aulaGamificadaPortal/${a.alunoId}/avaliacoes/${codigo}`;
+          tx.set(recPath, {
+            codigo,
+            professorId: uid,
+            turmaId: a.turmaId,
+            alunoId: a.alunoId,
+            titulo: sala.avaliacao.tituloAtividade,
+            disciplina: sala.avaliacao.disciplina,
+            conteudo: sala.avaliacao.conteudo || "",
+            modalidade: sala.modalidade,
+            bimestre: sala.avaliacao.bimestre,
+            anoLetivo: sala.avaliacao.anoLetivo,
+            valorMaximo: sala.avaliacao.valorMaximo,
+            aproveitamento: a.aproveitamento,
+            notaFinal: a.notaFinal,
+            situacao: a.situacao,
+            versaoPublicada,
+            versaoRevisao: a.versaoRevisao ?? 0,
+            publicadaEmMs: agora,
+          });
+        }
+      }
+
+      const resposta = { relatorio, revision: novaSala.revision, publicadoPortal: novoAvalDoc.publicadoPortal };
+      const compacto = {
+        revision: novaSala.revision,
+        publicadoPortal: novoAvalDoc.publicadoPortal,
+        versaoPublicada,
+        zerarAusentes,
+        revisoesPorParticipante: copia(novoAvalDoc.revisoesPorParticipante || {}),
+        auditoria: copia(novoAvalDoc.auditoria || []),
+        sincronizacao: copia(novoAvalDoc.sincronizacao || null),
+      };
+      tx.set(requisicaoPath(uid, chave), { tipo: "fin_av", requestId, compacto, criadoEmMs: agora });
+      return resposta;
+    });
+  }
+
+  async sincronizarDiario(ator, codigo, body = {}) {
+    const uid = this.docente(ator);
+    codigoSala(codigo);
+    const requestId = idRequisicao(body.requestId);
+    const dryRun = Boolean(body.dryRun);
+    const chave = hashRequisicao(dryRun ? "sync_prev" : "sync_real", uid, codigo, requestId);
+
+    return this.store.transaction(async (tx) => {
+      if (!dryRun) {
+        const anterior = await tx.get(requisicaoPath(uid, chave));
+        if (anterior) return copia(anterior.resposta);
+      }
+
+      const { sala, conteudos, participantes, respostas, avalDoc } =
+        await this.carregarDadosRelatorio(codigo, tx);
+      if (sala.professorId !== uid) throw falha(403, "Esta sala pertence a outro professor.");
+      if (sala.finalidade !== "avaliativa" || !sala.avaliacao) {
+        throw falha(422, "Apenas salas avaliativas podem ser sincronizadas com o Diário.");
+      }
+      if (sala.fase !== "encerrada" || avalDoc.finalizada !== true) {
+        throw falha(409, "Conclua e finalize a avaliação antes de sincronizar com o Diário.");
+      }
+      if (Number(body.expectedRevision) !== Number(sala.revision)) {
+        throw falha(409, "A sala mudou. Confira o relatório atualizado antes de sincronizar.");
+      }
+
+      let diarioPath = `professores/${uid}/turmas/data`;
+      let diarioDoc = await tx.get(diarioPath);
+      if (!diarioDoc || !Array.isArray(diarioDoc.turmas)) {
+        for (const legadoPath of [`users/${uid}/turmas/data`, `professores/${uid}`]) {
+          const cand = await tx.get(legadoPath);
+          if (cand && Array.isArray(cand.turmas) && cand.turmas.length) {
+            diarioDoc = cand;
+            diarioPath = legadoPath;
+            break;
+          }
+        }
+      }
+      if (!diarioDoc || !Array.isArray(diarioDoc.turmas)) {
+        throw falha(404, "Diário de turmas não encontrado.");
+      }
+      if (
+        !dryRun &&
+        body.diarioRevisionEsperada !== undefined &&
+        Number(body.diarioRevisionEsperada) !== Number(diarioDoc.revision || 0)
+      ) {
+        throw falha(409, "O Diário mudou desde a prévia. Gere uma nova prévia antes de sincronizar.");
+      }
+
+      const relatorio = gerarRelatorioSala({
+        sala,
+        conteudos,
+        participantes,
+        respostas,
+        revisoesPorParticipante: avalDoc.revisoesPorParticipante || {},
+        auditoria: avalDoc.auditoria || [],
+        zerarAusentes: Boolean(avalDoc.zerarAusentes),
+        sincronizacao: avalDoc.sincronizacao || null,
+      });
+
+      const turmaFiltro = Array.isArray(body.turmaIds) && body.turmaIds.length
+        ? body.turmaIds.map(String)
+        : sala.turmaIds.map(String);
+
+      const bimestre = String(sala.avaliacao.bimestre);
+      const valorMaxAval = Number(sala.avaliacao.valorMaximo);
+      const novasTurmas = diarioDoc.turmas.map((t) => ({ ...t }));
+      const alteracoes = [];
+      const conflitos = [];
+      const linhasDetalhadas = [];
+      const pendencias = [];
+
+      for (const tId of turmaFiltro) {
+        const tIdx = novasTurmas.findIndex((t) => String(t.id) === String(tId));
+        if (tIdx < 0) {
+          pendencias.push({ tipo: "turma_ausente", turmaId: tId, motivo: "Turma não encontrada no Diário." });
+          continue;
+        }
+        const turma = novasTurmas[tIdx];
+        const anoAtualTurma = anoLetivoTurma(turma) ? String(anoLetivoTurma(turma)) : "legado";
+        const anoAvaliacao =
+          String(sala.avaliacao.anoLetivo || "legado").trim().toLowerCase() === "legado"
+            ? "legado"
+            : String(sala.avaliacao.anoLetivo).trim();
+        if (anoAtualTurma !== anoAvaliacao) {
+          throw falha(
+            422,
+            `Ano letivo incompatível para a turma ${turma.nome || tId}: avaliação congelada em ${anoAvaliacao}, mas o Diário está em ${anoAtualTurma}.`,
+          );
+        }
+        const bData = turma.bimestres?.[bimestre] || { atividades: [], notas: {} };
+        const atvs = [...(bData.atividades || [])];
+        const colunaCfg =
+          body.colunaPorTurma?.[tId] || sala.avaliacao.colunaPorTurma?.[tId] || {};
+
+        let atvId;
+        let colunaNome;
+        let colunaMax = valorMaxAval;
+
+        if (colunaCfg.atvId) {
+          const existente = atvs.find((a) => String(a.id) === String(colunaCfg.atvId));
+          if (!existente) {
+            throw falha(422, `A coluna selecionada (${colunaCfg.atvId}) não existe na turma ${turma.nome || tId}.`);
+          }
+          const maxExistente = Number(existente.max ?? existente.notaMaxima);
+          if (Number.isFinite(maxExistente) && maxExistente !== valorMaxAval) {
+            throw falha(
+              422,
+              `Escala incompatível: coluna "${existente.nome || existente.id}" tem máximo ${maxExistente}, mas a avaliação vale ${valorMaxAval}.`,
+            );
+          }
+          atvId = String(existente.id);
+          colunaNome = existente.nome || existente.titulo || sala.avaliacao.tituloAtividade;
+          colunaMax = maxExistente || valorMaxAval;
+        } else {
+          atvId = `ag_${codigo}_${tId}`;
+          const jaCriada = atvs.find((a) => String(a.id) === atvId);
+          if (jaCriada) {
+            const maxJa = Number(jaCriada.max ?? jaCriada.notaMaxima);
+            if (Number.isFinite(maxJa) && maxJa !== valorMaxAval) {
+              throw falha(422, `Escala incompatível na coluna ${atvId} (máximo ${maxJa} vs ${valorMaxAval}).`);
+            }
+            colunaNome = jaCriada.nome || sala.avaliacao.tituloAtividade;
+            colunaMax = maxJa || valorMaxAval;
+          } else {
+            colunaNome = colunaCfg.nomeColuna || sala.avaliacao.tituloAtividade;
+            atvs.push({ id: atvId, nome: colunaNome, max: valorMaxAval });
+          }
+        }
+
+        const notas = { ...(bData.notas || {}) };
+        for (const a of relatorio.alunos) {
+          if (String(a.turmaId) !== String(tId)) continue;
+          if (typeof a.notaFinal !== "number") {
+            pendencias.push({
+              tipo: "sem_nota",
+              turmaId: tId,
+              alunoId: a.alunoId,
+              nome: a.nome,
+              situacao: a.situacao,
+            });
+            continue;
+          }
+          if (!(turma.alunos || []).some((al) => String(al.id) === String(a.alunoId))) {
+            pendencias.push({ tipo: "aluno_fora_turma", turmaId: tId, alunoId: a.alunoId, nome: a.nome });
+            continue;
+          }
+          const notaAtual = notas[a.alunoId]?.[atvId];
+          const temConflito = typeof notaAtual === "number" && notaAtual !== a.notaFinal;
+          if (temConflito) {
+            conflitos.push({
+              turmaId: tId,
+              alunoId: a.alunoId,
+              atvId,
+              notaExistente: notaAtual,
+              notaNova: a.notaFinal,
+            });
+          }
+          linhasDetalhadas.push({
+            turmaId: tId,
+            turmaNome: turma.nome || tId,
+            alunoId: a.alunoId,
+            alunoNome: a.nome,
+            atvId,
+            colunaNome,
+            valorMaximoColuna: colunaMax,
+            notaAtual: typeof notaAtual === "number" ? notaAtual : null,
+            notaNova: a.notaFinal,
+            conflito: temConflito,
+          });
+          notas[a.alunoId] = { ...(notas[a.alunoId] || {}), [atvId]: a.notaFinal };
+          alteracoes.push({ turmaId: tId, alunoId: a.alunoId, bimestre, atvId });
+        }
+
+        novasTurmas[tIdx] = {
+          ...turma,
+          bimestres: {
+            ...(turma.bimestres || {}),
+            [bimestre]: { ...bData, atividades: atvs, notas },
+          },
+        };
+      }
+
+      if (dryRun) {
+        return {
+          previa: {
+            alteracoes,
+            conflitos,
+            linhasDetalhadas,
+            pendencias,
+            bimestre,
+            valorMaximo: valorMaxAval,
+            diarioRevision: Number(diarioDoc.revision) || 0,
+          },
+        };
+      }
+
+      if (conflitos.length > 0 && !body.confirmarSobrescrita) {
+        throw falha(
+          409,
+          "Existem notas diferentes já lançadas na coluna selecionada. Confirme a sobrescrita na prévia antes de sincronizar.",
+        );
+      }
+
+      const agora = this.agora();
+      const sincronizadas = alteracoes.length;
+      if (sincronizadas > 0) {
+        tx.set(diarioPath, {
+          ...diarioDoc,
+          turmas: novasTurmas,
+          revision: (Number(diarioDoc.revision) || 0) + 1,
+          lastUpdated: agora,
+        });
+      }
+
+      const novaSincronizacao = {
+        status: sincronizadas > 0 && pendencias.length === 0 ? "sincronizada" : pendencias.length > 0 ? "pendente" : "sem_lancamentos",
+        sincronizadaEmMs: agora,
+        sincronizadas,
+        pendencias,
+      };
+      tx.set(`${salaPath(codigo)}/avaliacao/estado`, {
+        ...avalDoc,
+        sincronizacao: novaSincronizacao,
+        ...(avalDoc.pendenciasAtualizacao ? { pendenciasAtualizacao: { ...avalDoc.pendenciasAtualizacao, diarioPendente: false } } : {}),
+        atualizadoEmMs: agora,
+      });
+
+      const resposta = {
+        sincronizadas,
+        alteracoes,
+        pendencias,
+        sincronizacao: novaSincronizacao,
+      };
+      tx.set(requisicaoPath(uid, chave), { tipo: "sync_real", requestId, resposta, criadoEmMs: agora });
+      return resposta;
+    });
+  }
+
+  async minhasAvaliacoes(ator) {
+    if (ator?.tipo !== "aluno") {
+      throw falha(403, "Entre com a conta de estudante para consultar suas avaliações.");
+    }
+    const loginKey = segmento(String(ator.loginKey ?? ""), { campo: "login do aluno", max: 200 });
+    const vinculos = await this.store.list(`alunoLogin/${loginKey}/vinculos`);
+    const ativos = vinculos.filter((v) => v && v.revogado !== true && v.alunoId);
+    const avaliacoes = [];
+    for (const v of ativos) {
+      const lista = await this.store.list(`aulaGamificadaPortal/${v.alunoId}/avaliacoes`);
+      for (const item of lista) {
+        if (String(item.turmaId) === String(v.turmaId) && String(item.professorId) === String(v.professorUid)) {
+          avaliacoes.push(item);
+        }
+      }
+    }
+    avaliacoes.sort((a, b) => (Number(b.publicadaEmMs) || 0) - (Number(a.publicadaEmMs) || 0));
+    return { avaliacoes };
   }
 }

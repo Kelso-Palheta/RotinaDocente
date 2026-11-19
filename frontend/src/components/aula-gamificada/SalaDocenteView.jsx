@@ -18,6 +18,7 @@ import {
 } from './constantes';
 import JogoHerois from './jogos/JogoHerois';
 import JogoTabuleiro from './jogos/JogoTabuleiro';
+import RelatorioAvaliacao from './RelatorioAvaliacao';
 
 function ControlesTransicao({ estado, ocupado, bloqueado, onComando, segundos }) {
   const fase = estado?.fase || 'espera';
@@ -236,6 +237,9 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="arte-selo">{modalidadeInfo.nome}</span>
+                  <span className="rounded-full bg-[#E7DBFD] px-3 py-0.5 text-xs font-black text-[#25104A]">
+                    {estado.finalidade === 'avaliativa' ? 'Avaliativa' : 'Revisão'}
+                  </span>
                   <span className="rounded-full bg-[#00DDEB] px-3 py-0.5 text-xs font-black text-[#25104A]">
                     {FASES_ROTULO[fase] || fase}
                   </span>
@@ -511,6 +515,10 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                   )}
                 </aside>
               </div>
+            )}
+
+            {fase === 'encerrada' && !projecao && (
+              <RelatorioAvaliacao codigo={codigo} obterToken={obterToken} />
             )}
 
             {/* FASE: RANKING OU ENCERRADA */}

@@ -8,6 +8,7 @@ export const EntregaDrawer = ({ entrega, atividade, alunoNome, onManual, onCorri
   const [erro, setErro] = useState('');
   const notaAtual = entrega.notaRevisada ?? entrega.notaFinal;
   const questoes = atividade?.questoes || [];
+  const ehGamificada = atividade?.origem === 'aula_gamificada' || entrega?.origem === 'aula_gamificada';
   const corrigirIA = async () => {
     setErro('');
     try { await onCorrigir(); } catch (error) { setErro(error.message || 'Falha na correção.'); }
@@ -27,10 +28,16 @@ export const EntregaDrawer = ({ entrega, atividade, alunoNome, onManual, onCorri
             {entrega.notaIA != null && <p className="text-xs text-[#5b4b86]">Nota IA anterior: {fmt(entrega.notaIA)}</p>}
             {entrega.tipoCorrecao === 'manual' || entrega.status === 'revisado' ? <p className="text-xs text-[#5b4b86]">Correção manual do professor</p> : entrega.modeloIA && <p className="text-xs text-[#5b4b86]">Modelo: {entrega.modeloIA}</p>}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <button type="button" disabled={corrigindo || manual} onClick={corrigirIA} className="btn-brand-primary px-3 py-2.5 text-sm">{corrigindo ? 'Corrigindo…' : 'Corrigir com IA'}</button>
-            <button type="button" disabled={corrigindo} onClick={() => setManual(true)} className="btn-brand-navy px-3 py-2.5 text-sm">Corrigir manualmente</button>
-          </div>
+          {ehGamificada ? (
+            <p role="status" className="text-xs font-bold text-[#25104A] bg-[#F3EDFF] border border-[#E2D9F7] rounded-xl p-3">
+              Avaliação validada automaticamente na Aula Gamificada. Consulte o relatório completo e revisão auditada no módulo Aula Gamificada.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button type="button" disabled={corrigindo || manual} onClick={corrigirIA} className="btn-brand-primary px-3 py-2.5 text-sm">{corrigindo ? 'Corrigindo…' : 'Corrigir com IA'}</button>
+              <button type="button" disabled={corrigindo} onClick={() => setManual(true)} className="btn-brand-navy px-3 py-2.5 text-sm">Corrigir manualmente</button>
+            </div>
+          )}
           {!questoes.length && entrega.avisosCorrecao?.length > 0 && <p role="status" className="text-xs text-[#25104A] bg-[#F3EDFF] border border-[#E2D9F7] rounded-lg p-3">{entrega.avisosCorrecao.join(" ")}</p>}
           {erro && <p role="alert" className="text-sm text-[#5411B8]">{erro}</p>}
           {manual && <CorrecaoManualForm atividade={atividade} entrega={entrega} onCancel={() => setManual(false)} onSave={async dados => {

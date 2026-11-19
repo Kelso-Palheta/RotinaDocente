@@ -10,7 +10,9 @@ import { CatalogoModalidades } from './CatalogoModalidades';
 import { BancoQuestoes } from './BancoQuestoes';
 import { GeradorIAQuestoes } from './GeradorIAQuestoes';
 import { PrepararSala } from './PrepararSala';
-import { buscarCatalogo } from './api';
+import HistoricoAvaliacoes from './HistoricoAvaliacoes';
+import RelatorioAvaliacao from './RelatorioAvaliacao';
+import * as apiAula from './api';
 
 const CATALOGO_VAZIO = {
   donoUid: null,
@@ -18,6 +20,7 @@ const CATALOGO_VAZIO = {
   turmas: [],
   questoes: [],
   salas: [],
+  contextoAvaliacao: null,
 };
 
 /**
@@ -32,8 +35,12 @@ function HubDocenteAutenticado({ uid, obterToken }) {
   const [tentativaCarga, setTentativaCarga] = useState(0);
 
   const [modalidadeSalaInicial, setModalidadeSalaInicial] = useState('quiz');
+  const [modalidadeGerarInicial, setModalidadeGerarInicial] = useState('quiz');
+  const [questaoIdsGuia, setQuestaoIdsGuia] = useState([]);
   const [tipoGerarInicial, setTipoGerarInicial] = useState('multipla_escolha');
   const [tipoCriarInicial, setTipoCriarInicial] = useState(null);
+  const [codigoRelatorioAberto, setCodigoRelatorioAberto] = useState(null);
+  const [rascunhosGerador, setRascunhosGerador] = useState([]);
 
   const tentarNovamente = useCallback(() => {
     setCarregando(true);
@@ -45,8 +52,21 @@ function HubDocenteAutenticado({ uid, obterToken }) {
     const controller = new AbortController();
     let ativo = true;
 
-    buscarCatalogo({ obterToken, signal: controller.signal })
-      .then((dados) => {
+    const obterCtx = (() => {
+      try {
+        return typeof apiAula.obterContextoAvaliacao === 'function' ? apiAula.obterContextoAvaliacao : null;
+      } catch {
+        return null;
+      }
+    })();
+
+    Promise.all([
+      apiAula.buscarCatalogo({ obterToken, signal: controller.signal }),
+      obterCtx
+        ? obterCtx({ obterToken, signal: controller.signal }).catch(() => null)
+        : Promise.resolve(null),
+    ])
+      .then(([dados, contextoAv]) => {
         if (!ativo || controller.signal.aborted) return;
         // Confirma novamente que o Firebase continua autenticado na mesma conta.
         if (auth?.currentUser?.uid && auth.currentUser.uid !== uid) return;
@@ -56,6 +76,7 @@ function HubDocenteAutenticado({ uid, obterToken }) {
           turmas: Array.isArray(dados?.turmas) ? dados.turmas : [],
           questoes: Array.isArray(dados?.questoes) ? dados.questoes : [],
           salas: Array.isArray(dados?.salas) ? dados.salas : [],
+          contextoAvaliacao: contextoAv || null,
         });
         setErroCarga(null);
         setCarregando(false);
@@ -88,6 +109,7 @@ function HubDocenteAutenticado({ uid, obterToken }) {
     { id: 'banco', rotulo: 'Banco de Questões', icone: '📚', contagem: catalogoSeguro.questoes.length },
     { id: 'gerar', rotulo: 'Gerar com IA', icone: '✨' },
     { id: 'salas', rotulo: 'Preparar Sala', icone: '🚀', contagem: catalogoSeguro.salas.length },
+    { id: 'historico', rotulo: 'Histórico e Avaliações', icone: '📊' },
   ];
 
   const integrarQuestao = (novaOuAtualizada) => {
@@ -166,10 +188,12 @@ function HubDocenteAutenticado({ uid, obterToken }) {
                 modalidadesServidor={catalogoSeguro.modalidades}
                 onSelecionarParaSala={(modId) => {
                   setModalidadeSalaInicial(modId);
+                  setQuestaoIdsGuia([]);
                   setAbaAtiva('salas');
                 }}
-                onSelecionarParaGerar={(tipo) => {
+                onSelecionarParaGerar={(tipo, modId) => {
                   setTipoGerarInicial(tipo);
+                  if (modId) setModalidadeGerarInicial(modId);
                   setAbaAtiva('gerar');
                 }}
                 onCriarManual={(tipo) => {
@@ -192,25 +216,54 @@ function HubDocenteAutenticado({ uid, obterToken }) {
 
             {abaAtiva === 'gerar' && (
               <GeradorIAQuestoes
-                key={`${uid}:${tipoGerarInicial}`}
+                key={`${uid}:${modalidadeGerarInicial}:${tipoGerarInicial}`}
                 uid={uid}
                 obterToken={obterToken}
+                modalidadeInicial={modalidadeGerarInicial}
+                modalidadesServidor={catalogoSeguro.modalidades}
                 tipoInicial={tipoGerarInicial}
+                rascunhosExternos={rascunhosGerador}
+                onRascunhosChange={setRascunhosGerador}
                 onQuestaoSalva={integrarQuestao}
+                onContinuarParaSala={({ modalidade, questaoIds }) => {
+                  setModalidadeSalaInicial(modalidade || modalidadeGerarInicial);
+                  setQuestaoIdsGuia(questaoIds || []);
+                  setAbaAtiva('salas');
+                }}
               />
             )}
 
             {abaAtiva === 'salas' && (
               <PrepararSala
-                key={`${uid}:${modalidadeSalaInicial}`}
+                key={`${uid}:${modalidadeSalaInicial}:${questaoIdsGuia.join(',')}`}
                 modalidadesServidor={catalogoSeguro.modalidades}
                 turmas={catalogoSeguro.turmas}
+                contextoAvaliacao={catalogoSeguro.contextoAvaliacao}
                 questoes={catalogoSeguro.questoes}
                 salas={catalogoSeguro.salas}
                 modalidadeInicial={modalidadeSalaInicial}
+                questaoIdsIniciais={questaoIdsGuia}
                 obterToken={obterToken}
                 onSalaCriada={integrarSala}
               />
+            )}
+
+            {abaAtiva === 'historico' && (
+              <div className="space-y-6">
+                <HistoricoAvaliacoes
+                  turmas={catalogoSeguro.turmas}
+                  contextoAvaliacao={catalogoSeguro.contextoAvaliacao}
+                  obterToken={obterToken}
+                  onAbrirRelatorio={(codigo) => setCodigoRelatorioAberto(codigo)}
+                />
+                {codigoRelatorioAberto && (
+                  <RelatorioAvaliacao
+                    key={codigoRelatorioAberto}
+                    codigo={codigoRelatorioAberto}
+                    obterToken={obterToken}
+                  />
+                )}
+              </div>
             )}
           </div>
         )}

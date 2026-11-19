@@ -1,0 +1,74 @@
+
+> simuladoapp-edu@0.1.0 build
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 13.7s
+  Running TypeScript ...
+  Finished TypeScript in 633ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/41) ...
+  Generating static pages using 7 workers (10/41)
+  Generating static pages using 7 workers (20/41)
+  Generating static pages using 7 workers (30/41)
+✓ Generating static pages using 7 workers (41/41) in 698ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /adaptacoes
+├ ○ /agentes
+├ ○ /agentes/linguagens
+├ ○ /aluno
+├ ƒ /aluno/atividade/[id]
+├ ○ /aluno/aula-gamificada
+├ ƒ /aluno/aula-gamificada/[codigo]
+├ ○ /aluno/notas
+├ ○ /aluno/revisao
+├ ○ /analytics
+├ ƒ /api/adaptacoes/extrair-documento
+├ ƒ /api/adaptacoes/gerar
+├ ƒ /api/adaptacoes/imagem
+├ ƒ /api/adaptacoes/imagem-fallback
+├ ƒ /api/adaptacoes/verificar-imagem
+├ ƒ /api/agentes
+├ ƒ /api/ai/test
+├ ƒ /api/aluno/atividade/[id]
+├ ƒ /api/aluno/boletim
+├ ƒ /api/aluno/entregar
+├ ƒ /api/aluno/login
+├ ƒ /api/aluno/logout
+├ ƒ /api/aluno/redacao/[id]
+├ ƒ /api/aluno/sessao
+├ ƒ /api/aula-gamificada/[...partes]
+├ ƒ /api/calendario/importar
+├ ƒ /api/corrigir
+├ ƒ /api/extrair
+├ ƒ /api/integracao/simulado
+├ ƒ /api/maritaca
+├ ƒ /api/publicar-notas
+├ ƒ /api/revisao/[...partes]
+├ ○ /atividades
+├ ○ /aula-gamificada
+├ ƒ /aula-gamificada/projecao/[codigo]
+├ ƒ /aula-gamificada/sala/[codigo]
+├ ○ /calendario
+├ ○ /diario
+├ ○ /horario
+├ ○ /meuhorario
+├ ○ /redacao
+├ ○ /redacao/aluno
+├ ƒ /redacao/aluno/[id]
+├ ○ /redacao/criterios
+├ ○ /redacao/desempenho
+├ ○ /revisao
+├ ƒ /revisao/projecao/[codigo]
+└ ƒ /revisao/sala/[codigo]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

@@ -1,0 +1,56 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests --maxWorkers=6
+
+
+ RUN  v4.1.11 /private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend
+
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at /private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:39:12
+    at Object.react_stack_bottom_frame (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.play
+    at module.exports (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.play (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:118:5)
+    at HTMLAudioElement.play (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:148:60)
+    at /private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:36:22
+    at Object.react_stack_bottom_frame (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at /private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:39:12
+    at Object.react_stack_bottom_frame (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at /private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:39:12
+    at Object.react_stack_bottom_frame (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/private/var/folders/pg/0brfy8dx1fv8b8vccbtdf4w40000gn/T/rd-av-release-sobfjlau/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+
+ Test Files  370 passed | 4 skipped (374)
+      Tests  1698 passed | 10 skipped (1708)
+   Start at  08:59:22
+   Duration  91.75s (transform 15.84s, setup 55.09s, import 119.36s, tests 111.43s, environment 154.74s)

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSalaGamificada } from './useSalaGamificada';
 import { SalaAlunoView } from './SalaAlunoView';
 import { MODALIDADES_PADRAO, normalizarCodigoSala } from './constantes';
+import { obterMinhasAvaliacoes, obterRelatorioSala } from './api';
 
 function SalaAlunoConectada({ codigo, loginKey, onTrocarSala }) {
   const { estado, conexao, erro, ocupado, reconectar, enviarResposta } = useSalaGamificada({
@@ -67,6 +68,9 @@ function SalaAlunoConectada({ codigo, loginKey, onTrocarSala }) {
 
 export function AcessoAlunoView({ codigoInicial = '' }) {
   const [sessao, setSessao] = useState(null);
+  const [minhasAvaliacoes, setMinhasAvaliacoes] = useState([]);
+  const [relatorioAluno, setRelatorioAluno] = useState(null);
+  const [erroRelatorio, setErroRelatorio] = useState(null);
   const [erroSessao, setErroSessao] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [codigoDigitado, setCodigoDigitado] = useState(() => normalizarCodigoSala(codigoInicial));
@@ -104,6 +108,11 @@ export function AcessoAlunoView({ codigoInicial = '' }) {
         }
         setSessao(dados.aluno);
         setErroSessao(null);
+        obterMinhasAvaliacoes({ signal: controller.signal })
+          .then((av) => {
+            if (ativo && Array.isArray(av?.avaliacoes)) setMinhasAvaliacoes(av.avaliacoes);
+          })
+          .catch(() => {});
       } catch (e) {
         if (ativo && e?.name !== 'AbortError') {
           setSessao(null);
@@ -199,8 +208,92 @@ export function AcessoAlunoView({ codigoInicial = '' }) {
               </button>
             </form>
             <p className="text-xs text-[#E7DBFD]">
-              Sua resposta vale somente após confirmação do servidor. Esta atividade não altera suas notas.
+              Sua resposta vale somente após confirmação do servidor. Salas de revisão não alteram suas notas; avaliações publicadas aparecem abaixo.
             </p>
+            {minhasAvaliacoes.length > 0 && (
+              <div className="rounded-2xl border border-[#B9A6EF]/40 bg-[#1B0A3B]/80 p-4 space-y-2">
+                <h2 className="text-xs font-black uppercase tracking-wider text-[#FFE500]">
+                  Minhas Avaliações (Portal)
+                </h2>
+                <ul className="space-y-2 text-xs">
+                  {minhasAvaliacoes.map((av) => (
+                    <li
+                      key={av.codigo}
+                      className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white/10 px-3 py-2"
+                    >
+                      <div>
+                        <strong className="block text-white">{av.titulo}</strong>
+                        <span className="text-[#E7DBFD]">
+                          {av.disciplina} · {av.bimestre}º Bim · {av.modalidade}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-black text-[#B9EF00]">
+                          {typeof av.notaFinal === 'number' ? av.notaFinal.toFixed(2) : '-'} / {av.valorMaximo}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            setErroRelatorio(null);
+                            try {
+                              const r = await obterRelatorioSala({ codigo: av.codigo });
+                              setRelatorioAluno(r);
+                            } catch (e) {
+                              setErroRelatorio(e?.message || 'Não foi possível abrir a devolutiva.');
+                            }
+                          }}
+                          className="rounded-lg bg-[#FFE500] px-2.5 py-1 text-[11px] font-black text-[#25104A]"
+                        >
+                          Ver devolutiva
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                {erroRelatorio && <p role="alert" className="text-xs font-bold text-amber-200">{erroRelatorio}</p>}
+                {relatorioAluno?.meuResultado && (
+                  <div className="rounded-xl border border-[#00DDEB]/50 bg-[#12062A] p-3 space-y-2 text-xs">
+                    <div className="flex items-center justify-between">
+                      <strong className="text-[#00DDEB]">
+                        Devolutiva — {relatorioAluno.configuracaoCongelada?.tituloAtividade || relatorioAluno.sala?.titulo}
+                      </strong>
+                      <button
+                        type="button"
+                        onClick={() => setRelatorioAluno(null)}
+                        className="text-[#E7DBFD] underline"
+                      >
+                        Fechar
+                      </button>
+                    </div>
+                    <p>
+                      Nota final:{' '}
+                      <strong className="text-[#B9EF00]">
+                        {typeof relatorioAluno.meuResultado.notaFinal === 'number'
+                          ? relatorioAluno.meuResultado.notaFinal.toFixed(2)
+                          : '-'}
+                      </strong>{' '}
+                      · Respondidas: {relatorioAluno.meuResultado.respondidas}/{relatorioAluno.meuResultado.elegiveis}
+                    </p>
+                    {relatorioAluno.meuResultado.justificativaRevisao && (
+                      <p className="text-amber-200">
+                        Revisão docente: {relatorioAluno.meuResultado.justificativaRevisao}
+                      </p>
+                    )}
+                    <ul className="space-y-1.5">
+                      {(relatorioAluno.meuResultado.detalhesQuestoes || []).map((q) => (
+                        <li key={q.rodada} className="rounded-lg bg-white/5 p-2">
+                          <strong className="block text-white">Q{q.rodada}: {q.enunciado}</strong>
+                          <span className="block text-[#E7DBFD]">
+                            Status: {q.status} · Gabarito: {JSON.stringify(q.respostaCorreta)}
+                          </span>
+                          {q.explicacao && <span className="block text-[#B9EF00]">{q.explicacao}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
             <Link href="/aluno/notas" className="inline-block text-sm font-bold text-[#00DDEB] underline">
               ← Voltar ao boletim
             </Link>

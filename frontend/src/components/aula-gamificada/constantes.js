@@ -496,6 +496,8 @@ export function normalizarEstadoSala(bruto) {
     revision: Number(bruto.revision ?? sala?.revision ?? 0),
     titulo: bruto.titulo ?? sala?.titulo ?? '',
     modalidade,
+    finalidade: bruto.finalidade ?? sala?.finalidade ?? 'revisao',
+    avaliacao: bruto.avaliacao ?? sala?.avaliacao ?? null,
     fase,
     rodada,
     totalRodadas,

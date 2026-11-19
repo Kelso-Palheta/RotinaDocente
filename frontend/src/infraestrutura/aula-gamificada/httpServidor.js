@@ -150,6 +150,55 @@ const DEFINICOES = [
     executar: ({ service, ator, body, params }) =>
       service.responder(ator, params.codigo, body),
   },
+  {
+    caminho: ['avaliacoes', 'contexto'],
+    metodo: 'GET',
+    docente: true,
+    executar: ({ service, ator }) => service.contextoAvaliacao(ator),
+  },
+  {
+    caminho: ['avaliacoes'],
+    metodo: 'GET',
+    docente: true,
+    executar: ({ service, ator, request }) => {
+      const sp = new URL(request.url).searchParams;
+      return service.listarAvaliacoes(ator, Object.fromEntries(sp.entries()));
+    },
+  },
+  {
+    caminho: ['avaliacoes', 'minhas'],
+    metodo: 'GET',
+    executar: ({ service, ator }) => service.minhasAvaliacoes(ator),
+  },
+  {
+    caminho: ['salas', ':codigo', 'relatorio'],
+    metodo: 'GET',
+    executar: ({ service, ator, params }) => service.relatorioSala(ator, params.codigo),
+  },
+  {
+    caminho: ['salas', ':codigo', 'avaliacao', 'revisar'],
+    metodo: 'POST',
+    docente: true,
+    corpo: true,
+    executar: ({ service, ator, body, params }) =>
+      service.revisarNotaAvaliacao(ator, params.codigo, body),
+  },
+  {
+    caminho: ['salas', ':codigo', 'avaliacao', 'finalizar'],
+    metodo: 'POST',
+    docente: true,
+    corpo: true,
+    executar: ({ service, ator, body, params }) =>
+      service.finalizarAvaliacao(ator, params.codigo, body),
+  },
+  {
+    caminho: ['salas', ':codigo', 'avaliacao', 'sincronizar'],
+    metodo: 'POST',
+    docente: true,
+    corpo: true,
+    executar: ({ service, ator, body, params }) =>
+      service.sincronizarDiario(ator, params.codigo, body),
+  },
 ];
 
 function combina(padrao, partes) {
