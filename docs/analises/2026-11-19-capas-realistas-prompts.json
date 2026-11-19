@@ -1,0 +1,30 @@
+{
+  "modo": "image_gen integrado",
+  "itens": {
+    "quiz": {
+      "prompt": "Create a polished photorealistic wide 16:9 cover photograph for an educational live quiz game. A glamorous colorful television quiz-show stage, four large physical answer buttons in yellow, pink, cyan and green on a curved glossy desk, a dramatic circular illuminated countdown clock in the background, empty stage without people. Crisp professional photography, dimensional real materials, vivid purple and cyan cinematic lighting, energetic welcoming atmosphere. Make the composition instantly read as a quiz competition. Close enough to show buttons clearly when displayed in a small website card. Absolutely no text, numbers, logos, letters, watermark, interface screenshot, flat vector icons or cartoon.",
+      "geradoEm": "/Users/kelsopalheta/.codex/generated_images/01a13a04-8b75-7382-8228-68dc3385dcd9/exec-2b75537f-b011-4cc7-b1bf-c2e42c45760a.png",
+      "destino": "docs/evidencias/2026-11-19-capas-realistas/quiz.webp"
+    },
+    "memoria": {
+      "prompt": "Create a polished photorealistic wide 16:9 cover photograph for a memory matching card game. Close-up angled view of a real premium tabletop with a neat grid of thick physical cards, several face down with rich purple backs, two matching cards turned face up showing the SAME colorful butterfly photograph, and another matching pair showing a real sunflower photograph. Soft cinematic studio lighting with violet and cyan accent reflections, realistic paper grain and rounded corners, cheerful lively educational atmosphere. The matching pairs are the main visual subject and must be clearly distinct from the face-down cards. Sharp detailed focus on the central pairs. Absolutely no text, logos, letters, numbers, watermarks, UI screenshot or flat vector illustration.",
+      "geradoEm": "/Users/kelsopalheta/.codex/generated_images/01a13a04-8b75-7382-8228-68dc3385dcd9/exec-d6a61860-6ece-4d10-af3e-249b49acc61e.png",
+      "destino": "docs/evidencias/2026-11-19-capas-realistas/memoria.webp"
+    },
+    "associacao": {
+      "prompt": "Create a polished photorealistic wide 16:9 cover photograph for an educational association / matching-pairs game. A real premium tabletop learning puzzle with two vertical columns of three dimensional picture tiles. Left column has a vivid butterfly photograph, a sunny sunflower photograph, and an orange fruit photograph. Right column has corresponding matching photographs arranged in a different order. Thin curved colored physical cords link each picture to its matching counterpart across the columns, making a satisfying connected puzzle. Real materials, crisp perspective, vibrant violet cyan yellow studio lighting, playful clear composition readable at website card size. Focus on the two columns and connecting cords. Absolutely no text, words, letters, numbers, logos, watermarks, flat icon style or UI screenshot.",
+      "geradoEm": "/Users/kelsopalheta/.codex/generated_images/01a13a04-8b75-7382-8228-68dc3385dcd9/exec-5a34ecda-71cf-4f6d-beae-f5979d38d2f1.png",
+      "destino": "docs/evidencias/2026-11-19-capas-realistas/associacao.webp"
+    },
+    "ordenacao": {
+      "prompt": "Create a polished photorealistic wide 16:9 cover photograph for an educational sequencing / ordering game. A beautiful macro tabletop arrangement of four large real photographic picture tiles showing the growth of a sunflower in a logical left-to-right sequence: seed in soil, small green sprout, leafy young plant, full blooming yellow sunflower. Thick high-quality tiles placed in aligned slots of a dimensional puzzle board with tasteful small connecting arrow-shaped wooden pieces. Rich purple table surface with bright cyan and warm yellow studio light, realistic objects, sharp detailed photography, hopeful energetic playful mood. Make sequence and progression instantly recognizable in a small website card. No text, letters, numbers, logos, watermark, interface screenshot or flat vector icons.",
+      "geradoEm": "/Users/kelsopalheta/.codex/generated_images/01a13a04-8b75-7382-8228-68dc3385dcd9/exec-1d0eaa0d-f4be-4b06-8779-bb64c06471ff.png",
+      "destino": "docs/evidencias/2026-11-19-capas-realistas/ordenacao.webp"
+    },
+    "equipes": {
+      "prompt": "Create a polished photorealistic wide 16:9 cover photograph for a team competition educational game. Two friendly groups of three young adult students gathered on opposite sides of a colorful tabletop quiz arena, hands near large answer buttons, a real golden trophy in the center foreground. Diverse casually dressed adults, joyful anticipation and collaborative body language, no aggression, natural realistic faces and hands. Professional cinematic commercial photography, shallow depth of field, purple and cyan accent lighting with warm golden highlights, lively school-friendly atmosphere. Strong clear central trophy and team-versus-team composition readable in a small website card. Absolutely no text, letters, numbers, logos, watermark, UI screenshot or flat vector illustration.",
+      "geradoEm": "/Users/kelsopalheta/.codex/generated_images/01a13a04-8b75-7382-8228-68dc3385dcd9/exec-9cc53b5e-4fe3-4469-b7e2-4e8ebeca1b01.png",
+      "destino": "docs/evidencias/2026-11-19-capas-realistas/equipes.webp"
+    }
+  }
+}
