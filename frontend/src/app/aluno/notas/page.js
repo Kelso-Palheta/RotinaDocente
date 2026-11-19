@@ -1,5 +1,6 @@
 "use client";
 
+import { AcessoRevisaoAutonoma } from '@/components/revisao-autonoma/AcessoRevisaoAutonoma';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
@@ -242,6 +243,7 @@ export default function AlunoNotasPage() {
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
         <AcessoRevisao aluno />
         <AcessoAulaGamificada aluno />
+        <AcessoRevisaoAutonoma />
 
         {/* Header de Navegação */}
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2">

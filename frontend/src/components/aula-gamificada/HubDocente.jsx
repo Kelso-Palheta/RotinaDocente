@@ -207,6 +207,7 @@ function HubDocenteAutenticado({ uid, obterToken }) {
               <BancoQuestoes
                 key={uid}
                 questoes={catalogoSeguro.questoes}
+                turmas={catalogoSeguro.turmas}
                 obterToken={obterToken}
                 tipoInicialCriar={tipoCriarInicial}
                 onLimparTipoInicial={() => setTipoCriarInicial(null)}

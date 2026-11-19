@@ -1,5 +1,6 @@
 'use client';
 
+import { PublicacaoRevisao } from '@/components/revisao-autonoma/PublicacaoRevisao';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { EstadoVazio } from '@/components/ui/EstadoVazio';
 import { BarraAcoes } from '@/components/ui/BarraAcoes';
@@ -18,6 +19,7 @@ import {
 
 export function BancoQuestoes({
   questoes = [],
+  turmas = [],
   obterToken,
   tipoInicialCriar = null,
   onQuestaoAtualizada,
@@ -355,6 +357,7 @@ export function BancoQuestoes({
                 </div>
               </div>
 
+              <PublicacaoRevisao key={`${q.id}:${q.revision}`} questao={q} turmas={turmas} obterToken={obterToken} onAtualizar={onQuestaoAtualizada} />
               <div className="text-base font-bold text-[#25104A]">
                 <RenderTextoSeguro texto={q.enunciado} />
               </div>

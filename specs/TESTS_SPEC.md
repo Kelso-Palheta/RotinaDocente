@@ -575,3 +575,9 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **ACERTE-01:** múltipla escolha e resposta aberta, gabarito privado, julgamento docente auditável, pendências bloqueiam finalização, bônus não altera aproveitamento/nota.
 - **NAT-ACERTE-UI:** nove jogos com capas, fluxo manual/IA, tela de aluno/telão, controle de tempo e acessibilidade.
 - **NAT-ACERTE-REVISAO:** regressões cobrem progresso versus pontos em grupos, três avanços de 1/3, empate de 0.1+0.2 versus 0.3, pontos do recibo somente após revelação, modelo no telão somente após revelar e transações com leitura antes de escrita.
+
+### Revisão autônoma / plataforma 2D (`specs/REVISAO_AUTONOMA_PLATAFORMA_SPEC.md`)
+- **LIVRE-01:** física determinística com movimento, salto, colisão e respawn, independente de notas e pontuação de aprendizagem.
+- **LIVRE-02:** publicação explícita por turma; vínculo ativo, isolamento por login e nenhum gabarito futuro no catálogo/sessão.
+- **LIVRE-03:** resposta/avanço idempotentes e versionados, snapshot privado, retomada do feedback e histórico limitado, revisão dos erros.
+- **LIVRE-04:** HTTP autenticado/mesma origem, UI com teclado/toque e modo acessível; salas e Diário preservados.

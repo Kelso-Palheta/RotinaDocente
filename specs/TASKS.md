@@ -259,9 +259,10 @@ Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 
 ## 19/11/2026 — Jogos com fases e revisão autônoma (lembrete solicitado)
 
-- [ ] **JOGOS-FUT-01:** evoluir de quizzes/corridas para jogos efetivamente jogáveis, inicialmente plataforma 2D com movimento, saltos, obstáculos, coleta, checkpoints e avanço de fases. Priorizar mecânicas interativas; não limitar a mudança de cenário entre perguntas. Controles para teclado e toque, desempenho mobile e acessibilidade.
-- [ ] **JOGOS-FUT-02:** criar modo **Revisar sozinho**, separado das salas ao vivo: aluno acessa de casa pelo Portal, escolhe disciplina, conteúdo, dificuldade, duração/quantidade de desafios e jogo; joga sem professor conectado ou comandos docentes.
-- [ ] **JOGOS-FUT-03:** oferecer correção automática, explicação pedagógica e nova prática dos erros; salvar tentativas, progresso, fases, acertos, erros e evolução por conteúdo, com retomada de sessão e histórico individual. Separar desempenho de aprendizagem de habilidade motora/tempo e pontos de jogo.
-- [ ] **JOGOS-FUT-04:** utilizar questões revisadas e conteúdo adequado à série. Geração sob demanda pelo aluno depende de decisão posterior sobre credenciais, custos e limites; não expor a chave do professor. Respostas abertas não devem interromper o modo autônomo esperando julgamento docente.
-- [ ] **JOGOS-FUT-05:** preservar salas supervisionadas e avaliação atuais. Prática livre não modifica notas do Diário automaticamente; persistência isolada por aluno e validação no servidor antes de registrar desempenho.
-- Lembrar desta frente ao retomar o planejamento dos próximos jogos. Pedido registrado em 19/11/2026; implementação futura, ainda não entregue. Não foi definido horário para notificação.
+- [x] **JOGOS-FUT-01 (Plataforma 2D — 1º jogo):** entregue o primeiro jogo efetivamente jogável em plataforma 2D (`frontend/src/dominio/revisao-autonoma/plataforma.js`, `Plataforma2D.jsx`) com movimento, saltos, obstáculos, coleta de 5 estrelas alcançáveis por fase, checkpoint, portal, controles teclado/toque, pausa em aba oculta, movimento reduzido e modo acessível. Próximos jogos jogáveis permanecem no backlog futuro.
+- [x] **JOGOS-FUT-02:** modo **Revisar sozinho** (`/aluno/revisar`) separado do catálogo dos 9 jogos ao vivo; aluno acessa pelo Portal do Aluno sem código de sala/professor online, escolhendo disciplina, conteúdo/dificuldade e quantidade de fases.
+- [x] **JOGOS-FUT-03:** correção automática no servidor, explicação pedagógica obrigatória antes de avançar, reforço somente dos erros, retomada de sessão/feedback e histórico das últimas 50 revisões, separando acertos pedagógicos de estrelas/quedas.
+- [x] **JOGOS-FUT-04 (banco revisado):** publicação explícita pelo professor no Banco de Questões → Revisar sozinho (somente questões revisadas de múltipla escolha); edição retira a liberação automaticamente.
+- [ ] **JOGOS-FUT-04 (melhoria futura):** geração sob demanda pelo aluno (depende de decisão posterior sobre credenciais, custos e limites; nenhuma chave do professor exposta).
+- [x] **JOGOS-FUT-05:** salas supervisionadas, catálogo dos 9 jogos ao vivo e avaliação/Diário preservados intactos; prática livre isolada em `revisaoAutonomaAlunos/{loginKey}` com revalidação de matrícula/turma no servidor.
+- Relatório: `docs/analises/2026-11-19-revisao-autonoma-entrega.md`.
