@@ -120,7 +120,7 @@ function criarAmbiente() {
 }
 
 describe('DISPUTA-01..04 — Formatos de disputa, duelo, grupos e avaliação coletiva', () => {
-  it('DISPUTA-01: valida matriz de compatibilidade para todos os 7 jogos e expõe no catálogo', async () => {
+  it('DISPUTA-01: valida matriz de compatibilidade para todos os 9 jogos e expõe no catálogo', async () => {
     expect(compatibilidadeModalidade('equipes').formatos).toEqual(['grupos']);
     expect(compatibilidadeModalidade('tabuleiro').formatos).toEqual(['duelo', 'grupos']);
     expect(compatibilidadeModalidade('quiz').formatos).toEqual(['individual', 'duelo', 'grupos']);
@@ -134,7 +134,7 @@ describe('DISPUTA-01..04 — Formatos de disputa, duelo, grupos e avaliação co
 
     const { servico } = criarAmbiente();
     const cat = await servico.catalogo(prof);
-    expect(cat.modalidades).toHaveLength(7);
+    expect(cat.modalidades).toHaveLength(9);
     for (const m of cat.modalidades) {
       expect(m.capa).toMatch(/^\/aula-gamificada\/catalogo\/[a-z]+\.svg$/);
       expect(Array.isArray(m.formatosParticipacao)).toBe(true);

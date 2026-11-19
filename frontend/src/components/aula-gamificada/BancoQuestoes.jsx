@@ -380,6 +380,7 @@ export function BancoQuestoes({
                 </ul>
               )}
 
+              {q.tipo === 'resposta_aberta' && <div className="rounded-xl bg-[#F3EDFF] p-3 text-[#25104A]"><strong>Resposta-modelo</strong><RenderTextoSeguro texto={q.respostaCorreta} /></div>}
               {q.tipo === 'pares' && Array.isArray(q.pares) && (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                   {q.pares.map((par) => (

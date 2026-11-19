@@ -22,7 +22,7 @@ import JogoHerois from '@/components/aula-gamificada/jogos/JogoHerois';
 
 const PUBLIC_ROOT = path.resolve(process.cwd(), 'public');
 
-describe('IMERSAO-01..05 — Imersão Audiovisual e Variedade de Cenas nos 7 jogos', () => {
+describe('IMERSAO-01..05 — Imersão Audiovisual e Variedade de Cenas nos 9 jogos', () => {
   beforeEach(() => {
     localStorage.clear();
   });
@@ -32,9 +32,9 @@ describe('IMERSAO-01..05 — Imersão Audiovisual e Variedade de Cenas nos 7 jog
     vi.restoreAllMocks();
   });
 
-  it('IMERSAO-01: catálogo cobre os 7 jogos com arquivos reais existentes em public/, alternativas estáticas e sem placeholders', () => {
+  it('IMERSAO-01: catálogo cobre os 9 jogos com arquivos reais existentes em public/, alternativas estáticas e sem placeholders', () => {
     const modos = MODALIDADES_PADRAO.map((m) => m.id);
-    expect(modos).toHaveLength(7);
+    expect(modos).toHaveLength(9);
 
     for (const entry of CATALOGO_CENAS) {
       expect(entry.id).toBeTruthy();
@@ -226,7 +226,7 @@ describe('IMERSAO-01..05 — Imersão Audiovisual e Variedade de Cenas nos 7 jog
     expect(heroiContainer.querySelectorAll('audio')).toHaveLength(0);
   });
 
-  it('IMERSAO-05: SalaAlunoView integra os 7 jogos com controlador único ligado por padrão e palco sem repetições', async () => {
+  it('IMERSAO-05: SalaAlunoView integra os 9 jogos com controlador único ligado por padrão e palco sem repetições', async () => {
     const { SalaAlunoView } = await import('@/components/aula-gamificada/SalaAlunoView');
     const modos = MODALIDADES_PADRAO.map((m) => m.id);
     for (const modalidade of modos) {

@@ -33,7 +33,7 @@ describe('DISPUTA-05 — Capas no catálogo e seletores de disputa em PrepararSa
     expect(screen.getByText(/Revisão ou Avaliativa/i)).toBeTruthy();
 
     const capas = container.querySelectorAll('img[src^="/aula-gamificada/catalogo/"]');
-    expect(capas).toHaveLength(7);
+    expect(capas).toHaveLength(9);
     const srcs = new Set();
     for (const img of capas) {
       const src = img.getAttribute('src');
@@ -41,7 +41,7 @@ describe('DISPUTA-05 — Capas no catálogo e seletores de disputa em PrepararSa
       expect(fs.existsSync(path.join(PUBLIC_ROOT, src.replace(/^\//, '')))).toBe(true);
       expect(img.className).toContain('aspect-video');
     }
-    expect(srcs.size).toBe(7);
+    expect(srcs.size).toBe(9);
 
     // Sem GIFs simultâneos no catálogo
     expect(container.querySelectorAll('img[src$=".gif"]')).toHaveLength(0);

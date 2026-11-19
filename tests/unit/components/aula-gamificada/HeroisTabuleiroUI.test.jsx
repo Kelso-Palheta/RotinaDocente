@@ -16,17 +16,17 @@ vi.mock('next/link', () => ({
   ),
 }));
 
-describe('UI e Acessibilidade — Heróis, Tabuleiro e 7 jogos no catálogo', () => {
-  it('exibe dinamicamente 7 jogos no CatalogoModalidades', () => {
-    expect(MODALIDADES_PADRAO).toHaveLength(7);
+describe('UI e Acessibilidade — Heróis, Tabuleiro e 9 jogos no catálogo', () => {
+  it('exibe dinamicamente 9 jogos no CatalogoModalidades', () => {
+    expect(MODALIDADES_PADRAO).toHaveLength(9);
     render(
       <CatalogoModalidades
         modalidadesServidor={MODALIDADES_PADRAO}
         onSelecionarModalidade={() => {}}
       />,
     );
-    expect(screen.getByText(/7 jogos prontos/i)).toBeTruthy();
-    expect(screen.getByText(/7 modalidades para qualquer disciplina/i)).toBeTruthy();
+    expect(screen.getByText(/9 jogos prontos/i)).toBeTruthy();
+    expect(screen.getByText(/9 modalidades para qualquer disciplina/i)).toBeTruthy();
     expect(screen.getByText('Heróis')).toBeTruthy();
     expect(screen.getAllByText('Tabuleiro').length).toBeGreaterThan(0);
   });

@@ -412,6 +412,8 @@ export default function RelatorioAvaliacao({
                 <li key={q.rodada} className="rounded-xl border border-[#E2D9F7] bg-white p-2.5 space-y-0.5">
                   <strong>Questão {q.rodada}: {q.enunciado || '(sem enunciado)'}</strong>
                   <p>Status: {q.status} · Tentativas: {q.tentativas ?? 0} · Gabarito: {JSON.stringify(q.respostaCorreta)}</p>
+                  {q.correcaoManual && <p className="text-[#25104A] font-bold">Correção docente: {q.correcaoManual.correta ? 'correta' : 'incorreta'} · {q.correcaoManual.justificativa}</p>}
+                  {q.respostaFinal?.texto && <p>Resposta enviada: {q.respostaFinal.texto}</p>}
                   {q.explicacao && <p className="text-[#5B4B86]">Devolutiva: {q.explicacao}</p>}
                 </li>
               ))}

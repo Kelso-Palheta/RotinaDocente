@@ -15,8 +15,8 @@ import {
 } from '@/dominio/aula-gamificada/sala';
 
 describe('Modalidades Heróis e Tabuleiro — domínio', () => {
-  it('registra exatamente 7 modalidades no catálogo, incluindo herois e tabuleiro', () => {
-    expect(MODALIDADES).toHaveLength(7);
+  it('registra exatamente 9 modalidades no catálogo, incluindo herois e tabuleiro', () => {
+    expect(MODALIDADES).toHaveLength(9);
     expect(MODALIDADES.map((m) => m.id)).toEqual([
       'quiz',
       'memoria',
@@ -25,6 +25,8 @@ describe('Modalidades Heróis e Tabuleiro — domínio', () => {
       'equipes',
       'herois',
       'tabuleiro',
+      'natacao',
+      'acerte_perde',
     ]);
     expect(obterModalidade('herois').tiposQuestoes).toEqual(['multipla_escolha']);
     expect(obterModalidade('tabuleiro').tiposQuestoes).toEqual(['multipla_escolha']);

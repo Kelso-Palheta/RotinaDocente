@@ -22,7 +22,7 @@ export function derivarContextoAudiovisual(estado, segundos, papel = 'aluno') {
   else if (fase === 'ranking') situacao = 'ranking';
   else if (fase === 'feedback') {
     if (!revelado) {
-      situacao = 'resposta_recebida';
+      situacao = modalidade === 'acerte_perde' ? 'tempo_esgotado' : 'resposta_recebida';
     } else if (papel === 'aluno') {
       const pontuacaoRecibo = Number(recibo?.pontuacao);
       if (recibo?.estadoHeroi === 'vitoria_fase') {
@@ -45,6 +45,8 @@ export function derivarContextoAudiovisual(estado, segundos, papel = 'aluno') {
     } else {
       situacao = 'revelacao_neutra';
     }
+  } else if (modalidade === 'acerte_perde' && !estado?.semCronometro && estado?.prazo != null && segundos <= 0) {
+    situacao = 'tempo_esgotado';
   } else if (recibo?.estadoHeroi === 'vitoria_fase') {
     situacao = 'acerto';
   } else if (recibo?.estadoHeroi === 'golpe_tente_novamente') {
@@ -60,7 +62,7 @@ export function derivarContextoAudiovisual(estado, segundos, papel = 'aluno') {
   const somSituacao = situacao === 'desafio' && rodada > 0 ? 'abertura' : situacao;
   const deveTocarSom = somSituacao !== 'espera';
   const evento = deveTocarSom
-    ? { id: `${codigo}:${rodada}:${somSituacao}:${recibo?.tentativas || 0}:${fase}`, situacao: somSituacao }
+    ? { id: `${codigo}:${rodada}:${somSituacao}:${recibo?.tentativas || 0}:${somSituacao === 'tempo_esgotado' ? 'fechamento' : fase}`, situacao: somSituacao }
     : null;
 
   return { modalidade, fase, situacao, eventoId: `${codigo}:${rodada}:${situacao}:${recibo?.tentativas || 0}`, evento };

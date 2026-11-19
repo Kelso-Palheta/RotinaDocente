@@ -1,10 +1,12 @@
-// Motor de áudio unificado da Aula Gamificada para os 7 jogos.
+// Motor de áudio unificado da Aula Gamificada para os 9 jogos.
 // Suporta MP3 locais + síntese musical Web Audio multi-voz, ducking, persistência de preferências,
 // detecção honesta de bloqueio de autoplay, suspensão em aba oculta e cleanup determinístico.
 
 const STORAGE_KEY = 'ag_audio_prefs_v1';
 
 export const PERFIS_SONOROS_JOGO = {
+  natacao: { mp3: '/aula-gamificada/natacao/media1.mp3', tempoMs: 400, onda: 'sine', notasEspera: [261.63,329.63,392,523.25], notasDesafio: [392,440,523.25,659.25], notasFinal: [523.25,659.25,783.99,1046.5] },
+  acerte_perde: { mp3: '/aula-gamificada/acerte_perde/media1.mp3', tempoMs: 360, onda: 'triangle', notasEspera: [220,261.63,329.63,392], notasDesafio: [293.66,392,440,587.33], notasFinal: [392,523.25,659.25,783.99] },
   herois: {
     mp3: '/aula-gamificada/herois/trilha-herois.mp3',
     tempoMs: 420,
@@ -64,6 +66,7 @@ export const PERFIS_SONOROS_JOGO = {
 };
 
 const EFEITOS_SEQUENCIAS = {
+  tempo_esgotado: { notas: [880,440,880,440], duracao: 0.2, tipo: 'triangle' },
   abertura: { notas: [392, 523.25, 659.25], duracao: 0.11, tipo: 'triangle' },
   resposta_recebida: { notas: [523.25, 659.25], duracao: 0.08, tipo: 'sine' },
   ultimos_segundos: { notas: [698.46, 587.33], duracao: 0.09, tipo: 'triangle' },
@@ -362,7 +365,9 @@ export class MotorAudioJogo {
       if (agora - this.ultimoAlarmeMs < 3000) return;
       this.ultimoAlarmeMs = agora;
     }
-    const seq = EFEITOS_SEQUENCIAS[situacao];
+    const seq = this.modalidadeAtual === 'acerte_perde' && situacao === 'ultimos_segundos'
+      ? { notas: [880, 440, 880, 440], duracao: 0.18, tipo: 'triangle' }
+      : EFEITOS_SEQUENCIAS[situacao];
     if (!seq) return;
     const ctx = this.garantirContexto();
     if (!ctx) return;

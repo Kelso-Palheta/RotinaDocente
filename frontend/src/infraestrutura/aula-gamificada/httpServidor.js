@@ -130,6 +130,12 @@ const DEFINICOES = [
       service.entrar(ator, params.codigo, body),
   },
   {
+    caminho: ['salas', ':codigo', 'correcoes'],
+    metodo: 'GET',
+    docente: true,
+    executar: ({ service, ator, params }) => service.listarCorrecoesAbertas(ator, params.codigo),
+  },
+  {
     caminho: ['salas', ':codigo', 'estado'],
     metodo: 'GET',
     executar: ({ service, ator, params }) =>

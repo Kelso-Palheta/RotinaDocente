@@ -1,3 +1,4 @@
+import { rankingNatacao } from './corrida';
 import { falha, listaObrigatoria, segmento } from './comum';
 import { regraPontuacao } from './modalidades';
 import { facesDasCartas, paresPrivados, questaoPublica } from './questoes';
@@ -146,8 +147,8 @@ export const ACOES = Object.freeze([
 export function aceitaRespostas(sala, agora) {
   return (
     sala?.fase === 'pergunta' &&
-    Number.isFinite(sala.encerraEmMs) &&
-    agora < sala.encerraEmMs
+    ((sala.modalidade === 'acerte_perde' && sala.semCronometro === true && sala.encerraEmMs === null) ||
+      (Number.isFinite(sala.encerraEmMs) && agora < sala.encerraEmMs))
   );
 }
 
@@ -181,7 +182,7 @@ export function aplicarComando(sala, comando, agora) {
       rodada: 1,
       rodadasAbertas: 1,
       iniciadaEmMs: agora,
-      encerraEmMs: agora + sala.tempoSegundos * 1000,
+      encerraEmMs: sala.modalidade === 'acerte_perde' && sala.semCronometro === true ? null : agora + sala.tempoSegundos * 1000,
       revelado: false,
     };
   }
@@ -205,7 +206,7 @@ export function aplicarComando(sala, comando, agora) {
 
   if (acao === 'proxima') {
     if (sala.fase !== 'ranking') throw falha(409, 'Abra o ranking antes de avançar.');
-    if (sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado?.vencedorChegadaId) {
+    if ((sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado?.vencedorChegadaId) || (sala.modalidade === 'natacao' && sala.natacaoEstado?.vencedoresIds?.length)) {
       return { ...base, fase: 'encerrada', encerradaEmMs: agora };
     }
     if (sala.rodada < sala.totalRodadas) {
@@ -223,7 +224,7 @@ export function aplicarComando(sala, comando, agora) {
         fase: 'pergunta',
         rodada: proximaRodada,
         rodadasAbertas: Math.max(Number(sala.rodadasAbertas) || 0, proximaRodada),
-        encerraEmMs: agora + sala.tempoSegundos * 1000,
+        encerraEmMs: sala.modalidade === 'acerte_perde' && sala.semCronometro === true ? null : agora + sala.tempoSegundos * 1000,
         revelado: false,
         ...(proxTabuleiro ? { tabuleiroEstado: proxTabuleiro } : {}),
       };
@@ -257,7 +258,7 @@ export function montarConteudo(questao, modalidade, { codigo, indice, segredoSem
   };
 }
 
-function reciboPublico(recibo, { revelado, questao }) {
+function reciboPublico(recibo, { revelado, questao, modalidade }) {
   if (!recibo) return null;
   const base = {
     status: 'confirmado',
@@ -287,12 +288,18 @@ function reciboPublico(recibo, { revelado, questao }) {
     base.podeTentarNovamente = recibo.podeTentarNovamente === true;
     base.estadoHeroi = recibo.estadoHeroi;
   }
-  if (revelado) base.pontos = Number(recibo.pontos) || 0;
+  if (revelado) {
+    base.pontos = Number(recibo.pontos) || 0;
+    if (['natacao', 'acerte_perde'].includes(modalidade) && questao?.tipo === 'multipla_escolha') base.correta = recibo.resposta?.alternativaId === questao.respostaCorreta;
+    if (recibo.correcaoManual) base.correcaoManual = structuredClone(recibo.correcaoManual);
+    if (recibo.correcaoManual) base.correta = recibo.correcaoManual.correta;
+    else if (recibo.resposta?.texto != null) base.pendenteCorrecao = true;
+  }
   return base;
 }
 
 function distribuicaoQuiz(respostas, modalidade, { revelado = false } = {}) {
-  if (!['quiz', 'equipes', 'herois', 'tabuleiro'].includes(modalidade)) return undefined;
+  if (!['quiz', 'equipes', 'herois', 'tabuleiro', 'natacao', 'acerte_perde'].includes(modalidade)) return undefined;
   if (modalidade === 'herois' && !revelado) return undefined;
   const contagem = new Map();
   for (const resposta of respostas || []) {
@@ -367,7 +374,7 @@ export function projetarEstado({
     return revelado ? total : Math.max(0, total - pontosOcultos(p));
   };
 
-  const ranking =
+  let ranking =
     ['ranking', 'encerrada'].includes(sala.fase) && revelado
       ? calcularRanking(participantes, {
           modalidade: sala.modalidade,
@@ -378,6 +385,8 @@ export function projetarEstado({
           pontosPorEquipe: ehCompartilhada ? pontosPorEquipe : null,
         })
       : undefined;
+
+  if (ranking && sala.modalidade === 'natacao') ranking = rankingNatacao(sala.natacaoEstado, ranking);
 
   // Memória: o estado público traz apenas IDs; faces visíveis são projetadas
   // individualmente a partir do que o jogador já virou/encontrou.
@@ -444,6 +453,7 @@ export function projetarEstado({
       totalRodadas: sala.totalRodadas,
       tempoSegundos: sala.tempoSegundos,
       regraPontuacao: regraPontuacao(sala.modalidade),
+      ...(sala.modalidade === 'acerte_perde' ? { semCronometro: Boolean(sala.semCronometro), desafioFinal: Boolean(sala.desafioFinal) } : {}),
       iniciadaEmMs: sala.iniciadaEmMs ?? null,
       encerradaEmMs: sala.encerradaEmMs ?? null,
       ...(sala.equipes?.length
@@ -458,6 +468,7 @@ export function projetarEstado({
             })),
           }
         : {}),
+      ...(sala.modalidade === 'natacao' && sala.natacaoEstado ? { natacaoEstado: structuredClone(sala.natacaoEstado) } : {}),
       ...(sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado
         ? { tabuleiroEstado: structuredClone(sala.tabuleiroEstado) }
         : {}),
@@ -465,6 +476,8 @@ export function projetarEstado({
     ...(sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado
       ? { tabuleiroEstado: structuredClone(sala.tabuleiroEstado) }
       : {}),
+    ...(sala.modalidade === 'natacao' && sala.natacaoEstado ? { natacaoEstado: structuredClone(sala.natacaoEstado) } : {}),
+    pendentesCorrecao: respostas.filter(r => r.resposta?.texto != null && !r.correcaoManual).length,
     servidorAgora: agora,
     prazo: sala.encerraEmMs ?? null,
     aberta: aceitaRespostas(sala, agora),
@@ -504,7 +517,7 @@ export function projetarEstado({
                 ehRepresentante: ehRepresentanteEquipe(equipeDoParticipante, participante, participantes),
               }
             : {}),
-          recibo: reciboPublico(recibo, { revelado, questao: questaoPrivada }),
+          recibo: reciboPublico(recibo, { revelado, questao: questaoPrivada, modalidade: sala.modalidade }),
         }
       : null,
     ...(ranking ? { ranking } : {}),

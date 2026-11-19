@@ -281,3 +281,7 @@ export async function sincronizarAvaliacaoDiario({
 export async function obterMinhasAvaliacoes({ signal, fetcher } = {}) {
   return requisitar('/avaliacoes/minhas', { method: 'GET', signal, fetcher });
 }
+
+export function obterCorrecoesAbertas({ codigo, obterToken, signal, fetcher } = {}) {
+  return requisitar(`/salas/${encodeURIComponent(codigo)}/correcoes`, { obterToken, signal, fetcher });
+}

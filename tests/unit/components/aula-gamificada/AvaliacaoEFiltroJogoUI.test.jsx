@@ -17,7 +17,7 @@ vi.mock('@/components/ai/ModalConectarIA', () => ({
 }));
 
 describe('Avaliação, Histórico Paginado e Fluxo Guiado por Jogo — UI', () => {
-  it('GeradorIAQuestoes exibe seletor dos 7 jogos, restringe tipos compatíveis e mantém modalidadeInicial', () => {
+  it('GeradorIAQuestoes exibe seletor dos 9 jogos, restringe tipos compatíveis e mantém modalidadeInicial', () => {
     render(
       <GeradorIAQuestoes
         uid="prof-1"
@@ -30,7 +30,7 @@ describe('Avaliação, Histórico Paginado e Fluxo Guiado por Jogo — UI', () =
 
     const selectJogo = screen.getByLabelText(/Jogo \/ Modalidade/i);
     expect(selectJogo.value).toBe('herois');
-    expect(selectJogo.querySelectorAll('option')).toHaveLength(7);
+    expect(selectJogo.querySelectorAll('option')).toHaveLength(9);
 
     // Heróis aceita apenas Múltipla escolha
     const selectTipo = screen.getByLabelText(/Formato da questão/i);

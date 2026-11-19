@@ -13,6 +13,8 @@ import {
   rotuloDificuldade,
   validarUrlImagemSegura,
 } from './constantes';
+import { JogoNatacao } from './jogos/JogoNatacao';
+import { JogoAcertePerde, PalcoAcertePerde } from './jogos/JogoAcertePerde';
 import { JogoQuiz } from './jogos/JogoQuiz';
 import { JogoMemoria } from './jogos/JogoMemoria';
 import { JogoAssociacao } from './jogos/JogoAssociacao';
@@ -66,7 +68,7 @@ export function SalaAlunoView({
 
   const chaveRodada = `${estado?.codigo || ''}:${estado?.rodada || 0}:${questao?.id || ''}`;
   const contextoAv = derivarContextoAudiovisual(estado, segundos, 'aluno');
-  const modoTemPalcoProprio = estado.modalidade === 'herois' || estado.modalidade === 'tabuleiro';
+  const modoTemPalcoProprio = estado.modalidade === 'herois' || estado.modalidade === 'tabuleiro' || estado.modalidade === 'natacao';
 
   return (
     <ProvedorAudiovisualSala
@@ -124,12 +126,15 @@ export function SalaAlunoView({
                 Tempo restante
               </span>
               <span className="font-mono text-2xl font-black text-[#FFE500]">
-                {formatarCronometro(segundos)}
+                {estado.semCronometro ? 'Sem limite' : formatarCronometro(segundos)}
               </span>
             </div>
           )}
         </div>
       </header>
+
+      {estado.modalidade === 'natacao' && <JogoNatacao estado={estado.natacaoEstado} euId={estado.eu?.equipeId || estado.eu?.id} />}
+      {estado.modalidade === 'acerte_perde' && <PalcoAcertePerde {...estado} />}
 
       {/* Regra de pontuação documentada para o aluno */}
       <div className="rounded-2xl border border-[#E2D9F7] bg-[#F3EDFF] px-4 py-3 text-xs text-[#25104A] flex flex-wrap items-center justify-between gap-2">
@@ -137,7 +142,7 @@ export function SalaAlunoView({
           <strong className="font-extrabold">Pontuação: </strong>
           {modalidadeInfo.regraPontuacao}
         </span>
-        <span className="font-bold text-[#5B4B86]">Esta atividade não altera suas notas.</span>
+        <span className="font-bold text-[#5B4B86]">{estado.finalidade === 'avaliativa' ? 'Avaliativa: resultado depende da revisão e publicação do professor.' : 'Esta atividade não altera suas notas.'}</span>
       </div>
 
       {ehCompartilhada && (
@@ -193,7 +198,7 @@ export function SalaAlunoView({
         </section>
       )}
 
-      {/* FASE: PERGUNTA (5 modalidades) */}
+      {/* FASE: PERGUNTA (modalidades compatíveis) */}
       {fase === 'pergunta' && questao && (
         <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-6 space-y-5 shadow-xs">
           <div className="flex flex-wrap items-center gap-2">
@@ -243,7 +248,7 @@ export function SalaAlunoView({
             </figure>
           )}
 
-          {(estado.modalidade === 'quiz' || estado.modalidade === 'equipes') && (
+          {(estado.modalidade === 'quiz' || estado.modalidade === 'equipes' || estado.modalidade === 'natacao') && (
             <JogoQuiz
               key={chaveRodada}
               questao={questao}
@@ -254,6 +259,8 @@ export function SalaAlunoView({
               onEnviar={onResponder}
             />
           )}
+
+          {estado.modalidade === 'acerte_perde' && <JogoAcertePerde key={chaveRodada} questao={questao} recibo={recibo} ocupado={ocupado} bloqueado={bloqueado} onEnviar={onResponder} />}
 
           {estado.modalidade === 'memoria' && (
             <JogoMemoria
@@ -392,6 +399,7 @@ export function SalaAlunoView({
             </div>
           )}
 
+          {questao?.tipo === 'resposta_aberta' && <div className="rounded-xl bg-[#F3EDFF] p-4 text-[#25104A]"><strong>Resposta-modelo</strong><p>{feedback?.respostaCorreta}</p><p className="mt-2 font-bold">{recibo?.correcaoManual ? recibo.correcaoManual.justificativa : recibo ? 'Aguardando correção do professor.' : 'Você não enviou resposta.'}</p></div>}
           {feedback?.explicacao && (
             <div className="rounded-2xl border border-[#E2D9F7] bg-[#F3EDFF] p-4 space-y-1">
               <h2 className="text-xs font-black uppercase tracking-wider text-[#4A3B7C]">

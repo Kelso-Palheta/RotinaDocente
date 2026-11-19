@@ -51,6 +51,7 @@ export function validarEntradaGeracao(entrada, { modalidade } = {}) {
 }
 
 const ESQUEMA = {
+  resposta_aberta: '"respostaCorreta": "resposta-modelo fundamentada para correção pelo professor"',
   multipla_escolha:
     '"alternativas": [{"id": "A", "texto": "..."}, {"id": "B", "texto": "..."}, {"id": "C", "texto": "..."}], "respostaCorreta": "B"',
   pares:
@@ -64,7 +65,9 @@ export function montarPromptGeracao(entrada) {
   const { quantidades } = dados;
   const total = quantidades.facil + quantidades.medio + quantidades.dificil;
   const regraTipo =
-    dados.tipo === 'multipla_escolha'
+    dados.tipo === 'resposta_aberta'
+      ? 'Crie uma questão discursiva curta, com resposta-modelo para correção manual pelo professor. Não inclua alternativas.'
+      : dados.tipo === 'multipla_escolha'
       ? 'Cada questão deve ter de 3 a 5 alternativas, uma única correta e um gabarito que seja o ID de uma alternativa.'
       : dados.tipo === 'pares'
         ? 'Cada questão deve ter de 4 a 8 pares. O próprio par define a associação correta; não repita conceitos nem definições.'

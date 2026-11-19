@@ -112,10 +112,10 @@ const alunaAna = { tipo: 'aluno', uid: 'u-ana', loginKey: 'ana', nome: 'Ana' };
 const alunoBeto = { tipo: 'aluno', uid: 'u-beto', loginKey: 'beto', nome: 'Beto' };
 
 describe('Integração Heróis e Tabuleiro', () => {
-  it('catálogo retorna 7 modalidades', async () => {
+  it('catálogo retorna 9 modalidades', async () => {
     const { servico } = criarServico();
     const cat = await servico.catalogo(prof);
-    expect(cat.modalidades).toHaveLength(7);
+    expect(cat.modalidades).toHaveLength(9);
     expect(cat.modalidades.map((m) => m.id)).toContain('herois');
     expect(cat.modalidades.map((m) => m.id)).toContain('tabuleiro');
   });

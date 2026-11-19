@@ -12,7 +12,7 @@ import {
 import { validarTipoModalidade } from './modalidades';
 
 export const DIFICULDADES = Object.freeze(['facil', 'medio', 'dificil']);
-export const TIPOS_QUESTAO = Object.freeze(['multipla_escolha', 'pares', 'ordenacao']);
+export const TIPOS_QUESTAO = Object.freeze(['multipla_escolha', 'pares', 'ordenacao', 'resposta_aberta']);
 
 const semAcento = (valor) =>
   String(valor ?? '')
@@ -49,10 +49,11 @@ export function normalizarTipo(valor) {
   const mapa = {
     multipla_escolha: 'multipla_escolha',
     multiplaescolha: 'multipla_escolha',
+    resposta_aberta: 'resposta_aberta',
     pares: 'pares',
     ordenacao: 'ordenacao',
   };
-  if (!mapa[chave]) throw falha(422, 'Tipo de questão inválido. Use múltipla escolha, pares ou ordenação.');
+  if (!mapa[chave]) throw falha(422, 'Tipo de questão inválido. Use múltipla escolha, pares, ordenação ou resposta aberta.');
   return mapa[chave];
 }
 
@@ -308,7 +309,10 @@ export function normalizarQuestao(
   if (!Number.isInteger(base.revision) || base.revision < 1)
     throw falha(422, 'Revisão da questão inválida.');
 
-  if (tipo === 'multipla_escolha') {
+  if (tipo === 'resposta_aberta') {
+    base.respostaCorreta = textoObrigatorio(entrada.respostaCorreta, 'resposta-modelo', { max: 4000 });
+    rejeitarPlaceholders([base.enunciado, base.respostaCorreta]);
+  } else if (tipo === 'multipla_escolha') {
     base.alternativas = normalizarAlternativas(entrada.alternativas);
     const alvo = String(entrada.respostaCorreta ?? '').trim();
     const alternativa = base.alternativas.find(
@@ -428,7 +432,9 @@ export function validarQuestao(questao) {
   if (!Number.isInteger(questao.revision) || questao.revision < 1)
     throw falha(422, 'Revisão da questão inválida.');
 
-  if (tipo === 'multipla_escolha') {
+  if (tipo === 'resposta_aberta') {
+    textoObrigatorio(questao.respostaCorreta, 'resposta-modelo', { max: 4000 });
+  } else if (tipo === 'multipla_escolha') {
     const ids = validarAlternativasSalvas(questao.alternativas);
     if (!ids.has(normalizarId(questao.respostaCorreta, 'gabarito')))
       throw falha(422, 'O gabarito deve ser o ID de uma das alternativas.');
@@ -495,6 +501,7 @@ export function questaoPublica(questao, modalidade, { seed = '' } = {}) {
     enunciado: questao.enunciado,
     ...(questao.imagem ? { imagem: { ...questao.imagem } } : {}),
   };
+  if (questao.tipo === 'resposta_aberta') return base;
   if (questao.tipo === 'multipla_escolha') {
     return {
       ...base,
@@ -534,6 +541,7 @@ export function questaoPublica(questao, modalidade, { seed = '' } = {}) {
 
 export function validarResposta(questao, resposta) {
   if (!ehObjeto(resposta)) throw falha(422, 'Resposta inválida.');
+  if (questao.tipo === 'resposta_aberta') return { texto: textoObrigatorio(resposta.texto, 'resposta', { max: 2000 }) };
   if (questao.tipo === 'multipla_escolha') {
     const alvo = String(resposta.alternativaId ?? '').trim();
     const alternativa = questao.alternativas.find(

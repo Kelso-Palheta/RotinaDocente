@@ -105,6 +105,7 @@ function fracaoQuestao({ modalidade, questao, registro, criterioHerois }) {
     return registro.acertou || registro.resposta?.alternativaId === questao.respostaCorreta ? 1 : 0;
   }
 
+  if (questao.tipo === 'resposta_aberta') return registro.correcaoManual?.correta === true ? 1 : 0;
   if (questao.tipo === 'multipla_escolha') {
     return registro.resposta?.alternativaId === questao.respostaCorreta ? 1 : 0;
   }
@@ -213,6 +214,7 @@ export function calcularAvaliacaoParticipante({
     };
   }
 
+  let pendentesCorrecao = 0;
   let somaFracoes = 0;
   let respondidas = 0;
   let acertos = 0;
@@ -229,6 +231,11 @@ export function calcularAvaliacaoParticipante({
       continue;
     }
     respondidas++;
+    if (questao?.tipo === 'resposta_aberta' && !registro.correcaoManual) {
+      pendentesCorrecao++;
+      detalhesQuestoes.push({ rodada: rodadaNum, enunciado: questao.enunciado, respostaFinal: registro.resposta, status: 'pendente_correcao', fracao: null });
+      continue;
+    }
     const fracao = fracaoQuestao({
       modalidade: sala.modalidade,
       questao,
@@ -250,15 +257,17 @@ export function calcularAvaliacaoParticipante({
       tentativas: Number(registro.tentativas) || 1,
       primeiraResposta: registro.primeiraResposta ?? registro.resposta ?? null,
       respostaFinal: registro.resposta ?? null,
+      ...(registro.correcaoManual ? { correcaoManual: registro.correcaoManual } : {}),
     });
   }
 
   const naoRespondidas = elegiveisIndices.length - respondidas;
-  const aproveitamento = somaFracoes / elegiveisIndices.length;
-  const notaCalculada = valorMaximo > 0 ? arredondarDuasCasas(valorMaximo * aproveitamento) : null;
+  const aproveitamento = pendentesCorrecao ? null : somaFracoes / elegiveisIndices.length;
+  const notaCalculada = pendentesCorrecao ? null : valorMaximo > 0 ? arredondarDuasCasas(valorMaximo * aproveitamento) : null;
 
   return {
-    situacao: respondidas === 0 ? 'nao_respondeu' : 'avaliado',
+    situacao: pendentesCorrecao ? 'pendente_correcao' : respondidas === 0 ? 'nao_respondeu' : 'avaliado',
+    pendentesCorrecao,
     elegiveis: elegiveisIndices.length,
     respondidas,
     naoRespondidas,

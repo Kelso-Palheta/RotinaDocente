@@ -53,6 +53,9 @@ export function PrepararSala({
   }, [contextoAvaliacao, turmas]);
 
   const [titulo, setTitulo] = useState('');
+  const [trechosNatacao, setTrechosNatacao] = useState(5);
+  const [semCronometro, setSemCronometro] = useState(false);
+  const [desafioFinal, setDesafioFinal] = useState(false);
   const [modalidade, setModalidade] = useState(modalidadeInicial || MODALIDADES_PADRAO[0].id);
   const [formatoParticipacao, setFormatoParticipacao] = useState(() => {
     const info = obterModalidadeInfo(modalidadeInicial || MODALIDADES_PADRAO[0].id, modalidadesServidor);
@@ -329,6 +332,8 @@ export function PrepararSala({
       turmaIds,
       questaoIds,
       tempoSegundos: tempoValido,
+      ...(modalidade === 'natacao' ? { trechosNatacao: Number(trechosNatacao) } : {}),
+      ...(modalidade === 'acerte_perde' ? { semCronometro, desafioFinal } : {}),
       ...(formatoParticipacao === 'grupos' ? { equipes: equipesEfetivas } : {}),
     };
 
@@ -407,7 +412,16 @@ export function PrepararSala({
           </div>
         </div>
 
-        {/* Seleção das 5 modalidades */}
+        {/* Seleção das modalidades */}
+        {modalidade === 'natacao' && <label className="block rounded-xl bg-cyan-50 border border-cyan-200 p-4 font-bold text-[#25104A]">Trechos para chegar à borda
+          <input aria-label="Trechos da piscina" type="number" min="1" max="50" value={trechosNatacao} onChange={e => setTrechosNatacao(e.target.value)} className="ml-3 w-24 rounded-lg border p-2" required />
+          <span className="block text-sm font-normal mt-2">Um trecho por acerto. Em grupos com respostas individuais, o avanço é proporcional aos acertos, sem vantagem pelo tamanho da equipe.</span>
+        </label>}
+        {modalidade === 'acerte_perde' && <div className="rounded-xl bg-[#F3EDFF] border border-[#E2D9F7] p-4 space-y-3 text-[#25104A]">
+          <label className="flex gap-3"><input type="checkbox" checked={semCronometro} onChange={e => setSemCronometro(e.target.checked)} />Sem cronômetro — o professor encerra cada questão</label>
+          <label className="flex gap-3"><input type="checkbox" checked={desafioFinal} onChange={e => setDesafioFinal(e.target.checked)} />Última questão especial: 10000 pontos no jogo</label>
+          <p className="text-sm">O bônus não muda a nota. Respostas abertas exigem correção do professor antes de avançar.</p>
+        </div>}
         <fieldset className="space-y-2">
           <legend className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C]">
             Modalidade do jogo

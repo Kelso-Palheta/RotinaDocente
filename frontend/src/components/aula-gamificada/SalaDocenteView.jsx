@@ -16,6 +16,9 @@ import {
   rotuloDificuldade,
   validarUrlImagemSegura,
 } from './constantes';
+import { JogoNatacao } from './jogos/JogoNatacao';
+import { PalcoAcertePerde } from './jogos/JogoAcertePerde';
+import { CorrecaoAbertaDocente } from './CorrecaoAbertaDocente';
 import JogoHerois from './jogos/JogoHerois';
 import JogoTabuleiro from './jogos/JogoTabuleiro';
 import RelatorioAvaliacao from './RelatorioAvaliacao';
@@ -99,7 +102,7 @@ function ControlesTransicao({ estado, ocupado, bloqueado, onComando, segundos })
       {fase === 'feedback' && estado?.revelado && (
         <button
           type="button"
-          disabled={bloqueado || ocupado}
+          disabled={bloqueado || ocupado || estado?.pendentesCorrecao > 0}
           onClick={() => onComando('ranking')}
           className="min-h-11 rounded-xl bg-[#00DDEB] px-4 py-2 text-sm font-black text-[#25104A] hover:bg-[#FFE500] disabled:opacity-45"
         >
@@ -156,7 +159,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
   const rankingEquipes = normalizarRankingComEmpates(estado?.rankingEquipes || []);
   const feedback = estado?.feedback || null;
   const contextoAv = derivarContextoAudiovisual(estado, segundos, projecao ? 'projecao' : 'docente');
-  const modoTemPalcoProprio = estado?.modalidade === 'herois' || estado?.modalidade === 'tabuleiro';
+  const modoTemPalcoProprio = estado?.modalidade === 'herois' || estado?.modalidade === 'tabuleiro' || estado?.modalidade === 'natacao';
 
   const executarComando = async (acao, extras) => {
     try {
@@ -293,7 +296,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                       Cronômetro
                     </span>
                     <span className={`font-mono font-black text-[#FFE500] ${projecao ? 'text-4xl' : 'text-2xl'}`}>
-                      {formatarCronometro(segundos)}
+                      {estado?.semCronometro ? 'Sem limite' : formatarCronometro(segundos)}
                     </span>
                   </div>
                 )}
@@ -307,6 +310,13 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                 </div>
               </div>
             </header>
+
+            {estado?.modalidade === 'natacao' && <JogoNatacao estado={estado.natacaoEstado} />}
+            {estado?.modalidade === 'acerte_perde' && <PalcoAcertePerde {...estado} />}
+            {estado?.pendentesCorrecao > 0 && <p role="status" className="rounded-xl bg-amber-100 text-amber-950 p-3 font-bold">{estado.pendentesCorrecao} resposta(s) aguardando correção docente. O ranking será liberado após a correção.</p>}
+            {!projecao && estado?.modalidade === 'acerte_perde' && fase === 'feedback' && questao?.tipo === 'resposta_aberta' && <CorrecaoAbertaDocente codigo={codigo} revision={estado.revision} obterToken={obterToken} ocupado={ocupado} onComando={enviarComando} />}
+
+            {fase === 'feedback' && estado?.revelado && questao?.tipo === 'resposta_aberta' && <section className="rounded-2xl border-2 border-[#00DDEB] bg-[#FFFDF7] text-[#25104A] p-5"><h2 className="font-black text-xl mb-2">Resposta-modelo</h2><RenderTextoSeguro texto={feedback?.respostaCorreta} /></section>}
 
             {/* Controles disponíveis tanto no painel quanto no telão */}
             <ControlesTransicao

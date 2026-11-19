@@ -104,13 +104,15 @@ export const MODALIDADES_PADRAO = [
     modosRespostaGrupo: ['individual', 'compartilhada'],
     formatoPadrao: 'grupos',
   },
+  { id: 'natacao', nome: 'Natação', resumo: 'Corrida na piscina: acerte para fazer seu nadador avançar até a chegada.', tiposQuestoes: ['multipla_escolha'], regraPontuacao: 'Um trecho por acerto; nos grupos individuais, avanço proporcional aos acertos. Empates compartilham vitória.', badge: 'Corrida', accent: 'ciano', capa: '/aula-gamificada/catalogo/natacao.svg', capaAlt: 'Game Splash — corrida de natação na piscina', formatosParticipacao: ['individual', 'duelo', 'grupos'], modosRespostaGrupo: ['individual', 'compartilhada'], formatoPadrao: 'individual' },
+  { id: 'acerte_perde', nome: 'Acerte ou Perde', resumo: 'Desafio de perguntas com suspense, sirene e placar. Respostas abertas têm correção docente.', tiposQuestoes: ['multipla_escolha', 'resposta_aberta'], regraPontuacao: '1000 pontos por acerto, sem desconto. Desafio final opcional de 10000 pontos apenas no placar, sem bônus na nota.', badge: 'Suspense', accent: 'rosa', capa: '/aula-gamificada/catalogo/acerte.svg', capaAlt: 'Acerte ou Perde — desafio de perguntas', formatosParticipacao: ['individual', 'duelo', 'grupos'], modosRespostaGrupo: ['individual', 'compartilhada'], formatoPadrao: 'individual' },
 ];
 
 export const TIPOS_QUESTAO = {
   multipla_escolha: {
     id: 'multipla_escolha',
     rotulo: 'Múltipla escolha',
-    modalidades: ['quiz', 'equipes', 'herois', 'tabuleiro'],
+    modalidades: ['quiz', 'equipes', 'herois', 'tabuleiro', 'natacao', 'acerte_perde'],
   },
   pares: {
     id: 'pares',
@@ -122,6 +124,7 @@ export const TIPOS_QUESTAO = {
     rotulo: 'Sequência ordenada',
     modalidades: ['ordenacao'],
   },
+  resposta_aberta: { id: 'resposta_aberta', rotulo: 'Resposta aberta (correção docente)', modalidades: ['acerte_perde'] },
 };
 
 export const DIFICULDADES = [
@@ -543,6 +546,9 @@ export function normalizarEstadoSala(bruto) {
     rodada,
     totalRodadas,
     tempoSegundos: bruto.tempoSegundos ?? sala?.tempoSegundos ?? 60,
+    semCronometro: bruto.semCronometro ?? sala?.semCronometro ?? false,
+    desafioFinal: bruto.desafioFinal ?? sala?.desafioFinal ?? false,
+    natacaoEstado: bruto.natacaoEstado ?? sala?.natacaoEstado ?? null,
     revelado,
     aberta: typeof bruto.aberta === 'boolean' ? bruto.aberta : fase === 'pergunta',
     servidorAgora: bruto.servidorAgora ?? null,
@@ -571,13 +577,16 @@ export function normalizarEstadoSala(bruto) {
  */
 export function normalizarRankingComEmpates(lista = []) {
   if (!Array.isArray(lista)) return [];
-  const ordenada = [...lista].sort((a, b) => (Number(b.pontos ?? b.pontuacao ?? 0) - Number(a.pontos ?? a.pontuacao ?? 0)));
+  const porProgresso = lista.some(item => Number.isFinite(item.progresso));
+  const valorClassificacao = item => porProgresso ? Number(item.progresso) || 0 : Number(item.pontos ?? item.pontuacao ?? 0);
+  const ordenada = [...lista].sort((a, b) => valorClassificacao(b) - valorClassificacao(a));
   let ultimaPontuacao = null;
   let ultimaPosicao = 0;
   return ordenada.map((item, indice) => {
     const pontos = Number(item.pontos ?? item.pontuacao ?? 0);
-    const posicaoCalculada = ultimaPontuacao !== null && pontos === ultimaPontuacao ? ultimaPosicao : indice + 1;
-    ultimaPontuacao = pontos;
+    const valor = valorClassificacao(item);
+    const posicaoCalculada = ultimaPontuacao !== null && Math.abs(valor - ultimaPontuacao) < 1e-9 ? ultimaPosicao : indice + 1;
+    ultimaPontuacao = valor;
     ultimaPosicao = posicaoCalculada;
     return {
       ...item,

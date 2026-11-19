@@ -1,3 +1,4 @@
+import { consolidarNatacao, pontosAcerte } from '@/dominio/aula-gamificada/corrida';
 import {
   codigoSala,
   falha,
@@ -322,6 +323,11 @@ export class AulaGamificadaService {
         max: 3600,
       });
 
+      const trechosNatacao = modalidade === "natacao"
+        ? inteiroFaixa(config.trechosNatacao ?? 5, "trechos da piscina", { min: 1, max: 50 }) : null;
+      for (const campo of ["desafioFinal", "semCronometro"]) {
+        if (config[campo] !== undefined && typeof config[campo] !== "boolean") throw falha(422, `Configuração ${campo} inválida.`);
+      }
       const turmas = (await this.turmas(uid, tx)).filter((t) => !t.arquivada);
       const turmasValidas = new Set(turmas.map((t) => String(t.id)));
       if (turmaIds.some((id) => !turmasValidas.has(id)))
@@ -460,6 +466,8 @@ export class AulaGamificadaService {
         ...(modalidade === "tabuleiro"
           ? { tabuleiroEstado: inicializarTabuleiroEstado(equipes) }
           : {}),
+        ...(modalidade === "natacao" ? { trechosNatacao, natacaoEstado: consolidarNatacao({ participantes: roster.map(p => ({ ...p, equipeId: equipeDe.get(p.id) ?? null })), equipes, formatoParticipacao, modoRespostaGrupo, rodada: 0, trechos: trechosNatacao }) } : {}),
+        ...(modalidade === "acerte_perde" ? { desafioFinal: config.desafioFinal === true, semCronometro: config.semCronometro === true } : {}),
         regraPontuacao: regraPontuacao(modalidade),
         schemaVersion: 1,
         criadoEmMs: agora,
@@ -669,7 +677,7 @@ export class AulaGamificadaService {
       participantes: participantesFinal || [],
       respostas: daRodada,
       todasRespostas: respostasFinal || [],
-      recibo: registro?.ultimoRecibo ?? null,
+      recibo: registro?.ultimoRecibo ? { ...registro.ultimoRecibo, pontos: registro.pontos } : null,
       agora: this.agora(),
     });
   }
@@ -699,6 +707,32 @@ export class AulaGamificadaService {
       if (!conteudoAtual) throw falha(503, "Conteúdo da sala indisponível.");
 
       const acao = String(comando?.acao || "");
+      if (acao === "corrigir_aberta") {
+        if (sala.modalidade !== "acerte_perde" || conteudoAtual.segredo.questao.tipo !== "resposta_aberta") throw falha(422, "Esta questão não exige correção manual.");
+        if (Number(comando.expectedRevision) !== sala.revision || Number(comando.rodada) !== sala.rodada) throw falha(409, "A sala mudou. Atualize antes de corrigir.");
+        if (sala.fase !== "feedback") throw falha(409, "Encerre a rodada para corrigir as respostas abertas.");
+        if (typeof comando.correta !== "boolean") throw falha(422, "Informe se a resposta está correta ou incorreta.");
+        const justificativa = textoObrigatorio(comando.justificativa, "justificativa da correção", { max: 2000 });
+        const alvo = respostas.find(r => Number(r.rodada) === sala.rodada && r.participanteId === comando.participanteId && r.resposta?.texto != null);
+        if (!alvo) throw falha(404, "Resposta não encontrada nesta rodada.");
+        const agora = this.agora();
+        const correcaoManual = { correta: comando.correta, justificativa, professorId: uid, corrigidoEmMs: agora };
+        const pontos = pontosAcerte(sala, comando.correta);
+        const corrigida = { ...alvo, pontos, correcaoManual, auditoriaCorrecoes: [...(alvo.auditoriaCorrecoes || []), correcaoManual], ultimoRecibo: { ...alvo.ultimoRecibo, pontos, correcaoManual }, atualizadoEmMs: agora };
+        const novasRespostas = respostas.map(r => r === alvo ? corrigida : r);
+        const novosParticipantes = participantes.map(p => p.id === alvo.participanteId ? { ...p, pontos: (Number(p.pontos) || 0) - (Number(alvo.pontos) || 0) + pontos } : p);
+        const atual = { ...sala, revision: sala.revision + 1, atualizadoEmMs: agora };
+        tx.set(respostaPath(codigo, sala.rodada, alvo.participanteId), corrigida);
+        if (sala.modoRespostaGrupo !== "compartilhada") {
+          const p = novosParticipantes.find(p => p.id === alvo.participanteId);
+          if (p) tx.set(participantePath(codigo, p.id), p);
+        }
+        tx.set(salaPath(codigo), atual);
+        const resposta = { estado: await this.projetar(atual, { ator, reader: tx, conteudo: conteudoAtual, participantes: novosParticipantes, respostas: novasRespostas }) };
+        tx.set(requisicaoPath(uid, chave), { tipo: "comando", requestId, resposta, criadoEmMs: agora });
+        return resposta;
+      }
+      if (["ranking", "proxima", "encerrar_sala"].includes(acao) && respostas.some(r => r.resposta?.texto != null && !r.correcaoManual)) throw falha(409, "Corrija todas as respostas abertas antes de avançar ou encerrar a sala.");
       if (acao === "alterar_representante" || acao === "confirmar_presenca") {
         if (Number(comando?.expectedRevision) !== Number(sala.revision)) {
           throw falha(409, "A sala foi atualizada antes. Recarregue antes de comandar.");
@@ -906,6 +940,9 @@ export class AulaGamificadaService {
         });
       }
 
+      if (atual.modalidade === "natacao" && comando.acao === "revelar") {
+        atual.natacaoEstado = consolidarNatacao({ estado: sala.natacaoEstado, participantes: mapaParticipantes, equipes: sala.equipes, respostas: respostas.filter(r => Number(r.rodada) === sala.rodada), rodada: sala.rodada, trechos: sala.trechosNatacao, formatoParticipacao: sala.formatoParticipacao, modoRespostaGrupo: sala.modoRespostaGrupo });
+      }
       // Leituras na transação devem preceder qualquer escrita (exigência do Firestore).
       const resumoIdx = await tx.get(`aulaGamificadaDocentes/${uid}/salas/${codigo}`);
 
@@ -1157,7 +1194,9 @@ export class AulaGamificadaService {
       if (registro?.resposta)
         throw falha(409, "Você já respondeu esta rodada.");
       const resposta = validarResposta(questao, body.resposta);
-      const pontosRodada = pontuarResposta(questao, resposta);
+      const pontosRodada = questao.tipo === "resposta_aberta" ? 0
+        : sala.modalidade === "acerte_perde" ? pontosAcerte(sala, pontuarResposta(questao, resposta) > 0)
+        : pontuarResposta(questao, resposta);
       const recibo = {
         status: "confirmado",
         rodadaId: String(rodada),
@@ -1179,6 +1218,17 @@ export class AulaGamificadaService {
       atualizarPontosParticipantes(pontosRodada);
       return { recibo: copia(recibo) };
     });
+  }
+
+  async listarCorrecoesAbertas(ator, codigo) {
+    const uid = this.docente(ator);
+    codigoSala(codigo);
+    const sala = await this.store.get(salaPath(codigo));
+    if (!sala) throw falha(404, "Sala não encontrada.");
+    if (sala.professorId !== uid) throw falha(403, "Esta sala pertence a outro professor.");
+    const [participantes, respostas] = await Promise.all([this.store.list(participantesPath(codigo)), this.store.list(respostasPath(codigo))]);
+    if (sala.modalidade !== "acerte_perde" || sala.fase !== "feedback") return { correcoes: [] };
+    return { correcoes: respostas.filter(r => Number(r.rodada) === sala.rodada && r.resposta?.texto != null).map(r => ({ participanteId: r.participanteId, nome: r.equipeId ? sala.equipes.find(e => e.id === r.equipeId)?.nome || "Grupo" : participantes.find(p => p.id === r.participanteId)?.nomeExibicao || "Estudante", texto: r.resposta.texto, correcaoManual: r.correcaoManual || null })) };
   }
 
   async contextoAvaliacao(ator) {
@@ -1621,6 +1671,7 @@ export class AulaGamificadaService {
       const { sala, conteudos, participantes, respostas, avalDoc } =
         await this.carregarDadosRelatorio(codigo, tx);
       if (sala.professorId !== uid) throw falha(403, "Esta sala pertence a outro professor.");
+      if (respostas.some(r => r.resposta?.texto != null && !r.correcaoManual)) throw falha(409, "Existem respostas abertas aguardando correção docente.");
       if (sala.fase !== "encerrada") {
         throw falha(409, "Encerre a partida antes de finalizar a avaliação.");
       }

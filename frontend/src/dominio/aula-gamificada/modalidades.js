@@ -12,6 +12,8 @@ export const MODALIDADES = Object.freeze([
   { id: 'equipes', nome: 'Equipes', tiposQuestoes: ['multipla_escolha'] },
   { id: 'herois', nome: 'Heróis', tiposQuestoes: ['multipla_escolha'] },
   { id: 'tabuleiro', nome: 'Tabuleiro', tiposQuestoes: ['multipla_escolha'] },
+  { id: 'natacao', nome: 'Natação', tiposQuestoes: ['multipla_escolha'] },
+  { id: 'acerte_perde', nome: 'Acerte ou Perde', tiposQuestoes: ['multipla_escolha', 'resposta_aberta'] },
 ]);
 
 const POR_ID = new Map(MODALIDADES.map((m) => [m.id, m]));
@@ -21,7 +23,7 @@ export function obterModalidade(id) {
   if (!modalidade)
     throw falha(
       422,
-      'Escolha uma modalidade válida: quiz, memória, associação, ordenação, equipes, heróis ou tabuleiro.',
+      'Escolha uma modalidade válida: quiz, memória, associação, ordenação, equipes, heróis, tabuleiro, natação ou acerte ou perde.',
     );
   return modalidade;
 }
@@ -42,6 +44,8 @@ export function validarTipoModalidade(modalidade, tipo) {
 
 export function regraPontuacao(modalidade) {
   const alvo = obterModalidade(modalidade);
+  if (alvo.id === 'natacao') return 'Cada acerto avança um trecho na piscina. Em grupos individuais, avanço proporcional aos acertos. Empates compartilham vitória.';
+  if (alvo.id === 'acerte_perde') return '1000 pontos por acerto, sem desconto por erro. Desafio final opcional: 10000 pontos, sem alterar a nota. Abertas exigem correção docente.';
   if (alvo.id === 'quiz')
     return 'Cada resposta correta vale 1000 pontos, sem bônus por tempo.';
   if (alvo.id === 'equipes')
@@ -57,12 +61,13 @@ export function regraPontuacao(modalidade) {
   return 'Até 1000 pontos por desafio, proporcional às posições corretas na ordem.';
 }
 
-export const TIPOS_QUESTAO = Object.freeze(['multipla_escolha', 'pares', 'ordenacao']);
+export const TIPOS_QUESTAO = Object.freeze(['multipla_escolha', 'pares', 'ordenacao', 'resposta_aberta']);
 
 export const FORMATOS_PARTICIPACAO = Object.freeze(['individual', 'duelo', 'grupos']);
 export const MODOS_RESPOSTA_GRUPO = Object.freeze(['individual', 'compartilhada']);
 
 export const COMPATIBILIDADE_DISPUTA = Object.freeze({
+  ...Object.fromEntries(['natacao', 'acerte_perde'].map(id => [id, { formatos: ['individual', 'duelo', 'grupos'], modosGrupo: ['individual', 'compartilhada'], formatoPadrao: 'individual', capa: `/aula-gamificada/catalogo/${id === 'acerte_perde' ? 'acerte' : id}.svg`, capaAlt: id === 'natacao' ? 'Piscina e nadadores em competição' : 'Acerte ou Perde com placar e cronômetro' }])),
   quiz: {
     formatos: ['individual', 'duelo', 'grupos'],
     modosGrupo: ['individual', 'compartilhada'],

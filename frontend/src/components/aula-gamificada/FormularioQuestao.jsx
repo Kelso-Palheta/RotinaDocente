@@ -116,6 +116,7 @@ function inicializarEstado(questaoInicial, tipoPadrao = 'multipla_escolha') {
     imagemUrl: questaoInicial?.imagem?.url || '',
     imagemAlt: questaoInicial?.imagem?.alt || '',
     alternativas,
+    respostaModelo: tipo === 'resposta_aberta' ? questaoInicial?.respostaCorreta || '' : '',
     respostaAlternativa:
       tipo === 'multipla_escolha' && typeof questaoInicial?.respostaCorreta === 'string'
         ? questaoInicial.respostaCorreta
@@ -183,6 +184,7 @@ export function FormularioQuestao({
       }
     }
 
+    if (form.tipo === 'resposta_aberta' && !form.respostaModelo.trim()) novos.respostaModelo = 'Preencha a resposta-modelo.';
     if (form.tipo === 'multipla_escolha') {
       const preenchidas = form.alternativas.filter((a) => a.texto.trim());
       if (preenchidas.length < 2) {
@@ -232,6 +234,7 @@ export function FormularioQuestao({
       origem: form.origem || { tipo: 'manual' },
     };
 
+    if (form.tipo === 'resposta_aberta') base.respostaCorreta = form.respostaModelo.trim();
     if (form.tipo === 'multipla_escolha') {
       const alternativas = form.alternativas
         .filter((a) => a.texto.trim())
@@ -492,6 +495,14 @@ export function FormularioQuestao({
       </div>
 
       {/* Campos específicos por tipo */}
+      {form.tipo === 'resposta_aberta' && (
+        <div className="space-y-2">
+          <label htmlFor={`${formId}-modelo`} className="font-bold">Resposta-modelo (somente professor até revelar)</label>
+          <textarea id={`${formId}-modelo`} value={form.respostaModelo} onChange={e => atualizar('respostaModelo', e.target.value)} maxLength={4000} rows={4} className="w-full rounded-xl border border-[#B9A6EF] p-3 text-[#25104A]" />
+          <p className="text-sm text-[#5B4B86]">Usada como referência. A resposta do aluno será julgada pelo professor, sem comparação automática de texto.</p>
+          {erros.respostaModelo && <p role="alert">{erros.respostaModelo}</p>}
+        </div>
+      )}
       {form.tipo === 'multipla_escolha' && (
         <fieldset className="space-y-3 rounded-xl border border-[#E2D9F7] bg-white p-4">
           <legend className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C] px-1">

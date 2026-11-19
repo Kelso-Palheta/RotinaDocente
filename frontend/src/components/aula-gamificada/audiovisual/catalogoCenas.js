@@ -1,4 +1,4 @@
-// Catálogo explícito de cenas audiovisuais para todos os 7 jogos da Aula Gamificada.
+// Catálogo explícito de cenas audiovisuais para todos os 9 jogos da Aula Gamificada.
 // Todas as referências apontam para arquivos locais reais em frontend/public/aula-gamificada/.
 
 function cena(id, jogo, situacoes, midiaAnimada, alternativaEstatica, proporcao, origem, descricao) {
@@ -15,6 +15,11 @@ function cena(id, jogo, situacoes, midiaAnimada, alternativaEstatica, proporcao,
 }
 
 export const CATALOGO_CENAS = [
+  ...[['espera', 'image3.webp'], ['desafio', 'image4.webp'], ['acerto', 'image6.webp'], ['acerto', 'image13.webp'], ['erro', 'image12.webp'], ['erro', 'image14.webp'], ['vitoria', 'image7.webp'], ['vitoria', 'image13.webp']].map(([situacao, arquivo], i) => cena(`natacao-${situacao}-${i}`, 'natacao', [situacao, ...(situacao === 'desafio' ? ['revelacao_neutra', 'resposta_recebida', 'sem_resposta', 'ultimos_segundos'] : []), ...(situacao === 'vitoria' ? ['ranking'] : [])], `/aula-gamificada/natacao/${arquivo}`, `/aula-gamificada/natacao/${arquivo}`, '16:9', 'PPTX Natação fornecido pelo usuário', `Natação: ${situacao}`)),
+  ...['espera','desafio','acerto-1','acerto-2','erro-1','erro-2','vitoria-1','vitoria-2'].map((item, i) => {
+    const situacao = item.split('-')[0];
+    return cena(`acerte-${item}-${i}`, 'acerte_perde', [situacao, ...(situacao === 'desafio' ? ['revelacao_neutra','resposta_recebida','sem_resposta','ultimos_segundos','tempo_esgotado'] : []), ...(situacao === 'vitoria' ? ['ranking'] : [])], `/aula-gamificada/cenas/quiz-${item}.svg`, `/aula-gamificada/cenas/quiz-${item}-estatica.svg`, '16:9', 'Complemento local de feedback pedagógico', `Acerte ou Perde: ${situacao}`);
+  }),
   // ======================== HERÓIS (19 GIFs originais + PNGs estáticos) ========================
   cena('herois-espera-1', 'herois', ['espera', 'desafio', 'sem_resposta', 'revelacao_neutra'], '/aula-gamificada/herois/image1.gif', '/aula-gamificada/herois/image1.png', '500x268', 'original-herois', 'Equipe de heróis reunida pronta para a missão'),
   cena('herois-espera-2', 'herois', ['espera', 'desafio', 'sem_resposta'], '/aula-gamificada/herois/image4.gif', '/aula-gamificada/herois/image4.png', '245x180', 'original-herois', 'Homem de Ferro pairando sobre a cidade em alerta'),

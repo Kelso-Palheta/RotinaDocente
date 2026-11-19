@@ -569,3 +569,9 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - [x] **DISPUTA-05 (Catálogo e Preparar Sala UI):** 7 capas SVG 16:9 distintas em `public/aula-gamificada/catalogo/`, miniaturas no seletor de `PrepararSala`, badges de disputa, seletor de duelo/grupos/representante/critério coletivo e preservação de `Preparar sala`, `Gerar IA` e `Manual`.
 - **RECONCILIACAO-UI:** `tests/regression/aula_gamificada_reconciliacao_interface.test.jsx` cobre o fluxo real relatório → prévia → confirmação → cliente HTTP: retirada de nota anterior somente com autorização explícita e revisão do Diário, aviso de pendências remanescentes e autorização renovada a cada prévia.
 - **CAPAS-REALISTAS-01:** `tests/unit/aula_gamificada_capas_realistas.test.js` verifica as sete capas: imagem raster incorporada e decodificável, resolução mínima de 600×320, proporção 16:9, arquivo inferior a 500 KB e ausência de dependência externa. Mantém as URLs e os testes existentes do catálogo.
+
+### Natação e Acerte ou Perde (`specs/AULA_GAMIFICADA_NATACAO_ACERTE_SPEC.md`)
+- **NAT-01:** progresso proporcional por equipe, individual/duelo, cinco trechos, empate e consolidação única ao revelar; sem vazamento antes do feedback.
+- **ACERTE-01:** múltipla escolha e resposta aberta, gabarito privado, julgamento docente auditável, pendências bloqueiam finalização, bônus não altera aproveitamento/nota.
+- **NAT-ACERTE-UI:** nove jogos com capas, fluxo manual/IA, tela de aluno/telão, controle de tempo e acessibilidade.
+- **NAT-ACERTE-REVISAO:** regressões cobrem progresso versus pontos em grupos, três avanços de 1/3, empate de 0.1+0.2 versus 0.3, pontos do recibo somente após revelação, modelo no telão somente após revelar e transações com leitura antes de escrita.

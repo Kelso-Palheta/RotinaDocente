@@ -1,0 +1,194 @@
+[
+  {
+    "jogo": "natacao",
+    "fase": "pergunta",
+    "tipo": "desktop",
+    "largura": 1440,
+    "conteudo": 1440,
+    "altura": 1389,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/natacao/image4.webp",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/natacao/image5.webp",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/natacao/image6.webp",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "natacao",
+    "fase": "pergunta",
+    "tipo": "mobile",
+    "largura": 390,
+    "conteudo": 390,
+    "altura": 1610,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/natacao/image4.webp",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/natacao/image5.webp",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/natacao/image6.webp",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "acerte_perde",
+    "fase": "pergunta",
+    "tipo": "desktop",
+    "largura": 1440,
+    "conteudo": 1440,
+    "altura": 1305,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/cenas/quiz-desafio.svg",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "acerte_perde",
+    "fase": "pergunta",
+    "tipo": "mobile",
+    "largura": 390,
+    "conteudo": 390,
+    "altura": 1447,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/cenas/quiz-desafio.svg",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "acerte_perde",
+    "fase": "feedback",
+    "tipo": "desktop",
+    "largura": 1440,
+    "conteudo": 1440,
+    "altura": 1240,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/cenas/quiz-acerto-2.svg",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "acerte_perde",
+    "fase": "feedback",
+    "tipo": "mobile",
+    "largura": 390,
+    "conteudo": 390,
+    "altura": 1344,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/cenas/quiz-acerto-2.svg",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "catalogo",
+    "fase": "pergunta",
+    "tipo": "desktop",
+    "largura": 1440,
+    "conteudo": 1440,
+    "altura": 2109,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/catalogo/quiz.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/memoria.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/associacao.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/ordenacao.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/equipes.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/herois.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/tabuleiro.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/natacao.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/acerte.svg",
+        "ok": true
+      }
+    ]
+  },
+  {
+    "jogo": "catalogo",
+    "fase": "pergunta",
+    "tipo": "mobile",
+    "largura": 390,
+    "conteudo": 390,
+    "altura": 5929,
+    "imagens": [
+      {
+        "src": "/aula-gamificada/catalogo/quiz.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/memoria.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/associacao.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/ordenacao.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/equipes.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/herois.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/tabuleiro.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/natacao.svg",
+        "ok": true
+      },
+      {
+        "src": "/aula-gamificada/catalogo/acerte.svg",
+        "ok": true
+      }
+    ]
+  }
+]
