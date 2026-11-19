@@ -256,3 +256,12 @@ Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 
 - [x] RT-VIS-01: complementar as 32 aulas sem imagens e auditar as duas ilustradas; exemplos visuais pertinentes, leitura guiada e fixação, com fontes diretas/condições de uso/alt/legibilidade conferidos. Renderização já implementada; pacote de conteúdo para DeepSeek em `docs/plans/2026-11-05-prompt-deepseek-exemplos-visuais.md`.
 - [x] Receber e revisar material/teste novo/relatório, verificar integridade e cobertura, publicar somente após validações. Manter rascunho até conferência docente. Não resolver antecipadamente questões nem ampliar para bônus por velocidade.
+
+## 19/11/2026 — Jogos com fases e revisão autônoma (lembrete solicitado)
+
+- [ ] **JOGOS-FUT-01:** evoluir de quizzes/corridas para jogos efetivamente jogáveis, inicialmente plataforma 2D com movimento, saltos, obstáculos, coleta, checkpoints e avanço de fases. Priorizar mecânicas interativas; não limitar a mudança de cenário entre perguntas. Controles para teclado e toque, desempenho mobile e acessibilidade.
+- [ ] **JOGOS-FUT-02:** criar modo **Revisar sozinho**, separado das salas ao vivo: aluno acessa de casa pelo Portal, escolhe disciplina, conteúdo, dificuldade, duração/quantidade de desafios e jogo; joga sem professor conectado ou comandos docentes.
+- [ ] **JOGOS-FUT-03:** oferecer correção automática, explicação pedagógica e nova prática dos erros; salvar tentativas, progresso, fases, acertos, erros e evolução por conteúdo, com retomada de sessão e histórico individual. Separar desempenho de aprendizagem de habilidade motora/tempo e pontos de jogo.
+- [ ] **JOGOS-FUT-04:** utilizar questões revisadas e conteúdo adequado à série. Geração sob demanda pelo aluno depende de decisão posterior sobre credenciais, custos e limites; não expor a chave do professor. Respostas abertas não devem interromper o modo autônomo esperando julgamento docente.
+- [ ] **JOGOS-FUT-05:** preservar salas supervisionadas e avaliação atuais. Prática livre não modifica notas do Diário automaticamente; persistência isolada por aluno e validação no servidor antes de registrar desempenho.
+- Lembrar desta frente ao retomar o planejamento dos próximos jogos. Pedido registrado em 19/11/2026; implementação futura, ainda não entregue. Não foi definido horário para notificação.
