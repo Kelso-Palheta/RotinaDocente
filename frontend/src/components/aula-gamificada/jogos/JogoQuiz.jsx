@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { RenderTextoSeguro } from '../RenderTextoSeguro';
 import { gerarRequestId } from '../api';
 import { LETRAS } from '../constantes';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
 
 /**
  * Jogo de Múltipla Escolha — usado pelas modalidades `quiz` e `equipes`.
@@ -24,11 +25,13 @@ export function JogoQuiz({
   const [selecionada, setSelecionada] = useState(alternativaConfirmada);
   const [requestIdPendente, setRequestIdPendente] = useState(null);
   const [erroEnvio, setErroEnvio] = useState(null);
+  const audiovisual = useAudiovisualSala();
 
   const alternativas = Array.isArray(questao?.alternativas) ? questao.alternativas : [];
   const ativa = jaConfirmado ? alternativaConfirmada : selecionada;
 
   const escolher = (altId) => {
+    audiovisual?.desbloquearPorGesto?.();
     if (jaConfirmado || bloqueado || ocupado) return;
     setSelecionada(altId);
     setRequestIdPendente(null);

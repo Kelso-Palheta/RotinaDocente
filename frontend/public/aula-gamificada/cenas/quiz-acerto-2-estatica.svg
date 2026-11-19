@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Placar subindo com estrela de acerto">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E1145"/>
+      <stop offset="100%" stop-color="#6315D9" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+      .cena-mov { transform-origin: 240px 135px; animation: none; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><rect x="95" y="150" width="70" height="85" rx="8" fill="#6315D9"/><rect x="195" y="110" width="90" height="125" rx="8" fill="#00DDEB"/><rect x="315" y="70" width="70" height="165" rx="8" fill="#FFDF00"/><path d="M120 120 L240 65 L350 45" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/><circle cx="350" cy="45" r="10" fill="#FFFFFF"/></g>
+</svg>

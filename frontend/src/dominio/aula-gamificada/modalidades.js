@@ -58,3 +58,98 @@ export function regraPontuacao(modalidade) {
 }
 
 export const TIPOS_QUESTAO = Object.freeze(['multipla_escolha', 'pares', 'ordenacao']);
+
+export const FORMATOS_PARTICIPACAO = Object.freeze(['individual', 'duelo', 'grupos']);
+export const MODOS_RESPOSTA_GRUPO = Object.freeze(['individual', 'compartilhada']);
+
+export const COMPATIBILIDADE_DISPUTA = Object.freeze({
+  quiz: {
+    formatos: ['individual', 'duelo', 'grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
+    capa: '/aula-gamificada/catalogo/quiz.svg',
+    capaAlt: 'Ilustração de quiz ao vivo com alternativas e cronômetro',
+  },
+  memoria: {
+    formatos: ['individual', 'duelo', 'grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
+    capa: '/aula-gamificada/catalogo/memoria.svg',
+    capaAlt: 'Ilustração de cartas e estrelas do jogo de memória',
+  },
+  associacao: {
+    formatos: ['individual', 'duelo', 'grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
+    capa: '/aula-gamificada/catalogo/associacao.svg',
+    capaAlt: 'Ilustração de colunas conectadas por arcos luminosos',
+  },
+  ordenacao: {
+    formatos: ['individual', 'duelo', 'grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
+    capa: '/aula-gamificada/catalogo/ordenacao.svg',
+    capaAlt: 'Ilustração de blocos em sequência crescente',
+  },
+  equipes: {
+    formatos: ['grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'grupos',
+    capa: '/aula-gamificada/catalogo/equipes.svg',
+    capaAlt: 'Ilustração de arena cooperativa com grupos e troféu',
+  },
+  herois: {
+    formatos: ['individual', 'duelo', 'grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
+    capa: '/aula-gamificada/catalogo/herois.svg',
+    capaAlt: 'Ilustração em quadrinhos com escudo e raio dos Heróis',
+  },
+  tabuleiro: {
+    formatos: ['duelo', 'grupos'],
+    modosGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'grupos',
+    minGrupos: 2,
+    maxGrupos: 4,
+    capa: '/aula-gamificada/catalogo/tabuleiro.svg',
+    capaAlt: 'Ilustração de trilha de blocos com peões e bandeira de chegada',
+  },
+});
+
+export function compatibilidadeModalidade(id) {
+  const alvo = obterModalidade(id);
+  return COMPATIBILIDADE_DISPUTA[alvo.id];
+}
+
+export function formatosDaModalidade(id) {
+  return [...compatibilidadeModalidade(id).formatos];
+}
+
+export function validarFormatoParticipacao({
+  modalidade,
+  formatoParticipacao,
+  modoRespostaGrupo,
+} = {}) {
+  const alvo = obterModalidade(modalidade);
+  const comp = COMPATIBILIDADE_DISPUTA[alvo.id];
+  const formato = formatoParticipacao
+    ? String(formatoParticipacao).trim()
+    : comp.formatoPadrao;
+  if (!comp.formatos.includes(formato)) {
+    throw falha(
+      422,
+      `A modalidade ${alvo.nome} não é compatível com o formato ${formato}. Permitido: ${comp.formatos.join(', ')}.`,
+    );
+  }
+  let modoGrupo = null;
+  if (formato === 'grupos') {
+    modoGrupo = modoRespostaGrupo ? String(modoRespostaGrupo).trim() : 'individual';
+    if (!comp.modosGrupo.includes(modoGrupo)) {
+      throw falha(
+        422,
+        `Modo de resposta de grupo inválido (${modoGrupo}). Use individual ou compartilhada.`,
+      );
+    }
+  }
+  return { formatoParticipacao: formato, modoRespostaGrupo: modoGrupo, compatibilidade: comp };
+}

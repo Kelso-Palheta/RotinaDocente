@@ -4,12 +4,20 @@ import React from 'react';
 import { CartaoSuperficie } from '@/components/ui/CartaoSuperficie';
 import { mesclarModalidades, rotuloTipoQuestao } from './constantes';
 
+const ROTULO_FORMATO = {
+  individual: 'Individual',
+  duelo: 'Duelo 1×1',
+  grupos: 'Grupos',
+};
+
 const ICONES_MODALIDADE = {
   quiz: '⚡',
   memoria: '🃏',
   associacao: '🔗',
   ordenacao: '📊',
   equipes: '🏆',
+  herois: '🛡️',
+  tabuleiro: '🎲',
 };
 
 export function CatalogoModalidades({
@@ -32,7 +40,7 @@ export function CatalogoModalidades({
           </p>
         </div>
         <span className="inline-flex items-center rounded-full bg-[#E7DBFD] px-3 py-1 text-xs font-extrabold text-[#25104A] w-fit">
-          {modalidades.length} jogos prontos · Sem alterar notas
+          {modalidades.length} jogos prontos · Revisão ou Avaliativa (notas só no fluxo explícito)
         </span>
       </div>
 
@@ -50,6 +58,31 @@ export function CatalogoModalidades({
             >
               <div className="space-y-4 flex-1 flex flex-col justify-between">
                 <div className="space-y-3">
+                  {mod.capa && (
+                    <div className="overflow-hidden rounded-xl border border-[#E2D9F7] bg-[#1B103B]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={mod.capa}
+                        alt={mod.capaAlt || `Capa ilustrativa de ${mod.nome}`}
+                        width={640}
+                        height={360}
+                        loading="lazy"
+                        className="aspect-video w-full object-cover"
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-1.5" aria-label="Formatos de disputa compatíveis">
+                    {(mod.formatosParticipacao || []).map((fmt) => (
+                      <span
+                        key={fmt}
+                        className="inline-flex items-center rounded-full border border-[#E2D9F7] bg-[#FFFDF7] px-2.5 py-0.5 text-[11px] font-extrabold text-[#4A3B7C]"
+                      >
+                        {ROTULO_FORMATO[fmt] || fmt}
+                      </span>
+                    ))}
+                  </div>
+
                   <div className="flex items-center gap-2 text-xs font-bold text-[#4A3B7C]">
                     <span
                       aria-hidden="true"

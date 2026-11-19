@@ -137,7 +137,17 @@ export async function obterEstadoSala({ codigo, obterToken, signal, fetcher } = 
   });
 }
 
-export async function enviarComandoSala({ codigo, acao, expectedRevision, rodada, requestId, obterToken, signal, fetcher } = {}) {
+export async function enviarComandoSala({
+  codigo,
+  acao,
+  expectedRevision,
+  rodada,
+  requestId,
+  obterToken,
+  signal,
+  fetcher,
+  ...extras
+} = {}) {
   return requisitar(`/salas/${encodeURIComponent(codigo)}/comandos`, {
     method: 'POST',
     body: {
@@ -145,6 +155,7 @@ export async function enviarComandoSala({ codigo, acao, expectedRevision, rodada
       expectedRevision,
       rodada,
       requestId: requestId || gerarRequestId('cmd'),
+      ...extras,
     },
     obterToken,
     signal,
@@ -244,6 +255,7 @@ export async function sincronizarAvaliacaoDiario({
   turmaIds,
   dryRun = false,
   confirmarSobrescrita = false,
+  reconciliarAusentes = false,
   requestId,
   obterToken,
   signal,
@@ -257,6 +269,7 @@ export async function sincronizarAvaliacaoDiario({
       ...(Array.isArray(turmaIds) ? { turmaIds } : {}),
       dryRun,
       confirmarSobrescrita,
+      ...(reconciliarAusentes ? { reconciliarAusentes: true } : {}),
       requestId: requestId || gerarRequestId('sync_av'),
     },
     obterToken,

@@ -1,0 +1,1412 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_reconciliacao_interface --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx (3 tests | 3 failed) 1354ms
+     × oferece retirada explícita da nota obsoleta e envia autorização com revisão do Diário 226ms
+     × sem autorização não retira nota e informa pendências, sem alegar conclusão integral 1042ms
+     × nova prévia exige nova autorização para retirada 84ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx > Reconciliação pelo fluxo real de interface e cliente HTTP > oferece retirada explícita da nota obsoleta e envia autorização com revisão do Diário
+TestingLibraryElementError: Unable to find an accessible element with the role "checkbox" and name `/retirar.*notas.*anteriores/i`
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "Avaliação":
+  [36m<h3[39m
+    [33mclass[39m=[32m"font-head text-xl font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-xs font-semibold text-[#5B4B86]"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Exportar CSV":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Exportar PDF":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Confirmar finalização":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Publicar no Portal do Aluno":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#6315D9] px-4 py-2 text-xs font-extrabold text-white"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Prévia e sincronizar com Diário":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-4 py-2 text-xs font-extrabold text-[#6315D9]"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Confirmar sincronização no Diário":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-9 rounded-lg bg-[#6315D9] px-3 py-1.5 text-xs font-extrabold text-white"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Fechar prévia":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-9 rounded-lg border px-3 py-1.5 text-xs font-bold"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  table:
+
+  Name "":
+  [36m<table[39m
+    [33mclass[39m=[32m"w-full text-left text-xs border-collapse"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<table[39m
+    [33mclass[39m=[32m"w-full text-left text-[11px] border-collapse"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  rowgroup:
+
+  Name "":
+  [36m<thead />[39m
+
+  Name "":
+  [36m<tbody />[39m
+
+  Name "":
+  [36m<thead />[39m
+
+  Name "":
+  [36m<tbody />[39m
+
+  --------------------------------------------------
+  row:
+
+  Name "Aluno Grupo / Origem Situação / Presença Resp./Eleg. Aproveit. Calculada Final Ações":
+  [36m<tr[39m
+    [33mclass[39m=[32m"border-b-2 border-[#E2D9F7] text-[#4A3B7C]"[39m
+  [36m/>[39m
+
+  Name "Aluno Turma Coluna (Máx) Atual Nova":
+  [36m<tr[39m
+    [33mclass[39m=[32m"border-b border-[#E2D9F7] text-[#4A3B7C]"[39m
+  [36m/>[39m
+
+  Name "Beto 101 Jogo (10) 10":
+  [36m<tr[39m
+    [33mclass[39m=[32m"border-b border-[#F3EDFF]"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  columnheader:
+
+  Name "Aluno":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Grupo / Origem":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Situação / Presença":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Resp./Eleg.":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Aproveit.":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Calculada":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Final":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Ações":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2"[39m
+  [36m/>[39m
+
+  Name "Aluno":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Turma":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Coluna (Máx)":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Atual":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Nova":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Atribuir 0 aos alunos com situação nao_participou (decisão docente explícita)":
+  [36m<input[39m
+    [33mclass[39m=[32m"accent-[#6315D9]"[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  cell:
+
+  Name "Beto":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2 font-bold"[39m
+  [36m/>[39m
+
+  Name "101":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Jogo (10)":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "10":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"rounded-3xl border-2 border-[#6315D9] bg-white p-5 sm:p-6 space-y-5 text-[#25104A]"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap items-start justify-between gap-3"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"space-y-1"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap items-center gap-2"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"rounded-lg bg-[#FFE500] px-2.5 py-0.5 text-xs font-black uppercase"[39m
+            [36m>[39m
+              [0mAvaliativa[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs font-bold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0mSala [0m
+              [0mPRES01[0m
+              [0m · [0m
+              [0mquiz[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<h3[39m
+            [33mclass[39m=[32m"font-head text-xl font-black"[39m
+          [36m>[39m
+            [0mAvaliação[0m
+          [36m</h3>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-xs font-semibold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0m · Ano [0m
+            [0m · [0m
+            [0mº Bimestre · Valor máx: [0m
+            [0m10[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mExportar CSV[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mExportar PDF[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-3 text-center"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mElegíveis[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m0[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mPresentes[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m0[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mAusentes[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m0[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mMédia[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m-[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"overflow-x-auto"[39m
+      [36m>[39m
+        [36m<table[39m
+          [33mclass[39m=[32m"w-full text-left text-xs border-collapse"[39m
+        [36m>[39m
+          [36m<thead>[39m
+            [36m<tr[39m
+              [33mclass[39m=[32m"border-b-2 border-[#E2D9F7] text-[#4A3B7C]"[39m
+            [36m>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mAluno[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mGrupo / Origem[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mSituação / Presença[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mResp./Eleg.[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mAproveit.[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mCalculada[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mFinal[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2"[39m
+              [36m>[39m
+                [0mAções[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody />[39m
+        [36m</table>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl border border-[#E2D9F7] bg-[#F8F5FF] p-4 space-y-3"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex items-center gap-2 text-xs font-bold text-[#25104A]"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mclass[39m=[32m"accent-[#6315D9]"[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mAtribuir 0 aos alunos com situação nao_participou (decisão docente explícita)[0m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mConfirmar finalização[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#6315D9] px-4 py-2 text-xs font-extrabold text-white"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mPublicar no Portal do Aluno[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-4 py-2 text-xs font-extrabold text-[#6315D9]"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mPrévia e sincronizar com Diário[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl border border-[#6315D9] bg-white p-3 space-y-2 text-xs"[39m
+        [36m>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"font-black"[39m
+          [36m>[39m
+            [0mPrévia de sincronização ([0m
+            [0m1[0m
+            [0mº Bimestre):[0m
+            [0m [0m
+            [0m0[0m
+            [0m lançamentos previstos[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"overflow-x-auto"[39m
+          [36m>[39m
+            [36m<table[39m
+              [33mclass[39m=[32m"w-full text-left text-[11px] border-collapse"[39m
+            [36m>[39m
+              [36m<thead>[39m
+                [36m<tr[39m
+                  [33mclass[39m=[32m"border-b border-[#E2D9F7] text-[#4A3B7C]"[39m
+                [36m>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mAluno[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mTurma[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mColuna (Máx)[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mAtual[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1"[39m
+                  [36m>[39m
+                    [0mNova[0m
+                  [36m</th>[39m
+                [36m</tr>[39m
+              [36m</thead>[39m
+              [36m<tbody>[39m
+                [36m<tr[39m
+                  [33mclass[39m=[32m"border-b border-[#F3EDFF]"[39m
+                [36m>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2 font-bold"[39m
+                  [36m>[39m
+                    [0mBeto[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0m101[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mJogo[0m
+                    [0m ([0m
+                    [0m10[0m
+                    [0m)[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0m10[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 font-black"[39m
+                  [36m/>[39m
+                [36m</tr>[39m
+              [36m</tbody>[39m
+            [36m</table>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-9 rounded-lg bg-[#6315D9] px-3 py-1.5 text-xs font-extrabold text-white"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mConfirmar sincronização no Diário[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-9 rounded-lg border px-3 py-1.5 text-xs font-bold"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mFechar prévia[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx:53:34
+     51|     const envios = montar();
+     52|     await abrirPrevia();
+     53|     const consentimento = screen.getByRole('checkbox', { name: /retira…
+       |                                  ^
+     54|     expect(consentimento.checked).toBe(false);
+     55|     fireEvent.click(consentimento);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx > Reconciliação pelo fluxo real de interface e cliente HTTP > sem autorização não retira nota e informa pendências, sem alegar conclusão integral
+AssertionError: expected 'Sincronização concluída (0 lançamento…' to match /pendência/i
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"rounded-3xl border-2 border-[#6315D9] bg-white p-5 sm:p-6 space-y-5 text-[#25104A]"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap items-start justify-between gap-3"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"space-y-1"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex flex-wrap items-center gap-2"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"rounded-lg bg-[#FFE500] px-2.5 py-0.5 text-xs font-black uppercase"[39m
+              [36m>[39m
+                [0mAvaliativa[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-xs font-bold text-[#5B4B86]"[39m
+              [36m>[39m
+                [0mSala [0m
+                [0mPRES01[0m
+                [0m · [0m
+                [0mquiz[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<h3[39m
+              [33mclass[39m=[32m"font-head text-xl font-black"[39m
+            [36m>[39m
+              [0mAvaliação[0m
+            [36m</h3>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-xs font-semibold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0m · Ano [0m
+              [0m · [0m
+              [0mº Bimestre · Valor máx: [0m
+              [0m10[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mExportar CSV[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mExportar PDF[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"rounded-xl border border-emerald-300 bg-emerald-50 p-3 text-xs font-bold text-emerald-900"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m>[39m
+          [0mSincronização concluída (0 lançamentos no Diário).[0m
+        [36m</p>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-3 text-center"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0mElegíveis[0m
+            [36m</span>[39m
+            [36m<strong[39m
+              [33mclass[39m=[32m"text-lg font-black"[39m
+            [36m>[39m
+              [0m0[0m
+            [36m</strong>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0mPresentes[0m
+            [36m</span>[39m
+            [36m<strong[39m
+              [33mclass[39m=[32m"text-lg font-black"[39m
+            [36m>[39m
+              [0m0[0m
+            [36m</strong>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0mAusentes[0m
+            [36m</span>[39m
+            [36m<strong[39m
+              [33mclass[39m=[32m"text-lg font-black"[39m
+            [36m>[39m
+              [0m0[0m
+            [36m</strong>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0mMédia[0m
+            [36m</span>[39m
+            [36m<strong[39m
+              [33mclass[39m=[32m"text-lg font-black"[39m
+            [36m>[39m
+              [0m-[0m
+            [36m</strong>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"overflow-x-auto"[39m
+        [36m>[39m
+          [36m<table[39m
+            [33mclass[39m=[32m"w-full text-left text-xs border-collapse"[39m
+          [36m>[39m
+            [36m<thead>[39m
+              [36m<tr[39m
+                [33mclass[39m=[32m"border-b-2 border-[#E2D9F7] text-[#4A3B7C]"[39m
+              [36m>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mAluno[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mGrupo / Origem[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mSituação / Presença[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mResp./Eleg.[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mAproveit.[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mCalculada[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2 pr-3"[39m
+                [36m>[39m
+                  [0mFinal[0m
+                [36m</th>[39m
+                [36m<th[39m
+                  [33mclass[39m=[32m"py-2"[39m
+                [36m>[39m
+                  [0mAções[0m
+                [36m</th>[39m
+              [36m</tr>[39m
+            [36m</thead>[39m
+            [36m<tbody />[39m
+          [36m</table>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-2xl border border-[#E2D9F7] bg-[#F8F5FF] p-4 space-y-3"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"flex items-center gap-2 text-xs font-bold text-[#25104A]"[39m
+          [36m>[39m
+            [36m<input[39m
+              [33mclass[39m=[32m"accent-[#6315D9]"[39m
+              [33mtype[39m=[32m"checkbox"[39m
+            [36m/>[39m
+            [0mAtribuir 0 aos alunos com situação nao_participou (decisão docente explícita)[0m
+          [36m</label>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mConfirmar finalização[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#6315D9] px-4 py-2 text-xs font-extrabold text-white"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mPublicar no Portal do Aluno[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-4 py-2 text-xs font-extrabold text-[#6315D9]"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mPrévia e sincronizar com Diário[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+
+- Expected:
+/pendência/i
+
++ Received:
+"Sincronização concluída (0 lançamentos no Diário)."
+
+ ❯ ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx:70:72
+     68|     expect(envios[0].reconciliarAusentes).not.toBe(true);
+     69|     expect(envios[0].confirmarSobrescrita).toBe(false);
+     70|     await waitFor(() => expect(screen.getByRole('status').textContent)…
+       |                                                                        ^
+     71|   });
+     72|
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx > Reconciliação pelo fluxo real de interface e cliente HTTP > nova prévia exige nova autorização para retirada
+TestingLibraryElementError: Unable to find an accessible element with the role "checkbox" and name `/retirar.*notas.*anteriores/i`
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "Avaliação":
+  [36m<h3[39m
+    [33mclass[39m=[32m"font-head text-xl font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-xs font-semibold text-[#5B4B86]"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Exportar CSV":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Exportar PDF":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Confirmar finalização":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Publicar no Portal do Aluno":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#6315D9] px-4 py-2 text-xs font-extrabold text-white"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Prévia e sincronizar com Diário":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-4 py-2 text-xs font-extrabold text-[#6315D9]"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Confirmar sincronização no Diário":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-9 rounded-lg bg-[#6315D9] px-3 py-1.5 text-xs font-extrabold text-white"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Fechar prévia":
+  [36m<button[39m
+    [33mclass[39m=[32m"min-h-9 rounded-lg border px-3 py-1.5 text-xs font-bold"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-lg font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  table:
+
+  Name "":
+  [36m<table[39m
+    [33mclass[39m=[32m"w-full text-left text-xs border-collapse"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<table[39m
+    [33mclass[39m=[32m"w-full text-left text-[11px] border-collapse"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  rowgroup:
+
+  Name "":
+  [36m<thead />[39m
+
+  Name "":
+  [36m<tbody />[39m
+
+  Name "":
+  [36m<thead />[39m
+
+  Name "":
+  [36m<tbody />[39m
+
+  --------------------------------------------------
+  row:
+
+  Name "Aluno Grupo / Origem Situação / Presença Resp./Eleg. Aproveit. Calculada Final Ações":
+  [36m<tr[39m
+    [33mclass[39m=[32m"border-b-2 border-[#E2D9F7] text-[#4A3B7C]"[39m
+  [36m/>[39m
+
+  Name "Aluno Turma Coluna (Máx) Atual Nova":
+  [36m<tr[39m
+    [33mclass[39m=[32m"border-b border-[#E2D9F7] text-[#4A3B7C]"[39m
+  [36m/>[39m
+
+  Name "Beto 101 Jogo (10) 10":
+  [36m<tr[39m
+    [33mclass[39m=[32m"border-b border-[#F3EDFF]"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  columnheader:
+
+  Name "Aluno":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Grupo / Origem":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Situação / Presença":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Resp./Eleg.":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Aproveit.":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Calculada":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Final":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2 pr-3"[39m
+  [36m/>[39m
+
+  Name "Ações":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-2"[39m
+  [36m/>[39m
+
+  Name "Aluno":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Turma":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Coluna (Máx)":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Atual":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Nova":
+  [36m<th[39m
+    [33mclass[39m=[32m"py-1"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Atribuir 0 aos alunos com situação nao_participou (decisão docente explícita)":
+  [36m<input[39m
+    [33mclass[39m=[32m"accent-[#6315D9]"[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  cell:
+
+  Name "Beto":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2 font-bold"[39m
+  [36m/>[39m
+
+  Name "101":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "Jogo (10)":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "10":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 pr-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<td[39m
+    [33mclass[39m=[32m"py-1 font-black"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"rounded-3xl border-2 border-[#6315D9] bg-white p-5 sm:p-6 space-y-5 text-[#25104A]"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-wrap items-start justify-between gap-3"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"space-y-1"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap items-center gap-2"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"rounded-lg bg-[#FFE500] px-2.5 py-0.5 text-xs font-black uppercase"[39m
+            [36m>[39m
+              [0mAvaliativa[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"text-xs font-bold text-[#5B4B86]"[39m
+            [36m>[39m
+              [0mSala [0m
+              [0mPRES01[0m
+              [0m · [0m
+              [0mquiz[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<h3[39m
+            [33mclass[39m=[32m"font-head text-xl font-black"[39m
+          [36m>[39m
+            [0mAvaliação[0m
+          [36m</h3>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-xs font-semibold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0m · Ano [0m
+            [0m · [0m
+            [0mº Bimestre · Valor máx: [0m
+            [0m10[0m
+          [36m</p>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mExportar CSV[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-3 py-1.5 text-xs font-extrabold text-[#6315D9] hover:bg-[#F3EDFF]"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mExportar PDF[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"grid grid-cols-2 sm:grid-cols-4 gap-3 text-center"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mElegíveis[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m0[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mPresentes[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m0[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mAusentes[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m0[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl bg-[#F3EDFF] p-3"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"block text-[11px] font-bold text-[#5B4B86]"[39m
+          [36m>[39m
+            [0mMédia[0m
+          [36m</span>[39m
+          [36m<strong[39m
+            [33mclass[39m=[32m"text-lg font-black"[39m
+          [36m>[39m
+            [0m-[0m
+          [36m</strong>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"overflow-x-auto"[39m
+      [36m>[39m
+        [36m<table[39m
+          [33mclass[39m=[32m"w-full text-left text-xs border-collapse"[39m
+        [36m>[39m
+          [36m<thead>[39m
+            [36m<tr[39m
+              [33mclass[39m=[32m"border-b-2 border-[#E2D9F7] text-[#4A3B7C]"[39m
+            [36m>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mAluno[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mGrupo / Origem[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mSituação / Presença[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mResp./Eleg.[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mAproveit.[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mCalculada[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2 pr-3"[39m
+              [36m>[39m
+                [0mFinal[0m
+              [36m</th>[39m
+              [36m<th[39m
+                [33mclass[39m=[32m"py-2"[39m
+              [36m>[39m
+                [0mAções[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody />[39m
+        [36m</table>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"rounded-2xl border border-[#E2D9F7] bg-[#F8F5FF] p-4 space-y-3"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"flex items-center gap-2 text-xs font-bold text-[#25104A]"[39m
+        [36m>[39m
+          [36m<input[39m
+            [33mclass[39m=[32m"accent-[#6315D9]"[39m
+            [33mtype[39m=[32m"checkbox"[39m
+          [36m/>[39m
+          [0mAtribuir 0 aos alunos com situação nao_participou (decisão docente explícita)[0m
+        [36m</label>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"flex flex-wrap gap-2"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mConfirmar finalização[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl bg-[#6315D9] px-4 py-2 text-xs font-extrabold text-white"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mPublicar no Portal do Aluno[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"min-h-10 rounded-xl border border-[#6315D9] bg-white px-4 py-2 text-xs font-extrabold text-[#6315D9]"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mPrévia e sincronizar com Diário[0m
+          [36m</button>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"rounded-xl border border-[#6315D9] bg-white p-3 space-y-2 text-xs"[39m
+        [36m>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"font-black"[39m
+          [36m>[39m
+            [0mPrévia de sincronização ([0m
+            [0m1[0m
+            [0mº Bimestre):[0m
+            [0m [0m
+            [0m0[0m
+            [0m lançamentos previstos[0m
+          [36m</p>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"overflow-x-auto"[39m
+          [36m>[39m
+            [36m<table[39m
+              [33mclass[39m=[32m"w-full text-left text-[11px] border-collapse"[39m
+            [36m>[39m
+              [36m<thead>[39m
+                [36m<tr[39m
+                  [33mclass[39m=[32m"border-b border-[#E2D9F7] text-[#4A3B7C]"[39m
+                [36m>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mAluno[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mTurma[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mColuna (Máx)[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mAtual[0m
+                  [36m</th>[39m
+                  [36m<th[39m
+                    [33mclass[39m=[32m"py-1"[39m
+                  [36m>[39m
+                    [0mNova[0m
+                  [36m</th>[39m
+                [36m</tr>[39m
+              [36m</thead>[39m
+              [36m<tbody>[39m
+                [36m<tr[39m
+                  [33mclass[39m=[32m"border-b border-[#F3EDFF]"[39m
+                [36m>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2 font-bold"[39m
+                  [36m>[39m
+                    [0mBeto[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0m101[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0mJogo[0m
+                    [0m ([0m
+                    [0m10[0m
+                    [0m)[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 pr-2"[39m
+                  [36m>[39m
+                    [0m10[0m
+                  [36m</td>[39m
+                  [36m<td[39m
+                    [33mclass[39m=[32m"py-1 font-black"[39m
+                  [36m/>[39m
+                [36m</tr>[39m
+              [36m</tbody>[39m
+            [36m</table>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-9 rounded-lg bg-[#6315D9] px-3 py-1.5 text-xs font-extrabold text-white"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mConfirmar sincronização no Diário[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"min-h-9 rounded-lg border px-3 py-1.5 text-xs font-bold"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [0mFechar prévia[0m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ../tests/regression/aula_gamificada_reconciliacao_interface.test.jsx:76:28
+     74|     montar();
+     75|     await abrirPrevia();
+     76|     fireEvent.click(screen.getByRole('checkbox', { name: /retirar.*not…
+       |                            ^
+     77|     fireEvent.click(screen.getByRole('button', { name: /Fechar prévia/…
+     78|     await abrirPrevia();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  12:33:45
+   Duration  3.75s (transform 722ms, setup 0ms, import 1.52s, tests 1.35s, environment 705ms)

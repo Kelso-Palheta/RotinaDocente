@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RenderTextoSeguro } from '../RenderTextoSeguro';
 import { gerarRequestId } from '../api';
 import { LETRAS, resolverRequestIdOperacao } from '../constantes';
 import ControladorAudioJogo, { usePreferenciaMovimentoReduzido } from './ControladorAudioJogo';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
+import { selecionarCenaSemRepeticao } from '../audiovisual/catalogoCenas';
+import PalcoCenaJogo from '../audiovisual/PalcoCenaJogo';
 
 export default function JogoHerois({
   modo = 'aluno',
@@ -21,7 +24,9 @@ export default function JogoHerois({
 }) {
   const [selecionada, setSelecionada] = useState(null);
   const [erroEnvio, setErroEnvio] = useState(null);
-  const [reduzirAnimacao, setReduzirAnimacao] = usePreferenciaMovimentoReduzido();
+  const [reduzirLocal, setReduzirLocal] = usePreferenciaMovimentoReduzido();
+  const audiovisual = useAudiovisualSala();
+  const reduzirAnimacao = audiovisual ? audiovisual.reduzirAnimacao : reduzirLocal;
   const operacaoRef = useRef(null);
 
   const estadoHeroi = recibo?.estadoHeroi || null;
@@ -48,17 +53,45 @@ export default function JogoHerois({
   const revelado = Boolean(estado?.rodada?.revelado || estado?.revelado);
   const gabarito = fase === 'feedback' ? estado?.feedback?.respostaCorreta : null;
 
-  const gifAtual =
+  const situacaoHeroi =
     fase === 'encerrada'
-      ? '/aula-gamificada/herois/image19.gif'
+      ? 'vitoria'
       : estadoHeroi === 'vitoria_fase'
-        ? '/aula-gamificada/herois/image2.gif'
-        : estadoHeroi === 'golpe_tente_novamente' || estadoHeroi === 'golpe_encerrado'
-          ? '/aula-gamificada/herois/image3.gif'
-          : '/aula-gamificada/herois/image1.gif';
+        ? 'acerto'
+        : estadoHeroi === 'golpe_tente_novamente'
+          ? 'nova_tentativa'
+          : estadoHeroi === 'golpe_encerrado'
+            ? 'erro'
+            : fase === 'feedback'
+              ? !revelado
+                ? 'resposta_recebida'
+                : modo === 'aluno'
+                  ? recibo?.correta === true
+                    ? 'acerto'
+                    : recibo?.correta === false
+                      ? 'erro'
+                      : 'resposta_recebida'
+                  : 'desafio'
+              : fase === 'espera'
+                ? 'espera'
+                : 'desafio';
+
+  const salaCodigo = estado?.sala?.codigo || 'sala';
+  const eventoId = `${salaCodigo}:${rodada}:${situacaoHeroi}:${tentativas}:${fase}`;
+  const cenaHeroi = audiovisual
+    ? audiovisual.selecionarCena('herois', situacaoHeroi, eventoId)
+    : selecionarCenaSemRepeticao({ jogo: 'herois', situacao: situacaoHeroi, eventoId });
+
+  useEffect(() => {
+    if (!audiovisual?.ativoNoGerenciador) return;
+    if (['acerto', 'erro', 'nova_tentativa', 'vitoria'].includes(situacaoHeroi)) {
+      audiovisual.dispararEvento(eventoId, situacaoHeroi);
+    }
+  }, [audiovisual, eventoId, situacaoHeroi]);
 
   const escolher = (altId) => {
     if (bloqueado) return;
+    audiovisual?.desbloquearPorGesto?.();
     setSelecionada(altId);
     setErroEnvio(null);
     const assinatura = `${questao?.id || ''}:${rodada}:${tentativas}:${altId}`;
@@ -94,35 +127,37 @@ export default function JogoHerois({
             </span>
           )}
         </div>
-        <ControladorAudioJogo
-          src="/aula-gamificada/herois/trilha-herois.mp3"
-          rotulo="Trilha sonora do jogo Heróis"
-          reduzirAnimacao={reduzirAnimacao}
-          onAlternarAnimacao={setReduzirAnimacao}
-        />
+        {!audiovisual?.ativoNoGerenciador && (
+          <ControladorAudioJogo
+            src="/aula-gamificada/herois/trilha-herois.mp3"
+            rotulo="Trilha sonora do jogo Heróis"
+            reduzirAnimacao={reduzirLocal}
+            onAlternarAnimacao={setReduzirLocal}
+          />
+        )}
       </div>
 
-      {/* Palco visual preservado com mídias originais */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center rounded-2xl border border-white/15 bg-black/25 p-4">
-        <div className="flex justify-center">
-          <img
-            src={reduzirAnimacao ? '/aula-gamificada/herois/image1.png' : gifAtual}
-            alt={
+      {/* Palco protagonista de Heróis (40–50% desktop/telão, responsivo no celular) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start rounded-2xl border border-white/15 bg-black/25 p-4">
+        <div className="lg:col-span-5">
+          <PalcoCenaJogo
+            cena={cenaHeroi}
+            reduzirAnimacao={reduzirAnimacao}
+            tamanho={fase === 'feedback' || fase === 'encerrada' ? 'destaque' : 'padrao'}
+            testId="palco-cena-herois"
+            titulo={
               fase === 'encerrada'
                 ? 'Comemore! Vocês conseguiram!'
                 : estadoHeroi === 'vitoria_fase'
                   ? 'Parabéns! Você conseguiu!'
                   : estadoHeroi === 'golpe_tente_novamente'
-                    ? 'Que golpe! Você errou! Tente novamente'
-                    : 'Batalha dos Heróis em andamento'
+                    ? 'Que golpe! Tente novamente!'
+                    : undefined
             }
-            className={`max-h-40 rounded-2xl object-contain border-2 border-[#FFE500]/60 bg-black/40 ${
-              reduzirAnimacao ? '' : 'transition-transform duration-300'
-            }`}
           />
         </div>
 
-        <div className="md:col-span-2 space-y-2">
+        <div className="lg:col-span-7 space-y-3">
           {fase === 'encerrada' ? (
             <h3 className="font-head text-xl sm:text-3xl font-black leading-snug text-[#FFE500]">
               Comemore! Vocês conseguiram!
@@ -135,6 +170,16 @@ export default function JogoHerois({
             <p className="text-sm font-bold text-[#E7DBFD]">
               Aguardando a próxima fase da missão.
             </p>
+          )}
+
+          {questao?.imagemUrl && (
+            <div className="rounded-2xl border border-white/20 bg-black/30 p-2">
+              <img
+                src={questao.imagemUrl}
+                alt="Imagem didática da questão"
+                className="max-h-60 w-full rounded-xl object-contain mx-auto"
+              />
+            </div>
           )}
 
           {modo === 'docente' && (

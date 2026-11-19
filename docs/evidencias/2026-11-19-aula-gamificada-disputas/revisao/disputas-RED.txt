@@ -1,0 +1,183 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_disputas_revisao --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js (6 tests | 6 failed) 30ms
+     × REV-DIS-01: representante com alunoId local ambíguo exige identificação da turma/participante 8ms
+     × REV-DIS-02: integrante não recebe pontos que antecipam acerto coletivo antes da revelação 7ms
+     × REV-DIS-03: uma resposta coletiva vale 1000 para o grupo, sem multiplicar pelos integrantes 3ms
+     × REV-DIS-04: Quiz em grupos exibe ranking dos grupos, não o ranking individual 4ms
+     × REV-DIS-05: ausência expressamente registrada pelo professor prevalece sobre login anterior 2ms
+     × REV-DIS-06: nova disputa em grupos individuais não aceita grupo vazio 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js > Revisão de disputas com evidências e IDs de produção > REV-DIS-01: representante com alunoId local ambíguo exige identificação da turma/participante
+AssertionError: expected [Function] to throw an error
+ ❯ ../tests/regression/aula_gamificada_disputas_revisao.test.js:88:78
+     86|       { id: 'g1', nome: 'Sol', participanteIds: roster.slice(0, 2).map…
+     87|       { id: 'g2', nome: 'Lua', participanteIds: [roster[2].id], repres…
+     88|     ], roster, { exigirMembros: true, modoRespostaGrupo: 'compartilhad…
+       |                                                                              ^
+     89|   });
+     90|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js > Revisão de disputas com evidências e IDs de produção > REV-DIS-02: integrante não recebe pontos que antecipam acerto coletivo antes da revelação
+AssertionError: expected 1000 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1000
+
+ ❯ ../tests/regression/aula_gamificada_disputas_revisao.test.js:96:29
+     94|     const atual = (await servico.estado(beto, codigo)).estado;
+     95|     expect(atual.rodada.revelado).toBe(false);
+     96|     expect(atual.eu.pontos).toBe(0);
+       |                             ^
+     97|   });
+     98|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js > Revisão de disputas com evidências e IDs de produção > REV-DIS-03: uma resposta coletiva vale 1000 para o grupo, sem multiplicar pelos integrantes
+AssertionError: expected 2000 to be 1000 // Object.is equality
+
+- Expected
++ Received
+
+- 1000
++ 2000
+
+ ❯ ../tests/regression/aula_gamificada_disputas_revisao.test.js:101:65
+     99|   it('REV-DIS-03: uma resposta coletiva vale 1000 para o grupo, sem mu…
+    100|     const { ranking } = ambiente();
+    101|     expect((await ranking()).find((e) => e.id === 'g1').pontos).toBe(1…
+       |                                                                 ^
+    102|   });
+    103|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js > Revisão de disputas com evidências e IDs de produção > REV-DIS-04: Quiz em grupos exibe ranking dos grupos, não o ranking individual
+AssertionError: expected [ …(3) ] to deeply equal [ 'g1', 'g2' ]
+
+- Expected
++ Received
+
+  [
+-   "g1",
+-   "g2",
++   "4b29ab42aa4897eafc45667d6a84a2b4121bafdb5ad746abe2f0f30ea0ac5a69",
++   "c004fc7a22b16c11b396e130bf051a173f971f350861bb1eae2a448b2d3877e3",
++   "db8d142dca98482892d9403cee7ec058fc4421f4fe429606251ae2ae62bc6d33",
+  ]
+
+ ❯ ../tests/regression/aula_gamificada_disputas_revisao.test.js:106:55
+    104|   it('REV-DIS-04: Quiz em grupos exibe ranking dos grupos, não o ranki…
+    105|     const { ranking } = ambiente('quiz');
+    106|     expect((await ranking()).map((e) => e.id).sort()).toEqual(['g1', '…
+       |                                                       ^
+    107|   });
+    108|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js > Revisão de disputas com evidências e IDs de produção > REV-DIS-05: ausência expressamente registrada pelo professor prevalece sobre login anterior
+AssertionError: expected 10 to be null
+
+- Expected:
+null
+
++ Received:
+10
+
+ ❯ ../tests/regression/aula_gamificada_disputas_revisao.test.js:116:72
+    114|       requestId: 'presenca', presentesIds: [participantes[0].id], subs…
+    115|     const relatorio = await servico.relatorioSala(prof, codigo);
+    116|     expect(relatorio.alunos.find((p) => p.alunoId === 'a2').notaFinal)…
+       |                                                                        ^
+    117|   });
+    118|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_disputas_revisao.test.js > Revisão de disputas com evidências e IDs de produção > REV-DIS-06: nova disputa em grupos individuais não aceita grupo vazio
+AssertionError: promise resolved "{ sala: { codigo: 'NEW001', …(21) } }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "sala": {
++     "atualizadoEmMs": 100000,
++     "codigo": "NEW001",
++     "criadoEmMs": 100000,
++     "encerraEmMs": null,
++     "equipes": [
++       {
++         "id": "g1",
++         "nome": "Vazio",
++         "participanteIds": [],
++       },
++       {
++         "id": "g2",
++         "nome": "Todos",
++         "participanteIds": [
++           "4b29ab42aa4897eafc45667d6a84a2b4121bafdb5ad746abe2f0f30ea0ac5a69",
++           "c004fc7a22b16c11b396e130bf051a173f971f350861bb1eae2a448b2d3877e3",
++           "db8d142dca98482892d9403cee7ec058fc4421f4fe429606251ae2ae62bc6d33",
++         ],
++       },
++     ],
++     "fase": "espera",
++     "finalidade": "revisao",
++     "formatoParticipacao": "grupos",
++     "modalidade": "quiz",
++     "modoRespostaGrupo": "individual",
++     "professorId": "prof1",
++     "questaoIds": [
++       "q1",
++     ],
++     "regraPontuacao": "Cada resposta correta vale 1000 pontos, sem bônus por tempo.",
++     "revelado": false,
++     "revision": 1,
++     "rodada": 1,
++     "roster": [
++       "4b29ab42aa4897eafc45667d6a84a2b4121bafdb5ad746abe2f0f30ea0ac5a69",
++       "c004fc7a22b16c11b396e130bf051a173f971f350861bb1eae2a448b2d3877e3",
++       "db8d142dca98482892d9403cee7ec058fc4421f4fe429606251ae2ae62bc6d33",
++     ],
++     "schemaVersion": 1,
++     "tempoSegundos": 60,
++     "titulo": "Grupos novos",
++     "totalRodadas": 1,
++     "turmaIds": [
++       "t1",
++     ],
++   },
+  }
+
+ ❯ ../tests/regression/aula_gamificada_disputas_revisao.test.js:127:8
+    125|         { id: 'g2', nome: 'Todos', participanteIds: participantes.map(…
+    126|       ],
+    127|     })).rejects.toMatchObject({ status: 422 });
+       |        ^
+    128|   });
+    129| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  11:51:30
+   Duration  401ms (transform 154ms, setup 0ms, import 198ms, tests 30ms, environment 0ms)

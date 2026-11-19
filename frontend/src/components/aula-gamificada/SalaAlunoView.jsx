@@ -19,6 +19,12 @@ import { JogoAssociacao } from './jogos/JogoAssociacao';
 import { JogoOrdenacao } from './jogos/JogoOrdenacao';
 import JogoHerois from './jogos/JogoHerois';
 import JogoTabuleiro from './jogos/JogoTabuleiro';
+import {
+  BarraControleAudiovisual,
+  ProvedorAudiovisualSala,
+  derivarContextoAudiovisual,
+} from './audiovisual/ProvedorAudiovisualSala';
+import { PalcoCenaConectado } from './audiovisual/PalcoCenaJogo';
 
 function StatusConexao({ conexao }) {
   const mapa = {
@@ -53,12 +59,23 @@ export function SalaAlunoView({
   const rankingIndividual = normalizarRankingComEmpates(estado?.ranking || []);
   const rankingEquipes = normalizarRankingComEmpates(estado?.rankingEquipes || []);
   const prazoEncerrado = Boolean(estado?.rodadaEncerrada) || (estado?.prazo != null && segundos <= 0);
-  const bloqueado = ocupado || conexao !== 'conectado' || prazoEncerrado;
+  const ehCompartilhada = estado?.modoRespostaGrupo === 'compartilhada';
+  const ehRepresentante = Boolean(estado?.eu?.ehRepresentante);
+  const bloqueadoPorRepresentante = ehCompartilhada && !ehRepresentante;
+  const bloqueado = ocupado || conexao !== 'conectado' || prazoEncerrado || bloqueadoPorRepresentante;
 
   const chaveRodada = `${estado?.codigo || ''}:${estado?.rodada || 0}:${questao?.id || ''}`;
+  const contextoAv = derivarContextoAudiovisual(estado, segundos, 'aluno');
+  const modoTemPalcoProprio = estado.modalidade === 'herois' || estado.modalidade === 'tabuleiro';
 
   return (
+    <ProvedorAudiovisualSala
+      modalidade={contextoAv.modalidade}
+      fase={contextoAv.fase}
+      evento={contextoAv.evento}
+    >
     <div className="max-w-3xl mx-auto px-4 py-5 space-y-5">
+      <BarraControleAudiovisual />
       {/* Cabeçalho da sala */}
       <header className="arte-banner-festival rounded-3xl p-5 text-white shadow-lg space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -67,6 +84,17 @@ export function SalaAlunoView({
             <span className="rounded-full bg-white/15 px-3 py-0.5 text-xs font-extrabold text-white">
               {estado?.finalidade === 'avaliativa' ? 'Avaliativa' : 'Revisão'}
             </span>
+            {estado?.formatoParticipacao && (
+              <span className="rounded-full bg-[#FFE500] px-3 py-0.5 text-xs font-black text-[#25104A]">
+                {estado.formatoParticipacao === 'duelo'
+                  ? 'Duelo 1×1'
+                  : estado.formatoParticipacao === 'grupos'
+                    ? estado.modoRespostaGrupo === 'compartilhada'
+                      ? 'Grupos · Resposta compartilhada'
+                      : 'Grupos · Resposta individual'
+                    : 'Individual'}
+              </span>
+            )}
             <StatusConexao conexao={conexao} />
           </div>
           <span className="font-mono text-sm font-black bg-white/15 border border-white/25 rounded-xl px-3 py-1">
@@ -112,6 +140,21 @@ export function SalaAlunoView({
         <span className="font-bold text-[#5B4B86]">Esta atividade não altera suas notas.</span>
       </div>
 
+      {ehCompartilhada && (
+        <div
+          role="status"
+          className={`rounded-2xl border px-4 py-2.5 text-xs font-extrabold ${
+            ehRepresentante
+              ? 'border-[#B9EF00] bg-[#B9EF00]/20 text-[#25104A]'
+              : 'border-[#E2D9F7] bg-[#F3EDFF] text-[#4A3B7C]'
+          }`}
+        >
+          {ehRepresentante
+            ? 'Você é o representante autorizado do grupo nesta sala. Seu envio registra a resposta da equipe.'
+            : 'Modo compartilhado: você acompanha em tempo real o envio do representante do seu grupo.'}
+        </div>
+      )}
+
       {erro && (
         <div role="alert" className="rounded-2xl border border-red-300 bg-red-50 p-4 flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-red-900">
           <span>{erro}</span>
@@ -129,10 +172,13 @@ export function SalaAlunoView({
 
       {/* FASE: ESPERA */}
       {fase === 'espera' && (
-        <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-6 sm:p-8 text-center space-y-3 shadow-xs">
-          <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F3EDFF] text-3xl">
-            ⏳
-          </span>
+        <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-6 sm:p-8 text-center space-y-4 shadow-xs">
+          <PalcoCenaConectado
+            jogo={contextoAv.modalidade}
+            situacao="espera"
+            eventoId={contextoAv.eventoId}
+            tamanho="compacto"
+          />
           <h2 className="font-head text-xl font-black text-[#25104A]">
             Você entrou na sala!
           </h2>
@@ -167,6 +213,15 @@ export function SalaAlunoView({
               </span>
             )}
           </div>
+
+          {!modoTemPalcoProprio && (
+            <PalcoCenaConectado
+              jogo={contextoAv.modalidade}
+              situacao={contextoAv.situacao}
+              eventoId={contextoAv.eventoId}
+              tamanho="compacto"
+            />
+          )}
 
           <h2 className="font-head text-lg sm:text-xl font-black text-[#25104A] leading-snug">
             <RenderTextoSeguro texto={questao.enunciado} />
@@ -271,6 +326,44 @@ export function SalaAlunoView({
       {/* FASE: FEEDBACK */}
       {fase === 'feedback' && (
         <section className="rounded-3xl border-2 border-[#6315D9] bg-white p-5 sm:p-6 space-y-4 shadow-xs">
+          {estado.modalidade === 'herois' && (
+            <JogoHerois
+              key={chaveRodada}
+              modo="aluno"
+              questao={questao}
+              fase="feedback"
+              rodada={estado.rodada}
+              totalRodadas={estado.totalRodadas}
+              recibo={recibo}
+              estado={estado}
+              prazoEncerrado={true}
+              ocupado={ocupado}
+              bloqueado={true}
+              onResponder={onResponder}
+            />
+          )}
+          {estado.modalidade === 'tabuleiro' && (
+            <JogoTabuleiro
+              key={chaveRodada}
+              modo="aluno"
+              estado={estado}
+              questao={questao}
+              fase="feedback"
+              recibo={recibo}
+              prazoEncerrado={true}
+              ocupado={ocupado}
+              bloqueado={true}
+              onResponder={onResponder}
+            />
+          )}
+          {!modoTemPalcoProprio && (
+            <PalcoCenaConectado
+              jogo={contextoAv.modalidade}
+              situacao={contextoAv.situacao}
+              eventoId={contextoAv.eventoId}
+              tamanho="compacto"
+            />
+          )}
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="rounded-lg bg-[#FFE500] px-3 py-1 text-xs font-black uppercase text-[#25104A]">
               Feedback da rodada {estado?.rodada}
@@ -335,6 +428,14 @@ export function SalaAlunoView({
           {fase === 'encerrada' && estado.modalidade === 'tabuleiro' && (
             <JogoTabuleiro modo="aluno" estado={estado} questao={null} fase="encerrada" />
           )}
+          {!modoTemPalcoProprio && (
+            <PalcoCenaConectado
+              jogo={contextoAv.modalidade}
+              situacao={fase === 'encerrada' ? 'vitoria' : 'ranking'}
+              eventoId={contextoAv.eventoId}
+              tamanho="compacto"
+            />
+          )}
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-head text-xl font-black text-[#25104A]">
               {fase === 'encerrada' ? 'Placar final da partida' : `Placar após a rodada ${estado?.rodada}`}
@@ -344,10 +445,14 @@ export function SalaAlunoView({
             </span>
           </div>
 
-          {(estado?.modalidade === 'equipes' || estado?.modalidade === 'tabuleiro') && rankingEquipes.length > 0 && (
+          {rankingEquipes.length > 0 && (
             <div className="space-y-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-[#4A3B7C]">
-                {estado.modalidade === 'tabuleiro' ? 'Classificação das equipes (casas e pontos)' : 'Classificação das Equipes (soma individual)'}
+                {estado.modalidade === 'tabuleiro'
+                  ? 'Classificação das equipes (casas e pontos)'
+                  : estado.modoRespostaGrupo === 'compartilhada' || estado.sala?.modoRespostaGrupo === 'compartilhada'
+                    ? 'Classificação dos Grupos (resposta compartilhada)'
+                    : 'Classificação das Equipes (soma individual)'}
               </h3>
               <ol className="space-y-2">
                 {rankingEquipes.map((eq) => (
@@ -376,7 +481,11 @@ export function SalaAlunoView({
           {rankingIndividual.length > 0 ? (
             <div className="space-y-2">
               <h3 className="text-xs font-black uppercase tracking-wider text-[#4A3B7C]">
-                Classificação Individual
+                {estado?.formatoParticipacao === 'grupos' || estado?.sala?.formatoParticipacao === 'grupos'
+                  ? estado?.modoRespostaGrupo === 'compartilhada' || estado?.sala?.modoRespostaGrupo === 'compartilhada'
+                    ? 'Classificação por Grupos (resposta compartilhada)'
+                    : 'Classificação por Grupos (soma individual)'
+                  : 'Classificação Individual'}
               </h3>
               <ol className="space-y-2">
                 {rankingIndividual.map((item) => (
@@ -406,5 +515,6 @@ export function SalaAlunoView({
         </section>
       )}
     </div>
+    </ProvedorAudiovisualSala>
   );
 }

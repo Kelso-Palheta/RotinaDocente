@@ -214,13 +214,20 @@ export function useSalaGamificada({
   }, []);
 
   const enviarComando = useCallback(
-    async (acao, requestIdExterno) => {
+    async (acao, requestIdOuExtras, extrasParam) => {
       if (!codigo) return null;
+      const requestIdExterno = typeof requestIdOuExtras === 'string' ? requestIdOuExtras : undefined;
+      const extras =
+        requestIdOuExtras && typeof requestIdOuExtras === 'object'
+          ? requestIdOuExtras
+          : extrasParam && typeof extrasParam === 'object'
+            ? extrasParam
+            : {};
       const chaveSnapshot = contextoRef.current;
       const atual = estadoRef.current;
       const expectedRevision = atual?.revision ?? 0;
       const rodadaComando = acao === 'iniciar' ? 1 : (atual?.rodada ?? 1);
-      const assinatura = JSON.stringify({ chaveSnapshot, acao, expectedRevision, rodada: rodadaComando });
+      const assinatura = JSON.stringify({ chaveSnapshot, acao, expectedRevision, rodada: rodadaComando, extras });
       const requestId =
         requestIdExterno ||
         resolverRequestIdOperacao(operacaoComandoRef, assinatura, () => gerarRequestId(`cmd_${acao}`));
@@ -235,6 +242,7 @@ export function useSalaGamificada({
           rodada: rodadaComando,
           requestId,
           obterToken,
+          ...extras,
         });
         if (!montadoRef.current || contextoRef.current !== chaveSnapshot) return null;
         operacaoComandoRef.current = null;

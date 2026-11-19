@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import { RenderTextoSeguro } from '../RenderTextoSeguro';
 import { gerarRequestId } from '../api';
 import { resolverRequestIdOperacao, validarUrlImagemSegura } from '../constantes';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
 
 /**
  * Jogo da Memória — tabuleiro individual persistido no servidor.
@@ -20,6 +21,7 @@ export function JogoMemoria({
 }) {
   const [erroCarta, setErroCarta] = useState(null);
   const [virandoId, setVirandoId] = useState(null);
+  const audiovisual = useAudiovisualSala();
   const operacaoVirarRef = useRef(null);
 
   const cartas =
@@ -43,6 +45,7 @@ export function JogoMemoria({
     (totalPares > 0 && paresEncontrados >= totalPares);
 
   const virarCarta = async (carta) => {
+    audiovisual?.desbloquearPorGesto?.();
     if (bloqueado || ocupado || concluido || carta.encontrada || carta.virada) return;
     const assinatura = JSON.stringify({
       rodada: estado?.rodada ?? 1,

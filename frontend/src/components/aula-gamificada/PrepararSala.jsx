@@ -54,6 +54,13 @@ export function PrepararSala({
 
   const [titulo, setTitulo] = useState('');
   const [modalidade, setModalidade] = useState(modalidadeInicial || MODALIDADES_PADRAO[0].id);
+  const [formatoParticipacao, setFormatoParticipacao] = useState(() => {
+    const info = obterModalidadeInfo(modalidadeInicial || MODALIDADES_PADRAO[0].id, modalidadesServidor);
+    return info.formatoPadrao || 'individual';
+  });
+  const [modoRespostaGrupo, setModoRespostaGrupo] = useState('individual');
+  const [dueloParticipantes, setDueloParticipantes] = useState(['', '']);
+  const [criterioColetivo, setCriterioColetivo] = useState('somente_relatorio');
   const [finalidade, setFinalidade] = useState('revisao');
   const [tituloAtividade, setTituloAtividade] = useState('');
   const [disciplinaAval, setDisciplinaAval] = useState('');
@@ -123,17 +130,41 @@ export function PrepararSala({
   };
 
   const equipesEfetivas = useMemo(() => {
-    if (modalidade !== 'tabuleiro') return equipes;
-    if (equipes.length >= 2) {
-      const totalComAluno = equipes.reduce((s, e) => s + e.participanteIds.length, 0);
-      if (totalComAluno > 0 || alunosDasTurmasSelecionadas.length === 0) return equipes;
-    }
-    return distribuirEquipesTabuleiro(alunosDasTurmasSelecionadas);
-  }, [modalidade, equipes, alunosDasTurmasSelecionadas]);
+    if (formatoParticipacao !== 'grupos') return equipes;
+    const base =
+      modalidade !== 'tabuleiro'
+        ? equipes
+        : equipes.length >= 2 &&
+            (equipes.reduce((s, e) => s + e.participanteIds.length, 0) > 0 ||
+              alunosDasTurmasSelecionadas.length === 0)
+          ? equipes
+          : distribuirEquipesTabuleiro(alunosDasTurmasSelecionadas);
+    if (modoRespostaGrupo !== 'compartilhada') return base;
+    return base.map((eq) => {
+      const membros = alunosDasTurmasSelecionadas.filter((a) =>
+        eq.participanteIds.includes(a.participanteId),
+      );
+      const membroAtual =
+        membros.find((m) => m.participanteId === eq.representanteParticipanteId) ||
+        membros.find((m) => m.alunoId === eq.representanteAlunoId) ||
+        membros[0] ||
+        null;
+      return {
+        ...eq,
+        representanteParticipanteId: membroAtual?.participanteId || '',
+        representanteAlunoId: membroAtual?.alunoId || '',
+      };
+    });
+  }, [formatoParticipacao, equipes, alunosDasTurmasSelecionadas, modoRespostaGrupo]);
 
   const trocarModalidade = (novaModalidade) => {
     setModalidade(novaModalidade);
     setAvisoIncompatibilidade(null);
+    const novaInfo = obterModalidadeInfo(novaModalidade, modalidadesServidor);
+    const formatosPermitidos = novaInfo.formatosParticipacao || ['individual'];
+    if (!formatosPermitidos.includes(formatoParticipacao)) {
+      setFormatoParticipacao(novaInfo.formatoPadrao || formatosPermitidos[0] || 'individual');
+    }
     // Remove automaticamente questões incompatíveis já marcadas.
     setQuestaoIds((prev) =>
       prev.filter((id) => {
@@ -246,11 +277,18 @@ export function PrepararSala({
       setErro('Selecione pelo menos uma questão revisada e compatível com a modalidade.');
       return;
     }
-    if ((modalidade === 'equipes' || modalidade === 'tabuleiro') && equipesEfetivas.length < 2) {
+    if (formatoParticipacao === 'duelo') {
+      const [p1, p2] = dueloParticipantes;
+      if (!p1 || !p2 || p1 === p2) {
+        setErro('No Duelo 1×1, selecione dois estudantes distintos das turmas.');
+        return;
+      }
+    }
+    if (formatoParticipacao === 'grupos' && equipesEfetivas.length < 2) {
       setErro('Cadastre pelo menos duas equipes para este modo.');
       return;
     }
-    if (modalidade === 'tabuleiro' && equipesEfetivas.length > 4) {
+    if (modalidade === 'tabuleiro' && formatoParticipacao === 'grupos' && equipesEfetivas.length > 4) {
       setErro('O Tabuleiro aceita no máximo quatro equipes.');
       return;
     }
@@ -260,6 +298,16 @@ export function PrepararSala({
     const configuracao = {
       titulo: titulo.trim(),
       modalidade,
+      formatoParticipacao,
+      ...(formatoParticipacao === 'grupos' ? { modoRespostaGrupo } : {}),
+      ...(formatoParticipacao === 'duelo'
+        ? {
+            dueloParticipantes: dueloParticipantes.map((chave) => {
+              const al = alunosDasTurmasSelecionadas.find((a) => a.chave === chave);
+              return al ? { turmaId: al.turmaId, alunoId: al.alunoId } : chave;
+            }),
+          }
+        : {}),
       finalidade,
       ...(finalidade === 'avaliativa'
         ? {
@@ -271,6 +319,9 @@ export function PrepararSala({
               anoLetivo,
               valorMaximo: Number(valorMaximo) || 10,
               criterioHerois,
+              ...(formatoParticipacao === 'grupos' && modoRespostaGrupo === 'compartilhada'
+                ? { criterioColetivo }
+                : {}),
               colunaPorTurma,
             },
           }
@@ -278,7 +329,7 @@ export function PrepararSala({
       turmaIds,
       questaoIds,
       tempoSegundos: tempoValido,
-      ...(modalidade === 'equipes' || modalidade === 'tabuleiro' ? { equipes: equipesEfetivas } : {}),
+      ...(formatoParticipacao === 'grupos' ? { equipes: equipesEfetivas } : {}),
     };
 
     const assinatura = JSON.stringify(configuracao);
@@ -373,6 +424,16 @@ export function PrepararSala({
                       : 'border-[#E2D9F7] bg-[#FFFDF7] text-[#5B4B86] hover:bg-[#F3EDFF]/50'
                   }`}
                 >
+                  {mod.capa && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={mod.capa}
+                      alt={mod.capaAlt || mod.nome}
+                      width={320}
+                      height={180}
+                      className="aspect-video w-full rounded-lg object-cover border border-[#E2D9F7] mb-1"
+                    />
+                  )}
                   <div className="flex items-center gap-2">
                     <input
                       type="radio"
@@ -391,6 +452,130 @@ export function PrepararSala({
               );
             })}
           </div>
+        </fieldset>
+
+        {/* Formato de disputa compatível */}
+        <fieldset className="rounded-2xl border border-[#E2D9F7] bg-[#FFFDF7] p-4 space-y-3">
+          <legend className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C] px-1">
+            Formato de disputa
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { id: 'individual', rotulo: 'Individual' },
+              { id: 'duelo', rotulo: 'Duelo 1×1' },
+              { id: 'grupos', rotulo: 'Grupos' },
+            ]
+              .filter((f) => (infoModalidade.formatosParticipacao || ['individual']).includes(f.id))
+              .map((fmt) => {
+                const ativo = formatoParticipacao === fmt.id;
+                return (
+                  <button
+                    key={fmt.id}
+                    type="button"
+                    aria-pressed={ativo}
+                    onClick={() => setFormatoParticipacao(fmt.id)}
+                    className={`min-h-10 rounded-xl border-2 px-4 py-1.5 text-xs font-extrabold transition ${
+                      ativo
+                        ? 'border-[#6315D9] bg-[#6315D9] text-white'
+                        : 'border-[#E2D9F7] bg-white text-[#25104A] hover:bg-[#F3EDFF]'
+                    }`}
+                  >
+                    {fmt.rotulo}
+                  </button>
+                );
+              })}
+          </div>
+
+          {formatoParticipacao === 'duelo' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#E2D9F7]">
+              {[0, 1].map((idx) => (
+                <div key={idx} className="flex flex-col gap-1">
+                  <label
+                    htmlFor={`${formId}-duelo-${idx}`}
+                    className="text-xs font-extrabold text-[#4A3B7C]"
+                  >
+                    Adversário {idx + 1}
+                  </label>
+                  <select
+                    id={`${formId}-duelo-${idx}`}
+                    value={dueloParticipantes[idx] || ''}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setDueloParticipantes((prev) =>
+                        idx === 0 ? [val, prev[1]] : [prev[0], val],
+                      );
+                    }}
+                    className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                  >
+                    <option value="">Selecione um estudante...</option>
+                    {alunosDasTurmasSelecionadas.map((al) => (
+                      <option
+                        key={al.chave}
+                        value={al.chave}
+                        disabled={dueloParticipantes[idx === 0 ? 1 : 0] === al.chave}
+                      >
+                        {al.nome} ({al.turmaNome})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {formatoParticipacao === 'grupos' && (
+            <div className="space-y-3 pt-2 border-t border-[#E2D9F7]">
+              <p className="text-xs font-extrabold uppercase tracking-wider text-[#4A3B7C]">
+                Forma de resposta dos grupos
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: 'individual', rotulo: 'Respostas individuais por integrante' },
+                  { id: 'compartilhada', rotulo: 'Resposta compartilhada pelo grupo' },
+                ].map((m) => {
+                  const ativo = modoRespostaGrupo === m.id;
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      aria-pressed={ativo}
+                      onClick={() => setModoRespostaGrupo(m.id)}
+                      className={`min-h-10 rounded-xl border-2 px-3 py-1.5 text-xs font-extrabold transition ${
+                        ativo
+                          ? 'border-[#25104A] bg-[#25104A] text-[#FFE500]'
+                          : 'border-[#E2D9F7] bg-white text-[#25104A] hover:bg-[#F3EDFF]'
+                      }`}
+                    >
+                      {m.rotulo}
+                    </button>
+                  );
+                })}
+              </div>
+              {modoRespostaGrupo === 'compartilhada' && finalidade === 'avaliativa' && (
+                <div className="flex flex-col gap-1">
+                  <label
+                    htmlFor={`${formId}-criterio-coletivo`}
+                    className="text-xs font-extrabold text-[#4A3B7C]"
+                  >
+                    Critério avaliativo coletivo
+                  </label>
+                  <select
+                    id={`${formId}-criterio-coletivo`}
+                    value={criterioColetivo}
+                    onChange={(e) => setCriterioColetivo(e.target.value)}
+                    className="min-h-10 rounded-xl border border-[#E2D9F7] bg-white px-3 text-sm"
+                  >
+                    <option value="somente_relatorio">
+                      Somente relatório coletivo (sem lançamento individual automático)
+                    </option>
+                    <option value="atribuir_presentes">
+                      Atribuir mesma nota coletiva aos presentes confirmados
+                    </option>
+                  </select>
+                </div>
+              )}
+            </div>
+          )}
         </fieldset>
 
         {/* Finalidade da sala: revisão vs avaliativa */}
@@ -568,19 +753,21 @@ export function PrepararSala({
           )}
         </fieldset>
 
-        {/* Regra explícita quando equipes ou tabuleiro estiver selecionada */}
-        {(modalidade === 'equipes' || modalidade === 'tabuleiro') && (
+        {/* Regra explícita quando formato grupos estiver selecionado */}
+        {formatoParticipacao === 'grupos' && (
           <div className="rounded-2xl border-2 border-[#6315D9] bg-[#F3EDFF] p-4 space-y-4">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="space-y-1">
                 <span className="inline-block rounded-md bg-[#FFE500] px-2.5 py-0.5 text-[11px] font-black uppercase text-[#25104A]">
                   {modalidade === 'tabuleiro'
                     ? 'Equipes do Tabuleiro (prévia editável)'
-                    : 'Regra do Desafio em Equipes'}
+                    : modoRespostaGrupo === 'compartilhada'
+                      ? 'Grupos · Resposta compartilhada'
+                      : 'Grupos · Resposta individual'}
                 </span>
                 <p className="text-sm font-bold text-[#25104A]">
-                  {modalidade === 'tabuleiro'
-                    ? 'Equipes padrão (Azul e Verde) com alunos distribuídos automaticamente. Edite nomes, adicione equipes ou ajuste integrantes antes de iniciar.'
+                  {modoRespostaGrupo === 'compartilhada'
+                    ? 'Cada grupo envia uma única resposta/progresso por meio do seu representante autorizado.'
                     : 'Uma resposta por aluno/rodada, pontuação da equipe pela soma dos resultados individuais (1000 pontos por acerto, sem bônus por tempo).'}
                 </p>
               </div>
@@ -649,6 +836,43 @@ export function PrepararSala({
                         Remover
                       </button>
                     </div>
+                    {modoRespostaGrupo === 'compartilhada' && eq.participanteIds.length > 0 && (
+                      <div className="flex items-center gap-2">
+                        <label className="text-[11px] font-extrabold text-[#4A3B7C]">
+                          Representante:
+                        </label>
+                        <select
+                          aria-label={`Representante de ${eq.nome}`}
+                          value={eq.representanteParticipanteId || ''}
+                          onChange={(e) => {
+                            const repPartId = e.target.value;
+                            const membroSel = alunosDasTurmasSelecionadas.find(
+                              (al) => al.participanteId === repPartId,
+                            );
+                            setEquipes(
+                              equipesEfetivas.map((item) =>
+                                item.id === eq.id
+                                  ? {
+                                      ...item,
+                                      representanteParticipanteId: repPartId,
+                                      representanteAlunoId: membroSel?.alunoId || '',
+                                    }
+                                  : item,
+                              ),
+                            );
+                          }}
+                          className="min-h-8 flex-1 rounded-lg border border-[#E2D9F7] bg-[#F8F5FF] px-2 text-xs font-bold"
+                        >
+                          {alunosDasTurmasSelecionadas
+                            .filter((al) => eq.participanteIds.includes(al.participanteId))
+                            .map((al) => (
+                              <option key={al.chave} value={al.participanteId}>
+                                {al.nome}{turmaIds.length > 1 && al.turmaNome ? ` (${al.turmaNome})` : ''}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                    )}
                     {alunosDasTurmasSelecionadas.length > 0 ? (
                       <div className="flex flex-wrap gap-1.5">
                         {alunosDasTurmasSelecionadas.map((al) => {

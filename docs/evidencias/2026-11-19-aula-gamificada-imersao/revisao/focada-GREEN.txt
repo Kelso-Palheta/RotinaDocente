@@ -1,0 +1,133 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula-gamificada aula_gamificada --maxWorkers=4
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:39:12
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.play
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.play (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:118:5)
+    at HTMLAudioElement.play (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:148:60)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:36:22
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:39:12
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/jogos/ControladorAudioJogo.jsx:39:12
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+    at recursivelyTraversePassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.load
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:112:5)
+    at HTMLAudioElement.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:111:34)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:375:27)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11)
+    at commitPassiveUnmountEffectsInsideOfDeletedTree_begin (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:16264:13) undefined
+Error: Not implemented: HTMLMediaElement.prototype.load
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:112:5)
+    at HTMLAudioElement.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:111:34)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:375:27)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11)
+    at commitPassiveUnmountEffectsInsideOfDeletedTree_begin (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:16264:13) undefined
+Error: Not implemented: HTMLMediaElement.prototype.load
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:112:5)
+    at HTMLAudioElement.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:111:34)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:375:27)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11)
+    at commitPassiveUnmountEffectsInsideOfDeletedTree_begin (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:16264:13) undefined
+Error: Not implemented: HTMLMediaElement.prototype.load
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:112:5)
+    at HTMLAudioElement.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:111:34)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:375:27)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11)
+    at commitPassiveUnmountEffectsInsideOfDeletedTree_begin (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:16264:13) undefined
+Error: Not implemented: HTMLMediaElement.prototype.play
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.play (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:118:5)
+    at HTMLAudioElement.play (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:148:60)
+    at MotorAudioJogo.sincronizarTrilha (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:252:43)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:99:23
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13) undefined
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at MotorAudioJogo.pararMusica (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:215:28)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:368:10)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.load
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:112:5)
+    at HTMLAudioElement.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:111:34)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:375:27)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11)
+    at commitPassiveUnmountEffectsInsideOfDeletedTree_begin (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:16264:13) undefined
+
+ Test Files  36 passed (36)
+      Tests  164 passed (164)
+   Start at  11:00:28
+   Duration  13.63s (transform 2.68s, setup 7.08s, import 8.58s, tests 10.77s, environment 16.92s)

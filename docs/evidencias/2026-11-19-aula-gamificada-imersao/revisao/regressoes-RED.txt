@@ -1,0 +1,221 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_imersao_revisao --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+Error: Not implemented: HTMLMediaElement.prototype.play
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.play (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:118:5)
+    at HTMLAudioElement.play (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:148:60)
+    at MotorAudioJogo.sincronizarTrilha (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:252:43)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:99:23
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListMount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+    at commitHookPassiveMountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+    at commitPassiveMountOnFiber (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13) undefined
+Error: Not implemented: HTMLMediaElement.prototype.pause
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:121:5)
+    at HTMLAudioElement.pause (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:162:34)
+    at MotorAudioJogo.pararMusica (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:215:28)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:368:10)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11) undefined
+Error: Not implemented: HTMLMediaElement.prototype.load
+    at module.exports (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLAudioElementImpl.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/nodes/HTMLMediaElement-impl.js:112:5)
+    at HTMLAudioElement.load (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/jsdom/lib/jsdom/living/generated/HTMLMediaElement.js:111:34)
+    at MotorAudioJogo.destroy (/Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/motorAudioJogo.js:375:27)
+    at /Users/kelsopalheta/Developer/RotinaDocente/frontend/src/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala.jsx:93:13
+    at Object.react_stack_bottom_frame (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:26001:13)
+    at runWithFiberInDEV (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at commitHookEffectListUnmount (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13316:17)
+    at commitHookPassiveUnmountEffects (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:13347:11)
+    at commitPassiveUnmountEffectsInsideOfDeletedTree_begin (/Users/kelsopalheta/Developer/RotinaDocente/frontend/node_modules/react-dom/cjs/react-dom-client.development.js:16264:13) undefined
+ ❯ |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx (11 tests | 11 failed) 140ms
+     × REV-IM-01: encerramento sem revelação não comemora acerto 6ms
+     × REV-IM-02: erro revelado usa recibo real; feedback não contém campo correta 3ms
+     × REV-IM-03: pontuação parcial não vira cena de acerto integral 1ms
+     × REV-IM-04: ranking dispara vinheta de ranking, não de abertura 1ms
+     × REV-IM-05: a tela real do aluno que errou exibe cena de erro na revelação 39ms
+     × REV-IM-06: primeiro gesto na alternativa do Quiz destrava o áudio na sala real 67ms
+     × REV-IM-07: contexto Web Audio suspenso informa necessidade de ativação 1ms
+     × REV-IM-08: volume zero não é elevado para 5% ao tocar efeito 1ms
+     × REV-IM-09: modo reduzido manual possui alternativa diferente do SVG animado 1ms
+     × REV-IM-10: erro de uma mídia não impede exibir a próxima cena válida 4ms
+     × REV-IM-11: Heróis mantém o palco na tela real do aluno durante a revelação 12ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-01: encerramento sem revelação não comemora acerto
+AssertionError: expected [ 'acerto', 'erro', 'vitoria' ] to not include 'acerto'
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:30:47
+     28|   it('REV-IM-01: encerramento sem revelação não comemora acerto', () =…
+     29|     const av = derivarContextoAudiovisual(estado({ fase: 'feedback' })…
+     30|     expect(['acerto', 'erro', 'vitoria']).not.toContain(av.situacao);
+       |                                               ^
+     31|   });
+     32|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-02: erro revelado usa recibo real; feedback não contém campo correta
+AssertionError: expected 'acerto' to be 'erro' // Object.is equality
+
+Expected: "erro"
+Received: "acerto"
+
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:37:25
+     35|       fase: 'feedback', revelado: true, feedback, recibo: recebidoErra…
+     36|     }), 0, 'aluno');
+     37|     expect(av.situacao).toBe('erro');
+       |                         ^
+     38|   });
+     39|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-03: pontuação parcial não vira cena de acerto integral
+AssertionError: expected 'acerto' not to be 'acerto' // Object.is equality
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:45:29
+     43|       feedback: { paresCorretos: [] }, recibo: { correta: false, pontu…
+     44|     }), 0, 'aluno');
+     45|     expect(av.situacao).not.toBe('acerto');
+       |                             ^
+     46|   });
+     47|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-04: ranking dispara vinheta de ranking, não de abertura
+AssertionError: expected 'abertura' to be 'ranking' // Object.is equality
+
+Expected: "ranking"
+Received: "abertura"
+
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:50:32
+     48|   it('REV-IM-04: ranking dispara vinheta de ranking, não de abertura',…
+     49|     const av = derivarContextoAudiovisual(estado({ fase: 'ranking', re…
+     50|     expect(av.evento.situacao).toBe('ranking');
+       |                                ^
+     51|   });
+     52|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-05: a tela real do aluno que errou exibe cena de erro na revelação
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:58:65
+     56|     })} onResponder={vi.fn()} />);
+     57|     const imagens = [...container.querySelectorAll('img')].map((el) =>…
+     58|     expect(imagens.some((src) => src?.includes('/quiz-erro-'))).toBe(t…
+       |                                                                 ^
+     59|   });
+     60|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-06: primeiro gesto na alternativa do Quiz destrava o áudio na sala real
+AssertionError: expected "vi.fn()" to be called at least once
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:69:20
+     67|     resume.mockClear();
+     68|     fireEvent.click(screen.getByRole('button', { name: /Opção A/i }));
+     69|     expect(resume).toHaveBeenCalled();
+       |                    ^
+     70|   });
+     71|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-07: contexto Web Audio suspenso informa necessidade de ativação
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:78:53
+     76|     try {
+     77|       await motor.sincronizarTrilha({ modalidade: 'quiz', fase: 'esper…
+     78|       expect(motor.obterEstado().bloqueadoAutoplay).toBe(true);
+       |                                                     ^
+     79|     } finally { motor.destroy(); }
+     80|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-08: volume zero não é elevado para 5% ao tocar efeito
+AssertionError: expected 0.05 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 0.05
+
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:92:28
+     90|       await motor.sincronizarTrilha({ modalidade: 'herois', fase: 'per…
+     91|       motor.tocarEfeito('acerto');
+     92|       expect(audio.volume).toBe(0);
+       |                            ^
+     93|     } finally { motor.destroy(); }
+     94|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-09: modo reduzido manual possui alternativa diferente do SVG animado
+AssertionError: expected '/aula-gamificada/cenas/quiz-acerto-1.…' not to be '/aula-gamificada/cenas/quiz-acerto-1.…' // Object.is equality
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:98:42
+     96|   it('REV-IM-09: modo reduzido manual possui alternativa diferente do …
+     97|     const cena = CATALOGO_CENAS.find((c) => c.id === 'quiz-acerto-1');
+     98|     expect(cena.alternativaEstatica).not.toBe(cena.midiaAnimada);
+       |                                          ^
+     99|   });
+    100|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-10: erro de uma mídia não impede exibir a próxima cena válida
+AssertionError: expected null not to be null
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:107:79
+    105|     fireEvent.error(container.querySelector('img'));
+    106|     rerender(<PalcoCenaJogo cena={segunda} />);
+    107|     expect(container.querySelector(`img[src="${segunda.midiaAnimada}"]…
+       |                                                                               ^
+    108|   });
+    109|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_revisao.test.jsx > Revisão independente da imersão audiovisual > REV-IM-11: Heróis mantém o palco na tela real do aluno durante a revelação
+AssertionError: expected null not to be null
+ ❯ ../tests/regression/aula_gamificada_imersao_revisao.test.jsx:115:78
+    113|       recibo: { ...recebidoErrado, estadoHeroi: 'golpe_encerrado', ten…
+    114|     })} onResponder={vi.fn()} />);
+    115|     expect(container.querySelector('[data-testid="palco-cena-herois"]'…
+       |                                                                              ^
+    116|   });
+    117| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  11 failed (11)
+   Start at  11:03:59
+   Duration  1.29s (transform 170ms, setup 0ms, import 353ms, tests 140ms, environment 619ms)

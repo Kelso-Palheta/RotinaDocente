@@ -36,7 +36,9 @@ export function avaliarRodadaTabuleiro({
   if (!equipeAtiva) return atual;
 
   const membros = new Set(equipeAtiva.participanteIds || []);
-  const daEquipe = (respostasRodada || []).filter((r) => membros.has(r.participanteId));
+  const daEquipe = (respostasRodada || []).filter((r) =>
+    r.equipeId ? String(r.equipeId) === String(equipeAtiva.id) : membros.has(r.participanteId),
+  );
   const respondentes = daEquipe.length;
   const acertos = daEquipe.filter((r) => Number(r.pontos) > 0).length;
 
@@ -262,6 +264,9 @@ function reciboPublico(recibo, { revelado, questao }) {
     rodadaId: recibo.rodadaId,
     reciboId: recibo.reciboId ?? recibo.id,
     recebidoEmMs: recibo.recebidoEmMs,
+    ...(recibo.equipeId ? { equipeId: recibo.equipeId } : {}),
+    ...(recibo.autoriaAlunoId ? { autoriaAlunoId: recibo.autoriaAlunoId } : {}),
+    ...(recibo.autoriaNome ? { autoriaNome: recibo.autoriaNome } : {}),
     ...(recibo.resposta ? { resposta: structuredClone(recibo.resposta) } : {}),
   };
   if (recibo.virarId) {
@@ -300,6 +305,17 @@ function distribuicaoQuiz(respostas, modalidade, { revelado = false } = {}) {
     .map(([alternativaId, total]) => ({ alternativaId, total }));
 }
 
+export function ehRepresentanteEquipe(equipe, participante, participantes = []) {
+  if (!equipe || !participante) return false;
+  if (equipe.representanteParticipanteId) {
+    return String(participante.id) === String(equipe.representanteParticipanteId);
+  }
+  const repAlunoId = equipe.representanteAlunoId ? String(equipe.representanteAlunoId) : '';
+  if (!repAlunoId || String(participante.alunoId) !== repAlunoId) return false;
+  const ocorrencias = (participantes || []).filter((p) => String(p.alunoId) === repAlunoId);
+  return ocorrencias.length <= 1;
+}
+
 export function projetarEstado({
   sala,
   conteudo,
@@ -307,6 +323,7 @@ export function projetarEstado({
   participante = null,
   participantes = [],
   respostas = [],
+  todasRespostas = null,
   recibo = null,
   agora = Date.now(),
 }) {
@@ -315,6 +332,19 @@ export function projetarEstado({
   const questao = sala.fase === 'espera' ? null : conteudo.questaoPublica;
   const segredo = conteudo.segredo || {};
   const questaoPrivada = segredo.questao || null;
+  const ehCompartilhada = sala.modoRespostaGrupo === 'compartilhada';
+
+  const pontosPorEquipe = new Map();
+  if (ehCompartilhada) {
+    const fonteRespostas = Array.isArray(todasRespostas) ? todasRespostas : respostas || [];
+    for (const registro of fonteRespostas) {
+      if (!registro?.equipeId) continue;
+      const mesmaRodada = Number(registro.rodada) === Number(sala.rodada);
+      if (mesmaRodada && !revelado) continue;
+      const eqKey = String(registro.equipeId);
+      pontosPorEquipe.set(eqKey, (pontosPorEquipe.get(eqKey) || 0) + (Number(registro.pontos) || 0));
+    }
+  }
 
   // Pontuação da rodada corrente só é publicada depois da revelação. O recibo
   // privado confirma o recebimento sem antecipar acerto/erro.
@@ -329,6 +359,10 @@ export function projetarEstado({
     return 0;
   };
   const pontosProjetados = (p) => {
+    if (ehCompartilhada) {
+      if (!p?.equipeId) return 0;
+      return pontosPorEquipe.get(String(p.equipeId)) || 0;
+    }
     const total = Number(p?.pontos) || 0;
     return revelado ? total : Math.max(0, total - pontosOcultos(p));
   };
@@ -337,8 +371,11 @@ export function projetarEstado({
     ['ranking', 'encerrada'].includes(sala.fase) && revelado
       ? calcularRanking(participantes, {
           modalidade: sala.modalidade,
+          formatoParticipacao: sala.formatoParticipacao,
+          modoRespostaGrupo: sala.modoRespostaGrupo,
           equipes: sala.equipes || [],
           posicoesPorEquipe: sala.tabuleiroEstado?.posicoesPorEquipe || {},
+          pontosPorEquipe: ehCompartilhada ? pontosPorEquipe : null,
         })
       : undefined;
 
@@ -360,14 +397,21 @@ export function projetarEstado({
   // Distingue presença (entrouEmMs) de resposta/progresso na rodada corrente,
   // sem associar o nome do participante à alternativa escolhida.
   const registroPorParticipante = new Map();
+  const registroPorEquipe = new Map();
   for (const registro of respostas || []) {
     if (registro?.participanteId) {
       registroPorParticipante.set(registro.participanteId, registro);
     }
+    if (registro?.equipeId) {
+      registroPorEquipe.set(String(registro.equipeId), registro);
+    }
   }
   const participanteRespondeu = (p) => {
     if (sala.fase === 'espera') return false;
-    const reg = registroPorParticipante.get(p?.id);
+    const reg =
+      sala.modoRespostaGrupo === 'compartilhada' && p?.equipeId
+        ? registroPorEquipe.get(String(p.equipeId))
+        : registroPorParticipante.get(p?.id);
     if (!reg) return false;
     if (sala.modalidade === 'memoria') {
       return Boolean(
@@ -380,11 +424,18 @@ export function projetarEstado({
     return Boolean(reg.resposta || reg.ultimoRecibo);
   };
 
+  const equipeDoParticipante =
+    participante?.equipeId
+      ? (sala.equipes || []).find((e) => String(e.id) === String(participante.equipeId))
+      : null;
+
   const estado = {
     sala: {
       codigo: sala.codigo,
       titulo: sala.titulo,
       modalidade: sala.modalidade,
+      ...(sala.formatoParticipacao ? { formatoParticipacao: sala.formatoParticipacao } : {}),
+      ...(sala.modoRespostaGrupo ? { modoRespostaGrupo: sala.modoRespostaGrupo } : {}),
       finalidade: sala.finalidade || 'revisao',
       ...(sala.avaliacao ? { avaliacao: structuredClone(sala.avaliacao) } : {}),
       fase: sala.fase,
@@ -396,7 +447,16 @@ export function projetarEstado({
       iniciadaEmMs: sala.iniciadaEmMs ?? null,
       encerradaEmMs: sala.encerradaEmMs ?? null,
       ...(sala.equipes?.length
-        ? { equipes: sala.equipes.map(({ id, nome, cor }) => ({ id, nome, ...(cor ? { cor } : {}) })) }
+        ? {
+            equipes: sala.equipes.map(({ id, nome, cor, representanteAlunoId, representanteParticipanteId, participanteIds }) => ({
+              id,
+              nome,
+              ...(cor ? { cor } : {}),
+              ...(docente && participanteIds ? { participanteIds } : {}),
+              ...(docente && representanteParticipanteId ? { representanteParticipanteId } : {}),
+              ...(docente && representanteAlunoId ? { representanteAlunoId } : {}),
+            })),
+          }
         : {}),
       ...(sala.modalidade === 'tabuleiro' && sala.tabuleiroEstado
         ? { tabuleiroEstado: structuredClone(sala.tabuleiroEstado) }
@@ -439,6 +499,11 @@ export function projetarEstado({
           nomeExibicao: participante.nomeExibicao,
           pontos: pontosProjetados(participante),
           equipeId: participante.equipeId ?? null,
+          ...(sala.modoRespostaGrupo === 'compartilhada'
+            ? {
+                ehRepresentante: ehRepresentanteEquipe(equipeDoParticipante, participante, participantes),
+              }
+            : {}),
           recibo: reciboPublico(recibo, { revelado, questao: questaoPrivada }),
         }
       : null,
@@ -449,10 +514,13 @@ export function projetarEstado({
             const respondeu = participanteRespondeu(p);
             return {
               id: p.id,
+              alunoId: p.alunoId || null,
+              turmaId: p.turmaId || null,
               nomeExibicao: p.nomeExibicao,
               pontos: pontosProjetados(p),
               equipeId: p.equipeId ?? null,
               entrouEmMs: p.entrouEmMs ?? null,
+              presenteConfirmado: p.presenteConfirmado ?? null,
               respondeu,
               ...(respondeu ? { rodadaRespondida: sala.rodada } : {}),
               ...(p.progresso ? { progresso: p.progresso } : {}),
@@ -513,13 +581,24 @@ export function montarRoster(turmas, turmaIds, idParticipante) {
   return roster;
 }
 
-export function validarEquipes(equipes, roster) {
+export function validarEquipes(
+  equipes,
+  roster,
+  { exigirMembros = false, exigirCobertura = false, modoRespostaGrupo = 'individual' } = {},
+) {
   if (equipes === undefined || equipes === null) return [];
   const lista = listaObrigatoria(equipes, 'equipes', { min: 2, max: 30 });
   const ids = new Set();
   const participantes = new Set();
   const rosterIds = new Set(roster.map((r) => r.id));
-  return lista.map((equipe, indice) => {
+  const freqAlunoId = new Map();
+  const porAlunoId = new Map();
+  for (const r of roster) {
+    const key = String(r.alunoId);
+    freqAlunoId.set(key, (freqAlunoId.get(key) || 0) + 1);
+    if (!porAlunoId.has(key)) porAlunoId.set(key, r);
+  }
+  const resultado = lista.map((equipe, indice) => {
     if (!equipe || typeof equipe !== 'object') throw falha(422, `Equipe ${indice + 1} inválida.`);
     const id = segmento(String(equipe.id ?? `equipe-${indice + 1}`), {
       campo: `ID da equipe ${indice + 1}`,
@@ -529,14 +608,71 @@ export function validarEquipes(equipes, roster) {
     if (!nome) throw falha(422, `Informe o nome da equipe ${indice + 1}.`);
     if (ids.has(id)) throw falha(422, 'As equipes precisam ter IDs únicos.');
     ids.add(id);
-    const membros = Array.isArray(equipe.participanteIds) ? equipe.participanteIds.map(String) : [];
-    for (const membro of membros) {
+    const membrosBrutos = Array.isArray(equipe.participanteIds)
+      ? equipe.participanteIds.map(String)
+      : Array.isArray(equipe.membros)
+        ? equipe.membros.map((m) => {
+            const mStr = String(m);
+            if (rosterIds.has(mStr)) return mStr;
+            if ((freqAlunoId.get(mStr) || 0) > 1) {
+              throw falha(422, `Identificação ambígua do integrante "${mStr}": informe o ID estável do participante.`);
+            }
+            return porAlunoId.get(mStr)?.id || mStr;
+          })
+        : [];
+    for (const membro of membrosBrutos) {
       if (!rosterIds.has(membro))
         throw falha(422, 'Uma equipe referencia um participante que não está nas turmas da sala.');
       if (participantes.has(membro))
         throw falha(422, 'Um participante não pode estar em mais de uma equipe.');
       participantes.add(membro);
     }
-    return { id, nome, participanteIds: membros };
+    if (exigirMembros && membrosBrutos.length === 0) {
+      throw falha(422, `A equipe "${nome}" precisa de pelo menos um integrante.`);
+    }
+    const membrosRoster = roster.filter((r) => membrosBrutos.includes(r.id));
+    let representanteParticipanteId = equipe.representanteParticipanteId
+      ? String(equipe.representanteParticipanteId)
+      : null;
+    let representanteAlunoId = equipe.representanteAlunoId ? String(equipe.representanteAlunoId) : null;
+    if (modoRespostaGrupo === 'compartilhada') {
+      if (!membrosRoster.length) {
+        throw falha(422, `A equipe "${nome}" precisa de integrantes para definir um representante.`);
+      }
+      if (representanteParticipanteId) {
+        const rep = membrosRoster.find((r) => String(r.id) === representanteParticipanteId);
+        if (!rep) {
+          throw falha(422, `O representante escolhido não pertence à equipe "${nome}".`);
+        }
+        representanteAlunoId = String(rep.alunoId);
+      } else if (representanteAlunoId) {
+        if ((freqAlunoId.get(representanteAlunoId) || 0) > 1) {
+          throw falha(
+            422,
+            `Identificação ambígua do representante "${representanteAlunoId}" entre turmas: informe representanteParticipanteId.`,
+          );
+        }
+        const rep = membrosRoster.find((r) => String(r.alunoId) === representanteAlunoId);
+        if (!rep) {
+          throw falha(422, `O representante escolhido não pertence à equipe "${nome}".`);
+        }
+        representanteParticipanteId = String(rep.id);
+      } else {
+        representanteParticipanteId = String(membrosRoster[0].id);
+        representanteAlunoId = String(membrosRoster[0].alunoId);
+      }
+    }
+    return {
+      id,
+      nome: nome.slice(0, 80),
+      participanteIds: membrosBrutos,
+      ...(equipe.cor ? { cor: String(equipe.cor).slice(0, 20) } : {}),
+      ...(representanteParticipanteId ? { representanteParticipanteId } : {}),
+      ...(representanteAlunoId ? { representanteAlunoId } : {}),
+    };
   });
+  if (exigirCobertura && participantes.size < roster.length) {
+    throw falha(422, 'Todos os participantes selecionados precisam estar distribuídos em um grupo.');
+  }
+  return resultado;
 }

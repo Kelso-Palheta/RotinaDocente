@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Mecanismo numerado para ordenar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2A1810"/>
+      <stop offset="100%" stop-color="#EA580C" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+      .cena-mov { transform-origin: 240px 135px; animation: anim 2.6s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><rect x="95" y="70" width="290" height="36" rx="10" fill="#EA580C" stroke="#FDE047" stroke-width="3"/><rect x="95" y="120" width="290" height="36" rx="10" fill="#EA580C" stroke="#FB923C" stroke-width="3"/><rect x="95" y="170" width="290" height="36" rx="10" fill="#EA580C" stroke="#FDE047" stroke-width="3"/></g>
+</svg>

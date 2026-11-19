@@ -65,15 +65,54 @@ function comPosicoes(entradas, { porTabuleiro = false } = {}) {
 
 export function calcularRanking(
   participantes = [],
-  { modalidade, equipes = [], posicoesPorEquipe = {} } = {},
+  {
+    modalidade,
+    formatoParticipacao,
+    modoRespostaGrupo,
+    equipes = [],
+    posicoesPorEquipe = {},
+    pontosPorEquipe = null,
+    respostas = null,
+  } = {},
 ) {
   const pontos = (p) => (Number.isFinite(p?.pontos) ? p.pontos : 0);
+  const rankingPorGrupos =
+    formatoParticipacao === 'grupos' ||
+    (formatoParticipacao !== 'individual' &&
+      (modalidade === 'equipes' || modalidade === 'tabuleiro' || equipes.length > 0));
 
-  if (modalidade === 'equipes' || modalidade === 'tabuleiro') {
+  if (rankingPorGrupos && equipes.length > 0) {
     const somas = new Map(equipes.map((equipe) => [equipe.id, 0]));
-    for (const participante of participantes) {
-      if (somas.has(participante.equipeId))
-        somas.set(participante.equipeId, somas.get(participante.equipeId) + pontos(participante));
+    if (modoRespostaGrupo === 'compartilhada') {
+      if (pontosPorEquipe instanceof Map) {
+        for (const equipe of equipes) {
+          somas.set(equipe.id, Number(pontosPorEquipe.get(String(equipe.id))) || 0);
+        }
+      } else if (pontosPorEquipe && typeof pontosPorEquipe === 'object') {
+        for (const equipe of equipes) {
+          somas.set(equipe.id, Number(pontosPorEquipe[equipe.id]) || 0);
+        }
+      } else if (Array.isArray(respostas)) {
+        for (const r of respostas) {
+          if (r?.equipeId && somas.has(r.equipeId)) {
+            somas.set(r.equipeId, somas.get(r.equipeId) + (Number(r.pontos) || 0));
+          }
+        }
+      } else {
+        for (const equipe of equipes) {
+          if (Number.isFinite(equipe?.pontos)) {
+            somas.set(equipe.id, Number(equipe.pontos));
+          } else {
+            const primeiro = participantes.find((p) => p.equipeId === equipe.id);
+            somas.set(equipe.id, primeiro ? pontos(primeiro) : 0);
+          }
+        }
+      }
+    } else {
+      for (const participante of participantes) {
+        if (somas.has(participante.equipeId))
+          somas.set(participante.equipeId, somas.get(participante.equipeId) + pontos(participante));
+      }
     }
     return comPosicoes(
       equipes.map((equipe) => ({

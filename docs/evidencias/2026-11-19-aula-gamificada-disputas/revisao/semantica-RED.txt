@@ -1,0 +1,55 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_imersao_semantica --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_imersao_semantica.test.jsx (3 tests | 3 failed) 7ms
+     × REV-IM-12: pontuação parcial tem reação distinta de erro total e acerto integral 5ms
+     × REV-IM-13: aluno sem resposta não é rotulado como tendo errado 1ms
+     × REV-IM-14: revelação coletiva no telão não afirma acerto individual de toda a turma 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_semantica.test.jsx > Semântica audiovisual ainda exigida pela revisão anterior > REV-IM-12: pontuação parcial tem reação distinta de erro total e acerto integral
+AssertionError: expected [ 'erro', 'acerto' ] to not include 'erro'
+ ❯ ../tests/regression/aula_gamificada_imersao_semantica.test.jsx:15:36
+     13|       recibo: { status: 'confirmado', correta: false, pontuacao: 500 },
+     14|     }, 0, 'aluno');
+     15|     expect(['erro', 'acerto']).not.toContain(av.situacao);
+       |                                    ^
+     16|   });
+     17|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_semantica.test.jsx > Semântica audiovisual ainda exigida pela revisão anterior > REV-IM-13: aluno sem resposta não é rotulado como tendo errado
+AssertionError: expected [ 'erro', 'acerto' ] to not include 'erro'
+ ❯ ../tests/regression/aula_gamificada_imersao_semantica.test.jsx:20:36
+     18|   it('REV-IM-13: aluno sem resposta não é rotulado como tendo errado',…
+     19|     const av = derivarContextoAudiovisual({ ...revelado, recibo: null …
+     20|     expect(['erro', 'acerto']).not.toContain(av.situacao);
+       |                                    ^
+     21|   });
+     22|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_imersao_semantica.test.jsx > Semântica audiovisual ainda exigida pela revisão anterior > REV-IM-14: revelação coletiva no telão não afirma acerto individual de toda a turma
+AssertionError: expected [ 'erro', 'acerto' ] to not include 'acerto'
+ ❯ ../tests/regression/aula_gamificada_imersao_semantica.test.jsx:25:36
+     23|   it('REV-IM-14: revelação coletiva no telão não afirma acerto individ…
+     24|     const av = derivarContextoAudiovisual({ ...revelado, recibo: null …
+     25|     expect(['erro', 'acerto']).not.toContain(av.situacao);
+       |                                    ^
+     26|   });
+     27| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  11:52:08
+   Duration  837ms (transform 63ms, setup 0ms, import 88ms, tests 7ms, environment 586ms)

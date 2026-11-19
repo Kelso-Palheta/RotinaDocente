@@ -282,27 +282,83 @@ export function gerarRelatorioSala({
   sincronizacao = null,
 }) {
   const porParticipante = new Map();
+  const porEquipe = new Map();
   for (const r of respostas || []) {
-    if (!r?.participanteId) continue;
-    if (!porParticipante.has(r.participanteId)) porParticipante.set(r.participanteId, []);
-    porParticipante.get(r.participanteId).push(r);
+    if (r?.participanteId) {
+      if (!porParticipante.has(r.participanteId)) porParticipante.set(r.participanteId, []);
+      porParticipante.get(r.participanteId).push(r);
+    }
+    if (r?.equipeId) {
+      if (!porEquipe.has(r.equipeId)) porEquipe.set(r.equipeId, []);
+      porEquipe.get(r.equipeId).push(r);
+    }
   }
 
+  const ehCompartilhada = sala?.modoRespostaGrupo === 'compartilhada';
+  const ehGrupos = sala?.formatoParticipacao === 'grupos' || ehCompartilhada || (sala?.equipes || []).length > 0;
+  const equipesPorId = new Map((sala?.equipes || []).map((e) => [String(e.id), e]));
+  const participantesPorId = new Map((participantes || []).map((p) => [String(p.id), p]));
+  const criterioColetivo = sala?.avaliacao?.criterioColetivo || 'somente_relatorio';
+
   const alunos = (participantes || []).map((p) => {
-    const base = calcularAvaliacaoParticipante({
-      sala,
-      participante: p,
-      conteudos,
-      respostasDoParticipante: porParticipante.get(p.id) || [],
-    });
+    const respInd = porParticipante.get(p.id) || [];
+    const respEfetivas = ehCompartilhada && p.equipeId ? (porEquipe.get(p.equipeId) || []) : respInd;
+    const ausenciaConfirmada = p.presenteConfirmado === false;
+    const presenteConfirmado = ausenciaConfirmada
+      ? false
+      : p.presenteConfirmado === true || Boolean(p.entrouEmMs) || respInd.length > 0;
+    const presencaStatus = ausenciaConfirmada
+      ? 'ausente_confirmado'
+      : p.presenteConfirmado === true
+        ? 'presente_confirmado'
+        : presenteConfirmado
+          ? 'presente_sessao'
+          : 'nao_confirmado';
+
+    let base;
+    if (ehCompartilhada && !presenteConfirmado) {
+      base = calcularAvaliacaoParticipante({
+        sala,
+        participante: { ...p, entrouEmMs: null },
+        conteudos,
+        respostasDoParticipante: [],
+      });
+    } else {
+      base = calcularAvaliacaoParticipante({
+        sala,
+        participante: ehCompartilhada ? { ...p, entrouEmMs: p.entrouEmMs || 1 } : p,
+        conteudos,
+        respostasDoParticipante: respEfetivas,
+      });
+    }
+
     const rev = revisoesPorParticipante?.[p.id] || null;
-    const notaAutomatica =
-      base.situacao === 'nao_participou' && zerarAusentes && sala?.finalidade === 'avaliativa'
+    let notaAutomatica =
+      base.situacao === 'nao_participou' && !ausenciaConfirmada && zerarAusentes && sala?.finalidade === 'avaliativa'
         ? 0
         : base.notaCalculada;
+    let situacaoFinal = base.situacao;
+
+    if (ehCompartilhada && sala?.finalidade === 'avaliativa' && criterioColetivo === 'somente_relatorio') {
+      notaAutomatica = null;
+      if (presenteConfirmado && situacaoFinal !== 'sem_oportunidade') {
+        situacaoFinal = 'coletivo_sem_lancamento';
+      }
+    }
+
     const notaFinal = rev?.notaRevisada !== undefined && rev?.notaRevisada !== null
       ? arredondarDuasCasas(rev.notaRevisada)
       : notaAutomatica;
+
+    const equipe = p.equipeId ? equipesPorId.get(String(p.equipeId)) : null;
+    const repPart = equipe?.representanteParticipanteId
+      ? participantesPorId.get(String(equipe.representanteParticipanteId))
+      : equipe?.representanteAlunoId
+        ? (participantes || []).find((cand) => String(cand.alunoId) === String(equipe.representanteAlunoId))
+        : null;
+    const autoresUnicos = [...new Set(
+      respEfetivas.map((r) => r.autoriaNome).filter(Boolean),
+    )];
 
     return {
       participanteId: p.id,
@@ -310,8 +366,21 @@ export function gerarRelatorioSala({
       turmaId: p.turmaId || null,
       nome: p.nomeExibicao || p.nome || 'Estudante',
       equipeId: p.equipeId || null,
+      ...(equipe?.nome ? { equipeNome: equipe.nome } : {}),
       pontosJogo: Number(p.pontos) || 0,
       ...base,
+      situacao: situacaoFinal,
+      ausenciaConfirmada,
+      presencaStatus,
+      ...(ehGrupos
+        ? {
+            origemColetiva: ehCompartilhada,
+            modoRespostaGrupo: sala?.modoRespostaGrupo || (ehCompartilhada ? 'compartilhada' : 'individual'),
+            criterioColetivo,
+            representanteNome: repPart?.nomeExibicao || repPart?.nome || null,
+            autoresGrupo: autoresUnicos,
+          }
+        : {}),
       notaCalculada: notaAutomatica,
       notaRevisada: rev?.notaRevisada ?? null,
       justificativaRevisao: rev?.justificativa ?? null,
@@ -322,7 +391,9 @@ export function gerarRelatorioSala({
 
   const presentes = alunos.filter((a) => a.situacao !== 'nao_participou').length;
   const ausentes = alunos.filter((a) => a.situacao === 'nao_participou').length;
+  const ausentesConfirmados = alunos.filter((a) => a.ausenciaConfirmada).length;
   const semOportunidade = alunos.filter((a) => a.situacao === 'sem_oportunidade').length;
+  const respostasUnicasGrupos = ehCompartilhada ? (respostas || []).length : null;
   const notasValidas = alunos.map((a) => a.notaFinal).filter((n) => typeof n === 'number');
   const mediaNota = notasValidas.length
     ? arredondarDuasCasas(notasValidas.reduce((s, n) => s + n, 0) / notasValidas.length)
@@ -341,6 +412,8 @@ export function gerarRelatorioSala({
       codigo: sala.codigo,
       titulo: sala.titulo,
       modalidade: sala.modalidade,
+      formatoParticipacao: sala.formatoParticipacao || null,
+      modoRespostaGrupo: sala.modoRespostaGrupo || null,
       finalidade: sala.finalidade || 'revisao',
       fase: sala.fase,
       rodada: sala.rodada,
@@ -353,11 +426,26 @@ export function gerarRelatorioSala({
       totalElegiveis: alunos.length,
       presentes,
       ausentes,
+      ausentesConfirmados,
       semOportunidade,
+      ...(respostasUnicasGrupos !== null ? { respostasUnicasGrupos } : {}),
       mediaNota,
     },
+    ...(ehGrupos
+      ? {
+          equipes: (sala.equipes || []).map((e) => ({
+            id: e.id,
+            nome: e.nome,
+            representanteParticipanteId: e.representanteParticipanteId || null,
+            representanteAlunoId: e.representanteAlunoId || null,
+            participanteIds: e.participanteIds || [],
+          })),
+        }
+      : {}),
     alunos,
     auditoria: auditoria || [],
+    auditoriaRepresentantes: sala.auditoriaRepresentantes || [],
+    auditoriaPresencas: sala.auditoriaPresencas || [],
     sincronizacao: sincronizacao || { status: 'pendente', pendencias: [] },
     limitacoes,
   };
@@ -376,8 +464,18 @@ function escaparCsv(valor) {
 
 export function gerarCsvRelatorio(relatorio) {
   const cfg = relatorio?.configuracaoCongelada;
+  const resumo = relatorio?.resumoTurma || {};
   const linhas = [
-    ['Sala', relatorio?.sala?.codigo || '', 'Título', cfg?.tituloAtividade || relatorio?.sala?.titulo || ''].map(escaparCsv).join(','),
+    [
+      'Sala',
+      relatorio?.sala?.codigo || '',
+      'Título',
+      cfg?.tituloAtividade || relatorio?.sala?.titulo || '',
+      'Formato',
+      relatorio?.sala?.formatoParticipacao || 'individual',
+      'Modo Grupo',
+      relatorio?.sala?.modoRespostaGrupo || '-',
+    ].map(escaparCsv).join(','),
     [
       'Modalidade',
       relatorio?.sala?.modalidade || '',
@@ -387,10 +485,20 @@ export function gerarCsvRelatorio(relatorio) {
       cfg ? `${cfg.anoLetivo} / ${cfg.bimestre}º Bim` : '-',
       'Valor Máximo',
       cfg?.valorMaximo ?? '-',
+      'Critério Coletivo',
+      cfg?.criterioColetivo || '-',
+      'Presentes',
+      resumo.presentes ?? '-',
+      'Respostas Únicas Grupos',
+      resumo.respostasUnicasGrupos ?? '-',
     ].map(escaparCsv).join(','),
   ];
   const cabecalho = [
     'Aluno',
+    'Grupo',
+    'Presenca',
+    'Origem Nota',
+    'Representante/Autoria',
     'Situacao',
     'Elegiveis',
     'Respondidas',
@@ -405,9 +513,21 @@ export function gerarCsvRelatorio(relatorio) {
   ];
   linhas.push(cabecalho.map(escaparCsv).join(','));
   for (const a of relatorio?.alunos || []) {
+    const origem = a.origemColetiva
+      ? `Coletiva (${a.criterioColetivo || 'atribuir_presentes'})`
+      : a.equipeId
+        ? 'Grupo (resposta individual)'
+        : 'Individual';
+    const autoria = a.autoresGrupo?.length
+      ? a.autoresGrupo.join(' / ')
+      : a.representanteNome || '';
     linhas.push(
       [
         a.nome,
+        a.equipeNome || a.equipeId || '-',
+        a.presencaStatus || (a.ausenciaConfirmada ? 'ausente_confirmado' : 'presente'),
+        origem,
+        autoria,
         a.situacao,
         a.elegiveis,
         a.respondidas,

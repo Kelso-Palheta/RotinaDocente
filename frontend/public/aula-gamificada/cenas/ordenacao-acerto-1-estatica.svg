@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Blocos 1, 2, 3 alinhados em ordem exata">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2A1810"/>
+      <stop offset="100%" stop-color="#EA580C" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0% { transform: scale(0.88); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }
+      .cena-mov { transform-origin: 240px 135px; animation: none; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><rect x="95" y="95" width="80" height="80" rx="14" fill="#FB923C"/><text x="135" y="148" text-anchor="middle" font-size="38" font-weight="900" fill="#2A1810" font-family="sans-serif">1</text><rect x="200" y="95" width="80" height="80" rx="14" fill="#FDE047"/><text x="240" y="148" text-anchor="middle" font-size="38" font-weight="900" fill="#2A1810" font-family="sans-serif">2</text><rect x="305" y="95" width="80" height="80" rx="14" fill="#FFFFFF"/><text x="345" y="148" text-anchor="middle" font-size="38" font-weight="900" fill="#2A1810" font-family="sans-serif">3</text></g>
+</svg>

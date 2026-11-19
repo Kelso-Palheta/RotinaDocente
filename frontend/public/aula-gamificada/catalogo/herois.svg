@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Heróis — aventura em quadrinhos">
+  <defs>
+    <linearGradient id="bg-herois" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B103B"/>
+      <stop offset="100%" stop-color="#6315D9" stop-opacity="0.72"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#bg-herois)"/>
+
+      <polygon points="320,25 365,110 460,80 415,165 510,205 405,235 435,320 335,270 270,340 255,245 155,260 220,185 140,120 245,125" fill="#FF2D93" opacity="0.85"/>
+      <path d="M320 70 L425 112 V190 C425 248 378 286 320 304 C262 286 215 248 215 190 V112 Z" fill="#6315D9" stroke="#FFE500" stroke-width="10"/>
+      <polygon points="335,105 280,190 322,190 302,265 365,172 320,172" fill="#FFE500"/>
+      <circle cx="120" cy="70" r="14" fill="#00DDEB"/><circle cx="530" cy="75" r="18" fill="#B9EF00"/>
+
+</svg>

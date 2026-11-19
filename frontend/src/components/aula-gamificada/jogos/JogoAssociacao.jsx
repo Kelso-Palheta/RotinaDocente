@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { RenderTextoSeguro } from '../RenderTextoSeguro';
 import { gerarRequestId } from '../api';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
 
 /**
  * Jogo de Associação de Colunas — 100% operável por clique, toque e teclado (sem exigir arraste).
@@ -40,11 +41,13 @@ export function JogoAssociacao({
   const [anuncio, setAnuncio] = useState('');
   const [requestIdPendente, setRequestIdPendente] = useState(null);
   const [erroEnvio, setErroEnvio] = useState(null);
+  const audiovisual = useAudiovisualSala();
 
   const direitaUsadaPor = (dirId) =>
     Object.entries(associacoes).find(([, dId]) => dId === dirId)?.[0] || null;
 
   const conectarComDireita = (dirItem) => {
+    audiovisual?.desbloquearPorGesto?.();
     if (jaConfirmado || bloqueado || ocupado || !esquerdaAtiva) return;
     const itemEsq = esquerda.find((e) => e.id === esquerdaAtiva);
 

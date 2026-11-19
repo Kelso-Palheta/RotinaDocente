@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Escada ascendente de etapas dominadas">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2A1810"/>
+      <stop offset="100%" stop-color="#EA580C" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+      .cena-mov { transform-origin: 240px 135px; animation: anim 2.6s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><rect x="85" y="180" width="70" height="45" rx="6" fill="#EA580C"/><rect x="165" y="140" width="70" height="85" rx="6" fill="#FB923C"/><rect x="245" y="100" width="70" height="125" rx="6" fill="#FDE047"/><rect x="325" y="60" width="70" height="165" rx="6" fill="#FFFFFF"/></g>
+</svg>

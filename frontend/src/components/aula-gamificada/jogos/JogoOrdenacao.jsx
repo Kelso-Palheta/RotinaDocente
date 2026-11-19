@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { RenderTextoSeguro } from '../RenderTextoSeguro';
 import { gerarRequestId } from '../api';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
 
 /**
  * Jogo de Ordenação — controles acessíveis Subir/Descer (sem exigir arraste).
@@ -25,12 +26,14 @@ export function JogoOrdenacao({
   const [anuncio, setAnuncio] = useState('');
   const [requestIdPendente, setRequestIdPendente] = useState(null);
   const [erroEnvio, setErroEnvio] = useState(null);
+  const audiovisual = useAudiovisualSala();
 
   const listaAtual = (jaConfirmado && ordemConfirmada ? ordemConfirmada : ordem)
     .map((id) => itensServidor.find((it) => it.id === id))
     .filter(Boolean);
 
   const mover = (indice, direcao) => {
+    audiovisual?.desbloquearPorGesto?.();
     if (jaConfirmado || bloqueado || ocupado) return;
     const destino = indice + direcao;
     if (destino < 0 || destino >= listaAtual.length) return;

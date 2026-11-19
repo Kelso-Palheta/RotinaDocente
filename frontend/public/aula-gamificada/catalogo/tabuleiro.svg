@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Tabuleiro — trilha de blocos e peões">
+  <defs>
+    <linearGradient id="bg-tabuleiro" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#16261E"/>
+      <stop offset="100%" stop-color="#16A34A" stop-opacity="0.72"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#bg-tabuleiro)"/>
+
+      <path d="M85 255 Q200 100 320 185 T555 95" fill="none" stroke="#B9EF00" stroke-width="34" stroke-linecap="round" opacity="0.35"/>
+      <rect x="75" y="220" width="76" height="58" rx="12" fill="#22C55E" stroke="#FFFFFF" stroke-width="4"/>
+      <rect x="175" y="170" width="76" height="58" rx="12" fill="#00DDEB" stroke="#FFFFFF" stroke-width="4"/>
+      <rect x="275" y="160" width="76" height="58" rx="12" fill="#FFE500" stroke="#FFFFFF" stroke-width="4"/>
+      <rect x="375" y="130" width="76" height="58" rx="12" fill="#FF2D93" stroke="#FFFFFF" stroke-width="4"/>
+      <rect x="475" y="75" width="90" height="64" rx="12" fill="#FFE500" stroke="#FFFFFF" stroke-width="5"/>
+      <circle cx="213" cy="145" r="24" fill="#2563EB" stroke="#FFFFFF" stroke-width="5"/>
+      <circle cx="313" cy="135" r="24" fill="#16A34A" stroke="#FFFFFF" stroke-width="5"/>
+      <rect x="515" y="30" width="8" height="52" fill="#FFFFFF"/><polygon points="523,30 568,45 523,60" fill="#FF2D93"/>
+
+</svg>

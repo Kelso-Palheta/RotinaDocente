@@ -1,0 +1,56 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_presenca_republicacao --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+ ❯ |node| ../tests/regression/aula_gamificada_presenca_republicacao.test.js (2 tests | 2 failed) 19ms
+     × REV-DIS-08: resumo do Portal acompanha o detalhe da nova versão sem nota 14ms
+     × REV-DIS-09: entrega anterior deixa de fornecer nota corrigida para sincronização regular 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_presenca_republicacao.test.js > Reconciliação de ausência depois de nota coletiva publicada > REV-DIS-08: resumo do Portal acompanha o detalhe da nova versão sem nota
+AssertionError: expected 10 to be null
+
+- Expected:
+null
+
++ Received:
+10
+
+ ❯ ../tests/regression/aula_gamificada_presenca_republicacao.test.js:82:39
+     80|     expect(detalhe.meuResultado.notaFinal).toBeNull();
+     81|     const resumo = (await servico.minhasAvaliacoes(beto)).avaliacoes.f…
+     82|     expect(resumo?.notaFinal ?? null).toBeNull();
+       |                                       ^
+     83|   });
+     84|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |node| ../tests/regression/aula_gamificada_presenca_republicacao.test.js > Reconciliação de ausência depois de nota coletiva publicada > REV-DIS-09: entrega anterior deixa de fornecer nota corrigida para sincronização regular
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ ../tests/regression/aula_gamificada_presenca_republicacao.test.js:90:27
+     88|     const sincronizavel = ['corrigido', 'revisado'].includes(entrega?.…
+     89|       && typeof (entrega.notaRevisada ?? entrega.notaFinal) === 'numbe…
+     90|     expect(sincronizavel).toBe(false);
+       |                           ^
+     91|   });
+     92| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  12:20:27
+   Duration  344ms (transform 145ms, setup 0ms, import 185ms, tests 19ms, environment 0ms)

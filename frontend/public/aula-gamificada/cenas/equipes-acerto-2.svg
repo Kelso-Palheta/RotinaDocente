@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Barra de energia coletiva no máximo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#271033"/>
+      <stop offset="100%" stop-color="#DB2777" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+      .cena-mov { transform-origin: 240px 135px; animation: anim 2.6s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><rect x="85" y="95" width="310" height="60" rx="18" fill="#271033" stroke="#FFFFFF" stroke-width="5"/><rect x="97" y="107" width="286" height="36" rx="12" fill="#FACC15"/><circle cx="395" cy="70" r="14" fill="#38BDF8"/></g>
+</svg>

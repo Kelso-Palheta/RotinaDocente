@@ -11,8 +11,10 @@ import {
 } from "@/dominio/aula-gamificada/comum";
 import {
   MODALIDADES,
+  compatibilidadeModalidade,
   obterModalidade,
   regraPontuacao,
+  validarFormatoParticipacao,
   validarTipoModalidade,
 } from "@/dominio/aula-gamificada/modalidades";
 import {
@@ -32,6 +34,7 @@ import {
   aplicarComando,
   avaliarRodadaTabuleiro,
   avaliarTentativaHerois,
+  ehRepresentanteEquipe,
   equipeDaVezTabuleiro,
   inicializarTabuleiroEstado,
   montarConteudo,
@@ -46,7 +49,14 @@ function equipesPadraoTabuleiro(roster = []) {
   roster.forEach((p, idx) => {
     (idx % 2 === 0 ? azul : verde).participanteIds.push(p.id);
   });
-  return [azul, verde];
+  return [azul, verde]
+    .filter((eq) => eq.participanteIds.length > 0)
+    .map((eq) => {
+      const rep = roster.find((r) => r.id === eq.participanteIds[0]);
+      return rep
+        ? { ...eq, representanteParticipanteId: rep.id, representanteAlunoId: rep.alunoId }
+        : eq;
+    });
 }
 import { pontuarMemoria, pontuarResposta } from "@/dominio/aula-gamificada/pontuacao";
 import {
@@ -113,11 +123,20 @@ export class AulaGamificadaService {
       this.store.list("aulaGamificadaSalas", [["professorId", "==", uid]]),
     ]);
     return {
-      modalidades: MODALIDADES.map((modalidade) => ({
-        id: modalidade.id,
-        nome: modalidade.nome,
-        tiposQuestoes: [...modalidade.tiposQuestoes],
-      })),
+      modalidades: MODALIDADES.map((modalidade) => {
+        const comp = compatibilidadeModalidade(modalidade.id);
+        return {
+          id: modalidade.id,
+          nome: modalidade.nome,
+          tiposQuestoes: [...modalidade.tiposQuestoes],
+          capa: comp.capa,
+          capaAlt: comp.capaAlt,
+          proporcaoCapa: "16:9",
+          formatosParticipacao: [...comp.formatos],
+          modosRespostaGrupo: [...comp.modosGrupo],
+          formatoPadrao: comp.formatoPadrao,
+        };
+      }),
       turmas: turmas
         .filter((turma) => !turma.arquivada)
         .map((turma) => ({
@@ -321,26 +340,70 @@ export class AulaGamificadaService {
         questoes.push(questao);
       }
 
-      const roster = montarRoster(
+      const rosterCompleto = montarRoster(
         turmas.map((turma) => ({ ...turma, id: String(turma.id) })),
         turmaIds,
         this.idParticipante,
       );
-      if (!roster.length)
+      if (!rosterCompleto.length)
         throw falha(422, "As turmas selecionadas não possuem estudantes.");
 
-      const equipes =
-        modalidade === "equipes"
-          ? validarEquipes(config.equipes, roster)
-          : modalidade === "tabuleiro"
-            ? Array.isArray(config.equipes) && config.equipes.length
-              ? validarEquipes(config.equipes, roster)
-              : equipesPadraoTabuleiro(roster)
-            : [];
-      if (["equipes", "tabuleiro"].includes(modalidade) && equipes.length < 2)
-        throw falha(422, "Cadastre pelo menos duas equipes para este modo.");
-      if (modalidade === "tabuleiro" && equipes.length > 4)
-        throw falha(422, "O Tabuleiro aceita no máximo quatro equipes.");
+      const { formatoParticipacao, modoRespostaGrupo } = validarFormatoParticipacao({
+        modalidade,
+        formatoParticipacao: config.formatoParticipacao,
+        modoRespostaGrupo: config.modoRespostaGrupo,
+      });
+
+      let roster = rosterCompleto;
+      let equipes = [];
+      if (formatoParticipacao === "duelo") {
+        const selecionados = Array.isArray(config.dueloParticipantes)
+          ? config.dueloParticipantes
+          : [];
+        if (selecionados.length !== 2) {
+          throw falha(422, "O Duelo 1×1 exige exatamente dois estudantes distintos.");
+        }
+        const resolvidos = [];
+        const idsVistos = new Set();
+        for (const item of selecionados) {
+          const pMatch =
+            typeof item === "string"
+              ? rosterCompleto.find((r) => r.id === item || String(r.alunoId) === item)
+              : rosterCompleto.find(
+                  (r) =>
+                    String(r.alunoId) === String(item?.alunoId ?? "") &&
+                    (!item?.turmaId || String(r.turmaId) === String(item.turmaId)),
+                );
+          if (!pMatch) {
+            throw falha(422, "Um dos adversários selecionados não pertence às turmas da sala.");
+          }
+          if (idsVistos.has(pMatch.id)) {
+            throw falha(422, "O Duelo 1×1 exige dois estudantes distintos.");
+          }
+          idsVistos.add(pMatch.id);
+          resolvidos.push(pMatch);
+        }
+        roster = resolvidos;
+        if (modalidade === "tabuleiro") {
+          equipes = [
+            { id: "eq_duelo_1", nome: resolvidos[0].nomeExibicao, cor: "azul", participanteIds: [resolvidos[0].id] },
+            { id: "eq_duelo_2", nome: resolvidos[1].nomeExibicao, cor: "verde", participanteIds: [resolvidos[1].id] },
+          ];
+        }
+      } else if (formatoParticipacao === "grupos") {
+        equipes =
+          Array.isArray(config.equipes) && config.equipes.length
+            ? validarEquipes(config.equipes, rosterCompleto, {
+                exigirMembros: true,
+                exigirCobertura: true,
+                modoRespostaGrupo,
+              })
+            : equipesPadraoTabuleiro(rosterCompleto);
+        if (equipes.length < 2)
+          throw falha(422, "Cadastre pelo menos duas equipes para este modo.");
+        if (modalidade === "tabuleiro" && equipes.length > 4)
+          throw falha(422, "O Tabuleiro aceita no máximo quatro equipes.");
+      }
 
       const turmasSelecionadas = turmas.filter((t) => turmaIds.includes(String(t.id)));
       const { finalidade, avaliacao } = validarConfiguracaoAvaliacao({
@@ -349,6 +412,16 @@ export class AulaGamificadaService {
         modalidade,
         turmas: turmasSelecionadas,
       });
+      if (finalidade === "avaliativa" && modoRespostaGrupo === "compartilhada") {
+        const crit = String(config.avaliacao?.criterioColetivo || "").trim();
+        if (!["somente_relatorio", "atribuir_presentes"].includes(crit)) {
+          throw falha(
+            422,
+            "Em salas avaliativas com resposta compartilhada, escolha o critério coletivo (somente_relatorio ou atribuir_presentes).",
+          );
+        }
+        avaliacao.criterioColetivo = crit;
+      }
 
       const codigo = codigoSala(this.gerarCodigo());
       const existente = await tx.get(salaPath(codigo));
@@ -369,6 +442,8 @@ export class AulaGamificadaService {
         professorId: uid,
         titulo,
         modalidade,
+        formatoParticipacao,
+        ...(modoRespostaGrupo ? { modoRespostaGrupo } : {}),
         finalidade,
         ...(avaliacao ? { avaliacao } : {}),
         turmaIds,
@@ -398,6 +473,8 @@ export class AulaGamificadaService {
         professorId: uid,
         titulo,
         modalidade,
+        formatoParticipacao,
+        ...(modoRespostaGrupo ? { modoRespostaGrupo } : {}),
         finalidade,
         ...(avaliacao ? { avaliacao } : {}),
         turmaIds,
@@ -579,7 +656,9 @@ export class AulaGamificadaService {
       ? (participantesFinal || []).find((p) => p.id === participanteId) ?? null
       : null;
     const registro = participanteId
-      ? daRodada.find((r) => r.participanteId === participanteId) ?? null
+      ? sala.modoRespostaGrupo === "compartilhada" && participante?.equipeId
+        ? daRodada.find((r) => String(r.equipeId) === String(participante.equipeId)) ?? null
+        : daRodada.find((r) => r.participanteId === participanteId) ?? null
       : null;
 
     return projetarEstado({
@@ -589,6 +668,7 @@ export class AulaGamificadaService {
       participante,
       participantes: participantesFinal || [],
       respostas: daRodada,
+      todasRespostas: respostasFinal || [],
       recibo: registro?.ultimoRecibo ?? null,
       agora: this.agora(),
     });
@@ -617,6 +697,156 @@ export class AulaGamificadaService {
       );
       const conteudoAtual = await tx.get(conteudoPath(codigo, indiceAtual));
       if (!conteudoAtual) throw falha(503, "Conteúdo da sala indisponível.");
+
+      const acao = String(comando?.acao || "");
+      if (acao === "alterar_representante" || acao === "confirmar_presenca") {
+        if (Number(comando?.expectedRevision) !== Number(sala.revision)) {
+          throw falha(409, "A sala foi atualizada antes. Recarregue antes de comandar.");
+        }
+        const avalDocPresenca =
+          acao === "confirmar_presenca" ? await tx.get(`${salaPath(codigo)}/avaliacao/estado`) : null;
+        const agora = this.agora();
+        let atual = { ...sala, revision: sala.revision + 1, atualizadoEmMs: agora };
+        const mapaParticipantes = participantes.map((p) => ({ ...p }));
+        if (acao === "alterar_representante") {
+          if (sala.modoRespostaGrupo !== "compartilhada") {
+            throw falha(422, "Alteração de representante aplica-se somente a grupos com resposta compartilhada.");
+          }
+          const eqId = String(comando?.equipeId || "").trim();
+          const repPartId = String(comando?.representanteParticipanteId || "").trim();
+          const repAlunoId = String(comando?.representanteAlunoId || "").trim();
+          const equipeAlvo = (sala.equipes || []).find((e) => String(e.id) === eqId);
+          if (!equipeAlvo) throw falha(404, "Equipe não encontrada nesta sala.");
+
+          let membro = null;
+          if (repPartId) {
+            membro = mapaParticipantes.find(
+              (p) => String(p.equipeId) === eqId && String(p.id) === repPartId,
+            );
+          } else if (repAlunoId) {
+            const ocorrencias = mapaParticipantes.filter(
+              (p) => String(p.alunoId) === repAlunoId,
+            );
+            if (ocorrencias.length > 1) {
+              throw falha(
+                422,
+                "Identificação ambígua do representante entre turmas: informe representanteParticipanteId.",
+              );
+            }
+            membro = mapaParticipantes.find(
+              (p) => String(p.equipeId) === eqId && String(p.alunoId) === repAlunoId,
+            );
+          }
+          if (!membro) {
+            throw falha(422, "O representante selecionado não integra esta equipe.");
+          }
+          atual = {
+            ...atual,
+            equipes: sala.equipes.map((e) =>
+              String(e.id) === eqId
+                ? {
+                    ...e,
+                    representanteParticipanteId: membro.id,
+                    representanteAlunoId: membro.alunoId,
+                  }
+                : e,
+            ),
+            auditoriaRepresentantes: [
+              ...(sala.auditoriaRepresentantes || []),
+              {
+                id: this.gerarId(),
+                equipeId: eqId,
+                representanteAnterior: equipeAlvo.representanteParticipanteId || equipeAlvo.representanteAlunoId || null,
+                representanteNovo: membro.id,
+                representanteNovoAlunoId: membro.alunoId,
+                professorId: uid,
+                criadoEmMs: agora,
+              },
+            ],
+          };
+          tx.set(salaPath(codigo), atual);
+        } else {
+          const presentesLista = (Array.isArray(comando?.presentesIds) ? comando.presentesIds : []).map(String);
+          const presentesSet = new Set(presentesLista);
+          const idsParticipantesSala = new Set(mapaParticipantes.map((p) => String(p.id)));
+          const freqAluno = new Map();
+          for (const p of mapaParticipantes) {
+            const aKey = String(p.alunoId);
+            freqAluno.set(aKey, (freqAluno.get(aKey) || 0) + 1);
+          }
+          for (const entrada of presentesLista) {
+            if (!idsParticipantesSala.has(entrada) && (freqAluno.get(entrada) || 0) > 1) {
+              throw falha(
+                422,
+                "Identificação ambígua de presença entre turmas: utilize o ID estável do participante.",
+              );
+            }
+          }
+          const presentesConfirmadosIds = [];
+          const ausentesConfirmadosIds = [];
+          let presencaMudou = false;
+          for (const p of mapaParticipantes) {
+            const marcado =
+              presentesSet.has(String(p.id)) ||
+              ((freqAluno.get(String(p.alunoId)) || 0) === 1 && presentesSet.has(String(p.alunoId)));
+            if (marcado || comando?.substituir === true) {
+              if (p.presenteConfirmado !== marcado) presencaMudou = true;
+              p.presenteConfirmado = marcado;
+              tx.set(participantePath(codigo, p.id), p);
+              if (marcado) presentesConfirmadosIds.push(p.id);
+              else ausentesConfirmadosIds.push(p.id);
+            }
+          }
+          if (
+            presencaMudou &&
+            avalDocPresenca &&
+            (avalDocPresenca.finalizada ||
+              avalDocPresenca.publicadoPortal ||
+              avalDocPresenca.sincronizacao?.status === "sincronizada")
+          ) {
+            const prevPend = avalDocPresenca.pendenciasAtualizacao || {};
+            tx.set(`${salaPath(codigo)}/avaliacao/estado`, {
+              ...avalDocPresenca,
+              pendenciasAtualizacao: {
+                ...prevPend,
+                presencaAlterada: true,
+                portalPendente: prevPend.portalPendente || Boolean(avalDocPresenca.publicadoPortal),
+                diarioPendente:
+                  prevPend.diarioPendente || avalDocPresenca.sincronizacao?.status === "sincronizada",
+                entregaPendente: true,
+                motivo: "presenca_alterada",
+                atualizadoEmMs: agora,
+              },
+              atualizadoEmMs: agora,
+            });
+          }
+          atual = {
+            ...atual,
+            auditoriaPresencas: [
+              ...(sala.auditoriaPresencas || []),
+              {
+                id: this.gerarId(),
+                professorId: uid,
+                substituir: Boolean(comando?.substituir),
+                presentesIds: presentesConfirmadosIds,
+                ausentesIds: ausentesConfirmadosIds,
+                criadoEmMs: agora,
+              },
+            ],
+          };
+          tx.set(salaPath(codigo), atual);
+        }
+        const estado = await this.projetar(atual, {
+          ator,
+          reader: tx,
+          conteudo: conteudoAtual,
+          participantes: mapaParticipantes,
+          respostas,
+        });
+        const resposta = { estado };
+        tx.set(requisicaoPath(uid, chave), { tipo: "comando", requestId, resposta, criadoEmMs: agora });
+        return resposta;
+      }
 
       const atual = aplicarComando(sala, comando, this.agora());
       const indiceAlvo = Math.min(
@@ -725,17 +955,71 @@ export class AulaGamificadaService {
 
       const conteudo = await tx.get(conteudoPath(codigo, rodada - 1));
       if (!conteudo) throw falha(503, "Conteúdo da sala indisponível.");
-      const caminhoResposta = respostaPath(codigo, rodada, participanteId);
+
+      const ehCompartilhada = sala.modoRespostaGrupo === "compartilhada";
+      let equipeCompartilhada = null;
+      let membrosCompartilhados = [];
+      if (ehCompartilhada) {
+        equipeCompartilhada = (sala.equipes || []).find(
+          (e) => String(e.id) === String(participante.equipeId || ""),
+        );
+        if (!equipeCompartilhada) {
+          throw falha(403, "Você não pertence a um grupo desta sala.");
+        }
+        const todosPart = await tx.list(participantesPath(codigo));
+        if (!ehRepresentanteEquipe(equipeCompartilhada, participante, todosPart || [])) {
+          throw falha(
+            403,
+            "Somente o representante autorizado do grupo pode enviar respostas neste modo.",
+          );
+        }
+        membrosCompartilhados = (todosPart || []).filter(
+          (p) => String(p.equipeId) === String(equipeCompartilhada.id),
+        );
+      }
+
+      const escopoId = ehCompartilhada ? `eq_${equipeCompartilhada.id}` : participanteId;
+      const caminhoResposta = respostaPath(codigo, rodada, escopoId);
       const registro = await tx.get(caminhoResposta);
       const chaveRecibo = hashRequisicao(
         "recibo",
         codigo,
         rodada,
-        participanteId,
+        escopoId,
         requestId,
       );
       const reciboAnterior = registro?.recibos?.[chaveRecibo];
       if (reciboAnterior) return { recibo: copia(reciboAnterior) };
+
+      const atualizarPontosParticipantes = (pontosRodadaNovo, extras = {}) => {
+        if (ehCompartilhada) {
+          if (extras && Object.keys(extras).length > 0) {
+            for (const alvo of membrosCompartilhados) {
+              tx.set(participantePath(codigo, alvo.id), {
+                ...alvo,
+                ...extras,
+                atualizadoEmMs: agora,
+              });
+            }
+          }
+          return;
+        }
+        const delta = pontosRodadaNovo - (Number(registro?.pontos) || 0);
+        tx.set(participantePath(codigo, participante.id), {
+          ...participante,
+          pontos: (Number(participante.pontos) || 0) + delta,
+          ...extras,
+          atualizadoEmMs: agora,
+        });
+      };
+
+      const metaCompartilhada = ehCompartilhada
+        ? {
+            equipeId: equipeCompartilhada.id,
+            autoriaAlunoId: participante.alunoId,
+            autoriaNome: participante.nomeExibicao,
+          }
+        : {};
 
       if (!aceitaRespostas(sala, this.agora()))
         throw falha(409, "O prazo desta rodada terminou.");
@@ -795,6 +1079,7 @@ export class AulaGamificadaService {
           rodadaId: String(rodada),
           reciboId: `rcp_${chaveRecibo.slice(0, 24)}`,
           recebidoEmMs: agora,
+          ...metaCompartilhada,
           virarId,
           cartasReveladas: [...cartasReveladas],
           cartasEncontradas,
@@ -803,13 +1088,10 @@ export class AulaGamificadaService {
           facesEncontradas: facesDasCartas(questao, cartasEncontradas),
           completo,
         };
-        const pontos =
-          (Number(participante.pontos) || 0) -
-          (Number(registro?.pontos) || 0) +
-          pontosRodada;
         tx.set(caminhoResposta, {
           rodada: Number(rodada),
-          participanteId,
+          participanteId: escopoId,
+          ...metaCompartilhada,
           encontrados: encontradosUnicos,
           viradas: novasViradas,
           completo,
@@ -818,15 +1100,12 @@ export class AulaGamificadaService {
           ultimoRecibo: recibo,
           atualizadoEmMs: agora,
         });
-        tx.set(participantePath(codigo, participanteId), {
-          ...participante,
-          pontos,
+        atualizarPontosParticipantes(pontosRodada, {
           progresso: {
             paresEncontrados: encontradosUnicos.length,
             totalPares: questao.pares.length,
             completo,
           },
-          atualizadoEmMs: agora,
         });
         return { recibo: copia(recibo) };
       }
@@ -851,19 +1130,17 @@ export class AulaGamificadaService {
           rodadaId: String(rodada),
           reciboId: `rcp_${chaveRecibo.slice(0, 24)}`,
           recebidoEmMs: agora,
+          ...metaCompartilhada,
           resposta: copia(resposta),
           tentativas: evalHeroi.tentativas,
           maxTentativas: evalHeroi.maxTentativas,
           podeTentarNovamente: evalHeroi.podeTentarNovamente,
           estadoHeroi: evalHeroi.estadoHeroi,
         };
-        const pontos =
-          (Number(participante.pontos) || 0) -
-          (Number(registro?.pontos) || 0) +
-          evalHeroi.pontosRodada;
         tx.set(caminhoResposta, {
           rodada: Number(rodada),
-          participanteId,
+          participanteId: escopoId,
+          ...metaCompartilhada,
           primeiraResposta: registro?.primeiraResposta ?? copia(resposta),
           resposta,
           tentativas: evalHeroi.tentativas,
@@ -873,11 +1150,7 @@ export class AulaGamificadaService {
           ultimoRecibo: recibo,
           atualizadoEmMs: agora,
         });
-        tx.set(participantePath(codigo, participanteId), {
-          ...participante,
-          pontos,
-          atualizadoEmMs: agora,
-        });
+        atualizarPontosParticipantes(evalHeroi.pontosRodada);
         return { recibo: copia(recibo) };
       }
 
@@ -890,26 +1163,20 @@ export class AulaGamificadaService {
         rodadaId: String(rodada),
         reciboId: `rcp_${chaveRecibo.slice(0, 24)}`,
         recebidoEmMs: agora,
+        ...metaCompartilhada,
         resposta: copia(resposta),
       };
-      const pontos =
-        (Number(participante.pontos) || 0) -
-        (Number(registro?.pontos) || 0) +
-        pontosRodada;
       tx.set(caminhoResposta, {
         rodada: Number(rodada),
-        participanteId,
+        participanteId: escopoId,
+        ...metaCompartilhada,
         resposta,
         pontos: pontosRodada,
         recibos: { ...(registro?.recibos || {}), [chaveRecibo]: recibo },
         ultimoRecibo: recibo,
         atualizadoEmMs: agora,
       });
-      tx.set(participantePath(codigo, participanteId), {
-        ...participante,
-        pontos,
-        atualizadoEmMs: agora,
-      });
+      atualizarPontosParticipantes(pontosRodada);
       return { recibo: copia(recibo) };
     });
   }
@@ -1385,28 +1652,78 @@ export class AulaGamificadaService {
         sincronizacao: avalDoc.sincronizacao || null,
       });
 
+      // Ler entregas e resumos do Portal existentes antes de qualquer escrita (regra transacional).
+      const entregasExistentes = new Map();
+      const resumosPortalExistentes = new Map();
       if (sala.finalidade === "avaliativa" && sala.avaliacao) {
         for (const a of relatorio.alunos) {
-          if (!a.turmaId || typeof a.notaFinal !== "number") continue;
+          if (!a.turmaId) continue;
+          const ePath = `entregas/ag_${codigo}_${a.turmaId}_${a.alunoId}`;
+          if (!entregasExistentes.has(ePath)) {
+            const ent = await tx.get(ePath);
+            if (ent) entregasExistentes.set(ePath, ent);
+          }
+          if (publicarPortal) {
+            const pPath = `aulaGamificadaPortal/${a.alunoId}/avaliacoes/${codigo}`;
+            if (!resumosPortalExistentes.has(pPath)) {
+              const resPortal = await tx.get(pPath);
+              if (resPortal) resumosPortalExistentes.set(pPath, resPortal);
+            }
+          }
+        }
+      }
+
+      const versaoPublicada = publicarPortal
+        ? (Number(avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada) || 0) + 1
+        : (avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada ?? null);
+
+      if (sala.finalidade === "avaliativa" && sala.avaliacao) {
+        for (const a of relatorio.alunos) {
+          if (!a.turmaId) continue;
           const activityId = `ag_${codigo}_${a.turmaId}`;
           const entregaId = `ag_${codigo}_${a.turmaId}_${a.alunoId}`;
-          tx.set(`entregas/${entregaId}`, {
-            id: entregaId,
-            activityId,
-            professorId: uid,
-            turmaId: a.turmaId,
-            alunoId: a.alunoId,
-            bimestre: sala.avaliacao.bimestre,
-            origem: "aula_gamificada",
-            salaCodigo: codigo,
-            status: a.versaoRevisao > 0 ? "revisado" : "corrigido",
-            notaFinal: a.notaCalculada ?? a.notaFinal,
-            ...(a.notaRevisada !== null ? { notaRevisada: a.notaRevisada } : {}),
-            ...(a.justificativaRevisao ? { justificativaRevisao: a.justificativaRevisao } : {}),
-            aproveitamento: a.aproveitamento,
-            situacao: a.situacao,
-            atualizadoEmMs: agora,
-          });
+          const ePath = `entregas/${entregaId}`;
+          if (typeof a.notaFinal === "number") {
+            tx.set(ePath, {
+              id: entregaId,
+              activityId,
+              professorId: uid,
+              turmaId: a.turmaId,
+              alunoId: a.alunoId,
+              bimestre: sala.avaliacao.bimestre,
+              origem: "aula_gamificada",
+              salaCodigo: codigo,
+              status: a.versaoRevisao > 0 ? "revisado" : "corrigido",
+              notaFinal: a.notaCalculada ?? a.notaFinal,
+              ...(a.notaRevisada !== null ? { notaRevisada: a.notaRevisada } : {}),
+              ...(a.justificativaRevisao ? { justificativaRevisao: a.justificativaRevisao } : {}),
+              aproveitamento: a.aproveitamento,
+              situacao: a.situacao,
+              origemColetiva: Boolean(a.origemColetiva),
+              ...(a.equipeNome ? { equipeNome: a.equipeNome } : {}),
+              ...(a.presencaStatus ? { presencaStatus: a.presencaStatus } : {}),
+              versaoAvaliacao: versaoPublicada || sala.revision,
+              atualizadoEmMs: agora,
+            });
+          } else {
+            const anterior = entregasExistentes.get(ePath);
+            if (anterior) {
+              tx.set(ePath, {
+                ...anterior,
+                status: "invalidada_sem_nota",
+                notaFinal: null,
+                notaRevisada: null,
+                notaAnteriorInvalidada: anterior.notaRevisada ?? anterior.notaFinal ?? null,
+                motivoInvalidacao: a.ausenciaConfirmada ? "ausencia_confirmada" : a.situacao,
+                situacao: a.situacao,
+                origemColetiva: Boolean(a.origemColetiva),
+                ...(a.equipeNome ? { equipeNome: a.equipeNome } : {}),
+                ...(a.presencaStatus ? { presencaStatus: a.presencaStatus } : {}),
+                versaoAvaliacao: versaoPublicada || sala.revision,
+                atualizadoEmMs: agora,
+              });
+            }
+          }
         }
 
         for (const [atvPath, atv] of atividadesLidas.entries()) {
@@ -1418,11 +1735,8 @@ export class AulaGamificadaService {
         }
       }
 
-      const versaoPublicada = publicarPortal
-        ? (Number(avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada) || 0) + 1
-        : (avalDoc.snapshotPublicado?.versaoPublicada ?? avalDoc.versaoPublicada ?? null);
-
       const { snapshotPublicado: _legacySnap, ...avalSemLegacy } = avalDoc;
+      const pendAtual = avalDoc.pendenciasAtualizacao || {};
       const novoAvalDoc = {
         ...(publicarPortal ? avalSemLegacy : avalDoc),
         finalizada: true,
@@ -1436,13 +1750,21 @@ export class AulaGamificadaService {
               ...(avalDoc.pendenciasAtualizacao
                 ? {
                     pendenciasAtualizacao: {
-                      ...avalDoc.pendenciasAtualizacao,
+                      ...pendAtual,
                       portalPendente: false,
+                      entregaPendente: false,
                     },
                   }
                 : {}),
             }
-          : {}),
+          : avalDoc.pendenciasAtualizacao
+            ? {
+                pendenciasAtualizacao: {
+                  ...pendAtual,
+                  entregaPendente: false,
+                },
+              }
+            : {}),
       };
       const novaSala = { ...sala, revision: sala.revision + 1, atualizadoEmMs: agora };
       tx.set(`${salaPath(codigo)}/avaliacao/estado`, novoAvalDoc);
@@ -1484,27 +1806,63 @@ export class AulaGamificadaService {
 
       if (publicarPortal && sala.finalidade === "avaliativa") {
         for (const a of relatorio.alunos) {
-          if (!a.turmaId || typeof a.notaFinal !== "number") continue;
+          if (!a.turmaId) continue;
           const recPath = `aulaGamificadaPortal/${a.alunoId}/avaliacoes/${codigo}`;
-          tx.set(recPath, {
-            codigo,
-            professorId: uid,
-            turmaId: a.turmaId,
-            alunoId: a.alunoId,
-            titulo: sala.avaliacao.tituloAtividade,
-            disciplina: sala.avaliacao.disciplina,
-            conteudo: sala.avaliacao.conteudo || "",
-            modalidade: sala.modalidade,
-            bimestre: sala.avaliacao.bimestre,
-            anoLetivo: sala.avaliacao.anoLetivo,
-            valorMaximo: sala.avaliacao.valorMaximo,
-            aproveitamento: a.aproveitamento,
-            notaFinal: a.notaFinal,
-            situacao: a.situacao,
-            versaoPublicada,
-            versaoRevisao: a.versaoRevisao ?? 0,
-            publicadaEmMs: agora,
-          });
+          if (typeof a.notaFinal === "number") {
+            tx.set(recPath, {
+              codigo,
+              professorId: uid,
+              turmaId: a.turmaId,
+              alunoId: a.alunoId,
+              titulo: sala.avaliacao.tituloAtividade,
+              disciplina: sala.avaliacao.disciplina,
+              conteudo: sala.avaliacao.conteudo || "",
+              modalidade: sala.modalidade,
+              formatoParticipacao: sala.formatoParticipacao || "individual",
+              modoRespostaGrupo: sala.modoRespostaGrupo || null,
+              equipeNome: a.equipeNome || null,
+              origemColetiva: Boolean(a.origemColetiva),
+              criterioColetivo: a.criterioColetivo || sala.avaliacao.criterioColetivo || null,
+              representanteNome: a.representanteNome || null,
+              autoresGrupo: a.autoresGrupo || [],
+              presencaStatus: a.presencaStatus || null,
+              ausenciaConfirmada: Boolean(a.ausenciaConfirmada),
+              ativo: true,
+              bimestre: sala.avaliacao.bimestre,
+              anoLetivo: sala.avaliacao.anoLetivo,
+              valorMaximo: sala.avaliacao.valorMaximo,
+              aproveitamento: a.aproveitamento,
+              notaFinal: a.notaFinal,
+              situacao: a.situacao,
+              versaoPublicada,
+              versaoRevisao: a.versaoRevisao ?? 0,
+              publicadaEmMs: agora,
+            });
+          } else {
+            const resumoAnterior = resumosPortalExistentes.get(recPath);
+            if (resumoAnterior) {
+              tx.set(recPath, {
+                ...resumoAnterior,
+                equipeNome: a.equipeNome || resumoAnterior.equipeNome || null,
+                origemColetiva: Boolean(a.origemColetiva),
+                criterioColetivo: a.criterioColetivo || sala.avaliacao.criterioColetivo || null,
+                representanteNome: a.representanteNome || null,
+                autoresGrupo: a.autoresGrupo || [],
+                presencaStatus: a.presencaStatus || null,
+                ausenciaConfirmada: Boolean(a.ausenciaConfirmada),
+                justificativaAusencia: a.ausenciaConfirmada
+                  ? "Ausência confirmada pelo docente"
+                  : null,
+                ativo: false,
+                aproveitamento: a.aproveitamento ?? null,
+                notaFinal: null,
+                situacao: a.situacao,
+                versaoPublicada,
+                versaoRevisao: a.versaoRevisao ?? 0,
+                publicadaEmMs: agora,
+              });
+            }
+          }
         }
       }
 
@@ -1657,13 +2015,64 @@ export class AulaGamificadaService {
         for (const a of relatorio.alunos) {
           if (String(a.turmaId) !== String(tId)) continue;
           if (typeof a.notaFinal !== "number") {
-            pendencias.push({
-              tipo: "sem_nota",
-              turmaId: tId,
-              alunoId: a.alunoId,
-              nome: a.nome,
-              situacao: a.situacao,
-            });
+            const notaAtual = notas[a.alunoId]?.[atvId];
+            if (typeof notaAtual === "number") {
+              if (body.reconciliarAusentes === true && body.confirmarSobrescrita === true) {
+                const { [atvId]: _removida, ...restNotas } = notas[a.alunoId] || {};
+                notas[a.alunoId] = restNotas;
+                linhasDetalhadas.push({
+                  turmaId: tId,
+                  turmaNome: turma.nome || tId,
+                  alunoId: a.alunoId,
+                  alunoNome: a.nome,
+                  atvId,
+                  colunaNome,
+                  valorMaximoColuna: colunaMax,
+                  notaAtual,
+                  notaNova: null,
+                  conflito: true,
+                  reconciliada: true,
+                });
+                alteracoes.push({
+                  turmaId: tId,
+                  alunoId: a.alunoId,
+                  bimestre,
+                  atvId,
+                  acao: "removida_por_ausencia",
+                });
+              } else {
+                linhasDetalhadas.push({
+                  turmaId: tId,
+                  turmaNome: turma.nome || tId,
+                  alunoId: a.alunoId,
+                  alunoNome: a.nome,
+                  atvId,
+                  colunaNome,
+                  valorMaximoColuna: colunaMax,
+                  notaAtual,
+                  notaNova: null,
+                  conflito: true,
+                  divergenciaSemNota: true,
+                });
+                pendencias.push({
+                  tipo: "divergencia_diario_sem_nota",
+                  turmaId: tId,
+                  alunoId: a.alunoId,
+                  nome: a.nome,
+                  situacao: a.situacao,
+                  atvId,
+                  notaDiarioAtual: notaAtual,
+                });
+              }
+            } else {
+              pendencias.push({
+                tipo: "sem_nota",
+                turmaId: tId,
+                alunoId: a.alunoId,
+                nome: a.nome,
+                situacao: a.situacao,
+              });
+            }
             continue;
           }
           if (!(turma.alunos || []).some((al) => String(al.id) === String(a.alunoId))) {
@@ -1738,8 +2147,14 @@ export class AulaGamificadaService {
         });
       }
 
+      const temDivergenciaDiario = pendencias.some((p) => p.tipo === "divergencia_diario_sem_nota");
       const novaSincronizacao = {
-        status: sincronizadas > 0 && pendencias.length === 0 ? "sincronizada" : pendencias.length > 0 ? "pendente" : "sem_lancamentos",
+        status:
+          sincronizadas > 0 && pendencias.length === 0
+            ? "sincronizada"
+            : pendencias.length > 0
+              ? "pendente"
+              : "sem_lancamentos",
         sincronizadaEmMs: agora,
         sincronizadas,
         pendencias,
@@ -1747,7 +2162,14 @@ export class AulaGamificadaService {
       tx.set(`${salaPath(codigo)}/avaliacao/estado`, {
         ...avalDoc,
         sincronizacao: novaSincronizacao,
-        ...(avalDoc.pendenciasAtualizacao ? { pendenciasAtualizacao: { ...avalDoc.pendenciasAtualizacao, diarioPendente: false } } : {}),
+        ...(avalDoc.pendenciasAtualizacao
+          ? {
+              pendenciasAtualizacao: {
+                ...avalDoc.pendenciasAtualizacao,
+                diarioPendente: temDivergenciaDiario,
+              },
+            }
+          : {}),
         atualizadoEmMs: agora,
       });
 

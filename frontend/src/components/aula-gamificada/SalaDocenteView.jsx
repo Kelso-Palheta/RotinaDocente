@@ -19,8 +19,21 @@ import {
 import JogoHerois from './jogos/JogoHerois';
 import JogoTabuleiro from './jogos/JogoTabuleiro';
 import RelatorioAvaliacao from './RelatorioAvaliacao';
+import ControlesGrupoDocente from './ControlesGrupoDocente';
+import {
+  BarraControleAudiovisual,
+  ProvedorAudiovisualSala,
+  derivarContextoAudiovisual,
+  useAudiovisualSala,
+} from './audiovisual/ProvedorAudiovisualSala';
+import { PalcoCenaConectado } from './audiovisual/PalcoCenaJogo';
 
 function ControlesTransicao({ estado, ocupado, bloqueado, onComando, segundos }) {
+  const audiovisual = useAudiovisualSala();
+  const acionar = (acao) => {
+    audiovisual?.desbloquearPorGesto?.();
+    onComando(acao);
+  };
   const fase = estado?.fase || 'espera';
   const totalRodadas = estado?.totalRodadas || estado?.questaoIds?.length || 1;
   const rodadaAtual = estado?.rodada || 0;
@@ -36,7 +49,7 @@ function ControlesTransicao({ estado, ocupado, bloqueado, onComando, segundos })
         <button
           type="button"
           disabled={bloqueado || ocupado}
-          onClick={() => onComando('iniciar')}
+          onClick={() => acionar('iniciar')}
           className="min-h-11 rounded-xl bg-[#00DDEB] px-4 py-2 text-sm font-black text-[#25104A] hover:bg-[#FFE500] disabled:opacity-45"
         >
           Iniciar partida
@@ -142,16 +155,23 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
   const rankingIndividual = normalizarRankingComEmpates(estado?.ranking || []);
   const rankingEquipes = normalizarRankingComEmpates(estado?.rankingEquipes || []);
   const feedback = estado?.feedback || null;
+  const contextoAv = derivarContextoAudiovisual(estado, segundos, projecao ? 'projecao' : 'docente');
+  const modoTemPalcoProprio = estado?.modalidade === 'herois' || estado?.modalidade === 'tabuleiro';
 
-  const executarComando = async (acao) => {
+  const executarComando = async (acao, extras) => {
     try {
-      await enviarComando(acao);
+      await enviarComando(acao, extras);
     } catch {
       // Erro já exibido no estado do hook.
     }
   };
 
   return (
+    <ProvedorAudiovisualSala
+      modalidade={contextoAv.modalidade}
+      fase={contextoAv.fase}
+      evento={contextoAv.evento}
+    >
     <main className="min-h-screen bg-[#25104A] text-[#FFFDF7]">
       {/* Barra superior docente / telão */}
       <nav aria-label="Navegação da sala docente" className="border-b border-[#B9A6EF]/30 bg-[#160932] px-4 py-3 text-sm">
@@ -215,6 +235,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
       </nav>
 
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-5 ${projecao ? 'lg:py-8' : ''}`}>
+        <BarraControleAudiovisual />
         {erro && (
           <p role="alert" className="rounded-2xl border border-amber-400 bg-amber-950/70 px-4 py-3 text-sm font-semibold text-amber-100">
             {erro}
@@ -240,6 +261,17 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                   <span className="rounded-full bg-[#E7DBFD] px-3 py-0.5 text-xs font-black text-[#25104A]">
                     {estado.finalidade === 'avaliativa' ? 'Avaliativa' : 'Revisão'}
                   </span>
+                  {estado.formatoParticipacao && (
+                    <span className="rounded-full bg-[#FFE500] px-3 py-0.5 text-xs font-black text-[#25104A]">
+                      {estado.formatoParticipacao === 'duelo'
+                        ? 'Duelo 1×1'
+                        : estado.formatoParticipacao === 'grupos'
+                          ? estado.modoRespostaGrupo === 'compartilhada'
+                            ? 'Grupos · Compartilhada'
+                            : 'Grupos · Individual'
+                          : 'Individual'}
+                    </span>
+                  )}
                   <span className="rounded-full bg-[#00DDEB] px-3 py-0.5 text-xs font-black text-[#25104A]">
                     {FASES_ROTULO[fase] || fase}
                   </span>
@@ -285,9 +317,26 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
               onComando={executarComando}
             />
 
+            {!projecao && (
+              <ControlesGrupoDocente
+                estado={estado}
+                ocupado={ocupado}
+                bloqueado={conexao !== 'conectado'}
+                onComando={(acao, extras) => enviarComando(acao, extras)}
+              />
+            )}
+
             {/* FASE: ESPERA */}
             {fase === 'espera' && (
               <section className="rounded-3xl border-2 border-[#6315D9] bg-[#3A1A73]/40 p-8 sm:p-12 text-center space-y-6">
+                <div className="max-w-md mx-auto">
+                  <PalcoCenaConectado
+                    jogo={contextoAv.modalidade}
+                    situacao="espera"
+                    eventoId={contextoAv.eventoId}
+                    tamanho="compacto"
+                  />
+                </div>
                 <span className="text-sm font-black uppercase tracking-widest text-[#00DDEB]">
                   Acesse o Portal do Aluno → Aula Gamificada e digite o código
                 </span>
@@ -326,6 +375,12 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
               questao && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 <section className="lg:col-span-2 rounded-3xl border-2 border-[#6315D9]/70 bg-[#FFFDF7] text-[#25104A] p-6 space-y-5 shadow-lg">
+                  <PalcoCenaConectado
+                    jogo={contextoAv.modalidade}
+                    situacao={contextoAv.situacao}
+                    eventoId={contextoAv.eventoId}
+                    tamanho="compacto"
+                  />
                   <div className="flex flex-wrap items-center gap-2">
                     {questao.disciplina && (
                       <span className="rounded-lg bg-[#F3EDFF] border border-[#E2D9F7] px-2.5 py-0.5 text-xs font-extrabold">
@@ -537,6 +592,16 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                 {fase === 'encerrada' && estado.modalidade === 'tabuleiro' && (
                   <JogoTabuleiro modo="docente" estado={estado} questao={null} fase="encerrada" />
                 )}
+                {!modoTemPalcoProprio && (
+                  <div className="max-w-lg mx-auto">
+                    <PalcoCenaConectado
+                      jogo={contextoAv.modalidade}
+                      situacao={fase === 'encerrada' ? 'vitoria' : 'ranking'}
+                      eventoId={contextoAv.eventoId}
+                      tamanho="compacto"
+                    />
+                  </div>
+                )}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className={`font-head font-black text-white ${projecao ? 'text-3xl' : 'text-2xl'}`}>
                     {fase === 'encerrada' ? 'Placar Final' : `Placar — Rodada ${estado.rodada}`}
@@ -546,10 +611,14 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
                   </span>
                 </div>
 
-                {(estado.modalidade === 'equipes' || estado.modalidade === 'tabuleiro') && rankingEquipes.length > 0 && (
+                {rankingEquipes.length > 0 && (
                   <div className="space-y-2.5">
                     <h3 className="text-xs font-black uppercase tracking-wider text-[#00DDEB]">
-                      {estado.modalidade === 'tabuleiro' ? 'Ranking por equipes (casas e pontos)' : 'Ranking por Equipes (soma individual)'}
+                      {estado.modalidade === 'tabuleiro'
+                        ? 'Ranking por equipes (casas e pontos)'
+                        : estado.modoRespostaGrupo === 'compartilhada' || estado.sala?.modoRespostaGrupo === 'compartilhada'
+                          ? 'Ranking por Grupos (resposta compartilhada)'
+                          : 'Ranking por Equipes (soma individual)'}
                     </h3>
                     <ol className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {rankingEquipes.map((eq) => (
@@ -611,6 +680,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
         )}
       </div>
     </main>
+    </ProvedorAudiovisualSala>
   );
 }
 

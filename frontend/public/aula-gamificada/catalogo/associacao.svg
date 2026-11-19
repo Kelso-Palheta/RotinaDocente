@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Associação de Colunas — conexões entre pares">
+  <defs>
+    <linearGradient id="bg-associacao" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#142930"/>
+      <stop offset="100%" stop-color="#0D9488" stop-opacity="0.72"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="url(#bg-associacao)"/>
+
+      <rect x="65" y="65" width="165" height="58" rx="14" fill="#0D9488" stroke="#FFFFFF" stroke-width="4"/>
+      <rect x="65" y="150" width="165" height="58" rx="14" fill="#6315D9" stroke="#00DDEB" stroke-width="4"/>
+      <rect x="65" y="235" width="165" height="58" rx="14" fill="#0D9488" stroke="#FFE500" stroke-width="4"/>
+      <rect x="410" y="65" width="165" height="58" rx="14" fill="#6315D9" stroke="#00DDEB" stroke-width="4"/>
+      <rect x="410" y="150" width="165" height="58" rx="14" fill="#FF2D93" stroke="#FFFFFF" stroke-width="4"/>
+      <rect x="410" y="235" width="165" height="58" rx="14" fill="#0D9488" stroke="#FFE500" stroke-width="4"/>
+      <path d="M230 94 C300 94, 340 179, 410 179" fill="none" stroke="#FFE500" stroke-width="8" stroke-linecap="round"/>
+      <path d="M230 179 C300 179, 340 94, 410 94" fill="none" stroke="#00DDEB" stroke-width="8" stroke-linecap="round"/>
+      <path d="M230 264 H410" fill="none" stroke="#B9EF00" stroke-width="8" stroke-linecap="round"/>
+
+</svg>

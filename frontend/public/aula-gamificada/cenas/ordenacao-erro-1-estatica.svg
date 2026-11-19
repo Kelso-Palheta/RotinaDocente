@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Setas invertidas indicando troca de ordem">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2A1810"/>
+      <stop offset="100%" stop-color="#EA580C" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0%,100% { transform: rotate(0deg); } 35% { transform: rotate(-2.5deg); } 70% { transform: rotate(2.5deg); } }
+      .cena-mov { transform-origin: 240px 135px; animation: none; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><rect x="105" y="95" width="85" height="80" rx="12" fill="#EA580C" stroke="#FCA5A5" stroke-width="4"/><rect x="290" y="95" width="85" height="80" rx="12" fill="#EA580C" stroke="#FDE047" stroke-width="4"/><path d="M205 118 H275 M260 105 L278 118 L260 131" fill="none" stroke="#FDE047" stroke-width="5" stroke-linecap="round"/><path d="M275 152 H205 M220 139 L202 152 L220 165" fill="none" stroke="#FB923C" stroke-width="5" stroke-linecap="round"/></g>
+</svg>

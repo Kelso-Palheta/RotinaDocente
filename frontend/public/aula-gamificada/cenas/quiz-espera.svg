@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" width="480" height="270" role="img" aria-label="Palco de Quiz aguardando participantes">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E1145"/>
+      <stop offset="100%" stop-color="#6315D9" stop-opacity="0.45"/>
+    </linearGradient>
+    <style>
+      @keyframes anim { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+      .cena-mov { transform-origin: 240px 135px; animation: anim 2.6s ease-in-out infinite; }
+      @media (prefers-reduced-motion: reduce) { .cena-mov { animation: none; } }
+    </style>
+  </defs>
+  <rect width="480" height="270" rx="20" fill="url(#bg)"/>
+  <g class="cena-mov"><circle cx="240" cy="135" r="70" fill="none" stroke="#00DDEB" stroke-width="4" stroke-dasharray="12 8"/><polygon points="225,105 265,135 225,165" fill="#FFDF00"/><circle cx="110" cy="70" r="14" fill="#6315D9"/><circle cx="370" cy="200" r="18" fill="#00DDEB" opacity="0.6"/></g>
+</svg>

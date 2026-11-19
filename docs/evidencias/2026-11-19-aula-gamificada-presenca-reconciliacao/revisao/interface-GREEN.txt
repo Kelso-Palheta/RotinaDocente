@@ -1,0 +1,12 @@
+
+> simuladoapp-edu@0.1.0 test
+> vitest run --dir ../tests --passWithNoTests aula_gamificada_reconciliacao_interface --maxWorkers=2
+
+
+ RUN  v4.1.11 /Users/kelsopalheta/Developer/RotinaDocente/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  12:34:29
+   Duration  1.24s (transform 152ms, setup 0ms, import 379ms, tests 213ms, environment 504ms)

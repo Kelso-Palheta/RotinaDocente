@@ -12,6 +12,11 @@ export const MODALIDADES_PADRAO = [
     regraPontuacao: '1000 pontos por resposta correta, sem bônus por tempo.',
     badge: 'Individual',
     accent: 'ciano',
+    capa: '/aula-gamificada/catalogo/quiz.svg',
+    capaAlt: 'Quiz ao Vivo — alternativas e cronômetro',
+    formatosParticipacao: ['individual', 'duelo', 'grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
   },
   {
     id: 'memoria',
@@ -21,6 +26,11 @@ export const MODALIDADES_PADRAO = [
     regraPontuacao: 'Até 1000 pontos por desafio, proporcional aos pares encontrados antes do prazo (arredondado).',
     badge: 'Tabuleiro',
     accent: 'amarelo',
+    capa: '/aula-gamificada/catalogo/memoria.svg',
+    capaAlt: 'Memória de Pares — cartas e estrelas',
+    formatosParticipacao: ['individual', 'duelo', 'grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
   },
   {
     id: 'associacao',
@@ -30,6 +40,11 @@ export const MODALIDADES_PADRAO = [
     regraPontuacao: 'Até 1000 pontos por desafio, proporcional às associações corretas (arredondado).',
     badge: 'Duas colunas',
     accent: 'rosa',
+    capa: '/aula-gamificada/catalogo/associacao.svg',
+    capaAlt: 'Associação de Colunas — conexões entre pares',
+    formatosParticipacao: ['individual', 'duelo', 'grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
   },
   {
     id: 'ordenacao',
@@ -39,6 +54,11 @@ export const MODALIDADES_PADRAO = [
     regraPontuacao: 'Até 1000 pontos por desafio, proporcional aos itens na posição correta (arredondado).',
     badge: 'Sequência',
     accent: 'lima',
+    capa: '/aula-gamificada/catalogo/ordenacao.svg',
+    capaAlt: 'Ordenação — peças em sequência',
+    formatosParticipacao: ['individual', 'duelo', 'grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
   },
   {
     id: 'equipes',
@@ -49,6 +69,11 @@ export const MODALIDADES_PADRAO = [
     regraPreparacao: 'Uma resposta por aluno/rodada, pontuação da equipe pela soma dos resultados individuais.',
     badge: 'Coletivo',
     accent: 'ciano',
+    capa: '/aula-gamificada/catalogo/equipes.svg',
+    capaAlt: 'Desafio em Equipes — arena e troféu',
+    formatosParticipacao: ['grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'grupos',
   },
   {
     id: 'herois',
@@ -58,6 +83,11 @@ export const MODALIDADES_PADRAO = [
     regraPontuacao: '1000 pontos por resposta correta (até 2 tentativas dentro do prazo com Tente novamente), sem bônus por tempo.',
     badge: 'Fases · Áudio',
     accent: 'rosa',
+    capa: '/aula-gamificada/catalogo/herois.svg',
+    capaAlt: 'Heróis — aventura em quadrinhos',
+    formatosParticipacao: ['individual', 'duelo', 'grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'individual',
   },
   {
     id: 'tabuleiro',
@@ -68,6 +98,11 @@ export const MODALIDADES_PADRAO = [
     regraPreparacao: 'Equipes padrão (Azul e Verde) com alunos distribuídos automaticamente e prévia editável.',
     badge: 'Trilha · Equipes',
     accent: 'lima',
+    capa: '/aula-gamificada/catalogo/tabuleiro.svg',
+    capaAlt: 'Tabuleiro — trilha de blocos e peões',
+    formatosParticipacao: ['duelo', 'grupos'],
+    modosRespostaGrupo: ['individual', 'compartilhada'],
+    formatoPadrao: 'grupos',
   },
 ];
 
@@ -481,8 +516,12 @@ export function normalizarEstadoSala(bruto) {
       ? sala.equipes.find((eq) => eq.id === eu.equipeId) || { id: eu.equipeId, nome: eu.equipeId }
       : null);
 
+  const formatoParticipacao = bruto.formatoParticipacao ?? sala?.formatoParticipacao ?? null;
+  const modoRespostaGrupo = bruto.modoRespostaGrupo ?? sala?.modoRespostaGrupo ?? null;
   const rankingBruto = Array.isArray(bruto.ranking) ? bruto.ranking : [];
-  const rankingPorEquipe = modalidade === 'equipes' || modalidade === 'tabuleiro';
+  const rankingPorEquipe =
+    formatoParticipacao === 'grupos' ||
+    (formatoParticipacao !== 'individual' && (modalidade === 'equipes' || modalidade === 'tabuleiro'));
   const rankingEquipes = Array.isArray(bruto.rankingEquipes)
     ? bruto.rankingEquipes
     : rankingPorEquipe
@@ -496,6 +535,8 @@ export function normalizarEstadoSala(bruto) {
     revision: Number(bruto.revision ?? sala?.revision ?? 0),
     titulo: bruto.titulo ?? sala?.titulo ?? '',
     modalidade,
+    formatoParticipacao,
+    modoRespostaGrupo,
     finalidade: bruto.finalidade ?? sala?.finalidade ?? 'revisao',
     avaliacao: bruto.avaliacao ?? sala?.avaliacao ?? null,
     fase,

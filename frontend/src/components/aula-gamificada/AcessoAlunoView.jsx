@@ -225,11 +225,22 @@ export function AcessoAlunoView({ codigoInicial = '' }) {
                         <strong className="block text-white">{av.titulo}</strong>
                         <span className="text-[#E7DBFD]">
                           {av.disciplina} · {av.bimestre}º Bim · {av.modalidade}
+                          {av.equipeNome ? ` · Grupo ${av.equipeNome}` : ''}
                         </span>
+                        {av.origemColetiva && (
+                          <span className="mt-1 inline-block rounded-md bg-[#00DDEB]/20 border border-[#00DDEB]/50 px-2 py-0.5 text-[10px] font-black text-[#00DDEB]">
+                            Nota coletiva do grupo ({av.criterioColetivo === 'somente_relatorio' ? 'somente relatório' : 'atribuída aos presentes'})
+                            {av.representanteNome ? ` · Rep.: ${av.representanteNome}` : ''}
+                          </span>
+                        )}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-black text-[#B9EF00]">
-                          {typeof av.notaFinal === 'number' ? av.notaFinal.toFixed(2) : '-'} / {av.valorMaximo}
+                          {typeof av.notaFinal === 'number'
+                            ? `${av.notaFinal.toFixed(2)} / ${av.valorMaximo}`
+                            : av.ausenciaConfirmada
+                              ? 'Sem nota (ausência confirmada)'
+                              : `- / ${av.valorMaximo}`}
                         </span>
                         <button
                           type="button"
@@ -274,6 +285,17 @@ export function AcessoAlunoView({ codigoInicial = '' }) {
                       </strong>{' '}
                       · Respondidas: {relatorioAluno.meuResultado.respondidas}/{relatorioAluno.meuResultado.elegiveis}
                     </p>
+                    {relatorioAluno.meuResultado.origemColetiva && (
+                      <p className="text-[#00DDEB] font-bold">
+                        Nota coletiva — Grupo {relatorioAluno.meuResultado.equipeNome || relatorioAluno.meuResultado.equipeId || '-'}
+                        {relatorioAluno.meuResultado.representanteNome
+                          ? ` · Representante: ${relatorioAluno.meuResultado.representanteNome}`
+                          : ''}
+                        {relatorioAluno.meuResultado.criterioColetivo
+                          ? ` · Critério: ${relatorioAluno.meuResultado.criterioColetivo}`
+                          : ''}
+                      </p>
+                    )}
                     {relatorioAluno.meuResultado.justificativaRevisao && (
                       <p className="text-amber-200">
                         Revisão docente: {relatorioAluno.meuResultado.justificativaRevisao}

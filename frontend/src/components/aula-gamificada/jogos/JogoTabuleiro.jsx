@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RenderTextoSeguro } from '../RenderTextoSeguro';
 import { gerarRequestId } from '../api';
 import { LETRAS, resolverRequestIdOperacao } from '../constantes';
 import ControladorAudioJogo, { usePreferenciaMovimentoReduzido } from './ControladorAudioJogo';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
 
 const GIF_CARTA = {
   avance_1: '/aula-gamificada/tabuleiro/carta-avance-1.gif',
@@ -33,7 +34,9 @@ export default function JogoTabuleiro({
 }) {
   const [selecionada, setSelecionada] = useState(null);
   const [erroEnvio, setErroEnvio] = useState(null);
-  const [reduzirAnimacao, setReduzirAnimacao] = usePreferenciaMovimentoReduzido();
+  const [reduzirLocal, setReduzirLocal] = usePreferenciaMovimentoReduzido();
+  const audiovisual = useAudiovisualSala();
+  const reduzirAnimacao = audiovisual ? audiovisual.reduzirAnimacao : reduzirLocal;
   const operacaoRef = useRef(null);
 
   const tab = estado?.tabuleiroEstado || estado?.sala?.tabuleiroEstado || {};
@@ -51,6 +54,30 @@ export default function JogoTabuleiro({
   const vencedorChegadaId = tab.vencedorChegadaId || null;
   const gabarito = fase === 'feedback' ? estado?.feedback?.respostaCorreta : null;
 
+  const situacaoTabuleiro =
+    vencedorChegadaId || fase === 'encerrada'
+      ? 'vitoria'
+      : ultimaCarta?.tipo === 'avance_1' || ultimaCarta?.tipo === 'avance_2'
+        ? 'acerto'
+        : ultimaCarta?.tipo === 'erro_nao_ande' || ultimaCarta?.tipo === 'passe_a_vez'
+          ? 'erro'
+          : null;
+
+  useEffect(() => {
+    if (!audiovisual?.ativoNoGerenciador || !situacaoTabuleiro) return;
+    const salaCodigo = estado?.sala?.codigo || 'tab';
+    const rodadaAtual = estado?.sala?.rodada || 1;
+    const evtId = `${salaCodigo}:${rodadaAtual}:${situacaoTabuleiro}:${ultimaCarta?.tipo || ''}:${vencedorChegadaId || ''}`;
+    audiovisual.dispararEvento(evtId, situacaoTabuleiro);
+  }, [
+    audiovisual,
+    situacaoTabuleiro,
+    estado?.sala?.codigo,
+    estado?.sala?.rodada,
+    ultimaCarta?.tipo,
+    vencedorChegadaId,
+  ]);
+
   const bloqueado =
     bloqueadoExterno ||
     modo !== 'aluno' ||
@@ -64,6 +91,7 @@ export default function JogoTabuleiro({
   const casas = Array.from({ length: totalCasas + 1 }, (_, i) => i);
 
   const escolher = (altId) => {
+    audiovisual?.desbloquearPorGesto?.();
     if (bloqueado) return;
     setSelecionada(altId);
     setErroEnvio(null);
@@ -106,12 +134,14 @@ export default function JogoTabuleiro({
               </span>
             )}
           </div>
-          <ControladorAudioJogo
-            src="/aula-gamificada/tabuleiro/trilha-tabuleiro.mp3"
-            rotulo="Trilha sonora do jogo de Tabuleiro"
-            reduzirAnimacao={reduzirAnimacao}
-            onAlternarAnimacao={setReduzirAnimacao}
-          />
+          {!audiovisual?.ativoNoGerenciador && (
+            <ControladorAudioJogo
+              src="/aula-gamificada/tabuleiro/trilha-tabuleiro.mp3"
+              rotulo="Trilha sonora do jogo de Tabuleiro"
+              reduzirAnimacao={reduzirLocal}
+              onAlternarAnimacao={setReduzirLocal}
+            />
+          )}
         </div>
 
         {/* Trilha de blocos Início -> 1..12 -> Chegada */}
@@ -194,7 +224,7 @@ export default function JogoTabuleiro({
                     : GIF_CARTA[ultimaCarta?.tipo] || '/aula-gamificada/tabuleiro/capa-personagens.png'
               }
               alt={ultimaCarta?.titulo || 'Parabéns!'}
-              className="h-24 w-32 rounded-xl object-cover border border-white/25"
+              className="h-28 sm:h-36 w-40 sm:w-48 rounded-xl object-contain bg-black/40 border border-white/25"
             />
             <div className="space-y-1 text-center sm:text-left">
               <p className="text-xs font-black uppercase text-[#FFE500]">

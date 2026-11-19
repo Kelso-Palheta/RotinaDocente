@@ -24,6 +24,7 @@ export default function RelatorioAvaliacao({
   const [justificativaInput, setJustificativaInput] = useState('');
   const [zerarAusentes, setZerarAusentes] = useState(false);
   const [previaSync, setPreviaSync] = useState(null);
+  const [reconciliarAusentes, setReconciliarAusentes] = useState(false);
   const [detalhesPid, setDetalhesPid] = useState(null);
 
   const carregar = async () => {
@@ -92,6 +93,7 @@ export default function RelatorioAvaliacao({
   const handlePreviaSync = async () => {
     setCarregando(true);
     setErro(null);
+    setReconciliarAusentes(false);
     try {
       const res = await sincronizarAvaliacaoDiario({
         codigo,
@@ -99,7 +101,7 @@ export default function RelatorioAvaliacao({
         dryRun: true,
         obterToken,
       });
-      setPreviaSync(res.previa);
+      setPreviaSync({ ...res.previa, salaRevision: relatorio?.revision ?? 1 });
     } catch (err) {
       setErro(err?.message || 'Erro ao gerar prévia de sincronização.');
     } finally {
@@ -113,14 +115,21 @@ export default function RelatorioAvaliacao({
     try {
       const res = await sincronizarAvaliacaoDiario({
         codigo,
-        expectedRevision: relatorio?.revision ?? 1,
+        expectedRevision: previaSync?.salaRevision ?? relatorio?.revision ?? 1,
         diarioRevisionEsperada: previaSync?.diarioRevision,
         dryRun: false,
-        confirmarSobrescrita,
+        confirmarSobrescrita: confirmarSobrescrita || reconciliarAusentes,
+        reconciliarAusentes,
         obterToken,
       });
       setPreviaSync(null);
-      setMensagem(`Sincronização concluída (${res.sincronizadas} lançamentos no Diário).`);
+      setReconciliarAusentes(false);
+      const pendencias = res.pendencias ?? res.sincronizacao?.pendencias ?? [];
+      setMensagem(
+        pendencias.length || res.sincronizacao?.status === 'pendente'
+          ? `Sincronização com pendências (${res.sincronizadas} lançamentos; ${pendencias.length} ${pendencias.length === 1 ? 'pendência' : 'pendências'}). Confira o relatório antes de concluir.`
+          : `Sincronização concluída (${res.sincronizadas} lançamentos no Diário).`,
+      );
       await carregar();
     } catch (err) {
       setErro(err?.message || 'Erro ao sincronizar com o Diário.');
@@ -152,12 +161,19 @@ export default function RelatorioAvaliacao({
       16,
     );
     doc.setFontSize(10);
+    const resumoDoc = relatorio.resumoTurma || {};
     const contextoLinha = [
       `Sala: ${relatorio.sala?.codigo || '-'}`,
       `Modalidade: ${relatorio.sala?.modalidade || '-'}`,
+      `Formato: ${relatorio.sala?.formatoParticipacao || 'individual'}${relatorio.sala?.modoRespostaGrupo ? ` (${relatorio.sala.modoRespostaGrupo})` : ''}`,
       `Finalidade: ${relatorio.sala?.finalidade || 'revisao'}`,
       cfgDoc ? `Ano/Bim: ${cfgDoc.anoLetivo}/${cfgDoc.bimestre}º | Máx: ${cfgDoc.valorMaximo}` : '',
-      cfgDoc?.criterioHerois ? `Critério: ${cfgDoc.criterioHerois}` : '',
+      cfgDoc?.criterioHerois ? `Critério Heróis: ${cfgDoc.criterioHerois}` : '',
+      cfgDoc?.criterioColetivo ? `Critério Coletivo: ${cfgDoc.criterioColetivo}` : '',
+      `Presentes: ${resumoDoc.presentes ?? 0}`,
+      typeof resumoDoc.respostasUnicasGrupos === 'number'
+        ? `Respostas únicas de grupos: ${resumoDoc.respostasUnicasGrupos}`
+        : '',
     ]
       .filter(Boolean)
       .join(' | ');
@@ -169,9 +185,15 @@ export default function RelatorioAvaliacao({
       const calc = typeof a.notaCalculada === 'number' ? a.notaCalculada.toFixed(2) : '-';
       const rev = typeof a.notaRevisada === 'number' ? a.notaRevisada.toFixed(2) : '-';
       const aprov = typeof a.aproveitamento === 'number' ? `${(a.aproveitamento * 100).toFixed(1)}%` : '-';
+      const origem = a.origemColetiva
+        ? `Coletiva (${a.criterioColetivo || 'atribuir_presentes'})`
+        : a.equipeId
+          ? 'Grupo (individual)'
+          : 'Individual';
+      const autoria = a.autoresGrupo?.length ? a.autoresGrupo.join(', ') : a.representanteNome || '';
       const bloco = [
-        `Aluno: ${a.nome} | Situação: ${a.situacao} | Questões: ${a.respondidas}/${a.elegiveis} | Aproveit.: ${aprov}`,
-        `Calculada: ${calc} | Revisada: ${rev} | Final: ${nota}${a.justificativaRevisao ? ` | Justificativa: ${a.justificativaRevisao}` : ''}`,
+        `Aluno: ${a.nome}${a.equipeNome ? ` | Grupo: ${a.equipeNome}` : ''} | Presença: ${a.presencaStatus || '-'} | Origem: ${origem}${autoria ? ` | Rep./Autoria: ${autoria}` : ''}`,
+        `Situação: ${a.situacao} | Questões: ${a.respondidas}/${a.elegiveis} | Aproveit.: ${aprov} | Calculada: ${calc} | Revisada: ${rev} | Final: ${nota}${a.justificativaRevisao ? ` | Justificativa: ${a.justificativaRevisao}` : ''}`,
       ];
       for (const texto of bloco) {
         const partes = doc.splitTextToSize(texto, 180);
@@ -217,6 +239,8 @@ export default function RelatorioAvaliacao({
             </span>
             <span className="text-xs font-bold text-[#5B4B86]">
               Sala {relatorio.sala?.codigo} · {relatorio.sala?.modalidade}
+              {relatorio.sala?.formatoParticipacao ? ` · Formato: ${relatorio.sala.formatoParticipacao}` : ''}
+              {relatorio.sala?.modoRespostaGrupo ? ` (${relatorio.sala.modoRespostaGrupo})` : ''}
             </span>
           </div>
           <h3 className="font-head text-xl font-black">
@@ -226,6 +250,14 @@ export default function RelatorioAvaliacao({
             <p className="text-xs font-semibold text-[#5B4B86]">
               {cfg.disciplina} · Ano {cfg.anoLetivo} · {cfg.bimestre}º Bimestre · Valor máx: {cfg.valorMaximo}
               {relatorio.sala?.modalidade === 'herois' && ` · Critério: ${cfg.criterioHerois}`}
+              {relatorio.sala?.modoRespostaGrupo === 'compartilhada' && cfg.criterioColetivo && (
+                <> · Critério coletivo: {cfg.criterioColetivo}</>
+              )}
+            </p>
+          )}
+          {typeof relatorio.resumoTurma?.respostasUnicasGrupos === 'number' && (
+            <p className="text-[11px] font-bold text-[#6315D9]">
+              Pessoas presentes: {relatorio.resumoTurma?.presentes ?? 0} · Respostas únicas de grupos: {relatorio.resumoTurma.respostasUnicasGrupos}
             </p>
           )}
         </div>
@@ -295,7 +327,8 @@ export default function RelatorioAvaliacao({
           <thead>
             <tr className="border-b-2 border-[#E2D9F7] text-[#4A3B7C]">
               <th className="py-2 pr-3">Aluno</th>
-              <th className="py-2 pr-3">Situação</th>
+              <th className="py-2 pr-3">Grupo / Origem</th>
+              <th className="py-2 pr-3">Situação / Presença</th>
               <th className="py-2 pr-3">Resp./Eleg.</th>
               <th className="py-2 pr-3">Aproveit.</th>
               <th className="py-2 pr-3">Calculada</th>
@@ -307,7 +340,22 @@ export default function RelatorioAvaliacao({
             {(relatorio.alunos || []).map((a) => (
               <tr key={a.participanteId} className="border-b border-[#F3EDFF]">
                 <td className="py-2 pr-3 font-bold">{a.nome}</td>
-                <td className="py-2 pr-3">{a.situacao}</td>
+                <td className="py-2 pr-3">
+                  <span className="block font-semibold">{a.equipeNome || (a.equipeId ? a.equipeId : 'Individual')}</span>
+                  <span className="block text-[10px] text-[#5B4B86]">
+                    {a.origemColetiva
+                      ? `Nota coletiva${a.representanteNome ? ` · Rep.: ${a.representanteNome}` : ''}`
+                      : a.equipeId
+                        ? 'Grupo (individual)'
+                        : 'Individual'}
+                  </span>
+                </td>
+                <td className="py-2 pr-3">
+                  <span className="block">{a.situacao}</span>
+                  {a.presencaStatus && (
+                    <span className="block text-[10px] text-[#5B4B86]">{a.presencaStatus}</span>
+                  )}
+                </td>
                 <td className="py-2 pr-3">
                   {a.respondidas}/{a.elegiveis}
                 </td>
@@ -479,7 +527,7 @@ export default function RelatorioAvaliacao({
                           <td className="py-1 pr-2">{ln.turmaNome}</td>
                           <td className="py-1 pr-2">{ln.colunaNome} ({ln.valorMaximoColuna})</td>
                           <td className="py-1 pr-2">{ln.notaAtual ?? '-'}</td>
-                          <td className="py-1 font-black">{ln.notaNova}</td>
+                          <td className="py-1 font-black">{ln.notaNova ?? 'Sem nota'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -491,6 +539,18 @@ export default function RelatorioAvaliacao({
                   Atenção: {previaSync.conflitos.length} notas existentes divergem nesta coluna.
                 </p>
               )}
+              {previaSync.pendencias?.some((p) => p.tipo === 'divergencia_diario_sem_nota') && (
+                <label className="flex items-start gap-2 rounded-xl border border-amber-300 bg-amber-50 p-3 font-bold text-amber-900">
+                  <input
+                    type="checkbox"
+                    checked={reconciliarAusentes}
+                    onChange={(e) => setReconciliarAusentes(e.target.checked)}
+                    disabled={carregando}
+                    className="mt-0.5 accent-[#6315D9]"
+                  />
+                  Autorizo retirar apenas as notas anteriores desta atividade para os alunos sem nota, conforme a prévia. As demais notas serão preservadas.
+                </label>
+              )}
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -498,7 +558,9 @@ export default function RelatorioAvaliacao({
                   onClick={() => handleConfirmarSync(previaSync.conflitos?.length > 0)}
                   className="min-h-9 rounded-lg bg-[#6315D9] px-3 py-1.5 text-xs font-extrabold text-white"
                 >
-                  {previaSync.conflitos?.length > 0
+                  {reconciliarAusentes
+                    ? 'Confirmar retirada e sincronização'
+                    : previaSync.conflitos?.length > 0
                     ? 'Confirmar sobrescrita no Diário'
                     : 'Confirmar sincronização no Diário'}
                 </button>
