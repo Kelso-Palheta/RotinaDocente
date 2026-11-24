@@ -592,3 +592,5 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **AUDIO-MOBILE-01:** iPhone `interrupted` retoma no gesto; falha permanece visível; reprodução de mídia começa antes de aguardar `resume`; interrupções posteriores reexibem ativação. Regressão: `tests/unit/audio_mobile_desbloqueio.test.js`.
 
 - **PDF-CICLO-01:** extração digital/escaneada libera `PDFDocumentLoadingTask` (API PDF.js 6); sucesso não se perde na limpeza; falha de carregamento ou de extração também libera tarefa. Regressão: `tests/unit/pdf_extracao_ciclo_vida.test.js`.
+
+- **LIVRE-SELECAO-01:** rótulo Arte preserva valor legado; conteúdo único e dificuldade independente, níveis disponíveis, quantidade/configuração por seleção, origem explícita entre professores, reset e invalidação após atualização de catálogo. Testes: `SelecaoConteudo.test.jsx`. Ajuste apenas dos seletores antigos autorizado pelo usuário em 24/11/2026.

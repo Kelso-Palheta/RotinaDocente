@@ -36,7 +36,7 @@ it('REV-LIVRE-02: rejeição 429/422 não trava os controles nem cria retry infi
   await screen.findByText('Prepare sua aventura');
 
   fireEvent.change(screen.getByLabelText('Disciplina'), { target: { value: 'Ciências' } });
-  const select = screen.getByLabelText('Conteúdo e dificuldade');
+  const select = screen.getByLabelText('Conteúdo');
   fireEvent.change(select, { target: { value: select.options[1].value } });
   fireEvent.click(screen.getByRole('button', { name: /Começar a jogar/i }));
 

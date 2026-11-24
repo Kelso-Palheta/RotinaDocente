@@ -19,7 +19,7 @@ it('409 ao iniciar revisão deixa retomar a anterior e mudar a escolha, sem retr
  vi.stubGlobal('fetch',vi.fn(async(url,init)=>init?.method==='POST'?json({error:'Você tem uma revisão em andamento.'},409):url.endsWith('/catalogo')?json({conteudos:[conteudo]}):json({sessoes:[resumo]})));
  render(<RevisaoAutonoma />);await screen.findByText('Prepare sua aventura');
  fireEvent.change(screen.getByLabelText('Disciplina'),{target:{value:'Ciências'}});
- const select=screen.getByLabelText('Conteúdo e dificuldade');fireEvent.change(select,{target:{value:select.options[1].value}});
+ const select=screen.getByLabelText('Conteúdo');fireEvent.change(select,{target:{value:select.options[1].value}});
  fireEvent.click(screen.getByRole('button',{name:/Começar a jogar/i}));await screen.findByText('Você tem uma revisão em andamento.');
  expect(screen.getByRole('button',{name:'Retomar fase'}).disabled).toBe(false);
  expect(screen.getByLabelText(/Quero iniciar outra revisão/).disabled).toBe(false);

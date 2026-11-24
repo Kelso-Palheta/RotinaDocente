@@ -1,6 +1,7 @@
 'use client';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { rotuloDisciplina } from './rotulos';
 import { Plataforma2D } from './Plataforma2D';
 import { AventuraV2 } from './AventuraV2';
 import { opcoesConfiguracao } from '@/dominio/revisao-autonoma/plataformaV2';
@@ -11,10 +12,9 @@ import { rotuloDificuldade, validarUrlImagemSegura } from '@/components/aula-gam
 export function RevisaoAutonoma() {
   const [conteudos, setConteudos] = useState([]);
   const [historico, setHistorico] = useState([]);
-  const [disciplina, setDisciplina] = useState('');
-  const [selecao, setSelecao] = useState('');
-  const [fases, setFases] = useState(1);
-  const [estrelas, setEstrelas] = useState(1);
+  const [filtros, setFiltros] = useState({ disciplina: '', conteudo: '', dificuldade: '', origem: '' });
+  const { disciplina, conteudo, dificuldade, origem } = filtros;
+  const [tamanho, setTamanho] = useState(null);
   const [verResultado, setVerResultado] = useState(false);
   const [novaTentativa, setNovaTentativa] = useState(false);
   const [sessao, setSessao] = useState(null);
@@ -41,10 +41,8 @@ export function RevisaoAutonoma() {
     setSessao(null);
     setDesafio(false);
     setAlternativa('');
-    setDisciplina('');
-    setSelecao('');
-    setFases(1);
-    setEstrelas(1);
+    setFiltros({ disciplina: '', conteudo: '', dificuldade: '', origem: '' });
+    setTamanho(null);
     setVerResultado(false);
     setConteudos([]);
     setHistorico([]);
@@ -94,8 +92,16 @@ export function RevisaoAutonoma() {
         const novoHistorico = Array.isArray(hist?.sessoes) ? hist.sessoes : [];
         setConteudos(novosConteudos);
         setHistorico(novoHistorico);
-        setDisciplina((prev) => (novosConteudos.some((c) => c.disciplina === prev) ? prev : ''));
-        setSelecao((prev) => (novosConteudos.some((c) => JSON.stringify(c) === prev) ? prev : ''));
+        setFiltros(prev => {
+          const daDisciplina = novosConteudos.filter(c => rotuloDisciplina(c.disciplina) === prev.disciplina);
+          const doAssunto = daDisciplina.filter(c => c.conteudo === prev.conteudo);
+          return {
+            disciplina: daDisciplina.length ? prev.disciplina : '',
+            conteudo: doAssunto.length ? prev.conteudo : '',
+            dificuldade: doAssunto.some(c => c.dificuldade === prev.dificuldade) ? prev.dificuldade : '',
+            origem: doAssunto.some(c => c.dificuldade === prev.dificuldade) ? prev.origem : '',
+          };
+        });
       } catch (e) {
         if (ativo && refGeracao.current === versaoFoco && [401, 403, 404].includes(e.status)) {
           invalidarAcesso('Seu acesso mudou. Recarregue ou entre novamente no Portal.');
@@ -168,20 +174,31 @@ export function RevisaoAutonoma() {
     }
     finally { trava.current = false; if (montado.current) setOcupado(false); }
   };
-  const disponiveis = conteudos.filter(c => c.disciplina === disciplina);
-  const selecionado = disponiveis.find(c => JSON.stringify(c) === selecao);
-  const config = opcoesConfiguracao(selecionado?.quantidade || 0);
+  const disponiveis = conteudos.filter(c => rotuloDisciplina(c.disciplina) === disciplina);
+  const assuntos = [...new Set(disponiveis.map(c => c.conteudo))].sort();
+  const doConteudo = disponiveis.filter(c => c.conteudo === conteudo);
+  const niveis = ['facil', 'medio', 'dificil'].filter(n => doConteudo.some(c => c.dificuldade === n));
+  const candidatos = doConteudo.filter(c => c.dificuldade === dificuldade);
+  const chaveOrigem = c => JSON.stringify([c.professorId, c.turma, c.disciplina, c.conteudo, c.dificuldade]);
+  const selecionado = candidatos.find(c => chaveOrigem(c) === origem);
+  const quantidade = selecionado?.quantidade || 0;
+  const chaveSelecionada = selecionado ? chaveOrigem(selecionado) : '';
+  const config = opcoesConfiguracao(quantidade);
+  const chaveConfiguracao = JSON.stringify([chaveSelecionada, quantidade]);
+  const tamanhoValido = tamanho?.chave === chaveConfiguracao;
+  const fases = tamanhoValido ? tamanho.fases : config.sugerida?.fases || 1;
+  const estrelas = tamanhoValido ? tamanho.estrelas : config.sugerida?.estrelasPorFase ?? 1;
   const escolherConteudo = valor => {
-    setSelecao(valor);
-    const c = disponiveis.find(x => JSON.stringify(x) === valor);
-    const sugerida = opcoesConfiguracao(c?.quantidade || 0).sugerida;
-    setFases(sugerida?.fases || 1); setEstrelas(sugerida?.estrelasPorFase ?? 1);
+    const registros = disponiveis.filter(c => c.conteudo === valor);
+    const niveisDisponiveis = [...new Set(registros.map(c => c.dificuldade))];
+    const nivel = niveisDisponiveis.length === 1 ? niveisDisponiveis[0] : '';
+    setFiltros({ disciplina, conteudo: valor, dificuldade: nivel, origem: nivel && registros.length === 1 ? chaveOrigem(registros[0]) : '' });
+    setTamanho(null);
   };
   const escolherFases = valor => {
     const f = Number(valor);
-    setFases(f);
     const validas = config.opcoes.filter(o => o.fases === f).map(o => o.estrelasPorFase);
-    if (!validas.includes(estrelas)) setEstrelas(validas[validas.length - 1] ?? 1);
+    setTamanho({ chave: chaveConfiguracao, fases: f, estrelas: validas.includes(estrelas) ? estrelas : validas[validas.length - 1] ?? 1 });
   };
   const necessarias = fases * (estrelas + 1);
   const configOk = config.opcoes.some(o => o.fases === fases && o.estrelasPorFase === estrelas);
@@ -207,9 +224,12 @@ export function RevisaoAutonoma() {
       {!carregando && !sessao && <form onSubmit={iniciar} className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4">
         <h2 className="text-2xl font-black">Prepare sua aventura</h2>
         {!conteudos.length && <p>Não há conteúdos liberados para sua matrícula. Peça ao professor para liberar questões no Banco de Questões → Revisar sozinho.</p>}
-        <div className="grid sm:grid-cols-2 gap-4">
-          <label className="font-bold">Disciplina<select required disabled={ocupado || pendente} value={disciplina} onChange={e => { setDisciplina(e.target.value); setSelecao(''); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{[...new Set(conteudos.map(c => c.disciplina))].sort().map(d => <option key={d}>{d}</option>)}</select></label>
-          <label className="font-bold">Conteúdo e dificuldade<select required disabled={ocupado || pendente} value={selecao} onChange={e => escolherConteudo(e.target.value)} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{disponiveis.map(c => <option key={JSON.stringify(c)} value={JSON.stringify(c)}>{c.conteudo} · {rotuloDificuldade(c.dificuldade)} · {c.turma}</option>)}</select></label>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <label className="font-bold">Disciplina<select required disabled={ocupado || pendente} value={disciplina} onChange={e => { setFiltros({ disciplina: e.target.value, conteudo: '', dificuldade: '', origem: '' }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{[...new Set(conteudos.map(c => rotuloDisciplina(c.disciplina)))].sort().map(d => <option key={d}>{d}</option>)}</select></label>
+          <label className="font-bold">Conteúdo<select required disabled={!disciplina || ocupado || pendente} value={conteudo} onChange={e => escolherConteudo(e.target.value)} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{assuntos.map(c => <option key={c} value={c}>{c}</option>)}</select></label>
+          <label className="font-bold">Dificuldade<select required disabled={!conteudo || ocupado || pendente} value={dificuldade} onChange={e => { const nivel = e.target.value; const registros = doConteudo.filter(c => c.dificuldade === nivel); setFiltros({ ...filtros, dificuldade: nivel, origem: registros.length === 1 ? chaveOrigem(registros[0]) : '' }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{niveis.map(n => <option key={n} value={n}>{rotuloDificuldade(n)}</option>)}</select></label>
+          {(candidatos.length > 1 || (candidatos.length > 0 && origem && !selecionado)) && <label className="font-bold sm:col-span-3">Turma e professor<select required disabled={ocupado || pendente} value={origem} onChange={e => { setFiltros({ ...filtros, origem: e.target.value }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha a origem das questões</option>{candidatos.map((c, i) => <option key={chaveOrigem(c)} value={chaveOrigem(c)}>{c.turma} · Professor {i + 1} · {c.quantidade} questões</option>)}</select></label>}
+
         </div>
         {selecionado && config.opcoes.length > 0 && <div className="space-y-3 rounded-2xl bg-[#F3EDFF] p-4">
           <p className="font-bold">Escolha o tamanho da aventura</p>
@@ -217,7 +237,7 @@ export function RevisaoAutonoma() {
             ? <p className="text-sm">Há somente 1 questão liberada: sua aventura terá uma fase com o portal do desafio.</p>
             : <div className="flex flex-wrap gap-4">
               <label className="font-bold">Fases<select aria-label="Fases" disabled={ocupado || pendente} value={fases} onChange={e => escolherFases(e.target.value)} className="ml-2 rounded-xl border p-2">{[...new Set(config.opcoes.map(o => o.fases))].map(f => <option key={f} value={f}>{f}</option>)}</select></label>
-              <label className="font-bold">Estrelas-desafio por fase<select aria-label="Estrelas por fase" disabled={ocupado || pendente} value={estrelas} onChange={e => setEstrelas(Number(e.target.value))} className="ml-2 rounded-xl border p-2">{config.opcoes.filter(o => o.fases === fases).map(o => <option key={o.estrelasPorFase} value={o.estrelasPorFase}>{o.estrelasPorFase}</option>)}</select></label>
+              <label className="font-bold">Estrelas-desafio por fase<select aria-label="Estrelas por fase" disabled={ocupado || pendente} value={estrelas} onChange={e => setTamanho({ chave: chaveConfiguracao, fases, estrelas: Number(e.target.value) })} className="ml-2 rounded-xl border p-2">{config.opcoes.filter(o => o.fases === fases).map(o => <option key={o.estrelasPorFase} value={o.estrelasPorFase}>{o.estrelasPorFase}</option>)}</select></label>
             </div>}
           <p className="text-sm" data-testid="resumo-configuracao">{necessarias} questões necessárias · {config.disponivel} liberadas pelo professor · cada fase: {estrelas} {estrelas === 1 ? 'estrela' : 'estrelas'} + 1 portal. Sem pressão de tempo.</p>
           {config.disponivel < 12 && <p className="text-xs">Quer uma aventura maior (até 3 fases × 3 estrelas)? Peça ao professor para liberar mais questões.</p>}
@@ -238,7 +258,7 @@ export function RevisaoAutonoma() {
         onRecarregar={() => retomar(sessao.id)}
       />}
       {sessao && sessao.schema !== 2 && sessao.fase !== 'concluida' && <>
-        <div className="flex flex-wrap justify-between items-center gap-3 rounded-2xl bg-[#F3EDFF] border border-[#E2D9F7] p-4"><strong>{sessao.disciplina} · {sessao.conteudo} · Fase {sessao.indice + 1}/{sessao.total}</strong><span>✓ {sessao.acertos} acertos · {sessao.erros} para revisar</span><button type="button" disabled={ocupado || pendente} onClick={() => { geracao.current++; setSessao(null); setDesafio(false); }} className="underline font-bold">Sair e continuar depois</button></div>
+        <div className="flex flex-wrap justify-between items-center gap-3 rounded-2xl bg-[#F3EDFF] border border-[#E2D9F7] p-4"><strong>{rotuloDisciplina(sessao.disciplina)} · {sessao.conteudo} · Fase {sessao.indice + 1}/{sessao.total}</strong><span>✓ {sessao.acertos} acertos · {sessao.erros} para revisar</span><button type="button" disabled={ocupado || pendente} onClick={() => { geracao.current++; setSessao(null); setDesafio(false); }} className="underline font-bold">Sair e continuar depois</button></div>
         <Plataforma2D key={`${sessao.id}:${sessao.indice}`} fase={sessao.indice + 1} pausado={desafio || ocupado} onDesafio={abrirDesafio} />
         {desafio && <section ref={campo} tabIndex={-1} className="rounded-3xl border-2 border-[#B9A6EF] bg-white p-5 sm:p-7 space-y-4" aria-label="Desafio pedagógico">
           <h2 className="text-2xl font-black">Portal do conhecimento</h2>
@@ -250,7 +270,7 @@ export function RevisaoAutonoma() {
         </section>}
       </>}
       {sessao?.fase === 'concluida' && (sessao.schema !== 2 || verResultado) && <section className="rounded-3xl border-4 border-[#FFE500] bg-[#25104A] text-white p-7 space-y-4"><h2 className="text-3xl font-black text-[#FFE500]">🏆 Aventura concluída!</h2><p>{sessao.acertos} acertos em {sessao.total} desafios · {Math.round(100 * sessao.acertos / sessao.total)}% de aproveitamento</p>{sessao.schema === 2 && <p className="font-bold">{sessao.pontosJogo} pontos de jogo · {sessao.totalFases} {sessao.totalFases === 1 ? 'fase' : 'fases'} (pontos de jogo não valem nota)</p>}<p>Seu resultado foi salvo. Pratique novamente para acompanhar sua evolução.</p><div className="flex flex-wrap gap-3">{sessao.erros > 0 && <button type="button" disabled={ocupado || pendente} onClick={reforcar} className="rounded-xl bg-[#FFE500] text-[#25104A] p-3 font-black disabled:opacity-40">Revisar somente os erros</button>}<button type="button" disabled={ocupado || pendente} onClick={() => setSessao(null)} className="rounded-xl border p-3 font-bold">Escolher outro conteúdo</button></div></section>}
-      {!carregando && <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4"><h2 className="text-2xl font-black">Meu histórico de revisão</h2><p className="text-sm">Últimas 50 revisões. As tentativas anteriores não são sobrescritas.</p>{!historico.length && <p>Sua primeira aventura aparecerá aqui.</p>}<div className="space-y-3">{historico.map(h => <article key={h.id} className="flex flex-wrap justify-between items-center gap-3 rounded-xl border p-4"><div><strong>{h.disciplina} · {h.conteudo}</strong><p className="text-sm">{rotuloDificuldade(h.dificuldade)} · {h.progresso}/{h.total} desafios · {h.acertos} acertos · {h.erros} erros{h.schema === 2 ? ` · ${h.pontosJogo} pontos de jogo · ${h.totalFases} ${h.totalFases === 1 ? 'fase' : 'fases'}` : ''}</p><p className="text-xs text-[#5B4B86]">{new Date(h.atualizadoEmMs).toLocaleString('pt-BR')} · {h.fase === 'concluida' ? 'Concluída' : 'Em andamento'}</p></div><button type="button" disabled={ocupado || pendente} onClick={() => retomar(h.id)} className="rounded-xl bg-[#F3EDFF] p-3 font-bold disabled:opacity-40">{h.fase === 'concluida' ? 'Ver resultado' : h.schema === 2 ? 'Continuar aventura' : 'Retomar fase'}</button></article>)}</div></section>}
+      {!carregando && <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4"><h2 className="text-2xl font-black">Meu histórico de revisão</h2><p className="text-sm">Últimas 50 revisões. As tentativas anteriores não são sobrescritas.</p>{!historico.length && <p>Sua primeira aventura aparecerá aqui.</p>}<div className="space-y-3">{historico.map(h => <article key={h.id} className="flex flex-wrap justify-between items-center gap-3 rounded-xl border p-4"><div><strong>{rotuloDisciplina(h.disciplina)} · {h.conteudo}</strong><p className="text-sm">{rotuloDificuldade(h.dificuldade)} · {h.progresso}/{h.total} desafios · {h.acertos} acertos · {h.erros} erros{h.schema === 2 ? ` · ${h.pontosJogo} pontos de jogo · ${h.totalFases} ${h.totalFases === 1 ? 'fase' : 'fases'}` : ''}</p><p className="text-xs text-[#5B4B86]">{new Date(h.atualizadoEmMs).toLocaleString('pt-BR')} · {h.fase === 'concluida' ? 'Concluída' : 'Em andamento'}</p></div><button type="button" disabled={ocupado || pendente} onClick={() => retomar(h.id)} className="rounded-xl bg-[#F3EDFF] p-3 font-bold disabled:opacity-40">{h.fase === 'concluida' ? 'Ver resultado' : h.schema === 2 ? 'Continuar aventura' : 'Retomar fase'}</button></article>)}</div></section>}
     </div>
   </main>;
 }

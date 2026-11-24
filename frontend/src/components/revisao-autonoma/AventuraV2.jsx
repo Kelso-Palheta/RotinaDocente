@@ -1,4 +1,5 @@
 'use client';
+import { rotuloDisciplina } from './rotulos';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { BarraControleAudiovisual, ProvedorAudiovisualSala, useAudiovisualSala } from '@/components/aula-gamificada/audiovisual/ProvedorAudiovisualSala';
 import FeedbackEmocional from '@/components/aula-gamificada/audiovisual/FeedbackEmocional';
@@ -148,7 +149,7 @@ function PalcoAventura({ sessao, ocupado, pendente, erro, emJogo, setEmJogo, onA
       {!emJogo && (
         <div className="space-y-4 text-center">
           <h2 className="text-2xl font-black text-[#FFE500] sm:text-3xl">Sua aventura está pronta!</h2>
-          <p>{sessao.disciplina} · {sessao.conteudo} · {sessao.totalFases} {sessao.totalFases === 1 ? 'fase' : 'fases'} · {sessao.total} desafios</p>
+          <p>{rotuloDisciplina(sessao.disciplina)} · {sessao.conteudo} · {sessao.totalFases} {sessao.totalFases === 1 ? 'fase' : 'fases'} · {sessao.total} desafios</p>
           <p className="text-sm text-[#E7DBFD]">Estrelas escondem perguntas pelo caminho; o portal guarda o desafio final de cada fase. Pontos de jogo e estrelas não valem nota.</p>
           <p className="text-sm text-[#E7DBFD]">Ao tocar, o jogo abre em tela cheia e ativa o som. Para melhor experiência, use o celular deitado (paisagem).</p>
           <div className="flex flex-wrap justify-center gap-3">

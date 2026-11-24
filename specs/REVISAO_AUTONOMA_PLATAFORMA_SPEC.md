@@ -27,3 +27,6 @@ Persistência: metadados de liberação na questão do professor; `revisaoAutono
 RED/GREEN em física, colisões/respawn, isolamento, vínculo revogado, ausência de gabarito futuro, idempotência/conflito de versão, restauração e reforço de erros. Testes de UI para acessibilidade/toque e publicação explícita. Capturas reais de componentes com dados sintéticos desktop/celular; revisão independente de autenticação/persistência; suíte integral, lint e build aprovados antes de commit/push.
 
 Proteção de uso: no máximo trinta novas revisões por hora/aluno; leitura e retomada continuam disponíveis. Consulta do banco filtra o indicador de liberação para evitar ler questões privadas desnecessariamente.
+
+## Seleção independente — atualização de 24/11/2026
+Disciplina apresenta «Arte / ENEM» como «Arte», preservando valores persistidos e payloads. Conteúdo mostra somente nomes únicos de assuntos. Dificuldade é campo independente com níveis realmente disponíveis no assunto. Uma única dificuldade pode ser pré-selecionada; múltiplas exigem escolha. Mesmo assunto/nível em vínculos distintos exige seleção explícita de origem, sem soma entre professores. Mudança de filtro ou retirada de acesso invalida seleções incompatíveis e recalcula configuração pela quantidade do registro autorizado. Histórico/retomada continuam com identidade original; apenas o rótulo é atualizado.

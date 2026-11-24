@@ -13,7 +13,7 @@ afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 async function jogar(){
  render(<RevisaoAutonoma />);await screen.findByText('Prepare sua aventura');
  fireEvent.change(screen.getByLabelText('Disciplina'),{target:{value:'Ciências'}});
- const select=screen.getByLabelText('Conteúdo e dificuldade');fireEvent.change(select,{target:{value:select.options[1].value}});
+ const select=screen.getByLabelText('Conteúdo');fireEvent.change(select,{target:{value:select.options[1].value}});
  fireEvent.click(screen.getByRole('button',{name:/Começar a jogar/i}));await screen.findByRole('button',{name:/Ir direto ao desafio/i});
  fireEvent.click(screen.getByRole('button',{name:/Ir direto ao desafio/i}));fireEvent.click(screen.getByRole('radio',{name:'Gás carbônico'}));
 }

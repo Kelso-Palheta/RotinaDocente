@@ -53,7 +53,7 @@ async function preparar(total = 12) {
   const ui = render(<RevisaoAutonoma />);
   await screen.findByText('Prepare sua aventura');
   fireEvent.change(screen.getByLabelText('Disciplina'), { target: { value: 'Ciências' } });
-  const sel = screen.getByLabelText('Conteúdo e dificuldade');
+  const sel = screen.getByLabelText('Conteúdo');
   fireEvent.change(sel, { target: { value: sel.options[1].value } });
   return { srv, ui };
 }
