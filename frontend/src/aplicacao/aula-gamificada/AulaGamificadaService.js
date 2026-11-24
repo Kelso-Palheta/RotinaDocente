@@ -1,3 +1,4 @@
+import { validarExperienciaSala } from '@/dominio/aula-gamificada/sala';
 import { consolidarNatacao, pontosAcerte } from '@/dominio/aula-gamificada/corrida';
 import {
   codigoSala,
@@ -307,6 +308,7 @@ export class AulaGamificadaService {
       const anterior = await tx.get(requisicaoPath(uid, chave));
       if (anterior) return copia(anterior.resposta);
 
+      validarExperienciaSala(config);
       const modalidade = String(config.modalidade ?? "");
       obterModalidade(modalidade);
       const titulo = textoObrigatorio(config.titulo, "título da sala", { max: 200 });
@@ -448,6 +450,7 @@ export class AulaGamificadaService {
         professorId: uid,
         titulo,
         modalidade,
+        ...(config.experiencia === "plataforma" ? { experiencia: "plataforma" } : {}),
         formatoParticipacao,
         ...(modoRespostaGrupo ? { modoRespostaGrupo } : {}),
         finalidade,
@@ -481,6 +484,7 @@ export class AulaGamificadaService {
         professorId: uid,
         titulo,
         modalidade,
+        ...(config.experiencia === "plataforma" ? { experiencia: "plataforma" } : {}),
         formatoParticipacao,
         ...(modoRespostaGrupo ? { modoRespostaGrupo } : {}),
         finalidade,

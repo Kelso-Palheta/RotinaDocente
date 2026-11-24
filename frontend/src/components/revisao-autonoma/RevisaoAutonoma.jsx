@@ -3,17 +3,23 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { rotuloDisciplina } from './rotulos';
 import { Plataforma2D } from './Plataforma2D';
+import { JogoAutonomo } from './JogoAutonomo';
+import { MODALIDADES_PADRAO, obterModalidadeInfo } from '@/components/aula-gamificada/constantes';
 import { AventuraV2 } from './AventuraV2';
 import { opcoesConfiguracao } from '@/dominio/revisao-autonoma/plataformaV2';
 import { novoPedidoLivre, requisitarLivre } from './api';
 import { RenderTextoSeguro } from '@/components/aula-gamificada/RenderTextoSeguro';
 import { rotuloDificuldade, validarUrlImagemSegura } from '@/components/aula-gamificada/constantes';
 
+function compativel(c, modo) {
+  return modo === 'plataforma' ? (!c.tipo || c.tipo === 'multipla_escolha') : c.modalidades ? c.modalidades.includes(modo) : obterModalidadeInfo(modo).tiposQuestoes.includes(c.tipo || 'multipla_escolha');
+}
+
 export function RevisaoAutonoma() {
   const [conteudos, setConteudos] = useState([]);
   const [historico, setHistorico] = useState([]);
-  const [filtros, setFiltros] = useState({ disciplina: '', conteudo: '', dificuldade: '', origem: '' });
-  const { disciplina, conteudo, dificuldade, origem } = filtros;
+  const [filtros, setFiltros] = useState({ modalidade: 'plataforma', disciplina: '', conteudo: '', dificuldade: '', origem: '' });
+  const { modalidade, disciplina, conteudo, dificuldade, origem } = filtros;
   const [tamanho, setTamanho] = useState(null);
   const [verResultado, setVerResultado] = useState(false);
   const [novaTentativa, setNovaTentativa] = useState(false);
@@ -41,7 +47,7 @@ export function RevisaoAutonoma() {
     setSessao(null);
     setDesafio(false);
     setAlternativa('');
-    setFiltros({ disciplina: '', conteudo: '', dificuldade: '', origem: '' });
+    setFiltros({ modalidade: 'plataforma', disciplina: '', conteudo: '', dificuldade: '', origem: '' });
     setTamanho(null);
     setVerResultado(false);
     setConteudos([]);
@@ -58,7 +64,7 @@ export function RevisaoAutonoma() {
     const refGeracao = geracao;
     const versaoInicial = refGeracao.current;
     Promise.all([requisitarLivre('catalogo', { signal: ctrl.signal }), requisitarLivre('historico', { signal: ctrl.signal })]).then(([cat, hist]) => {
-      if (ativo && refGeracao.current === versaoInicial) { setConteudos(cat.conteudos); setHistorico(hist.sessoes); }
+      if (ativo && refGeracao.current === versaoInicial) { setConteudos(cat.jogos || cat.conteudos); setHistorico(hist.sessoes); }
     }).catch(e => {
       if (ativo && refGeracao.current === versaoInicial) {
         if ([401, 403].includes(e.status)) {
@@ -88,14 +94,15 @@ export function RevisaoAutonoma() {
           requisitarLivre('historico', { signal: ctrl.signal }),
         ]);
         if (!ativo || refGeracao.current !== versaoFoco) return;
-        const novosConteudos = Array.isArray(cat?.conteudos) ? cat.conteudos : [];
+        const novosConteudos = Array.isArray(cat?.jogos) ? cat.jogos : Array.isArray(cat?.conteudos) ? cat.conteudos : [];
         const novoHistorico = Array.isArray(hist?.sessoes) ? hist.sessoes : [];
         setConteudos(novosConteudos);
         setHistorico(novoHistorico);
         setFiltros(prev => {
-          const daDisciplina = novosConteudos.filter(c => rotuloDisciplina(c.disciplina) === prev.disciplina);
+          const daDisciplina = novosConteudos.filter(c => compativel(c,prev.modalidade) && rotuloDisciplina(c.disciplina) === prev.disciplina);
           const doAssunto = daDisciplina.filter(c => c.conteudo === prev.conteudo);
           return {
+            modalidade: prev.modalidade,
             disciplina: daDisciplina.length ? prev.disciplina : '',
             conteudo: doAssunto.length ? prev.conteudo : '',
             dificuldade: doAssunto.some(c => c.dificuldade === prev.dificuldade) ? prev.dificuldade : '',
@@ -174,7 +181,8 @@ export function RevisaoAutonoma() {
     }
     finally { trava.current = false; if (montado.current) setOcupado(false); }
   };
-  const disponiveis = conteudos.filter(c => rotuloDisciplina(c.disciplina) === disciplina);
+  const doJogo = conteudos.filter(c => compativel(c,modalidade));
+  const disponiveis = doJogo.filter(c => rotuloDisciplina(c.disciplina) === disciplina);
   const assuntos = [...new Set(disponiveis.map(c => c.conteudo))].sort();
   const doConteudo = disponiveis.filter(c => c.conteudo === conteudo);
   const niveis = ['facil', 'medio', 'dificil'].filter(n => doConteudo.some(c => c.dificuldade === n));
@@ -192,7 +200,7 @@ export function RevisaoAutonoma() {
     const registros = disponiveis.filter(c => c.conteudo === valor);
     const niveisDisponiveis = [...new Set(registros.map(c => c.dificuldade))];
     const nivel = niveisDisponiveis.length === 1 ? niveisDisponiveis[0] : '';
-    setFiltros({ disciplina, conteudo: valor, dificuldade: nivel, origem: nivel && registros.length === 1 ? chaveOrigem(registros[0]) : '' });
+    setFiltros({ modalidade, disciplina, conteudo: valor, dificuldade: nivel, origem: nivel && registros.length === 1 ? chaveOrigem(registros[0]) : '' });
     setTamanho(null);
   };
   const escolherFases = valor => {
@@ -201,22 +209,24 @@ export function RevisaoAutonoma() {
     setTamanho({ chave: chaveConfiguracao, fases: f, estrelas: validas.includes(estrelas) ? estrelas : validas[validas.length - 1] ?? 1 });
   };
   const necessarias = fases * (estrelas + 1);
-  const configOk = config.opcoes.some(o => o.fases === fases && o.estrelasPorFase === estrelas);
+  const configOk = modalidade !== 'plataforma' ? quantidade > 0 : config.opcoes.some(o => o.fases === fases && o.estrelasPorFase === estrelas);
+  const [quantidadeDesafios, setQuantidadeDesafios] = useState(1);
+  const totalDesafios = Math.min(quantidadeDesafios, quantidade, 10);
   const iniciar = e => {
     e.preventDefault();
-    if (selecionado && configOk) executar('sessoes', { ...selecionado, fases, estrelasPorFase: estrelas, novaTentativa });
+    if (selecionado && configOk) executar('sessoes', modalidade === 'plataforma' ? { ...selecionado, fases, estrelasPorFase: estrelas, novaTentativa } : { ...selecionado, modalidade, quantidade: totalDesafios, novaTentativa });
   };
   const reforcar = () => {
     const atual = historico.find(h => h.id === sessao.id);
-    if (atual) executar('sessoes', { professorId: atual.professorId, disciplina: sessao.disciplina, conteudo: sessao.conteudo, dificuldade: sessao.dificuldade, quantidade: Math.min(10, sessao.erros), repetirSessaoId: sessao.id });
+    if (atual) executar('sessoes', { professorId: atual.professorId, ...(sessao.schema === 3 ? { modalidade: sessao.modalidade } : {}), disciplina: sessao.disciplina, conteudo: sessao.conteudo, dificuldade: sessao.dificuldade, quantidade: Math.min(10, sessao.erros), repetirSessaoId: sessao.id });
   };
   return <main className="arte-pagina min-h-screen text-[#25104A] px-4 py-6 sm:p-8">
     <div className="max-w-5xl mx-auto space-y-6">
-      <Link href="/aluno/notas" className="inline-block rounded-full border border-[#B9A6EF] px-4 py-2 font-bold">← Portal do Aluno</Link>
+      <Link href="/aluno/aula-gamificada" className="inline-block rounded-full border border-[#B9A6EF] px-4 py-2 font-bold">← Aula Gamificada</Link>
       <header className="arte-banner-festival rounded-3xl p-5 sm:p-8 text-white">
-        <span className="arte-selo">AVENTURA DO CONHECIMENTO · PLATAFORMA 2D</span>
+        <span className="arte-selo">AULA GAMIFICADA · JOGUE NO SEU RITMO</span>
         <h1 className="text-3xl sm:text-5xl font-black mt-4">Revisar sozinho</h1>
-        <p className="mt-3 max-w-2xl">Explore um percurso longo, colete estrelas-desafio e atravesse o portal de cada fase. Jogue de casa, no seu ritmo, sem sala ou professor conectado.</p>
+        <p className="mt-3 max-w-2xl">Escolha seu jogo e pratique os conteúdos liberados pelo professor. Jogue de casa, no seu ritmo, sem sala ou professor conectado.</p>
         <p className="mt-2 text-sm text-[#E7DBFD]">Seu histórico mostra aprendizagem. Quedas e estrelas não alteram acertos nem notas do boletim.</p>
       </header>
       {erro && <div role="alert" className="rounded-2xl border border-amber-300 bg-amber-50 p-4 space-y-3"><p>{erro}</p>{(pendente || sessao) && <div className="flex flex-wrap gap-3">{pendente && <button type="button" disabled={ocupado} onClick={() => executar(pedido.current.path, pedido.current.body)} className="rounded-xl bg-[#6315D9] text-white font-bold p-3">Tentar o mesmo envio novamente</button>}{sessao && <button type="button" disabled={ocupado} onClick={() => retomar(sessao.id)} className="rounded-xl border font-bold p-3">Recarregar progresso salvo</button>}</div>}<Link href="/aluno" className="underline font-bold">Entrar no Portal</Link></div>}
@@ -224,14 +234,16 @@ export function RevisaoAutonoma() {
       {!carregando && !sessao && <form onSubmit={iniciar} className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4">
         <h2 className="text-2xl font-black">Prepare sua aventura</h2>
         {!conteudos.length && <p>Não há conteúdos liberados para sua matrícula. Peça ao professor para liberar questões no Banco de Questões → Revisar sozinho.</p>}
+        <label className="block font-bold">Jogo<select value={modalidade} disabled={ocupado || pendente} onChange={e => { setFiltros({ modalidade:e.target.value, disciplina:'', conteudo:'', dificuldade:'', origem:'' }); setQuantidadeDesafios(1); setTamanho(null); }} className="mt-1 block w-full rounded-xl border p-3"><option value="plataforma">Plataforma · Aventura do Conhecimento</option>{MODALIDADES_PADRAO.map(m => <option key={m.id} value={m.id}>{m.nome}</option>)}</select></label>
+        {!doJogo.length && conteudos.length > 0 && <p role="status">Ainda não há questões compatíveis liberadas para este jogo. Escolha outro jogo ou peça ao professor para liberar o tipo de questão correspondente.</p>}
         <div className="grid sm:grid-cols-3 gap-4">
-          <label className="font-bold">Disciplina<select required disabled={ocupado || pendente} value={disciplina} onChange={e => { setFiltros({ disciplina: e.target.value, conteudo: '', dificuldade: '', origem: '' }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{[...new Set(conteudos.map(c => rotuloDisciplina(c.disciplina)))].sort().map(d => <option key={d}>{d}</option>)}</select></label>
+          <label className="font-bold">Disciplina<select required disabled={ocupado || pendente} value={disciplina} onChange={e => { setFiltros({ modalidade, disciplina: e.target.value, conteudo: '', dificuldade: '', origem: '' }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{[...new Set(doJogo.map(c => rotuloDisciplina(c.disciplina)))].sort().map(d => <option key={d}>{d}</option>)}</select></label>
           <label className="font-bold">Conteúdo<select required disabled={!disciplina || ocupado || pendente} value={conteudo} onChange={e => escolherConteudo(e.target.value)} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{assuntos.map(c => <option key={c} value={c}>{c}</option>)}</select></label>
           <label className="font-bold">Dificuldade<select required disabled={!conteudo || ocupado || pendente} value={dificuldade} onChange={e => { const nivel = e.target.value; const registros = doConteudo.filter(c => c.dificuldade === nivel); setFiltros({ ...filtros, dificuldade: nivel, origem: registros.length === 1 ? chaveOrigem(registros[0]) : '' }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha</option>{niveis.map(n => <option key={n} value={n}>{rotuloDificuldade(n)}</option>)}</select></label>
           {(candidatos.length > 1 || (candidatos.length > 0 && origem && !selecionado)) && <label className="font-bold sm:col-span-3">Turma e professor<select required disabled={ocupado || pendente} value={origem} onChange={e => { setFiltros({ ...filtros, origem: e.target.value }); setTamanho(null); }} className="block mt-1 w-full rounded-xl border p-3"><option value="">Escolha a origem das questões</option>{candidatos.map((c, i) => <option key={chaveOrigem(c)} value={chaveOrigem(c)}>{c.turma} · Professor {i + 1} · {c.quantidade} questões</option>)}</select></label>}
 
         </div>
-        {selecionado && config.opcoes.length > 0 && <div className="space-y-3 rounded-2xl bg-[#F3EDFF] p-4">
+        {modalidade === 'plataforma' && selecionado && config.opcoes.length > 0 && <div className="space-y-3 rounded-2xl bg-[#F3EDFF] p-4">
           <p className="font-bold">Escolha o tamanho da aventura</p>
           {config.disponivel === 1
             ? <p className="text-sm">Há somente 1 questão liberada: sua aventura terá uma fase com o portal do desafio.</p>
@@ -242,7 +254,8 @@ export function RevisaoAutonoma() {
           <p className="text-sm" data-testid="resumo-configuracao">{necessarias} questões necessárias · {config.disponivel} liberadas pelo professor · cada fase: {estrelas} {estrelas === 1 ? 'estrela' : 'estrelas'} + 1 portal. Sem pressão de tempo.</p>
           {config.disponivel < 12 && <p className="text-xs">Quer uma aventura maior (até 3 fases × 3 estrelas)? Peça ao professor para liberar mais questões.</p>}
         </div>}
-        {selecionado && config.opcoes.length === 0 && <p role="status">Este conteúdo ainda não tem questões liberadas suficientes.</p>}
+        {modalidade === 'plataforma' && selecionado && config.opcoes.length === 0 && <p role="status">Este conteúdo ainda não tem questões liberadas suficientes.</p>}
+        {modalidade !== 'plataforma' && selecionado && <label className="block font-bold">Quantidade de desafios<select aria-label="Quantidade de desafios" value={totalDesafios} disabled={ocupado || pendente} onChange={e => setQuantidadeDesafios(Number(e.target.value))} className="mt-1 block w-full rounded-xl border p-3">{Array.from({length:Math.min(10,quantidade)},(_,i) => <option key={i+1} value={i+1}>{i+1}</option>)}</select><span className="text-sm font-normal">{quantidade} desafios disponíveis · sem cronômetro</span></label>}
         {historico.some(h => h.fase !== 'concluida') && <label className="flex gap-3 text-sm"><input type="checkbox" disabled={ocupado || pendente} checked={novaTentativa} onChange={e => setNovaTentativa(e.target.checked)} />Quero iniciar outra revisão; as anteriores continuam no histórico.</label>}
         <button type="submit" disabled={!selecionado || !configOk || ocupado || pendente} className="rounded-2xl bg-[#6315D9] px-6 py-3 text-white font-black disabled:opacity-40">Começar a jogar →</button>
       </form>}
@@ -257,7 +270,11 @@ export function RevisaoAutonoma() {
         onRepetir={() => pedido.current && executar(pedido.current.path, pedido.current.body)}
         onRecarregar={() => retomar(sessao.id)}
       />}
-      {sessao && sessao.schema !== 2 && sessao.fase !== 'concluida' && <>
+      {sessao?.schema === 3 && sessao.fase !== 'concluida' && <JogoAutonomo sessao={sessao} ocupado={ocupado} pendente={pendente}
+        onResponder={resposta => executar(`sessoes/${sessao.id}/responder`,{ resposta,questaoId:sessao.questao.id,expectedRevision:sessao.revision })}
+        onAvancar={() => executar(`sessoes/${sessao.id}/avancar`,{ expectedRevision:sessao.revision })}
+        onSair={() => { geracao.current++; setSessao(null); }} onRecarregar={() => retomar(sessao.id)} />}
+      {sessao && sessao.schema !== 3 && sessao.schema !== 2 && sessao.fase !== 'concluida' && <>
         <div className="flex flex-wrap justify-between items-center gap-3 rounded-2xl bg-[#F3EDFF] border border-[#E2D9F7] p-4"><strong>{rotuloDisciplina(sessao.disciplina)} · {sessao.conteudo} · Fase {sessao.indice + 1}/{sessao.total}</strong><span>✓ {sessao.acertos} acertos · {sessao.erros} para revisar</span><button type="button" disabled={ocupado || pendente} onClick={() => { geracao.current++; setSessao(null); setDesafio(false); }} className="underline font-bold">Sair e continuar depois</button></div>
         <Plataforma2D key={`${sessao.id}:${sessao.indice}`} fase={sessao.indice + 1} pausado={desafio || ocupado} onDesafio={abrirDesafio} />
         {desafio && <section ref={campo} tabIndex={-1} className="rounded-3xl border-2 border-[#B9A6EF] bg-white p-5 sm:p-7 space-y-4" aria-label="Desafio pedagógico">
@@ -270,7 +287,7 @@ export function RevisaoAutonoma() {
         </section>}
       </>}
       {sessao?.fase === 'concluida' && (sessao.schema !== 2 || verResultado) && <section className="rounded-3xl border-4 border-[#FFE500] bg-[#25104A] text-white p-7 space-y-4"><h2 className="text-3xl font-black text-[#FFE500]">🏆 Aventura concluída!</h2><p>{sessao.acertos} acertos em {sessao.total} desafios · {Math.round(100 * sessao.acertos / sessao.total)}% de aproveitamento</p>{sessao.schema === 2 && <p className="font-bold">{sessao.pontosJogo} pontos de jogo · {sessao.totalFases} {sessao.totalFases === 1 ? 'fase' : 'fases'} (pontos de jogo não valem nota)</p>}<p>Seu resultado foi salvo. Pratique novamente para acompanhar sua evolução.</p><div className="flex flex-wrap gap-3">{sessao.erros > 0 && <button type="button" disabled={ocupado || pendente} onClick={reforcar} className="rounded-xl bg-[#FFE500] text-[#25104A] p-3 font-black disabled:opacity-40">Revisar somente os erros</button>}<button type="button" disabled={ocupado || pendente} onClick={() => setSessao(null)} className="rounded-xl border p-3 font-bold">Escolher outro conteúdo</button></div></section>}
-      {!carregando && <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4"><h2 className="text-2xl font-black">Meu histórico de revisão</h2><p className="text-sm">Últimas 50 revisões. As tentativas anteriores não são sobrescritas.</p>{!historico.length && <p>Sua primeira aventura aparecerá aqui.</p>}<div className="space-y-3">{historico.map(h => <article key={h.id} className="flex flex-wrap justify-between items-center gap-3 rounded-xl border p-4"><div><strong>{rotuloDisciplina(h.disciplina)} · {h.conteudo}</strong><p className="text-sm">{rotuloDificuldade(h.dificuldade)} · {h.progresso}/{h.total} desafios · {h.acertos} acertos · {h.erros} erros{h.schema === 2 ? ` · ${h.pontosJogo} pontos de jogo · ${h.totalFases} ${h.totalFases === 1 ? 'fase' : 'fases'}` : ''}</p><p className="text-xs text-[#5B4B86]">{new Date(h.atualizadoEmMs).toLocaleString('pt-BR')} · {h.fase === 'concluida' ? 'Concluída' : 'Em andamento'}</p></div><button type="button" disabled={ocupado || pendente} onClick={() => retomar(h.id)} className="rounded-xl bg-[#F3EDFF] p-3 font-bold disabled:opacity-40">{h.fase === 'concluida' ? 'Ver resultado' : h.schema === 2 ? 'Continuar aventura' : 'Retomar fase'}</button></article>)}</div></section>}
+      {!carregando && <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-7 space-y-4"><h2 className="text-2xl font-black">Meu histórico de revisão</h2><p className="text-sm">Últimas 50 revisões. As tentativas anteriores não são sobrescritas.</p>{!historico.length && <p>Sua primeira aventura aparecerá aqui.</p>}<div className="space-y-3">{historico.map(h => <article key={h.id} className="flex flex-wrap justify-between items-center gap-3 rounded-xl border p-4"><div><strong>{rotuloDisciplina(h.disciplina)} · {h.conteudo}</strong>{h.schema === 3 && <p className="text-sm font-bold">{obterModalidadeInfo(h.modalidade).nome} · {h.pontosJogo} pontos de jogo · {h.tentativas} tentativas</p>}<p className="text-sm">{rotuloDificuldade(h.dificuldade)} · {h.progresso}/{h.total} desafios · {h.acertos} acertos · {h.erros} erros{h.schema === 2 ? ` · ${h.pontosJogo} pontos de jogo · ${h.totalFases} ${h.totalFases === 1 ? 'fase' : 'fases'}` : ''}</p><p className="text-xs text-[#5B4B86]">{new Date(h.atualizadoEmMs).toLocaleString('pt-BR')} · {h.fase === 'concluida' ? 'Concluída' : 'Em andamento'}</p></div><button type="button" disabled={ocupado || pendente} onClick={() => retomar(h.id)} className="rounded-xl bg-[#F3EDFF] p-3 font-bold disabled:opacity-40">{h.fase === 'concluida' ? 'Ver resultado' : h.schema === 2 ? 'Continuar aventura' : 'Retomar fase'}</button></article>)}</div></section>}
     </div>
   </main>;
 }

@@ -594,3 +594,10 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **PDF-CICLO-01:** extração digital/escaneada libera `PDFDocumentLoadingTask` (API PDF.js 6); sucesso não se perde na limpeza; falha de carregamento ou de extração também libera tarefa. Regressão: `tests/unit/pdf_extracao_ciclo_vida.test.js`.
 
 - **LIVRE-SELECAO-01:** rótulo Arte preserva valor legado; conteúdo único e dificuldade independente, níveis disponíveis, quantidade/configuração por seleção, origem explícita entre professores, reset e invalidação após atualização de catálogo. Testes: `SelecaoConteudo.test.jsx`. Ajuste apenas dos seletores antigos autorizado pelo usuário em 24/11/2026.
+
+### Aula Gamificada unificada
+- **GAME-UNICO-01:** uma entrada por público, três áreas, rotas de atalhos preservadas.
+- **GAME-SOLO-01:** nove modalidades criam sessões schema 3 com conteúdo compatível; pares/ordenação liberados explicitamente, abertas recusadas; V1/V2 inalterados.
+- **GAME-SOLO-02:** ações corrigidas no servidor, estados por modalidade, feedback/retomada/histórico e conclusão sem comandos docentes.
+- **GAME-SOLO-03:** gabaritos/faces/futuros privados, vínculo revalidado, isolamento, idempotência de ações, conflito e rejeição de envio malformado sem escrita em notas.
+- **GAME-SALA-01:** plataforma em sala apresenta percurso e portal para a questão corrente, respeita fase/comandos/revisão/permissões de Quiz; nove modalidades antigas intactas.

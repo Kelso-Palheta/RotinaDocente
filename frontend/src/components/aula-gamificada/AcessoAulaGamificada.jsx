@@ -10,7 +10,7 @@ import { MODALIDADES_PADRAO } from './constantes';
 export function AcessoAulaGamificada({ aluno = false }) {
   const destino = aluno ? '/aluno/aula-gamificada' : AULA_GAMIFICADA_MODULE.path;
   const descricao = aluno
-    ? 'Participe de quizzes, memória, associação, ordenação e desafios em equipe com o código da turma.'
+    ? 'Revisão interativa, salas de jogos e treino individual em um só lugar.'
     : AULA_GAMIFICADA_MODULE.descricao;
 
   return (
@@ -35,7 +35,7 @@ export function AcessoAulaGamificada({ aluno = false }) {
         </span>
       </div>
       <span className="rounded-xl bg-[#6315D9] px-4 py-2.5 text-sm font-extrabold text-white transition group-hover:bg-[#5411B8]">
-        {aluno ? 'Entrar na sala →' : 'Abrir Aula Gamificada →'}
+        Abrir Aula Gamificada →
       </span>
     </Link>
   );

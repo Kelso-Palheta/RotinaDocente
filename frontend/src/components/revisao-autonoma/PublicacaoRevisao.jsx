@@ -8,7 +8,7 @@ export function PublicacaoRevisao({ questao, turmas = [], obterToken, onAtualiza
   const [mensagem, setMensagem] = useState('');
   const ativo = useRef(true);
   useEffect(() => { ativo.current = true; return () => { ativo.current = false; }; }, []);
-  if (questao.status !== 'revisada' || questao.tipo !== 'multipla_escolha') return null;
+  if (questao.status !== 'revisada' || !['multipla_escolha','pares','ordenacao'].includes(questao.tipo)) return null;
   const salvar = async () => {
     if (ocupado) return;
     setOcupado(true); setMensagem('');

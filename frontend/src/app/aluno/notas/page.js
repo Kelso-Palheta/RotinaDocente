@@ -1,10 +1,8 @@
 "use client";
 
-import { AcessoRevisaoAutonoma } from '@/components/revisao-autonoma/AcessoRevisaoAutonoma';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getNotasAluno, getAtividadesDoAluno, getEntregasDoAluno, getRedacaoAluno } from '@/lib/firebase-aluno';
-import { AcessoRevisao } from '@/components/revisao/AcessoRevisao';
 import { AcessoAulaGamificada } from '@/components/aula-gamificada/AcessoAulaGamificada';
 import { DevolutivasAluno } from '@/components/aluno/DevolutivasAluno';
 import { montarHistoricoFeedback, rotuloPeriodo } from '@/dominio/atividades/correcaoManual';
@@ -241,9 +239,7 @@ export default function AlunoNotasPage() {
   return (
     <div className="arte-pagina min-h-screen font-sans selection:bg-[#6315d9] selection:text-white">
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-10">
-        <AcessoRevisao aluno />
         <AcessoAulaGamificada aluno />
-        <AcessoRevisaoAutonoma />
 
         {/* Header de Navegação */}
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2">

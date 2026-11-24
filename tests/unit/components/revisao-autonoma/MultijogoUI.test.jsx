@@ -1,0 +1,22 @@
+import React from 'react';
+import { afterEach, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { RevisaoAutonoma } from '@/components/revisao-autonoma/RevisaoAutonoma';
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
+it('aluno escolhe modalidade e inicia treino com quantidade compatível, mantendo os campos independentes', async () => {
+  const c = { professorId:'p1', turma:'Teste', disciplina:'História', conteudo:'Patrimônio', dificuldade:'facil', quantidade:2, tipo:'pares', modalidades:['memoria','associacao'] };
+  const fetcher = vi.fn(async (url,init) => new Response(JSON.stringify(init?.method === 'POST' ? { error:'Pedido conferido' } : url.endsWith('/catalogo') ? { conteudos:[], jogos:[c] } : { sessoes:[] }),{ status:init?.method === 'POST' ? 422 : 200 }));
+  vi.stubGlobal('fetch',fetcher);
+  render(<RevisaoAutonoma />); await screen.findByText('Prepare sua aventura');
+  const modo = screen.getByLabelText('Jogo');
+  expect(modo.options).toHaveLength(10);
+  fireEvent.change(modo,{ target:{ value:'memoria' } });
+  fireEvent.change(screen.getByLabelText('Disciplina'),{ target:{ value:'História' } });
+  fireEvent.change(screen.getByLabelText('Conteúdo'),{ target:{ value:'Patrimônio' } });
+  fireEvent.change(screen.getByLabelText('Quantidade de desafios'),{ target:{ value:'2' } });
+  fireEvent.click(screen.getByRole('button',{ name:/Começar a jogar/ }));
+  await screen.findByText('Pedido conferido');
+  const pedido = JSON.parse(fetcher.mock.calls.find(([,i]) => i?.method === 'POST')[1].body);
+  expect(pedido).toMatchObject({ modalidade:'memoria', quantidade:2, professorId:'p1' });
+  expect(pedido.fases).toBeUndefined();
+});

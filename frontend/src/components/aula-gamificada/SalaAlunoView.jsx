@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Plataforma2D } from '@/components/revisao-autonoma/Plataforma2D';
 import { RenderTextoSeguro } from './RenderTextoSeguro';
 import { useCronometroServidor } from './useSalaGamificada';
 import {
@@ -69,6 +70,9 @@ export function SalaAlunoView({
 
   const chaveRodada = `${estado?.codigo || ''}:${estado?.rodada || 0}:${questao?.id || ''}`;
   const contextoAv = derivarContextoAudiovisual(estado, segundos, 'aluno');
+  const [portalRodada, setPortalRodada] = useState(null);
+  const emPlataforma = estado.experiencia === 'plataforma' && estado.modalidade === 'quiz';
+  const portalLiberado = portalRodada === chaveRodada;
   const modoTemPalcoProprio = estado.modalidade === 'herois' || estado.modalidade === 'tabuleiro' || estado.modalidade === 'natacao';
 
   return (
@@ -200,7 +204,8 @@ export function SalaAlunoView({
       )}
 
       {/* FASE: PERGUNTA (modalidades compatíveis) */}
-      {fase === 'pergunta' && questao && (
+      {fase === 'pergunta' && questao && emPlataforma && !portalLiberado && <section aria-label="Plataforma em sala" className="space-y-3"><p className="rounded-xl bg-[#FFE500] p-3 font-bold text-[#25104A]">Atravesse o percurso até o portal para responder à questão desta rodada.</p><Plataforma2D key={chaveRodada} fase={estado.rodada} pausado={prazoEncerrado || ocupado} onDesafio={() => setPortalRodada(chaveRodada)} /></section>}
+      {fase === 'pergunta' && questao && (!emPlataforma || portalLiberado) && (
         <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-6 space-y-5 shadow-xs">
           <div className="flex flex-wrap items-center gap-2">
             {questao.disciplina && (

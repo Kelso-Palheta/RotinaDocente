@@ -181,7 +181,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2.5">
             <Link
-              href="/aula-gamificada"
+              href="/aula-gamificada/salas"
               className="min-h-10 inline-flex items-center rounded-xl border border-[#B9A6EF]/50 px-3 py-1.5 text-xs font-bold text-white hover:bg-white/10"
             >
               ← Aula Gamificada

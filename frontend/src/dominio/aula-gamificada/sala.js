@@ -378,6 +378,7 @@ export function projetarEstado({
     ['ranking', 'encerrada'].includes(sala.fase) && revelado
       ? calcularRanking(participantes, {
           modalidade: sala.modalidade,
+      ...(sala.experiencia === 'plataforma' ? { experiencia: 'plataforma' } : {}),
           formatoParticipacao: sala.formatoParticipacao,
           modoRespostaGrupo: sala.modoRespostaGrupo,
           equipes: sala.equipes || [],
@@ -443,6 +444,7 @@ export function projetarEstado({
       codigo: sala.codigo,
       titulo: sala.titulo,
       modalidade: sala.modalidade,
+      ...(sala.experiencia === 'plataforma' ? { experiencia: 'plataforma' } : {}),
       ...(sala.formatoParticipacao ? { formatoParticipacao: sala.formatoParticipacao } : {}),
       ...(sala.modoRespostaGrupo ? { modoRespostaGrupo: sala.modoRespostaGrupo } : {}),
       finalidade: sala.finalidade || 'revisao',
@@ -556,8 +558,15 @@ export function validarCodigoSala(valor) {
   return segmento(valor, { campo: 'Código da sala', max: 12 });
 }
 
+export function validarExperienciaSala(config) {
+  if (config.experiencia != null && !['padrao','plataforma'].includes(config.experiencia)) throw falha(422, 'Experiência de jogo inválida.');
+  if (config.experiencia === 'plataforma' && config.modalidade !== 'quiz') throw falha(422, 'A plataforma em sala precisa da modalidade Quiz.');
+  return config.experiencia === 'plataforma' ? 'plataforma' : 'padrao';
+}
+
 export function validarConfiguracaoSala(config, turmas, questoes) {
   if (!config || typeof config !== 'object') throw falha(422, 'Configuração da sala inválida.');
+  validarExperienciaSala(config);
   const titulo = String(config.titulo ?? '').trim();
   if (!titulo) throw falha(422, 'Informe o título da sala.');
   const turmaIds = listaObrigatoria(config.turmaIds, 'turmas', { min: 1, max: 30 }).map((id) =>

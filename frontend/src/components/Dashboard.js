@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import { AcessoRevisao } from "@/components/revisao/AcessoRevisao";
 import { AcessoAulaGamificada } from "@/components/aula-gamificada/AcessoAulaGamificada";
 import { PLATFORM_MODULES } from "@/config/modules";
 import { temAcessoAoModulo } from "@/utils/hasModule";
@@ -245,7 +244,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <AcessoRevisao />
         <AcessoAulaGamificada />
 
         {/* Seção de Módulos */}

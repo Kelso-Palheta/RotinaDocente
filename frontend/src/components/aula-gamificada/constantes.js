@@ -538,6 +538,7 @@ export function normalizarEstadoSala(bruto) {
     revision: Number(bruto.revision ?? sala?.revision ?? 0),
     titulo: bruto.titulo ?? sala?.titulo ?? '',
     modalidade,
+    experiencia: bruto.experiencia ?? sala?.experiencia ?? 'padrao',
     formatoParticipacao,
     modoRespostaGrupo,
     finalidade: bruto.finalidade ?? sala?.finalidade ?? 'revisao',
