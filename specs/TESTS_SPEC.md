@@ -590,3 +590,5 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **LIVRE-V2-05 (áudio/feedback):** um controlador por aparelho, autoplay bloqueado, mute preservado, idempotência do feedback, nove modalidades + autônomo sem décima modalidade.
 
 - **AUDIO-MOBILE-01:** iPhone `interrupted` retoma no gesto; falha permanece visível; reprodução de mídia começa antes de aguardar `resume`; interrupções posteriores reexibem ativação. Regressão: `tests/unit/audio_mobile_desbloqueio.test.js`.
+
+- **PDF-CICLO-01:** extração digital/escaneada libera `PDFDocumentLoadingTask` (API PDF.js 6); sucesso não se perde na limpeza; falha de carregamento ou de extração também libera tarefa. Regressão: `tests/unit/pdf_extracao_ciclo_vida.test.js`.

@@ -60,11 +60,12 @@ export async function extrairArquivoPDF(file, options = {}) {
   }
   const { getPdfjsLib } = await import('@/utils/atividades/pdfExtractor');
   const pdfjs = await getPdfjsLib();
-  const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+  const tarefa = pdfjs.getDocument({ data: await file.arrayBuffer() });
   try {
+    const pdf = await tarefa.promise;
     return await extrairPDFVisual(pdf, options);
   } finally {
-    await pdf.destroy();
+    await tarefa.destroy();
   }
 }
 
