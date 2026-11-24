@@ -87,7 +87,7 @@ describe('Configuração pedagógica V2', () => {
   it('usa 3 fases × 3 estrelas quando há 12 questões', () => {
     const o = opcoesConfiguracao(12);
     expect(o.sugerida).toEqual({ fases: 3, estrelasPorFase: 3, necessarias: 12 });
-    expect(o.opcoes).toHaveLength(9);
+    expect(o.opcoes).toHaveLength(13);
   });
   it('só oferece o que a disponibilidade permite, sem fabricar questões', () => {
     const o = opcoesConfiguracao(7);
@@ -100,9 +100,9 @@ describe('Configuração pedagógica V2', () => {
     expect(opcoesConfiguracao(1).opcoes).toEqual([{ fases: 1, estrelasPorFase: 0, necessarias: 1 }]);
     expect(opcoesConfiguracao(0).opcoes).toEqual([]);
   });
-  it('limita a 12 questões e a 3 fases', () => {
+  it('limita a 24 questões e a 6 fases', () => {
     const o = opcoesConfiguracao(50);
-    expect(Math.max(...o.opcoes.map((c) => c.necessarias))).toBe(12);
+    expect(Math.max(...o.opcoes.map((c) => c.necessarias))).toBe(24);
   });
   it('distribui reforço dos erros em fases com portal', () => {
     expect(distribuirReforco(1)).toEqual([1]);

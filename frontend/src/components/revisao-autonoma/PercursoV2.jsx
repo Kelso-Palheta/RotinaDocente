@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import { criarJogador, passoFisica } from '@/dominio/revisao-autonoma/plataforma';
+import { useSpriteAvatar, desenharAvatar } from './spritesAvatar';
+import { avatarPorId } from '@/dominio/revisao-autonoma/avatares';
 import { criarMundoV2 } from '@/dominio/revisao-autonoma/plataformaV2';
 
 const LARGURA_TELA = 900;
@@ -39,8 +41,11 @@ function desenharDecor(ctx, area, camera, tempo, reduzir) {
  * Percurso V2: personagem, câmera e estrelas persistem durante a fase; o Canvas só é remontado quando a fase física muda.
  * Estado dos eventos (resolvido, aberto, portal liberado) chega por ref e nunca reinicia a simulação.
  */
-export function PercursoV2({ sessaoId, fase, eventos, portalLiberado, pausado, entradaRef, onEvento, onPortalFechado, onSom, reduzirAnimacao = false, rotuloAcessivel }) {
+export function PercursoV2({ sessaoId, fase, avatarId, layoutVersao = 2, eventos, portalLiberado, pausado, entradaRef, onEvento, onPortalFechado, onSom, reduzirAnimacao = false, rotuloAcessivel }) {
   const canvas = useRef(null);
+  const sprite = useSpriteAvatar(avatarId);
+  const avatarRef = useRef(avatarId);
+  useEffect(() => { avatarRef.current = avatarId; }, [avatarId]);
   const vivo = useRef({ eventos, portalLiberado, pausado, onEvento, onPortalFechado, onSom, reduzirAnimacao });
   useEffect(() => { vivo.current = { eventos, portalLiberado, pausado, onEvento, onPortalFechado, onSom, reduzirAnimacao }; });
   const nEstrelas = eventos.filter((e) => e.tipo === 'estrela').length;
@@ -50,7 +55,7 @@ export function PercursoV2({ sessaoId, fase, eventos, portalLiberado, pausado, e
     const ctx = tela?.getContext?.('2d');
     if (!ctx) return undefined;
     const entradaAtual = entradaRef.current;
-    const mundo = criarMundoV2(fase, nEstrelas);
+    const mundo = criarMundoV2(fase, nEstrelas, layoutVersao);
     let p = criarJogador(mundo);
     const salvo = lerPosicao(sessaoId, fase);
     if (salvo) { p = { ...p, x: salvo.x, checkpoint: { x: salvo.cp, y: mundo.chao - p.h } }; }
@@ -109,13 +114,7 @@ export function PercursoV2({ sessaoId, fase, eventos, portalLiberado, pausado, e
       ctx.fillStyle = v.portalLiberado ? '#6315D9' : '#334155'; ctx.fillRect(portal.x + 7, 320, 54, 100);
       ctx.fillStyle = '#FFE500'; ctx.font = 'bold 36px sans-serif'; ctx.fillText(v.portalLiberado ? '?' : '🔒', portal.x + (v.portalLiberado ? 23 : 18), 380);
       ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 16px sans-serif'; ctx.fillText('PORTAL', portal.x + 2, 300);
-      // Explorador
-      ctx.fillStyle = '#FFE500'; ctx.fillRect(p.x + 3, p.y + 20, 22, 19);
-      ctx.fillStyle = '#B9EF00'; ctx.fillRect(p.x - 5, p.y + 22, 10, 12);
-      ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(p.x + 14, p.y + 13, 15, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#00DDEB'; ctx.fillRect(p.x + 9, p.y + 8, 18, 11);
-      ctx.fillStyle = '#25104A'; ctx.fillRect(p.x + 22, p.y + 10, 3, 4);
-      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(p.x + 3, p.y + 37, 8, 7); ctx.fillRect(p.x + 17, p.y + 37, 8, 7);
+      desenharAvatar(ctx, p, sprite.current, avatarRef.current);
       ctx.restore();
       // Minimapa do percurso
       const mx = 250; const mw = 400;
@@ -177,10 +176,11 @@ export function PercursoV2({ sessaoId, fase, eventos, portalLiberado, pausado, e
     frame = requestAnimationFrame(loop);
     return () => { cancelAnimationFrame(frame); limparEntradaLocal(entradaAtual); };
     // Dependências físicas apenas: eventos/portal chegam por ref e não reiniciam personagem ou câmera.
-  }, [sessaoId, fase, nEstrelas, entradaRef]);
+  }, [sessaoId, fase, nEstrelas, entradaRef, layoutVersao, sprite]);
 
   return (
     <canvas
+      data-avatar={avatarPorId(avatarId).id}
       ref={canvas}
       width={LARGURA_TELA}
       height={ALTURA_TELA}

@@ -3,8 +3,8 @@
  * Posições físicas são apresentação: nada aqui altera acertos, pontos ou notas.
  */
 export const PONTOS_ACERTO = 100;
-export const MAX_QUESTOES_V2 = 12;
-export const MAX_FASES_V2 = 3;
+export const MAX_QUESTOES_V2 = 24;
+export const MAX_FASES_V2 = 6;
 export const MAX_ESTRELAS_POR_FASE = 3;
 
 /** Opções válidas para N questões liberadas. Nunca exige mais do que o disponível. */
@@ -22,7 +22,7 @@ export function opcoesConfiguracao(disponivel) {
       if (necessarias <= Math.min(n, MAX_QUESTOES_V2)) opcoes.push({ fases, estrelasPorFase, necessarias });
     }
   }
-  const sugerida = [...opcoes].sort((a, b) => b.necessarias - a.necessarias || b.fases - a.fases)[0] || null;
+  const sugerida = [...opcoes].sort((a, b) => b.necessarias - a.necessarias || b.estrelasPorFase - a.estrelasPorFase || b.fases - a.fases)[0] || null;
   return { disponivel: n, opcoes, sugerida };
 }
 
@@ -61,24 +61,26 @@ const PADROES = [
   { plat: [[330, 345, 190], [610, 290, 180]], espinhos: [150, 980], estrelaEm: 0 },
 ];
 const SLOTS_ESTRELAS = { 1: [2], 2: [1, 3], 3: [0, 2, 4] };
+const SLOTS_NOVOS = { 1: [0], 2: [0, 2], 3: [0, 2, 4] };
 
 /** Percurso V2 (≈5.700 px) com `estrelas` estrelas-desafio distribuídas entre as áreas. */
-export function criarMundoV2(fase = 1, estrelas = 3) {
+export function criarMundoV2(fase = 1, estrelas = 3, layoutVersao = 3) {
   const desloc = (fase % 3) * 10;
   const plataformas = [];
   const obstaculos = [];
   const candidatas = [];
-  PADROES.forEach((padrao, k) => {
+  PADROES.forEach((original, k) => {
+    const padrao = layoutVersao === 3 && fase > 3 ? PADROES[(k + 1) % PADROES.length] : original;
     const b = k * AREA;
     padrao.plat.forEach(([x, y, w], i) => {
       const yy = y < 345 ? y - desloc : y;
       plataformas.push({ x: b + x, y: yy, w, h: 28, area: k });
-      if (i === padrao.estrelaEm) candidatas[k] = { x: b + x + w / 2, y: yy - 45, area: k };
+      if (i === (layoutVersao === 3 ? 0 : padrao.estrelaEm)) candidatas[k] = { x: b + x + w / 2, y: yy - 45, area: k };
     });
     padrao.espinhos.forEach((x) => obstaculos.push({ x: b + x, y: CHAO - 26, w: x % 2 ? 46 : 44, h: 26 }));
   });
   const n = Math.max(0, Math.min(MAX_ESTRELAS_POR_FASE, Math.floor(estrelas)));
-  const slots = SLOTS_ESTRELAS[n] || [];
+  const slots = (layoutVersao === 3 ? SLOTS_NOVOS : SLOTS_ESTRELAS)[n] || [];
   return {
     largura: LARGURA, altura: 480, chao: CHAO,
     areas: AREAS_V2.map((a, k) => ({ ...a, x: k * AREA, w: k === AREAS_V2.length - 1 ? LARGURA - k * AREA : AREA })),

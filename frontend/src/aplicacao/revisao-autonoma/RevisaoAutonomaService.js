@@ -1,8 +1,9 @@
+import { validarAvatar, AVATAR_PADRAO } from '@/dominio/revisao-autonoma/avatares';
 import { MODALIDADES, obterModalidade } from '@/dominio/aula-gamificada/modalidades';
 import { criarSessaoJogos, projetarJogos, resumoJogos, aplicarAcaoJogos } from './sessaoJogos';
 import { embaralhar, falha, idPadrao, inteiroFaixa, segmento, textoObrigatorio } from '@/dominio/aula-gamificada/comum';
 import { validarParaRevisao } from '@/dominio/aula-gamificada/questoes';
-import { configuracaoValida, distribuirReforco, MAX_QUESTOES_V2 } from '@/dominio/revisao-autonoma/plataformaV2';
+import { configuracaoValida, distribuirReforco, MAX_QUESTOES_V2, MAX_FASES_V2 } from '@/dominio/revisao-autonoma/plataformaV2';
 import { LIMITE_BYTES_SESSAO, aplicarAcaoV2, assinaturaV2, montarFasesV2, projetarV2, resumoV2, tamanhoEmBytes } from './sessaoV2';
 
 const raiz = key => `revisaoAutonomaAlunos/${key}`;
@@ -114,12 +115,14 @@ export class RevisaoAutonomaService {
     const dificuldade = textoObrigatorio(body.dificuldade, 'dificuldade', { max: 20 });
     const modoJogo = body.modalidade ? obterModalidade(body.modalidade).id : null;
     const v2Pedido = !modoJogo && body.fases !== undefined && !body.repetirSessaoId;
-    const fasesPedidas = v2Pedido ? inteiroFaixa(body.fases, 'fases', { min: 1, max: 3 }) : null;
+    const avatarPedido = v2Pedido ? validarAvatar(body.avatarId) : null;
+    const fasesPedidas = v2Pedido ? inteiroFaixa(body.fases, 'fases', { min: 1, max: MAX_FASES_V2 }) : null;
     const estrelasPedidas = v2Pedido ? inteiroFaixa(body.estrelasPorFase, 'estrelas por fase', { min: 0, max: 3 }) : null;
     const quantidade = v2Pedido ? null : inteiroFaixa(body.quantidade, 'quantidade', { min: 1, max: 10 });
-    const assinatura = modoJogo ? JSON.stringify(['jogo',modoJogo,uid,disciplina,conteudo,dificuldade,quantidade,body.novaTentativa===true,body.repetirSessaoId || null]) : v2Pedido
+    let assinatura = modoJogo ? JSON.stringify(['jogo',modoJogo,uid,disciplina,conteudo,dificuldade,quantidade,body.novaTentativa===true,body.repetirSessaoId || null]) : v2Pedido
       ? JSON.stringify(['v2', uid, disciplina, conteudo, dificuldade, fasesPedidas, estrelasPedidas, body.novaTentativa === true])
       : JSON.stringify([uid, disciplina, conteudo, dificuldade, quantidade, body.repetirSessaoId || null, body.novaTentativa === true]);
+    if (v2Pedido && body.avatarId !== undefined) assinatura = JSON.stringify([...JSON.parse(assinatura), 'avatar', avatarPedido]);
     const reqPath = `${raiz(key)}/requisicoes/criar_${req}`;
     return this.store.transaction(async tx => {
       const turma = await this.autorizar(key, uid, tx);
@@ -137,11 +140,13 @@ export class RevisaoAutonomaService {
       }
       let questoes = (await tx.list(questoesPath(uid), [['revisaoAutonomaLiberada', '==', true]])).filter(q => elegivel(q, turma.id, modoJogo) && q.disciplina === disciplina && q.conteudo === conteudo && q.dificuldade === dificuldade);
       let v2 = v2Pedido;
+      let avatarOrigem = AVATAR_PADRAO;
       if (body.repetirSessaoId) {
         const origem = await this.lerSessao(key, body.repetirSessaoId, tx);
         if (origem.professorId !== uid || origem.fase !== 'concluida') throw falha(422, 'Conclua a revisão original antes de praticar seus erros.');
         if (origem.schema === 3 && origem.modalidade !== modoJogo) throw falha(422, 'Mantenha o jogo original para revisar os erros.');
         v2 = origem.schema === 2;
+        if (v2) avatarOrigem = validarAvatar(origem.avatarId);
         const erros = new Set(v2 ? origem.fases.flatMap(f => f.eventos).filter(e => e.estado === 'concluido' && !e.correta).map(e => e.questaoId) : origem.respostas.filter(r => !r.correta).map(r => r.questaoId));
         questoes = questoes.filter(q => erros.has(q.id));
       }
@@ -169,7 +174,7 @@ export class RevisaoAutonomaService {
         const total = contagens.reduce((a, b) => a + b, 0);
         const escolhidas = embaralhar(questoes, id).slice(0, total).map(q => ({ ...q, alternativas: embaralhar(q.alternativas, `${id}:${q.id}`) }));
         for (const q of escolhidas) validarParaRevisao(q);
-        const s = { schema: 2, id, professorId: uid, turmaId: String(turma.id), disciplina, conteudo, dificuldade, questoes: escolhidas, fases: montarFasesV2(escolhidas, contagens), faseIndice: 0, abertoId: null, pontosJogo: 0, revision: 1, fase: 'jogando', criadoEmMs: this.agora(), atualizadoEmMs: this.agora() };
+        const s = { schema: 2, avatarId: avatarPedido || avatarOrigem, layoutVersao: 3, id, professorId: uid, turmaId: String(turma.id), disciplina, conteudo, dificuldade, questoes: escolhidas, fases: montarFasesV2(escolhidas, contagens), faseIndice: 0, abertoId: null, pontosJogo: 0, revision: 1, fase: 'jogando', criadoEmMs: this.agora(), atualizadoEmMs: this.agora() };
         if (tamanhoEmBytes(s) > LIMITE_BYTES_SESSAO) throw falha(422, 'A aventura ficou grande demais. Escolha uma configuração menor.');
         tx.set(sessaoPath(key, id), s);
         tx.set(raiz(key), { ...perfil, criacoesRecentes: [...criacoesRecentes, this.agora()], ativaId: id, historico: [this.resumo(s), ...(perfil.historico || [])].slice(0, 50) });

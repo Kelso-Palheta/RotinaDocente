@@ -150,7 +150,7 @@ function PalcoAventura({ sessao, ocupado, pendente, erro, emJogo, setEmJogo, onA
         <div className="space-y-4 text-center">
           <h2 className="text-2xl font-black text-[#FFE500] sm:text-3xl">Sua aventura está pronta!</h2>
           <p>{rotuloDisciplina(sessao.disciplina)} · {sessao.conteudo} · {sessao.totalFases} {sessao.totalFases === 1 ? 'fase' : 'fases'} · {sessao.total} desafios</p>
-          <p className="text-sm text-[#E7DBFD]">Estrelas escondem perguntas pelo caminho; o portal guarda o desafio final de cada fase. Pontos de jogo e estrelas não valem nota.</p>
+          <p className="text-sm text-[#E7DBFD]">{sessao.estrelasTotal ? 'Estrelas escondem perguntas pelo caminho; o portal guarda o desafio final de cada fase.' : 'Esta fase tem apenas o portal: não há perguntas suficientes para estrelas-desafio.'} Pontos de jogo e estrelas não valem nota.</p>
           <p className="text-sm text-[#E7DBFD]">Ao tocar, o jogo abre em tela cheia e ativa o som. Para melhor experiência, use o celular deitado (paisagem).</p>
           <div className="flex flex-wrap justify-center gap-3">
             <button type="button" onClick={entrar} className="min-h-14 rounded-2xl bg-[#FFE500] px-8 py-3 text-xl font-black text-[#25104A]">{rotuloEntrar} ▶</button>
@@ -174,6 +174,8 @@ function PalcoAventura({ sessao, ocupado, pendente, erro, emJogo, setEmJogo, onA
               key={`${sessao.id}:${sessao.faseAtual}`}
               sessaoId={sessao.id}
               fase={sessao.faseAtual}
+              avatarId={sessao.avatarId}
+              layoutVersao={sessao.layoutVersao}
               eventos={sessao.eventos}
               portalLiberado={sessao.portalLiberado}
               pausado={pausado}

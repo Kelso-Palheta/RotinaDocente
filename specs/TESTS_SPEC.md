@@ -601,3 +601,5 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **GAME-SOLO-02:** ações corrigidas no servidor, estados por modalidade, feedback/retomada/histórico e conclusão sem comandos docentes.
 - **GAME-SOLO-03:** gabaritos/faces/futuros privados, vínculo revalidado, isolamento, idempotência de ações, conflito e rejeição de envio malformado sem escrita em notas.
 - **GAME-SALA-01:** plataforma em sala apresenta percurso e portal para a questão corrente, respeita fase/comandos/revisão/permissões de Quiz; nove modalidades antigas intactas.
+
+- **AVENTURA-AVATAR-01:** seis fases/24 questões com validação de disponibilidade; primeira estrela visível no layout novo e layout antigo preservado; oito avatares originais locais, seleção/snapshot/retomada, rejeição de ID inválido, renderer sem mudar física. Autorizada em 24/11/2026 somente adaptação de expectativas antigas dos limites/configurações.

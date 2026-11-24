@@ -1,3 +1,4 @@
+import { avatarPorId } from '@/dominio/revisao-autonoma/avatares';
 import { falha } from '@/dominio/aula-gamificada/comum';
 import { PONTOS_ACERTO, criarMundoV2 } from '@/dominio/revisao-autonoma/plataformaV2';
 
@@ -26,13 +27,13 @@ const todosEventos = (s) => s.fases.flatMap((f) => f.eventos);
 
 export function resumoV2(s) {
   const ev = todosEventos(s).filter(concluidoOuRespondido);
-  return { id: s.id, schema: 2, professorId: s.professorId, turmaId: s.turmaId, disciplina: s.disciplina, conteudo: s.conteudo, dificuldade: s.dificuldade, fase: s.fase, progresso: ev.length, total: todosEventos(s).length, acertos: ev.filter((e) => e.correta).length, erros: ev.filter((e) => !e.correta).length, pontosJogo: s.pontosJogo, totalFases: s.fases.length, faseAtual: s.faseIndice + 1, atualizadoEmMs: s.atualizadoEmMs };
+  return { id: s.id, schema: 2, avatarId: avatarPorId(s.avatarId).id, professorId: s.professorId, turmaId: s.turmaId, disciplina: s.disciplina, conteudo: s.conteudo, dificuldade: s.dificuldade, fase: s.fase, progresso: ev.length, total: todosEventos(s).length, acertos: ev.filter((e) => e.correta).length, erros: ev.filter((e) => !e.correta).length, pontosJogo: s.pontosJogo, totalFases: s.fases.length, faseAtual: s.faseIndice + 1, atualizadoEmMs: s.atualizadoEmMs };
 }
 
 export function projetarV2(s) {
   const fase = s.fases[s.faseIndice];
   const estrelas = fase.eventos.filter((e) => e.tipo === 'estrela');
-  const mundo = criarMundoV2(s.faseIndice + 1, estrelas.length);
+  const mundo = criarMundoV2(s.faseIndice + 1, estrelas.length, s.layoutVersao === 3 ? 3 : 2);
   const eventos = fase.eventos.map((e) => {
     const pos = e.tipo === 'portal' ? mundo.portal : mundo.estrelas[estrelas.indexOf(e)];
     return { id: e.id, tipo: e.tipo, estado: e.estado, ...(concluidoOuRespondido(e) ? { correta: e.correta } : {}), x: pos.x, y: pos.y };
@@ -42,7 +43,7 @@ export function projetarV2(s) {
   const aberto = s.fase !== 'concluida' ? fase.eventos.find((e) => e.id === s.abertoId) : null;
   const q = aberto && s.questoes.find((x) => x.id === aberto.questaoId);
   return {
-    schema: 2, id: s.id, revision: s.revision, fase: s.fase, faseAtual: s.faseIndice + 1, totalFases: s.fases.length,
+    schema: 2, avatarId: avatarPorId(s.avatarId).id, layoutVersao: s.layoutVersao === 3 ? 3 : 2, id: s.id, revision: s.revision, fase: s.fase, faseAtual: s.faseIndice + 1, totalFases: s.fases.length,
     disciplina: s.disciplina, conteudo: s.conteudo, dificuldade: s.dificuldade, eventos,
     estrelasTotal: estrelas.length, estrelasRespondidas: estrelas.filter((e) => e.estado === 'concluido').length,
     portalLiberado: estrelas.every((e) => e.estado === 'concluido'),

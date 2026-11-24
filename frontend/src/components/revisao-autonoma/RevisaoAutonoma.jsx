@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { rotuloDisciplina } from './rotulos';
 import { Plataforma2D } from './Plataforma2D';
+import { SeletorAvatar } from './SeletorAvatar';
+import { AVATAR_PADRAO } from '@/dominio/revisao-autonoma/avatares';
 import { JogoAutonomo } from './JogoAutonomo';
 import { MODALIDADES_PADRAO, obterModalidadeInfo } from '@/components/aula-gamificada/constantes';
 import { AventuraV2 } from './AventuraV2';
@@ -21,6 +23,7 @@ export function RevisaoAutonoma() {
   const [filtros, setFiltros] = useState({ modalidade: 'plataforma', disciplina: '', conteudo: '', dificuldade: '', origem: '' });
   const { modalidade, disciplina, conteudo, dificuldade, origem } = filtros;
   const [tamanho, setTamanho] = useState(null);
+  const [avatarId, setAvatarId] = useState(AVATAR_PADRAO);
   const [verResultado, setVerResultado] = useState(false);
   const [novaTentativa, setNovaTentativa] = useState(false);
   const [sessao, setSessao] = useState(null);
@@ -214,7 +217,7 @@ export function RevisaoAutonoma() {
   const totalDesafios = Math.min(quantidadeDesafios, quantidade, 10);
   const iniciar = e => {
     e.preventDefault();
-    if (selecionado && configOk) executar('sessoes', modalidade === 'plataforma' ? { ...selecionado, fases, estrelasPorFase: estrelas, novaTentativa } : { ...selecionado, modalidade, quantidade: totalDesafios, novaTentativa });
+    if (selecionado && configOk) executar('sessoes', modalidade === 'plataforma' ? { ...selecionado, fases, estrelasPorFase: estrelas, novaTentativa, avatarId } : { ...selecionado, modalidade, quantidade: totalDesafios, novaTentativa });
   };
   const reforcar = () => {
     const atual = historico.find(h => h.id === sessao.id);
@@ -246,16 +249,17 @@ export function RevisaoAutonoma() {
         {modalidade === 'plataforma' && selecionado && config.opcoes.length > 0 && <div className="space-y-3 rounded-2xl bg-[#F3EDFF] p-4">
           <p className="font-bold">Escolha o tamanho da aventura</p>
           {config.disponivel === 1
-            ? <p className="text-sm">Há somente 1 questão liberada: sua aventura terá uma fase com o portal do desafio.</p>
+            ? <p className="text-sm">Há somente 1 questão liberada: sua aventura terá uma fase com o portal do desafio, sem estrelas-desafio. Para ter estrelas com perguntas, peça ao professor para liberar pelo menos mais uma questão deste assunto e nível.</p>
             : <div className="flex flex-wrap gap-4">
               <label className="font-bold">Fases<select aria-label="Fases" disabled={ocupado || pendente} value={fases} onChange={e => escolherFases(e.target.value)} className="ml-2 rounded-xl border p-2">{[...new Set(config.opcoes.map(o => o.fases))].map(f => <option key={f} value={f}>{f}</option>)}</select></label>
               <label className="font-bold">Estrelas-desafio por fase<select aria-label="Estrelas por fase" disabled={ocupado || pendente} value={estrelas} onChange={e => setTamanho({ chave: chaveConfiguracao, fases, estrelas: Number(e.target.value) })} className="ml-2 rounded-xl border p-2">{config.opcoes.filter(o => o.fases === fases).map(o => <option key={o.estrelasPorFase} value={o.estrelasPorFase}>{o.estrelasPorFase}</option>)}</select></label>
             </div>}
           <p className="text-sm" data-testid="resumo-configuracao">{necessarias} questões necessárias · {config.disponivel} liberadas pelo professor · cada fase: {estrelas} {estrelas === 1 ? 'estrela' : 'estrelas'} + 1 portal. Sem pressão de tempo.</p>
-          {config.disponivel < 12 && <p className="text-xs">Quer uma aventura maior (até 3 fases × 3 estrelas)? Peça ao professor para liberar mais questões.</p>}
+          {config.disponivel < 24 && <p className="text-xs">Quer uma aventura maior (até 6 fases × 3 estrelas)? Peça ao professor para liberar mais questões.</p>}
         </div>}
         {modalidade === 'plataforma' && selecionado && config.opcoes.length === 0 && <p role="status">Este conteúdo ainda não tem questões liberadas suficientes.</p>}
         {modalidade !== 'plataforma' && selecionado && <label className="block font-bold">Quantidade de desafios<select aria-label="Quantidade de desafios" value={totalDesafios} disabled={ocupado || pendente} onChange={e => setQuantidadeDesafios(Number(e.target.value))} className="mt-1 block w-full rounded-xl border p-3">{Array.from({length:Math.min(10,quantidade)},(_,i) => <option key={i+1} value={i+1}>{i+1}</option>)}</select><span className="text-sm font-normal">{quantidade} desafios disponíveis · sem cronômetro</span></label>}
+        {modalidade === 'plataforma' && <SeletorAvatar valor={avatarId} onChange={setAvatarId} disabled={ocupado || pendente} />}
         {historico.some(h => h.fase !== 'concluida') && <label className="flex gap-3 text-sm"><input type="checkbox" disabled={ocupado || pendente} checked={novaTentativa} onChange={e => setNovaTentativa(e.target.checked)} />Quero iniciar outra revisão; as anteriores continuam no histórico.</label>}
         <button type="submit" disabled={!selecionado || !configOk || ocupado || pendente} className="rounded-2xl bg-[#6315D9] px-6 py-3 text-white font-black disabled:opacity-40">Começar a jogar →</button>
       </form>}
