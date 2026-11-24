@@ -59,3 +59,22 @@ Executadas em `/tmp/copia-v2/RotinaDocente/frontend` (a partir de `git archive H
 - **Suíte integral (`npm test -- --maxWorkers=6`):** **399 arquivos aprovados, 4 ignorados (emuladores Firebase opcionais) de 403** — **1.881 testes aprovados, 10 ignorados (emuladores), 0 falhas**.
 - **ESLint (`npm run lint`):** **0 erros** (`22 warnings` não bloqueantes).
 - **Build (`NODE_USE_SYSTEM_CA=1 npm run build`):** **aprovado** (`next build` / Turbopack, incluindo `/aluno/revisar` e `/api/revisao-autonoma/[...partes]`).
+
+---
+
+## 5. Correção Pós-Revisão (P2 — Classificação Audiovisual nas 9 Modalidades)
+
+**Referência:** `docs/analises/2026-11-24-revisao-plataforma-v2-feedback.md`
+
+- **`ProvedorAudiovisualSala.jsx` (`classificarFeedbackAluno` / `derivarContextoAudiovisual`):**
+  - Classificação após revelação passa a usar `recibo.resposta`, `estado.questao.tipo` e `feedback.respostaCorreta` já públicos (além de `recibo.correta`, `recibo.pendenteCorrecao`, `recibo.correcaoManual` e `recibo.estadoHeroi`).
+  - `quiz`, `equipes` e `tabuleiro` agora retornam `acerto` (quando alternativa coincide com gabarito revelado) e `erro` (quando alternativa difere), em vez de `parcial`/`sem_resposta`.
+  - `associacao`, `ordenacao` e `memoria` distinguem `acerto` (integral/completo), `parcial` (parte dos pares/ordem), `erro` (participação sem acerto) e `sem_resposta`.
+  - `resposta_aberta` sem correção manual retorna `correcao_pendente` e não dispara efeito sonoro de erro/ausência (`deveTocarSom` exclui `correcao_pendente`); `docente`/`projecao` mantêm `revelacao_neutra`.
+- **`SalaAlunoView.jsx`:** banner de status na fase `feedback` alinhado a `contextoAv.situacao` (`acerto` vs `parcial` vs `erro`), sem alterar pontuação persistida ou notas.
+- **Testes preservados e novos:** `tests/unit/revisao_v2_feedback_resultado_real.test.js` (7/7 preservados sem alteração) e `tests/unit/revisao_v2_feedback_nove_modalidades.test.js` (6 casos cobrindo a cadeia real `projetarEstado → normalizarEstadoSala → derivarContextoAudiovisual`).
+- **Validação após correção (cópia isolada `RotinaDocente`):**
+  - Direcionados (`revisao_v2_feedback ImersaoAudiovisual AudioFeedback revisao_autonoma ControlesEntrada JornadaV2`): **13 arquivos / 125 testes aprovados, 0 falhas**.
+  - Suíte integral (`npm test -- --maxWorkers=6`): **401 arquivos aprovados, 4 ignorados (emuladores Firebase opcionais) de 405** — **1.894 testes aprovados, 10 ignorados, 0 falhas**.
+  - ESLint (`npm run lint`): **0 erros** (`22 warnings`).
+  - Build (`NODE_USE_SYSTEM_CA=1 npm run build`): **aprovado**.

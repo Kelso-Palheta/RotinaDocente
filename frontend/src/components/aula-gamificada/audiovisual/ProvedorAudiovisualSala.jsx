@@ -7,6 +7,50 @@ import { usePreferenciaMovimentoReduzido } from '../jogos/ControladorAudioJogo';
 
 const AudiovisualContext = createContext(null);
 
+function classificarFeedbackAluno(estado, recibo, feedback) {
+  if (!recibo) return 'sem_resposta';
+  if (recibo.estadoHeroi === 'vitoria_fase') return 'acerto';
+  if (recibo.estadoHeroi === 'golpe_encerrado') return 'erro';
+  if (
+    recibo.pendenteCorrecao === true ||
+    (recibo.resposta?.texto != null && !recibo.correcaoManual) ||
+    (estado?.questao?.tipo === 'resposta_aberta' && !recibo.correcaoManual && typeof recibo.correta !== 'boolean')
+  ) {
+    return 'correcao_pendente';
+  }
+  if (typeof recibo.correta === 'boolean') {
+    if (recibo.correta) return 'acerto';
+    return Number(recibo.pontuacao) > 0 ? 'parcial' : 'erro';
+  }
+  if (typeof recibo.correcaoManual?.correta === 'boolean') return recibo.correcaoManual.correta ? 'acerto' : 'erro';
+
+  if (recibo.resposta?.alternativaId != null && typeof feedback?.respostaCorreta === 'string') {
+    return recibo.resposta.alternativaId === feedback.respostaCorreta ? 'acerto' : 'erro';
+  }
+  if (Array.isArray(recibo.resposta?.pares) && Array.isArray(feedback?.respostaCorreta)) {
+    const corretos = new Set(feedback.respostaCorreta.map((p) => `${p.esquerdaId}__${p.direitaId}`));
+    const acertos = recibo.resposta.pares.filter((p) => corretos.has(`${p.esquerdaId}__${p.direitaId}`)).length;
+    if (corretos.size > 0 && acertos === corretos.size) return 'acerto';
+    return acertos > 0 ? 'parcial' : 'erro';
+  }
+  if (Array.isArray(recibo.resposta?.ordem) && Array.isArray(feedback?.respostaCorreta)) {
+    const total = feedback.respostaCorreta.length;
+    const acertos = feedback.respostaCorreta.reduce((s, id, i) => s + (recibo.resposta.ordem[i] === id ? 1 : 0), 0);
+    if (total > 0 && acertos === total) return 'acerto';
+    return acertos > 0 ? 'parcial' : 'erro';
+  }
+  if (estado?.modalidade === 'memoria' || recibo.virarId != null || Array.isArray(recibo.cartasEncontradas)) {
+    if (recibo.completo || recibo.concluido) return 'acerto';
+    return (recibo.cartasEncontradas?.length || 0) > 0 || Number(recibo.pontuacao) > 0 ? 'parcial' : 'erro';
+  }
+
+  const pontuacaoRecibo = Number(recibo.pontuacao);
+  if (typeof feedback?.correta === 'boolean') return feedback.correta ? 'acerto' : 'erro';
+  if (Number.isFinite(pontuacaoRecibo) && pontuacaoRecibo > 0) return 'parcial';
+  if (recibo.resposta != null) return 'erro';
+  return 'sem_resposta';
+}
+
 export function derivarContextoAudiovisual(estado, segundos, papel = 'aluno') {
   const modalidade = estado?.modalidade || 'quiz';
   const fase = estado?.fase || 'espera';
@@ -24,24 +68,7 @@ export function derivarContextoAudiovisual(estado, segundos, papel = 'aluno') {
     if (!revelado) {
       situacao = modalidade === 'acerte_perde' ? 'tempo_esgotado' : 'resposta_recebida';
     } else if (papel === 'aluno') {
-      const pontuacaoRecibo = Number(recibo?.pontuacao);
-      if (recibo?.estadoHeroi === 'vitoria_fase') {
-        situacao = 'acerto';
-      } else if (recibo?.estadoHeroi === 'golpe_encerrado') {
-        situacao = 'erro';
-      } else if (!recibo) {
-        situacao = 'sem_resposta';
-      } else if (recibo.correta === true) {
-        situacao = 'acerto';
-      } else if (Number.isFinite(pontuacaoRecibo) && pontuacaoRecibo > 0) {
-        situacao = 'parcial';
-      } else if (recibo.correta === false) {
-        situacao = 'erro';
-      } else if (typeof feedback?.correta === 'boolean') {
-        situacao = feedback.correta ? 'acerto' : 'erro';
-      } else {
-        situacao = 'sem_resposta';
-      }
+      situacao = classificarFeedbackAluno(estado, recibo, feedback);
     } else {
       situacao = 'revelacao_neutra';
     }
@@ -60,7 +87,7 @@ export function derivarContextoAudiovisual(estado, segundos, papel = 'aluno') {
   }
 
   const somSituacao = situacao === 'desafio' && rodada > 0 ? 'abertura' : situacao;
-  const deveTocarSom = somSituacao !== 'espera';
+  const deveTocarSom = somSituacao !== 'espera' && somSituacao !== 'correcao_pendente';
   const evento = deveTocarSom
     ? { id: `${codigo}:${rodada}:${somSituacao}:${recibo?.tentativas || 0}:${somSituacao === 'tempo_esgotado' ? 'fechamento' : fase}`, situacao: somSituacao }
     : null;

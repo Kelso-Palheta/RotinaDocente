@@ -392,14 +392,14 @@ export function SalaAlunoView({
             <div
               role="status"
               className={`rounded-2xl border p-4 text-sm font-extrabold ${
-                recibo.correta || (recibo.pontuacao ?? 0) > 0
+                contextoAv.situacao === 'acerto' || (contextoAv.situacao === 'parcial' && (recibo.pontuacao ?? 0) > 0)
                   ? 'border-emerald-300 bg-emerald-50 text-emerald-950'
                   : 'border-amber-300 bg-amber-50 text-amber-950'
               }`}
             >
-              {recibo.correta
+              {contextoAv.situacao === 'acerto'
                 ? 'Excelente! Você acertou esta rodada.'
-                : recibo.pontuacao > 0
+                : contextoAv.situacao === 'parcial' && recibo.pontuacao > 0
                 ? `Pontuação parcial confirmada pelo servidor: ${recibo.pontuacao} pontos.`
                 : 'Resposta registrada. Confira a explicação pedagógica abaixo.'}
             </div>
