@@ -1,0 +1,1227 @@
+{
+  "schemaVersion": 1,
+  "aulas": {
+    "arquitetura-design": {
+      "tipoCena": "obra",
+      "imagens": [
+        {
+          "id": "alvorada",
+          "src": "/revisao/visuais/alvorada.webp",
+          "alt": "Palácio modernista branco com galeria de vidro e colunas, volume curvo com cruz e amplo gramado arborizado em primeiro plano.",
+          "legenda": "Palácio da Alvorada, Brasília (DF), projeto de Oscar Niemeyer; foto: Arne Müseler, 2022.",
+          "credito": "Foto: Arne Müseler; imagem: Wikimedia Commons.",
+          "licenca": "CC BY-SA 3.0 DE — foto de Arne Müseler, via Wikimedia Commons.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Pal%C3%A1cio_da_Alvorada_brasilia.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0/de/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Estrutura",
+          "texto": "No Palácio da Alvorada, observe como as colunas definem ritmo e sustentação visual."
+        },
+        {
+          "titulo": "Volume e vazio",
+          "texto": "Galeria, vidro e espaços abertos articulam interior, exterior e percurso."
+        },
+        {
+          "titulo": "Função e identidade",
+          "texto": "Arquitetura responde a usos e também comunica um projeto político e cultural."
+        },
+        {
+          "titulo": "Forma e experiência",
+          "texto": "Escala, materiais e circulação ajudam a avaliar a obra além de sua aparência frontal."
+        }
+      ]
+    },
+    "arte-afro-brasileira": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "capoeira",
+          "src": "/revisao/visuais/capoeira.webp",
+          "alt": "Participantes formam roda de capoeira em Cachoeira, na Bahia.",
+          "legenda": "Roda de capoeira em Cachoeira, Bahia; fotografia de Erica Almeida / Setur, publicada por Turismo Bahia.",
+          "credito": "Turismo Bahia / Wikimedia Commons.",
+          "licenca": "CC BY-SA 2.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Roda_de_Capoeira.._Cachoeira_-Ba_Foto-_Erica_Almeida_-_Setur_(7755008860).jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Corpo e memória",
+          "texto": "A roda de capoeira exemplifica uma prática afro-brasileira que relaciona gesto, música e memória."
+        },
+        {
+          "titulo": "Experiência coletiva",
+          "texto": "Observe a roda e as funções dos participantes: criação e transmissão acontecem socialmente."
+        },
+        {
+          "titulo": "Pluralidade",
+          "texto": "Esse registro não representa toda a arte afro-brasileira nem substitui obras de artistas citados na aula."
+        },
+        {
+          "titulo": "Autoria e resistência",
+          "texto": "Relacione o exemplo a disputas por reconhecimento, sem reduzir artistas a uma origem única."
+        }
+      ]
+    },
+    "arte-asiatica": {
+      "tipoCena": "obra",
+      "imagens": [
+        {
+          "id": "hasegawa-pinheiros",
+          "src": "/revisao/visuais/hasegawa-pinheiros.webp",
+          "alt": "Tela japonesa em nanquim com pinheiros emergindo da névoa, grandes áreas vazias e painéis verticais separados por vincos.",
+          "legenda": "Hasegawa Tohaku, Floresta de pinheiros (tela esquerda), século XVI, nanquim sobre papel, Museu Nacional de Tóquio.",
+          "credito": "Hasegawa Tohaku; imagem: Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Hasegawa Tohaku; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Hasegawa_Tohaku_-_Pine_Trees_(Sh%C5%8Drin-zu_by%C5%8Dbu)_-_left_hand_screen.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Névoa",
+          "texto": "Nos pinheiros de Hasegawa Tohaku, áreas vazias sugerem atmosfera e distância."
+        },
+        {
+          "titulo": "Ritmo",
+          "texto": "Troncos, manchas e intervalos articulam uma sequência de leitura ao longo dos painéis."
+        },
+        {
+          "titulo": "Material",
+          "texto": "O nanquim permite variar densidade e gesto sem depender de muitas cores."
+        },
+        {
+          "titulo": "Contexto",
+          "texto": "A obra é japonesa e historicamente situada; não deve servir de modelo único para toda a arte asiática."
+        }
+      ]
+    },
+    "arte-digital-tecnologia": {
+      "tipoCena": "camadas",
+      "imagens": [
+        {
+          "id": "fractal",
+          "src": "/revisao/visuais/fractal.webp",
+          "alt": "Imagem digital fractal com formas tridimensionais repetidas em diferentes escalas.",
+          "legenda": "Mariagata1959, 064 Mandelbulb 3D; exemplo de imagem digital fractal.",
+          "credito": "Mariagata1959 / Wikimedia Commons.",
+          "licenca": "CC BY-SA 4.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:064_Mandelbulb_3D.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Regra visual",
+          "texto": "Uma imagem fractal permite observar como uma regra pode gerar formas complexas."
+        },
+        {
+          "titulo": "Código e interface",
+          "texto": "O que aparece na tela depende de processos computacionais e de escolhas de apresentação."
+        },
+        {
+          "titulo": "Autoria",
+          "texto": "Algoritmo, parâmetros e seleção do resultado também são decisões; automação não apaga responsabilidade."
+        },
+        {
+          "titulo": "Limites do exemplo",
+          "texto": "Arte digital não se resume a fractais nem a IA: inclui redes, interação, vídeo e outras linguagens."
+        }
+      ]
+    },
+    "arte-sociedade-sistema": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "chartres-fachada",
+          "src": "/revisao/visuais/chartres-fachada.webp",
+          "alt": "Fachada ocidental de uma catedral gótica com duas torres desiguais, rosetão central, três portais esculpidos e visitantes na praça.",
+          "legenda": "Catedral de Chartres, fachada ocidental, França; foto: Dcconsta, 2013.",
+          "credito": "Foto: Dcconsta; imagem: Wikimedia Commons.",
+          "licenca": "CC BY-SA 3.0 — foto de Dcconsta, via Wikimedia Commons.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Chartres_cathedral_(West_fa%C3%A7ade).jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Obra coletiva",
+          "texto": "A fachada de Chartres resulta de trabalho, recursos e encomendas de diferentes agentes."
+        },
+        {
+          "titulo": "Público e poder",
+          "texto": "Escala, portais e imagens articulam experiência religiosa e organização social."
+        },
+        {
+          "titulo": "Instituições",
+          "texto": "Igrejas, museus, mercado e Estado participam de diferentes sistemas de legitimação."
+        },
+        {
+          "titulo": "Historicidade",
+          "texto": "Não confunda função social com mensagem única: usos e interpretações mudam com o tempo."
+        }
+      ]
+    },
+    "arte-urbana-publica": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "beco",
+          "src": "/revisao/visuais/beco.webp",
+          "alt": "Muros e fachadas com intervenções de arte urbana no Beco do Batman, em São Paulo.",
+          "legenda": "Beco do Batman, São Paulo; fotografia de xiquinhosilva.",
+          "credito": "xiquinhosilva / Wikimedia Commons.",
+          "licenca": "CC BY 4.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Beco_do_Batman_-_55334479612.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/4.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Suporte",
+          "texto": "Observe como muros, quinas e escala da rua participam da imagem."
+        },
+        {
+          "titulo": "Linguagens",
+          "texto": "Grafite, pichação, stencil e mural têm histórias e usos distintos; não são sinônimos."
+        },
+        {
+          "titulo": "Disputa",
+          "texto": "Autorização, circulação, apagamento e valorização definem quem pode ocupar o espaço."
+        },
+        {
+          "titulo": "Contexto",
+          "texto": "Uma fotografia registra um estado do lugar; intervenções podem mudar ou desaparecer."
+        }
+      ]
+    },
+    "artes-graficas": {
+      "tipoCena": "camadas",
+      "imagens": [
+        {
+          "id": "lucelia-borges-xilogravura",
+          "src": "/revisao/visuais/lucelia-borges-xilogravura.webp",
+          "alt": "Xilogravura em preto e branco com quatro gerações de mulheres sobrepostas no centro, cercadas por folhas, espigas e um padrão geométrico circular.",
+          "legenda": "Lucélia Borges, xilogravura para o cordel Os Encantados tabajaras, de Auritha Tabajara, 2018, Sesc Folhetim.",
+          "credito": "Lucélia Borges; publicação: Sesc Folhetim / Wikimedia Commons.",
+          "licenca": "CC BY-SA 4.0 — xilogravura de Lucélia Borges, via Wikimedia Commons.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Xilogravura_Luc%C3%A9lia_Borges.webp",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Contraste",
+          "texto": "Na xilogravura, áreas claras e escuras organizam a leitura sem depender de cor."
+        },
+        {
+          "titulo": "Matriz e reprodução",
+          "texto": "A impressão vem de uma matriz; cada técnica produz marcas e possibilidades próprias."
+        },
+        {
+          "titulo": "Narrativa",
+          "texto": "Observe personagens, sobreposições e elementos vegetais: a composição também conta histórias."
+        },
+        {
+          "titulo": "Circulação",
+          "texto": "Cordel articula autoria, texto, imagem e oralidade; reprodução não elimina invenção."
+        }
+      ]
+    },
+    "artes-indigenas": {
+      "tipoCena": "obra",
+      "imagens": [
+        {
+          "id": "tukano-chocalho",
+          "src": "/revisao/visuais/tukano-chocalho.webp",
+          "alt": "Chocalho do povo Tukano, do Rio Uaupés, exposto em acervo museológico.",
+          "legenda": "Chocalho Tukano, Rio Uaupés, Brasil, c. 1830; Museu de Etnologia de Viena. Fotografia: Wolfgang Sauber.",
+          "credito": "Wolfgang Sauber / Wikimedia Commons.",
+          "licenca": "CC BY-SA 3.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:MV_-_Tukano_Rassel.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Povo e contexto",
+          "texto": "Este chocalho é atribuído ao povo Tukano, do Rio Uaupés; a fonte museológica o data de cerca de 1830."
+        },
+        {
+          "titulo": "Forma e técnica",
+          "texto": "No chocalho Tukano, observe materiais, acabamento e organização das partes; conhecimentos não se limitam à aparência."
+        },
+        {
+          "titulo": "Vida e cosmologia",
+          "texto": "Objetos podem relacionar uso cotidiano, corpo e narrativas; nem todo significado é visível numa foto."
+        },
+        {
+          "titulo": "Pluralidade contemporânea",
+          "texto": "Um exemplo não representa todos os povos. Produção indígena também é atual e diversa."
+        }
+      ]
+    },
+    "barroco-brasileiro": {
+      "tipoCena": "comparacao",
+      "imagens": [
+        {
+          "id": "aleijadinho-jonas",
+          "src": "/revisao/visuais/aleijadinho-jonas.webp",
+          "alt": "Escultura em pedra-sabão de um profeta barbado, com manto e livro, vista de baixo contra o céu azul, no adro de uma igreja.",
+          "legenda": "Aleijadinho e oficina, Profeta Jonas, 1800-1805, pedra-sabão, Santuário do Bom Jesus de Matosinhos, Congonhas (MG).",
+          "credito": "Escultura: Aleijadinho e oficina; fotografia: © Martin Thurnherr.",
+          "licenca": "Fotografia: CC BY-SA 4.0; escultura em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Aleijadinho_Santuario_Jonas_01.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "ataide-ceia",
+          "src": "/revisao/visuais/ataide-ceia.webp",
+          "alt": "Pintura sacra com Cristo ao centro de uma longa mesa, discípulos em ambos os lados, alimentos sobre a mesa e arquitetura ao fundo.",
+          "legenda": "Manuel da Costa Ataíde, A Última Ceia, 1828, Colégio do Caraça (MG).",
+          "credito": "Manuel da Costa Ataíde; foto: Pedro Caetano / Wikimedia Commons.",
+          "licenca": "Domínio público — pintura e fotografia em domínio público, conforme Wikimedia Commons.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Ceia_mestre_ataide.JPG",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Gesto e volume",
+          "texto": "No Profeta Jonas, manto, corpo e luz constroem movimento na pedra-sabão."
+        },
+        {
+          "titulo": "Lugar",
+          "texto": "A posição no adro altera escala e ponto de vista; a escultura participa de um conjunto."
+        },
+        {
+          "titulo": "Pintura sacra",
+          "texto": "Na Ceia de Ataíde, composição e personagens articulam narrativa religiosa e trabalho de oficina."
+        },
+        {
+          "titulo": "Contexto local",
+          "texto": "Encomendas, mineração, irmandades e mãos locais transformam referências europeias."
+        }
+      ]
+    },
+    "comunicacao-visual-audiovisual": {
+      "tipoCena": "sequencia",
+      "imagens": [
+        {
+          "id": "melies-oficina",
+          "src": "/revisao/visuais/melies-oficina.webp",
+          "alt": "Personagens trabalham numa oficina cenográfica do filme Viagem à Lua, de Georges Méliès.",
+          "legenda": "Georges Méliès, Viagem à Lua, 1902: fotograma da oficina; exemplo de cenário e composição de plano.",
+          "credito": "Georges Méliès / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Trip_to_the_Moon_Workshop.png",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "melies-canhao",
+          "src": "/revisao/visuais/melies-canhao.webp",
+          "alt": "Personagens e um grande canhão em cenário teatral do filme Viagem à Lua, de Georges Méliès.",
+          "legenda": "Georges Méliès, Viagem à Lua, 1902: fotograma da sequência do canhão.",
+          "credito": "Georges Méliès / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:M%C3%A9li%C3%A8s_Trip_to_the_Moon_cannon_still.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Enquadramento",
+          "texto": "O plano seleciona uma parte do espaço; o que fica fora também interfere no sentido."
+        },
+        {
+          "titulo": "Truque e ficção",
+          "texto": "Em Méliès, cenário, atuação e efeitos colaboram para construir um mundo imaginado."
+        },
+        {
+          "titulo": "Montagem",
+          "texto": "A ordem e a duração dos planos produzem relações que não estão numa imagem isolada."
+        },
+        {
+          "titulo": "Recepção",
+          "texto": "O espectador interpreta sinais visuais a partir de convenções e repertórios históricos."
+        }
+      ]
+    },
+    "cubismo-futurismo": {
+      "tipoCena": "comparacao",
+      "imagens": [
+        {
+          "id": "juan-gris-janela",
+          "src": "/revisao/visuais/juan-gris-janela.webp",
+          "alt": "Natureza-morta cubista com mesa, jornal, garrafa e fruteira, sobreposta a uma janela aberta com sacada e fachada azul ao fundo.",
+          "legenda": "Juan Gris, Natureza-morta diante de uma janela aberta, Place Ravignan, 1915, óleo sobre tela, Philadelphia Museum of Art.",
+          "credito": "Juan Gris; imagem: Google Arts & Culture / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Juan Gris; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Juan_Gris_(Jos%C3%A9_Victoriano_Gonz%C3%A1lez_P%C3%A9rez),_Spanish_-_Still_Life_before_an_Open_Window,_Place_Ravignan_-_Google_Art_Project.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "boccioni-futebol",
+          "src": "/revisao/visuais/boccioni-futebol.webp",
+          "alt": "Pintura futurista com formas facetadas e coloridas que se fundem em movimento, sugerindo um corpo em ação, sem contorno nítido.",
+          "legenda": "Umberto Boccioni, Dinamismo de um jogador de futebol, 1913, óleo sobre tela, Museum of Modern Art, Nova York.",
+          "credito": "Umberto Boccioni; imagem: Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Umberto Boccioni; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Umberto_boccioni-dynamism_of_a_soccer_player-1913.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Planos cubistas",
+          "texto": "Em Juan Gris, objetos e janela aparecem em planos sobrepostos; o espaço deixa de ser uma janela contínua."
+        },
+        {
+          "titulo": "Dentro e fora",
+          "texto": "Mesa, jornal e paisagem articulam diferentes referências na mesma superfície."
+        },
+        {
+          "titulo": "Dinamismo futurista",
+          "texto": "Em Boccioni, a repetição de linhas e formas sugere energia e deslocamento."
+        },
+        {
+          "titulo": "Comparar projetos",
+          "texto": "Fragmentar o espaço e sugerir velocidade são procedimentos relacionados, mas não equivalentes."
+        }
+      ]
+    },
+    "culturas-populares-patrimonio": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "azulejos-sao-luis",
+          "src": "/revisao/visuais/azulejos-sao-luis.webp",
+          "alt": "Detalhe de azulejos com padrão floral em azul, amarelo e verde, formando módulos repetidos, com falhas e remendos na parede.",
+          "legenda": "Azulejos do centro histórico de São Luís (MA), 2024; foto: Thuaia.",
+          "credito": "Thuaia; imagem: Wikimedia Commons.",
+          "licenca": "CC BY-SA 4.0 — foto de Thuaia, via Wikimedia Commons.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Azulejos_no_Centro_Hist%C3%B3rico_de_S%C3%A3o_Lu%C3%ADs.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Módulo",
+          "texto": "Nos azulejos, procure a unidade que se repete e como ela organiza a superfície."
+        },
+        {
+          "titulo": "Marcas do tempo",
+          "texto": "Falhas, remendos e desgaste também registram usos e transformações da cidade."
+        },
+        {
+          "titulo": "Saberes",
+          "texto": "Patrimônio inclui técnicas e práticas de pessoas, além dos objetos preservados."
+        },
+        {
+          "titulo": "Salvaguarda",
+          "texto": "Quem cuida, decide e transmite? Preservar não exige congelar uma cultura."
+        }
+      ]
+    },
+    "dada-surrealismo": {
+      "tipoCena": "comparacao",
+      "imagens": [
+        {
+          "id": "cabaret-voltaire-cartaz",
+          "src": "/revisao/visuais/cabaret-voltaire-cartaz.webp",
+          "alt": "Cartaz em preto e branco com três figuras expressionistas e o texto Künstlerkneipe Voltaire, seguido de informações sobre música, recitação e abertura.",
+          "legenda": "Marcel Słodki, cartaz do Cabaret Voltaire, 1916, linoleogravura, Zurique.",
+          "credito": "Marcel Słodki; imagem: Wikimedia Commons / Bayerischer Rundfunk.",
+          "licenca": "Domínio público — cartaz de Marcel Słodki; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:1916_Marcel_S%C5%82odki_Cabaret-Voltaire.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "hugo-ball",
+          "src": "/revisao/visuais/hugo-ball.webp",
+          "alt": "Hugo Ball posa com figurino geométrico e chapéu alto, em fotografia de estúdio de 1916.",
+          "legenda": "Hugo Ball em fotografia de estúdio para cartão-convite de sua apresentação no Cabaret Voltaire, 1916; não é registro da ação ao vivo.",
+          "credito": "Unknown authorUnknown author / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Hugo_Ball_Cabaret_Voltaire.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Provocação Dada",
+          "texto": "No cartaz do Cabaret Voltaire, tipografia e figura anunciam uma experiência que mistura linguagens."
+        },
+        {
+          "titulo": "Contexto",
+          "texto": "A crítica à razão e às convenções dialoga com a crise europeia da Primeira Guerra."
+        },
+        {
+          "titulo": "Procedimentos",
+          "texto": "Acaso, colagem e automatismo deslocam relações habituais entre imagens e palavras."
+        },
+        {
+          "titulo": "Diferenças",
+          "texto": "Dada e surrealismo compartilham rupturas, mas não formam um movimento único."
+        }
+      ]
+    },
+    "danca-moderna-contemporanea": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "sloan-isadora-duncan",
+          "src": "/revisao/visuais/sloan-isadora-duncan.webp",
+          "alt": "Gravura em preto e branco de uma mulher descalça em cena, com os braços erguidos, túnica curta e saia drapeada, sob um facho de luz.",
+          "legenda": "John Sloan, Isadora Duncan, 1915, água-forte; reprodução fotográfica da Library of Congress.",
+          "credito": "Gravura: John Sloan; reprodução fotográfica: coleção Arnold Genthe, Library of Congress.",
+          "licenca": "Domínio público — obra de John Sloan; reprodução da Library of Congress em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Isadora_Duncan,_1878-1927_LCCN2002715687.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Apoio",
+          "texto": "Na imagem de Isadora Duncan, pés descalços e postura sugerem outra relação com o chão."
+        },
+        {
+          "titulo": "Gesto",
+          "texto": "Braços e tecido prolongam direções do movimento; uma gravura registra apenas uma interpretação."
+        },
+        {
+          "titulo": "Composição",
+          "texto": "Peso, espaço, tempo e presença participam da criação coreográfica."
+        },
+        {
+          "titulo": "Diversidade",
+          "texto": "Dança contemporânea reúne pesquisas distintas; não existe um corpo ou técnica únicos."
+        }
+      ]
+    },
+    "dancas-populares": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "frevo-olinda",
+          "src": "/revisao/visuais/frevo-olinda.webp",
+          "alt": "Passistas de frevo em rua de paralelepípedos, com roupas coloridas e sombrinhas erguidas, diante de uma igreja colonial.",
+          "legenda": "Passistas de frevo durante o carnaval em Olinda (PE), 2009; foto: Prefeitura de Olinda.",
+          "credito": "Prefeitura de Olinda; imagem: Flickr / Wikimedia Commons.",
+          "licenca": "CC BY 2.0 — foto da Prefeitura de Olinda, via Wikimedia Commons.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Frevo_dancers_-_Olinda,_Pernambuco,_Brazil.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/2.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Gesto",
+          "texto": "No frevo, observe flexões, desequilíbrios e uso da sombrinha na composição do passo."
+        },
+        {
+          "titulo": "Espaço público",
+          "texto": "Rua, músicos, passistas e observadores participam da situação festiva."
+        },
+        {
+          "titulo": "Transmissão",
+          "texto": "Aprender e transformar passos mantém a prática viva; tradição não significa repetição imutável."
+        },
+        {
+          "titulo": "Patrimônio",
+          "texto": "O reconhecimento deve considerar os grupos que praticam e transmitem a dança."
+        }
+      ]
+    },
+    "expressionismo-figurativismo": {
+      "tipoCena": "obra",
+      "imagens": [
+        {
+          "id": "munch-o-grito",
+          "src": "/revisao/visuais/munch-o-grito.webp",
+          "alt": "Figura humana de rosto oval e mãos junto ao rosto, em uma ponte diagonal, sob céu ondulado em tons de laranja e vermelho e água azul-escura.",
+          "legenda": "Edvard Munch, O Grito, 1893, óleo, têmpera e pastel sobre cartão, Galeria Nacional da Noruega, Oslo.",
+          "credito": "Edvard Munch; imagem: Galeria Nacional da Noruega / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Edvard Munch; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Edvard_Munch,_1893,_The_Scream,_oil,_tempera_and_pastel_on_cardboard,_91_x_73_cm,_National_Gallery_of_Norway.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Figura",
+          "texto": "Em O Grito, rosto e mãos condensam uma experiência de tensão."
+        },
+        {
+          "titulo": "Linha",
+          "texto": "Ondulações do céu contrastam com a diagonal da ponte e ajudam a conduzir o olhar."
+        },
+        {
+          "titulo": "Cor",
+          "texto": "Relações intensas de cor participam do efeito expressivo, sem obrigação de copiar a aparência natural."
+        },
+        {
+          "titulo": "Deformação",
+          "texto": "Alterar proporções pode ser uma escolha de linguagem, não falta de habilidade."
+        }
+      ]
+    },
+    "forma-abstracao": {
+      "tipoCena": "camadas",
+      "imagens": [
+        {
+          "id": "kandinsky-composicao-vii",
+          "src": "/revisao/visuais/kandinsky-composicao-vii.webp",
+          "alt": "Pintura abstrata densa, com manchas e linhas coloridas em vermelho, azul, amarelo e verde, formas circulares e traços negros sobre fundo claro.",
+          "legenda": "Wassily Kandinsky, Composição VII, 1913, óleo sobre tela, Galeria Tretyakov, Moscou.",
+          "credito": "Wassily Kandinsky; imagem: Google Arts & Culture / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Wassily Kandinsky; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Composition_VII_-_Wassily_Kandinsky,_GAC.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Linha e mancha",
+          "texto": "Em Composição VII, procure percursos e tensões antes de buscar objetos reconhecíveis."
+        },
+        {
+          "titulo": "Ritmo",
+          "texto": "Repetições, intervalos e contrastes organizam a experiência visual."
+        },
+        {
+          "titulo": "Relações",
+          "texto": "Cor e forma podem produzir sentido sem imitar uma cena exterior."
+        },
+        {
+          "titulo": "Diversidade",
+          "texto": "Abstração lírica, geométrica e concreta propõem investigações diferentes; não são um estilo único."
+        }
+      ]
+    },
+    "fotografia": {
+      "tipoCena": "sequencia",
+      "imagens": [
+        {
+          "id": "muybridge-cavalos",
+          "src": "/revisao/visuais/muybridge-cavalos.webp",
+          "alt": "Prancha em preto e branco com várias imagens sucessivas de um cavalo em movimento, organizadas em grade.",
+          "legenda": "Eadweard Muybridge, Animal Locomotion, volume IX, cavalos, 1887, fotogravura, The Metropolitan Museum of Art.",
+          "credito": "Eadweard Muybridge; The Metropolitan Museum of Art.",
+          "licenca": "Domínio público — The Met Open Access.",
+          "fonteUrl": "https://www.metmuseum.org/art/collection/search/266439",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Intervalos",
+          "texto": "Cada quadro registra outro instante; acompanhe a mudança de posição do cavalo."
+        },
+        {
+          "titulo": "Análise do movimento",
+          "texto": "A sequência permite observar detalhes que passam rápido demais ao olhar comum."
+        },
+        {
+          "titulo": "Tempo construído",
+          "texto": "Exposição, intervalo e seleção de quadros são decisões técnicas, não transparência automática."
+        },
+        {
+          "titulo": "Imagem e interpretação",
+          "texto": "A fotografia fornece evidências, mas enquadramento e contexto orientam o que podemos concluir."
+        }
+      ]
+    },
+    "hip-hop-rap-slam": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "breaking",
+          "src": "/revisao/visuais/breaking.webp",
+          "alt": "Dançarino de breaking se apresenta em espaço cultural no Centro Cultural Jabaquara.",
+          "legenda": "Apresentação de breaking no Centro Cultural Jabaquara, São Paulo; fotografia do Instituto Voz Cultura e Conhecimento.",
+          "credito": "Instituto Voz Cultura e Conhecimento / Wikimedia Commons.",
+          "licenca": "CC BY-SA 2.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:CCJ_-_Breakdance_1.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Ritmo e corpo",
+          "texto": "No breaking, observe apoios, giros e pausas: o corpo transforma a batida em ação."
+        },
+        {
+          "titulo": "Quatro elementos",
+          "texto": "MC, DJ, breaking e grafite são linguagens distintas que se relacionam na cultura hip-hop."
+        },
+        {
+          "titulo": "Voz e território",
+          "texto": "Rap e slam articulam experiências e posições; autoria e contexto importam tanto quanto a técnica."
+        },
+        {
+          "titulo": "Circulação",
+          "texto": "Da rua às redes e competições, mudam os públicos e as condições de apresentação."
+        }
+      ]
+    },
+    "imagem-colonizacao-retrato": {
+      "tipoCena": "obra",
+      "imagens": [
+        {
+          "id": "eckhout-mulher-africana",
+          "src": "/revisao/visuais/eckhout-mulher-africana.webp",
+          "alt": "Pintura colonial com uma mulher negra em pé, segurando um cesto de frutas sobre a cabeça, acompanhada de uma criança nua, entre palmeiras e paisagem.",
+          "legenda": "Albert Eckhout, Mulher africana com criança, 1641, óleo sobre tela, Nationalmuseet, Copenhague.",
+          "credito": "Albert Eckhout; acervo: Nationalmuseet / Wikimedia Commons.",
+          "licenca": "CC BY 4.0 — reprodução do Nationalmuseet via Wikimedia Commons; obra histórica em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:African_woman_and_child,_1641,_Albert_Eckhout.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Quem enquadra",
+          "texto": "Na pintura de Eckhout, pergunte quem encomendou, produziu e fez circular a imagem."
+        },
+        {
+          "titulo": "Elementos escolhidos",
+          "texto": "Corpo, frutos, vestimenta e paisagem não são neutros: compõem uma representação colonial."
+        },
+        {
+          "titulo": "Documento e construção",
+          "texto": "A pintura é fonte histórica, mas não um retrato transparente de todas as pessoas africanas."
+        },
+        {
+          "titulo": "Contra-imagens",
+          "texto": "Compare o poder de ser representado por outro com o direito à própria voz e imagem."
+        }
+      ]
+    },
+    "impressionismo": {
+      "tipoCena": "obra",
+      "imagens": [
+        {
+          "id": "sisley-estrada",
+          "src": "/revisao/visuais/sisley-estrada.webp",
+          "alt": "Paisagem com uma estrada de terra ladeada por árvores, céu claro e pinceladas curtas.",
+          "legenda": "Alfred Sisley, A estrada de Versalhes a Louveciennes, provavelmente 1879, óleo sobre tela, The Metropolitan Museum of Art.",
+          "credito": "Alfred Sisley; The Metropolitan Museum of Art.",
+          "licenca": "Domínio público — The Met Open Access.",
+          "fonteUrl": "https://www.metmuseum.org/art/collection/search/437685",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Pincelada",
+          "texto": "Na paisagem de Sisley, marcas curtas e visíveis articulam árvores, estrada e atmosfera."
+        },
+        {
+          "titulo": "Luz e cor",
+          "texto": "Observe relações entre áreas iluminadas e sombras sem supor que toda sombra seja preta."
+        },
+        {
+          "titulo": "Instante",
+          "texto": "A percepção de mudança e a pintura ao ar livre participam da investigação impressionista."
+        },
+        {
+          "titulo": "Construção",
+          "texto": "Espontaneidade aparente não elimina composição, técnica ou escolhas de enquadramento."
+        }
+      ]
+    },
+    "instalacao-materiais": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "she-changes",
+          "src": "/revisao/visuais/she-changes.webp",
+          "alt": "Rede suspensa de She Changes, em Matosinhos, integrada à paisagem urbana.",
+          "legenda": "Janet Echelman, She Changes, 2005, Matosinhos, Portugal; fotografia de Dimitry B.",
+          "credito": "Dimitry B. from London / Wikimedia Commons.",
+          "licenca": "CC BY 2.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:%22She_Changes%22,_Matosinhos,_Portugal_(7099016641).jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Escala",
+          "texto": "Compare a instalação com edifícios e pessoas para perceber sua dimensão."
+        },
+        {
+          "titulo": "Material",
+          "texto": "Rede, estrutura e luz definem relações visuais diferentes das de um objeto sólido."
+        },
+        {
+          "titulo": "Percurso",
+          "texto": "O sentido muda com a posição de quem observa; a obra se relaciona com o entorno."
+        },
+        {
+          "titulo": "Contexto",
+          "texto": "Este exemplo específico não representa todas as instalações: cada projeto define materiais e modos de participação."
+        }
+      ]
+    },
+    "matrizes-africanas-musica": {
+      "tipoCena": "camadas",
+      "imagens": [
+        {
+          "id": "kalimba-museu",
+          "src": "/revisao/visuais/kalimba-museu.webp",
+          "alt": "Kalimba com lâminas metálicas sobre placa de madeira e ressonador de cabaça, com incisões geométricas, sobre fundo neutro.",
+          "legenda": "Kalimba (lamelofone) com ressonador de cabaça, acervo do Museu Real da África Central, Tervuren.",
+          "credito": "Foto: Daderot; acervo: Museu Real da África Central / Wikimedia Commons.",
+          "licenca": "CC0 — foto de Daderot, via Wikimedia Commons; objeto de acervo museológico.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Kalimba_-_Royal_Museum_for_Central_Africa_-_DSC07093.JPG",
+          "licencaUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Material e som",
+          "texto": "Na kalimba, lâminas metálicas vibram e o ressonador participa da produção sonora."
+        },
+        {
+          "titulo": "Técnica",
+          "texto": "Forma, materiais e modo de tocar articulam conhecimento musical e fabricação."
+        },
+        {
+          "titulo": "Diáspora",
+          "texto": "Matrizes africanas na música brasileira envolvem circulação e reinvenção, não cópia simples."
+        },
+        {
+          "titulo": "Diferenças",
+          "texto": "Este lamelofone de acervo africano é exemplo comparativo, não representação de toda a África ou de um instrumento brasileiro."
+        }
+      ]
+    },
+    "modernismo-brasileiro": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "modernistas",
+          "src": "/revisao/visuais/modernistas.webp",
+          "alt": "Grupo de participantes do movimento modernista brasileiro em fotografia histórica de 1922.",
+          "legenda": "Grupo de modernistas em 1922, São Paulo; fotografia de autoria desconhecida.",
+          "credito": "Unknown authorUnknown author / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Modernistas_1922.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "cartaz-1922",
+          "src": "/revisao/visuais/cartaz-1922.webp",
+          "alt": "Cartaz histórico da Semana de Arte Moderna de 1922, com informações tipográficas do evento.",
+          "legenda": "Cartaz da Semana de Arte Moderna, São Paulo, 1922; autoria não identificada na fonte. Documento histórico, não esquema didático.",
+          "credito": "Unknown authorUnknown author / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Arte-moderna-8.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "1922",
+          "texto": "Observe o registro de um grupo modernista e o documento do evento. A Semana é um marco de disputa, não a origem de toda arte moderna brasileira."
+        },
+        {
+          "titulo": "Linguagens",
+          "texto": "Música, literatura e artes visuais participaram do debate sobre experimentação e identidade."
+        },
+        {
+          "titulo": "Ruptura",
+          "texto": "Oposição a convenções acadêmicas não significa abandono de técnica ou de referências internacionais."
+        },
+        {
+          "titulo": "Pluralidade",
+          "texto": "O Brasil imaginado pelos modernistas deve ser lido também por seus limites e exclusões."
+        }
+      ]
+    },
+    "musica-erudita-popular": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "orquestra",
+          "src": "/revisao/visuais/orquestra.webp",
+          "alt": "Músicos de uma orquestra e coro ocupam um palco de concerto em Davos.",
+          "legenda": "Orquestra Jovem da União Europeia e Coro da OSESP, concerto em Davos, 2020; fotografia do World Economic Forum.",
+          "credito": "World Economic Forum / Wikimedia Commons.",
+          "licenca": "CC BY 3.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:European_Union_Youth_Orchestra_Davos_2020.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/3.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Conjunto",
+          "texto": "Na orquestra, observe a organização de diferentes famílias de instrumentos."
+        },
+        {
+          "titulo": "Arranjo",
+          "texto": "A distribuição de funções, timbres e entradas participa do resultado sonoro."
+        },
+        {
+          "titulo": "Mediação",
+          "texto": "Sala, palco, gravação e público também moldam a escuta e o prestígio social."
+        },
+        {
+          "titulo": "Fronteiras",
+          "texto": "Erudito e popular são categorias históricas; intercâmbios não exigem hierarquia de valor."
+        }
+      ]
+    },
+    "musica-popular-regional": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "almeida-junior-violeiro",
+          "src": "/revisao/visuais/almeida-junior-violeiro.webp",
+          "alt": "Pintura com um homem sentado no parapeito de uma janela tocando um instrumento de cordas diante de uma mulher que o escuta.",
+          "legenda": "Almeida Júnior, O Violeiro, 1899, óleo sobre tela, Pinacoteca do Estado de São Paulo.",
+          "credito": "Almeida Júnior; imagem: Google Art Project / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Almeida Júnior; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Almeida_J%C3%BAnior_-_O_Violeiro_(1899).jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Cena musical",
+          "texto": "Em O Violeiro, instrumento, gesto e escuta articulam uma situação social."
+        },
+        {
+          "titulo": "Material",
+          "texto": "Cordas, caixa e modo de tocar participam do timbre, mas o quadro não oferece som."
+        },
+        {
+          "titulo": "Circulação",
+          "texto": "Viola, baião, pífano e outras práticas resultam de encontros, deslocamentos e reinvenções."
+        },
+        {
+          "titulo": "Regional e atual",
+          "texto": "Regionalidade não exige isolamento nem impede diálogo com tecnologia e outras músicas."
+        }
+      ]
+    },
+    "performance-participacao": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "hugo-ball",
+          "src": "/revisao/visuais/hugo-ball.webp",
+          "alt": "Hugo Ball posa com figurino geométrico e chapéu alto, em fotografia de estúdio de 1916.",
+          "legenda": "Hugo Ball em fotografia de estúdio para cartão-convite de sua apresentação no Cabaret Voltaire, 1916; não é registro da ação ao vivo.",
+          "credito": "Unknown authorUnknown author / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Hugo_Ball_Cabaret_Voltaire.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Corpo e linguagem",
+          "texto": "No figurino de Hugo Ball, volumes geométricos transformam a apresentação do corpo; a fotografia de estúdio anuncia uma ação."
+        },
+        {
+          "titulo": "Tempo e presença",
+          "texto": "Duração, espera e repetição interferem no sentido da experiência."
+        },
+        {
+          "titulo": "Público",
+          "texto": "Participar ou apenas observar são relações diferentes; consentimento e contexto são essenciais."
+        },
+        {
+          "titulo": "Registro",
+          "texto": "A foto de divulgação não registra toda a apresentação: presença, duração e relação com público precisam de contexto."
+        }
+      ]
+    },
+    "pop-art-apropriacao": {
+      "tipoCena": "camadas",
+      "imagens": [
+        {
+          "id": "arcimboldo-vertumno",
+          "src": "/revisao/visuais/arcimboldo-vertumno.webp",
+          "alt": "Retrato maneirista em que o rosto do imperador é formado por frutas, legumes, flores, espigas e folhas, sobre fundo escuro.",
+          "legenda": "Giuseppe Arcimboldo, Rodolfo II como Vertumno, 1591, óleo sobre madeira, Castelo de Skokloster, Suécia.",
+          "credito": "Giuseppe Arcimboldo; imagem: Google Arts & Culture / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Giuseppe Arcimboldo; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Giuseppe_Arcimboldo_-_Rudolf_II_of_Habsburg_as_Vertumnus_-_Google_Art_Project.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Matéria e imagem",
+          "texto": "Em Vertumno, frutas e vegetais são reconhecíveis e também constroem um rosto."
+        },
+        {
+          "titulo": "Dupla leitura",
+          "texto": "Alterne entre detalhe e conjunto: a mesma forma participa de sentidos diferentes."
+        },
+        {
+          "titulo": "Apropriação",
+          "texto": "A aula relaciona materiais, deslocamento e circulação de imagens; nem toda apropriação é Pop Art."
+        },
+        {
+          "titulo": "Contexto histórico",
+          "texto": "Arcimboldo é um antecedente comparativo do século XVI, não um artista da Pop Art dos anos 1960."
+        }
+      ]
+    },
+    "ready-made-conceitual": {
+      "tipoCena": "camadas",
+      "imagens": [
+        {
+          "id": "fountain",
+          "src": "/revisao/visuais/fountain.webp",
+          "alt": "Urinol apresentado de lado, assinado R. Mutt 1917, em fotografia histórica de Alfred Stieglitz.",
+          "legenda": "Marcel Duchamp, Fonte, 1917, fotografada por Alfred Stieglitz; registro do original posteriormente perdido.",
+          "credito": "Marcel Duchamp / Alfred Stieglitz / Wikimedia Commons.",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Marcel_Duchamp,_1917,_Fountain,_photograph_by_Alfred_Stieglitz.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Objeto cotidiano",
+          "texto": "Identifique o objeto antes de procurar habilidade manual: o ready-made desloca algo já existente."
+        },
+        {
+          "titulo": "Escolha e contexto",
+          "texto": "Nomear, assinar e apresentar o objeto altera a pergunta: por que isso está sendo exposto?"
+        },
+        {
+          "titulo": "Ideia e instituição",
+          "texto": "O gesto questiona autoria, critérios de valor e o poder das instituições para legitimar arte."
+        },
+        {
+          "titulo": "Registro histórico",
+          "texto": "A fotografia documenta uma apresentação; não confunda registro, original perdido e réplicas posteriores."
+        }
+      ]
+    },
+    "rock-tropicalismo-festivais": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "gil",
+          "src": "/revisao/visuais/gil.webp",
+          "alt": "Gilberto Gil em apresentação musical com violão, em Bruxelas, em 2009.",
+          "legenda": "Gilberto Gil em The String Concert, Bruxelas, novembro de 2009; fotografia de Ines Saraiva. Registro posterior ao tropicalismo dos anos 1960.",
+          "credito": "ines saraiva / Wikimedia Commons.",
+          "licenca": "CC BY 2.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Gilberto_Gil,_concerto_de_cordas_em_Bruxelas.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Cena amplificada",
+          "texto": "Instrumentos elétricos, microfones e palco transformam a relação entre músico e público."
+        },
+        {
+          "titulo": "Mistura de referências",
+          "texto": "O tropicalismo reuniu linguagens populares, experimentação e cultura de massa, sem buscar pureza."
+        },
+        {
+          "titulo": "Festival e disputa",
+          "texto": "Televisão, indústria cultural e ditadura tornam a música também um espaço de conflito."
+        },
+        {
+          "titulo": "Releituras",
+          "texto": "Um registro posterior de artistas não é imagem de um festival dos anos 1960; distinguir tempos evita anacronismos."
+        }
+      ]
+    },
+    "teatro-dramaturgia": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "callot-commedia",
+          "src": "/revisao/visuais/callot-commedia.webp",
+          "alt": "Gravura em preto e branco com três figuras mascaradas da commedia dell’arte, uma com espada e cachimbo, outra ao centro e outra com instrumento de corda.",
+          "legenda": "Anthonie de Winter, a partir de Jacques Callot, Fricasso, Mezzetino e Franca Trippa, série Personagens da commedia dell’arte, 1668-1707, gravura, Rijksmuseum.",
+          "credito": "Anthonie de Winter, após Jacques Callot; Rijksmuseum, Amsterdã.",
+          "licenca": "CC0 — imagem disponibilizada pelo Rijksmuseum em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Fricasso,_Mezzetino_en_Franca_Trippa_Fricasso_Metzetin_Franca_Trippa_(titel_op_object)_Personages_uit_de_commedia_dell%27arte_(serietitel),_RP-P-1903-A-24054EX.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Personagens",
+          "texto": "Máscaras, figurinos e adereços ajudam a reconhecer tipos na commedia dell’arte."
+        },
+        {
+          "titulo": "Texto e ação",
+          "texto": "Dramaturgia orienta relações e situações; encenação transforma indicações em ações concretas."
+        },
+        {
+          "titulo": "Gesto",
+          "texto": "Compare posturas e instrumentos: o corpo comunica mesmo numa imagem silenciosa."
+        },
+        {
+          "titulo": "Mediação",
+          "texto": "A gravura é uma representação histórica do teatro, não o registro completo de uma apresentação."
+        }
+      ]
+    },
+    "teatro-educacao": {
+      "tipoCena": "relacoes",
+      "imagens": [
+        {
+          "id": "boal-oficina",
+          "src": "/revisao/visuais/boal-oficina.webp",
+          "alt": "Participantes experimentam ações corporais em oficina do Teatro do Oprimido conduzida por Augusto Boal.",
+          "legenda": "Participantes de oficina do Teatro do Oprimido conduzida por Augusto Boal, Riverside Church, Nova York, 2008; fotografia de Thehero.",
+          "credito": "Thehero / Wikimedia Commons.",
+          "licenca": "CC BY-SA 3.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Theatre_of_the_Oppressed1.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Jogo",
+          "texto": "Uma regra compartilhada oferece um problema de atuação, não uma resposta única para imitar."
+        },
+        {
+          "titulo": "Escuta",
+          "texto": "Observe como participantes ajustam corpo, voz e reação ao trabalho do outro."
+        },
+        {
+          "titulo": "Reflexão",
+          "texto": "Interromper, discutir e tentar de novo transforma a cena em investigação coletiva."
+        },
+        {
+          "titulo": "Processo",
+          "texto": "Participação, consentimento e aprendizagem importam; avaliação não se reduz a decorar falas."
+        }
+      ]
+    },
+    "teatro-moderno-contemporaneo": {
+      "tipoCena": "percurso",
+      "imagens": [
+        {
+          "id": "teatro-oficina",
+          "src": "/revisao/visuais/teatro-oficina.webp",
+          "alt": "Estruturas e galerias laterais do Teatro Oficina em São Paulo.",
+          "legenda": "Interior do Teatro Oficina durante evento do Oscar, São Paulo, 2025; fotografia de Pedu0303.",
+          "credito": "Pedu0303 / Wikimedia Commons.",
+          "licenca": "CC0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Oficina_evento_Oscar_2025.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Palco e plateia",
+          "texto": "Observe onde os espectadores ficam e para onde as ações se orientam."
+        },
+        {
+          "titulo": "Proximidade",
+          "texto": "Mudar distância e disposição modifica visibilidade, participação e presença."
+        },
+        {
+          "titulo": "Ruptura",
+          "texto": "Arena, rua e espaços alternativos ampliam possibilidades, sem invalidar todo palco frontal."
+        },
+        {
+          "titulo": "Acontecimento",
+          "texto": "Texto, corpo, tempo, luz e público compõem a experiência teatral conjuntamente."
+        }
+      ]
+    },
+    "tradicao-academica": {
+      "tipoCena": "comparacao",
+      "imagens": [
+        {
+          "id": "piero-battista-sforza",
+          "src": "/revisao/visuais/piero-battista-sforza.webp",
+          "alt": "Retrato renascentista de perfil de uma mulher loura com toucado ornamentado, colar de pérolas, vestido escuro e paisagem ao fundo.",
+          "legenda": "Piero della Francesca, Retrato de Battista Sforza (painel do díptico dos duques de Urbino), c. 1467-1472, têmpera sobre madeira, Galleria degli Uffizi.",
+          "credito": "Piero della Francesca; imagem: Google Arts & Culture / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de Piero della Francesca; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Piero_della_Francesca_-_Portraits_of_the_Duke_and_Duchess_of_Urbino,_Federico_da_Montefeltro_and_Battista_Sforza_-_Google_Art_Project.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "el-greco-laocoonte",
+          "src": "/revisao/visuais/el-greco-laocoonte.webp",
+          "alt": "Pintura maneirista com corpos nus contorcidos, um ancião no centro e uma serpente, diante de uma cidade e de um céu tempestuoso.",
+          "legenda": "El Greco, Laocoonte, c. 1610-1614, óleo sobre tela, National Gallery of Art, Washington.",
+          "credito": "El Greco; imagem: Google Arts & Culture / Wikimedia Commons.",
+          "licenca": "Domínio público — obra de El Greco; reprodução em domínio público.",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:El_Greco_(Domenikos_Theotokopoulos)_-_Laoco%C3%B6n_-_Google_Art_Project.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        }
+      ],
+      "pontos": [
+        {
+          "titulo": "Perfil e ideal",
+          "texto": "O retrato de Battista Sforza enfatiza contorno, pose e sinais de posição social."
+        },
+        {
+          "titulo": "Figura e paisagem",
+          "texto": "A organização espacial e os objetos escolhidos colaboram para construir uma imagem pública."
+        },
+        {
+          "titulo": "Tensão maneirista",
+          "texto": "Em Laocoonte, corpos alongados e torcidos rompem a expectativa de equilíbrio sereno."
+        },
+        {
+          "titulo": "Comparação histórica",
+          "texto": "Compare procedimentos e contextos sem tratar a deformação expressiva como simples erro técnico."
+        }
+      ]
+    }
+  }
+}

@@ -603,3 +603,6 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **GAME-SALA-01:** plataforma em sala apresenta percurso e portal para a questão corrente, respeita fase/comandos/revisão/permissões de Quiz; nove modalidades antigas intactas.
 
 - **AVENTURA-AVATAR-01:** seis fases/24 questões com validação de disponibilidade; primeira estrela visível no layout novo e layout antigo preservado; oito avatares originais locais, seleção/snapshot/retomada, rejeição de ID inválido, renderer sem mudar física. Autorizada em 24/11/2026 somente adaptação de expectativas antigas dos limites/configurações.
+
+## Slides explicativos da Revisão interativa
+Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de manifesto/mídias, domínio e integração de etapas sincronizadas e componentes de apresentação.

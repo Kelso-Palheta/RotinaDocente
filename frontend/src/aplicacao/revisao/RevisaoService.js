@@ -1,3 +1,4 @@
+import { ACOES_EXPLICACAO, comandarApresentacao, atualizarProjecaoApresentacao, criarEtapasExplicacao } from "@/dominio/revisao/apresentacao";
 import {
   validarSelecaoTematica,
   resolverAtribuicoes,
@@ -250,7 +251,7 @@ export class RevisaoService {
       aula = await reader.get(
         `${caminho(sala.codigo)}/aulas/${sala.sequenciaAula[sala.indiceBloco].conteudoId}`,
       );
-    return publicarTematico(montarPublicacao(sala, questao), sala, aula);
+    return publicarTematico(montarPublicacao(sala, questao), sala, aula, this.agora());
   }
   async validarImagemAulaSala(ator, codigo, id, imagemId) {
     const { sala } = await this.autorizarSala(ator, codigo);
@@ -851,14 +852,27 @@ export class RevisaoService {
     respostas = [],
     recibo = null,
   ) {
-    return {
-      estado: projetarEstado(publicado, {
+    const estado = projetarEstado(publicado, {
         tipo: ator.tipo,
         participanteId: participante?.id,
         participantes,
         respostas,
         agora: this.agora(),
-      }),
+      });
+    if (estado.fase === "conteudo" && estado.aula?.bloco) {
+      // Publicações anteriores às etapas continuam sincronizadas, sem migração/escrita.
+      const apresentacao = estado.aula.apresentacao ?? {
+        totalEtapas: Math.max(1, criarEtapasExplicacao(estado.aula.bloco.texto).length),
+        etapaBase: 0,
+        automatica: false,
+        iniciadaEmMs: estado.agoraServidorMs,
+      };
+      estado.aula.apresentacao = atualizarProjecaoApresentacao(
+        apresentacao, estado.agoraServidorMs,
+      );
+    }
+    return {
+      estado,
       envio: recibo
         ? this.reciboPublico(recibo)
         : {
@@ -896,7 +910,7 @@ export class RevisaoService {
           ...sala,
           rodadas,
           indice: 0,
-          ...(sala.schemaVersion === 2 ? { indiceBloco: 0 } : {}),
+          ...(sala.schemaVersion === 2 ? { indiceBloco: 0, apresentacao: null } : {}),
           fase,
           revisao: sala.revisao + 1,
           reiniciada: true,
@@ -938,6 +952,14 @@ export class RevisaoService {
           : r);
       }
       if (sala.schemaVersion === 2) {
+        if (ACOES_EXPLICACAO.includes(body.acao)) {
+          const ref = sala.sequenciaAula[sala.indiceBloco];
+          const aula = await tx.get(`${base}/aulas/${ref.conteudoId}`);
+          const bloco = aula?.conteudo?.blocos?.find((b) => b.id === ref.blocoId);
+          atual.apresentacao = comandarApresentacao(sala, body, bloco, agora);
+        }
+        if (["avancar_conteudo", "voltar_conteudo", "apresentar_proximo_assunto", "mostrar_conteudo"].includes(body.acao))
+          atual.apresentacao = null;
         if (body.acao === "avancar_conteudo") atual.indiceBloco += 1;
         if (body.acao === "voltar_conteudo") atual.indiceBloco -= 1;
         if (body.acao === "apresentar_proximo_assunto") {

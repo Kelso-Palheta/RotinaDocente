@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { ControlesExplicacao } from './ControlesExplicacao';
 
 function etapaAtual(estado) {
   const { fase, aula, rodada } = estado;
@@ -40,6 +41,7 @@ export function ControlesSala({ estado, ocupado, onAcao, projecao }) {
 
   return (
     <section aria-label="Controles da sala" className="flex flex-wrap items-center gap-2 border-b border-[#8b5cf6]/50 px-4 py-2 text-white">
+      {estado.fase === 'conteudo' && estado.aula?.apresentacao && <ControlesExplicacao apresentacao={estado.aula.apresentacao} bloqueado={bloqueado} onAcao={onAcao} />}
       {projecao && estado.fase === 'conteudo' && estado.aula?.indiceBloco > 0 && (
         <button type="button" className={botao} disabled={bloqueado} onClick={() => onAcao('voltar_conteudo')}>
           Voltar bloco

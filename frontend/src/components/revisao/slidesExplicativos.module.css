@@ -1,0 +1,51 @@
+.slide{--paper:#fffdf7;--ink:#25104a;--cyan:#00ddeb;--yellow:#ffe14d;color:var(--ink);background:var(--paper);border-radius:24px;overflow:hidden;box-shadow:0 16px 50px #13052d35;border:1px solid #b9a6ef;isolation:isolate}
+.header{display:flex;justify-content:space-between;align-items:center;gap:16px;background:linear-gradient(110deg,#6315d9,#25104a);color:var(--paper);padding:20px 28px;position:relative}
+.header:after{content:"";position:absolute;bottom:0;right:0;width:120px;height:5px;background:linear-gradient(90deg,var(--cyan) 33%,var(--yellow) 33% 66%,#ff2994 66%)}
+.eyebrow{display:block;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#007783;margin-bottom:8px}
+.header .eyebrow{color:var(--cyan)}
+.header h2{font-size:clamp(23px,2.3vw,40px);font-weight:900;line-height:1.12;margin:0;max-width:850px}
+.badge{border-radius:999px;background:var(--yellow);color:var(--ink);padding:8px 13px;font-size:11px;font-weight:900;white-space:nowrap}
+.body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0;align-items:stretch;min-height:380px}
+.visual{padding:24px;background:linear-gradient(140deg,#f3edff,#fffdf7);display:flex;flex-direction:column;gap:12px;margin:0;min-width:0}
+.artFrame{display:flex;justify-content:center;align-items:center;background:#25104a;border-radius:17px;min-height:260px;overflow:hidden;position:relative;border:4px solid white;box-shadow:0 8px 24px #25104a18}
+.photo{display:block;max-height:360px;width:100%;height:100%;min-height:260px;object-fit:contain}
+.comparison{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.comparison .photo{min-height:220px;max-height:320px}
+.caption{font-size:11px;line-height:1.5;color:#5c4878}
+.caption strong{display:block;color:var(--ink);font-size:12px}
+.links{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px}
+.links a{text-decoration:underline;font-weight:700}
+.discourse{padding:28px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.progress{display:flex;gap:7px}
+.progress span{height:5px;flex:1;border-radius:5px;background:#e5dcf7}
+.progress .done{background:#6315d9}
+.progress .current{background:#ff2994}
+.stepNumber{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:#6c45a2}
+.explanation{animation:revelarExplicacao .3s ease-out;color:var(--ink);font-size:clamp(19px,1.65vw,29px);line-height:1.5;letter-spacing:-.025em;font-weight:650;margin:0;min-height:115px;white-space:pre-line}
+.diagram{background:#f3edff;border-radius:15px;padding:16px;position:relative;overflow:hidden;margin-top:auto}
+.diagramSvg{width:100%;height:94px;display:block;margin:-2px 0 8px}
+.visualPoints{display:grid;gap:7px}
+.visualPoint{display:flex;gap:9px;align-items:start;font-size:12px;color:#74648c;transition:color .3s}
+.visualPoint strong{font-size:12px}
+.visualPoint p{margin:4px 0 0;line-height:1.5;font-size:13px}
+.pointNumber{width:19px;height:19px;border-radius:50%;background:#e5dcf7;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;font-weight:900}
+.pointActive{color:var(--ink)}
+.pointActive .pointNumber{background:var(--yellow)}
+.diagram small{font-size:9px;color:#695783;display:block;margin-top:12px}
+.footer{padding:14px 24px;border-top:1px solid #e5dcf7;display:flex;gap:14px;align-items:start;flex-wrap:wrap;background:#fffdf7}
+.study{flex:1;min-width:200px;font-size:13px;line-height:1.75}
+.study summary{cursor:pointer;font-weight:800;color:#6315d9}
+.study p{white-space:pre-line;margin-top:14px;color:var(--ink)}
+.failure{padding:35px;color:#fffdf7;text-align:center;font-size:14px}
+.textOnly{grid-template-columns:1fr}
+.textOnly .explanation{max-width:850px}
+@media(min-width:1400px){.discourse{padding:34px}.visual{padding:30px}.body{min-height:460px}}
+@media(max-width:640px){.header{padding:18px;align-items:start}.badge{font-size:9px;padding:7px 9px}.body{grid-template-columns:1fr}.visual{padding:14px}.photo{max-height:300px;min-height:170px}.artFrame{min-height:170px}.discourse{padding:20px;gap:14px}.explanation{min-height:0;font-size:21px}.diagramSvg{height:75px}.footer{padding:15px}.header h2{font-size:24px}.comparison .photo{min-height:150px}}
+@media(prefers-reduced-motion:reduce){.slide *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.slide{box-shadow:none;break-inside:avoid}.study:not([open]) p{display:block}.diagramSvg{height:70px}}
+
+@media(min-width:1280px){:global(.festival-palco) section:has(> .slide){max-width:1500px}}
+
+.credits{margin-top:4px}.credits summary{cursor:pointer;font-size:10px;font-weight:700}.credits[open]{line-height:1.5}
+
+@keyframes revelarExplicacao{from{transform:translateY(6px)}to{transform:translateY(0)}}

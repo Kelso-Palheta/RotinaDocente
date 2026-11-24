@@ -1,3 +1,4 @@
+import { ACOES_EXPLICACAO, validarAcaoExplicacao, projetarApresentacao } from "./apresentacao";
 import { falha, validarComando, faseEfetiva } from "./sala";
 const ids = (v) =>
   Array.isArray(v) &&
@@ -87,6 +88,10 @@ export function validarSelecaoTematica(s, c) {
   }
 }
 export function transicaoTematica(s, b, agora) {
+  if (ACOES_EXPLICACAO.includes(b?.acao)) {
+    validarAcaoExplicacao(s, b);
+    return "conteudo";
+  }
   if (s.schemaVersion !== 2) return validarComando(s, b, agora);
   if (["avancar_conteudo", "voltar_conteudo"].includes(b?.acao)) {
     if (
@@ -177,7 +182,7 @@ export function transicaoTematica(s, b, agora) {
   }
   return b.acao === "proxima_rodada" ? "pergunta" : fase;
 }
-export function publicarTematico(base, s, congelada) {
+export function publicarTematico(base, s, congelada, agora = 0) {
   if (s.schemaVersion !== 2) return base;
   const p = { ...base, schemaVersion: 2 };
   if (s.modoFluxo) p.modoFluxo = s.modoFluxo;
@@ -238,6 +243,7 @@ export function publicarTematico(base, s, congelada) {
       : s.indiceBloco === s.sequenciaAula.length - 1;
 
   p.aula = {
+    apresentacao: projetarApresentacao(s, b, agora),
     conteudoId: a.id,
     tituloConteudo: a.titulo,
     indiceBloco: posNoAssunto,

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { BlocoAulaTematica } from "./BlocoAulaTematica";
 const urlSegura = (v) => {
   try {
@@ -33,6 +33,7 @@ export function ConferirConteudoTematico({
   onAprovar,
   onVoltar,
 }) {
+  const [slidesRenovados, setSlidesRenovados] = useState(false);
   const todasConfirmadas = Boolean(
     ["conteudo", "imagens", "cobertura"].every(
       (k) => confirmacoes?.[k] === true,
@@ -152,6 +153,10 @@ export function ConferirConteudoTematico({
           </span>
         </div>
 
+        <button type="button" aria-pressed={slidesRenovados} onClick={() => setSlidesRenovados(v => !v)} className="rounded-full border border-[#00DDEB] px-4 py-2 text-sm font-bold text-[#FFFDF7]">
+          {slidesRenovados ? 'Conferir material original do acervo' : 'Prévia dos slides renovados'}
+        </button>
+        <p className="text-xs text-[#FFFDF7]/75">{slidesRenovados ? 'Apresentação com curadoria visual e explicações em etapas.' : 'Material original para conferência e aprovação. As salas usam a apresentação renovada.'}</p>
         <div className="space-y-4">
           {(conteudo?.blocos || []).map((bloco, idx) => (
             <BlocoAulaTematica
@@ -159,6 +164,7 @@ export function ConferirConteudoTematico({
               bloco={bloco}
               imagens={conteudo.imagens || []}
               aula={{
+                ...(slidesRenovados ? { conteudoId: conteudo.id } : {}),
                 indiceBloco: idx,
                 totalBlocos: conteudo.blocos.length,
               }}

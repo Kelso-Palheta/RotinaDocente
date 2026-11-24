@@ -1,166 +1,98 @@
-"use client";
+'use client';
 
-import React from "react";
+import React, { useState } from 'react';
+import catalogo from '../../../../content/revisao-enem/aulas/visuais.json';
+import { criarEtapasExplicacao } from '@/dominio/revisao/apresentacao';
+import { useEtapaExplicativa } from './useEtapaExplicativa';
+import { ControlesExplicacao } from './ControlesExplicacao';
+import { CenaExplicativa } from './CenaExplicativa';
+import styles from './slidesExplicativos.module.css';
 
-/**
- * BlocoAulaTematica — Renderiza um bloco didático da aula introdutória v2.
- * Suporta blocos de texto conceitual e leitura guiada de imagens com acessibilidade.
- *
- * Contrato: BlocoAulaTematica({ bloco, imagens, aula, tema })
- */
 const urlSegura = (v, local = false) => {
-  if (typeof v !== "string") return false;
-  if (local && v.startsWith("/api/revisao/")) return true;
-  try {
-    const u = new URL(v);
-    return u.protocol === "https:" && !u.username && !u.password;
-  } catch {
-    return false;
-  }
+  if (typeof v !== 'string') return false;
+  if (local && (/^\/api\/revisao\//.test(v) || /^\/revisao\/visuais\/[a-z0-9._/-]+$/i.test(v))) return true;
+  try { const u = new URL(v); return u.protocol === 'https:' && !u.username && !u.password; } catch { return false; }
 };
-export function BlocoAulaTematica({
-  bloco,
-  imagens = [],
-  aula = {},
-  tema = "",
-}) {
-  if (!bloco) return null;
 
-  const tituloConteudo = aula.tituloConteudo || tema || "";
-  const indice = aula.indiceBloco !== undefined ? aula.indiceBloco + 1 : null;
-  const total = aula.totalBlocos || null;
-
-  // Resolução da imagem se for bloco de imagem
-  let dadosImagem = null;
-  if (bloco.tipo === "imagem") {
-    const listaImagens = [...(imagens || []), ...(bloco.imagens || [])];
-    dadosImagem = listaImagens.find((img) => img.id === bloco.imagemId) || null;
-  }
-
-  return (
-    <article
-      data-testid="bloco-aula-tematica"
-      className="bg-[#6334E3]/25 border-2 border-[#6334E3]/70 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl backdrop-blur-md space-y-5 text-[#FFFDF7]"
-    >
-      {/* Topo do Bloco: Identificação da Aula e Progresso */}
-      <header className="border-b border-[#6334E3]/40 pb-3 flex flex-wrap items-center justify-between gap-2">
-        <div className="space-y-0.5">
-          {tituloConteudo && (
-            <span className="text-xs uppercase tracking-widest font-black text-[#00DDEB] block">
-              {tituloConteudo}
-            </span>
-          )}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-[#FFFDF7] tracking-tight">
-            {bloco.titulo}
-          </h2>
-        </div>
-
-        {indice !== null && total !== null && (
-          <span
-            data-testid="indicador-bloco-progresso"
-            className="text-xs font-black uppercase tracking-wider bg-[#FFE14D]/20 text-[#FFE14D] border border-[#FFE14D]/40 px-3 py-1 rounded-full shrink-0 shadow-sm"
-          >
-            Bloco {indice} de {total}
-          </span>
-        )}
-      </header>
-
-      {/* Conteúdo Principal do Bloco */}
-      <div className="space-y-5">
-        {/* Renderização de Imagem Contextual */}
-        {bloco.tipo === "imagem" && (
-          <figure className="space-y-2.5 max-w-2xl mx-auto my-3 text-center">
-            {urlSegura(dadosImagem?.url, true) ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={dadosImagem.url}
-                alt={
-                  dadosImagem.alt || bloco.titulo || "Imagem didática da aula"
-                }
-                className="rounded-2xl border-2 border-[#6334E3]/60 max-h-[460px] w-auto mx-auto object-contain shadow-2xl bg-[#25104A]"
-                loading="lazy"
-              />
-            ) : (
-              <div className="p-6 rounded-2xl border-2 border-dashed border-[#6334E3]/60 bg-[#25104A]/60 text-sm text-[#FFFDF7]/70 italic">
-                Imagem contextual associada ao bloco
-              </div>
-            )}
-
-            {(dadosImagem?.legenda || dadosImagem?.alt) && (
-              <figcaption className="text-xs text-[#FFFDF7]/80 leading-relaxed max-w-xl mx-auto">
-                <span className="font-bold text-[#00DDEB]">Figura: </span>
-                <span>{dadosImagem.legenda || dadosImagem.alt}</span>
-                {dadosImagem.credito && (
-                  <span className="block mt-1">{dadosImagem.credito}</span>
-                )}
-                {dadosImagem.alteracoes && (
-                  <span className="block mt-1">{dadosImagem.alteracoes}</span>
-                )}
-                <span className="flex flex-wrap justify-center gap-3 mt-2">
-                  {urlSegura(dadosImagem.fonteUrl) && (
-                    <a
-                      aria-label="Fonte da imagem"
-                      href={dadosImagem.fonteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      Fonte
-                    </a>
-                  )}
-                  {urlSegura(dadosImagem.autorUrl) && (
-                    <a
-                      aria-label="Autor da fotografia"
-                      href={dadosImagem.autorUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      Autor
-                    </a>
-                  )}
-                  {urlSegura(dadosImagem.licencaUrl) && (
-                    <a
-                      aria-label="Licença de uso"
-                      href={dadosImagem.licencaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      Licença
-                    </a>
-                  )}
-                  {urlSegura(dadosImagem.url, true) && (
-                    <a
-                      aria-label="Ampliar imagem"
-                      href={dadosImagem.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      Ampliar imagem ↗
-                    </a>
-                  )}
-                </span>
-                {dadosImagem.licenca && (
-                  <span className="block text-[11px] text-[#FFFDF7]/60 mt-0.5">
-                    Fonte / Licença: {dadosImagem.licenca}
-                  </span>
-                )}
-              </figcaption>
-            )}
-          </figure>
-        )}
-
-        {/* Texto do Bloco (seja puro texto ou explicação que acompanha a imagem) */}
-        {bloco.texto && (
-          <div className="text-sm sm:text-base md:text-lg leading-relaxed text-[#FFFDF7]/95 font-medium space-y-3 whitespace-pre-line">
-            <p>{bloco.texto}</p>
-          </div>
-        )}
-      </div>
-    </article>
-  );
+function ImagemComentada({ imagem, titulo }) {
+  const [erro, setErro] = useState(false);
+  const src = imagem?.src || imagem?.url;
+  return <figure className={styles.visual}>
+    <div className={styles.artFrame}>
+      {urlSegura(src, true) && !erro ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img className={styles.photo} src={src} alt={imagem.alt || titulo} loading="lazy" onError={() => setErro(true)} />
+      ) : <p role="status" className={styles.failure}>Imagem indisponível. A explicação e o texto completo continuam disponíveis.</p>}
+    </div>
+    <figcaption className={styles.caption}>
+      <strong>{imagem?.legenda || imagem?.alt || titulo}</strong>
+      {(imagem?.credito || imagem?.licenca) && <details className={styles.credits}>
+        <summary>Créditos e licença</summary>
+        {imagem.credito && <span className="block">{imagem.credito}</span>}
+        {imagem.alteracoes && <span className="block">{imagem.alteracoes}</span>}
+        {imagem.licenca && <span className="block">{imagem.licenca}</span>}
+      </details>}
+      <span className={styles.links}>
+        {urlSegura(imagem?.fonteUrl) && <a aria-label="Fonte da imagem" href={imagem.fonteUrl} target="_blank" rel="noopener noreferrer">Fonte</a>}
+        {urlSegura(imagem?.autorUrl) && <a aria-label="Autor da fotografia" href={imagem.autorUrl} target="_blank" rel="noopener noreferrer">Autor</a>}
+        {urlSegura(imagem?.licencaUrl) && <a aria-label="Licença de uso" href={imagem.licencaUrl} target="_blank" rel="noopener noreferrer">Licença</a>}
+        {urlSegura(src, true) && !erro && <a aria-label="Ampliar imagem" href={src} target="_blank" rel="noopener noreferrer">Ampliar imagem ↗</a>}
+      </span>
+    </figcaption>
+  </figure>;
 }
 
+function ApresentacaoBloco({ bloco, imagens, aula, tema }) {
+  const visual = catalogo.aulas[aula.conteudoId];
+  const legado = [...imagens, ...(bloco.imagens || [])].find(i => i.id === bloco.imagemId);
+  const esquema = /esquema/.test(bloco.imagemId || '') || /esquema/.test(legado?.url || '');
+  const originais = criarEtapasExplicacao(bloco.texto || '');
+  // O número de passos continua compatível com o snapshot; o novo exemplo recebe leitura própria.
+  const etapas = esquema && visual
+    ? Array.from({ length: Math.max(1, originais.length) }, (_, i) => visual.pontos.slice(
+      Math.floor(i * visual.pontos.length / Math.max(1, originais.length)),
+      Math.floor((i + 1) * visual.pontos.length / Math.max(1, originais.length)),
+    ).map(p => `${p.titulo}: ${p.texto}`).join(' '))
+    : originais;
+  if (!etapas.length) etapas.push('Observe o exemplo visual e converse sobre as escolhas do artista.');
+  const emSala = Boolean(aula.bloco || aula.apresentacao);
+  const [local, setLocal] = useState({ etapa: 0, automatica: false, etapaBase: 0, iniciadaEmMs: 0, agoraServidorMs: 0 });
+  const apresentacao = aula.apresentacao || { ...local, totalEtapas: etapas.length, intervaloMs: 8000 };
+  const etapa = Math.max(0, Math.min(etapas.length - 1, useEtapaExplicativa(apresentacao)));
+  const imagem = bloco.tipo === 'imagem' && legado && (!esquema || !visual) ? legado : visual?.imagens?.[0];
+  const comparacao = visual?.tipoCena === 'comparacao' && visual.imagens.length > 1 && !legado;
+  const indice = aula.indiceBloco !== undefined ? aula.indiceBloco + 1 : null;
+  function controlar(acao) {
+    const agora = Date.now();
+    const proxima = acao === 'repetir_explicacao' ? 0 : acao === 'avancar_explicacao' ? Math.min(etapas.length-1, etapa+1) : acao === 'voltar_explicacao' ? Math.max(0, etapa-1) : etapa;
+    setLocal({ etapa: proxima, etapaBase: proxima, automatica: acao === 'reproduzir_explicacao', iniciadaEmMs: agora, agoraServidorMs: agora });
+  }
+  return <article data-testid="bloco-aula-tematica" className={styles.slide}>
+    <header className={styles.header}>
+      <div>
+        <span className={styles.eyebrow}>{aula.tituloConteudo || tema || 'Explorar · compreender · praticar'}</span>
+        <h2>{bloco.titulo}</h2>
+      </div>
+      {indice !== null && aula.totalBlocos && <span data-testid="indicador-bloco-progresso" className={styles.badge}>Bloco {indice} de {aula.totalBlocos}</span>}
+    </header>
+    <div className={`${styles.body} ${!imagem ? styles.textOnly : ''}`}>
+      {imagem && (comparacao ? <div className={styles.comparison}>{visual.imagens.slice(0,2).map(i=><ImagemComentada key={i.id} imagem={i} titulo={bloco.titulo}/>)}</div> : <ImagemComentada key={imagem.src || imagem.url} imagem={imagem} titulo={bloco.titulo}/>)}
+      <div className={styles.discourse}>
+        <div className={styles.progress} aria-hidden="true">{etapas.map((_,i)=><span key={i} className={i===etapa?styles.current:i<etapa?styles.done:''}/>)}</div>
+        <span className={styles.stepNumber}>Passo {etapa+1} de {etapas.length} · {apresentacao.automatica ? 'Reprodução automática' : 'Leitura guiada'}</span>
+        <p key={`${bloco.id}:${etapa}`} data-testid="etapa-explicativa" className={styles.explanation}>{etapas[etapa]}</p>
+        {visual && <CenaExplicativa conteudoId={aula.conteudoId} tipo={visual.tipoCena} pontos={visual.pontos} etapa={etapa} totalEtapas={etapas.length}/>}
+      </div>
+    </div>
+    <footer className={styles.footer}>
+      {!emSala && <ControlesExplicacao apresentacao={apresentacao} onAcao={controlar}/>}
+      {bloco.texto && (etapas.length > 1 || esquema) && <details className={styles.study}><summary>Texto completo para estudo</summary>{esquema && visual && <p>Texto original do acervo. A leitura guiada acima apresenta o novo exemplo visual.</p>}<p>{bloco.texto}</p>{esquema && urlSegura(legado?.url, true) && <a aria-label="Esquema original do acervo" href={legado.url} target="_blank" rel="noopener noreferrer">Esquema original do acervo ↗</a>}</details>}
+    </footer>
+  </article>;
+}
+
+export function BlocoAulaTematica({ bloco, imagens = [], aula = {}, tema = '' }) {
+  if (!bloco) return null;
+  return <ApresentacaoBloco key={`${aula.conteudoId || ''}:${bloco.id}`} bloco={bloco} imagens={imagens} aula={aula} tema={tema}/>;
+}
 export default BlocoAulaTematica;
