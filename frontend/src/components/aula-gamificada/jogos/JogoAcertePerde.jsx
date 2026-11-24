@@ -2,6 +2,7 @@
 
 import React, { useRef, useState } from 'react';
 import { gerarRequestId } from '../api';
+import { useAudiovisualSala } from '../audiovisual/ProvedorAudiovisualSala';
 import { JogoQuiz } from './JogoQuiz';
 
 export function JogoAcertePerde({ questao, recibo, ocupado, bloqueado, onEnviar }) {
@@ -10,9 +11,11 @@ export function JogoAcertePerde({ questao, recibo, ocupado, bloqueado, onEnviar 
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const requestId = useRef(null);
+  const audiovisual = useAudiovisualSala();
   const confirmado = recibo?.status === 'confirmado' || enviado;
   const enviar = async () => {
     if (!texto.trim() || bloqueado || ocupado || enviando || confirmado) return;
+    audiovisual?.desbloquearPorGesto?.();
     requestId.current ||= gerarRequestId('aberta');
     setEnviando(true); setErro(null);
     try { await onEnviar({ texto: texto.trim() }, requestId.current); setEnviado(true); }

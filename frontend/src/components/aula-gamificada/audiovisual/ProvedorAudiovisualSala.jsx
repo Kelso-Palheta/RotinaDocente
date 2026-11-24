@@ -130,7 +130,9 @@ export function ProvedorAudiovisualSala({
       const primeiro = eventosDisparadosRef.current.values().next().value;
       eventosDisparadosRef.current.delete(primeiro);
     }
-    motorRef.current?.tocarEfeito(situacao);
+    // Efeitos de filhos rodam antes do efeito do provedor na montagem: cria o motor sob demanda (um só por aparelho).
+    if (!motorRef.current) motorRef.current = new MotorAudioJogo();
+    motorRef.current.tocarEfeito(situacao);
   }, []);
 
   useEffect(() => {
@@ -138,6 +140,13 @@ export function ProvedorAudiovisualSala({
       dispararEvento(evento.id, evento.situacao);
     }
   }, [evento?.id, evento?.situacao, dispararEvento]);
+
+  /** Efeito sem deduplicação por id (salto, queda); quem chama controla a frequência. */
+  const tocarEfeitoLivre = useCallback((situacao) => {
+    if (!situacao) return;
+    if (!motorRef.current) motorRef.current = new MotorAudioJogo();
+    motorRef.current.tocarEfeito(situacao);
+  }, []);
 
   const selecionarCena = useCallback(
     (jogo, situacao, eventoId) =>
@@ -169,6 +178,7 @@ export function ProvedorAudiovisualSala({
       definirVolume: (v) => motorRef.current?.definirVolume(v),
       desbloquearPorGesto,
       dispararEvento,
+      tocarEfeitoLivre,
       selecionarCena,
     }),
     [
@@ -179,6 +189,7 @@ export function ProvedorAudiovisualSala({
       setReduzirAnimacao,
       desbloquearPorGesto,
       dispararEvento,
+      tocarEfeitoLivre,
       selecionarCena,
     ],
   );

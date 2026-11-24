@@ -1,5 +1,7 @@
 import { embaralhar, falha, idPadrao, inteiroFaixa, segmento, textoObrigatorio } from '@/dominio/aula-gamificada/comum';
 import { validarParaRevisao } from '@/dominio/aula-gamificada/questoes';
+import { configuracaoValida, distribuirReforco, MAX_QUESTOES_V2 } from '@/dominio/revisao-autonoma/plataformaV2';
+import { LIMITE_BYTES_SESSAO, aplicarAcaoV2, assinaturaV2, montarFasesV2, projetarV2, resumoV2, tamanhoEmBytes } from './sessaoV2';
 
 const raiz = key => `revisaoAutonomaAlunos/${key}`;
 const sessaoPath = (key, id) => `${raiz(key)}/sessoes/${segmento(id, { max: 80 })}`;
@@ -65,6 +67,7 @@ export class RevisaoAutonomaService {
     return { conteudos: [...grupos.values()] };
   }
   projetar(s) {
+    if (s.schema === 2) return projetarV2(s);
     const q = s.questoes[s.indice];
     const r = s.respostas[s.indice];
     return { id: s.id, revision: s.revision, fase: s.fase, indice: s.indice, total: s.questoes.length, disciplina: s.disciplina, conteudo: s.conteudo, dificuldade: s.dificuldade,
@@ -74,6 +77,7 @@ export class RevisaoAutonomaService {
     };
   }
   resumo(s) {
+    if (s.schema === 2) return resumoV2(s);
     return { id: s.id, professorId: s.professorId, turmaId: s.turmaId, disciplina: s.disciplina, conteudo: s.conteudo, dificuldade: s.dificuldade, fase: s.fase, progresso: s.respostas.length, total: s.questoes.length, acertos: s.respostas.filter(r => r.correta).length, erros: s.respostas.filter(r => !r.correta).length, atualizadoEmMs: s.atualizadoEmMs };
   }
   async lerSessao(key, id, tx = this.store) {
@@ -82,8 +86,13 @@ export class RevisaoAutonomaService {
     const turma = await this.autorizar(key, s.professorId, tx);
     if (String(turma.id) !== s.turmaId) throw falha(403, 'A matrícula desta revisão mudou.');
     if (s.fase !== 'concluida') {
-      const q = await tx.get(`${questoesPath(s.professorId)}/${s.questoes[s.indice].id}`);
-      if (!elegivel(q, turma.id)) throw falha(403, 'Este conteúdo foi retirado da revisão. Escolha outro conteúdo.');
+      const ids = s.schema === 2
+        ? s.fases[s.faseIndice].eventos.filter(e => e.estado === 'pendente' || e.estado === 'aberto').map(e => e.questaoId)
+        : [s.questoes[s.indice].id];
+      for (const qid of ids) {
+        const q = await tx.get(`${questoesPath(s.professorId)}/${qid}`);
+        if (!elegivel(q, turma.id)) throw falha(403, 'Este conteúdo foi retirado da revisão. Escolha outro conteúdo.');
+      }
     }
     return s;
   }
@@ -95,8 +104,13 @@ export class RevisaoAutonomaService {
     const disciplina = textoObrigatorio(body.disciplina, 'disciplina', { max: 120 });
     const conteudo = textoObrigatorio(body.conteudo, 'conteúdo', { max: 300 });
     const dificuldade = textoObrigatorio(body.dificuldade, 'dificuldade', { max: 20 });
-    const quantidade = inteiroFaixa(body.quantidade, 'quantidade', { min: 1, max: 10 });
-    const assinatura = JSON.stringify([uid, disciplina, conteudo, dificuldade, quantidade, body.repetirSessaoId || null, body.novaTentativa === true]);
+    const v2Pedido = body.fases !== undefined && !body.repetirSessaoId;
+    const fasesPedidas = v2Pedido ? inteiroFaixa(body.fases, 'fases', { min: 1, max: 3 }) : null;
+    const estrelasPedidas = v2Pedido ? inteiroFaixa(body.estrelasPorFase, 'estrelas por fase', { min: 0, max: 3 }) : null;
+    const quantidade = v2Pedido ? null : inteiroFaixa(body.quantidade, 'quantidade', { min: 1, max: 10 });
+    const assinatura = v2Pedido
+      ? JSON.stringify(['v2', uid, disciplina, conteudo, dificuldade, fasesPedidas, estrelasPedidas, body.novaTentativa === true])
+      : JSON.stringify([uid, disciplina, conteudo, dificuldade, quantidade, body.repetirSessaoId || null, body.novaTentativa === true]);
     const reqPath = `${raiz(key)}/requisicoes/criar_${req}`;
     return this.store.transaction(async tx => {
       const turma = await this.autorizar(key, uid, tx);
@@ -113,16 +127,36 @@ export class RevisaoAutonomaService {
         if (ativa && ativa.fase !== 'concluida') throw falha(409, 'Você tem uma revisão em andamento. Retome-a ou escolha iniciar outra.');
       }
       let questoes = (await tx.list(questoesPath(uid), [['revisaoAutonomaLiberada', '==', true]])).filter(q => elegivel(q, turma.id) && q.disciplina === disciplina && q.conteudo === conteudo && q.dificuldade === dificuldade);
+      let v2 = v2Pedido;
       if (body.repetirSessaoId) {
         const origem = await this.lerSessao(key, body.repetirSessaoId, tx);
         if (origem.professorId !== uid || origem.fase !== 'concluida') throw falha(422, 'Conclua a revisão original antes de praticar seus erros.');
-        const erros = new Set(origem.respostas.filter(r => !r.correta).map(r => r.questaoId));
+        v2 = origem.schema === 2;
+        const erros = new Set(v2 ? origem.fases.flatMap(f => f.eventos).filter(e => e.estado === 'concluido' && !e.correta).map(e => e.questaoId) : origem.respostas.filter(r => !r.correta).map(r => r.questaoId));
         questoes = questoes.filter(q => erros.has(q.id));
       }
       if (!questoes.length) throw falha(422, 'Não há questões liberadas para esta seleção.');
-      if (!body.repetirSessaoId && quantidade > questoes.length) throw falha(422, `Há somente ${questoes.length} questões disponíveis.`);
+      if (!body.repetirSessaoId && !v2 && quantidade > questoes.length) throw falha(422, `Há somente ${questoes.length} questões disponíveis.`);
       const id = segmento(this.gerarId(), { max: 80 });
       if (await tx.get(sessaoPath(key, id))) throw falha(409, 'Não foi possível criar a revisão. Tente novamente.');
+      if (v2) {
+        const necessarias = v2Pedido ? fasesPedidas * (estrelasPedidas + 1) : null;
+        if (v2Pedido && !configuracaoValida(questoes.length, fasesPedidas, estrelasPedidas)) {
+          throw falha(422, necessarias > questoes.length
+            ? `Esta aventura precisa de ${necessarias} questões e há somente ${questoes.length} liberadas. Escolha uma configuração menor.`
+            : `Configuração inválida. Máximo de ${MAX_QUESTOES_V2} questões por aventura.`);
+        }
+        const contagens = v2Pedido ? Array(fasesPedidas).fill(estrelasPedidas + 1) : distribuirReforco(questoes.length);
+        const total = contagens.reduce((a, b) => a + b, 0);
+        const escolhidas = embaralhar(questoes, id).slice(0, total).map(q => ({ ...q, alternativas: embaralhar(q.alternativas, `${id}:${q.id}`) }));
+        for (const q of escolhidas) validarParaRevisao(q);
+        const s = { schema: 2, id, professorId: uid, turmaId: String(turma.id), disciplina, conteudo, dificuldade, questoes: escolhidas, fases: montarFasesV2(escolhidas, contagens), faseIndice: 0, abertoId: null, pontosJogo: 0, revision: 1, fase: 'jogando', criadoEmMs: this.agora(), atualizadoEmMs: this.agora() };
+        if (tamanhoEmBytes(s) > LIMITE_BYTES_SESSAO) throw falha(422, 'A aventura ficou grande demais. Escolha uma configuração menor.');
+        tx.set(sessaoPath(key, id), s);
+        tx.set(raiz(key), { ...perfil, criacoesRecentes: [...criacoesRecentes, this.agora()], ativaId: id, historico: [this.resumo(s), ...(perfil.historico || [])].slice(0, 50) });
+        tx.set(reqPath, { assinatura, sessaoId: id });
+        return { sessao: this.projetar(s) };
+      }
       questoes = embaralhar(questoes, id).slice(0, quantidade).map(q => ({ ...q, alternativas: embaralhar(q.alternativas, `${id}:${q.id}`) }));
       for (const q of questoes) validarParaRevisao(q);
       const s = { id, professorId: uid, turmaId: String(turma.id), disciplina, conteudo, dificuldade, questoes, respostas: [], indice: 0, revision: 1, fase: 'jogando', criadoEmMs: this.agora(), atualizadoEmMs: this.agora() };
@@ -136,9 +170,9 @@ export class RevisaoAutonomaService {
     const key = this.aluno(ator);
     const req = segmento(body.requestId, { max: 80 });
     const reqPath = `${raiz(key)}/requisicoes/${acao}_${segmento(id, { max: 80 })}_${req}`;
-    const assinatura = JSON.stringify([acao, body.expectedRevision, body.questaoId || null, body.alternativaId || null]);
     return this.store.transaction(async tx => {
       const s = await this.lerSessao(key, id, tx);
+      const assinatura = s.schema === 2 ? assinaturaV2(acao, body) : JSON.stringify([acao, body.expectedRevision, body.questaoId || null, body.alternativaId || null]);
       const anterior = await tx.get(reqPath);
       if (anterior) {
         if (anterior.assinatura !== assinatura) throw falha(409, 'Este pedido já foi utilizado com outra resposta.');
@@ -146,6 +180,16 @@ export class RevisaoAutonomaService {
       }
       if (s.revision !== body.expectedRevision) throw falha(409, 'A revisão mudou em outra aba. Retome o progresso atualizado.');
       const perfil = await tx.get(raiz(key)) || { historico: [] };
+      if (s.schema === 2) {
+        const nova = aplicarAcaoV2(s, body, acao, this.agora());
+        if (nova.semMudanca) return { sessao: this.projetar(s) };
+        if (tamanhoEmBytes(nova) > LIMITE_BYTES_SESSAO) throw falha(422, 'Sessão grande demais para salvar.');
+        tx.set(sessaoPath(key, id), nova);
+        tx.set(raiz(key), { ...perfil, ativaId: nova.fase === 'concluida' ? null : id, historico: [this.resumo(nova), ...(perfil.historico || []).filter(r => r.id !== id)].slice(0, 50) });
+        tx.set(reqPath, { assinatura });
+        return { sessao: this.projetar(nova) };
+      }
+      if (acao === 'abrir' || acao === 'confirmar') throw falha(409, 'Esta revisão não usa desafios no percurso.');
       const atual = { ...s, revision: s.revision + 1, atualizadoEmMs: this.agora() };
       if (acao === 'responder') {
         const q = s.questoes[s.indice];
@@ -171,6 +215,8 @@ export class RevisaoAutonomaService {
   }
   responder(ator, id, body) { return this.alterar(ator, id, body, 'responder'); }
   avancar(ator, id, body) { return this.alterar(ator, id, body, 'avancar'); }
+  abrir(ator, id, body) { return this.alterar(ator, id, body, 'abrir'); }
+  confirmar(ator, id, body) { return this.alterar(ator, id, body, 'confirmar'); }
   async historico(ator) {
     const key = this.aluno(ator);
     const perfil = await this.store.get(raiz(key));

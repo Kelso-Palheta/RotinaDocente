@@ -38,7 +38,7 @@ export function criarHandlerRevisaoAutonoma({ service, autenticar }) {
         return json(await service.publicar(ator, await corpo(request)));
       }
       if (request.method === 'POST' && path === 'sessoes') return json(await service.criarSessao(ator, await corpo(request)));
-      const match = /^sessoes\/([^/]+)(?:\/(responder|avancar))?$/.exec(path);
+      const match = /^sessoes\/([^/]+)(?:\/(responder|avancar|abrir|confirmar))?$/.exec(path);
       if (match) {
         let id;
         try { id = decodeURIComponent(match[1]); } catch { throw falha(400, 'Identificador inválido.'); }

@@ -581,3 +581,10 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **LIVRE-02:** publicação explícita por turma; vínculo ativo, isolamento por login e nenhum gabarito futuro no catálogo/sessão.
 - **LIVRE-03:** resposta/avanço idempotentes e versionados, snapshot privado, retomada do feedback e histórico limitado, revisão dos erros.
 - **LIVRE-04:** HTTP autenticado/mesma origem, UI com teclado/toque e modo acessível; salas e Diário preservados.
+
+### Revisão autônoma V2 — desafios no percurso (`specs/REVISAO_AUTONOMA_V2_CONTRATO.md`)
+- **LIVRE-V2-01 (unit/domínio):** percurso 4.500–6.500 px, estrelas alcançáveis por bot físico, checkpoints distribuídos; opções de configuração conforme disponibilidade; V1 intacto.
+- **LIVRE-V2-02 (integration):** perguntas por estrela e portal, ordem livre, pontos 100 uma vez, erro sem bônus, confirmação, portal bloqueado/liberado, retomada, configuração insuficiente, V1 compatível.
+- **LIVRE-V2-03 (integration):** requestId com payload diferente, concorrência por revisão, isolamento entre alunos, privacidade de gabaritos futuros, retirada de liberação, nenhuma escrita em notas, limite de bytes.
+- **LIVRE-V2-04 (componentes):** controles separados e multitoque, teclado em campos, fullscreen/orientation negados, pausa, overlay, chave do Canvas por fase.
+- **LIVRE-V2-05 (áudio/feedback):** um controlador por aparelho, autoplay bloqueado, mute preservado, idempotência do feedback, nove modalidades + autônomo sem décima modalidade.

@@ -65,7 +65,17 @@ export const PERFIS_SONOROS_JOGO = {
   },
 };
 
+/** Perfil do modo autônomo (plataforma). Fora de PERFIS_SONOROS_JOGO para manter as nove modalidades ao vivo. */
+export const PERFIS_SONOROS_EXTRAS = {
+  plataforma: { mp3: null, tempoMs: 440, onda: 'triangle', notasEspera: [261.63, 329.63, 392.0, 329.63], notasDesafio: [293.66, 392.0, 440.0, 523.25, 440.0, 392.0], notasFinal: [392.0, 523.25, 659.25, 783.99] },
+};
+
 const EFEITOS_SEQUENCIAS = {
+  coleta: { notas: [783.99, 1046.5], duracao: 0.07, tipo: 'sine' },
+  salto: { notas: [392.0, 523.25], duracao: 0.05, tipo: 'sine' },
+  queda: { notas: [329.63, 246.94], duracao: 0.09, tipo: 'sine' },
+  portal: { notas: [440.0, 587.33, 783.99], duracao: 0.1, tipo: 'triangle' },
+  fase_concluida: { notas: [523.25, 659.25, 783.99, 1046.5], duracao: 0.13, tipo: 'triangle' },
   tempo_esgotado: { notas: [880,440,880,440], duracao: 0.2, tipo: 'triangle' },
   abertura: { notas: [392, 523.25, 659.25], duracao: 0.11, tipo: 'triangle' },
   resposta_recebida: { notas: [523.25, 659.25], duracao: 0.08, tipo: 'sine' },
@@ -244,7 +254,7 @@ export class MotorAudioJogo {
       return;
     }
 
-    const perfil = PERFIS_SONOROS_JOGO[modalidade] || PERFIS_SONOROS_JOGO.quiz;
+    const perfil = PERFIS_SONOROS_JOGO[modalidade] || PERFIS_SONOROS_EXTRAS[modalidade] || PERFIS_SONOROS_JOGO.quiz;
     if (perfil.mp3) {
       if (!this.audioEl || this.mp3Atual !== perfil.mp3) {
         this.pararMusica();

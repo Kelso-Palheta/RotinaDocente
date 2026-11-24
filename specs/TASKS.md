@@ -266,3 +266,9 @@ Relatório: `docs/analises/2026-11-04-logout-atividades.md`.
 - [ ] **JOGOS-FUT-04 (melhoria futura):** geração sob demanda pelo aluno (depende de decisão posterior sobre credenciais, custos e limites; nenhuma chave do professor exposta).
 - [x] **JOGOS-FUT-05:** salas supervisionadas, catálogo dos 9 jogos ao vivo e avaliação/Diário preservados intactos; prática livre isolada em `revisaoAutonomaAlunos/{loginKey}` com revalidação de matrícula/turma no servidor.
 - Relatório: `docs/analises/2026-11-19-revisao-autonoma-entrega.md`.
+
+## 19/11/2026 — Plataforma imersiva V2 e feedback dos jogos
+- [x] Implementar `specs/REVISAO_AUTONOMA_IMERSIVA_V2_SPEC.md`: desafios nas estrelas e portal, pontos autoritativos, várias questões por fase, percursos maiores, retomada e compatibilidade V1.
+- [x] Shell de tela cheia horizontal com fallback, direcional inferior esquerdo e pulo inferior direito, multitoque e acessibilidade.
+- [x] Auditar áudio e feedback emocional nas nove modalidades e no autônomo, sem duplicação por polling, preservando preferências.
+- Relatório: `docs/analises/2026-11-19-plataforma-imersiva-v2-entrega.md`.

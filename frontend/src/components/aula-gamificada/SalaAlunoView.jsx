@@ -27,6 +27,7 @@ import {
   derivarContextoAudiovisual,
 } from './audiovisual/ProvedorAudiovisualSala';
 import { PalcoCenaConectado } from './audiovisual/PalcoCenaJogo';
+import FeedbackEmocional from './audiovisual/FeedbackEmocional';
 
 function StatusConexao({ conexao }) {
   const mapa = {
@@ -382,6 +383,11 @@ export function SalaAlunoView({
             )}
           </div>
 
+          {(() => {
+            const pendenteManual = recibo && questao?.tipo === 'resposta_aberta' && !recibo.correcaoManual;
+            const tipoFb = pendenteManual ? 'correcao_pendente' : ['acerto', 'erro', 'parcial', 'sem_resposta'].includes(contextoAv.situacao) ? contextoAv.situacao : null;
+            return tipoFb ? <FeedbackEmocional tipo={tipoFb} chave={contextoAv.eventoId} semSom mostrarCena={false} fundoClaro className="text-[#25104A]" /> : null;
+          })()}
           {recibo && (
             <div
               role="status"

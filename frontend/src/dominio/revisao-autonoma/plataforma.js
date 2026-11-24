@@ -47,6 +47,11 @@ export function passoFisica(jogador, entrada, mundo, delta) {
   if (mundo.obstaculos.some(o => colide(p, o)) || p.y > mundo.altura + 100) {
     return { ...p, x: p.checkpoint.x, y: p.checkpoint.y, vx: 0, vy: 0, noChao: true };
   }
-  if (p.x > 1000 && p.noChao && p.y + p.h === mundo.chao) p.checkpoint = { x: 1000, y: mundo.chao - p.h };
+  if (mundo.checkpoints) {
+    if (p.noChao && p.y + p.h === mundo.chao) {
+      const alcancado = mundo.checkpoints.filter((c) => c.x <= p.x).pop();
+      if (alcancado && alcancado.x > p.checkpoint.x - 0.5 && alcancado.x !== p.checkpoint.x) p.checkpoint = { x: alcancado.x, y: mundo.chao - p.h };
+    }
+  } else if (p.x > 1000 && p.noChao && p.y + p.h === mundo.chao) p.checkpoint = { x: 1000, y: mundo.chao - p.h };
   return p;
 }
