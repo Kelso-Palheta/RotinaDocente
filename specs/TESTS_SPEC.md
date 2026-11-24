@@ -588,3 +588,5 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 - **LIVRE-V2-03 (integration):** requestId com payload diferente, concorrência por revisão, isolamento entre alunos, privacidade de gabaritos futuros, retirada de liberação, nenhuma escrita em notas, limite de bytes.
 - **LIVRE-V2-04 (componentes):** controles separados e multitoque, teclado em campos, fullscreen/orientation negados, pausa, overlay, chave do Canvas por fase.
 - **LIVRE-V2-05 (áudio/feedback):** um controlador por aparelho, autoplay bloqueado, mute preservado, idempotência do feedback, nove modalidades + autônomo sem décima modalidade.
+
+- **AUDIO-MOBILE-01:** iPhone `interrupted` retoma no gesto; falha permanece visível; reprodução de mídia começa antes de aguardar `resume`; interrupções posteriores reexibem ativação. Regressão: `tests/unit/audio_mobile_desbloqueio.test.js`.

@@ -236,6 +236,11 @@ export class MotorAudioJogo {
     if (!this.ctx) {
       try {
         this.ctx = this.criarAudioContext();
+        if (this.ctx) this.ctx.onstatechange = () => {
+          if (this.destruido) return;
+          this.estado.bloqueadoAutoplay = this.ctx.state !== 'running';
+          this.notificar();
+        };
       } catch {
         this.ctx = null;
       }
@@ -299,14 +304,14 @@ export class MotorAudioJogo {
     }
     const ctx = this.garantirContexto();
     if (!ctx) return;
-    if (ctx.state === 'suspended') {
+    if (ctx.state === 'suspended' || ctx.state === 'interrupted') {
       this.estado.bloqueadoAutoplay = true;
       this.notificar();
-      if (typeof ctx.resume === 'function') {
+      if (!this.retomandoContexto && typeof ctx.resume === 'function') {
         ctx
           .resume()
           .then(() => {
-            if (ctx.state !== 'suspended' && this.estado.bloqueadoAutoplay) {
+            if (ctx.state === 'running' && this.estado.bloqueadoAutoplay) {
               this.estado.bloqueadoAutoplay = false;
               this.notificar();
             }
@@ -327,7 +332,7 @@ export class MotorAudioJogo {
     this.fatorDuckSintetico = 1;
     this.loopTimer = setInterval(() => {
       if (!this.estado.somAtivo || !this.estado.musicaAtiva || this.estado.oculto || this.destruido) return;
-      if (ctx.state === 'suspended' || this.estado.volume <= 0) return;
+      if (ctx.state !== 'running' || this.estado.volume <= 0) return;
       const idx = this.passoLoop % notas.length;
       const freq = notas[idx];
       this.passoLoop += 1;
@@ -402,14 +407,23 @@ export class MotorAudioJogo {
   async desbloquearPorGesto(contexto) {
     if (this.destruido) return;
     const ctx = this.garantirContexto();
-    if (ctx?.state === 'suspended' && typeof ctx.resume === 'function') {
-      try {
-        await ctx.resume();
-      } catch {}
+    // Ambas as APIs precisam ser chamadas antes de ceder o gesto ao navegador.
+    this.retomandoContexto = true;
+    let retomada;
+    try {
+      retomada = ctx && ctx.state !== 'running' && typeof ctx.resume === 'function'
+        ? Promise.resolve(ctx.resume()).catch(() => {})
+        : Promise.resolve();
+    } catch {
+      retomada = Promise.resolve();
     }
-    this.estado.bloqueadoAutoplay = false;
+    const trilha = this.sincronizarTrilha(contexto || { modalidade: this.modalidadeAtual, fase: this.faseAtual });
+    await Promise.all([retomada, trilha]);
+    this.retomandoContexto = false;
+    if (this.destruido) return;
+    if (ctx && ctx.state !== 'running') this.estado.bloqueadoAutoplay = true;
+    else if (!this.audioEl) this.estado.bloqueadoAutoplay = false;
     this.notificar();
-    await this.sincronizarTrilha(contexto || { modalidade: this.modalidadeAtual, fase: this.faseAtual });
   }
 
   destroy() {
@@ -425,6 +439,7 @@ export class MotorAudioJogo {
     } catch {}
     this.audioEl = null;
     try {
+      if (this.ctx) this.ctx.onstatechange = null;
       this.ctx?.close?.();
     } catch {}
     this.ctx = null;

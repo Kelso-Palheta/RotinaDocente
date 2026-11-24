@@ -71,8 +71,8 @@ function PalcoAventura({ sessao, ocupado, pendente, erro, emJogo, setEmJogo, onA
   const entrar = () => {
     const el = palco.current;
     // Tudo que depende de ativação do usuário é pedido AQUI, de forma síncrona, antes de qualquer await.
-    const fs = pedirTelaCheia(el);
     audio?.desbloquearPorGesto?.();
+    const fs = pedirTelaCheia(el);
     setEmJogo(true); setPausaManual(false); setMenu(false);
     fs.then((ok) => {
       setTelaCheia(ok);
