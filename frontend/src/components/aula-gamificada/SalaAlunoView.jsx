@@ -16,6 +16,7 @@ import {
 } from './constantes';
 import { JogoNatacao } from './jogos/JogoNatacao';
 import { JogoAcertePerde, PalcoAcertePerde } from './jogos/JogoAcertePerde';
+import { ResgateRio } from '@/components/resgate/ResgateRio';
 import { JogoQuiz } from './jogos/JogoQuiz';
 import { JogoMemoria } from './jogos/JogoMemoria';
 import { JogoAssociacao } from './jogos/JogoAssociacao';
@@ -73,7 +74,7 @@ export function SalaAlunoView({
   const [portalRodada, setPortalRodada] = useState(null);
   const emPlataforma = estado.experiencia === 'plataforma' && estado.modalidade === 'quiz';
   const portalLiberado = portalRodada === chaveRodada;
-  const modoTemPalcoProprio = estado.modalidade === 'herois' || estado.modalidade === 'tabuleiro' || estado.modalidade === 'natacao';
+  const modoTemPalcoProprio = estado.experiencia === 'resgate' || estado.modalidade === 'herois' || estado.modalidade === 'tabuleiro' || estado.modalidade === 'natacao';
 
   return (
     <ProvedorAudiovisualSala
@@ -205,7 +206,8 @@ export function SalaAlunoView({
 
       {/* FASE: PERGUNTA (modalidades compatíveis) */}
       {fase === 'pergunta' && questao && emPlataforma && !portalLiberado && <section aria-label="Plataforma em sala" className="space-y-3"><p className="rounded-xl bg-[#FFE500] p-3 font-bold text-[#25104A]">Atravesse o percurso até o portal para responder à questão desta rodada.</p><Plataforma2D key={chaveRodada} fase={estado.rodada} pausado={prazoEncerrado || ocupado} onDesafio={() => setPortalRodada(chaveRodada)} /></section>}
-      {fase === 'pergunta' && questao && (!emPlataforma || portalLiberado) && (
+      {['pergunta','feedback'].includes(fase) && questao && estado.experiencia === 'resgate' && <ResgateRio key={chaveRodada} questao={questao} indice={Math.max(0,estado.rodada-1)} total={estado.totalRodadas} fase={fase} recibo={recibo} bloqueado={bloqueado} ocupado={ocupado} onEnviar={onResponder} />}
+      {fase === 'pergunta' && questao && estado.experiencia !== 'resgate' && (!emPlataforma || portalLiberado) && (
         <section className="rounded-3xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-6 space-y-5 shadow-xs">
           <div className="flex flex-wrap items-center gap-2">
             {questao.disciplina && (

@@ -56,6 +56,7 @@ export function PrepararSala({
   const [trechosNatacao, setTrechosNatacao] = useState(5);
   const [semCronometro, setSemCronometro] = useState(false);
   const [plataforma, setPlataforma] = useState(false);
+  const [resgate, setResgate] = useState(false);
   const [desafioFinal, setDesafioFinal] = useState(false);
   const [modalidade, setModalidade] = useState(modalidadeInicial || MODALIDADES_PADRAO[0].id);
   const [formatoParticipacao, setFormatoParticipacao] = useState(() => {
@@ -281,6 +282,10 @@ export function PrepararSala({
       setErro('Selecione pelo menos uma questão revisada e compatível com a modalidade.');
       return;
     }
+    if (modalidade === 'quiz' && resgate && questaoIds.length < 3) {
+      setErro('Resgate do Rio precisa de pelo menos três questões revisadas.');
+      return;
+    }
     if (formatoParticipacao === 'duelo') {
       const [p1, p2] = dueloParticipantes;
       if (!p1 || !p2 || p1 === p2) {
@@ -302,7 +307,7 @@ export function PrepararSala({
     const configuracao = {
       titulo: titulo.trim(),
       modalidade,
-      ...(modalidade === 'quiz' && plataforma ? { experiencia: 'plataforma' } : {}),
+      ...(modalidade === 'quiz' && (plataforma || resgate) ? { experiencia: resgate ? 'resgate' : 'plataforma' } : {}),
       formatoParticipacao,
       ...(formatoParticipacao === 'grupos' ? { modoRespostaGrupo } : {}),
       ...(formatoParticipacao === 'duelo'
@@ -414,7 +419,8 @@ export function PrepararSala({
           </div>
         </div>
 
-        {modalidade === 'quiz' && <label className="block rounded-2xl border-2 border-[#00DDEB] bg-cyan-50 p-4 font-bold text-[#25104A]"><input type="checkbox" checked={plataforma} onChange={e => setPlataforma(e.target.checked)} className="mr-3" />Jogar em plataforma (Quiz)<span className="mt-2 block text-sm font-normal">Cada rodada começa com um percurso até o portal. O professor revela a resposta e inicia a próxima fase. O tempo configurado inclui percurso e resposta; ofereça tempo suficiente. O modo acessível permite ir direto à questão.</span></label>}
+        {modalidade === 'quiz' && <label className="block rounded-2xl border-2 border-[#00DDEB] bg-cyan-50 p-4 font-bold text-[#25104A]"><input type="checkbox" checked={plataforma} onChange={e => {setPlataforma(e.target.checked);setResgate(false);}} className="mr-3" />Jogar em plataforma (Quiz)<span className="mt-2 block text-sm font-normal">Cada rodada começa com um percurso até o portal. O professor revela a resposta e inicia a próxima fase. O tempo configurado inclui percurso e resposta; ofereça tempo suficiente. O modo acessível permite ir direto à questão.</span></label>}
+        {modalidade === 'quiz' && <label className="block rounded-2xl border-2 border-[#309D82] bg-[#EBF5EA] p-4 font-bold text-[#25104A]"><input type="checkbox" checked={resgate} onChange={e => {setResgate(e.target.checked);setPlataforma(false);}} className="mr-3" />Resgate do Rio · investigação 2D<span className="mt-2 block text-sm font-normal">Três missões de exploração com pistas e ferramentas. Selecione pelo menos três questões da sua disciplina. O cenário é fictício; perguntas e pontuação continuam as do banco. O tempo inclui exploração: prefira sem cronômetro ou amplie o prazo. Professor revela e avança.</span></label>}
         {/* Seleção das modalidades */}
         {modalidade === 'natacao' && <label className="block rounded-xl bg-cyan-50 border border-cyan-200 p-4 font-bold text-[#25104A]">Trechos para chegar à borda
           <input aria-label="Trechos da piscina" type="number" min="1" max="50" value={trechosNatacao} onChange={e => setTrechosNatacao(e.target.value)} className="ml-3 w-24 rounded-lg border p-2" required />

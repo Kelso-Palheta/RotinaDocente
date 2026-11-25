@@ -16,6 +16,7 @@ import {
   rotuloDificuldade,
   validarUrlImagemSegura,
 } from './constantes';
+import { ResgateRio } from '@/components/resgate/ResgateRio';
 import { JogoNatacao } from './jogos/JogoNatacao';
 import { PalcoAcertePerde } from './jogos/JogoAcertePerde';
 import { CorrecaoAbertaDocente } from './CorrecaoAbertaDocente';
@@ -360,6 +361,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
             )}
 
             {/* FASE: PERGUNTA / FEEDBACK */}
+            {['pergunta','feedback'].includes(fase) && estado.experiencia === 'resgate' && <ResgateRio key={estado.rodada} questao={questao} indice={Math.max(0,estado.rodada-1)} total={estado.totalRodadas} fase={fase} observador />}
             {(fase === 'pergunta' || fase === 'feedback') && estado.modalidade === 'herois' && (
               <JogoHerois
                 modo="docente"

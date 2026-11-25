@@ -114,14 +114,18 @@ export class RevisaoAutonomaService {
     const conteudo = textoObrigatorio(body.conteudo, 'conteúdo', { max: 300 });
     const dificuldade = textoObrigatorio(body.dificuldade, 'dificuldade', { max: 20 });
     const modoJogo = body.modalidade ? obterModalidade(body.modalidade).id : null;
+    if (body.experiencia != null && !['padrao', 'resgate'].includes(body.experiencia)) throw falha(422, 'Experiência de revisão inválida.');
+    const experiencia = body.experiencia === 'resgate' ? 'resgate' : 'padrao';
+    if (experiencia === 'resgate' && modoJogo !== 'quiz') throw falha(422, 'O Resgate do Rio precisa da modalidade Quiz.');
     const v2Pedido = !modoJogo && body.fases !== undefined && !body.repetirSessaoId;
     const avatarPedido = v2Pedido ? validarAvatar(body.avatarId) : null;
     const fasesPedidas = v2Pedido ? inteiroFaixa(body.fases, 'fases', { min: 1, max: MAX_FASES_V2 }) : null;
     const estrelasPedidas = v2Pedido ? inteiroFaixa(body.estrelasPorFase, 'estrelas por fase', { min: 0, max: 3 }) : null;
-    const quantidade = v2Pedido ? null : inteiroFaixa(body.quantidade, 'quantidade', { min: 1, max: 10 });
+    const quantidade = v2Pedido ? null : inteiroFaixa(body.quantidade, 'quantidade', { min: experiencia === 'resgate' ? 3 : 1, max: 10 });
     let assinatura = modoJogo ? JSON.stringify(['jogo',modoJogo,uid,disciplina,conteudo,dificuldade,quantidade,body.novaTentativa===true,body.repetirSessaoId || null]) : v2Pedido
       ? JSON.stringify(['v2', uid, disciplina, conteudo, dificuldade, fasesPedidas, estrelasPedidas, body.novaTentativa === true])
       : JSON.stringify([uid, disciplina, conteudo, dificuldade, quantidade, body.repetirSessaoId || null, body.novaTentativa === true]);
+    if (experiencia === 'resgate') assinatura = JSON.stringify([...JSON.parse(assinatura), 'experiencia', experiencia]);
     if (v2Pedido && body.avatarId !== undefined) assinatura = JSON.stringify([...JSON.parse(assinatura), 'avatar', avatarPedido]);
     const reqPath = `${raiz(key)}/requisicoes/criar_${req}`;
     return this.store.transaction(async tx => {
@@ -156,7 +160,8 @@ export class RevisaoAutonomaService {
       if (await tx.get(sessaoPath(key, id))) throw falha(409, 'Não foi possível criar a revisão. Tente novamente.');
       if (modoJogo) {
         const escolhidas = embaralhar(questoes,id).slice(0,quantidade);
-        const s = criarSessaoJogos({ id, modalidade:modoJogo, professorId:uid, turmaId:String(turma.id), disciplina, conteudo, dificuldade, questoes:escolhidas, criadoEmMs:this.agora(), atualizadoEmMs:this.agora() });
+        if (experiencia === 'resgate' && escolhidas.length < 3) throw falha(422, 'O Resgate do Rio precisa de pelo menos três questões distintas.');
+        const s = criarSessaoJogos({ id, modalidade:modoJogo, ...(experiencia === 'resgate' ? { experiencia } : {}), professorId:uid, turmaId:String(turma.id), disciplina, conteudo, dificuldade, questoes:escolhidas, criadoEmMs:this.agora(), atualizadoEmMs:this.agora() });
         if (tamanhoEmBytes(s) > LIMITE_BYTES_SESSAO) throw falha(422,'Treino grande demais. Escolha menos desafios.');
         tx.set(sessaoPath(key,id),s);
         tx.set(raiz(key),{ ...perfil, criacoesRecentes:[...criacoesRecentes,this.agora()], ativaId:id, historico:[this.resumo(s),...(perfil.historico || [])].slice(0,50) });

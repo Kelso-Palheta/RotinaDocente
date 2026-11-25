@@ -608,3 +608,8 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de manifesto/mídias, domínio e integração de etapas sincronizadas e componentes de apresentação.
 
 - SLIDE-V2: curadoria por 304 blocos, música regional sem imagem/observações incongruentes, conexões próprias e texto animado acessível, sincronização/reduced motion preservados.
+
+## Resgate do Rio — investigação 2D (2026-11-25)
+- `tests/integration/resgate_rio_backend.test.js`: experiência Quiz válida, mínimo de questões, projeção sala/solo, checkpoint/histórico e pontuação existente; sem gabaritos futuros.
+- `tests/unit/dominio/resgate/expedicao.test.js`: três missões, interação próxima, inventário sem duplicação ou pontos e travessia pela ponte.
+- `tests/unit/components/aula-gamificada/ResgateRio.test.jsx`: pistas liberam desafio, alternativa acessível, checkpoint e feedback confirmado.

@@ -2,19 +2,20 @@ import { falha, segmento } from '@/dominio/aula-gamificada/comum';
 import { validarParaRevisao, validarResposta, facesDasCartas } from '@/dominio/aula-gamificada/questoes';
 import { validarTipoModalidade } from '@/dominio/aula-gamificada/modalidades';
 import { pontuarResposta, pontuarMemoria } from '@/dominio/aula-gamificada/pontuacao';
-import { montarConteudo, projetarEstado, avaliarTentativaHerois, avaliarRodadaTabuleiro, inicializarTabuleiroEstado } from '@/dominio/aula-gamificada/sala';
+import { validarExperienciaSala, montarConteudo, projetarEstado, avaliarTentativaHerois, avaliarRodadaTabuleiro, inicializarTabuleiroEstado } from '@/dominio/aula-gamificada/sala';
 
 const equipe = { id: 'treino', nome: 'Seu treino individual', participanteIds: ['eu'] };
 const memoriaInicial = () => ({ viradas: [], encontrados: [], cartasVisiveis: [], tentativas: 0 });
 export function criarSessaoJogos(dados) {
   const { questoes, modalidade, id } = dados;
+  validarExperienciaSala({ modalidade, experiencia: dados.experiencia, questaoIds: questoes.map(q => q.id) });
   for (const q of questoes) { validarParaRevisao(q); validarTipoModalidade(modalidade, q.tipo); }
   return { ...dados, schema: 3, indice: 0, respostas: [], fase: 'jogando', revision: 1, memoria: memoriaInicial(), recibo: null,
     conteudos: questoes.map((q, indice) => montarConteudo(q, modalidade, { codigo: id, indice })),
     tabuleiroEstado: inicializarTabuleiroEstado([equipe]) };
 }
 export function resumoJogos(s) {
-  return { id: s.id, schema: 3, modalidade: s.modalidade, professorId: s.professorId, turmaId: s.turmaId,
+  return { id: s.id, schema: 3, modalidade: s.modalidade, ...(s.experiencia === 'resgate' ? { experiencia: 'resgate' } : {}), professorId: s.professorId, turmaId: s.turmaId,
     disciplina: s.disciplina, conteudo: s.conteudo, dificuldade: s.dificuldade, fase: s.fase,
     progresso: s.respostas.length, total: s.questoes.length, acertos: s.respostas.filter(r => r.correta).length,
     erros: s.respostas.filter(r => !r.correta).length, pontosJogo: s.respostas.reduce((n,r) => n + r.pontos, 0),
@@ -25,7 +26,7 @@ export function projetarJogos(s) {
   const encerrada = s.fase === 'concluida';
   const fase = encerrada ? 'encerrada' : s.fase === 'feedback' ? 'feedback' : 'pergunta';
   const participante = { id: 'eu', nomeExibicao: 'Você', equipeId: 'treino', pontos: resumo.pontosJogo };
-  const sala = { codigo: s.id, titulo: `${s.conteudo} · treino individual`, modalidade: s.modalidade, fase,
+  const sala = { codigo: s.id, titulo: `${s.conteudo} · treino individual`, modalidade: s.modalidade, ...(s.experiencia === 'resgate' ? { experiencia: 'resgate' } : {}), fase,
     rodada: s.indice + 1, totalRodadas: s.questoes.length, revision: s.revision, revelado: fase !== 'pergunta',
     finalidade: 'revisao', formatoParticipacao: 'individual', equipes: [equipe], semCronometro: true,
     tempoSegundos: 0, encerraEmMs: Number.MAX_SAFE_INTEGER, tabuleiroEstado: s.tabuleiroEstado };

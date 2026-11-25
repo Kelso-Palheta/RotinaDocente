@@ -378,7 +378,7 @@ export function projetarEstado({
     ['ranking', 'encerrada'].includes(sala.fase) && revelado
       ? calcularRanking(participantes, {
           modalidade: sala.modalidade,
-      ...(sala.experiencia === 'plataforma' ? { experiencia: 'plataforma' } : {}),
+      ...(['plataforma', 'resgate'].includes(sala.experiencia) ? { experiencia: sala.experiencia } : {}),
           formatoParticipacao: sala.formatoParticipacao,
           modoRespostaGrupo: sala.modoRespostaGrupo,
           equipes: sala.equipes || [],
@@ -444,7 +444,7 @@ export function projetarEstado({
       codigo: sala.codigo,
       titulo: sala.titulo,
       modalidade: sala.modalidade,
-      ...(sala.experiencia === 'plataforma' ? { experiencia: 'plataforma' } : {}),
+      ...(['plataforma', 'resgate'].includes(sala.experiencia) ? { experiencia: sala.experiencia } : {}),
       ...(sala.formatoParticipacao ? { formatoParticipacao: sala.formatoParticipacao } : {}),
       ...(sala.modoRespostaGrupo ? { modoRespostaGrupo: sala.modoRespostaGrupo } : {}),
       finalidade: sala.finalidade || 'revisao',
@@ -559,9 +559,13 @@ export function validarCodigoSala(valor) {
 }
 
 export function validarExperienciaSala(config) {
-  if (config.experiencia != null && !['padrao','plataforma'].includes(config.experiencia)) throw falha(422, 'Experiência de jogo inválida.');
+  if (config.experiencia != null && !['padrao','plataforma','resgate'].includes(config.experiencia)) throw falha(422, 'Experiência de jogo inválida.');
   if (config.experiencia === 'plataforma' && config.modalidade !== 'quiz') throw falha(422, 'A plataforma em sala precisa da modalidade Quiz.');
-  return config.experiencia === 'plataforma' ? 'plataforma' : 'padrao';
+  if (config.experiencia === 'resgate') {
+    if (config.modalidade !== 'quiz') throw falha(422, 'O Resgate do Rio precisa da modalidade Quiz.');
+    if (!Array.isArray(config.questaoIds) || new Set(config.questaoIds.map(String)).size < 3) throw falha(422, 'O Resgate do Rio precisa de pelo menos três questões distintas.');
+  }
+  return ['plataforma', 'resgate'].includes(config.experiencia) ? config.experiencia : 'padrao';
 }
 
 export function validarConfiguracaoSala(config, turmas, questoes) {
