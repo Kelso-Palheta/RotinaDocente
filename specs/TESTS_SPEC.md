@@ -618,3 +618,9 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 - `tests/integration/planejamento_aula_game.test.js`: persistência privada, autorização docente, turmas/questões próprias, revisão/idempotência, limite100, snapshots imutáveis e projeção sem vazamento ao aluno.
 - `tests/unit/components/aula-gamificada/PlanejarAula.test.jsx`: reabrir/salvar, bloquear continuação com edições não salvas, descartar rascunho e remover turmas indisponíveis.
 - `tests/unit/components/aula-gamificada/PlanejamentoVinculoUI.test.jsx`: prefill do gerador, preparação com planoId/revisão e roteiro por questão.
+
+## Módulo Planejamento independente (2026-11-25)
+- `tests/integration/modulo_planejamento_regular.test.js`: regular sem jogo, períodos sem minutos fictícios, contexto/limites, legado e barreira regular→sala; Quiz avulso preservado.
+- `tests/unit/components/planejamento/Modelos.test.js`: integridade100/10, modelos por escala e separação regular/gamificado.
+- `tests/unit/components/planejamento/ModuloPlanejamento.test.jsx`: salvamento semestral, biblioteca, acesso docente e jogo avulso.
+- `tests/unit/components/planejamento/EntradaJogoPrivada.test.jsx`: URL autorizada, plano alheio/regular recusado e troca de conta durante carregamento.

@@ -16,3 +16,7 @@ Professor cria e salva plano, escolhe jogo, seleciona ou gera questões, revisa 
 
 ## Aceite e testes
 Novos testes RED antes de src: persistência/lista/leitura, isolamento professor/aluno, revisão e idempotência, duração/etapas inválidas, turmas/questões alheias, vínculo de sala e snapshot imutável, prefill da geração/preparação e navegação sem perda do plano. Preservar todos os testes existentes. Suíte, lint/build, capturas desktop/mobile e revisão independente antes do commit/push autorizado.
+
+## Ampliação: módulo independente
+
+O contrato é ampliado por `MODULO_PLANEJAMENTO_SPEC.md`: planos regulares não exigem modalidade/questões; escalas longas usam períodos, não minutos fictícios. Campos ausentes em planos antigos mantêm comportamento gamificado de aula. Jogos avulsos continuam independentes.

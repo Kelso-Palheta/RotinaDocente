@@ -72,3 +72,5 @@ export const AULA_GAMIFICADA_MODULE = {
   path: "/aula-gamificada",
   descricao: "Sete jogos ao vivo para todas as disciplinas com banco privado, geração IA e projeção",
 };
+
+export const PLANEJAMENTO_MODULE = { id: "planejamento", nome: "Planejamento", path: "/planejamento", icon: "ClipboardList", descricao: "Planos regulares e gamificados, sequências, projetos e períodos letivos" };

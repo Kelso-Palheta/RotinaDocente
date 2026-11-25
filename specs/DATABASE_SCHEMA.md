@@ -170,3 +170,6 @@ Não cria coleção nem migração. Cada cópia é outro documento `atividades/{
 - `aulaGamificadaDocentes/{uid}/requisicoes/{hash}`: recibos idempotentes de planos, com assinatura do corpo e revisão esperada.
 - Sala e índice de salas guardam `plano={id,revision,titulo,objetivo,etapas}` congelado. Etapas de jogo recebem questaoIds distribuídos na ordem prevista. Não copiar respostas/gabaritos para planos nem publicar planejamento automaticamente ao aluno.
 - Acesso direto cliente às coleções novas continua negado pelas regras atuais; operações passam pela autorização docente existente.
+
+### Planejamento regular e formatos (ampliação)
+Mesmos documentos privados de planos passam a aceitar `tipo` (normal/gamificado), `escala` (aula/semanal/bimestral/semestral/anual/sequencia/projeto), `anoLetivo`, `modeloId` e `contexto` pedagógico opcional. Regular normaliza modalidade:null e questaoIds:[]. Etapas longas têm prazo e minutos:null; duração global:null. Ausência de tipo/escala preserva legado gamificado de aula. Plano regular não pode originar sala; criar jogo sem planoId permanece válido.

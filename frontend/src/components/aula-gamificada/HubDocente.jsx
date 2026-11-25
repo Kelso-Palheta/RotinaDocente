@@ -32,6 +32,7 @@ const CATALOGO_VAZIO = {
 function HubDocenteAutenticado({ uid, obterToken }) {
   const [abaAtiva, setAbaAtiva] = useState('catalogo');
   const [planejadorAberto,setPlanejadorAberto] = useState(false);
+  const [erroPlano,setErroPlano] = useState('');
   const [planoEmUso,setPlanoEmUso] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [erroCarga, setErroCarga] = useState(null);
@@ -48,6 +49,17 @@ function HubDocenteAutenticado({ uid, obterToken }) {
   const [rascunhosPorPlano,setRascunhosPorPlano] = useState({});
   const chaveGeracaoPlano=planoEmUso?JSON.stringify([planoEmUso.id,planoEmUso.disciplina,planoEmUso.anoEscolar,planoEmUso.conteudo,planoEmUso.modalidade]):null;
 
+  useEffect(()=>{
+    const params=new URLSearchParams(window.location.search),id=params.get('plano');
+    if(!id)return;
+    const controller=new AbortController();
+    apiAula.obterPlano({id,obterToken,signal:controller.signal}).then(({plano})=>{
+      if(controller.signal.aborted)return;
+      if(plano.tipo==='normal')throw new Error('Este é um planejamento regular. Abra-o no módulo Planejamento.');
+      setPlanoEmUso(plano);setModalidadeSalaInicial(plano.modalidade);setModalidadeGerarInicial(plano.modalidade);setTipoGerarInicial(obterModalidadeInfo(plano.modalidade).tiposQuestoes[0]);setQuestaoIdsGuia(plano.questaoIds);setAbaAtiva(params.get('destino')==='gerar'?'gerar':'salas');
+    }).catch(e=>{if(!controller.signal.aborted)setErroPlano(e.message||'Não foi possível abrir o plano desta conta.');});
+    return()=>controller.abort();
+  },[uid,obterToken]);
   const tentarNovamente = useCallback(() => {
     setCarregando(true);
     setErroCarga(null);
@@ -165,6 +177,7 @@ function HubDocenteAutenticado({ uid, obterToken }) {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         <button id="tab-planejar" type="button" disabled={carregando || Boolean(erroCarga)} onClick={()=>{setPlanejadorAberto(true);setAbaAtiva('planejar');}} className="min-h-12 rounded-xl bg-[#6315D9] px-5 py-3 font-black text-white disabled:opacity-45">Planejar aula</button>
+        {erroPlano&&<p role="alert" className="rounded-xl border border-red-300 bg-red-50 p-4">{erroPlano}</p>}
         <AbasNavegacao abas={abas} abaAtiva={abaAtiva} onSelect={setAbaAtiva} />
 
         {erroCarga ? (

@@ -1,0 +1,13 @@
+import React from 'react';
+import {cleanup,render,screen,waitFor} from '@testing-library/react';
+import {afterEach,it,expect,vi} from 'vitest';
+const mocks=vi.hoisted(()=>({user:{uid:'p1'},auth:{currentUser:{uid:'p1',getIdToken:async()=> 'token'}},plano:vi.fn()}));
+vi.mock('@/lib/auth-context',()=>({useAuth:()=>({user:mocks.user,loading:false})}));
+vi.mock('@/lib/firebase',()=>({auth:mocks.auth}));
+vi.mock('@/hooks/useAIConfig',()=>({useAIConfig:()=>({temChave:false})}));
+vi.mock('@/components/aula-gamificada/api',async original=>({...await original(),buscarCatalogo:async()=>({turmas:[],questoes:[],modalidades:[],salas:[]}),obterContextoAvaliacao:async()=>({turmas:[],anos:[]}),obterPlano:(...a)=>mocks.plano(...a)}));
+import {HubDocente} from '@/components/aula-gamificada/HubDocente';
+afterEach(()=>{cleanup();history.replaceState({},'', '/');vi.clearAllMocks();mocks.user={uid:'p1'};mocks.auth.currentUser.uid='p1';});
+it('rejeita vínculo regular e não tenta preparar uma partida automaticamente',async()=>{history.replaceState({},'','/aula-gamificada/salas?plano=regular&destino=salas');mocks.plano.mockResolvedValue({plano:{id:'regular',tipo:'normal'}});render(<HubDocente/>);expect(await screen.findByRole('alert')).toHaveTextContent('planejamento regular');expect(mocks.plano).toHaveBeenCalledWith(expect.objectContaining({id:'regular',obterToken:expect.any(Function)}));});
+it('link de outra conta falha sem exibir conteúdo privado',async()=>{history.replaceState({},'','/aula-gamificada/salas?plano=alheio&destino=gerar');mocks.plano.mockRejectedValue(new Error('Plano não encontrado nesta conta.'));render(<HubDocente/>);expect(await screen.findByRole('alert')).toHaveTextContent('Plano não encontrado nesta conta.');expect(screen.queryByRole('textbox',{name:'Disciplina'})).toBeNull();});
+it('troca de conta descarta resposta tardia do plano anterior',async()=>{history.replaceState({},'','/aula-gamificada/salas?plano=anterior');let resolver;mocks.plano.mockImplementationOnce(()=>new Promise(r=>resolver=r)).mockRejectedValue(new Error('Plano não encontrado nesta conta.'));const v=render(<HubDocente/>);await waitFor(()=>expect(mocks.plano).toHaveBeenCalled());mocks.user={uid:'p2'};mocks.auth.currentUser.uid='p2';v.rerender(<HubDocente/>);resolver({plano:{id:'anterior',titulo:'PLANO PRIVADO ANTERIOR',modalidade:'quiz',questaoIds:[]}});await screen.findByRole('alert');expect(screen.queryByText(/PLANO PRIVADO ANTERIOR/)).toBeNull();});

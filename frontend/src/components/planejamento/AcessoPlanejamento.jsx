@@ -1,0 +1,3 @@
+import React from 'react';
+import Link from 'next/link';
+export function AcessoPlanejamento(){return <Link href="/planejamento" className="group flex flex-wrap items-center justify-between gap-5 rounded-3xl border-t-4 border-[#00CAD5] bg-white p-6 text-[#25104A] shadow-sm ring-1 ring-[#E2D9F7] transition hover:shadow-md"><div><span className="text-xs font-black uppercase tracking-widest text-[#6315D9]">AULAS · SEQUÊNCIAS · PROJETOS · PERÍODOS</span><h2 className="mt-2 text-2xl font-black">Planejamento</h2><p className="mt-2 text-[#5B4B86]">Crie planos regulares ou gamificados e organize sua biblioteca pedagógica.</p></div><span className="rounded-xl bg-[#6315D9] px-5 py-3 font-black text-white">Abrir planejamento →</span></Link>;}

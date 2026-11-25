@@ -203,3 +203,6 @@ Sem novo endpoint HTTP. `copiarRecuperacaoParaOutraTurma` lê origem própria e 
 - `POST /api/aula-gamificada/planos`: `{plano,expectedRevision?,requestId}` → `{plano}`. Novo plano recebe ID do servidor; edição exige revisão exata. Repetição idêntica é idempotente; reutilização de requestId com outro corpo e revisão desatualizada retornam 409. POST exige mesma origem.
 - Criação de sala aceita `planoId/planoRevision`. Jogo, experiência e sequência de questões devem coincidir com a versão privada salva. Servidor congela snapshot próprio; ignora snapshot forjado enviado pelo cliente.
 - Respostas privadas usam `Cache-Control: private, no-store`. Alunos não acessam estes endpoints nem recebem snapshot nas projeções.
+
+### Módulo Planejamento: retrocompatibilidade
+Endpoints de planos existentes também aceitam planos regulares e escalas longas conforme `MODULO_PLANEJAMENTO_SPEC.md`, com o mesmo isolamento/revisão/idempotência. Não há nova API pública de leitura. Formatos antigos sem tipo/escala continuam gamificados de aula. Referenciar plano regular ao criar sala retorna 422; criar sala avulsa sem planoId permanece permitido.

@@ -1,5 +1,6 @@
 "use client";
 
+import { AcessoPlanejamento } from "@/components/planejamento/AcessoPlanejamento";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
@@ -244,7 +245,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <AcessoAulaGamificada />
+        <AcessoPlanejamento />
+          <AcessoAulaGamificada />
 
         {/* Seção de Módulos */}
         <div>

@@ -1,0 +1,6 @@
+import React from 'react';
+import {CAMPOS_CONTEXTO,ESCALAS} from './modelos';
+export function PlanoParaImpressao({plano}) {
+ if(!plano)return null;
+ return <article className="plano-impressao hidden print:block text-black"><h1 className="text-3xl font-black">{plano.titulo}</h1><p>{plano.tipo==='normal'?'Planejamento regular':'Planejamento gamificado'} · {ESCALAS.find(([id])=>id===(plano.escala||'aula'))?.[1]}{plano.anoLetivo?` · ${plano.anoLetivo}`:''}</p><p>{plano.disciplina} · {plano.anoEscolar}</p><h2 className="mt-6 text-xl font-bold">Conteúdos</h2><p className="whitespace-pre-wrap">{plano.conteudo}</p><h2 className="mt-6 text-xl font-bold">Objetivos</h2><p className="whitespace-pre-wrap">{plano.objetivo}</p>{CAMPOS_CONTEXTO.filter(([key])=>plano.contexto?.[key]).map(([key,label])=><section key={key}><h2 className="mt-4 text-lg font-bold">{label}</h2><p className="whitespace-pre-wrap">{plano.contexto[key]}</p></section>)}<h2 className="mt-6 text-xl font-bold">Etapas</h2>{plano.etapas.map(e=><section key={e.id} className="mt-4 break-inside-avoid"><h3 className="font-bold">{e.titulo} · {e.minutos!=null?`${e.minutos} minutos`:e.prazo}</h3><p className="whitespace-pre-wrap">{e.orientacao}</p></section>)}<p className="mt-8 text-xs">Versão {plano.revision||1} · RotinaDocente</p></article>;
+}
