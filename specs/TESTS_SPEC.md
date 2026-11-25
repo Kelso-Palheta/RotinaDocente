@@ -606,3 +606,5 @@ Arquivos: `tests/unit/aula_gamificada_disputas.test.js`, `tests/unit/components/
 
 ## Slides explicativos da Revisão interativa
 Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de manifesto/mídias, domínio e integração de etapas sincronizadas e componentes de apresentação.
+
+- SLIDE-V2: curadoria por 304 blocos, música regional sem imagem/observações incongruentes, conexões próprias e texto animado acessível, sincronização/reduced motion preservados.

@@ -23,3 +23,13 @@ Controles docentes no componente compartilhado ControlesSala: anterior/próxima 
 
 ## Compatibilidade e curadoria
 A conferência mantém o acervo original como padrão de homologação e permite alternar para a prévia renovada. Imagens textuais antigas não são sobrescritas. Na projeção renovada, blocos de esquema recebem os pontos curados do exemplo real, agrupados no mesmo número de etapas da versão congelada; o texto original permanece em detalhes e seu esquema pode ser consultado. Em salas legadas, a presença de `aula.bloco` também determina modo somente leitura; servidor projeta apresentação manual padrão sem persistência adicional.
+
+## Revisão v2 — variedade por bloco (24/11/2026)
+Problema comprovado: bloco sobre manguebeat exibiu O Violeiro e conexões fixas da aula. A escolha por primeira imagem/pontos do tema não atende à coerência por trecho.
+- Cada um dos 304 blocos das 34 aulas deve possuir composição própria no manifesto `cenas.json`, indexado por conteúdo/bloco. Campos: `layout` (abertura/obra/comparacao/processo/conexoes/sintese), `imagemIds` (referências do manifesto visual ou lista vazia quando o conceito pede diagrama), `destaques` (expressões presentes no texto original), `tipoCena` e `mecanismo` opcionais.
+- Imagens apenas quando ligadas ao assunto do bloco, jamais rodízio aleatório. Obras explicitamente referidas conservam seus dados originais. Conceitos/equívocos/síntese podem usar mapa visual em vez de repetir fotografia sem relação. Manguebeat nunca usa O Violeiro; exemplos baião/Lenine/Zabé/fandango devem ter visual pertinente ou diagrama próprio.
+- Pontos e título da seção explicativa passam a ser específicos do bloco e da etapa, derivados de seu texto/roteiro. Não reutilizar as quatro observações da primeira fotografia em todos os slides.
+- Texto deve entrar por unidades curtas com destaque animado de conceitos, transição sincronizada entre etapas e continuidade visual; tudo legível sem movimento. Evitar animação infinita e reinício em heartbeat. O professor conserva controle e reprodução opcional existentes. Respeitar reduced motion, sem alterar exposição, respostas, snapshots, etapas ou notas.
+- Cobertura testada: 304 blocos mapeados, referências válidas, destaques existentes no texto, diversidade de composição por aula, regressões específicas de música regional e atualização das conexões entre blocos/etapas. Testes antigos preservados. Conferir desktop/celular e movimento real, suíte completa, lint e build, revisão independente e publicação automática após aprovação.
+
+- O conceito destacado corresponde à expressão presente na etapa atual. Etapa sem termo correspondente não força destaque; vários conceitos podem ser realçados juntos.

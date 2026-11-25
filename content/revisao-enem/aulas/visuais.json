@@ -297,6 +297,17 @@
           "fonteUrl": "https://commons.wikimedia.org/wiki/File:Ceia_mestre_ataide.JPG",
           "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
           "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "ataide-teto-porciuncula",
+          "src": "/revisao/visuais/ataide-teto-porciuncula.webp",
+          "alt": "Detalhe da pintura de Mestre Ataíde no teto da Igreja de São Francisco de Assis, em Ouro Preto.",
+          "legenda": "Mestre Ataíde, detalhe do teto da Igreja de São Francisco de Assis, Ouro Preto. Fotografia de Pedro Caetano.",
+          "credito": "Pedro Caetano; [1]",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Ata%C3%ADde_-_NSPorci%C3%BAncula.jpg",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
         }
       ],
       "pontos": [
@@ -420,6 +431,17 @@
           "licenca": "CC BY-SA 4.0 — foto de Thuaia, via Wikimedia Commons.",
           "fonteUrl": "https://commons.wikimedia.org/wiki/File:Azulejos_no_Centro_Hist%C3%B3rico_de_S%C3%A3o_Lu%C3%ADs.jpg",
           "licencaUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "marabaixo-apresentacao",
+          "src": "/revisao/visuais/marabaixo-apresentacao.webp",
+          "alt": "Integrante de grupo de marabaixo dança com saia rodada diante do Congresso Nacional, em Brasília.",
+          "legenda": "Apresentação de grupo de marabaixo, 2019. Fotografia da Agência Senado.",
+          "credito": "Senado Federal; https://www.flickr.com/photos/agenciasenado/48718013441/",
+          "licenca": "CC BY 2.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Apresenta%C3%A7%C3%A3o_de_dan%C3%A7a_de_grupo_de_marabaixo_-_1.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
           "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
         }
       ],
@@ -919,6 +941,50 @@
           "fonteUrl": "https://commons.wikimedia.org/wiki/File:Almeida_J%C3%BAnior_-_O_Violeiro_(1899).jpg",
           "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
           "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "luiz-gonzaga-1957",
+          "src": "/revisao/visuais/luiz-gonzaga-1957.webp",
+          "alt": "Fotografia em preto e branco de Luiz Gonzaga, músico conhecido como Rei do Baião.",
+          "legenda": "Luiz Gonzaga, 1957. Fundo Correio da Manhã, Arquivo Nacional.",
+          "credito": "Autor não identificado; Arquivo Nacional",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Luiz_Gonzaga_%281957%29.tif",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "chico-science-nacao-zumbi",
+          "src": "/revisao/visuais/chico-science-nacao-zumbi.webp",
+          "alt": "Chico Science ao microfone, de boné e óculos escuros, levantando uma das mãos.",
+          "legenda": "Chico Science durante turnê internacional da Nação Zumbi. Fotografia de Maria F. Moreno, Acervo Paulo André/EBC.",
+          "credito": "Maria F. Moreno / Acervo Paulo André; Moméria EBC - Chico Science",
+          "licenca": "CC BY 3.0 br",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Chico_Science_%26_Na%C3%A7%C3%A3o_Zumbi_turn%C3%AA_nos_Estados_Unidos.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/3.0/br/deed.en",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "lenine-tom-brasil",
+          "src": "/revisao/visuais/lenine-tom-brasil.webp",
+          "alt": "Lenine cantando ao microfone e tocando violão durante apresentação no Tom Brasil.",
+          "legenda": "Lenine no Tom Brasil, 2018. Fotografia de Teca Lamboglia.",
+          "credito": "Teca  Lamboglia from São Paulo, Brasil; Lenine | Tom Brasil",
+          "licenca": "CC BY 2.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Lenine_Tom_Brasil_%2840665660210%29.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "viola-caipira-instrumento",
+          "src": "/revisao/visuais/viola-caipira-instrumento.webp",
+          "alt": "Viola caipira de madeira em exposição, permitindo observar a caixa e o braço do instrumento.",
+          "legenda": "Viola caipira em exposição. Fotografia de Gabrielt4e.",
+          "credito": "Gabrielt4e at Portuguese Wikipedia; Transferred from pt.wikipedia to Commons.",
+          "licenca": "CC BY-SA 3.0",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Viola_caipira.jpg",
+          "licencaUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
         }
       ],
       "pontos": [
@@ -1054,6 +1120,17 @@
           "licenca": "CC BY 2.0",
           "fonteUrl": "https://commons.wikimedia.org/wiki/File:Gilberto_Gil,_concerto_de_cordas_em_Bruxelas.jpg",
           "licencaUrl": "https://creativecommons.org/licenses/by/2.0",
+          "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
+        },
+        {
+          "id": "os-mutantes-1969",
+          "src": "/revisao/visuais/os-mutantes-1969.webp",
+          "alt": "Fotografia em preto e branco de integrantes da banda Os Mutantes, em 1969.",
+          "legenda": "Os Mutantes, agosto de 1969. Fundo Correio da Manhã, Arquivo Nacional.",
+          "credito": "Autor não identificado; Arquivo Nacional",
+          "licenca": "Public domain",
+          "fonteUrl": "https://commons.wikimedia.org/wiki/File:Os_Mutantes.tif",
+          "licencaUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
           "alteracoes": "Redimensionamento e conversão para WebP; conteúdo visual preservado."
         }
       ],

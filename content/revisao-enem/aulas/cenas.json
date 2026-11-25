@@ -1,0 +1,3888 @@
+{
+  "schemaVersion": 1,
+  "aulas": {
+    "arquitetura-design": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "alvorada"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Brasília e a invenção de uma capital",
+          "destaques": [
+            "modernização",
+            "Brasília",
+            "concreto armado",
+            "excluídos"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Estrutura, forma e função",
+          "destaques": [
+            "honestidade estrutural",
+            "planta livre",
+            "forma, material e uso"
+          ]
+        },
+        "exemplo-niemeyer": {
+          "layout": "obra",
+          "imagemIds": [
+            "alvorada"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "As colunas do Palácio da Alvorada",
+          "destaques": [
+            "colunas",
+            "cheio e vazio",
+            "escala",
+            "paisagem"
+          ]
+        },
+        "imagem-alvorada": {
+          "layout": "obra",
+          "imagemIds": [
+            "alvorada"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: leveza construída",
+          "destaques": [
+            "volumes brancos",
+            "galeria de vidro",
+            "horizontalidade",
+            "cidades-satélites"
+          ]
+        },
+        "exemplo-design": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Sérgio Rodrigues e a cadeira brasileira",
+          "destaques": [
+            "madeira",
+            "couro",
+            "conforto",
+            "modo de produção"
+          ]
+        },
+        "exemplo-cidade": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Espaço construído e desigualdade",
+          "destaques": [
+            "racional e igualitária",
+            "trabalhadores",
+            "cidades-satélites",
+            "poder"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que arquitetura e design não são",
+          "destaques": [
+            "técnica, orçamento e uso",
+            "popular e industrial",
+            "comportamentos e desigualdades"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "estrutura, forma, escala",
+            "material, função e produção",
+            "uso social"
+          ]
+        }
+      }
+    },
+    "arte-afro-brasileira": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Uma arte que não cabia no museu",
+          "destaques": [
+            "exclusão",
+            "diáspora",
+            "diverso",
+            "representação"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Matriz, memória e rasura",
+          "destaques": [
+            "reelaborar",
+            "tecido, costura, barro e cabelo",
+            "história"
+          ]
+        },
+        "imagem-esquema-afro": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Leitura guiada: matrizes em relação",
+          "destaques": [
+            "matrizes africanas",
+            "memória, território e resistência",
+            "Rubem Valentim",
+            "Rosana Paulino"
+          ]
+        },
+        "exemplo-valentim": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Rubem Valentim e o emblema",
+          "destaques": [
+            "geometria",
+            "signos",
+            "simetria",
+            "estrutura, não ornamento"
+          ]
+        },
+        "exemplo-paulino": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Rosana Paulino e a costura da memória",
+          "destaques": [
+            "costura",
+            "Bastidores",
+            "tecido e a linha",
+            "violência estrutural"
+          ]
+        },
+        "exemplo-varejao": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Adriana Varejão e a ferida colonial",
+          "destaques": [
+            "azulejos",
+            "rachaduras",
+            "superfície decorativa",
+            "violência racial e histórica"
+          ]
+        },
+        "exemplo-carybe-didi-djanira": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Carybé, Mestre Didi e Djanira: experiência social e forma",
+          "destaques": [
+            "Carybé",
+            "Mestre Didi",
+            "Djanira",
+            "vivência social"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a arte afro-brasileira não é",
+          "destaques": [
+            "qualquer assunto",
+            "circuitos diversos",
+            "nenhum artista fala por todos"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "matriz cultural",
+            "suporte",
+            "agência do artista",
+            "história social"
+          ]
+        }
+      }
+    },
+    "arte-asiatica": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Outras formas de ver o espaço",
+          "destaques": [
+            "China, Japão, Índia",
+            "contextos históricos específicos",
+            "porcelana chinesa"
+          ]
+        },
+        "conceitos": {
+          "layout": "obra",
+          "imagemIds": [
+            "hasegawa-pinheiros"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Vazio, assimetria e contemplação",
+          "destaques": [
+            "economia de traços",
+            "assimetria",
+            "espaço não preenchido",
+            "respiração"
+          ]
+        },
+        "exemplo-tohaku": {
+          "layout": "obra",
+          "imagemIds": [
+            "hasegawa-pinheiros"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Hasegawa Tohaku e a floresta de pinheiros",
+          "destaques": [
+            "Floresta de pinheiros",
+            "névoa",
+            "nanquim",
+            "presença e ausência"
+          ]
+        },
+        "imagem-hasegawa": {
+          "layout": "obra",
+          "imagemIds": [
+            "hasegawa-pinheiros"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: os pinheiros e o vazio",
+          "destaques": [
+            "pinheiros",
+            "distância",
+            "assimétrica",
+            "seis painéis"
+          ]
+        },
+        "exemplo-porcelana": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Porcelana e o comércio de formas",
+          "destaques": [
+            "porcelana chinesa",
+            "Europa",
+            "conhecimento, imagens e prestígio",
+            "circulação global"
+          ]
+        },
+        "exemplo-global": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Subodh Gupta e a arte indiana global",
+          "destaques": [
+            "Subodh Gupta",
+            "aço inoxidável",
+            "consumo, migração e desigualdade",
+            "mercado global"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a arte asiática não é",
+          "destaques": [
+            "histórias distintas",
+            "política, comércio e técnica",
+            "reinventam tradições"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "país, o período e o suporte",
+            "contexto cultural",
+            "especificidade histórica"
+          ]
+        }
+      }
+    },
+    "arte-digital-tecnologia": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "fractal"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A obra como programa",
+          "destaques": [
+            "algoritmo",
+            "usuário",
+            "autoria individual",
+            "preservação"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Processo, interface e participação",
+          "destaques": [
+            "interface",
+            "variações",
+            "participação",
+            "dados"
+          ]
+        },
+        "imagem-esquema-digital": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Leitura guiada: as camadas da obra digital",
+          "destaques": [
+            "interface",
+            "código-fonte",
+            "rede",
+            "arquivo"
+          ]
+        },
+        "exemplo-gps": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Stephen Lund e o desenho com o corpo",
+          "destaques": [
+            "GPS",
+            "trajetos",
+            "percurso registrado",
+            "movimento"
+          ]
+        },
+        "exemplo-acervo": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Museus virtuais e a democratização do olhar",
+          "destaques": [
+            "alta resolução",
+            "acesso",
+            "desigualdades",
+            "escala, textura e luz"
+          ]
+        },
+        "exemplo-autoria": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Autoria e apropriação na rede",
+          "destaques": [
+            "copiar, remixar",
+            "direitos, créditos e contextos",
+            "consentimento",
+            "ética"
+          ]
+        },
+        "exemplo-laerte-ia": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Laerte, a tirinha e o trabalho criativo na era da IA",
+          "destaques": [
+            "trabalho criativo",
+            "sistema automatizado",
+            "percurso",
+            "relação de poder"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a arte digital não é",
+          "destaques": [
+            "corpo, cidade",
+            "contemplativas",
+            "infraestrutura e poder"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "suporte",
+            "processo",
+            "participação",
+            "acesso e mediação"
+          ]
+        }
+      }
+    },
+    "arte-sociedade-sistema": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A obra não existe sozinha",
+          "destaques": [
+            "ateliês, galerias, museus",
+            "mercado de arte",
+            "acesso",
+            "instituições e poderes"
+          ]
+        },
+        "conceitos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Campo, censura e acesso",
+          "destaques": [
+            "legitimidade",
+            "Censura",
+            "preço, localização, linguagem e mediação",
+            "silenciado"
+          ]
+        },
+        "exemplo-mercado": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Paulo Nazareth e o mercado de bananas",
+          "destaques": [
+            "Paulo Nazareth",
+            "vendedor de bananas",
+            "mercado, a fama e a exclusão",
+            "deslocamento"
+          ]
+        },
+        "exemplo-censura": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Segall e a arte degenerada",
+          "destaques": [
+            "1933",
+            "Lasar Segall",
+            "regime nazista",
+            "estética e ideologia"
+          ]
+        },
+        "exemplo-literatura": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Portinari, Graciliano e a denúncia social",
+          "destaques": [
+            "Graciliano Ramos",
+            "Candido Portinari",
+            "imagem e texto",
+            "empatia e crítica"
+          ]
+        },
+        "exemplo-catedral": {
+          "layout": "conexoes",
+          "imagemIds": [
+            "chartres-fachada"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A catedral medieval e a sociedade agrária",
+          "destaques": [
+            "excedente agrícola",
+            "catedrais",
+            "obra coletiva",
+            "base material e social"
+          ]
+        },
+        "imagem-chartres": {
+          "layout": "obra",
+          "imagemIds": [
+            "chartres-fachada"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: a catedral como obra coletiva",
+          "destaques": [
+            "duas torres desiguais",
+            "rosetão central",
+            "empresa coletiva",
+            "excedente do campo"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a relação arte-sociedade não é",
+          "destaques": [
+            "forma e conteúdo",
+            "produção e a circulação",
+            "quem tem acesso"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "instituição",
+            "mercado",
+            "contexto histórico",
+            "experiência do público"
+          ]
+        }
+      }
+    },
+    "arte-urbana-publica": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "beco"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A rua como galeria e como conflito",
+          "destaques": [
+            "muros, trens e fachadas",
+            "grafite",
+            "pichação",
+            "direito à cidade"
+          ]
+        },
+        "conceitos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Grafite, pichação e intervenção",
+          "destaques": [
+            "Grafite e pichação",
+            "efêmera",
+            "durável",
+            "quem autorizou"
+          ]
+        },
+        "imagem-esquema-urbana": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Leitura guiada: o muro como suporte e conflito",
+          "destaques": [
+            "grafite, stencil, cartaz e pichação",
+            "suporte, escala",
+            "tempo e comunidade",
+            "quem decide"
+          ]
+        },
+        "exemplo-speto": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Speto e a xilogravura na rua",
+          "destaques": [
+            "Speto",
+            "xilogravura nordestina",
+            "cordel",
+            "museu, rua e mercado"
+          ]
+        },
+        "exemplo-prades": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Jaime Prades e o lixo como memória",
+          "destaques": [
+            "Jaime Prades",
+            "resíduos urbanos",
+            "ecologia da cidade",
+            "material e arquivo"
+          ]
+        },
+        "exemplo-mural": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Murais, metrô e arte pública",
+          "destaques": [
+            "estações de metrô",
+            "memória e representação",
+            "lugar e à comunidade"
+          ]
+        },
+        "exemplo-rupestre": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Da Toca do Salitre ao muro contemporâneo",
+          "destaques": [
+            "Toca do Salitre",
+            "Piauí",
+            "diferenças de tempo, técnica e função",
+            "pertencimento"
+          ]
+        },
+        "exemplo-basquiat": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Basquiat e a tradição visual brasileira",
+          "destaques": [
+            "Basquiat",
+            "sinais, palavras, números",
+            "violência racial",
+            "critério formal e do contexto"
+          ]
+        },
+        "exemplo-ohtake": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Tomie Ohtake e a escultura pública",
+          "destaques": [
+            "Tomie Ohtake",
+            "Santos em 2008",
+            "aço-carbono",
+            "escala, o local, o material"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a arte urbana não é",
+          "destaques": [
+            "intenção, técnica e recepção",
+            "autorização",
+            "expulsar moradores"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "suporte",
+            "técnica",
+            "contexto",
+            "site-specific"
+          ]
+        }
+      }
+    },
+    "artes-graficas": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Imagens que se multiplicam",
+          "destaques": [
+            "multiplicar imagens",
+            "circulação",
+            "cordel",
+            "públicos"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Matriz, reprodução e edição",
+          "destaques": [
+            "matriz",
+            "grava, entinta e pressiona",
+            "estampa",
+            "edição"
+          ]
+        },
+        "exemplo-cordel": {
+          "layout": "obra",
+          "imagemIds": [
+            "lucelia-borges-xilogravura"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Cordel: palavra, imagem e oralidade",
+          "destaques": [
+            "folhetos de cordel",
+            "capa em xilogravura",
+            "composição",
+            "oral"
+          ]
+        },
+        "imagem-lucelia": {
+          "layout": "obra",
+          "imagemIds": [
+            "lucelia-borges-xilogravura"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: a xilogravura e a memória do cordel",
+          "destaques": [
+            "quatro figuras femininas",
+            "círculos concêntricos",
+            "contraste",
+            "memória e ancestralidade"
+          ]
+        },
+        "exemplo-ilustracao": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Ilustração e crítica social",
+          "destaques": [
+            "metáforas visuais",
+            "contraste",
+            "escala",
+            "subverte a cena"
+          ]
+        },
+        "exemplo-quadrinhos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "sequencia",
+          "tituloVisual": "Quadrinhos e narrativa visual",
+          "destaques": [
+            "quadros",
+            "balões e onomatopeias",
+            "enquadramento",
+            "elipses"
+          ]
+        },
+        "exemplo-leonilson": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Leonilson: bordado, palavra e composição assimétrica",
+          "destaques": [
+            "bordado",
+            "assimétrico",
+            "vazios e interrupções",
+            "suporte e o gesto"
+          ]
+        },
+        "exemplo-quadrinhos-silenciosos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "sequencia",
+          "tituloVisual": "Quadrinhos silenciosos e leitura visual",
+          "destaques": [
+            "sem palavras",
+            "gestos",
+            "elipses",
+            "acessibilidade"
+          ]
+        },
+        "exemplo-laerte-cartum": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Laerte e a articulação entre palavra e imagem",
+          "destaques": [
+            "palavra e desenho",
+            "terceiro sentido",
+            "organização dos signos",
+            "fora do quadro"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que as artes gráficas não são",
+          "destaques": [
+            "reproduzíveis",
+            "sentido autônomo",
+            "matriz e a edição",
+            "disputas políticas"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "técnica",
+            "suporte",
+            "público",
+            "construção de sentido"
+          ]
+        }
+      }
+    },
+    "artes-indigenas": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Arte não separada da vida",
+          "destaques": [
+            "grafismos, cantos",
+            "Kusiwa",
+            "Wajãpi",
+            "bancos Tukano"
+          ]
+        },
+        "conceitos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Grafismo, corpo e cosmologia",
+          "destaques": [
+            "padrões",
+            "identidade, gênero, idade e status",
+            "conhecimento"
+          ]
+        },
+        "imagem-esquema-indigena": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Leitura guiada: pluralidade, não bloco único",
+          "destaques": [
+            "grafismo",
+            "cosmologia",
+            "corpo e objeto",
+            "contemporaneidade"
+          ]
+        },
+        "exemplo-kusiwa": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Kusiwa: o desenho que ensina",
+          "destaques": [
+            "Kusiwa",
+            "Wajãpi",
+            "patrimônio imaterial",
+            "transmissão e criação"
+          ]
+        },
+        "exemplo-bancos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Bancos Tukano e a origem do mundo",
+          "destaques": [
+            "mito Tukano",
+            "banco de quartzo",
+            "grafismos",
+            "memória e identidade"
+          ]
+        },
+        "exemplo-contemporaneo": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Arte indígena contemporânea",
+          "destaques": [
+            "aldeia, cidade, universidade e mercado",
+            "pintura, fotografia, vídeo e instalação",
+            "viva, plural e política"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a arte indígena não é",
+          "destaques": [
+            "centenas de povos e linguagens",
+            "autores, comunidades",
+            "contexto e seus direitos"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "povo",
+            "suporte",
+            "função do objeto",
+            "agência"
+          ]
+        }
+      }
+    },
+    "barroco-brasileiro": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Ouro, irmandades e igrejas",
+          "destaques": [
+            "ouro",
+            "Minas Gerais",
+            "Irmandades religiosas",
+            "materiais, técnicas e mãos locais"
+          ]
+        },
+        "conceitos": {
+          "layout": "obra",
+          "imagemIds": [
+            "aleijadinho-jonas"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Movimento, contraste e materialidade",
+          "destaques": [
+            "movimento",
+            "contraste de luz e sombra",
+            "pedra-sabão",
+            "olhar e o corpo"
+          ]
+        },
+        "aleijadinho": {
+          "layout": "obra",
+          "imagemIds": [
+            "aleijadinho-jonas"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Aleijadinho entre o tratado e o canteiro",
+          "destaques": [
+            "Profetas de Congonhas",
+            "oficinas",
+            "encomendas",
+            "escolhas formais"
+          ]
+        },
+        "imagem-aleijadinho": {
+          "layout": "obra",
+          "imagemIds": [
+            "aleijadinho-jonas"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o Profeta Jonas no adro",
+          "destaques": [
+            "Jonas",
+            "dobras profundas",
+            "posição no adro",
+            "luz do dia"
+          ]
+        },
+        "ataide": {
+          "layout": "obra",
+          "imagemIds": [
+            "ataide-teto-porciuncula"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Mestre Ataíde e a pintura que localiza o sagrado",
+          "destaques": [
+            "forros e painéis",
+            "Coroação de Nossa Senhora",
+            "soluções locais",
+            "tradução cultural"
+          ]
+        },
+        "imagem-ataide": {
+          "layout": "obra",
+          "imagemIds": [
+            "ataide-ceia"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: a Última Ceia de Ataíde",
+          "destaques": [
+            "Cristo ocupa o centro",
+            "perspectiva do teto",
+            "gestos de partilha",
+            "negociação cultural"
+          ]
+        },
+        "comparacao": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Europa e Minas: o que se mantém e o que se transforma",
+          "destaques": [
+            "igreja barroca europeia",
+            "mineira",
+            "escala, a luz, os materiais",
+            "novos sentidos"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Cuidado com rótulos",
+          "destaques": [
+            "rigor compositivo",
+            "oficinas, ajudantes e encomendas",
+            "quem pagava",
+            "quem executava"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Leitura para o ENEM",
+          "destaques": [
+            "expressão dos rostos",
+            "gestos, vestes, luz",
+            "irmandades",
+            "forma, devoção e sociedade"
+          ]
+        }
+      }
+    },
+    "comunicacao-visual-audiovisual": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Ver e ser visto",
+          "destaques": [
+            "Cinema, televisão e internet",
+            "plano, contraplano, montagem",
+            "atenção",
+            "ideias"
+          ]
+        },
+        "conceitos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Plano, montagem e ponto de vista",
+          "destaques": [
+            "ponto de vista",
+            "close",
+            "plano aberto",
+            "som"
+          ]
+        },
+        "imagem-esquema-montagem": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Leitura guiada: a imagem ganha tempo",
+          "destaques": [
+            "plano geral",
+            "plano próximo",
+            "fora de campo",
+            "montagem"
+          ]
+        },
+        "exemplo-cinema": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Son of Saul e o horror fora de quadro",
+          "destaques": [
+            "Son of Saul",
+            "profundidade de campo limitada",
+            "sons e fragmentos",
+            "ponto de vista"
+          ]
+        },
+        "exemplo-tv": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Cinema e televisão: hierarquias de gosto",
+          "destaques": [
+            "valores e acesso",
+            "streaming",
+            "interesses",
+            "rótulos"
+          ]
+        },
+        "exemplo-design": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Design e identidade visual",
+          "destaques": [
+            "tipografia, cores, grade e imagens",
+            "Cara a Cara",
+            "gênero e aparência",
+            "hierarquia"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a comunicação visual não é",
+          "destaques": [
+            "enquadramento ou tipografia",
+            "reinterpretar e resistir",
+            "câmera, som e montagem"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "ponto de vista",
+            "montagem",
+            "uso do som",
+            "público"
+          ]
+        }
+      }
+    },
+    "cubismo-futurismo": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Uma Europa que se move mais rápido",
+          "destaques": [
+            "automóveis, aviões",
+            "tempo e do espaço",
+            "cubismo",
+            "futurismo"
+          ]
+        },
+        "cubismo": {
+          "layout": "obra",
+          "imagemIds": [
+            "juan-gris-janela"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Ver o objeto por vários lados",
+          "destaques": [
+            "planos",
+            "pontos de vista simultâneos",
+            "estrutura",
+            "figura e fundo"
+          ]
+        },
+        "primitivismo": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Máscaras, apropriação e mal-entendido",
+          "destaques": [
+            "máscaras africanas",
+            "apropriação colonial",
+            "Les Demoiselles d'Avignon",
+            "apagamento"
+          ]
+        },
+        "colagem": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Papel, jornal e realidade na tela",
+          "destaques": [
+            "pedaços de jornal",
+            "papel de parede",
+            "texto, a textura e a imagem",
+            "materiais do cotidiano"
+          ]
+        },
+        "imagem-juan-gris": {
+          "layout": "obra",
+          "imagemIds": [
+            "juan-gris-janela"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: dentro e fora na janela de Juan Gris",
+          "destaques": [
+            "mesa com jornal",
+            "planos se interpenetram",
+            "interior e o exterior",
+            "fragmentos"
+          ]
+        },
+        "futurismo": {
+          "layout": "obra",
+          "imagemIds": [
+            "boccioni-futebol"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Velocidade, máquina e violência",
+          "destaques": [
+            "1909",
+            "velocidade",
+            "linhas de força",
+            "Primeira Guerra"
+          ]
+        },
+        "imagem-boccioni": {
+          "layout": "comparacao",
+          "imagemIds": [
+            "boccioni-futebol",
+            "juan-gris-janela"
+          ],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Leitura guiada: o corpo em movimento de Boccioni",
+          "destaques": [
+            "formas facetadas",
+            "repetição de volumes",
+            "velocidade",
+            "decomposição cubista"
+          ]
+        },
+        "guerra": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Guernica e o fim da festa moderna",
+          "destaques": [
+            "1937",
+            "Guernica",
+            "denúncia política",
+            "destruição em massa"
+          ]
+        },
+        "exemplo-modigliani": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Modigliani, a máscara e o mármore cicládico",
+          "destaques": [
+            "Cabeça de mulher",
+            "cicládica",
+            "proporção",
+            "influência direta"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "planos geométricos",
+            "linhas de força",
+            "critica ou celebra",
+            "respostas distintas"
+          ]
+        }
+      }
+    },
+    "culturas-populares-patrimonio": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que se preserva e quem decide",
+          "destaques": [
+            "festas, saberes, línguas",
+            "Iphan e a Unesco",
+            "escolhas políticas",
+            "comunidade"
+          ]
+        },
+        "conceitos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Material, imaterial e salvaguarda",
+          "destaques": [
+            "patrimônio material",
+            "imaterial",
+            "salvaguarda",
+            "detentores do saber"
+          ]
+        },
+        "exemplo-artesanato": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Artesanato e a fronteira com a arte",
+          "destaques": [
+            "Panelas de barro",
+            "material",
+            "o processo",
+            "arte menor"
+          ]
+        },
+        "exemplo-festa": {
+          "layout": "obra",
+          "imagemIds": [
+            "marabaixo-apresentacao"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Marabaixo e a memória negra no Amapá",
+          "destaques": [
+            "Marabaixo",
+            "afro-amapaense",
+            "memória",
+            "folclorização"
+          ]
+        },
+        "exemplo-mercado": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Tradição, turismo e mercado",
+          "destaques": [
+            "renda e orgulho",
+            "padronizar práticas",
+            "quem lucra",
+            "identidade"
+          ]
+        },
+        "exemplo-heitor": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Heitor dos Prazeres e a cidade popular",
+          "destaques": [
+            "Heitor dos Prazeres",
+            "rodas de samba",
+            "contornos demarcados",
+            "sociabilidade"
+          ]
+        },
+        "exemplo-azulejaria": {
+          "layout": "obra",
+          "imagemIds": [
+            "azulejos-sao-luis"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Azulejaria de São Luís e a circulação de saberes",
+          "destaques": [
+            "São Luís",
+            "revestimento cerâmico vidrado",
+            "oficinas locais",
+            "circulação de saberes"
+          ]
+        },
+        "imagem-azulejos": {
+          "layout": "obra",
+          "imagemIds": [
+            "azulejos-sao-luis"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o módulo, a falha e a cidade",
+          "destaques": [
+            "módulos",
+            "falhas",
+            "remendos",
+            "restauração"
+          ]
+        },
+        "exemplo-vitalino-entalhe": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Barro e madeira: Mestre Vitalino e a Ilha do Ferro",
+          "destaques": [
+            "Mestre Vitalino",
+            "Ilha do Ferro",
+            "cerâmica e entalhe",
+            "material orienta a forma"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que patrimônio não é",
+          "destaques": [
+            "valores sociais e históricos",
+            "comunidades",
+            "se transforma"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "material ou imaterial",
+            "comunidade",
+            "memória e à economia",
+            "agência"
+          ]
+        }
+      }
+    },
+    "dada-surrealismo": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "hugo-ball"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A razão que levou à catástrofe",
+          "destaques": [
+            "Primeira Guerra Mundial",
+            "Zurique",
+            "Dada em 1916",
+            "surrealismo"
+          ]
+        },
+        "dada": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Dada: a arte que duvida de si",
+          "destaques": [
+            "recortes de jornal",
+            "acaso",
+            "escândalo",
+            "crítica"
+          ]
+        },
+        "imagem-cabaret": {
+          "layout": "obra",
+          "imagemIds": [
+            "cabaret-voltaire-cartaz"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o cartaz como provocação",
+          "destaques": [
+            "três figuras",
+            "tipografia",
+            "estranhamento",
+            "atitude coletiva"
+          ]
+        },
+        "fotomontagem": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Hausmann e o rosto da crítica",
+          "destaques": [
+            "fotomontagem",
+            "Raoul Hausmann",
+            "olhos, engrenagens e letras",
+            "crítica política"
+          ]
+        },
+        "surrealismo": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Surrealismo: o sonho como método",
+          "destaques": [
+            "sonho",
+            "automatismo",
+            "relações impossíveis",
+            "estranhamento"
+          ]
+        },
+        "imagem-esquema-surrealismo": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Leitura guiada: procedimentos surrealistas",
+          "destaques": [
+            "escrita automática",
+            "cadáver esquisito",
+            "colagem/frottage",
+            "objeto surrealista"
+          ]
+        },
+        "magritte": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Magritte e a traição da imagem",
+          "destaques": [
+            "imagem, palavra e coisa",
+            "A reprodução proibida",
+            "duvidar",
+            "precisão do desenho"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que Dada e surrealismo não são",
+          "destaques": [
+            "Não são sinônimos",
+            "procedimentos",
+            "grupos",
+            "revistas e disputas"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "escândalo",
+            "objeto deslocado",
+            "automatismo",
+            "procedimento e efeito"
+          ]
+        }
+      }
+    },
+    "danca-moderna-contemporanea": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "sloan-isadora-duncan"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Do tutu ao chão",
+          "destaques": [
+            "balé clássico",
+            "Isadora Duncan",
+            "gravidade",
+            "mistura de linguagens"
+          ]
+        },
+        "imagem-isadora": {
+          "layout": "obra",
+          "imagemIds": [
+            "sloan-isadora-duncan"
+          ],
+          "tipoCena": "percurso",
+          "tituloVisual": "Leitura guiada: o corpo descalço de Isadora Duncan",
+          "destaques": [
+            "descalça",
+            "braços erguidos",
+            "água-forte",
+            "gesto"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Técnica, presença e composição",
+          "destaques": [
+            "atenção, respiração",
+            "improvisação",
+            "tempo, espaço e energia",
+            "chão"
+          ]
+        },
+        "exemplo-moderna": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "A morte do cisne e a releitura",
+          "destaques": [
+            "A morte do cisne",
+            "1905",
+            "releitura",
+            "citada criticamente"
+          ]
+        },
+        "exemplo-presenca": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Presença e vazio na cena",
+          "destaques": [
+            "presente",
+            "pausas",
+            "olhares",
+            "escuta do corpo"
+          ]
+        },
+        "exemplo-tecnologia": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Dança, internet e novas telas",
+          "destaques": [
+            "Didier Mulleras",
+            "computador, internet e vídeo",
+            "preservar a presença",
+            "reorganiza"
+          ]
+        },
+        "exemplo-religiosidade": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Gira e a religiosidade afro-brasileira",
+          "destaques": [
+            "Gira",
+            "troncos que pendulam",
+            "transe e ritual",
+            "corpo coletivo"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "gravidade",
+            "improvisação e presença",
+            "hibridismo",
+            "escolha de movimento"
+          ]
+        }
+      }
+    },
+    "dancas-populares": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Dançar junto",
+          "destaques": [
+            "práticas coletivas",
+            "região",
+            "comunidade",
+            "repertório diverso"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Tradição, transformação e patrimônio",
+          "destaques": [
+            "transmissão com mudança",
+            "quadrilha",
+            "frevo",
+            "comunidades"
+          ]
+        },
+        "exemplo-quadrilha": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Quadrilha: do salão à roça",
+          "destaques": [
+            "dança de salão",
+            "anarriê",
+            "alavantú",
+            "festas juninas"
+          ]
+        },
+        "exemplo-frevo": {
+          "layout": "obra",
+          "imagemIds": [
+            "frevo-olinda"
+          ],
+          "tipoCena": "percurso",
+          "tituloVisual": "Frevo: fervura, passo e resistência",
+          "destaques": [
+            "Recife e em Olinda",
+            "rápido e acrobático",
+            "capoeira",
+            "2012"
+          ]
+        },
+        "imagem-frevo": {
+          "layout": "obra",
+          "imagemIds": [
+            "frevo-olinda"
+          ],
+          "tipoCena": "percurso",
+          "tituloVisual": "Leitura guiada: o frevo ocupa a rua",
+          "destaques": [
+            "sombrinhas coloridas",
+            "espaço público",
+            "Olinda, em 2009",
+            "prática viva"
+          ]
+        },
+        "exemplo-indigena": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Dança indígena e ancestralidade",
+          "destaques": [
+            "rituais",
+            "Xavante",
+            "organização social",
+            "transformando"
+          ]
+        },
+        "exemplo-ballet": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Dança folclórica e dança teatral: campos diferentes",
+          "destaques": [
+            "balé clássico",
+            "cortes e academias",
+            "práticas comunitárias",
+            "campos diferentes"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que as danças populares não são",
+          "destaques": [
+            "aprendizado, ensaio e conhecimento",
+            "função ritual, política e comunitária",
+            "comunidades"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "festa",
+            "região",
+            "comunidade",
+            "agência"
+          ]
+        }
+      }
+    },
+    "expressionismo-figurativismo": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Uma Europa em crise",
+          "destaques": [
+            "cor intensa",
+            "formas angulosas",
+            "ansiedade",
+            "crises políticas"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Deformar para dizer",
+          "destaques": [
+            "Deformação expressiva",
+            "escolha de linguagem",
+            "emoção",
+            "forma e sentimento"
+          ]
+        },
+        "imagem-munch": {
+          "layout": "obra",
+          "imagemIds": [
+            "munch-o-grito"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o grito e a paisagem ondulada",
+          "destaques": [
+            "mãos às orelhas",
+            "ponte diagonal",
+            "linhas curvas",
+            "angústia"
+          ]
+        },
+        "goeldi": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Goeldi e a gravura como drama",
+          "destaques": [
+            "Oswaldo Goeldi",
+            "xilogravura",
+            "preto e branco",
+            "atmosfera de solidão"
+          ]
+        },
+        "freud": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Lucian Freud: a carne sem ideal",
+          "destaques": [
+            "Lucian Freud",
+            "imperfeições",
+            "presença física",
+            "luz crua"
+          ]
+        },
+        "bacon": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Francis Bacon: o rosto desfeito",
+          "destaques": [
+            "Bacon",
+            "rostos",
+            "fundos geométricos",
+            "instabilidade do eu"
+          ]
+        },
+        "ibere": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Iberê Camargo: memória e invenção",
+          "destaques": [
+            "Iberê Camargo",
+            "carretéis",
+            "ritmo, matéria e cor",
+            "memória"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Expressionismo não é licença para qualquer coisa",
+          "destaques": [
+            "composição, ritmo",
+            "decisões técnicas",
+            "contexto",
+            "figuração contemporânea"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "figura",
+            "cor",
+            "perspectiva",
+            "forma e sentido"
+          ]
+        }
+      }
+    },
+    "forma-abstracao": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Quando a obra deixa de imitar o mundo",
+          "destaques": [
+            "Kandinsky, Mondrian e Malevich",
+            "linhas, manchas e campos de cor",
+            "concretismo",
+            "neoconcretismo"
+          ]
+        },
+        "conceitos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Lírica, geométrica e concreta",
+          "destaques": [
+            "abstração lírica",
+            "geométrica",
+            "concretismo",
+            "neoconcretismo"
+          ]
+        },
+        "exemplo-kandinsky": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Kandinsky: ponto, linha e ritmo",
+          "destaques": [
+            "pontos, linhas e ângulos",
+            "tensão",
+            "repetição de motivos",
+            "relações"
+          ]
+        },
+        "imagem-kandinsky": {
+          "layout": "obra",
+          "imagemIds": [
+            "kandinsky-composicao-vii"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: ritmo e tensão em Composição VII",
+          "destaques": [
+            "linhas negras",
+            "ritmo e tensão",
+            "contrastes de cor",
+            "leitura formal"
+          ]
+        },
+        "exemplo-brasil": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Amílcar de Castro e o corte-dobra",
+          "destaques": [
+            "Amílcar de Castro",
+            "chapas de aço",
+            "cortadas e dobradas",
+            "peso, vazio e percurso"
+          ]
+        },
+        "minimalismo": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Minimalismo: menos objetos, mais experiência",
+          "destaques": [
+            "Donald Judd",
+            "módulos industriais",
+            "serialidade",
+            "próprio corpo"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a abstração não é",
+          "destaques": [
+            "composição, escala e material",
+            "história",
+            "leitura formal",
+            "política"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "formas predominantes",
+            "simetria",
+            "repetição",
+            "experiência perceptiva"
+          ]
+        }
+      }
+    },
+    "fotografia": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Uma máquina que muda o olhar",
+          "destaques": [
+            "1839",
+            "memória e a representação",
+            "autoria",
+            "enquadramento, luz"
+          ]
+        },
+        "movimento": {
+          "layout": "obra",
+          "imagemIds": [
+            "muybridge-cavalos"
+          ],
+          "tipoCena": "sequencia",
+          "tituloVisual": "Muybridge e o cavalo que voa",
+          "destaques": [
+            "Muybridge",
+            "galope",
+            "quatro patas no ar",
+            "enquadramento repetido"
+          ]
+        },
+        "imagem-muybridge": {
+          "layout": "obra",
+          "imagemIds": [
+            "muybridge-cavalos"
+          ],
+          "tipoCena": "sequencia",
+          "tituloVisual": "Leitura guiada: a sequência como análise",
+          "destaques": [
+            "fases do movimento",
+            "fundo neutro",
+            "enquadramento",
+            "ciência e espetáculo"
+          ]
+        },
+        "fotograma": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Man Ray e a fotografia sem câmera",
+          "destaques": [
+            "papel fotossensível",
+            "objetos",
+            "expondo à luz",
+            "contornos"
+          ]
+        },
+        "pinhole": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Câmera pinhole e o tempo longo",
+          "destaques": [
+            "caixa escura",
+            "pequeno orifício",
+            "meses ou anos",
+            "tempo essa imagem"
+          ]
+        },
+        "cartier-bresson": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Cartier-Bresson e o instante decisivo",
+          "destaques": [
+            "instante decisivo",
+            "forma, ação e significado",
+            "observação",
+            "enquadramento"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a fotografia não é",
+          "destaques": [
+            "seleção, lente, luz",
+            "pós-produção",
+            "contexto, intenção e recepção",
+            "interpretação"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "procedimento",
+            "tempo de exposição",
+            "enquadramento",
+            "técnica e sentido"
+          ]
+        }
+      }
+    },
+    "hip-hop-rap-slam": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Do Bronx para o mundo",
+          "destaques": [
+            "Bronx",
+            "anos 1970",
+            "MC",
+            "DJ"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Ritmo, rima e relato",
+          "destaques": [
+            "fala rítmica",
+            "rima e batida",
+            "sampling",
+            "ponto de vista"
+          ]
+        },
+        "imagem-esquema-hip-hop": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Leitura guiada: quatro elementos, uma cidade",
+          "destaques": [
+            "MC",
+            "DJ",
+            "grafite",
+            "break"
+          ]
+        },
+        "exemplo-identidade": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Rap e afirmação negra",
+          "destaques": [
+            "identidade negra periférica",
+            "racismo e desigualdade",
+            "pertencimento",
+            "invenção poética"
+          ]
+        },
+        "exemplo-indigena": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Brô MCs e o rap indígena",
+          "destaques": [
+            "Brô MCs",
+            "Dourados",
+            "juventude indígena",
+            "identidade guarani"
+          ]
+        },
+        "exemplo-slam": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Slam: poesia, corpo e competição",
+          "destaques": [
+            "poesia falada",
+            "tempo",
+            "júri popular",
+            "voz, corpo e presença"
+          ]
+        },
+        "exemplo-break": {
+          "layout": "obra",
+          "imagemIds": [
+            "breaking"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Break dance, esporte e cultura urbana",
+          "destaques": [
+            "break dance",
+            "batalhas de dança",
+            "2024",
+            "critérios de julgamento"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que o hip-hop não é",
+          "destaques": [
+            "dança, arte visual",
+            "estereótipo",
+            "sotaques e temas próprios",
+            "slam"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "rap, break, grafite, DJ",
+            "contexto periférico",
+            "ponto de vista",
+            "participação do público"
+          ]
+        }
+      }
+    },
+    "imagem-colonizacao-retrato": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Imagens que chegaram antes dos corpos",
+          "destaques": [
+            "período colonial",
+            "relatos de viajantes",
+            "conquista, catequese e comércio",
+            "quem encomendou"
+          ]
+        },
+        "conceitos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Alteridade, estereótipo e retrato",
+          "destaques": [
+            "Alteridade",
+            "estereótipo",
+            "retrato",
+            "poder"
+          ]
+        },
+        "exemplo-eckhout": {
+          "layout": "obra",
+          "imagemIds": [
+            "eckhout-mulher-africana"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Albert Eckhout e o corpo observado",
+          "destaques": [
+            "Albert Eckhout",
+            "Pernambuco",
+            "tipos",
+            "composição do poder colonial"
+          ]
+        },
+        "imagem-eckhout": {
+          "layout": "obra",
+          "imagemIds": [
+            "eckhout-mulher-africana"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o corpo observado de Eckhout",
+          "destaques": [
+            "mulher africana",
+            "criança",
+            "inventário colonial",
+            "construção de alteridade"
+          ]
+        },
+        "exemplo-brasil": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Portinari e a violência do descobrimento",
+          "destaques": [
+            "Portinari",
+            "corpos indígenas",
+            "primeiro plano",
+            "deslocamentos de ponto de vista"
+          ]
+        },
+        "retrato-exclusao": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O retrato como arquivo do poder",
+          "destaques": [
+            "quem não foi retratado",
+            "estrutura social",
+            "nome, rosto e memória",
+            "invisibilizados"
+          ]
+        },
+        "contra-narrativa": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Contra-imagens e memória",
+          "destaques": [
+            "Rosana Paulino",
+            "Adriana Varejão",
+            "costura, cerâmica, azulejo ou fotografia",
+            "rompem"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "enquadramento",
+            "objetos",
+            "figura e paisagem",
+            "posição de olhar"
+          ]
+        }
+      }
+    },
+    "impressionismo": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Paris, trens e tintas em tubo",
+          "destaques": [
+            "Paris",
+            "trens",
+            "tintas em tubo",
+            "1874"
+          ]
+        },
+        "conceitos": {
+          "layout": "obra",
+          "imagemIds": [
+            "sisley-estrada"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Cor justaposta, sombra colorida e instante",
+          "destaques": [
+            "justapõe pinceladas",
+            "sombras",
+            "contorno se dissolve",
+            "instante"
+          ]
+        },
+        "imagem-sisley": {
+          "layout": "obra",
+          "imagemIds": [
+            "sisley-estrada"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: a estrada e a luz",
+          "destaques": [
+            "Alfred Sisley",
+            "estrada",
+            "pinceladas curtas",
+            "sombras"
+          ]
+        },
+        "comparacao": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Academia e impressão",
+          "destaques": [
+            "paisagem acadêmica",
+            "paisagem impressionista",
+            "estabilidade e idealização",
+            "vibração da luz"
+          ]
+        },
+        "brasil": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O Impressionismo no Brasil",
+          "destaques": [
+            "Eliseu Visconti",
+            "luz e cor",
+            "reinterpretada",
+            "instituições, público e paisagem"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que o Impressionismo não é",
+          "destaques": [
+            "pincelada",
+            "cotidiano e o lazer",
+            "mercado",
+            "exposições"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "pincelada",
+            "contraste",
+            "contorno",
+            "luz"
+          ]
+        }
+      }
+    },
+    "instalacao-materiais": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A sala como obra",
+          "destaques": [
+            "1960 e 1970",
+            "salas inteiras",
+            "visitante entra",
+            "experiência estética e conceitual"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Espaço, percurso e imersão",
+          "destaques": [
+            "espaço é material",
+            "contornar",
+            "corpo do visitante",
+            "percurso"
+          ]
+        },
+        "imagem-esquema-instalacao": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Leitura guiada: a sala como percurso",
+          "destaques": [
+            "volumes, tecido, água",
+            "linha de percurso",
+            "arranjo",
+            "acolhedores ou desconfortáveis"
+          ]
+        },
+        "exemplo-ernesto": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Ernesto Neto e a arquitetura do toque",
+          "destaques": [
+            "Ernesto Neto",
+            "tecidos elásticos",
+            "especiarias",
+            "pele, peso e equilíbrio"
+          ]
+        },
+        "exemplo-critica": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Lina Kim e a arquitetura da exclusão",
+          "destaques": [
+            "Lina Kim",
+            "Cry me a river",
+            "camisas de força",
+            "normas de contenção"
+          ]
+        },
+        "exemplo-ambiental": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Arte, natureza e denúncia ambiental",
+          "destaques": [
+            "baleia encalhada",
+            "Jason de Caires Taylor",
+            "escala e localização",
+            "ecologia"
+          ]
+        },
+        "exemplo-hirst": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Damien Hirst e o debate sobre os materiais",
+          "destaques": [
+            "Mother and Child",
+            "formol",
+            "materiais industriais",
+            "contexto institucional"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a instalação não é",
+          "destaques": [
+            "decisões espaciais",
+            "percurso",
+            "materiais simples",
+            "participação"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "espaço",
+            "ambiente",
+            "percurso",
+            "experiência"
+          ]
+        }
+      }
+    },
+    "matrizes-africanas-musica": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Música que atravessou o Atlântico",
+          "destaques": [
+            "séculos XVI e XIX",
+            "escravizados",
+            "transformadas",
+            "encontro desigual"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Polirritmia, oralidade e sincretismo",
+          "destaques": [
+            "polirritmia",
+            "chamada e resposta",
+            "transmissão oral",
+            "Sincretismo"
+          ]
+        },
+        "exemplo-instrumentos": {
+          "layout": "obra",
+          "imagemIds": [
+            "kalimba-museu"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Kalimba, atabaque e a diáspora",
+          "destaques": [
+            "kalimba",
+            "lâminas metálicas",
+            "atabaques e agogôs",
+            "diáspora"
+          ]
+        },
+        "imagem-kalimba": {
+          "layout": "obra",
+          "imagemIds": [
+            "kalimba-museu"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: a kalimba e a matéria do som",
+          "destaques": [
+            "lâminas metálicas",
+            "ressonância",
+            "Tervuren",
+            "histórias e funções próprias"
+          ]
+        },
+        "exemplo-pixinguinha": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Pixinguinha e a canção de terreiro",
+          "destaques": [
+            "Yaô",
+            "Pixinguinha",
+            "candomblé",
+            "língua iorubá"
+          ]
+        },
+        "exemplo-samba": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Samba, maxixe e a transformação da polca",
+          "destaques": [
+            "maxixe",
+            "samba",
+            "polca",
+            "síncope"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que as matrizes africanas não são",
+          "destaques": [
+            "África é diversa",
+            "indústria",
+            "língua, espiritualidade",
+            "violência da escravidão"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "instrumentos",
+            "palavras",
+            "práticas",
+            "agência"
+          ]
+        }
+      }
+    },
+    "modernismo-brasileiro": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "modernistas",
+            "cartaz-1922"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "São Paulo, 1922",
+          "destaques": [
+            "Semana de Arte Moderna",
+            "1922",
+            "modernização urbana",
+            "marco"
+          ]
+        },
+        "conceitos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Ruptura, síntese e identidade",
+          "destaques": [
+            "Ruptura",
+            "Síntese",
+            "Identidade nacional",
+            "vozes ficam de fora"
+          ]
+        },
+        "imagem-esquema": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "sequencia",
+          "tituloVisual": "Leitura guiada: uma linha do tempo em disputa",
+          "destaques": [
+            "Semana de 1922",
+            "Klaxon",
+            "Manifesto Pau-Brasil",
+            "Manifesto Antropófago"
+          ]
+        },
+        "tarsila": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Tarsila: linhas retas e cotidiano",
+          "destaques": [
+            "Tarsila do Amaral",
+            "O mamoeiro",
+            "Estrada de Ferro Central do Brasil",
+            "selecionou e reorganizou"
+          ]
+        },
+        "anita": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Anita Malfatti e a crítica que revela o campo",
+          "destaques": [
+            "Anita Malfatti",
+            "1917",
+            "Monteiro Lobato",
+            "gosto, nação e autoridade"
+          ]
+        },
+        "identidade": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Que Brasil o modernismo inventa?",
+          "destaques": [
+            "mestiçagem",
+            "paisagem tropical",
+            "inclusões e exclusões",
+            "construção histórica"
+          ]
+        },
+        "censura": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Arte moderna e política",
+          "destaques": [
+            "degeneradas",
+            "ditadura militar",
+            "Lasar Segall",
+            "forma, ideologia e poder"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "autor",
+            "período",
+            "referências europeias",
+            "temas brasileiros"
+          ]
+        }
+      }
+    },
+    "musica-erudita-popular": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Uma fronteira histórica",
+          "destaques": [
+            "séculos XVIII e XIX",
+            "partitura",
+            "sala de concerto",
+            "hierarquia"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Melodia, ritmo, timbre e forma",
+          "destaques": [
+            "melodia",
+            "ritmo",
+            "timbre",
+            "forma"
+          ]
+        },
+        "imagem-esquema-fronteira": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Leitura guiada: uma fronteira com passagens",
+          "destaques": [
+            "música de concerto",
+            "música popular",
+            "arranjo, citação, sampling",
+            "espaço e de público"
+          ]
+        },
+        "exemplo-cage": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "John Cage e a pergunta 'o que é música?'",
+          "destaques": [
+            "John Cage",
+            "silêncio da sala",
+            "tosses, ruídos e respiração",
+            "escuta do ambiente"
+          ]
+        },
+        "exemplo-pestana": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Pestana, a polca e o piano",
+          "destaques": [
+            "Machado de Assis",
+            "Pestana",
+            "polcas",
+            "construção social"
+          ]
+        },
+        "exemplo-bolero": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Bolero, sax e praça pública",
+          "destaques": [
+            "Ravel",
+            "sax",
+            "pôr do sol",
+            "espaço de escuta"
+          ]
+        },
+        "exemplo-fusao": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Deep Purple e a orquestra",
+          "destaques": [
+            "Jon Lord",
+            "Deep Purple",
+            "rock, orquestra",
+            "formas eruditas"
+          ]
+        },
+        "exemplo-fioti": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "MC Fioti e Bach: encontro de realidades",
+          "destaques": [
+            "MC Fioti",
+            "Bach",
+            "Partita em Lá menor",
+            "circulação digital"
+          ]
+        },
+        "exemplo-beethoven": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Beethoven no caminhão de gás",
+          "destaques": [
+            "Für Elise",
+            "Beethoven",
+            "1810",
+            "aviso cotidiano"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a hierarquia não é",
+          "destaques": [
+            "categorias variam historicamente",
+            "harmonias complexas",
+            "parâmetros e contextos"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "gênero",
+            "instrumento",
+            "espaço de circulação",
+            "transformação"
+          ]
+        }
+      }
+    },
+    "musica-popular-regional": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Um país de muitos sons",
+          "destaques": [
+            "gêneros regionais",
+            "circulam",
+            "rádio",
+            "migrações"
+          ]
+        },
+        "conceitos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Gênero, instrumento e transmissão",
+          "destaques": [
+            "baião",
+            "choro",
+            "música caipira",
+            "timbre"
+          ]
+        },
+        "exemplo-baiao": {
+          "layout": "obra",
+          "imagemIds": [
+            "luiz-gonzaga-1957"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Luiz Gonzaga e o baião",
+          "destaques": [
+            "Luiz Gonzaga",
+            "baião",
+            "rádio",
+            "seca, migração, festa e saudade"
+          ]
+        },
+        "exemplo-instrumentos": {
+          "layout": "obra",
+          "imagemIds": [
+            "viola-caipira-instrumento"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Viola, cavaquinho e a viagem dos instrumentos",
+          "destaques": [
+            "viola caipira",
+            "cavaquinho",
+            "afinações, técnicas e repertórios",
+            "adaptações"
+          ]
+        },
+        "imagem-violeiro": {
+          "layout": "obra",
+          "imagemIds": [
+            "almeida-junior-violeiro"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: a viola e a cena rural",
+          "destaques": [
+            "Almeida Júnior",
+            "escuta",
+            "1899",
+            "cena rural idealizada"
+          ]
+        },
+        "exemplo-mangue": {
+          "layout": "obra",
+          "imagemIds": [
+            "chico-science-nacao-zumbi"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Manguebeat e a mistura de referências",
+          "destaques": [
+            "manguebeat",
+            "rock, funk, hip-hop, maracatu",
+            "desigualdade",
+            "cosmopolita e periférica"
+          ]
+        },
+        "exemplo-lenine": {
+          "layout": "obra",
+          "imagemIds": [
+            "lenine-tom-brasil"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Lenine e o mapa afetivo de Pernambuco",
+          "destaques": [
+            "Leão do Norte",
+            "Lenine",
+            "mapa afetivo de Pernambuco",
+            "identidade plural"
+          ]
+        },
+        "exemplo-zabe": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Zabé da Loca e o pífano",
+          "destaques": [
+            "Zabé da Loca",
+            "pífano",
+            "transmissão oral",
+            "escuta e na repetição"
+          ]
+        },
+        "exemplo-fandango": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Fandango, tropeiros e viola caipira",
+          "destaques": [
+            "fandango",
+            "Os Tropeiros da Mata",
+            "viola caipira",
+            "lugares sociais contraditórios"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a música regional não é",
+          "destaques": [
+            "todo gênero muda",
+            "sistemas diferentes",
+            "reinventam",
+            "diverso"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "gênero",
+            "instrumentos",
+            "contexto social",
+            "rede de trocas"
+          ]
+        }
+      }
+    },
+    "performance-participacao": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "A obra que acontece",
+          "destaques": [
+            "anos 1960",
+            "corpo do artista",
+            "tempo e um espaço",
+            "eventos"
+          ]
+        },
+        "conceitos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Efêmero, presença e documentação",
+          "destaques": [
+            "efêmera",
+            "fotografias, vídeos, relatos",
+            "arquivo e mercado",
+            "público"
+          ]
+        },
+        "imagem-esquema-performance": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Leitura guiada: o circuito da performance",
+          "destaques": [
+            "corpo, ação, público e registro",
+            "tempo irrepetível",
+            "consentimento",
+            "segurança e contexto"
+          ]
+        },
+        "exemplo-abramovic": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Abramovic e o encontro silencioso",
+          "destaques": [
+            "Marina Abramovic",
+            "sentada",
+            "silêncio",
+            "tempo compartilhado"
+          ]
+        },
+        "exemplo-participacao": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Lygia Clark e a obra que pede a mão",
+          "destaques": [
+            "Bichos",
+            "Lygia Clark",
+            "dobradiças",
+            "abrir, fechar, torcer, equilibrar"
+          ]
+        },
+        "exemplo-brasil": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Flávio de Carvalho e o corpo na cidade",
+          "destaques": [
+            "1956",
+            "Flávio de Carvalho",
+            "Avenida Paulista",
+            "normas sociais"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a performance não é",
+          "destaques": [
+            "Não é sinônimo de teatro",
+            "treino, roteiro",
+            "arquivo",
+            "risco, consentimento e exploração"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "ação",
+            "tempo",
+            "corpo e público",
+            "experiência e a efemeridade"
+          ]
+        }
+      }
+    },
+    "pop-art-apropriacao": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Sociedade de consumo, televisão e publicidade",
+          "destaques": [
+            "1950 e 1960",
+            "publicidade",
+            "latas de sopa",
+            "consumo"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Apropriar, repetir, deslocar",
+          "destaques": [
+            "Apropriação",
+            "repetição",
+            "ampliação",
+            "paródia"
+          ]
+        },
+        "warhol": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Warhol e a imagem serial",
+          "destaques": [
+            "Warhol",
+            "serigrafias",
+            "repetição mecânica",
+            "cor e registro"
+          ]
+        },
+        "brasil": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Pop Art e ditadura no Brasil",
+          "destaques": [
+            "Nelson Leirner",
+            "Rubens Gerchman",
+            "ditadura",
+            "comentário político"
+          ]
+        },
+        "rauschenberg": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Rauschenberg e a fronteira da pintura",
+          "destaques": [
+            "Rauschenberg",
+            "combines",
+            "pintura, escultura e objetos",
+            "limites do quadro"
+          ]
+        },
+        "exemplo-vik-muniz": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Vik Muniz, Arcimboldo e a matéria da imagem",
+          "destaques": [
+            "Vik Muniz",
+            "geleia, pasta de amendoim, chocolate, lixo",
+            "Arcimboldo",
+            "material é literal"
+          ]
+        },
+        "imagem-arcimboldo": {
+          "layout": "obra",
+          "imagemIds": [
+            "arcimboldo-vertumno"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o rosto feito de frutas",
+          "destaques": [
+            "Rodolfo II",
+            "frutas, legumes, flores e espigas",
+            "duplo sentido",
+            "representação e matéria"
+          ]
+        },
+        "exemplo-decoupagem": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Décollage e Pollock: rasgar, respingar, apropriar",
+          "destaques": [
+            "décollage",
+            "arrancar camadas",
+            "Mimmo Rotella",
+            "Action Photo"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que a Pop Art não é",
+          "destaques": [
+            "ironia",
+            "censura",
+            "deslocamento",
+            "plágio"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "imagem de origem",
+            "repetição",
+            "contexto",
+            "ressignificação"
+          ]
+        }
+      }
+    },
+    "ready-made-conceitual": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "fountain"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Um urinol no museu",
+          "destaques": [
+            "1917",
+            "Marcel Duchamp",
+            "urinol industrial",
+            "escolha"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Objeto, contexto e ideia",
+          "destaques": [
+            "seleção",
+            "assinatura",
+            "título",
+            "exposição"
+          ]
+        },
+        "exemplo-duchamp": {
+          "layout": "obra",
+          "imagemIds": [],
+          "tipoCena": "obra",
+          "tituloVisual": "Duchamp e a roda de bicicleta",
+          "destaques": [
+            "Roda de bicicleta",
+            "inutilidade da montagem",
+            "espectador",
+            "convenções, instituições"
+          ]
+        },
+        "imagem-esquema-ready-made": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Leitura guiada: do objeto ao debate",
+          "destaques": [
+            "objeto comum",
+            "deslocamento",
+            "contexto",
+            "ideia"
+          ]
+        },
+        "exemplo-kosuth": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Kosuth: uma cadeira, uma foto, uma definição",
+          "destaques": [
+            "One and Three Chairs",
+            "cadeira",
+            "fotografia",
+            "verbete de dicionário"
+          ]
+        },
+        "exemplo-brasil": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Objetos brasileiros: Leirner e a crítica do sistema",
+          "destaques": [
+            "Nelson Leirner",
+            "brinquedos",
+            "símbolos de consumo",
+            "ditadura"
+          ]
+        },
+        "exemplo-regina-silveira": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Regina Silveira e a sombra do ready-made",
+          "destaques": [
+            "Regina Silveira",
+            "In absentia",
+            "sombras",
+            "ausência"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que o ready-made não é",
+          "destaques": [
+            "escolha, título, contexto",
+            "intenção crítica",
+            "instalação",
+            "definem arte"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "objeto de origem",
+            "deslocamento",
+            "instituição",
+            "estatuto da arte"
+          ]
+        }
+      }
+    },
+    "rock-tropicalismo-festivais": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Guitarras, TVs e ditadura",
+          "destaques": [
+            "anos 1960",
+            "televisão",
+            "festivais",
+            "tropicalismo"
+          ]
+        },
+        "imagem-esquema-arena": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "sequencia",
+          "tituloVisual": "Leitura guiada: a música como arena",
+          "destaques": [
+            "Jovem Guarda",
+            "Festival da Record",
+            "AI-5",
+            "Rock Brasil"
+          ]
+        },
+        "conceitos": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Antropofagia, alegoria e contracultura",
+          "destaques": [
+            "antropofágica",
+            "Oswald de Andrade",
+            "alegorias",
+            "censura"
+          ]
+        },
+        "exemplo-mutantes": {
+          "layout": "obra",
+          "imagemIds": [
+            "os-mutantes-1969"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Os Mutantes e a colagem sonora",
+          "destaques": [
+            "Mutantes",
+            "1968",
+            "psicodelia",
+            "recursos de estúdio"
+          ]
+        },
+        "exemplo-festival": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Festivais e a memória da MPB",
+          "destaques": [
+            "festivais",
+            "plateias",
+            "televisão",
+            "debate público"
+          ]
+        },
+        "exemplo-mangue": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Manguebeat e a herança tropicalista",
+          "destaques": [
+            "manguebeat",
+            "referências locais e globais",
+            "maracatu",
+            "contexto"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que o tropicalismo não é",
+          "destaques": [
+            "ironia",
+            "projetos distintos",
+            "atravessa décadas",
+            "campo de disputas"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "mistura de referências",
+            "alegoria",
+            "TV, público e mercado",
+            "estética e política"
+          ]
+        }
+      }
+    },
+    "teatro-dramaturgia": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O texto que precisa do palco",
+          "destaques": [
+            "texto dramático",
+            "rubricas",
+            "encenação",
+            "escrito"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Diálogo, ação e rubrica",
+          "destaques": [
+            "diálogo",
+            "conflito",
+            "pausas, silêncios e gestos",
+            "ação presente"
+          ]
+        },
+        "exemplo-rubrica": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Rubricas e a construção da cena",
+          "destaques": [
+            "rubrica",
+            "ritmo da ação",
+            "falar baixo e ficar imóvel",
+            "sentido muda"
+          ]
+        },
+        "generos": {
+          "layout": "comparacao",
+          "imagemIds": [
+            "callot-commedia"
+          ],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Comédia, drama e commedia dell'arte",
+          "destaques": [
+            "comédia",
+            "drama",
+            "commedia dell'arte",
+            "máscaras e improvisação"
+          ]
+        },
+        "imagem-callot": {
+          "layout": "obra",
+          "imagemIds": [
+            "callot-commedia"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: personagens da commedia dell’arte",
+          "destaques": [
+            "três figuras mascaradas",
+            "gestos exagerados",
+            "Jacques Callot",
+            "gravador"
+          ]
+        },
+        "exemplo-brasil": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O bem-amado e a sátira política",
+          "destaques": [
+            "Dias Gomes",
+            "prefeito corrupto",
+            "poder local",
+            "comédia política"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que o teatro não é",
+          "destaques": [
+            "palco",
+            "treino, técnica e composição",
+            "presença ao vivo",
+            "recontextualizar"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "personagens",
+            "conflito",
+            "rubricas",
+            "relação texto-palco"
+          ]
+        }
+      }
+    },
+    "teatro-educacao": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Teatro como prática, não apenas espetáculo",
+          "destaques": [
+            "Viola Spolin",
+            "Augusto Boal",
+            "processo de aprendizagem",
+            "participante"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Foco, problema e improvisação",
+          "destaques": [
+            "problema",
+            "foco",
+            "regras",
+            "escuta"
+          ]
+        },
+        "imagem-esquema-jogo": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Leitura guiada: o processo também é cena",
+          "destaques": [
+            "jogo",
+            "improvisação",
+            "reflexão",
+            "cena"
+          ]
+        },
+        "exemplo-spolin": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Spolin e o jogo do cabo de guerra",
+          "destaques": [
+            "cabo de guerra",
+            "corda imaginária",
+            "tensão dos braços",
+            "cooperação"
+          ]
+        },
+        "exemplo-boal": {
+          "layout": "conexoes",
+          "imagemIds": [
+            "boal-oficina"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Teatro do Oprimido e o espectador que age",
+          "destaques": [
+            "Augusto Boal",
+            "público interrompe",
+            "teatro-fórum",
+            "espect-ator"
+          ]
+        },
+        "exemplo-improvisacao": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Improvisação e trabalho coletivo",
+          "destaques": [
+            "ouvir",
+            "aceitar propostas",
+            "sim, e",
+            "adaptação"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O que teatro-educação não é",
+          "destaques": [
+            "processo",
+            "foco, escuta e objetivos",
+            "capacidades",
+            "complexidade do conflito"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "jogo",
+            "foco",
+            "improvisação",
+            "autonomia"
+          ]
+        }
+      }
+    },
+    "teatro-moderno-contemporaneo": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [
+            "teatro-oficina"
+          ],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Do palco à rua, do texto ao acontecimento",
+          "destaques": [
+            "Bertolt Brecht",
+            "Antonin Artaud",
+            "Oficina",
+            "política e a censura"
+          ]
+        },
+        "conceitos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Espaço, presença e ruptura",
+          "destaques": [
+            "espaço cênico",
+            "palco italiano",
+            "teatro de rua",
+            "atores e público"
+          ]
+        },
+        "imagem-esquema-palcos": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Leitura guiada: o que muda quando o palco muda",
+          "destaques": [
+            "palco italiano",
+            "arena",
+            "quarta parede",
+            "proximidade"
+          ]
+        },
+        "exemplo-rua": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Teatro de rua e ocupação do espaço",
+          "destaques": [
+            "Romeu e Julieta",
+            "praça",
+            "pedestres, sons, clima e arquitetura",
+            "roda de espectadores"
+          ]
+        },
+        "exemplo-intercultural": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Interculturalidade e tradução de culturas",
+          "destaques": [
+            "tradições cênicas",
+            "exotismo e apropriação",
+            "quem fala",
+            "contextos e suas funções"
+          ]
+        },
+        "exemplo-foreman": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "Fragmentação e bombardeio de estímulos",
+          "destaques": [
+            "Richard Foreman",
+            "narrativa linear",
+            "imagens, sons e ações",
+            "justaposição"
+          ]
+        },
+        "exemplo-ator": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "percurso",
+          "tituloVisual": "O trabalho do ator: corpo, voz e presença",
+          "destaques": [
+            "Etienne Decroux",
+            "Luís Otávio Burnier",
+            "peso, intenção, pausa",
+            "gesto"
+          ]
+        },
+        "exemplo-brook": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Peter Brook e a concentração do tempo teatral",
+          "destaques": [
+            "Peter Brook",
+            "A porta aberta",
+            "concentra espaço e tempo",
+            "ação dramática"
+          ]
+        },
+        "exemplo-teatro-magico": {
+          "layout": "conexoes",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "O Teatro Mágico e a ópera como espetáculo total",
+          "destaques": [
+            "O Teatro Mágico",
+            "poesia, circo e artes visuais",
+            "espetáculo total",
+            "luz, figurino, texto e música"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura",
+          "destaques": [
+            "espaço",
+            "fragmentação",
+            "interculturalidade",
+            "palco e plateia"
+          ]
+        }
+      }
+    },
+    "tradicao-academica": {
+      "blocos": {
+        "contexto": {
+          "layout": "abertura",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Uma tradição feita de escolas, encomendas e regras",
+          "destaques": [
+            "séculos XV e XIX",
+            "ateliês, academias",
+            "encomendas",
+            "convenções históricas"
+          ]
+        },
+        "conceitos": {
+          "layout": "processo",
+          "imagemIds": [],
+          "tipoCena": "camadas",
+          "tituloVisual": "Idealização, decoro e trabalho de ateliê",
+          "destaques": [
+            "Idealizar",
+            "beleza, virtude ou poder",
+            "aprendizes",
+            "atribuição e autoria"
+          ]
+        },
+        "exemplo-renascimento": {
+          "layout": "obra",
+          "imagemIds": [
+            "piero-battista-sforza"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: um retrato ideal",
+          "destaques": [
+            "perfil",
+            "serenidade deleitosa",
+            "ideal de contenção",
+            "medida"
+          ]
+        },
+        "imagem-piero": {
+          "layout": "obra",
+          "imagemIds": [
+            "piero-battista-sforza"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Leitura guiada: o perfil idealizado de Battista Sforza",
+          "destaques": [
+            "Battista Sforza",
+            "toucado alto",
+            "colar de pérolas",
+            "posição social"
+          ]
+        },
+        "exemplo-atelie": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "A oficina antes da assinatura",
+          "destaques": [
+            "Mona Lisa",
+            "Louvre",
+            "Museu do Prado",
+            "processo coletivo"
+          ]
+        },
+        "maneirismo": {
+          "layout": "obra",
+          "imagemIds": [
+            "el-greco-laocoonte"
+          ],
+          "tipoCena": "obra",
+          "tituloVisual": "Quando a proporção começa a torcer",
+          "destaques": [
+            "El Greco",
+            "alongam corpos",
+            "comprimem espaços",
+            "tensão espiritual"
+          ]
+        },
+        "imagem-el-greco": {
+          "layout": "comparacao",
+          "imagemIds": [
+            "el-greco-laocoonte",
+            "piero-battista-sforza"
+          ],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Leitura guiada: o corpo que se torce em Laocoonte",
+          "destaques": [
+            "Laocoonte",
+            "Toledo",
+            "proporções esticadas",
+            "serenidade"
+          ]
+        },
+        "realismo": {
+          "layout": "comparacao",
+          "imagemIds": [],
+          "tipoCena": "comparacao",
+          "tituloVisual": "Realismo não é espelho",
+          "destaques": [
+            "Realismo",
+            "trabalhadores",
+            "realismo socialista",
+            "projeto político"
+          ]
+        },
+        "equivocos": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Três equívocos frequentes",
+          "destaques": [
+            "período e instituição",
+            "seleciona, compõe e interpreta",
+            "proporção, luz, pose"
+          ]
+        },
+        "enem-sintese": {
+          "layout": "sintese",
+          "imagemIds": [],
+          "tipoCena": "relacoes",
+          "tituloVisual": "Estratégia de leitura e síntese",
+          "destaques": [
+            "comando",
+            "linhas, luz, cor",
+            "materiais",
+            "forma e poder"
+          ]
+        }
+      }
+    }
+  }
+}

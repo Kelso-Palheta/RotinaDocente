@@ -49,3 +49,33 @@
 .credits{margin-top:4px}.credits summary{cursor:pointer;font-size:10px;font-weight:700}.credits[open]{line-height:1.5}
 
 @keyframes revelarExplicacao{from{transform:translateY(6px)}to{transform:translateY(0)}}
+
+/* Coreografia por etapa: o texto permanece presente mesmo antes de hidratar. */
+.word{display:inline-block;animation:palavraEntra .55s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(var(--ordem)*22ms)}
+.keyword{color:#5411b8;background:linear-gradient(transparent 62%,#ffe14d 62%);padding:0 2px;border-radius:3px;font-weight:900;animation-name:conceitoEntra}
+.blockConnections h3{font-size:15px;font-weight:900;color:#5411b8;line-height:1.3;margin:0 0 6px}
+.conceptMap{width:100%;height:130px;display:block}
+.conceptList{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
+.conceptList li{font-size:12px;display:flex;align-items:center;gap:7px;border:1px solid #d8c9f0;border-radius:999px;padding:7px 10px;color:#5c4878;background:#fffdf7;transition:background .4s,transform .4s}
+.conceptList li[data-ativo=true]{color:#25104a;background:#ffe14d;border-color:#ffe14d;transform:translateY(-3px);font-weight:900}
+.conceptList li>span{font-size:10px;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#6315d9;color:#fffdf7}
+@keyframes palavraEntra{from{transform:translateY(10px) rotate(-1deg);opacity:.45}to{transform:translateY(0) rotate(0);opacity:1}}
+@keyframes conceitoEntra{from{transform:translateY(8px) scale(.96);opacity:.55;background-size:0% 100%}to{transform:translateY(0) scale(1);opacity:1;background-size:100% 100%}}
+.slide[data-layout=abertura] .header{background:linear-gradient(110deg,#6315d9,#5411b8)}
+.slide[data-layout=abertura] .explanation{font-size:clamp(24px,2.3vw,38px)}
+.slide[data-layout=sintese] .header{border-bottom:5px solid #ffe14d}
+.slide[data-layout=sintese] .discourse{background:linear-gradient(135deg,#fffdf7,#f3edff)}
+.slide[data-layout=processo] .blockConnections{background:#25104a;color:#fffdf7}
+.slide[data-layout=processo] .blockConnections h3,.slide[data-layout=processo] .blockConnections small{color:#00ddeb}
+.slide[data-layout=conexoes] .discourse{border-top:5px solid #00ddeb}
+.slide[data-layout]:has(.textOnly) .discourse{display:grid;grid-template-columns:1.1fr 1fr;align-items:start;column-gap:36px}
+.slide[data-layout]:has(.textOnly) .progress,.slide[data-layout]:has(.textOnly) .stepNumber{grid-column:1/-1}
+.slide[data-layout]:has(.textOnly) .blockConnections{margin:0;grid-column:2;grid-row:3/5}
+.slide[data-layout]:has(.textOnly) .explanation{grid-column:1}
+@media(max-width:640px){.slide[data-layout]:has(.textOnly) .discourse{display:flex}.conceptMap{height:110px}.slide[data-layout=abertura] .explanation{font-size:24px}.word{animation-delay:calc(var(--ordem)*15ms)}}
+@media(prefers-reduced-motion:reduce){.word,.keyword,.conceptList li{animation:none!important;transform:none!important;opacity:1!important;transition:none!important}}
+.slide[data-layout] .artFrame{animation:imagemEntra .7s cubic-bezier(.22,1,.36,1) both}
+@keyframes imagemEntra{from{transform:translateY(12px) scale(.98);filter:saturate(.65)}to{transform:translateY(0) scale(1);filter:saturate(1)}}
+@media(max-width:640px){.slide[data-layout]:has(.textOnly) .discourse{display:flex;gap:18px}.conceptMap{height:125px}.slide[data-layout=abertura] .explanation{font-size:25px}}
+@media(prefers-reduced-motion:reduce){.slide .word,.slide .keyword,.slide[data-layout] .artFrame{animation:none!important;transform:none!important;opacity:1!important}.conceptList li{transition:none!important;transform:none!important}}
+.keyword{display:inline;box-decoration-break:clone;-webkit-box-decoration-break:clone}.conceptList li{overflow-wrap:anywhere}

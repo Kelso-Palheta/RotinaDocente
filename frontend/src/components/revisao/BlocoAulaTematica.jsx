@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import catalogo from '../../../../content/revisao-enem/aulas/visuais.json';
+import cenas from '../../../../content/revisao-enem/aulas/cenas.json';
+import { TextoAnimado } from './TextoAnimado';
+import { ConexoesDoBloco } from './ConexoesDoBloco';
 import { criarEtapasExplicacao } from '@/dominio/revisao/apresentacao';
 import { useEtapaExplicativa } from './useEtapaExplicativa';
 import { ControlesExplicacao } from './ControlesExplicacao';
@@ -43,12 +46,17 @@ function ImagemComentada({ imagem, titulo }) {
 }
 
 function ApresentacaoBloco({ bloco, imagens, aula, tema }) {
-  const visual = catalogo.aulas[aula.conteudoId];
+  const baseVisual = catalogo.aulas[aula.conteudoId];
+  const cena = cenas.aulas[aula.conteudoId]?.blocos?.[bloco.id];
+  const visual = cena && baseVisual ? {
+    ...baseVisual, tipoCena: cena.tipoCena,
+    imagens: cena.imagemIds.map(id => baseVisual.imagens.find(i => i.id === id)).filter(Boolean),
+  } : baseVisual;
   const legado = [...imagens, ...(bloco.imagens || [])].find(i => i.id === bloco.imagemId);
   const esquema = /esquema/.test(bloco.imagemId || '') || /esquema/.test(legado?.url || '');
   const originais = criarEtapasExplicacao(bloco.texto || '');
   // O número de passos continua compatível com o snapshot; o novo exemplo recebe leitura própria.
-  const etapas = esquema && visual
+  const etapas = esquema && visual && !cena
     ? Array.from({ length: Math.max(1, originais.length) }, (_, i) => visual.pontos.slice(
       Math.floor(i * visual.pontos.length / Math.max(1, originais.length)),
       Math.floor((i + 1) * visual.pontos.length / Math.max(1, originais.length)),
@@ -59,15 +67,15 @@ function ApresentacaoBloco({ bloco, imagens, aula, tema }) {
   const [local, setLocal] = useState({ etapa: 0, automatica: false, etapaBase: 0, iniciadaEmMs: 0, agoraServidorMs: 0 });
   const apresentacao = aula.apresentacao || { ...local, totalEtapas: etapas.length, intervaloMs: 8000 };
   const etapa = Math.max(0, Math.min(etapas.length - 1, useEtapaExplicativa(apresentacao)));
-  const imagem = bloco.tipo === 'imagem' && legado && (!esquema || !visual) ? legado : visual?.imagens?.[0];
-  const comparacao = visual?.tipoCena === 'comparacao' && visual.imagens.length > 1 && !legado;
+  const imagem = cena ? visual?.imagens?.[0] : bloco.tipo === 'imagem' && legado && (!esquema || !visual) ? legado : visual?.imagens?.[0];
+  const comparacao = visual?.tipoCena === 'comparacao' && visual.imagens.length > 1 && (cena || !legado);
   const indice = aula.indiceBloco !== undefined ? aula.indiceBloco + 1 : null;
   function controlar(acao) {
     const agora = Date.now();
     const proxima = acao === 'repetir_explicacao' ? 0 : acao === 'avancar_explicacao' ? Math.min(etapas.length-1, etapa+1) : acao === 'voltar_explicacao' ? Math.max(0, etapa-1) : etapa;
     setLocal({ etapa: proxima, etapaBase: proxima, automatica: acao === 'reproduzir_explicacao', iniciadaEmMs: agora, agoraServidorMs: agora });
   }
-  return <article data-testid="bloco-aula-tematica" className={styles.slide}>
+  return <article data-testid="bloco-aula-tematica" data-layout={cena?.layout} className={styles.slide}>
     <header className={styles.header}>
       <div>
         <span className={styles.eyebrow}>{aula.tituloConteudo || tema || 'Explorar · compreender · praticar'}</span>
@@ -80,8 +88,8 @@ function ApresentacaoBloco({ bloco, imagens, aula, tema }) {
       <div className={styles.discourse}>
         <div className={styles.progress} aria-hidden="true">{etapas.map((_,i)=><span key={i} className={i===etapa?styles.current:i<etapa?styles.done:''}/>)}</div>
         <span className={styles.stepNumber}>Passo {etapa+1} de {etapas.length} · {apresentacao.automatica ? 'Reprodução automática' : 'Leitura guiada'}</span>
-        <p key={`${bloco.id}:${etapa}`} data-testid="etapa-explicativa" className={styles.explanation}>{etapas[etapa]}</p>
-        {visual && <CenaExplicativa conteudoId={aula.conteudoId} tipo={visual.tipoCena} pontos={visual.pontos} etapa={etapa} totalEtapas={etapas.length}/>}
+        <p key={`${bloco.id}:${etapa}`} data-testid="etapa-explicativa" className={styles.explanation}>{cena ? <TextoAnimado texto={etapas[etapa]} destaques={cena.destaques}/> : etapas[etapa]}</p>
+        {cena ? <ConexoesDoBloco cena={cena} textoEtapa={etapas[etapa]} textoApresentado={etapas.slice(0,etapa+1).join(" ")}/> : visual && <CenaExplicativa conteudoId={aula.conteudoId} tipo={visual.tipoCena} pontos={visual.pontos} etapa={etapa} totalEtapas={etapas.length}/>}
       </div>
     </div>
     <footer className={styles.footer}>
