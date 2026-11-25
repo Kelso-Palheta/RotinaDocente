@@ -26,6 +26,7 @@ export function PrepararSala({
   salas = [],
   modalidadeInicial = 'quiz',
   questaoIdsIniciais = [],
+  planoInicial = null,
   obterToken,
   onSalaCriada,
 }) {
@@ -52,11 +53,11 @@ export function PrepararSala({
     return turmas;
   }, [contextoAvaliacao, turmas]);
 
-  const [titulo, setTitulo] = useState('');
+  const [titulo, setTitulo] = useState(planoInicial?.titulo || '');
   const [trechosNatacao, setTrechosNatacao] = useState(5);
   const [semCronometro, setSemCronometro] = useState(false);
-  const [plataforma, setPlataforma] = useState(false);
-  const [resgate, setResgate] = useState(false);
+  const [plataforma, setPlataforma] = useState(planoInicial?.experiencia === 'plataforma');
+  const [resgate, setResgate] = useState(planoInicial?.experiencia === 'resgate');
   const [desafioFinal, setDesafioFinal] = useState(false);
   const [modalidade, setModalidade] = useState(modalidadeInicial || MODALIDADES_PADRAO[0].id);
   const [formatoParticipacao, setFormatoParticipacao] = useState(() => {
@@ -68,14 +69,14 @@ export function PrepararSala({
   const [criterioColetivo, setCriterioColetivo] = useState('somente_relatorio');
   const [finalidade, setFinalidade] = useState('revisao');
   const [tituloAtividade, setTituloAtividade] = useState('');
-  const [disciplinaAval, setDisciplinaAval] = useState('');
-  const [conteudoAval, setConteudoAval] = useState('');
+  const [disciplinaAval, setDisciplinaAval] = useState(planoInicial?.disciplina || '');
+  const [conteudoAval, setConteudoAval] = useState(planoInicial?.conteudo || '');
   const [anoLetivo, setAnoLetivo] = useState(() => anosDisponiveis[0]?.id || 'legado');
   const [bimestre, setBimestre] = useState('1');
   const [valorMaximo, setValorMaximo] = useState(10);
   const [criterioHerois, setCriterioHerois] = useState('primeira_tentativa');
   const [colunaPorTurma, setColunaPorTurma] = useState({});
-  const [turmaIds, setTurmaIds] = useState([]);
+  const [turmaIds, setTurmaIds] = useState(planoInicial?.turmaIds || []);
   const [questaoIds, setQuestaoIds] = useState(() =>
     Array.isArray(questaoIdsIniciais) ? questaoIdsIniciais.map(String) : [],
   );
@@ -270,6 +271,7 @@ export function PrepararSala({
     setErro(null);
     setAvisoIncompatibilidade(null);
 
+    if (planoInicial && (modalidade !== planoInicial.modalidade || (resgate ? 'resgate' : plataforma ? 'plataforma' : 'padrao') !== planoInicial.experiencia || JSON.stringify(questaoIds) !== JSON.stringify(planoInicial.questaoIds))) { setErro('Jogo ou questões diferem do plano salvo. Volte ao planejamento, atualize e salve antes de preparar a partida.'); return; }
     if (!titulo.trim()) {
       setErro('Informe um título para a sala.');
       return;
@@ -306,6 +308,7 @@ export function PrepararSala({
 
     const configuracao = {
       titulo: titulo.trim(),
+      ...(planoInicial ? {planoId:planoInicial.id,planoRevision:planoInicial.revision} : {}),
       modalidade,
       ...(modalidade === 'quiz' && (plataforma || resgate) ? { experiencia: resgate ? 'resgate' : 'plataforma' } : {}),
       formatoParticipacao,

@@ -196,3 +196,10 @@ POST /api/corrigir: BYOK obrigatório, texto/imagem, competências e profundidad
 ## RN-82 — Cópia de atividade de recuperação
 
 Sem novo endpoint HTTP. `copiarRecuperacaoParaOutraTurma` lê origem própria e destino, reconhece retry do mesmo ID/contexto/conteúdo antes de nova escrita e usa criação transacional RN-81. Nova criação carrega a versão conferida, nunca uma versão renovada silenciosamente. A UI mantém semestre/ano/turma do snapshot de destino; mudança exige nova conferência. Destinatários/tokens pertencem ao destino. Nenhuma escrita no Diário/entregas/boletim ao copiar.
+
+## Planejamento privado da Aula Gamificada (2026-11-25)
+- `GET /api/aula-gamificada/planos`: resumos dos planos do docente autenticado.
+- `GET /api/aula-gamificada/planos/:id`: `{plano}` privado, com revisão e etapas.
+- `POST /api/aula-gamificada/planos`: `{plano,expectedRevision?,requestId}` → `{plano}`. Novo plano recebe ID do servidor; edição exige revisão exata. Repetição idêntica é idempotente; reutilização de requestId com outro corpo e revisão desatualizada retornam 409. POST exige mesma origem.
+- Criação de sala aceita `planoId/planoRevision`. Jogo, experiência e sequência de questões devem coincidir com a versão privada salva. Servidor congela snapshot próprio; ignora snapshot forjado enviado pelo cliente.
+- Respostas privadas usam `Cache-Control: private, no-store`. Alunos não acessam estes endpoints nem recebem snapshot nas projeções.

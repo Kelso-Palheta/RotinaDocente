@@ -613,3 +613,8 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 - `tests/integration/resgate_rio_backend.test.js`: experiência Quiz válida, mínimo de questões, projeção sala/solo, checkpoint/histórico e pontuação existente; sem gabaritos futuros.
 - `tests/unit/dominio/resgate/expedicao.test.js`: três missões, interação próxima, inventário sem duplicação ou pontos e travessia pela ponte.
 - `tests/unit/components/aula-gamificada/ResgateRio.test.jsx`: pistas liberam desafio, alternativa acessível, checkpoint e feedback confirmado.
+
+## Planejamento vinculado à Aula Gamificada (2026-11-25)
+- `tests/integration/planejamento_aula_game.test.js`: persistência privada, autorização docente, turmas/questões próprias, revisão/idempotência, limite100, snapshots imutáveis e projeção sem vazamento ao aluno.
+- `tests/unit/components/aula-gamificada/PlanejarAula.test.jsx`: reabrir/salvar, bloquear continuação com edições não salvas, descartar rascunho e remover turmas indisponíveis.
+- `tests/unit/components/aula-gamificada/PlanejamentoVinculoUI.test.jsx`: prefill do gerador, preparação com planoId/revisão e roteiro por questão.

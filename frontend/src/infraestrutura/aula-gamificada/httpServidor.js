@@ -86,6 +86,12 @@ async function partesDoContexto(contexto) {
 }
 
 const DEFINICOES = [
+  { caminho: ['planos'], metodo: 'GET', docente: true,
+    executar: ({ service, ator }) => service.listarPlanos(ator) },
+  { caminho: ['planos', ':id'], metodo: 'GET', docente: true,
+    executar: ({ service, ator, params }) => service.obterPlano(ator, params.id) },
+  { caminho: ['planos'], metodo: 'POST', docente: true, corpo: true,
+    executar: ({ service, ator, body }) => service.salvarPlano(ator, body) },
   {
     caminho: ['catalogo'],
     metodo: 'GET',

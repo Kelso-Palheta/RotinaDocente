@@ -25,6 +25,7 @@ function assinaturaRascunho(dados, expectedRevision) {
 
 export function GeradorIAQuestoes({
   uid = null,
+  planejamentoInicial = null,
   obterToken,
   modalidadeInicial = 'quiz',
   modalidadesServidor = MODALIDADES_PADRAO,
@@ -40,9 +41,9 @@ export function GeradorIAQuestoes({
 
   const listaJogos = mesclarModalidades(modalidadesServidor);
   const [modalidade, setModalidade] = useState(modalidadeInicial || 'quiz');
-  const [disciplina, setDisciplina] = useState('');
-  const [anoEscolar, setAnoEscolar] = useState('');
-  const [conteudo, setConteudo] = useState('');
+  const [disciplina, setDisciplina] = useState(planejamentoInicial?.disciplina || '');
+  const [anoEscolar, setAnoEscolar] = useState(planejamentoInicial?.anoEscolar || '');
+  const [conteudo, setConteudo] = useState(planejamentoInicial?.conteudo || '');
   const [tipo, setTipo] = useState(tipoInicial || 'multipla_escolha');
   const [fonte, setFonte] = useState('tema'); // 'tema' | 'material'
   const [quantidades, setQuantidades] = useState({ facil: 1, medio: 1, dificil: 1 });
@@ -718,7 +719,7 @@ export function GeradorIAQuestoes({
                 }}
                 className="min-h-11 rounded-xl bg-[#25104A] px-4 py-2 text-xs font-extrabold text-white disabled:opacity-45"
               >
-                Continuar para Preparar Sala (
+                {planejamentoInicial ? 'Voltar ao planejamento' : 'Continuar para Preparar Sala'} (
                 {
                   rascunhos.filter((r) => r.salvo && r.dados?.status === 'revisada' && r.dados?.id)
                     .length

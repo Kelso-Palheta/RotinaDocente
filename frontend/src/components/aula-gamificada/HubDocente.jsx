@@ -1,4 +1,6 @@
 'use client';
+import { obterModalidadeInfo } from './constantes';
+import { PlanejarAula } from './PlanejarAula';
 
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -29,6 +31,8 @@ const CATALOGO_VAZIO = {
  */
 function HubDocenteAutenticado({ uid, obterToken }) {
   const [abaAtiva, setAbaAtiva] = useState('catalogo');
+  const [planejadorAberto,setPlanejadorAberto] = useState(false);
+  const [planoEmUso,setPlanoEmUso] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [erroCarga, setErroCarga] = useState(null);
   const [catalogo, setCatalogo] = useState(CATALOGO_VAZIO);
@@ -41,6 +45,8 @@ function HubDocenteAutenticado({ uid, obterToken }) {
   const [tipoCriarInicial, setTipoCriarInicial] = useState(null);
   const [codigoRelatorioAberto, setCodigoRelatorioAberto] = useState(null);
   const [rascunhosGerador, setRascunhosGerador] = useState([]);
+  const [rascunhosPorPlano,setRascunhosPorPlano] = useState({});
+  const chaveGeracaoPlano=planoEmUso?JSON.stringify([planoEmUso.id,planoEmUso.disciplina,planoEmUso.anoEscolar,planoEmUso.conteudo,planoEmUso.modalidade]):null;
 
   const tentarNovamente = useCallback(() => {
     setCarregando(true);
@@ -158,6 +164,7 @@ function HubDocenteAutenticado({ uid, obterToken }) {
       />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <button id="tab-planejar" type="button" disabled={carregando || Boolean(erroCarga)} onClick={()=>{setPlanejadorAberto(true);setAbaAtiva('planejar');}} className="min-h-12 rounded-xl bg-[#6315D9] px-5 py-3 font-black text-white disabled:opacity-45">Planejar aula</button>
         <AbasNavegacao abas={abas} abaAtiva={abaAtiva} onSelect={setAbaAtiva} />
 
         {erroCarga ? (
@@ -183,15 +190,19 @@ function HubDocenteAutenticado({ uid, obterToken }) {
           </div>
         ) : (
           <div role="tabpanel" id={`tabpanel-${abaAtiva}`} aria-labelledby={`tab-${abaAtiva}`}>
+            {planejadorAberto && <div hidden={abaAtiva !== 'planejar'}><PlanejarAula key={uid} turmas={catalogoSeguro.turmas} questoes={catalogoSeguro.questoes} modalidadesServidor={catalogoSeguro.modalidades} obterToken={obterToken} onUsarPlano={(plano,destino)=>{setPlanoEmUso(plano);setModalidadeSalaInicial(plano.modalidade);setModalidadeGerarInicial(plano.modalidade);setTipoGerarInicial(obterModalidadeInfo(plano.modalidade).tiposQuestoes[0]);setQuestaoIdsGuia(plano.questaoIds);setAbaAtiva(destino);}}/></div>}
+            {planoEmUso && ['gerar','salas'].includes(abaAtiva) && <aside className="mb-4 rounded-xl border-2 border-[#00CAD5] bg-white p-4 text-[#25104A]"><strong>Plano: {planoEmUso.titulo} · v{planoEmUso.revision}</strong><p>Revise as questões e a configuração antes de criar a partida.</p><button type="button" className="mt-2 rounded-xl border px-4 py-2 font-bold" onClick={()=>{setPlanejadorAberto(true);setAbaAtiva('planejar');}}>Voltar ao planejamento</button></aside>}
             {abaAtiva === 'catalogo' && (
               <CatalogoModalidades
                 modalidadesServidor={catalogoSeguro.modalidades}
                 onSelecionarParaSala={(modId) => {
+                  setPlanoEmUso(null);
                   setModalidadeSalaInicial(modId);
                   setQuestaoIdsGuia([]);
                   setAbaAtiva('salas');
                 }}
                 onSelecionarParaGerar={(tipo, modId) => {
+                  setPlanoEmUso(null);
                   setTipoGerarInicial(tipo);
                   if (modId) setModalidadeGerarInicial(modId);
                   setAbaAtiva('gerar');
@@ -217,16 +228,18 @@ function HubDocenteAutenticado({ uid, obterToken }) {
 
             {abaAtiva === 'gerar' && (
               <GeradorIAQuestoes
-                key={`${uid}:${modalidadeGerarInicial}:${tipoGerarInicial}`}
+                key={`${uid}:${modalidadeGerarInicial}:${tipoGerarInicial}:${planoEmUso?.id || ''}:${planoEmUso?.revision || ''}`}
+                planejamentoInicial={planoEmUso}
                 uid={uid}
                 obterToken={obterToken}
                 modalidadeInicial={modalidadeGerarInicial}
                 modalidadesServidor={catalogoSeguro.modalidades}
                 tipoInicial={tipoGerarInicial}
-                rascunhosExternos={rascunhosGerador}
-                onRascunhosChange={setRascunhosGerador}
+                rascunhosExternos={chaveGeracaoPlano ? rascunhosPorPlano[chaveGeracaoPlano] || [] : rascunhosGerador}
+                onRascunhosChange={chaveGeracaoPlano ? (updater)=>setRascunhosPorPlano(prev=>({...prev,[chaveGeracaoPlano]:typeof updater==='function'?updater(prev[chaveGeracaoPlano]||[]):updater})) : setRascunhosGerador}
                 onQuestaoSalva={integrarQuestao}
                 onContinuarParaSala={({ modalidade, questaoIds }) => {
+                  if (planoEmUso) { setPlanejadorAberto(true); setAbaAtiva('planejar'); return; }
                   setModalidadeSalaInicial(modalidade || modalidadeGerarInicial);
                   setQuestaoIdsGuia(questaoIds || []);
                   setAbaAtiva('salas');
@@ -236,7 +249,8 @@ function HubDocenteAutenticado({ uid, obterToken }) {
 
             {abaAtiva === 'salas' && (
               <PrepararSala
-                key={`${uid}:${modalidadeSalaInicial}:${questaoIdsGuia.join(',')}`}
+                key={`${uid}:${modalidadeSalaInicial}:${questaoIdsGuia.join(',')}:${planoEmUso?.id || ''}:${planoEmUso?.revision || ''}`}
+                planoInicial={planoEmUso}
                 modalidadesServidor={catalogoSeguro.modalidades}
                 turmas={catalogoSeguro.turmas}
                 contextoAvaliacao={catalogoSeguro.contextoAvaliacao}

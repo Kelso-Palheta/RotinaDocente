@@ -285,3 +285,13 @@ export async function obterMinhasAvaliacoes({ signal, fetcher } = {}) {
 export function obterCorrecoesAbertas({ codigo, obterToken, signal, fetcher } = {}) {
   return requisitar(`/salas/${encodeURIComponent(codigo)}/correcoes`, { obterToken, signal, fetcher });
 }
+
+export function listarPlanos({ obterToken, signal, fetcher } = {}) {
+  return requisitar('/planos', { obterToken, signal, fetcher });
+}
+export function obterPlano({ id, obterToken, signal, fetcher } = {}) {
+  return requisitar(`/planos/${encodeURIComponent(id)}`, { obterToken, signal, fetcher });
+}
+export function salvarPlano({ plano, expectedRevision, requestId, obterToken, signal, fetcher } = {}) {
+  return requisitar('/planos', { method: 'POST', body: { plano, expectedRevision, requestId }, obterToken, signal, fetcher });
+}

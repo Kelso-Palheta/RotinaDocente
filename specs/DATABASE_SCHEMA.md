@@ -163,3 +163,10 @@ Novas redações RN-73 também registram `rubricaVersao`, `rubricaFonte` e `rubr
 ## RN-82 — Atividade copiada entre turmas
 
 Não cria coleção nem migração. Cada cópia é outro documento `atividades/{novoId}` com contexto de recuperação e tokens novos sob esse ID. IDs locais de questões/alternativas podem ser preservados para manter gabarito; não são IDs globais de atividade/entrega. O conjunto de destino atualiza composição/versão pelos contratos RN-81. Respostas, feedback, histórico de correções, notas e tokens da origem não são transportados. Nenhum campo numérico de recuperação/Diário é escrito nesta operação.
+
+## Planejamento da Aula Gamificada (2026-11-25)
+- `aulaGamificadaDocentes/{uid}/planos/{id}`: contexto pedagógico, duração, modalidade/experiência, turmas, questões ordenadas, etapas, revision e timestamps. Até 100 planos por docente.
+- `aulaGamificadaDocentes/{uid}/planejamento/indice`: resumos para listagem, atualizado na transação de salvamento.
+- `aulaGamificadaDocentes/{uid}/requisicoes/{hash}`: recibos idempotentes de planos, com assinatura do corpo e revisão esperada.
+- Sala e índice de salas guardam `plano={id,revision,titulo,objetivo,etapas}` congelado. Etapas de jogo recebem questaoIds distribuídos na ordem prevista. Não copiar respostas/gabaritos para planos nem publicar planejamento automaticamente ao aluno.
+- Acesso direto cliente às coleções novas continua negado pelas regras atuais; operações passam pela autorização docente existente.

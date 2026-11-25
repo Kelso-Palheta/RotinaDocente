@@ -16,6 +16,7 @@ import {
   rotuloDificuldade,
   validarUrlImagemSegura,
 } from './constantes';
+import { RoteiroDoPlano } from './RoteiroDoPlano';
 import { ResgateRio } from '@/components/resgate/ResgateRio';
 import { JogoNatacao } from './jogos/JogoNatacao';
 import { PalcoAcertePerde } from './jogos/JogoAcertePerde';
@@ -240,6 +241,7 @@ function SalaDocenteConectada({ codigo, uid, obterToken, projecao }) {
 
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-5 ${projecao ? 'lg:py-8' : ''}`}>
         <BarraControleAudiovisual />
+        <RoteiroDoPlano plano={estado?.plano} questaoId={questao?.id} fase={fase} />
         {erro && (
           <p role="alert" className="rounded-2xl border border-amber-400 bg-amber-950/70 px-4 py-3 text-sm font-semibold text-amber-100">
             {erro}

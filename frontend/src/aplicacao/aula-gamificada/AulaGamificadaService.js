@@ -1,3 +1,5 @@
+import { PlanejamentoService, planoPath } from './PlanejamentoService';
+import { validarVinculoPlano } from '@/dominio/aula-gamificada/planos';
 import { validarExperienciaSala } from '@/dominio/aula-gamificada/sala';
 import { consolidarNatacao, pontosAcerte } from '@/dominio/aula-gamificada/corrida';
 import {
@@ -97,6 +99,7 @@ export class AulaGamificadaService {
     idParticipante = (turmaId, alunoId) => `${turmaId}:${alunoId}`,
   }) {
     Object.assign(this, { store, ia, agora, gerarId, gerarCodigo, idParticipante });
+    this.planejamento = new PlanejamentoService({ store, agora, gerarId, lerTurmas: (uid, reader) => this.turmas(uid, reader) });
   }
 
   docente(ator) {
@@ -116,6 +119,10 @@ export class AulaGamificadaService {
     }
     return [];
   }
+
+  listarPlanos(ator) { return this.planejamento.listarPlanos(ator); }
+  obterPlano(ator, id) { return this.planejamento.obterPlano(ator, id); }
+  salvarPlano(ator, body) { return this.planejamento.salvarPlano(ator, body); }
 
   async catalogo(ator) {
     const uid = this.docente(ator);
@@ -348,6 +355,16 @@ export class AulaGamificadaService {
         questoes.push(questao);
       }
 
+      let plano = null;
+      if (config.planoId != null) {
+        const idPlano = segmento(config.planoId, { campo: "ID do plano", max: 80 });
+        const planoSalvo = await tx.get(planoPath(uid, idPlano));
+        if (!planoSalvo) throw falha(404, "Plano não encontrado nesta conta.");
+        plano = validarVinculoPlano(planoSalvo, config);
+      } else if (config.planoRevision != null) {
+        throw falha(422, "Informe o plano de origem da partida.");
+      }
+
       const rosterCompleto = montarRoster(
         turmas.map((turma) => ({ ...turma, id: String(turma.id) })),
         turmaIds,
@@ -449,6 +466,7 @@ export class AulaGamificadaService {
         codigo,
         professorId: uid,
         titulo,
+        ...(plano ? { plano } : {}),
         modalidade,
         ...(["plataforma", "resgate"].includes(config.experiencia) ? { experiencia: config.experiencia } : {}),
         formatoParticipacao,
@@ -483,6 +501,7 @@ export class AulaGamificadaService {
         codigo,
         professorId: uid,
         titulo,
+        ...(plano ? { plano } : {}),
         modalidade,
         ...(["plataforma", "resgate"].includes(config.experiencia) ? { experiencia: config.experiencia } : {}),
         formatoParticipacao,
@@ -673,7 +692,7 @@ export class AulaGamificadaService {
         : daRodada.find((r) => r.participanteId === participanteId) ?? null
       : null;
 
-    return projetarEstado({
+    const estado = projetarEstado({
       sala,
       conteudo: conteudoFinal,
       ator,
@@ -684,6 +703,8 @@ export class AulaGamificadaService {
       recibo: registro?.ultimoRecibo ? { ...registro.ultimoRecibo, pontos: registro.pontos } : null,
       agora: this.agora(),
     });
+    if (ator?.tipo === 'professor' && sala.plano) estado.plano = copia(sala.plano);
+    return estado;
   }
 
   async comandar(ator, codigo, comando) {
