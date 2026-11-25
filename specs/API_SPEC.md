@@ -206,3 +206,6 @@ Sem novo endpoint HTTP. `copiarRecuperacaoParaOutraTurma` lê origem própria e 
 
 ### Módulo Planejamento: retrocompatibilidade
 Endpoints de planos existentes também aceitam planos regulares e escalas longas conforme `MODULO_PLANEJAMENTO_SPEC.md`, com o mesmo isolamento/revisão/idempotência. Não há nova API pública de leitura. Formatos antigos sem tipo/escala continuam gamificados de aula. Referenciar plano regular ao criar sala retorna 422; criar sala avulsa sem planoId permanece permitido.
+
+### Reutilização de planejamento regular
+`POST /planos` aceita origem mínima `{planoId,revision,etapaIds}` ao criar uma nova versão gamificada. Origem é verificada na conta docente na mesma transação e armazenada com título/escala verdadeiros. Cliente não controla esse snapshot. Repetição do pedido retorna a mesma cópia antes de revalidar a fonte. Edições da cópia preservam origem imutável e não dependem da revisão atual do original. Não há criação automática de sala ou questões.

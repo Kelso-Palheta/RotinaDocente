@@ -1,0 +1,27 @@
+import {describe,it,expect} from 'vitest';
+import {PlanejamentoService} from '@/aplicacao/aula-gamificada/PlanejamentoService';
+import {criarVersaoGamificada} from '@/dominio/aula-gamificada/reutilizarPlano';
+const prof={tipo:'professor',uid:'p1'};
+const fonte={id:'fonte',revision:1,tipo:'normal',escala:'anual',titulo:'Fonte regular',disciplina:'Ciências',anoEscolar:'8º ano',conteudo:'Água',objetivo:'Analisar evidências',duracaoMinutos:null,turmaIds:[],questaoIds:[],etapas:[{id:'periodo',titulo:'Primeiro bimestre',tipo:'desenvolvimento',prazo:'1º bimestre',minutos:null,orientacao:'Investigar água.'}]};
+function fixture(){const docs=new Map([['aulaGamificadaDocentes/p1/planos/fonte',structuredClone(fonte)]]);const copy=x=>x==null?null:structuredClone(x);const store={get:async p=>copy(docs.get(p)),transaction:async fn=>{let escreveu=false;const writes=new Map();const r=await fn({get:p=>{if(escreveu)throw Error('Leitura após escrita');return store.get(p);},set:(p,v)=>{escreveu=true;writes.set(p,copy(v));}});for(const [p,v]of writes)docs.set(p,v);return r;}};let id=0;return{docs,service:new PlanejamentoService({store,agora:()=>500,gerarId:()=>`novo_${++id}`,lerTurmas:async()=>[]})};}
+const adaptar=()=>criarVersaoGamificada(fonte,{etapaIds:['periodo'],escalaDestino:'aula',duracaoMinutos:50});
+describe('Persistência de adaptação com origem verificada',()=>{
+ it('cria outro registro e não modifica original, ignorando metadados forjados',async()=>{const{docs,service}=fixture();const p=adaptar();p.origem.titulo='forjado';p.origem.escala='forjada';const{plano}=await service.salvarPlano(prof,{plano:p,requestId:'copiar'});expect(plano.id).not.toBe('fonte');expect(plano.origem).toEqual({planoId:'fonte',revision:1,titulo:'Fonte regular',escala:'anual',etapaIds:['periodo']});expect(docs.get('aulaGamificadaDocentes/p1/planos/fonte')).toEqual(fonte);expect((await service.listarPlanos(prof)).planos[0].origem).toMatchObject({planoId:'fonte',titulo:'Fonte regular'});});
+ it('recibo repetido retorna mesma cópia mesmo depois de alterar a fonte',async()=>{const{docs,service}=fixture();const body={plano:adaptar(),requestId:'copiar'};const a=await service.salvarPlano(prof,body);docs.set('aulaGamificadaDocentes/p1/planos/fonte',{...fonte,revision:2,titulo:'Atualizado'});expect(await service.salvarPlano(prof,body)).toEqual(a);expect([...docs.keys()].filter(k=>/\/planos\/novo_/.test(k))).toHaveLength(1);});
+ it('filho pode ser editado após fonte mudar, mantendo origem imutável',async()=>{const{docs,service}=fixture();const{plano}=await service.salvarPlano(prof,{plano:adaptar(),requestId:'copiar'});docs.set('aulaGamificadaDocentes/p1/planos/fonte',{...fonte,revision:2});const r=await service.salvarPlano(prof,{plano:{...plano,titulo:'Versão adaptada'},expectedRevision:1,requestId:'editar'});expect(r.plano.revision).toBe(2);expect(r.plano.origem).toEqual(plano.origem);});
+ it('recusa origem alheia, revisão antiga, etapa inexistente e ator aluno',async()=>{const{service}=fixture();const p=adaptar();await expect(service.salvarPlano({tipo:'professor',uid:'p2'},{plano:p,requestId:'alheio'})).rejects.toMatchObject({status:404});await expect(service.salvarPlano(prof,{plano:{...p,origem:{...p.origem,revision:2}},requestId:'rev'})).rejects.toMatchObject({status:409});await expect(service.salvarPlano(prof,{plano:{...p,origem:{...p.origem,etapaIds:['ausente']}},requestId:'etapa'})).rejects.toMatchObject({status:422});await expect(service.salvarPlano({tipo:'aluno'},{plano:p,requestId:'aluno'})).rejects.toMatchObject({status:403});});
+ it('não permite trocar origem do filho nem adicionar origem em plano existente',async()=>{const{service}=fixture();const{plano}=await service.salvarPlano(prof,{plano:adaptar(),requestId:'copiar'});await expect(service.salvarPlano(prof,{plano:{...plano,origem:{...plano.origem,revision:2}},expectedRevision:1,requestId:'trocar'})).rejects.toMatchObject({status:422});const sem=adaptar();delete sem.origem;const{plano:avulso}=await service.salvarPlano(prof,{plano:sem,requestId:'livre'});await expect(service.salvarPlano(prof,{plano:{...avulso,origem:adaptar().origem},expectedRevision:1,requestId:'atribuir'})).rejects.toMatchObject({status:422});});
+});
+it('edição não apaga origem e não transforma filho em regular por omissão',async()=>{
+ const{service}=fixture();const{plano}=await service.salvarPlano(prof,{plano:adaptar(),requestId:'copiar'});
+ const semOrigem={...plano,titulo:'Editado sem repetir metadados'};delete semOrigem.origem;
+ const editado=await service.salvarPlano(prof,{plano:semOrigem,expectedRevision:1,requestId:'editar_sem_meta'});
+ expect(editado.plano.origem).toEqual(plano.origem);
+ await expect(service.salvarPlano(prof,{plano:{...semOrigem,tipo:'normal',etapas:semOrigem.etapas.map(e=>({...e,tipo:'desenvolvimento'}))},expectedRevision:2,requestId:'normalizar'})).rejects.toMatchObject({status:422});
+});
+it('origem precisa ser regular e pedido reutilizado com outro recorte é recusado',async()=>{
+ const{service,docs}=fixture();const p=adaptar();await service.salvarPlano(prof,{plano:p,requestId:'copiar'});
+ await expect(service.salvarPlano(prof,{plano:{...p,titulo:'Outro corpo'},requestId:'copiar'})).rejects.toMatchObject({status:409});
+ docs.set('aulaGamificadaDocentes/p1/planos/fonte',{...fonte,tipo:'gamificado'});
+ await expect(service.salvarPlano(prof,{plano:p,requestId:'origem_errada'})).rejects.toMatchObject({status:422});
+});

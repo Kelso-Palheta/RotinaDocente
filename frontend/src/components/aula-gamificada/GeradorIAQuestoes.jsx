@@ -43,7 +43,7 @@ export function GeradorIAQuestoes({
   const [modalidade, setModalidade] = useState(modalidadeInicial || 'quiz');
   const [disciplina, setDisciplina] = useState(planejamentoInicial?.disciplina || '');
   const [anoEscolar, setAnoEscolar] = useState(planejamentoInicial?.anoEscolar || '');
-  const [conteudo, setConteudo] = useState(planejamentoInicial?.conteudo || '');
+  const [conteudo, setConteudo] = useState((planejamentoInicial?.conteudo?.length||0)>300?'':planejamentoInicial?.conteudo || '');
   const [tipo, setTipo] = useState(tipoInicial || 'multipla_escolha');
   const [fonte, setFonte] = useState('tema'); // 'tema' | 'material'
   const [quantidades, setQuantidades] = useState({ facil: 1, medio: 1, dificil: 1 });
@@ -397,6 +397,7 @@ export function GeradorIAQuestoes({
 
   return (
     <section aria-labelledby={`${formId}-titulo`} className="space-y-6">
+      {(planejamentoInicial?.conteudo?.length||0)>300&&<aside className="mb-4 rounded-2xl border-2 border-[#00CAD5] bg-[#ECFBFA] p-4 text-[#25104A]"><strong>Escolha um recorte para gerar as questões</strong><p className="mt-2 text-sm">O planejamento reúne vários conteúdos. Informe um tema de até 300 caracteres para esta geração. O texto integral continua preservado no plano.</p><details className="mt-3"><summary className="cursor-pointer font-bold">Consultar conteúdo completo do planejamento</summary><p className="mt-2 whitespace-pre-wrap text-sm">{planejamentoInicial.conteudo}</p></details></aside>}
       <div className="rounded-2xl border-2 border-[#E2D9F7] bg-white p-5 sm:p-6 space-y-5 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E2D9F7] pb-3">
           <div>

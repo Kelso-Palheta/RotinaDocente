@@ -173,3 +173,6 @@ Não cria coleção nem migração. Cada cópia é outro documento `atividades/{
 
 ### Planejamento regular e formatos (ampliação)
 Mesmos documentos privados de planos passam a aceitar `tipo` (normal/gamificado), `escala` (aula/semanal/bimestral/semestral/anual/sequencia/projeto), `anoLetivo`, `modeloId` e `contexto` pedagógico opcional. Regular normaliza modalidade:null e questaoIds:[]. Etapas longas têm prazo e minutos:null; duração global:null. Ausência de tipo/escala preserva legado gamificado de aula. Plano regular não pode originar sala; criar jogo sem planoId permanece válido.
+
+### Proveniência de versões gamificadas
+Plano derivado mantém `origem={planoId,revision,titulo,escala,etapaIds}` verificada pelo servidor. É documento independente, com outro ID/revisão/timestamps; original não é escrito pela adaptação. Índice e snapshot docente podem incluir origem compacta. Conteúdo/objetivo derivados aceitam até 3000 caracteres para preservar os textos da fonte; geração de questões pede recorte quando excede 300 caracteres.

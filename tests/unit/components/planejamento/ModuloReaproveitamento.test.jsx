@@ -1,0 +1,27 @@
+import React from 'react';
+import {cleanup,fireEvent,render,screen,waitFor} from '@testing-library/react';
+import {afterEach,it,expect,vi} from 'vitest';
+import {AppRouterContext} from '../../../../frontend/node_modules/next/dist/shared/lib/app-router-context.shared-runtime.js';
+const mocks=vi.hoisted(()=>({origem:null,filho:null,salvar:vi.fn(),obter:vi.fn()}));
+vi.mock('@/lib/auth-context',()=>({useAuth:()=>({user:{uid:'p1'},loading:false})}));
+vi.mock('@/lib/firebase',()=>({auth:{currentUser:{uid:'p1',getIdToken:async()=> 'token'}}}));
+vi.mock('@/components/aula-gamificada/api',async original=>({...await original(),buscarCatalogo:async()=>({turmas:[],questoes:[],modalidades:[]}),listarPlanos:async()=>({planos:[mocks.origem]}),obterPlano:(...a)=>mocks.obter(...a),salvarPlano:(...a)=>mocks.salvar(...a)}));
+import {ModuloPlanejamento} from '@/components/planejamento/ModuloPlanejamento';
+afterEach(()=>{cleanup();vi.clearAllMocks();});
+it('regular salvo pode gerar versão independente no fluxo do módulo',async()=>{
+ mocks.origem={id:'regular1',revision:1,tipo:'normal',escala:'aula',titulo:'Aula regular de água',disciplina:'Ciências',anoEscolar:'8º ano',conteudo:'Água',objetivo:'Investigar evidências',duracaoMinutos:50,modalidade:null,experiencia:'padrao',turmaIds:[],questaoIds:[],contexto:{apoios:'Leitura compartilhada'},etapas:[{id:'i',tipo:'introducao',titulo:'Abertura',minutos:5,orientacao:'Apresentar contexto.'},{id:'d',tipo:'desenvolvimento',titulo:'Investigação',minutos:35,orientacao:'Comparar amostras.'},{id:'f',tipo:'fechamento',titulo:'Síntese',minutos:10,orientacao:'Rever conclusões.'}]};
+ mocks.obter.mockImplementation(async({id})=>({plano:id==='regular1'?mocks.origem:mocks.filho}));
+ mocks.salvar.mockImplementation(async({plano})=>{mocks.filho={...plano,id:'gamificado1',revision:1,origem:{...plano.origem,titulo:mocks.origem.titulo,escala:'aula'}};return {plano:mocks.filho};});
+ render(<AppRouterContext.Provider value={{push:vi.fn()}}><ModuloPlanejamento/></AppRouterContext.Provider>);
+ fireEvent.click(await screen.findByRole('button',{name:'Reutilizar planejamento regular'}));
+ fireEvent.change(screen.getByLabelText('Planejamento de origem'),{target:{value:'regular1'}});
+ await screen.findByText('Aula regular de água');expect(mocks.salvar).not.toHaveBeenCalled();
+ fireEvent.click(screen.getByRole('button',{name:'Criar versão gamificada'}));
+ await waitFor(()=>expect(screen.getByLabelText('Título do plano').value).toContain('gamificado'));
+ expect(screen.getByLabelText('Conteúdo / tema').value).toBe('Água');expect(mocks.filho.id).not.toBe(mocks.origem.id);expect(mocks.origem.tipo).toBe('normal');
+ expect(screen.getByText(/Reaproveitado de: Aula regular de água/)).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'Meus planejamentos'}));
+ expect(screen.getByRole('button',{name:'Abrir planejamento: Aula regular de água'})).toBeTruthy();
+ expect(screen.getByRole('button',{name:/Abrir planejamento:.*gamificado/})).toBeTruthy();
+ expect(mocks.salvar).toHaveBeenCalledTimes(1);
+});

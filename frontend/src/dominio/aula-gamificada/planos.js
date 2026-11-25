@@ -13,6 +13,18 @@ function contextoPedagogico(entrada) {
   return Object.fromEntries(CAMPOS_CONTEXTO.map(campo => [campo, textoOpcional(entrada[campo], campo, { max: 1500 })]));
 }
 
+/** Identidade mínima da fonte; metadados de exibição só são preenchidos pelo servidor. */
+export function normalizarOrigemPlano(entrada) {
+  if (!entrada || typeof entrada !== 'object' || Array.isArray(entrada)) throw falha(422, 'Origem do planejamento inválida.');
+  const etapaIds = listaObrigatoria(entrada.etapaIds, 'Etapas de origem', { min: 1, max: 24 }).map(id => segmento(id, { campo: 'Etapa de origem', max: 60 }));
+  if (new Set(etapaIds).size !== etapaIds.length) throw falha(422, 'Etapas de origem repetidas.');
+  return {
+    planoId: segmento(entrada.planoId, { campo: 'Plano de origem', max: 80 }),
+    revision: inteiroFaixa(entrada.revision, 'Versão do plano de origem', { min: 1, max: Number.MAX_SAFE_INTEGER }),
+    etapaIds,
+  };
+}
+
 /** Contrato puro: campos não reconhecidos, snapshots e autoria enviados pelo cliente são descartados. */
 export function normalizarPlano(entrada) {
   if (!entrada || typeof entrada !== 'object' || Array.isArray(entrada)) throw falha(422, 'Informe o plano de aula.');
@@ -21,6 +33,8 @@ export function normalizarPlano(entrada) {
   if (!['normal', 'gamificado'].includes(tipo)) throw falha(422, 'Tipo de planejamento inválido.');
   if (!ESCALAS.includes(escala)) throw falha(422, 'Período do planejamento inválido.');
   const regular = tipo === 'normal';
+  const origem = entrada.origem != null ? normalizarOrigemPlano(entrada.origem) : null;
+  if (origem && regular) throw falha(422, 'Reaproveitamento de origem é exclusivo de uma nova versão gamificada.');
   const aula = escala === 'aula';
   const modalidade = regular ? null : obterModalidade(entrada.modalidade).id;
   const experiencia = regular ? 'padrao' : entrada.experiencia ?? 'padrao';
@@ -52,11 +66,12 @@ export function normalizarPlano(entrada) {
     ...(entrada.anoLetivo != null ? { anoLetivo: inteiroFaixa(entrada.anoLetivo, 'Ano letivo', { min: 2000, max: 2100 }) } : {}),
     ...(entrada.modeloId != null ? { modeloId: segmento(entrada.modeloId, { campo: 'Modelo de planejamento', max: 80 }) } : {}),
     ...(entrada.contexto != null ? { contexto: contextoPedagogico(entrada.contexto) } : {}),
+    ...(origem ? { origem } : {}),
     titulo: textoObrigatorio(entrada.titulo, 'título do plano', { max: 160 }),
     disciplina: textoObrigatorio(entrada.disciplina, 'disciplina', { max: 100 }),
     anoEscolar: textoObrigatorio(entrada.anoEscolar, 'série/ano escolar', { max: 80 }),
-    conteudo: textoObrigatorio(entrada.conteudo, 'conteúdo', { max: regular && !aula ? 3000 : 160 }),
-    objetivo: textoObrigatorio(entrada.objetivo, 'objetivo de aprendizagem', { max: regular && !aula ? 3000 : 1500 }),
+    conteudo: textoObrigatorio(entrada.conteudo, 'conteúdo', { max: (regular && !aula) || origem ? 3000 : 160 }),
+    objetivo: textoObrigatorio(entrada.objetivo, 'objetivo de aprendizagem', { max: (regular && !aula) || origem ? 3000 : 1500 }),
     duracaoMinutos, modalidade, experiencia, turmaIds: ids(entrada.turmaIds, 'Turmas', 30), questaoIds, etapas,
   };
 }
@@ -67,12 +82,13 @@ export function resumoPlano(plano) {
     ...(plano.tipo != null ? { tipo: plano.tipo } : {}),
     ...(plano.escala != null ? { escala: plano.escala } : {}),
     ...(plano.anoLetivo != null ? { anoLetivo: plano.anoLetivo } : {}),
+    ...(plano.origem ? { origem: structuredClone(plano.origem) } : {}),
     quantidadeQuestoes: plano.questaoIds.length };
 }
 
 export function snapshotPlano(plano) {
   const { id, revision, titulo, objetivo, etapas } = plano;
-  return structuredClone({ id, revision, titulo, objetivo, etapas });
+  return structuredClone({ id, revision, titulo, objetivo, etapas, ...(plano.origem ? { origem: plano.origem } : {}) });
 }
 
 export function validarVinculoPlano(plano, config) {

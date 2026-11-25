@@ -624,3 +624,9 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 - `tests/unit/components/planejamento/Modelos.test.js`: integridade100/10, modelos por escala e separação regular/gamificado.
 - `tests/unit/components/planejamento/ModuloPlanejamento.test.jsx`: salvamento semestral, biblioteca, acesso docente e jogo avulso.
 - `tests/unit/components/planejamento/EntradaJogoPrivada.test.jsx`: URL autorizada, plano alheio/regular recusado e troca de conta durante carregamento.
+
+## Reaproveitar regular como gamificado (2026-11-25)
+- `tests/unit/dominio/reutilizar_plano.test.js` e `reutilizar_plano_duracao_minima.test.js`: cópia completa/parcial, contexto/textos, formatos, minutos inteiros/soma e ausência de identidade compartilhada.
+- `tests/integration/reutilizar_planejamento.test.js`: origem privada/verificada, revisão, original imutável, edição independente e repetição após alteração da fonte.
+- `tests/unit/components/planejamento/ReutilizarPlanejamento.test.jsx`: seleção, confirmação, falha incerta e pedido estável.
+- `ModuloReaproveitamento.test.jsx` e `GeradorPlanoExtenso.test.jsx`: navegação e reabertura da cópia, original listado, conteúdo integral e recorte compatível com geração.
