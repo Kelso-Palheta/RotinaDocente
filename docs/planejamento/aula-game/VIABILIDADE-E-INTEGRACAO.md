@@ -90,3 +90,7 @@ Este documento registra uma recomendação de evolução. Não altera código, r
 ## Complemento de pontuação e imersão — 25/11/2026
 
 A conferência da fórmula XLSX identificou peso 2 na entrega e máximo 45. A [proposta de pontuação e roteiros jogáveis](PONTUACAO-E-JOGOS-IMERSIVOS.md) retifica as primeiras notas, separa as três finalidades da pontuação e detalha um primeiro episódio de investigação 2D. Considerando o interesse do usuário em imersão, recomenda-se que a próxima especificação inclua um protótipo jogável completo, além do planejamento editável.
+
+## Decisão posterior: pontuação existente
+
+Em 25/11/2026, o usuário esclareceu que não é necessário adotar a escala das planilhas. A primeira versão dos roteiros jogáveis deve reutilizar a pontuação e o fluxo avaliativo atuais. Não criar nova rubrica numérica nem faixas de conquista obrigatórias. A decisão está detalhada na seção 2 de `PONTUACAO-E-JOGOS-IMERSIVOS.md`.

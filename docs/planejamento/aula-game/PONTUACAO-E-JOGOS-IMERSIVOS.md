@@ -17,41 +17,29 @@ A anotação inicial que agrupava essa planilha com o manual de máximo 35 estav
 
 Consequência: não importar fórmulas, bônus e faixas de fontes distintas como se fossem uma única rubrica. Preservar os originais como referência, com a interpretação identificada.
 
-## 2. Proposta de resolução
+## 2. Decisão confirmada: reaproveitar a pontuação atual
 
-### Três registros independentes
+Atualização de 25/11/2026, após esclarecimento do usuário: não há obrigação de seguir a planilha. A primeira versão dos roteiros jogáveis deve usar as regras de pontuação e avaliação já existentes nos jogos. Não introduzir uma rubrica numérica paralela, faixas Bronze/Prata/Ouro ou novos pesos como requisito.
 
-1. **Pontuação lúdica:** experiência, estrelas, itens, conquistas e placar. Regras próprias de cada modalidade, informadas antes da partida. Bônus e velocidade podem ser recursos do jogo quando adequados; não viram nota por consequência automática.
-2. **Rubrica formativa:** evidências de aprendizagem por critério e objetivo. Sem bônus solto que altere o teto; desafio avançado pode gerar conquista lúdica ou evidência dentro de um critério previamente definido.
-3. **Nota da atividade:** usada somente em atividade explicitamente avaliativa, após conferência docente. Mantém valor máximo, turma, ano e bimestre do fluxo existente. Não altera regras semestrais/anuais.
+### Pontuação durante a partida
 
-### Escala comparável para rubricas novas
+Reutilizar `frontend/src/dominio/aula-gamificada/pontuacao.js` e as regras da modalidade escolhida. A base objetiva utiliza até 1.000 pontos por desafio: múltipla escolha pontua acerto; pares, ordenação e memória possuem cálculo proporcional. Jogos com turnos, equipes, tentativas ou movimento no tabuleiro conservam seus critérios específicos.
 
-Cada critério possui descrição observável, escala e peso. Os pesos somam 100%. O resultado normalizado é:
+Nos futuros Resgate, Guardiões e Jornada, os desafios do mundo devem se ligar a essas respostas e evidências. A história, o inventário e os desbloqueios mudam a experiência; não precisam criar outra escala de pontuação. Recompensas visuais podem acompanhar conquistas já confirmadas, com cuidado para reenvio/retomada não duplicarem pontos.
 
-`R = soma(pesoPercentual × valorObtido / valorMaximoDoCriterio)`
+### Avaliação e nota
 
-Isso funciona com escalas 0–4, 0–10 ou outras previamente declaradas. O resultado vai de 0 a 100 quando todos os valores estão dentro das escalas. Arredondar somente o resultado final a duas casas; o nível usa esse mesmo resultado exibido.
+Reutilizar `frontend/src/dominio/aula-gamificada/avaliacao.js` e o serviço correspondente. A nota é calculada pelo aproveitamento individual e pelo valor máximo configurado, com conferência e finalização docentes. Não usar posição no ranking, moedas, casas ou o total bruto do placar como substitutos automáticos dessa evidência.
 
-Exemplo numérico: compreensão e aplicação com pesos 50%/50%, ambas de 0 a 10. Valores 8 e 9 produzem `50×8/10 + 50×9/10 = 85%`. Não é obrigatório usar esses dois critérios ou esses pesos em todas as disciplinas. Colaboração, argumentação e outros critérios entram quando fizerem parte dos objetivos e tiverem evidências avaliáveis.
+Exemplo simples: dez questões de mesmo peso, todas abertas e elegíveis; oito acertos geram 8.000 pontos na base objetiva e 80% de aproveitamento. Se a atividade valer 5, a nota calculada será 4,00, sujeita à conferência existente. Parciais, tentativas, ausências e oportunidades seguem as regras já implementadas, sem inventar uma conversão única de pontos brutos para todos os jogos.
 
-**Faixas propostas, opcionais e configuráveis por atividade:** Bronze de 0 até menos de 65%; Prata de 65% até menos de 90%; Ouro a partir de 90%. São marcos dessa atividade, não diagnóstico de capacidade, aprovação escolar ou comparação entre disciplinas. Os limites são uma proposta de padronização, não regra descoberta em todos os materiais. Se a escala/limites forem mudados, mostrar exemplos e congelar a configuração antes de começar.
+A finalidade continua explícita: revisão/treino conserva seu histórico de aprendizagem; atividade avaliativa usa ano, turma, bimestre, valor e critérios confirmados pelo professor. Preservar a distinção entre pendência, ausência, falta de oportunidade e zero.
 
-Essa regra cobre 64,99/65/89,99/90 sem lacunas e evita depender de totais brutos incompatíveis. O exemplo de 29/30 passa a 96,67% (Ouro nas faixas propostas); o máximo 35/35 corresponde a 100%; 35/45 corresponde a 77,78% (Prata), embora seja Ouro na regra original do XLSX. Essa diferença é uma mudança explícita de classificação, não uma correção silenciosa do arquivo-fonte.
+### O que fica fora da primeira entrega
 
-### Evidências ausentes e fechamento
+A normalização de rubricas para 0–100%, pesos por critério e cortes sugeridos de 65%/90% eram uma alternativa de planejamento. **Não serão adotados nesta proposta inicial**, conforme a preferência do usuário. Rubricas adicionais podem ser discutidas futuramente se houver necessidade de avaliar produção, argumentação ou colaboração com critérios próprios. Observações qualitativas e feedback podem ser registrados sem criar uma nota paralela.
 
-- Zero lançado é evidência avaliada com resultado zero. Campo vazio é pendente, não zero nem Bronze automático.
-- Sem oportunidade de participação permanece identificado separadamente.
-- Critérios obrigatórios pendentes bloqueiam o fechamento. Critério não aplicável exige decisão e configuração explícitas; não redistribuir pesos silenciosamente depois da atividade.
-- Uso de ajuda, tentativas e condições de tempo são registrados. O efeito avaliativo é definido antes; apoio de acessibilidade não gera penalidade oculta.
-- Placar coletivo não determina automaticamente a avaliação de cada integrante. A evidência individual precisa estar disponível ou a limitação precisa ser apresentada ao professor.
-
-### Integração futura com nota
-
-O serviço atual já calcula aproveitamento por modalidade e mantém conferência/finalização/sincronização. Isso permanece intacto.
-
-Para uma futura avaliação por rubrica, o professor escolhe explicitamente essa base. A proposta é `nota = valorMaximoDaAtividade × R / 100`, com arredondamento final. No exemplo de 85%, uma atividade de valor 2 produziria 1,70, antes da conferência. Escolher rubrica, aproveitamento objetivo ou uma combinação com pesos definidos é uma decisão de configuração; não somar as duas fontes ou pontuação lúdica automaticamente. Critérios, gabaritos e regras da partida ficam versionados para auditoria e retomada.
+As divergências dos materiais ficam resolvidas, para fins de integração, tratando suas fórmulas como referências externas e mantendo o motor atual como fonte da verdade para pontuar e avaliar. As planilhas originais permanecem intactas; seus pesos e limites não serão importados.
 
 ## 3. Transformar roteiro em jogo de verdade
 
@@ -83,14 +71,14 @@ O mesmo motor pode receber uma investigação histórica ou cultural, desde que 
 
 **Um motor de investigação 2D e um episódio original de Resgate, com três missões encadeadas**, ligado ao banco de questões e com feedback no cenário, inventário e checkpoint. Incluir um ciclo completo: entrada → exploração → desafio → consequência → recuperação/ajuda → nova missão → resultado e histórico. O professor consegue adaptar conteúdo dentro das interações suportadas e revisar antes da aplicação.
 
-A experiência deve ser testada em sala e no modo autônomo, com desktop/celular, erro/acerto, ajuda, retomada e conclusão. O primeiro episódio pode usar avaliação descritiva; a rubrica normalizada entra depois da escolha dos critérios e da aprovação do contrato. A etapa seguinte deve especificar o protótipo e seus testes, em vez de entregar somente outro documento de plano de aula.
+A experiência deve ser testada em sala e no modo autônomo, com desktop/celular, erro/acerto, ajuda, retomada e conclusão. O primeiro episódio reutiliza a pontuação, o histórico e o fluxo avaliativo existentes; rubricas adicionais ficam adiadas. A etapa seguinte deve especificar o protótipo e seus testes, em vez de entregar somente outro documento de plano de aula.
 
 Esse recorte é de complexidade média a alta. Um RPG 3D aberto, com liberdade ampla e história gerada em tempo real, é uma evolução de esforço maior e com validações adicionais. Não é necessário para produzir uma primeira experiência imersiva.
 
 ## 6. Verificações antes de adotar a rubrica ou publicar o jogo
 
-- Máximos e pesos corretos; nenhum critério permite superar a escala; pesos inválidos ou soma diferente de 100 são rejeitados.
-- Faixas completas, resultados de borda e arredondamento consistentes; ausência, pendência e zero distintos.
+- Pontos, respostas parciais e tentativas seguem o domínio atual; o novo motor não cria recompensas ou notas paralelas.
+- Cálculo de aproveitamento e arredondamento existentes preservados; ausência, pendência, falta de oportunidade e zero distintos.
 - Nenhuma nota é alterada por estrela, velocidade, compra de item ou ajuda acessível.
 - Configuração congelada, conferência docente e vínculo correto com ano/turma/bimestre.
 - Progressão, decisões, feedback e retorno visual realmente modificam a experiência; não apenas apresentação de quiz.
@@ -101,4 +89,4 @@ Originais preservados. A próxima especificação deve transformar as recomenda�
 
 ## Registro da conferência
 
-Fórmula G5 do XLSX conferida diretamente no arquivo original. Validados por cálculo racional/decimal: máximo 45; 29/30 = 96,67%; 35/45 = 77,78%; 35/35 = 100%; exemplo ponderado 85%; nota ilustrativa 1,70/2; cortes 0, 64,99, 65, 89,99, 90 e 100. Verificados pesos somando 100 e limites das escalas. Essas verificações conferem a proposta documental; não equivalem a testes de uma funcionalidade de rubrica implementada.
+Fórmula G5 do XLSX conferida diretamente no arquivo original, confirmando máximo 45. A decisão de produto não adota essa escala. Conferidos os arquivos de pontuação e avaliação atuais: base objetiva de 1.000 pontos por desafio e nota por aproveitamento × valor máximo. Exemplo validado: 8/10 = 80%; atividade de valor 5 resulta em 4,00. Nenhuma implementação, partida ou nota foi alterada nesta etapa documental.

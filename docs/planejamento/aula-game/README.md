@@ -105,4 +105,4 @@ Ver `ideias/00-primeiras-ideias.md`.
 
 ## Pontuação e jogos imersivos
 
-[Resolução proposta e desenho de roteiros jogáveis](PONTUACAO-E-JOGOS-IMERSIVOS.md), de 25/11/2026: corrige o máximo da planilha original para 45, separa placar/rubrica/nota, propõe normalização e recomenda um primeiro Resgate em investigação 2D. Configurações ainda não adotadas em produção.
+[Resolução proposta e desenho de roteiros jogáveis](PONTUACAO-E-JOGOS-IMERSIVOS.md), de 25/11/2026: corrige o máximo da planilha original para 45 e recomenda um primeiro Resgate em investigação 2D. Decisão posterior do usuário: reutilizar pontuação e avaliação atuais dos jogos; escalas das planilhas e novas rubricas ficam fora da primeira entrega. Nenhuma regra de produção foi alterada.
