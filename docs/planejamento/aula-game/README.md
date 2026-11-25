@@ -98,3 +98,7 @@ Ver `ideias/00-primeiras-ideias.md`.
 ## Complemento de mat-15 — 25/11/2026
 
 [Registro das 100 páginas internas](materiais/notion-100-prompts/README.md): dez arquivos por categoria e catálogo estruturado, com 100 referências únicas. Leitura concluída; material em análise. Não houve mudança em código, rotas ou specs.
+
+## Viabilidade e próximos passos
+
+[Análise de integração com o projeto atual](VIABILIDADE-E-INTEGRACAO.md), de 25/11/2026: recomenda começar por biblioteca e plano editável, reaproveitando geração de questões, jogos e avaliação. É proposta de planejamento; nenhuma funcionalidade foi implementada nesta etapa.
