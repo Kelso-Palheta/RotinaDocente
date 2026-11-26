@@ -1,5 +1,5 @@
 import { falha, inteiroFaixa, listaObrigatoria, segmento } from './comum';
-import { normalizarPlano } from './planos';
+import { normalizarPlano, ABRANGENCIA_DURACOES, abrangenciaDaEscala } from './planos';
 
 /** Cria dados novos. Nenhuma identidade ou timestamp da fonte pertence à cópia. */
 export function criarVersaoGamificada(origem, opcoes = {}) {
@@ -38,6 +38,7 @@ export function criarVersaoGamificada(origem, opcoes = {}) {
   return normalizarPlano({
     titulo: `${fonte.titulo.slice(0, 140)} · gamificado`,
     tipo: 'gamificado', escala,
+    ...(fonte.abrangencia ? { abrangencia: ABRANGENCIA_DURACOES[fonte.abrangencia].includes(escala) ? fonte.abrangencia : abrangenciaDaEscala(escala) } : {}),
     disciplina: fonte.disciplina, anoEscolar: fonte.anoEscolar, conteudo: fonte.conteudo, objetivo: fonte.objetivo,
     ...(fonte.anoLetivo != null ? { anoLetivo: fonte.anoLetivo } : {}),
     ...(fonte.contexto ? { contexto: structuredClone(fonte.contexto) } : {}),

@@ -1,5 +1,5 @@
 import { falha, hashRequisicao, idRequisicao, segmento } from '@/dominio/aula-gamificada/comum';
-import { normalizarPlano, normalizarOrigemPlano, resumoPlano } from '@/dominio/aula-gamificada/planos';
+import { normalizarPlano, normalizarOrigemPlano, resumoPlano, abrangenciaDoPlano } from '@/dominio/aula-gamificada/planos';
 import { validarTipoModalidade } from '@/dominio/aula-gamificada/modalidades';
 
 export const planoPath = (uid, id) => `aulaGamificadaDocentes/${uid}/planos/${id}`;
@@ -43,17 +43,26 @@ export class PlanejamentoService {
       if (existente && (!Number.isInteger(body.expectedRevision) || body.expectedRevision !== existente.revision)) throw falha(409, 'O plano mudou. Reabra a versão atual antes de salvar.');
       if (!existente && body.expectedRevision != null && body.expectedRevision !== 0) throw falha(409, 'A versão inicial do plano é inválida.');
       let origem = existente?.origem ? structuredClone(existente.origem) : null;
-      if (origem && dados.tipo === 'normal') throw falha(422, 'Uma versão gamificada com origem não pode ser convertida em planejamento regular.');
+      if (origem && origem.finalidade !== 'conteudo' && dados.tipo === 'normal') throw falha(422, 'Uma versão gamificada com origem não pode ser convertida em planejamento regular.');
+      if (origem && origem.finalidade === 'conteudo' && dados.abrangencia !== 'conteudo') throw falha(422, 'Um plano de conteúdo derivado não pode ser convertido em planejamento da disciplina.');
       if (existente && dados.origem) {
         if (!existente.origem || JSON.stringify(normalizarOrigemPlano(existente.origem)) !== JSON.stringify(dados.origem)) throw falha(422, 'A origem de uma versão salva não pode ser atribuída ou alterada. Crie outra cópia.');
       } else if (!existente && dados.origem) {
         const fonte = await tx.get(planoPath(uid, dados.origem.planoId));
         if (!fonte) throw falha(404, 'Plano de origem não encontrado nesta conta.');
-        if (fonte.tipo !== 'normal') throw falha(422, 'A origem precisa ser um planejamento regular.');
+        if (dados.origem.finalidade === 'conteudo') {
+          if (abrangenciaDoPlano(fonte) !== 'planejamento') throw falha(422, 'A origem precisa ser um planejamento da disciplina.');
+          if (dados.abrangencia !== 'conteudo') throw falha(422, 'O plano derivado precisa ser um plano de conteúdo.');
+        } else if (fonte.tipo !== 'normal') {
+          throw falha(422, 'A origem precisa ser um planejamento regular.');
+        }
         if (fonte.revision !== dados.origem.revision) throw falha(409, 'O planejamento de origem mudou. Reabra a versão atual antes de criar a adaptação.');
         if (dados.origem.etapaIds.some(id => !fonte.etapas.some(e => e.id === id))) throw falha(422, 'Uma das etapas não pertence ao planejamento de origem.');
         const etapaIds = fonte.etapas.filter(e => dados.origem.etapaIds.includes(e.id)).map(e => e.id);
-        origem = { planoId: dados.origem.planoId, revision: fonte.revision, titulo: fonte.titulo, escala: fonte.escala || 'aula', etapaIds };
+        origem = {
+          planoId: dados.origem.planoId, revision: fonte.revision, titulo: fonte.titulo, escala: fonte.escala || 'aula', etapaIds,
+          ...(dados.origem.finalidade ? { abrangencia: abrangenciaDoPlano(fonte), finalidade: 'conteudo' } : {}),
+        };
       }
       const resumos = indice?.planos || [];
       if (!existente && resumos.length >= 100) throw falha(422, 'Limite de 100 planos por professor atingido.');

@@ -633,3 +633,17 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 
 ## Cards do Hub — Planejamento (2026-11-25)
 - `tests/unit/components/dashboard/OrdemCardsPlanejamento.test.jsx`: renderiza grade com Planejamento, Diário e Horário nos três primeiros lugares, mesmo card, navegação e banner de Aula Gamificada preservados.
+
+## Abrangência × duração no Planejamento (2026-11-25)
+- `tests/unit/components/planejamento/AbrangenciaDuracao.test.js`: tabelas de duração por abrangência, `criarRascunho` nas duas abrangências (inclusive quinzena e mês), derivação de leitura do legado, rejeição de duração incompatível e manutenção de `abrangencia` ausente em plano antigo.
+- `tests/integration/planejamento_abrangencia_duracao.test.js`: persistência de planejamento da disciplina e de plano de conteúdo em todas as durações, regular/gamificado independentes, legado sem reclassificação automática, recusa de planejamento da disciplina na criação de sala.
+- `tests/unit/dominio/derivar_plano_conteudo.test.js`: derivação de recorte, preservação de contexto e turmas, origem `finalidade: conteudo`, minutos somados na aula derivada, recusa de fonte que não é planejamento da disciplina.
+- `tests/integration/planejamento_abrangencia_duracao.test.js`: também cobre origem verificada, original imutável, metadados preenchidos pelo servidor e recusa de conversão do derivado em planejamento.
+- `tests/unit/components/planejamento/DerivarPlanoConteudo.test.jsx`: seleção do planejamento, recorte, duração/tipo e criação do novo plano.
+- `tests/unit/components/planejamento/DuasOpcoesUI.test.jsx`: tela inicial separa as duas abrangências, inicia cada uma e mantém jogo avulso e gamificação do regular.
+
+### Revisão da entrega de abrangência e duração (25/11/2026)
+- Novas regressões: currículo por período persiste/imprime; derivação utiliza apenas conteúdos/objetivos selecionados; gamificação preserva abrangência e novas durações; legado continua executável; origem privada, revisão, idempotência e imutabilidade preservadas.
+- Interface: editar conteúdos distintos por período, reabrir sem perdas, impedir link direto de planejamento da disciplina para jogo e preservar seleção de tipo da etapa derivada.
+
+- `RevisaoAbrangencia.test.jsx`, `EntradaDisciplina.test.jsx` e `planejamento_revisao_abrangencia.test.js`: oito regressões reproduzidas antes das correções, campos curriculares, legado, gamificação, entrada direta, privacidade, revisão concorrente, imutabilidade e repetição idempotente.

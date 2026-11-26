@@ -56,6 +56,7 @@ function HubDocenteAutenticado({ uid, obterToken }) {
     apiAula.obterPlano({id,obterToken,signal:controller.signal}).then(({plano})=>{
       if(controller.signal.aborted)return;
       if(plano.tipo==='normal')throw new Error('Este é um planejamento regular. Abra-o no módulo Planejamento.');
+      if(plano.abrangencia==='planejamento')throw new Error('Este planejamento da disciplina organiza vários conteúdos. Derive um plano de conteúdo no módulo Planejamento antes de gerar questões ou preparar a partida.');
       setPlanoEmUso(plano);setModalidadeSalaInicial(plano.modalidade);setModalidadeGerarInicial(plano.modalidade);setTipoGerarInicial(obterModalidadeInfo(plano.modalidade).tiposQuestoes[0]);setQuestaoIdsGuia(plano.questaoIds);setAbaAtiva(params.get('destino')==='gerar'?'gerar':'salas');
     }).catch(e=>{if(!controller.signal.aborted)setErroPlano(e.message||'Não foi possível abrir o plano desta conta.');});
     return()=>controller.abort();

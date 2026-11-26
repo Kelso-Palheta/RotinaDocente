@@ -1,0 +1,11 @@
+import React from 'react';
+import {cleanup,render,screen,waitFor} from '@testing-library/react';
+import {afterEach,it,expect,vi} from 'vitest';
+const mocks=vi.hoisted(()=>({user:{uid:'p1'},auth:{currentUser:{uid:'p1',getIdToken:async()=> 'token'}},plano:vi.fn()}));
+vi.mock('@/lib/auth-context',()=>({useAuth:()=>({user:mocks.user,loading:false})}));
+vi.mock('@/lib/firebase',()=>({auth:mocks.auth}));
+vi.mock('@/hooks/useAIConfig',()=>({useAIConfig:()=>({temChave:false})}));
+vi.mock('@/components/aula-gamificada/api',async original=>({...await original(),buscarCatalogo:async()=>({turmas:[],questoes:[],modalidades:[],salas:[]}),obterContextoAvaliacao:async()=>({turmas:[],anos:[]}),obterPlano:(...a)=>mocks.plano(...a)}));
+import {HubDocente} from '@/components/aula-gamificada/HubDocente';
+afterEach(()=>{cleanup();history.replaceState({},'', '/');vi.clearAllMocks();mocks.user={uid:'p1'};mocks.auth.currentUser.uid='p1';});
+it('link direto de planejamento da disciplina orienta derivar recorte, sem iniciar geração',async()=>{history.replaceState({},'','/aula-gamificada/salas?plano=anual&destino=gerar');mocks.plano.mockResolvedValue({plano:{id:'anual',tipo:'gamificado',abrangencia:'planejamento',conteudo:'Currículo inteiro'}});render(<HubDocente/>);expect(await screen.findByRole('alert')).toHaveTextContent('Derive um plano de conteúdo');expect(screen.queryByRole('textbox',{name:'Disciplina'})).toBeNull();});
