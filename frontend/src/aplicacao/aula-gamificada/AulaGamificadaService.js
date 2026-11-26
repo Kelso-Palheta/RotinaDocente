@@ -99,7 +99,7 @@ export class AulaGamificadaService {
     idParticipante = (turmaId, alunoId) => `${turmaId}:${alunoId}`,
   }) {
     Object.assign(this, { store, ia, agora, gerarId, gerarCodigo, idParticipante });
-    this.planejamento = new PlanejamentoService({ store, agora, gerarId, lerTurmas: (uid, reader) => this.turmas(uid, reader) });
+    this.planejamento = new PlanejamentoService({ store, agora, gerarId, ia, lerTurmas: (uid, reader) => this.turmas(uid, reader) });
   }
 
   docente(ator) {
@@ -120,6 +120,7 @@ export class AulaGamificadaService {
     return [];
   }
 
+  gerarPlanoAnual(ator,body,userConfig) { return this.planejamento.gerarAnual(ator,body,userConfig); }
   listarPlanos(ator) { return this.planejamento.listarPlanos(ator); }
   obterPlano(ator, id) { return this.planejamento.obterPlano(ator, id); }
   salvarPlano(ator, body) { return this.planejamento.salvarPlano(ator, body); }

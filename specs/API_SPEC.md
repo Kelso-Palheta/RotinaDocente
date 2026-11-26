@@ -209,3 +209,6 @@ Endpoints de planos existentes também aceitam planos regulares e escalas longas
 
 ### Reutilização de planejamento regular
 `POST /planos` aceita origem mínima `{planoId,revision,etapaIds}` ao criar uma nova versão gamificada. Origem é verificada na conta docente na mesma transação e armazenada com título/escala verdadeiros. Cliente não controla esse snapshot. Repetição do pedido retorna a mesma cópia antes de revalidar a fonte. Edições da cópia preservam origem imutável e não dependem da revisão atual do original. Não há criação automática de sala ou questões.
+
+### POST /api/aula-gamificada/planos/gerar-anual
+Docente Firebase autenticado, mesma origem e headers BYOK canônicos. JSON: `{disciplina, anoEscolar, anoLetivo, tipo: normal|gamificado, texto, nomeMaterial?}`. Texto de 30 a 60000 caracteres; limite HTTP compartilhado de 400000 bytes. Resposta privada/no-store `{rascunho, avisos}`: anual da disciplina em quatro bimestres, sem ID ou vínculo externo. Conteúdos precisam constar literalmente no material; campos de currículo inventados, duplicação e bimestres incompletos são recusados. Nenhuma escrita no banco nesta operação; salvamento posterior usa POST /planos existente. Sem BYOK: 400 com `error: AI_KEY_REQUIRED`.

@@ -295,3 +295,7 @@ export function obterPlano({ id, obterToken, signal, fetcher } = {}) {
 export function salvarPlano({ plano, expectedRevision, requestId, obterToken, signal, fetcher } = {}) {
   return requisitar('/planos', { method: 'POST', body: { plano, expectedRevision, requestId }, obterToken, signal, fetcher });
 }
+
+export function gerarPlanoAnualIA({entrada,obterToken,signal,fetcher} = {}) {
+  return requisitar('/planos/gerar-anual',{method:'POST',body:entrada,obterToken,incluirBYOK:true,signal,fetcher});
+}

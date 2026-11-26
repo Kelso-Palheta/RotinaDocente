@@ -29,7 +29,7 @@ const erroPublico = (erro) => {
     erro.message.trim()
       ? erro.message
       : MENSAGENS[status] || 'Não foi possível concluir a operação.';
-  return { status, error: mensagem, message: mensagem };
+  return { status, error: erro?.code === 'AI_KEY_REQUIRED' && status === 400 ? 'AI_KEY_REQUIRED' : mensagem, message: mensagem };
 };
 
 const responder = (dados, status, segredo) => {
@@ -86,6 +86,8 @@ async function partesDoContexto(contexto) {
 }
 
 const DEFINICOES = [
+  { caminho: ['planos','gerar-anual'], metodo: 'POST', docente: true, corpo: true,
+    executar: ({service,ator,body,request}) => service.gerarPlanoAnual(ator,body,extractUserAIConfigFromHeaders(request.headers)) },
   { caminho: ['planos'], metodo: 'GET', docente: true,
     executar: ({ service, ator }) => service.listarPlanos(ator) },
   { caminho: ['planos', ':id'], metodo: 'GET', docente: true,

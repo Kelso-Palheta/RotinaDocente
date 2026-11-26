@@ -650,3 +650,8 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 
 ## Planejamento anual integrado (25/11/2026)
 Mapeamento: `PLANEJAMENTO_ANUAL_INTEGRADO_SPEC.md`. Testes novos cobrem catálogo de conteúdos anuais, aplicação do recorte, raiz e revisão privadas, obrigatoriedade para novos planos menores, preservação na derivação/gamificação, legado, UI de seleção e jogo avulso. Usuário autorizou adaptar somente testes que iniciavam planos menores sem origem anual.
+
+## Importação do planejamento anual (25/11/2026)
+Contrato em `IMPORTACAO_PLANEJAMENTO_ANUAL_SPEC.md`. Novos testes: `importacao_anual_ia.test.js` (limites, literalidade, quatro períodos, metadados descartados), `importacao_anual_http.test.js` (docente/origem/BYOK/provedor/modelo/no-store e nenhuma persistência), `ImportarAnualIA.test.jsx` (leitura, revisão explícita, conexão e resposta tardia por conta), `ImportacaoAnualModulo.test.jsx` (rascunho protegido, descarte e salvamento explícito). Testes anteriores preservados.
+
+- `PlanoConfirmadoInicial.test.jsx` (26/11): versão recém-confirmada abre sem GET redundante; edição posterior mantém controle de revisão.

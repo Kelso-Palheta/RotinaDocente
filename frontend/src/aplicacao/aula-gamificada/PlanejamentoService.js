@@ -1,3 +1,4 @@
+import {validarEntradaImportacaoAnual,montarPromptAnual,normalizarAnualImportado} from '@/dominio/aula-gamificada/importacaoAnual';
 import {ehPlanejamentoAnual,normalizarVinculoAnual,validarConteudosAnuais} from '@/dominio/aula-gamificada/planejamentoAnual';
 import { falha, hashRequisicao, idRequisicao, segmento } from '@/dominio/aula-gamificada/comum';
 import { normalizarPlano, normalizarOrigemPlano, resumoPlano, abrangenciaDoPlano } from '@/dominio/aula-gamificada/planos';
@@ -12,7 +13,19 @@ const docente = ator => {
 };
 
 export class PlanejamentoService {
-  constructor({ store, agora, gerarId, lerTurmas }) { Object.assign(this, { store, agora, gerarId, lerTurmas }); }
+  constructor({ store, agora, gerarId, lerTurmas, ia }) { Object.assign(this, { store, agora, gerarId, lerTurmas, ia }); }
+  async gerarAnual(ator,body,userConfig) {
+    docente(ator);
+    if (!userConfig?.apiKey) throw Object.assign(falha(400,'Conecte sua chave de IA para organizar o planejamento anual.'),{code:'AI_KEY_REQUIRED'});
+    const entrada=validarEntradaImportacaoAnual(body);
+    if (!this.ia?.gerar) throw falha(503,'Organização por IA indisponível. Tente novamente.');
+    let json;
+    try { json=await this.ia.gerar({...montarPromptAnual(entrada),userConfig}); } catch(e) {
+      if(e instanceof SyntaxError||String(e.message||'').startsWith('IA não retornou JSON válido.')) throw falha(422,'A IA retornou uma resposta incompleta ou inválida. Revise o material e tente novamente.');
+      throw e;
+    }
+    return normalizarAnualImportado(json,entrada);
+  }
   async listarPlanos(ator) {
     const uid = docente(ator);
     const indice = await this.store.get(indicePath(uid));
