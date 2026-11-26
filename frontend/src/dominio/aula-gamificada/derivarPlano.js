@@ -1,3 +1,4 @@
+import {aplicarPlanejamentoAnual,conteudosDoAnual,ehPlanejamentoAnual} from './planejamentoAnual';
 import { falha, inteiroFaixa, listaObrigatoria, segmento } from './comum';
 import { ABRANGENCIA_DURACOES, abrangenciaDoPlano, normalizarPlano } from './planos';
 
@@ -40,9 +41,13 @@ export function criarPlanoDeConteudo(origem, opcoes = {}) {
     const base = Math.floor(duracaoMinutos / etapas.length), resto = duracaoMinutos % etapas.length;
     etapas = etapas.map((e, i) => ({ ...e, minutos: base + (i < resto ? 1 : 0) }));
   }
-  return normalizarPlano({
+  let plano = {
     titulo: `${fonte.titulo.slice(0, 140)} · ${ROTULOS[escala]}`,
     tipo, escala, abrangencia: 'conteudo',
+    ...(fonte.integracaoAnual||opcoes.integracaoAnual ? {integracaoAnual:1} : {}),
+    ...(fonte.vinculoAnual ? {vinculoAnual:structuredClone(fonte.vinculoAnual)} : {}),
+    ...(fonte.integracaoAnual ? {integracaoAnual:1} : {}),
+    ...(fonte.vinculoAnual ? {vinculoAnual:structuredClone(fonte.vinculoAnual)} : {}),
     disciplina: fonte.disciplina, anoEscolar: fonte.anoEscolar,
     conteudo: selecionadas.map(e => e.curriculo?.conteudos).filter(Boolean).join('\n').trim() || fonte.conteudo,
     objetivo: selecionadas.map(e => e.curriculo?.objetivos).filter(Boolean).join('\n').trim() || fonte.objetivo,
@@ -52,5 +57,7 @@ export function criarPlanoDeConteudo(origem, opcoes = {}) {
     turmaIds: [...fonte.turmaIds], questaoIds: [], modalidade: tipo === 'gamificado' ? 'quiz' : null, experiencia: 'padrao',
     duracaoMinutos, etapas,
     origem: { planoId: origem.id, revision: origem.revision, etapaIds: selecionadas.map(e => e.id), finalidade: 'conteudo' },
-  });
+  };
+  if(opcoes.integracaoAnual&&ehPlanejamentoAnual(fonte))plano=aplicarPlanejamentoAnual(plano,{...fonte,id:origem.id,revision:origem.revision},conteudosDoAnual(fonte).filter(c=>pedidos.includes(c.etapaId)));
+  return normalizarPlano(plano);
 }

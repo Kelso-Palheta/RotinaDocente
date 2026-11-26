@@ -1,4 +1,5 @@
 import { falha, inteiroFaixa, listaObrigatoria, segmento, textoObrigatorio, textoOpcional } from './comum';
+import { normalizarVinculoAnual } from './planejamentoAnual';
 import { obterModalidade } from './modalidades';
 
 const ids = (valor, campo, max) => {
@@ -45,6 +46,8 @@ export function normalizarOrigemPlano(entrada) {
 /** Contrato puro: campos não reconhecidos, snapshots e autoria enviados pelo cliente são descartados. */
 export function normalizarPlano(entrada) {
   if (!entrada || typeof entrada !== 'object' || Array.isArray(entrada)) throw falha(422, 'Informe o plano de aula.');
+  if (entrada.integracaoAnual != null && entrada.integracaoAnual !== 1) throw falha(422, 'Versão da integração anual inválida.');
+  const vinculoAnual = entrada.vinculoAnual != null ? normalizarVinculoAnual(entrada.vinculoAnual) : null;
   const tipo = entrada.tipo ?? 'gamificado';
   const escala = entrada.escala ?? 'aula';
   if (!['normal', 'gamificado'].includes(tipo)) throw falha(422, 'Tipo de planejamento inválido.');
@@ -89,6 +92,8 @@ export function normalizarPlano(entrada) {
   for (const etapa of etapas) etapa.questaoIds = [];
   questaoIds.forEach((id, i) => jogos[Math.min(jogos.length - 1, Math.floor(i * jogos.length / questaoIds.length))].questaoIds.push(id));
   return {
+    ...(entrada.integracaoAnual != null ? { integracaoAnual: 1 } : {}),
+    ...(vinculoAnual ? { vinculoAnual } : {}),
     ...(entrada.id != null ? { id: segmento(entrada.id, { campo: 'ID do plano', max: 80 }) } : {}),
     ...(entrada.tipo != null ? { tipo } : {}),
     ...(entrada.escala != null ? { escala } : {}),
@@ -100,8 +105,8 @@ export function normalizarPlano(entrada) {
     titulo: textoObrigatorio(entrada.titulo, 'título do plano', { max: 160 }),
     disciplina: textoObrigatorio(entrada.disciplina, 'disciplina', { max: 100 }),
     anoEscolar: textoObrigatorio(entrada.anoEscolar, 'série/ano escolar', { max: 80 }),
-    conteudo: textoObrigatorio(entrada.conteudo, 'conteúdo', { max: abrangencia === 'planejamento' || (regular && !aula) || origem ? 3000 : 160 }),
-    objetivo: textoObrigatorio(entrada.objetivo, 'objetivo de aprendizagem', { max: (regular && !aula) || origem ? 3000 : 1500 }),
+    conteudo: textoObrigatorio(entrada.conteudo, 'conteúdo', { max: vinculoAnual || abrangencia === 'planejamento' || (regular && !aula) || origem ? 3000 : 160 }),
+    objetivo: textoObrigatorio(entrada.objetivo, 'objetivo de aprendizagem', { max: vinculoAnual || (regular && !aula) || origem ? 3000 : 1500 }),
     duracaoMinutos, modalidade, experiencia, turmaIds: ids(entrada.turmaIds, 'Turmas', 30), questaoIds, etapas,
   };
 }
@@ -109,6 +114,8 @@ export function normalizarPlano(entrada) {
 export function resumoPlano(plano) {
   const { id, revision, titulo, disciplina, anoEscolar, conteudo, duracaoMinutos, modalidade, experiencia, atualizadoEmMs } = plano;
   return { id, revision, titulo, disciplina, anoEscolar, conteudo, duracaoMinutos, modalidade, experiencia, atualizadoEmMs,
+    ...(plano.integracaoAnual != null ? { integracaoAnual: 1 } : {}),
+    ...(plano.vinculoAnual ? { vinculoAnual: {planoId:plano.vinculoAnual.planoId,revision:plano.vinculoAnual.revision,titulo:plano.vinculoAnual.titulo||plano.vinculoAnual.planoId} } : {}),
     ...(plano.tipo != null ? { tipo: plano.tipo } : {}),
     ...(plano.escala != null ? { escala: plano.escala } : {}),
     ...(plano.abrangencia != null ? { abrangencia: plano.abrangencia } : {}),
@@ -119,7 +126,7 @@ export function resumoPlano(plano) {
 
 export function snapshotPlano(plano) {
   const { id, revision, titulo, objetivo, etapas } = plano;
-  return structuredClone({ id, revision, titulo, objetivo, etapas, ...(plano.origem ? { origem: plano.origem } : {}) });
+  return structuredClone({ id, revision, titulo, objetivo, etapas, ...(plano.vinculoAnual ? {vinculoAnual:plano.vinculoAnual} : {}), ...(plano.origem ? { origem: plano.origem } : {}), ...(plano.vinculoAnual ? {vinculoAnual:plano.vinculoAnual} : {}) });
 }
 
 export function validarVinculoPlano(plano, config) {

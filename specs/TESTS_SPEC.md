@@ -647,3 +647,6 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 - Interface: editar conteúdos distintos por período, reabrir sem perdas, impedir link direto de planejamento da disciplina para jogo e preservar seleção de tipo da etapa derivada.
 
 - `RevisaoAbrangencia.test.jsx`, `EntradaDisciplina.test.jsx` e `planejamento_revisao_abrangencia.test.js`: oito regressões reproduzidas antes das correções, campos curriculares, legado, gamificação, entrada direta, privacidade, revisão concorrente, imutabilidade e repetição idempotente.
+
+## Planejamento anual integrado (25/11/2026)
+Mapeamento: `PLANEJAMENTO_ANUAL_INTEGRADO_SPEC.md`. Testes novos cobrem catálogo de conteúdos anuais, aplicação do recorte, raiz e revisão privadas, obrigatoriedade para novos planos menores, preservação na derivação/gamificação, legado, UI de seleção e jogo avulso. Usuário autorizou adaptar somente testes que iniciavam planos menores sem origem anual.

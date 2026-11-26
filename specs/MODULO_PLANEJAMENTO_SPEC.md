@@ -51,3 +51,6 @@ Testes novos RED: separação abrangência/duração no domínio e nos modelos, 
 - Gamificar um plano novo preserva sua abrangência quando a duração é compatível. Quinzena e mês também funcionam na reutilização. Origem de gamificação é compatível com planejamento da disciplina; origem de derivação exige destino de conteúdo.
 - Planos antigos sem abrangência continuam no fluxo anterior de geração/partida; nenhuma inferência de leitura pode bloqueá-los. Exibir indicação de formato anterior sem apresentá-los como classificação escolhida pelo professor.
 - Link direto de planejamento da disciplina para geração/partida é recusado na interface; orientar derivar um recorte. A geração existente é de questões, não geração automática de planejamento completo.
+
+## Integração anual — atualização de 25/11/2026
+O fluxo padrão de novos planos menores passa a exigir seleção dos conteúdos de um anual privado, conforme `PLANEJAMENTO_ANUAL_INTEGRADO_SPEC.md`. Esse contrato substitui a criação independente nesses novos fluxos do módulo. Anuais, planos anteriores e jogos avulsos conservam sua compatibilidade. Vínculo é preservado na gamificação/derivação e impressão; o índice guarda apenas metadados compactos da raiz anual, sem duplicar listas de conteúdos em todos os resumos.

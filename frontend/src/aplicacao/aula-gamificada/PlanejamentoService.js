@@ -1,3 +1,4 @@
+import {ehPlanejamentoAnual,normalizarVinculoAnual,validarConteudosAnuais} from '@/dominio/aula-gamificada/planejamentoAnual';
 import { falha, hashRequisicao, idRequisicao, segmento } from '@/dominio/aula-gamificada/comum';
 import { normalizarPlano, normalizarOrigemPlano, resumoPlano, abrangenciaDoPlano } from '@/dominio/aula-gamificada/planos';
 import { validarTipoModalidade } from '@/dominio/aula-gamificada/modalidades';
@@ -42,6 +43,7 @@ export class PlanejamentoService {
       if (!dados.id && existente) throw falha(409, 'Não foi possível reservar o plano. Tente novamente.');
       if (existente && (!Number.isInteger(body.expectedRevision) || body.expectedRevision !== existente.revision)) throw falha(409, 'O plano mudou. Reabra a versão atual antes de salvar.');
       if (!existente && body.expectedRevision != null && body.expectedRevision !== 0) throw falha(409, 'A versão inicial do plano é inválida.');
+      let fonteOrigem = null;
       let origem = existente?.origem ? structuredClone(existente.origem) : null;
       if (origem && origem.finalidade !== 'conteudo' && dados.tipo === 'normal') throw falha(422, 'Uma versão gamificada com origem não pode ser convertida em planejamento regular.');
       if (origem && origem.finalidade === 'conteudo' && dados.abrangencia !== 'conteudo') throw falha(422, 'Um plano de conteúdo derivado não pode ser convertido em planejamento da disciplina.');
@@ -49,6 +51,7 @@ export class PlanejamentoService {
         if (!existente.origem || JSON.stringify(normalizarOrigemPlano(existente.origem)) !== JSON.stringify(dados.origem)) throw falha(422, 'A origem de uma versão salva não pode ser atribuída ou alterada. Crie outra cópia.');
       } else if (!existente && dados.origem) {
         const fonte = await tx.get(planoPath(uid, dados.origem.planoId));
+        fonteOrigem = fonte;
         if (!fonte) throw falha(404, 'Plano de origem não encontrado nesta conta.');
         if (dados.origem.finalidade === 'conteudo') {
           if (abrangenciaDoPlano(fonte) !== 'planejamento') throw falha(422, 'A origem precisa ser um planejamento da disciplina.');
@@ -64,6 +67,27 @@ export class PlanejamentoService {
           ...(dados.origem.finalidade ? { abrangencia: abrangenciaDoPlano(fonte), finalidade: 'conteudo' } : {}),
         };
       }
+      if (existente?.integracaoAnual && ehPlanejamentoAnual(existente) && !ehPlanejamentoAnual(dados)) throw falha(422, 'O anual salvo é a raiz. Crie outro plano para um formato menor.');
+      if (dados.vinculoAnual?.planoId === id) throw falha(422, 'Um plano não pode ter a si próprio como base anual.');
+      const assinaturaVinculo = v => JSON.stringify(normalizarVinculoAnual(v));
+      let vinculoAnual = existente?.vinculoAnual ? structuredClone(existente.vinculoAnual) : null;
+      if (vinculoAnual && dados.vinculoAnual && assinaturaVinculo(vinculoAnual) !== assinaturaVinculo(dados.vinculoAnual)) throw falha(422, 'O vínculo anual salvo não pode ser trocado. Crie outro plano para um novo recorte.');
+      if (!vinculoAnual && dados.vinculoAnual) {
+        const vinculo = dados.vinculoAnual;
+        const anual = await tx.get(planoPath(uid, vinculo.planoId));
+        if (!anual) throw falha(404, 'Planejamento anual não encontrado nesta conta.');
+        if (!ehPlanejamentoAnual(anual)) throw falha(422, 'A base precisa ser um planejamento anual da disciplina.');
+        const herdado = fonteOrigem?.vinculoAnual && assinaturaVinculo(fonteOrigem.vinculoAnual) === assinaturaVinculo(vinculo);
+        if (!herdado && anual.revision !== vinculo.revision) throw falha(409, 'O planejamento anual mudou. Reabra a versão atual e selecione os conteúdos novamente.');
+        if (!herdado) validarConteudosAnuais(anual,vinculo);
+        const contextoBase = herdado ? fonteOrigem.vinculoAnual : anual;
+        if (dados.disciplina !== contextoBase.disciplina || dados.anoEscolar !== contextoBase.anoEscolar || (contextoBase.anoLetivo != null && dados.anoLetivo !== contextoBase.anoLetivo)) throw falha(422, 'Disciplina, série e ano letivo precisam corresponder ao planejamento anual.');
+        vinculoAnual = herdado ? structuredClone(fonteOrigem.vinculoAnual) : {...vinculo,titulo:anual.titulo,disciplina:anual.disciplina,anoEscolar:anual.anoEscolar,...(anual.anoLetivo != null ? {anoLetivo:anual.anoLetivo} : {})};
+      }
+      const integracaoAnual = existente?.integracaoAnual || dados.integracaoAnual;
+      if (integracaoAnual && !ehPlanejamentoAnual(dados) && !vinculoAnual) throw falha(422, 'Selecione os conteúdos do planejamento anual antes de salvar este plano.');
+      if (ehPlanejamentoAnual(dados) && vinculoAnual) throw falha(422, 'O planejamento anual é a raiz e não pode derivar de outro anual.');
+      if (vinculoAnual && (dados.disciplina !== vinculoAnual.disciplina || dados.anoEscolar !== vinculoAnual.anoEscolar || (vinculoAnual.anoLetivo != null && dados.anoLetivo !== vinculoAnual.anoLetivo))) throw falha(422, 'O contexto do plano precisa manter a disciplina, série e ano do vínculo anual salvo.');
       const resumos = indice?.planos || [];
       if (!existente && resumos.length >= 100) throw falha(422, 'Limite de 100 planos por professor atingido.');
       const turmas = (await this.lerTurmas(uid, tx)).filter(t => !t.arquivada);
@@ -75,7 +99,7 @@ export class PlanejamentoService {
         validarTipoModalidade(dados.modalidade, questao.tipo);
       }
       const agora = this.agora();
-      const plano = { ...dados, ...(origem ? { origem } : {}), id, revision: (existente?.revision || 0) + 1, criadoEmMs: existente?.criadoEmMs ?? agora, atualizadoEmMs: agora };
+      const plano = { ...dados, ...(integracaoAnual ? {integracaoAnual:1} : {}), ...(vinculoAnual ? {vinculoAnual} : {}), ...(origem ? { origem } : {}), id, revision: (existente?.revision || 0) + 1, criadoEmMs: existente?.criadoEmMs ?? agora, atualizadoEmMs: agora };
       const resposta = { plano };
       // Todas as leituras precedem as escritas, como exigido pelo Firestore Admin.
       tx.set(planoPath(uid, id), plano);

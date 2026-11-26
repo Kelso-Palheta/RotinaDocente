@@ -1,3 +1,4 @@
+import {aplicarPlanejamentoAnual,conteudosDoAnual,ehPlanejamentoAnual} from './planejamentoAnual';
 import { falha, inteiroFaixa, listaObrigatoria, segmento } from './comum';
 import { normalizarPlano, ABRANGENCIA_DURACOES, abrangenciaDaEscala } from './planos';
 
@@ -35,9 +36,11 @@ export function criarVersaoGamificada(origem, opcoes = {}) {
     const minutos = preservarMinutos ? e.minutos : Math.floor(duracaoMinutos / etapas.length) + (i < duracaoMinutos % etapas.length ? 1 : 0);
     return { ...semPrazo, minutos };
   });
-  return normalizarPlano({
+  let plano = {
     titulo: `${fonte.titulo.slice(0, 140)} · gamificado`,
     tipo: 'gamificado', escala,
+    ...(fonte.integracaoAnual ? {integracaoAnual:1} : {}),
+    ...(fonte.vinculoAnual ? {vinculoAnual:structuredClone(fonte.vinculoAnual)} : {}),
     ...(fonte.abrangencia ? { abrangencia: ABRANGENCIA_DURACOES[fonte.abrangencia].includes(escala) ? fonte.abrangencia : abrangenciaDaEscala(escala) } : {}),
     disciplina: fonte.disciplina, anoEscolar: fonte.anoEscolar, conteudo: fonte.conteudo, objetivo: fonte.objetivo,
     ...(fonte.anoLetivo != null ? { anoLetivo: fonte.anoLetivo } : {}),
@@ -46,5 +49,7 @@ export function criarVersaoGamificada(origem, opcoes = {}) {
     turmaIds: [...fonte.turmaIds], questaoIds: [], modalidade: 'quiz', experiencia: 'padrao',
     duracaoMinutos, etapas,
     origem: { planoId, revision, etapaIds },
-  });
+  };
+  if(opcoes.integracaoAnual&&!ehPlanejamentoAnual(plano)){plano.integracaoAnual=1;if(ehPlanejamentoAnual(fonte))plano=aplicarPlanejamentoAnual(plano,{...fonte,id:origem.id,revision:origem.revision},conteudosDoAnual(fonte).filter(c=>pedidos.includes(c.etapaId)));}
+  return normalizarPlano(plano);
 }
