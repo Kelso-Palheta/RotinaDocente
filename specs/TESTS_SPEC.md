@@ -630,3 +630,6 @@ Mapeamento SLIDE-01–04: `REVISAO_SLIDES_EXPLICATIVOS_SPEC.md`. Novos testes de
 - `tests/integration/reutilizar_planejamento.test.js`: origem privada/verificada, revisão, original imutável, edição independente e repetição após alteração da fonte.
 - `tests/unit/components/planejamento/ReutilizarPlanejamento.test.jsx`: seleção, confirmação, falha incerta e pedido estável.
 - `ModuloReaproveitamento.test.jsx` e `GeradorPlanoExtenso.test.jsx`: navegação e reabertura da cópia, original listado, conteúdo integral e recorte compatível com geração.
+
+## Cards do Hub — Planejamento (2026-11-25)
+- `tests/unit/components/dashboard/OrdemCardsPlanejamento.test.jsx`: renderiza grade com Planejamento, Diário e Horário nos três primeiros lugares, mesmo card, navegação e banner de Aula Gamificada preservados.

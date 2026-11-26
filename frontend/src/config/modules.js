@@ -74,3 +74,10 @@ export const AULA_GAMIFICADA_MODULE = {
 };
 
 export const PLANEJAMENTO_MODULE = { id: "planejamento", nome: "Planejamento", path: "/planejamento", icon: "ClipboardList", descricao: "Planos regulares e gamificados, sequências, projetos e períodos letivos" };
+
+// Ordem de apresentação do painel; catálogo legado continua estável para integrações.
+export const HUB_MODULES = [
+  PLANEJAMENTO_MODULE,
+  ...['diario-planejamento', 'horario-escolar'].map(id => PLATFORM_MODULES.find(mod => mod.id === id)),
+  ...PLATFORM_MODULES.filter(mod => !['diario-planejamento', 'horario-escolar'].includes(mod.id)),
+];

@@ -1,11 +1,10 @@
 "use client";
 
-import { AcessoPlanejamento } from "@/components/planejamento/AcessoPlanejamento";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { AcessoAulaGamificada } from "@/components/aula-gamificada/AcessoAulaGamificada";
-import { PLATFORM_MODULES } from "@/config/modules";
+import { HUB_MODULES, PLANEJAMENTO_MODULE } from "@/config/modules";
 import { temAcessoAoModulo } from "@/utils/hasModule";
 import { PLANOS_CONFIG } from "@/config/planos";
 import {
@@ -74,7 +73,7 @@ export default function Dashboard() {
   const planoInfo = PLANOS_CONFIG[planoAtivoId] || PLANOS_CONFIG.gratuito;
 
   const handleCardClick = (mod) => {
-    const temAcesso = temAcessoAoModulo(perfil, mod.id);
+    const temAcesso = mod.id === PLANEJAMENTO_MODULE.id || temAcessoAoModulo(perfil, mod.id);
     if (temAcesso) {
       router.push(mod.path);
     } else {
@@ -245,8 +244,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <AcessoPlanejamento />
-          <AcessoAulaGamificada />
+        <AcessoAulaGamificada />
 
         {/* Seção de Módulos */}
         <div>
@@ -256,13 +254,13 @@ export default function Dashboard() {
               Ferramentas Disponíveis
             </h3>
             <span className="text-xs font-semibold text-[#5b4b86]">
-              {PLATFORM_MODULES.length} módulos ativos
+              {HUB_MODULES.length} módulos ativos
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {PLATFORM_MODULES.map((mod, indice) => {
-              const temAcesso = temAcessoAoModulo(perfil, mod.id);
+            {HUB_MODULES.map((mod, indice) => {
+              const temAcesso = mod.id === PLANEJAMENTO_MODULE.id || temAcessoAoModulo(perfil, mod.id);
               const Icon = ICON_MAP[mod.icon] || BookOpen;
 
               return (
